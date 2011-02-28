@@ -1,0 +1,64 @@
+Type: Level
+
+Zone ID:    5
+Act ID:     3
+
+Object Def: objdef\s1obj
+Object Palette: objdef\s1obj1.pcx
+
+8x8 Compression:       3
+Num 8x8 Pages:         1
+8x8 Tiles Page 0:      ..\Levels\SBZ\Tile\8.bin
+
+16x16 Compression:     2
+Num 16x16 Pages:       1
+Page0 8x8 Page:        0
+16x16 Tiles Page 0:    ..\Levels\SBZ\Tile\16.bin
+
+Metatile Size:         256
+Metatile Compression:  1
+Num Metatile Pages:    1
+Page0 16x16 Page:      0
+Metatile Tiles Page 0: ..\Levels\SBZ\Tile\256.bin
+
+Layout Format:         0
+Layout Compression:    0
+FG Level Layout:       ..\Levels\SBZ\FG\2.bin
+BG 128x128 Page:       0
+BG Level Layout:       ..\Levels\SBZ\BG\2.bin
+
+Objects Format:        1
+Objects:               ..\Levels\SBZ\Obj\FZ.bin
+Rings Format:          0
+Misc Format:           0
+Num Start Positions:   1
+Start Position 0:      ..\Levels\SBZ\Start\3.bin
+
+Palettes-
+
+ Number of files: 2
+
+  Palette 0-
+
+   Start index:        0
+   Number of entries: 16
+   File:              ..\Palettes\Sonic.bin
+
+  Palette 1-
+
+   Start index:       16
+   Number of entries: 48
+   File:              ..\Levels\SBZ\Pal\Pal2.bin
+
+Collision Map Format:    0
+Collision Array:         ..\Collisn\HMaps.bin
+Rotated Collision Array: ..\Collisn\HMapsR.bin
+Angle Array:             ..\Collisn\Angles.bin
+
+Collision Index Format:      0
+Collision Index Compression: 0
+Collision Index:             ..\Levels\SBZ\HMIndex.bin
+
+Game Name: Sonic 1
+
+-EOF-

@@ -1,0 +1,41 @@
+Type: 1	
+
+Zone ID:    0
+Act ID:     0
+
+Object Def: objdef\s1obj
+
+8x8 Tiles: ghz.bin
+
+16x16 Tiles:   ..\map16\GHZ.bin
+
+256x256 Tiles: ..\map256\GHZ.bin
+
+FG Layout: ..\levels\ghz1.bin
+BG Layout: ..\levels\ghzbg.bin
+
+Objects:       ..\objpos\ghz1.bin
+
+Palettes-
+
+ Number of files: 2
+
+  Palette 1-
+
+   Start index:        0
+   Number of entries: 16
+   File:              ..\palette\Sonic.bin
+
+  Palette 2-
+
+   Start index:       16
+   Number of entries: 48
+   File:              ..\palette\Green Hill Zone.bin
+
+Angle Array:             ..\collide\Angle Map.bin
+Collision Array:         ..\collide\Collision Array (Normal).bin
+Rotated Collision Array: ..\collide\Collision Array (Rotated).bin
+
+Collision Index 1: ..\collide\GHZ.bin
+
+-EOF-

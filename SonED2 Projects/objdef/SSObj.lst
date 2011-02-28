@@ -1,0 +1,1307 @@
+;Sonic 1 Special Stage Object Listing File
+
+;Sprite Listing Loads all sprites used to represent Special Stage objects in this game
+;in this game from "SSObj.pcx"
+;- xoff in file is the x position of the top-left corner of the sprite in
+;  the file it will be loaded from
+;- yoff in file is the y position of the top-left corner of the sprite in
+;  the file it will be loaded from
+;- Width is the width (in pixels) of the sprite
+;- Height is the height (in pixels) of the sprite
+;The image representing player start position must be the last sprite in the list
+
+ # of sprites :    33
+
+ ;Sprite 0- Blue Wall
+  xoff in file:     0
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+ ;Sprite 1- Yellow Wall
+  xoff in file:    24
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+ ;Sprite 2- Purple Wall
+  xoff in file:    48
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+ ;Sprite 3- Green Wall
+  xoff in file:    72
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+ ;Sprite 4- Bumper
+  xoff in file:    29
+  yoff in file:    26
+         Width:    24
+        Height:    24
+
+ ;Sprite 5- W Panel
+  xoff in file:    72
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+ ;Sprite 6- Goal
+  xoff in file:   168
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+ ;Sprite 7- 1up Panel
+  xoff in file:   288
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+ ;Sprite 8- Up Block
+  xoff in file:    96
+  yoff in file:    24
+         Width:    24
+        Height:    24
+
+ ;Sprite 9- Down Block
+  xoff in file:    96
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+;Sprite 10- R Block
+  xoff in file:   144
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+;Sprite 11- Peppermint Block
+  xoff in file:   120
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+;Sprite 12- Blue Diamond
+  xoff in file:   192
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+;Sprite 13- Green Diamond
+  xoff in file:   216
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+;Sprite 14- Yellow Diamond
+  xoff in file:   240
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+;Sprite 15- Purple Diamond
+  xoff in file:   264
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+;Sprite 16- 1 Panel
+  xoff in file:    72
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+;Sprite 17- 2 Panel
+  xoff in file:    72
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+;Sprite 18- 3 Panel
+  xoff in file:    72
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+;Sprite 19- 4 Panel
+  xoff in file:    72
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+;Sprite 20- 5 Panel
+  xoff in file:    72
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+;Sprite 21- 6 Panel
+  xoff in file:    72
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+;Sprite 22- Ring
+  xoff in file:   144
+  yoff in file:    48
+         Width:    24
+        Height:    24
+
+;Sprite 23- Blue Chaos Emerald
+  xoff in file:    48
+  yoff in file:    96
+         Width:    24
+        Height:    24
+
+;Sprite 24- Yellow Chaos Emerald
+  xoff in file:    72
+  yoff in file:    96
+         Width:    24
+        Height:    24
+
+;Sprite 25- Purple Chaos Emerald
+  xoff in file:    24
+  yoff in file:    96
+         Width:    24
+        Height:    24
+
+;Sprite 26- Green Chaos Emerald
+  xoff in file:    96
+  yoff in file:    96
+         Width:    24
+        Height:    24
+
+;Sprite 27- Red Chaos Emerald
+  xoff in file:     0
+  yoff in file:    96
+         Width:    24
+        Height:    24
+
+;Sprite 28- Gray Chaos Emerald
+  xoff in file:   120
+  yoff in file:    96
+         Width:    24
+        Height:    24
+
+;Sprite 29- Ghost Block
+  xoff in file:   120
+  yoff in file:    48
+         Width:    24
+        Height:    24
+
+;Sprite 30- Ring Sparkle
+  xoff in file:    72
+  yoff in file:     0
+         Width:    24
+        Height:    24
+
+;Sprite 31- Ghost Block Activator
+  xoff in file:   120
+  yoff in file:    72
+         Width:    24
+        Height:    24
+
+;Sprite 32- Player Start Pos
+  xoff in file:     0
+  yoff in file:    52
+         Width:    30
+        Height:    30
+
+Num of objects:  57
+
+     Object ID:   0
+   Description: Null Object
+    Num Frames:   0
+
+     Object ID:   1
+   Description: Normal Blue Wall
+    Num Frames:   1
+  Frame 0-
+        Sprite:   0
+         Delay:   0
+
+     Object ID:   2
+   Description: Blue/Green Wall 1
+    Num Frames:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+
+     Object ID:   3
+   Description: Blue/Green Wall 2
+    Num Frames:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+
+     Object ID:   4
+   Description: Blue/Green Wall 3
+    Num Frames:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+
+     Object ID:   5
+   Description: Blue/Green Wall 4
+    Num Frames:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+
+     Object ID:   6
+   Description: Blue/Green Wall 5
+    Num Frames:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+
+     Object ID:   7
+   Description: Blue/Green Wall 6
+    Num Frames:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+
+     Object ID:   8
+   Description: Blue/Green Wall 7
+    Num Frames:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+
+     Object ID:   9
+   Description: Blue/Green Wall 8
+    Num Frames:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+
+     Object ID:   A
+   Description: Normal Yellow Wall
+    Num Frames:   1
+  Frame 0-
+        Sprite:   1
+         Delay:   0
+
+     Object ID:   B
+   Description: Yellow/Blue Wall 1
+    Num Frames:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+
+     Object ID:   C
+   Description: Yellow/Blue Wall 2
+    Num Frames:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+
+     Object ID:   D
+   Description: Yellow/Blue Wall 3
+    Num Frames:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+
+     Object ID:   E
+   Description: Yellow/Blue Wall 4
+    Num Frames:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+
+     Object ID:   F
+   Description: Yellow/Blue Wall 5
+    Num Frames:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+
+     Object ID:  10
+   Description: Yellow/Blue Wall 6
+    Num Frames:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+
+     Object ID:  11
+   Description: Yellow/Blue Wall 7
+    Num Frames:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+
+     Object ID:  12
+   Description: Yellow/Blue Wall 8
+    Num Frames:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   0
+         Delay:   8
+
+     Object ID:  13
+   Description: Normal Purple Wall
+    Num Frames:   1
+  Frame 0-
+        Sprite:   2
+         Delay:   0
+
+     Object ID:  14
+   Description: Purple/Yellow Wall 1
+    Num Frames:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+
+     Object ID:  15
+   Description: Purple/Yellow Wall 2
+    Num Frames:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+
+     Object ID:  16
+   Description: Purple/Yellow Wall 3
+    Num Frames:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+
+     Object ID:  17
+   Description: Purple/Yellow Wall 4
+    Num Frames:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+
+     Object ID:  18
+   Description: Purple/Yellow Wall 5
+    Num Frames:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+
+     Object ID:  19
+   Description: Purple/Yellow Wall 6
+    Num Frames:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+
+     Object ID:  1A
+   Description: Purple/Yellow Wall 7
+    Num Frames:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+
+     Object ID:  1B
+   Description: Purple/Yellow Wall 8
+    Num Frames:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   1
+         Delay:   8
+
+     Object ID:  1C
+   Description: Normal Green Wall
+    Num Frames:   1
+  Frame 0-
+        Sprite:   3
+         Delay:   0
+
+     Object ID:  1D
+   Description: Green/Purple Wall 1
+    Num Frames:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+
+     Object ID:  1E
+   Description: Green/Purple Wall 2
+    Num Frames:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+
+     Object ID:  1F
+   Description: Green/Purple Wall 3
+    Num Frames:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+
+     Object ID:  20
+   Description: Green/Purple Wall 4
+    Num Frames:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+
+     Object ID:  21
+   Description: Green/Purple Wall 5
+    Num Frames:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+
+     Object ID:  22
+   Description: Green/Purple Wall 6
+    Num Frames:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+
+     Object ID:  23
+   Description: Green/Purple Wall 7
+    Num Frames:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+
+     Object ID:  24
+   Description: Green/Purple Wall 8
+    Num Frames:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   3
+         Delay:   8
+  Frame 0-
+        Sprite:   2
+         Delay:   8
+
+     Object ID:  25
+   Description: Bumper
+    Num Frames:   1
+  Frame 0-
+        Sprite:   4	;Bumper
+         Delay:   0
+
+
+
+
+
+     Object ID:  27
+   Description: Goal
+    Num Frames:   1
+  Frame 0-
+        Sprite:   6	;Goal
+         Delay:   0
+
+     Object ID:  28
+   Description: 1up
+    Num Frames:   1
+  Frame 0-
+        Sprite:   7	;1up
+         Delay:   0
+
+     Object ID:  29
+   Description: Up Block
+    Num Frames:   1
+  Frame 0-
+        Sprite:   8	;Up Block
+         Delay:   0
+
+     Object ID:  2A
+   Description: Down Block
+    Num Frames:   1
+  Frame 0-
+        Sprite:   9	;Down Block
+         Delay:   0
+
+     Object ID:  2B
+   Description: R Block
+    Num Frames:   1
+  Frame 0-
+        Sprite:  10	;R Block
+         Delay:   0
+
+     Object ID:  2C
+   Description: Peppermint Block
+    Num Frames:   1
+  Frame 0-
+        Sprite:  11	;Peppermint Block
+         Delay:   0
+
+     Object ID:  2D
+   Description: Blue Diamond
+    Num Frames:   1
+  Frame 0-
+        Sprite:  12	;Blue Diamond
+         Delay:   0
+
+     Object ID:  2E
+   Description: Green Diamond
+    Num Frames:   1
+  Frame 0-
+        Sprite:  13	;Green Diamond
+         Delay:   0
+
+     Object ID:  2F
+   Description: Yellow Diamond
+    Num Frames:   1
+  Frame 0-
+        Sprite:  14	;Yellow Diamond
+         Delay:   0
+
+     Object ID:  30
+   Description: Purple Diamond
+    Num Frames:   1
+  Frame 0-
+        Sprite:  15	;Purple Diamond
+         Delay:   0
+
+
+
+
+
+
+     Object ID:  3A
+   Description: Ring
+    Num Frames:   1
+  Frame 0-
+        Sprite:  22 ;Ring
+         Delay:   0
+
+     Object ID:  3B
+   Description: Blue Chaos Emerald
+    Num Frames:   1
+  Frame 0-
+        Sprite:  23 ;Blue Chaos Emerald
+         Delay:   0
+
+     Object ID:  3C
+   Description: Yellow Chaos Emerald
+    Num Frames:   1
+  Frame 0-
+        Sprite:  24 ;Yellow Chaos Emerald
+         Delay:   0
+
+     Object ID:  3D
+   Description: Purple Chaos Emerald
+    Num Frames:   1
+  Frame 0-
+        Sprite:  25 ;Purple Chaos Emerald
+         Delay:   0
+
+     Object ID:  3E
+   Description: Green Chaos Emerald
+    Num Frames:   1
+  Frame 0-
+        Sprite:  26 ;Green Chaos Emerald
+         Delay:   0
+
+     Object ID:  3F
+   Description: Red Chaos Emerald
+    Num Frames:   1
+  Frame 0-
+        Sprite:  27 ;Red Chaos Emerald
+         Delay:   0
+
+     Object ID:  40
+   Description: Gray Chaos Emerald
+    Num Frames:   1
+  Frame 0-
+        Sprite:  28 ;Gray Chaos Emerald
+         Delay:   0
+
+     Object ID:  41
+   Description: Ghost Block
+    Num Frames:   1
+  Frame 0-
+        Sprite:  29 ;Ghost Block
+         Delay:   0
+
+
+
+
+
+
+     Object ID:  4A
+   Description: Ghost Block Activator
+    Num Frames:   1
+  Frame 0-
+        Sprite:  31 ;Ghost Block Activator
+         Delay:   0
+
+
+
+
+
+
+
+
+
+
+
+-EOF-

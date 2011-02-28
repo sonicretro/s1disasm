@@ -1,0 +1,47 @@
+Type: 1	
+
+Zone ID:    1
+Act ID:     2
+
+Object Def: objdef\s1obj
+
+8x8 Tiles: ..\artnem\8x8 - LZ.bin
+
+16x16 Tiles:   ..\map16\LZ.bin
+
+256x256 Tiles: ..\map256\LZ.bin
+
+FG Layout: ..\levels\lz3.bin
+BG Layout: ..\levels\lzbg.bin
+
+Objects:       ..\objpos\lz3.bin
+
+Palettes-
+
+ Number of files: 3
+
+  Palette 1-
+
+   Start index:        0
+   Number of entries: 16
+   File:              ..\palette\Sonic.bin
+
+  Palette 2-
+
+   Start index:       16
+   Number of entries: 48
+   File:              ..\palette\Labyrinth Zone.bin
+
+  Palette 3-
+
+   Start index:       64
+   Number of entries: 64
+   File:              ..\palette\Labyrinth Zone Underwater.bin
+
+Angle Array:             ..\collide\Angle Map.bin
+Collision Array:         ..\collide\Collision Array (Normal).bin
+Rotated Collision Array: ..\collide\Collision Array (Rotated).bin
+
+Collision Index 1: ..\collide\LZ.bin
+
+-EOF-

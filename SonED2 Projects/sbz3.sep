@@ -1,0 +1,76 @@
+Type: Level
+
+Zone ID:    1
+Act ID:     3
+
+Object Def: objdef\s1obj
+Object Palette: objdef\s1obj1.pcx
+
+8x8 Compression:       3
+Num 8x8 Pages:         1
+8x8 Tiles Page 0:      ..\artnem\8x8 - LZ.bin
+
+16x16 Compression:     2
+Num 16x16 Pages:       1
+Page0 8x8 Page:        0
+16x16 Tiles Page 0:    ..\map16\LZ.bin
+
+Metatile Size:         256
+Metatile Compression:  1
+Num Metatile Pages:    1
+Page0 16x16 Page:      0
+Metatile Tiles Page 0: ..\map256\LZ.bin
+
+Layout Format:         0
+Layout Compression:    0
+FG Level Layout:       ..\levels\sbz3.bin
+BG 128x128 Page:       0
+BG Level Layout:       ..\levels\lzbg.bin
+
+Objects Format:        1
+Objects:               ..\objpos\sbz3.bin
+Rings Format:          0
+Misc Format:           0
+Num Start Positions:   1
+Start Position 0:      ..\startpos\sbz3.bin
+
+Palettes-
+
+ Number of files: 4
+
+  Palette 0-
+
+   Start index:        0
+   Number of entries: 16
+   File:              ..\palette\Sonic.bin
+
+  Palette 1-
+
+   Start index:       16
+   Number of entries: 48
+   File:              ..\palette\SBZ Act 3.bin
+
+  Palette 2-
+
+   Start index:       64
+   Number of entries: 64
+   File:              ..\palette\SBZ Act 3 Underwater.bin
+
+  Palette 3-
+
+   Start index:       64
+   Number of entries: 16
+   File:              ..\palette\Sonic - SBZ3 Underwater.bin
+
+Collision Map Format:    0
+Collision Array:         ..\collide\Collision Array (Normal).bin
+Rotated Collision Array: ..\collide\Collision Array (Rotated).bin
+Angle Array:             ..\collide\Angle Map.bin
+
+Collision Index Format:      0
+Collision Index Compression: 0
+Collision Index:             ..\collide\LZ.bin
+
+Game Name: Sonic 1
+
+-EOF-

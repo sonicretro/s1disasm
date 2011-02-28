@@ -1,0 +1,26 @@
+Type: S1SS
+
+Object Def: objdef\ssobj
+
+
+Layout Compression:  2
+Layout X Size:       64
+Layout Y Size:       64
+Layout Data:         ..\sslayout\2.bin
+
+Num Start Positions:  1
+Start Position 0:    ..\startpos\ss2.bin
+
+Palettes-
+
+ Number of files: 1
+
+  Palette 0-
+
+   Start index:        0
+   Number of entries: 64
+   File:              ..\palette\Special Stage.bin
+
+Game Name: Sonic 1 Special
+
+-EOF-
