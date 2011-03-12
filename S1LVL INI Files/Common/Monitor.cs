@@ -136,5 +136,14 @@ namespace S1ObjectDefinitions.Common
             else
                 return new Rectangle(loc.X + offset.X, loc.Y + offset.Y, imgw, imgh);
         }
+
+        public override void PaletteChanged(System.Drawing.Imaging.ColorPalette pal)
+        {
+            img.Palette = pal;
+            foreach (Bitmap item in imgs)
+            {
+                item.Palette = pal;
+            }
+        }
     }
 }

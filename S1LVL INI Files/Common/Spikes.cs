@@ -139,6 +139,15 @@ namespace S1ObjectDefinitions.Common
                 return typeof(SpikesS1ObjectEntry);
             }
         }
+
+        public override void PaletteChanged(System.Drawing.Imaging.ColorPalette pal)
+        {
+            img.Palette = pal;
+            foreach (Bitmap item in imgs)
+            {
+                item.Palette = pal;
+            }
+        }
     }
 
     public class SpikesS1ObjectEntry : S1ObjectEntry

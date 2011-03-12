@@ -98,6 +98,11 @@ namespace S1ObjectDefinitions.Common
                 return typeof(RingS1ObjectEntry);
             }
         }
+
+        public override void PaletteChanged(System.Drawing.Imaging.ColorPalette pal)
+        {
+            img.Palette = pal;
+        }
     }
 
     public class RingS1ObjectEntry : S1ObjectEntry
