@@ -2,11 +2,11 @@
 using System.Collections.ObjectModel;
 using System.Drawing;
 using Extensions;
-using S2LVL;
+using SonicRetro.S2LVL;
 
 namespace S1ObjectDefinitions.Common
 {
-    class EggPrison : S2LVL.ObjectDefinition
+    class EggPrison : SonicRetro.S2LVL.ObjectDefinition
     {
         private string[] labels = { "@capsule", "@switch1" };
         private Point offset;

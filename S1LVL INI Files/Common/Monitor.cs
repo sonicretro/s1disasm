@@ -2,11 +2,11 @@
 using System.Collections.ObjectModel;
 using System.Drawing;
 using Extensions;
-using S2LVL;
+using SonicRetro.S2LVL;
 
 namespace S1ObjectDefinitions.Common
 {
-    class Monitor : S2LVL.ObjectDefinition
+    class Monitor : SonicRetro.S2LVL.ObjectDefinition
     {
         private string[] labels = { "@static1", "@eggman", "@sonic", "@shoes", "@shield", "@invincible", "@rings", "@s", "@goggles", "@broken" };
         private Point offset;

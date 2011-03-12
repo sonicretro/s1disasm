@@ -2,11 +2,11 @@
 using System.Collections.ObjectModel;
 using System.Drawing;
 using Extensions;
-using S2LVL;
+using SonicRetro.S2LVL;
 
 namespace S1ObjectDefinitions.Common
 {
-    class PointBonus : S2LVL.ObjectDefinition
+    class PointBonus : SonicRetro.S2LVL.ObjectDefinition
     {
         private string[] labels = { "@10000", "@1000", "@100" };
         private Point offset;
