@@ -43,7 +43,7 @@ namespace S1ObjectDefinitions.GHZ
 
         public override string Name()
         {
-            return "Platform";
+            return "Wall Barrier";
         }
 
         public override bool RememberState()
