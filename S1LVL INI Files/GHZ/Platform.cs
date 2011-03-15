@@ -16,7 +16,7 @@ namespace S1ObjectDefinitions.GHZ
 
         public override void Init(Dictionary<string, string> data)
         {
-            byte[] artfile = ObjectHelper.OpenArtFile("ghz.bin", Compression.CompressionType.Nemesis);
+            byte[] artfile = ObjectHelper.LevelArt;
             Point off;
             Bitmap im;
             im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Platforms (GHZ).asm", "@small", 2, out off);
