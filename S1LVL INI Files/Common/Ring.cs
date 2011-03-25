@@ -18,13 +18,13 @@ namespace S1ObjectDefinitions.Common
                                      new Size(0x10, 0x10), // diagonal
                                      new Size(0x18, 0x18),
                                      new Size(0x20, 0x20),
-                                     new Size(0xF0, 0x10),
-                                     new Size(0xE8, 0x18),
-                                     new Size(0xE0, 0x20),
+                                     new Size(-0x10, 0x10),
+                                     new Size(-0x18, 0x18),
+                                     new Size(-0x20, 0x20),
                                      new Size(0x10, 8),
                                      new Size(0x18, 0x10),
-                                     new Size(0xF0, 8),
-                                     new Size(0xE8, 0x10)
+                                     new Size(-0x10, 8),
+                                     new Size(-0x18, 0x10)
                                  };
 
         private Point offset;
