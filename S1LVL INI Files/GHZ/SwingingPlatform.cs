@@ -37,7 +37,7 @@ namespace S1ObjectDefinitions.GHZ
 
         public override ReadOnlyCollection<byte> Subtypes()
         {
-            return new ReadOnlyCollection<byte>(new byte[] { 0 });
+            return new ReadOnlyCollection<byte>(new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 });
         }
 
         public override string Name()
@@ -52,7 +52,7 @@ namespace S1ObjectDefinitions.GHZ
 
         public override string SubtypeName(byte subtype)
         {
-            return (subtype & 15) + " logs";
+            return (subtype & 15) + " links";
         }
 
         public override string FullName(byte subtype)
