@@ -91,6 +91,19 @@ namespace S1ObjectDefinitions.Common
             return new Rectangle(loc.X + offset.X, loc.Y + offset.Y, (space.Width * count) + imgw, (space.Height * count) + imgh);
         }
 
+        public override void DrawExport(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
+        {
+            if (subtype > 10) subtype = 0;
+            BitmapBits bits = new BitmapBits(img);
+            int count = Math.Min(6, subtype & 7) + 1;
+            Size space = Spacing[subtype >> 4];
+            for (int i = 0; i < count; i++)
+            {
+                bmp.DrawBitmapComposited(bits, new Point(loc.X + offset.X, loc.Y + offset.Y));
+                loc += space;
+            }
+        }
+
         public override Type ObjectType
         {
             get

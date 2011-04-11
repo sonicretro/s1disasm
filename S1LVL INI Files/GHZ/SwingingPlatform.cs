@@ -89,6 +89,23 @@ namespace S1ObjectDefinitions.GHZ
             return new Rectangle(loc.X + offset.X, loc.Y + offset.Y, imgw, imgh * ((subtype & 15) + 2) - 8);
         }
 
+        public override void DrawExport(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
+        {
+            int length = subtype & 15;
+            BitmapBits bits = new BitmapBits(imgs[2]);
+            bmp.DrawBitmapComposited(bits, new Point(loc.X + offsets[2].X, loc.Y + offsets[2].Y));
+            loc.Y += 16;
+            bits = new BitmapBits(imgs[1]);
+            for (int i = 0; i < length; i++)
+            {
+                bmp.DrawBitmapComposited(bits, new Point(loc.X + offsets[1].X, loc.Y + offsets[1].Y));
+                loc.Y += 16;
+            }
+            loc.Y -= 8;
+            bits = new BitmapBits(imgs[0]);
+            bmp.DrawBitmapComposited(bits, new Point(loc.X + offsets[0].X, loc.Y + offsets[0].Y));
+        }
+
         public override void PaletteChanged(System.Drawing.Imaging.ColorPalette pal)
         {
             img.Palette = pal;

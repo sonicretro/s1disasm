@@ -132,6 +132,15 @@ namespace S1ObjectDefinitions.Common
             return new Rectangle(loc.X + offsets[frame].X, loc.Y + offsets[frame].Y, imgws[frame], imghs[frame]);
         }
 
+        public override void DrawExport(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
+        {
+            int frame = subtype >> 4;
+            if (frame > 5) frame = 0;
+            BitmapBits bits = new BitmapBits(imgs[frame]);
+            bits.Flip(XFlip, YFlip);
+            bmp.DrawBitmapComposited(bits, new Point(loc.X + offsets[frame].X, loc.Y + offsets[frame].Y));
+        }
+
         public override Type ObjectType
         {
             get

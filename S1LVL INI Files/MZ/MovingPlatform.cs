@@ -118,6 +118,13 @@ namespace S1ObjectDefinitions.MZ
 			return new Rectangle(loc.X + offsets[imgindex(subtype)].X, loc.Y + offsets[imgindex(subtype)].Y, imgws[imgindex(subtype)], imghs[imgindex(subtype)]);
 		}
 
+        public override void DrawExport(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
+        {
+            BitmapBits bits = new BitmapBits(imgs[imgindex(subtype)]);
+            bits.Flip(XFlip, YFlip);
+            bmp.DrawBitmapComposited(bits, new Point(loc.X + offsets[imgindex(subtype)].X, loc.Y + offsets[imgindex(subtype)].Y));
+        }
+
 		public override Type ObjectType
 		{
 			get

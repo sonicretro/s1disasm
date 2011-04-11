@@ -104,6 +104,15 @@ namespace S1ObjectDefinitions.Common
                 return new Rectangle(loc.X + offset.X, loc.Y + offset.Y, imgw, imgh);
         }
 
+        public override void DrawExport(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
+        {
+            if (subtype > labels.Length + 1) subtype = 0;
+            if (subtype == 0 & !includeDebug) return;
+            BitmapBits bits = new BitmapBits(imgs[subtype]);
+            bits.Flip(XFlip, YFlip);
+            bmp.DrawBitmapComposited(bits, new Point(loc.X + offsets[subtype].X, loc.Y + offsets[subtype].Y));
+        }
+
         public override void PaletteChanged(System.Drawing.Imaging.ColorPalette pal)
         {
             img.Palette = pal;
