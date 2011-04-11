@@ -93,7 +93,6 @@ namespace S1ObjectDefinitions.Common
 
         public override void DrawExport(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
         {
-            if (subtype > 10) subtype = 0;
             BitmapBits bits = new BitmapBits(img);
             int count = Math.Min(6, subtype & 7) + 1;
             Size space = Spacing[subtype >> 4];
