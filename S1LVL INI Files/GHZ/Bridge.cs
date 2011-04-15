@@ -11,7 +11,7 @@ namespace S1ObjectDefinitions.GHZ
     class Bridge : ObjectDefinition
     {
         private Point offset;
-        private Bitmap img;
+        private BitmapBits img;
         private int imgw, imgh;
 
         public override void Init(Dictionary<string, string> data)
@@ -47,23 +47,14 @@ namespace S1ObjectDefinitions.GHZ
             return Name() + " - " + SubtypeName(subtype);
         }
 
-        public override Bitmap Image()
+        public override BitmapBits Image()
         {
             return img;
         }
 
-        public override Bitmap Image(byte subtype)
+        public override BitmapBits Image(byte subtype)
         {
             return img;
-        }
-
-        public override void Draw(Graphics gfx, Point loc, byte subtype, bool XFlip, bool YFlip)
-        {
-            int st = Bounds(loc, subtype).X;
-            for (int i = 0; i < (subtype & 0x1F); i++)
-            {
-                gfx.DrawImageFlipped(img, st + (i * imgw), loc.Y + offset.Y, false, false);
-            }
         }
 
         public override Rectangle Bounds(Point loc, byte subtype)
@@ -72,7 +63,7 @@ namespace S1ObjectDefinitions.GHZ
             return new Rectangle(loc.X - (w / 2) + offset.X, loc.Y + offset.Y, w, imgh);
         }
 
-        public override void DrawExport(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
+        public override void Draw(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
         {
             BitmapBits bits = new BitmapBits(img);
             int st = Bounds(loc, subtype).X;
@@ -80,11 +71,6 @@ namespace S1ObjectDefinitions.GHZ
             {
                 bmp.DrawBitmapComposited(bits, new Point(st + (i * imgw), loc.Y + offset.Y));
             }
-        }
-
-        public override void PaletteChanged(System.Drawing.Imaging.ColorPalette pal)
-        {
-            img.Palette = pal;
         }
     }
 }

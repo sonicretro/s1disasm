@@ -10,10 +10,10 @@ namespace S1ObjectDefinitions.GHZ
     {
         private string[] labels = { "@block", "@chain", "@anchor" };
         private Point offset;
-        private Bitmap img;
+        private BitmapBits img;
         private int imgw, imgh;
         private List<Point> offsets = new List<Point>();
-        private List<Bitmap> imgs = new List<Bitmap>();
+        private List<BitmapBits> imgs = new List<BitmapBits>();
         private List<int> imgws = new List<int>();
         private List<int> imghs = new List<int>();
 
@@ -24,7 +24,7 @@ namespace S1ObjectDefinitions.GHZ
             imgw = img.Width;
             imgh = img.Height;
             Point off;
-            Bitmap im;
+            BitmapBits im;
             for (int i = 0; i < labels.Length; i++)
             {
                 im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Swinging Platforms (GHZ).asm", labels[i], i == 1 ? 1 : 2, out off);
@@ -60,28 +60,14 @@ namespace S1ObjectDefinitions.GHZ
             return Name() + " - " + SubtypeName(subtype);
         }
 
-        public override Bitmap Image()
+        public override BitmapBits Image()
         {
             return img;
         }
 
-        public override Bitmap Image(byte subtype)
+        public override BitmapBits Image(byte subtype)
         {
                 return img;
-        }
-
-        public override void Draw(Graphics gfx, Point loc, byte subtype, bool XFlip, bool YFlip)
-        {
-            int length = subtype & 15;
-            gfx.DrawImage(imgs[2], loc.X + offsets[2].X, loc.Y + offsets[2].Y, imgws[2], imghs[2]);
-            loc.Y += 16;
-            for (int i = 0; i < length; i++)
-            {
-                gfx.DrawImage(imgs[1], loc.X + offsets[1].X, loc.Y + offsets[1].Y, imgws[1], imghs[1]);
-                loc.Y += 16;
-            }
-            loc.Y -= 8;
-            gfx.DrawImage(imgs[0], loc.X + offsets[0].X, loc.Y + offsets[0].Y, imgws[0], imghs[0]);
         }
 
         public override Rectangle Bounds(Point loc, byte subtype)
@@ -89,7 +75,7 @@ namespace S1ObjectDefinitions.GHZ
             return new Rectangle(loc.X + offset.X, loc.Y + offset.Y, imgw, imgh * ((subtype & 15) + 2) - 8);
         }
 
-        public override void DrawExport(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
+        public override void Draw(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
         {
             int length = subtype & 15;
             BitmapBits bits = new BitmapBits(imgs[2]);
@@ -104,15 +90,6 @@ namespace S1ObjectDefinitions.GHZ
             loc.Y -= 8;
             bits = new BitmapBits(imgs[0]);
             bmp.DrawBitmapComposited(bits, new Point(loc.X + offsets[0].X, loc.Y + offsets[0].Y));
-        }
-
-        public override void PaletteChanged(System.Drawing.Imaging.ColorPalette pal)
-        {
-            img.Palette = pal;
-            foreach (Bitmap item in imgs)
-            {
-                item.Palette = pal;
-            }
         }
     }
 }

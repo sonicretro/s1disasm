@@ -10,10 +10,10 @@ namespace S1ObjectDefinitions.Common
     {
         private string[] labels = { "@capsule", "@switch1" };
         private Point offset;
-        private Bitmap img;
+        private BitmapBits img;
         private int imgw, imgh;
         private List<Point> offsets = new List<Point>();
-        private List<Bitmap> imgs = new List<Bitmap>();
+        private List<BitmapBits> imgs = new List<BitmapBits>();
         private List<int> imgws = new List<int>();
         private List<int> imghs = new List<int>();
 
@@ -24,7 +24,7 @@ namespace S1ObjectDefinitions.Common
             imgw = img.Width;
             imgh = img.Height;
             Point off;
-            Bitmap im;
+            BitmapBits im;
             for (int i = 0; i < labels.Length; i++)
             {
                 im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Prison Capsule.asm", labels[i], 0, out off);
@@ -68,25 +68,17 @@ namespace S1ObjectDefinitions.Common
             return Name() + " - " + SubtypeName(subtype);
         }
 
-        public override Bitmap Image()
+        public override BitmapBits Image()
         {
             return img;
         }
 
-        public override Bitmap Image(byte subtype)
+        public override BitmapBits Image(byte subtype)
         {
             if (subtype < labels.Length)
                 return imgs[subtype];
             else
                 return img;
-        }
-
-        public override void Draw(Graphics gfx, Point loc, byte subtype, bool XFlip, bool YFlip)
-        {
-            if (subtype < labels.Length)
-                gfx.DrawImageFlipped(imgs[subtype], loc.X + offsets[subtype].X, loc.Y + offsets[subtype].Y, XFlip, YFlip);
-            else
-                gfx.DrawImageFlipped(img, loc.X + offset.X, loc.Y + offset.Y, XFlip, YFlip);
         }
 
         public override Rectangle Bounds(Point loc, byte subtype)
@@ -97,21 +89,12 @@ namespace S1ObjectDefinitions.Common
                 return new Rectangle(loc.X + offset.X, loc.Y + offset.Y, imgw, imgh);
         }
 
-        public override void DrawExport(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
+        public override void Draw(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
         {
             if (subtype > labels.Length) subtype = 0;
             BitmapBits bits = new BitmapBits(imgs[subtype]);
             bits.Flip(XFlip, YFlip);
             bmp.DrawBitmapComposited(bits, new Point(loc.X + offsets[subtype].X, loc.Y + offsets[subtype].Y));
-        }
-
-        public override void PaletteChanged(System.Drawing.Imaging.ColorPalette pal)
-        {
-            img.Palette = pal;
-            foreach (Bitmap item in imgs)
-            {
-                item.Palette = pal;
-            }
         }
     }
 }

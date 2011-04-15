@@ -28,7 +28,7 @@ namespace S1ObjectDefinitions.Common
                                  };
 
         private Point offset;
-        private Bitmap img;
+        private BitmapBits img;
         private int imgw, imgh;
         public override void Init(Dictionary<string, string> data)
         {
@@ -63,25 +63,14 @@ namespace S1ObjectDefinitions.Common
             return Name();
         }
 
-        public override Bitmap Image()
+        public override BitmapBits Image()
         {
             return img;
         }
 
-        public override Bitmap Image(byte subtype)
+        public override BitmapBits Image(byte subtype)
         {
             return img;
-        }
-
-        public override void Draw(Graphics gfx, Point loc, byte subtype, bool XFlip, bool YFlip)
-        {
-            int count = Math.Min(6, subtype & 7) + 1;
-            Size space = Spacing[subtype >> 4];
-            for (int i = 0; i < count; i++)
-            {
-                gfx.DrawImage(img, loc.X + offset.X, loc.Y + offset.Y, imgw, imgh);
-                loc += space;
-            }
         }
 
         public override Rectangle Bounds(Point loc, byte subtype)
@@ -91,7 +80,7 @@ namespace S1ObjectDefinitions.Common
             return new Rectangle(loc.X + offset.X, loc.Y + offset.Y, (space.Width * count) + imgw, (space.Height * count) + imgh);
         }
 
-        public override void DrawExport(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
+        public override void Draw(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
         {
             BitmapBits bits = new BitmapBits(img);
             int count = Math.Min(6, subtype & 7) + 1;
@@ -109,11 +98,6 @@ namespace S1ObjectDefinitions.Common
             {
                 return typeof(RingS1ObjectEntry);
             }
-        }
-
-        public override void PaletteChanged(System.Drawing.Imaging.ColorPalette pal)
-        {
-            img.Palette = pal;
         }
     }
 

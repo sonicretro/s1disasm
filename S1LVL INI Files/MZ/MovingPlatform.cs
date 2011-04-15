@@ -11,7 +11,7 @@ namespace S1ObjectDefinitions.MZ
     {
 		private string[] labels = { "@wide", "@sloped", "@narrow" };
         private List<Point> offsets = new List<Point>();
-        private List<Bitmap> imgs = new List<Bitmap>();
+        private List<BitmapBits> imgs = new List<BitmapBits>();
         private List<int> imgws = new List<int>();
         private List<int> imghs = new List<int>();
 
@@ -19,7 +19,7 @@ namespace S1ObjectDefinitions.MZ
         {
             byte[] artfile = ObjectHelper.LevelArt;
             Point off;
-            Bitmap im;
+            BitmapBits im;
 			im = ObjectHelper.MapASMToBmp(artfile, "../_maps/MZ Large Grassy Platforms.asm", "@wide", 2, out off);
             imgs.Add(im);
             offsets.Add(off);
@@ -90,12 +90,12 @@ namespace S1ObjectDefinitions.MZ
             return Name() + " - " + SubtypeName(subtype);
         }
 
-		public override Bitmap Image()
+		public override BitmapBits Image()
 		{
 			return imgs[0];
 		}
 
-		public override Bitmap Image(byte subtype)
+		public override BitmapBits Image(byte subtype)
 		{
 			if (subtype < labels.Length)
 				return imgs[subtype];
@@ -108,17 +108,12 @@ namespace S1ObjectDefinitions.MZ
 			return 0;
         }
 
-		public override void Draw(Graphics gfx, Point loc, byte subtype, bool XFlip, bool YFlip)
-		{
-			gfx.DrawImageFlipped(imgs[imgindex(subtype)], loc.X + offsets[imgindex(subtype)].X, loc.Y + offsets[imgindex(subtype)].Y, XFlip, YFlip);
-		}
-
 		public override Rectangle Bounds(Point loc, byte subtype)
 		{
 			return new Rectangle(loc.X + offsets[imgindex(subtype)].X, loc.Y + offsets[imgindex(subtype)].Y, imgws[imgindex(subtype)], imghs[imgindex(subtype)]);
 		}
 
-        public override void DrawExport(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
+        public override void Draw(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
         {
             BitmapBits bits = new BitmapBits(imgs[imgindex(subtype)]);
             bits.Flip(XFlip, YFlip);
@@ -130,14 +125,6 @@ namespace S1ObjectDefinitions.MZ
 			get
 			{
 				return typeof(MZPlatformS1ObjectEntry);
-			}
-		}
-
-		public override void PaletteChanged(System.Drawing.Imaging.ColorPalette pal)
-		{
-			foreach (Bitmap item in imgs)
-			{
-				item.Palette = pal;
 			}
 		}
 
