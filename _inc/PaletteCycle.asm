@@ -48,7 +48,7 @@ PCycGHZ_Go:
 		addq.w	#1,(v_pcyc_num).w ; increment cycle number
 		andi.w	#3,d0		; if cycle > 3, reset to 0
 		lsl.w	#3,d0
-		lea	(v_pal1_wat+$50).w,a1
+		lea	(v_pal_dry+$50).w,a1
 		move.l	(a0,d0.w),(a1)+
 		move.l	4(a0,d0.w),(a1)	; copy palette data to RAM
 
@@ -76,10 +76,10 @@ PCycle_LZ:				; XREF: PCycle_Index
 		lea	(Pal_SBZ3Cyc1).l,a0 ; load SBZ3	palette instead
 
 	PCycLZ_NotSBZ3:
-		lea	(v_pal1_wat+$56).w,a1
+		lea	(v_pal_dry+$56).w,a1
 		move.l	(a0,d0.w),(a1)+
 		move.l	4(a0,d0.w),(a1)
-		lea	(v_pal0_dry+$56).w,a1
+		lea	(v_pal_water+$56).w,a1
 		move.l	(a0,d0.w),(a1)+
 		move.l	4(a0,d0.w),(a1)
 
@@ -113,11 +113,11 @@ loc_1A0A:
 		add.w	d0,d0
 		add.w	d1,d0
 		lea	(Pal_LZCyc2).l,a0
-		lea	(v_pal1_wat+$76).w,a1
+		lea	(v_pal_dry+$76).w,a1
 		move.l	(a0,d0.w),(a1)+
 		move.w	4(a0,d0.w),(a1)
 		lea	(Pal_LZCyc3).l,a0
-		lea	(v_pal0_dry+$76).w,a1
+		lea	(v_pal_water+$76).w,a1
 		move.l	(a0,d0.w),(a1)+
 		move.w	4(a0,d0.w),(a1)
 
@@ -152,7 +152,7 @@ loc_1A60:
 		add.w	d1,d0
 		add.w	d0,d0
 		lea	(Pal_SLZCyc).l,a0
-		lea	(v_pal1_wat+$56).w,a1
+		lea	(v_pal_dry+$56).w,a1
 		move.w	(a0,d0.w),(a1)
 		move.l	2(a0,d0.w),4(a1)
 
@@ -175,11 +175,11 @@ PalCycle_SYZ:				; XREF: PCycle_Index
 		move.w	d0,d1
 		add.w	d0,d0
 		lea	(Pal_SYZCyc1).l,a0
-		lea	(v_pal1_wat+$6E).w,a1
+		lea	(v_pal_dry+$6E).w,a1
 		move.l	(a0,d0.w),(a1)+
 		move.l	4(a0,d0.w),(a1)
 		lea	(Pal_SYZCyc2).l,a0
-		lea	(v_pal1_wat+$76).w,a1
+		lea	(v_pal_dry+$76).w,a1
 		move.w	(a0,d1.w),(a1)
 		move.w	2(a0,d1.w),4(a1)
 
@@ -257,7 +257,7 @@ loc_1B38:
 loc_1B52:
 		move.w	d0,(v_pcyc_num).w
 		add.w	d0,d0
-		lea	(v_pal1_wat+$58).w,a1
+		lea	(v_pal_dry+$58).w,a1
 		move.l	(a0,d0.w),(a1)+
 		move.w	4(a0,d0.w),(a1)
 

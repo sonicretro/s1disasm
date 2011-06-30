@@ -202,7 +202,7 @@ SetupValues:	dc.w $8000		; VDP register start number
 		dc.b $F3		; di
 		dc.b $ED, $56		; im1
 		dc.b $36, $E9		; ld	(hl),e9h
-		dc.b $E9		; jp (hl)
+		dc.b $E9		; jp	(hl)
 
 		dc.w $8104		; VDP display mode
 		dc.w $8F02		; VDP increment
@@ -486,13 +486,13 @@ VBlank:					; XREF: Vectors
 		move.l	#$40000010,(vdp_control_port).l
 		move.l	(v_scrposy_dup).w,(vdp_data_port).l ; send screen y-axis pos. to VSRAM
 		btst	#6,(v_megadrive).w ; is Megadrive PAL?
-		beq.s	VBla_NotPAL	; if not, branch
+		beq.s	@notPAL		; if not, branch
 
 		move.w	#$700,d0
-	VBla_WaitPAL:
-		dbf	d0,VBla_WaitPAL
+	@waitPAL:
+		dbf	d0,@waitPAL
 
-	VBla_NotPAL:
+	@notPAL:
 		move.b	(v_vbla_routine).w,d0
 		move.b	#0,(v_vbla_routine).w
 		move.w	#1,(f_hbla_pal).w
@@ -542,11 +542,11 @@ VBla_00:				; XREF: VBlank; VBla_Index
 		tst.b	(f_wtr_state).w	; is water above top of screen?
 		bne.s	@waterabove 	; if yes, branch
 
-		writeCRAM	v_pal1_wat,$80,0
+		writeCRAM	v_pal_dry,$80,0
 		bra.s	@waterbelow
 
 @waterabove:
-		writeCRAM	v_pal0_dry,$80,0
+		writeCRAM	v_pal_water,$80,0
 
 	@waterbelow:
 		move.w	(v_hbla_hreg).w,(a5)
@@ -594,11 +594,11 @@ VBla_08:				; XREF: VBla_Index
 		tst.b	(f_wtr_state).w
 		bne.s	@waterabove
 
-		writeCRAM	v_pal1_wat,$80,0
+		writeCRAM	v_pal_dry,$80,0
 		bra.s	@waterbelow
 
 @waterabove:
-		writeCRAM	v_pal0_dry,$80,0
+		writeCRAM	v_pal_water,$80,0
 
 	@waterbelow:
 		move.w	(v_hbla_hreg).w,(a5)
@@ -649,7 +649,7 @@ VBla_0A:				; XREF: VBla_Index
 		stopZ80
 		waitZ80
 		bsr.w	ReadJoypads
-		writeCRAM	v_pal1_wat,$80,0
+		writeCRAM	v_pal_dry,$80,0
 		writeVRAM	v_spritetablebuffer,$280,vram_sprites
 		writeVRAM	v_hscrolltablebuffer,$380,vram_hscroll
 		startZ80
@@ -676,11 +676,11 @@ VBla_0C:				; XREF: VBla_Index
 		tst.b	(f_wtr_state).w
 		bne.s	@waterabove
 
-		writeCRAM	v_pal1_wat,$80,0
+		writeCRAM	v_pal_dry,$80,0
 		bra.s	@waterbelow
 
 @waterabove:
-		writeCRAM	v_pal0_dry,$80,0
+		writeCRAM	v_pal_water,$80,0
 
 	@waterbelow:
 		move.w	(v_hbla_hreg).w,(a5)
@@ -721,7 +721,7 @@ VBla_16:				; XREF: VBla_Index
 		stopZ80
 		waitZ80
 		bsr.w	ReadJoypads
-		writeCRAM	v_pal1_wat,$80,0
+		writeCRAM	v_pal_dry,$80,0
 		writeVRAM	v_spritetablebuffer,$280,vram_sprites
 		writeVRAM	v_hscrolltablebuffer,$380,vram_hscroll
 		startZ80
@@ -747,11 +747,11 @@ sub_106E:				; XREF: VBla_02; et al
 		bsr.w	ReadJoypads
 		tst.b	(f_wtr_state).w ; is water above top of screen?
 		bne.s	@waterabove	; if yes, branch
-		writeCRAM	v_pal1_wat,$80,0
+		writeCRAM	v_pal_dry,$80,0
 		bra.s	@waterbelow
 
 	@waterabove:
-		writeCRAM	v_pal0_dry,$80,0
+		writeCRAM	v_pal_water,$80,0
 
 	@waterbelow:
 		writeVRAM	v_spritetablebuffer,$280,vram_sprites
@@ -774,7 +774,7 @@ HBlank:
 		move.w	#0,(f_hbla_pal).w
 		movem.l	a0-a1,-(sp)
 		lea	(vdp_data_port).l,a1
-		lea	(v_pal0_dry).w,a0 ; get palette from RAM
+		lea	(v_pal_water).w,a0 ; get palette from RAM
 		move.l	#$C0000000,4(a1) ; set VDP to CRAM write
 		move.l	(a0)+,(a1)	; move palette to CRAM
 		move.l	(a0)+,(a1)
@@ -1308,7 +1308,7 @@ PaletteFadeIn:
 
 PalFadeIn_Alt:				; start position and size are already set
 		moveq	#0,d0
-		lea	(v_pal1_wat).w,a0
+		lea	(v_pal_dry).w,a0
 		move.b	(v_pfade_start).w,d0
 		adda.w	d0,a0
 		moveq	#cBlack,d1
@@ -1335,8 +1335,8 @@ PalFadeIn_Alt:				; start position and size are already set
 
 FadeIn_FromBlack:			; XREF: PaletteFadeIn
 		moveq	#0,d0
-		lea	(v_pal1_wat).w,a0
-		lea	(v_pal1_dry).w,a1
+		lea	(v_pal_dry).w,a0
+		lea	(v_pal_dry_dup).w,a1
 		move.b	(v_pfade_start).w,d0
 		adda.w	d0,a0
 		adda.w	d0,a1
@@ -1350,8 +1350,8 @@ FadeIn_FromBlack:			; XREF: PaletteFadeIn
 		bne.s	@exit		; if not, branch
 
 		moveq	#0,d0
-		lea	(v_pal0_dry).w,a0
-		lea	(v_pal0_wat).w,a1
+		lea	(v_pal_water).w,a0
+		lea	(v_pal_water_dup).w,a1
 		move.b	(v_pfade_start).w,d0
 		adda.w	d0,a0
 		adda.w	d0,a1
@@ -1430,7 +1430,7 @@ PaletteFadeOut:
 
 FadeOut_ToBlack:			; XREF: PaletteFadeOut
 		moveq	#0,d0
-		lea	(v_pal1_wat).w,a0
+		lea	(v_pal_dry).w,a0
 		move.b	(v_pfade_start).w,d0
 		adda.w	d0,a0
 		move.b	(v_pfade_size).w,d0
@@ -1440,7 +1440,7 @@ FadeOut_ToBlack:			; XREF: PaletteFadeOut
 		dbf	d0,@decolour	; repeat for size of palette
 
 		moveq	#0,d0
-		lea	(v_pal0_dry).w,a0
+		lea	(v_pal_water).w,a0
 		move.b	(v_pfade_start).w,d0
 		adda.w	d0,a0
 		move.b	(v_pfade_size).w,d0
@@ -1497,7 +1497,7 @@ FadeOut_DecColour:			; XREF: FadeOut_ToBlack
 PaletteWhiteIn:				; XREF: GM_Special
 		move.w	#$003F,(v_pfade_start).w ; start position = 0; size = $40
 		moveq	#0,d0
-		lea	(v_pal1_wat).w,a0
+		lea	(v_pal_dry).w,a0
 		move.b	(v_pfade_start).w,d0
 		adda.w	d0,a0
 		move.w	#cWhite,d1
@@ -1524,8 +1524,8 @@ PaletteWhiteIn:				; XREF: GM_Special
 
 WhiteIn_FromWhite:			; XREF: PaletteWhiteIn
 		moveq	#0,d0
-		lea	(v_pal1_wat).w,a0
-		lea	(v_pal1_dry).w,a1
+		lea	(v_pal_dry).w,a0
+		lea	(v_pal_dry_dup).w,a1
 		move.b	(v_pfade_start).w,d0
 		adda.w	d0,a0
 		adda.w	d0,a1
@@ -1538,8 +1538,8 @@ WhiteIn_FromWhite:			; XREF: PaletteWhiteIn
 		cmpi.b	#1,(v_zone).w	; is level Labyrinth?
 		bne.s	@exit		; if not, branch
 		moveq	#0,d0
-		lea	(v_pal0_dry).w,a0
-		lea	(v_pal0_wat).w,a1
+		lea	(v_pal_water).w,a0
+		lea	(v_pal_water_dup).w,a1
 		move.b	(v_pfade_start).w,d0
 		adda.w	d0,a0
 		adda.w	d0,a1
@@ -1618,7 +1618,7 @@ PaletteWhiteOut:			; XREF: GM_Special
 
 WhiteOut_ToWhite:			; XREF: PaletteWhiteOut
 		moveq	#0,d0
-		lea	(v_pal1_wat).w,a0
+		lea	(v_pal_dry).w,a0
 		move.b	(v_pfade_start).w,d0
 		adda.w	d0,a0
 		move.b	(v_pfade_size).w,d0
@@ -1628,7 +1628,7 @@ WhiteOut_ToWhite:			; XREF: PaletteWhiteOut
 		dbf	d0,@addcolour
 
 		moveq	#0,d0
-		lea	(v_pal0_dry).w,a0
+		lea	(v_pal_water).w,a0
 		move.b	(v_pfade_start).w,d0
 		adda.w	d0,a0
 		move.b	(v_pfade_size).w,d0
@@ -1689,7 +1689,7 @@ WhiteOut_AddColour:			; XREF: WhiteOut_ToWhite
 PalCycle_Sega:				; XREF: GM_Sega
 		tst.b	(v_pcyc_time+1).w
 		bne.s	loc_206A
-		lea	(v_pal1_wat+$20).w,a1
+		lea	(v_pal_dry+$20).w,a1
 		lea	(Pal_Sega1).l,a0
 		moveq	#5,d1
 		move.w	(v_pcyc_num).w,d0
@@ -1752,11 +1752,11 @@ loc_2088:				; XREF: loc_206A
 		move.w	d0,(v_pcyc_num).w
 		lea	(Pal_Sega2).l,a0
 		lea	(a0,d0.w),a0
-		lea	(v_pal1_wat+$04).w,a1
+		lea	(v_pal_dry+$04).w,a1
 		move.l	(a0)+,(a1)+
 		move.l	(a0)+,(a1)+
 		move.w	(a0)+,(a1)
-		lea	(v_pal1_wat+$20).w,a1
+		lea	(v_pal_dry+$20).w,a1
 		moveq	#0,d0
 		moveq	#$2C,d1
 
@@ -2031,7 +2031,7 @@ GM_Title:				; XREF: GameModeArray
 
 		copyTilemap	$FF0000,$C000,$27,$1B
 
-		lea	(v_pal1_dry).w,a1
+		lea	(v_pal_dry_dup).w,a1
 		moveq	#cBlack,d0
 		move.w	#$1F,d1
 
@@ -3458,7 +3458,7 @@ loc_4992:
 		bmi.s	loc_49E8
 		lea	(Pal_SSCyc1).l,a1
 		adda.w	d0,a1
-		lea	(v_pal1_wat+$4E).w,a2
+		lea	(v_pal_dry+$4E).w,a2
 		move.l	(a1)+,(a2)+
 		move.l	(a1)+,(a2)+
 		move.l	(a1)+,(a2)+
@@ -3480,18 +3480,18 @@ loc_49F4:
 		andi.w	#$7F,d0
 		bclr	#0,d0
 		beq.s	loc_4A18
-		lea	(v_pal1_wat+$6E).w,a2
+		lea	(v_pal_dry+$6E).w,a2
 		move.l	(a1),(a2)+
 		move.l	4(a1),(a2)+
 		move.l	8(a1),(a2)+
 
 loc_4A18:
 		adda.w	#$C,a1
-		lea	(v_pal1_wat+$5A).w,a2
+		lea	(v_pal_dry+$5A).w,a2
 		cmpi.w	#$A,d0
 		blo.s	loc_4A2E
 		subi.w	#$A,d0
-		lea	(v_pal1_wat+$7A).w,a2
+		lea	(v_pal_dry+$7A).w,a2
 
 loc_4A2E:
 		move.w	d0,d1
@@ -3999,7 +3999,7 @@ GM_Credits:				; XREF: GameModeArray
 		lea	(Nem_CreditText).l,a0 ;	load credits alphabet patterns
 		bsr.w	NemDec
 
-		lea	(v_pal1_dry).w,a1
+		lea	(v_pal_dry_dup).w,a1
 		moveq	#0,d0
 		move.w	#$1F,d1
 	Cred_ClrPal:
@@ -4127,7 +4127,7 @@ TryAgainEnd:				; XREF: GM_Credits
 		moveq	#plcid_TryAgain,d0
 		bsr.w	QuickPLC	; load "TRY AGAIN" or "END" patterns
 
-		lea	(v_pal1_dry).w,a1
+		lea	(v_pal_dry_dup).w,a1
 		moveq	#0,d0
 		move.w	#$1F,d1
 	TryAg_ClrPal:
@@ -4136,7 +4136,7 @@ TryAgainEnd:				; XREF: GM_Credits
 
 		moveq	#palid_Ending,d0
 		bsr.w	PalLoad1	; load ending palette
-		clr.w	(v_pal1_dry+$40).w
+		clr.w	(v_pal_dry_dup+$40).w
 		move.b	#id_EndEggman,(v_objspace+$80).w ; load Eggman object
 		jsr	ExecuteObjects
 		jsr	BuildSprites

@@ -99,7 +99,7 @@ loc_177E6:
 		sfx	sfx_HitBoss	; play boss damage sound
 
 BGHZ_ShipFlash:
-		lea	(v_pal1_wat+$22).w,a1 ; load 2nd pallet, 2nd entry
+		lea	(v_pal_dry+$22).w,a1 ; load 2nd pallet, 2nd entry
 		moveq	#0,d0		; move 0 (black) to d0
 		tst.w	(a1)
 		bne.s	loc_1783C
