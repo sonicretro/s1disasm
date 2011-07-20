@@ -31,84 +31,98 @@ AniArt_Index:	dc.w AniArt_GHZ-AniArt_Index, AniArt_none-AniArt_Index
 ; ---------------------------------------------------------------------------
 
 AniArt_GHZ:				; XREF: AniArt_Index
-		subq.b	#1,(v_lani0_time).w
-		bpl.s	loc_1C08A
-		move.b	#5,(v_lani0_time).w ; time to display each frame for
+
+AniArt_GHZ_Waterfall:
+
+@size:		= 8	; number of tiles per frame
+
+		subq.b	#1,(v_lani0_time).w ; decrement timer
+		bpl.s	AniArt_GHZ_Bigflower ; branch if not 0
+
+		move.b	#5,(v_lani0_time).w ; time to display each frame
 		lea	(Art_GhzWater).l,a1 ; load waterfall patterns
 		move.b	(v_lani0_frame).w,d0
-		addq.b	#1,(v_lani0_frame).w
-		andi.w	#1,d0
-		beq.s	loc_1C078
-		lea	$100(a1),a1	; load next frame
+		addq.b	#1,(v_lani0_frame).w ; increment frame counter
+		andi.w	#1,d0		; there are only 2 frames
+		beq.s	@isframe0	; branch if frame 0
+		lea	@size*$20(a1),a1 ; use graphics for frame 1
 
-loc_1C078:
+	@isframe0:
 		locVRAM	$6F00		; VRAM address
-		move.w	#7,d1		; number of 8x8	tiles
+		move.w	#@size-1,d1	; number of 8x8	tiles
 		bra.w	LoadTiles
 ; ===========================================================================
 
-loc_1C08A:
+AniArt_GHZ_Bigflower:
+
+@size:		= 16	; number of tiles per frame
+
 		subq.b	#1,(v_lani1_time).w
-		bpl.s	loc_1C0C0
+		bpl.s	AniArt_GHZ_Smallflower
+
 		move.b	#$F,(v_lani1_time).w
 		lea	(Art_GhzFlower1).l,a1 ;	load big flower	patterns
 		move.b	(v_lani1_frame).w,d0
 		addq.b	#1,(v_lani1_frame).w
 		andi.w	#1,d0
-		beq.s	loc_1C0AE
-		lea	$200(a1),a1
+		beq.s	@isframe0
+		lea	@size*$20(a1),a1
 
-loc_1C0AE:
+	@isframe0:
 		locVRAM	$6B80
-		move.w	#$F,d1
+		move.w	#@size-1,d1
 		bra.w	LoadTiles
 ; ===========================================================================
 
-loc_1C0C0:
+AniArt_GHZ_Smallflower:
 		subq.b	#1,(v_lani2_time).w
-		bpl.s	locret_1C10C
+		bpl.s	@end
+
 		move.b	#7,(v_lani2_time).w
 		move.b	(v_lani2_frame).w,d0
-		addq.b	#1,(v_lani2_frame).w
-		andi.w	#3,d0
-		move.b	byte_1C10E(pc,d0.w),d0
-		btst	#0,d0
-		bne.s	loc_1C0E8
-		move.b	#$7F,(v_lani2_time).w
+		addq.b	#1,(v_lani2_frame).w ; increment frame counter
+		andi.w	#3,d0		; there are 4 frames
+		move.b	@sequence(pc,d0.w),d0
+		btst	#0,d0		; is frame 0 or 2? (actual frame, not frame counter)
+		bne.s	@isframe1	; if not, branch
+		move.b	#$7F,(v_lani2_time).w ; set longer duration for frames 0 and 2
 
-loc_1C0E8:
-		lsl.w	#7,d0
+	@isframe1:
+		lsl.w	#7,d0		; multiply frame num by $80
 		move.w	d0,d1
 		add.w	d0,d0
-		add.w	d1,d0
+		add.w	d1,d0		; multiply that by 3
 		locVRAM	$6D80
 		lea	(Art_GhzFlower2).l,a1 ;	load small flower patterns
-		lea	(a1,d0.w),a1
+		lea	(a1,d0.w),a1	; jump to appropriate tile
 		move.w	#$B,d1
 		bsr.w	LoadTiles
 
-locret_1C10C:
+@end:
 		rts	
-; ===========================================================================
-byte_1C10E:	dc.b 0,	1, 2, 1
+
+@sequence:	dc.b 0,	1, 2, 1
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Animated pattern routine - Marble
 ; ---------------------------------------------------------------------------
 
 AniArt_MZ:				; XREF: AniArt_Index
-		subq.b	#1,(v_lani0_time).w
-		bpl.s	loc_1C150
-		move.b	#$13,(v_lani0_time).w
+
+AniArt_MZ_Lava:
+		subq.b	#1,(v_lani0_time).w ; decrement timer
+		bpl.s	AniArt_MZ_Magma	; branch if not 0
+
+		move.b	#$13,(v_lani0_time).w ; time to display each frame
 		lea	(Art_MzLava1).l,a1 ; load lava surface patterns
 		moveq	#0,d0
 		move.b	(v_lani0_frame).w,d0
-		addq.b	#1,d0
+		addq.b	#1,d0		; increment frame counter
 		cmpi.b	#3,d0
-		bne.s	loc_1C134
+		bne.s	@notframe3	; branch if not frame 3
 		moveq	#0,d0
 
-loc_1C134:
+	@notframe3:
 		move.b	d0,(v_lani0_frame).w
 		mulu.w	#$100,d0
 		adda.w	d0,a1
@@ -116,7 +130,7 @@ loc_1C134:
 		move.w	#7,d1
 		bsr.w	LoadTiles
 
-loc_1C150:
+AniArt_MZ_Magma:
 		subq.b	#1,(v_lani1_time).w
 		bpl.s	loc_1C1AE
 		move.b	#1,(v_lani1_time).w

@@ -4,6 +4,11 @@
 ; input:
 ;	a0 = source address
 ;	a1 = destination address
+
+; usage:
+;	lea	(source).l,a0
+;	lea	(destination).l,a1
+;	bsr.w	KosDec
 ; ---------------------------------------------------------------------------
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -80,7 +85,7 @@ Kos_SeparateRLE:			; XREF: Kos_RLE
 		lsl.w	#5,d2
 		move.b	d0,d2	; calculate offset
 		andi.w	#7,d1	; does a third byte need to be read?
-		beq.s	loc_1928 ; if yes, branch
+		beq.s	Kos_SeparateRLE2 ; if yes, branch
 		move.b	d1,d3	; copy repeat count
 		addq.w	#1,d3	; increment
 
@@ -91,16 +96,16 @@ Kos_RLELoop:
 		bra.s	Kos_Loop
 ; ===========================================================================
 
-loc_1928:				; XREF: Kos_SeparateRLE
+Kos_SeparateRLE2:			; XREF: Kos_SeparateRLE
 		move.b	(a0)+,d1
-		beq.s	loc_1938
+		beq.s	Kos_Done ; 0 indicates end of compressed data
 		cmpi.b	#1,d1
-		beq.w	Kos_Loop
-		move.b	d1,d3
+		beq.w	Kos_Loop ; 1 indicates new description to be read
+		move.b	d1,d3	; otherwise, copy repeat count
 		bra.s	Kos_RLELoop
 ; ===========================================================================
 
-loc_1938:				; XREF: loc_1928
-		addq.l	#2,sp
+Kos_Done:				; XREF: Kos_SeparateRLE2
+		addq.l	#2,sp	; restore stack pointer
 		rts	
 ; End of function KosDec

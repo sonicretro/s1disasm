@@ -20,6 +20,7 @@ Glass_Index:	dc.w Glass_Main-Glass_Index
 		dc.w Glass_Block34-Glass_Index
 		dc.w Glass_Reflect34-Glass_Index
 
+glass_dist:	= $32		; distance block moves when switch is pressed
 glass_parent:	= $3C		; address of parent object
 
 Glass_Vars1:	dc.b 2,	0, 0	; routine num, y-axis dist from	origin,	frame num
@@ -73,7 +74,7 @@ Glass_Main:	; Routine 0
 		andi.b	#$F,obSubtype(a1)
 
 	@Fail:
-		move.w	#$90,$32(a0)
+		move.w	#$90,glass_dist(a0)
 		bset	#4,obRender(a0)
 
 Glass_Block012:	; Routine 2
@@ -88,7 +89,7 @@ Glass_Block012:	; Routine 2
 Glass_Reflect012:
 		; Routine 4
 		movea.l	$3C(a0),a1
-		move.w	$32(a1),$32(a0)
+		move.w	glass_dist(a1),glass_dist(a0)
 		bra.w	Glass_Types
 ; ===========================================================================
 
@@ -104,7 +105,7 @@ Glass_Block34:	; Routine 6
 Glass_Reflect34:
 		; Routine 8
 		movea.l	$3C(a0),a1
-		move.w	$32(a1),$32(a0)
+		move.w	glass_dist(a1),glass_dist(a0)
 		move.w	obY(a1),$30(a0)
 		bra.w	*+4
 
@@ -180,7 +181,7 @@ loc_B54E:
 		bset	#7,$34(a0)
 		move.w	#$10,$36(a0)
 		move.b	#$A,$38(a0)
-		cmpi.w	#$40,$32(a0)
+		cmpi.w	#$40,glass_dist(a0)
 		bne.s	loc_B582
 		move.w	#$40,$36(a0)
 
@@ -193,9 +194,9 @@ loc_B582:
 		bne.s	loc_B5AA
 
 loc_B594:
-		tst.w	$32(a0)
+		tst.w	glass_dist(a0)
 		beq.s	loc_B5A4
-		subq.w	#1,$32(a0)
+		subq.w	#1,glass_dist(a0)
 		subq.w	#1,$36(a0)
 		bne.s	loc_B5AA
 
@@ -203,7 +204,7 @@ loc_B5A4:
 		bclr	#7,$34(a0)
 
 loc_B5AA:
-		move.w	$32(a0),d0
+		move.w	glass_dist(a0),d0
 		bra.s	loc_B5EE
 ; ===========================================================================
 
@@ -227,12 +228,12 @@ Glass_ChkSwitch:			; XREF: Glass_Type04
 		move.b	#1,$34(a0)
 
 loc_B5E0:
-		tst.w	$32(a0)
+		tst.w	glass_dist(a0)
 		beq.s	loc_B5EA
-		subq.w	#2,$32(a0)
+		subq.w	#2,glass_dist(a0)
 
 loc_B5EA:
-		move.w	$32(a0),d0
+		move.w	glass_dist(a0),d0
 
 loc_B5EE:
 		move.w	$30(a0),d1
