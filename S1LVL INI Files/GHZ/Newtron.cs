@@ -7,7 +7,7 @@ namespace S1ObjectDefinitions.GHZ
 {
     class Newtron : SonicRetro.S2LVL.ObjectDefinition
     {
-        private string[] labels = { "M_Newt_Drop1", "M_Newt_Norm" };
+        private int[] labels = { 3, 1 };
         private Point offset;
         private BitmapBits img;
         private int imgw, imgh;
@@ -19,7 +19,7 @@ namespace S1ObjectDefinitions.GHZ
         public override void Init(Dictionary<string, string> data)
         {
             byte[] artfile = ObjectHelper.OpenArtFile("../artnem/Enemy Newtron.bin", Compression.CompressionType.Nemesis);
-            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Newtron.asm", "M_Newt_Drop1", 0, out offset);
+            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Newtron.asm", 3, 0, out offset);
             imgw = img.Width;
             imgh = img.Height;
             Point off;

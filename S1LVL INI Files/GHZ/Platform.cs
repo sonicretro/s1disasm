@@ -18,12 +18,12 @@ namespace S1ObjectDefinitions.GHZ
             byte[] artfile = ObjectHelper.LevelArt;
             Point off;
             BitmapBits im;
-            im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Platforms (GHZ).asm", "@small", 2, out off);
+            im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Platforms (GHZ).asm", 0, 2, out off);
             imgs.Add(im);
             offsets.Add(off);
             imgws.Add(im.Width);
             imghs.Add(im.Height);
-            im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Platforms (GHZ).asm", "@large", 2, out off);
+            im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Platforms (GHZ).asm", 1, 2, out off);
             imgs.Add(im);
             offsets.Add(off);
             imgws.Add(im.Width);

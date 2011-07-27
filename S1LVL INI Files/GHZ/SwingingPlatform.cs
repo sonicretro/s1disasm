@@ -7,7 +7,7 @@ namespace S1ObjectDefinitions.GHZ
 {
     class SwingingPlatform : SonicRetro.S2LVL.ObjectDefinition
     {
-        private string[] labels = { "@block", "@chain", "@anchor" };
+        private int[] labels = { 0, 1, 2 };
         private Point offset;
         private BitmapBits img;
         private int imgw, imgh;
@@ -19,7 +19,7 @@ namespace S1ObjectDefinitions.GHZ
         public override void Init(Dictionary<string, string> data)
         {
             byte[] artfile = ObjectHelper.OpenArtFile("../artnem/GHZ Swinging Platform.bin", Compression.CompressionType.Nemesis);
-            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Swinging Platforms (GHZ).asm", "@block", 2, out offset);
+            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Swinging Platforms (GHZ).asm", 0, 2, out offset);
             imgw = img.Width;
             imgh = img.Height;
             Point off;

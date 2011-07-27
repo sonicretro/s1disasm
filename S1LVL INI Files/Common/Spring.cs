@@ -21,7 +21,7 @@ namespace S1ObjectDefinitions.Common
             byte[] artfile1 = ObjectHelper.OpenArtFile("../artnem/Spring Horizontal.bin", Compression.CompressionType.Nemesis);
             byte[] artfile2 = ObjectHelper.OpenArtFile("../artnem/Spring Vertical.bin", Compression.CompressionType.Nemesis);
             string map = "../_maps/Springs.asm";
-            img = ObjectHelper.MapASMToBmp(artfile1, map, "M_Spg_Up", 0, out offset);
+            img = ObjectHelper.MapASMToBmp(artfile1, map, 0, 0, out offset);
             imgw = img.Width;
             imgh = img.Height;
             Point off = new Point();
@@ -30,17 +30,17 @@ namespace S1ObjectDefinitions.Common
             offsets.Add(offset);
             imgws.Add(imgw);
             imghs.Add(imgh);
-            im = ObjectHelper.MapASMToBmp(artfile1, map, "M_Spg_Up", 1, out off); // 0x02
+            im = ObjectHelper.MapASMToBmp(artfile1, map, 0, 1, out off); // 0x02
             imgs.Add(im);
             offsets.Add(off);
             imgws.Add(im.Width);
             imghs.Add(im.Height);
-            im = ObjectHelper.MapASMToBmp(artfile2, map, "M_Spg_Left", 0, out off); // 0x10
+            im = ObjectHelper.MapASMToBmp(artfile2, map, 3, 0, out off); // 0x10
             imgs.Add(im);
             offsets.Add(off);
             imgws.Add(im.Width);
             imghs.Add(im.Height);
-            im = ObjectHelper.MapASMToBmp(artfile2, map, "M_Spg_Left", 1, out off); // 0x12
+            im = ObjectHelper.MapASMToBmp(artfile2, map, 3, 1, out off); // 0x12
             imgs.Add(im);
             offsets.Add(off);
             imgws.Add(im.Width);

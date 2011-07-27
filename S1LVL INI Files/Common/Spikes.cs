@@ -20,41 +20,19 @@ namespace S1ObjectDefinitions.Common
         public override void Init(Dictionary<string, string> data)
         {
             byte[] artfile = ObjectHelper.OpenArtFile("../artnem/Spikes.bin", Compression.CompressionType.Nemesis);
-            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Spikes.asm", "byte_CFF4", 0, out offset);
+            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Spikes.asm", 0, 0, out offset);
             imgw = img.Width;
             imgh = img.Height;
             Point off;
             BitmapBits im;
-            im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Spikes.asm", "byte_CFF4", 0, out off);
-            imgs.Add(im);
-            offsets.Add(off);
-            imgws.Add(im.Width);
-            imghs.Add(im.Height);
-            im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Spikes.asm", "byte_D004", 0, out off);
-            imgs.Add(im);
-            offsets.Add(off);
-            imgws.Add(im.Width);
-            imghs.Add(im.Height);
-            im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Spikes.asm", "byte_D014", 0, out off);
-            imgs.Add(im);
-            offsets.Add(off);
-            imgws.Add(im.Width);
-            imghs.Add(im.Height);
-            im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Spikes.asm", "byte_D01A", 0, out off);
-            imgs.Add(im);
-            offsets.Add(off);
-            imgws.Add(im.Width);
-            imghs.Add(im.Height);
-            im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Spikes.asm", "byte_D02A", 0, out off);
-            imgs.Add(im);
-            offsets.Add(off);
-            imgws.Add(im.Width);
-            imghs.Add(im.Height);
-            im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Spikes.asm", "byte_D049", 0, out off);
-            imgs.Add(im);
-            offsets.Add(off);
-            imgws.Add(im.Width);
-            imghs.Add(im.Height);
+            for (int i = 0; i <= 5; i++)
+            {
+                im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Spikes.asm", i, 0, out off);
+                imgs.Add(im);
+                offsets.Add(off);
+                imgws.Add(im.Width);
+                imghs.Add(im.Height);                
+            }
         }
 
         public override ReadOnlyCollection<byte> Subtypes()

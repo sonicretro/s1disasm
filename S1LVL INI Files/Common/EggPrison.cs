@@ -7,7 +7,6 @@ namespace S1ObjectDefinitions.Common
 {
     class EggPrison : SonicRetro.S2LVL.ObjectDefinition
     {
-        private string[] labels = { "@capsule", "@switch1" };
         private Point offset;
         private BitmapBits img;
         private int imgw, imgh;
@@ -19,14 +18,14 @@ namespace S1ObjectDefinitions.Common
         public override void Init(Dictionary<string, string> data)
         {
             byte[] artfile = ObjectHelper.OpenArtFile("../artnem/Prison Capsule.bin", Compression.CompressionType.Nemesis);
-            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Prison Capsule.asm", "@capsule", 0, out offset);
+            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Prison Capsule.asm", 0, 0, out offset);
             imgw = img.Width;
             imgh = img.Height;
             Point off;
             BitmapBits im;
-            for (int i = 0; i < labels.Length; i++)
+            for (int i = 0; i < 2; i++)
             {
-                im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Prison Capsule.asm", labels[i], 0, out off);
+                im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Prison Capsule.asm", i, 0, out off);
                 imgs.Add(im);
                 offsets.Add(off);
                 imgws.Add(im.Width);
@@ -74,7 +73,7 @@ namespace S1ObjectDefinitions.Common
 
         public override BitmapBits Image(byte subtype)
         {
-            if (subtype < labels.Length)
+            if (subtype < 2)
                 return imgs[subtype];
             else
                 return img;
@@ -82,7 +81,7 @@ namespace S1ObjectDefinitions.Common
 
         public override Rectangle Bounds(Point loc, byte subtype)
         {
-            if (subtype < labels.Length)
+            if (subtype < 2)
                 return new Rectangle(loc.X + offsets[subtype].X, loc.Y + offsets[subtype].Y, imgws[subtype], imghs[subtype]);
             else
                 return new Rectangle(loc.X + offset.X, loc.Y + offset.Y, imgw, imgh);
@@ -90,7 +89,7 @@ namespace S1ObjectDefinitions.Common
 
         public override void Draw(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
         {
-            if (subtype > labels.Length) subtype = 0;
+            if (subtype > 2) subtype = 0;
             BitmapBits bits = new BitmapBits(imgs[subtype]);
             bits.Flip(XFlip, YFlip);
             bmp.DrawBitmapComposited(bits, new Point(loc.X + offsets[subtype].X, loc.Y + offsets[subtype].Y));

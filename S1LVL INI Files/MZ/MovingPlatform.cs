@@ -8,7 +8,7 @@ namespace S1ObjectDefinitions.MZ
 {
     class MovingPlatform : ObjectDefinition
     {
-		private string[] labels = { "@wide", "@sloped", "@narrow" };
+		private int[] labels = { 0, 1, 2 };
         private List<Point> offsets = new List<Point>();
         private List<BitmapBits> imgs = new List<BitmapBits>();
         private List<int> imgws = new List<int>();
@@ -19,7 +19,7 @@ namespace S1ObjectDefinitions.MZ
             byte[] artfile = ObjectHelper.LevelArt;
             Point off;
             BitmapBits im;
-			im = ObjectHelper.MapASMToBmp(artfile, "../_maps/MZ Large Grassy Platforms.asm", "@wide", 2, out off);
+			im = ObjectHelper.MapASMToBmp(artfile, "../_maps/MZ Large Grassy Platforms.asm", 0, 2, out off);
             imgs.Add(im);
             offsets.Add(off);
             imgws.Add(im.Width);

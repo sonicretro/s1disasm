@@ -7,7 +7,7 @@ namespace S1ObjectDefinitions.Common
 {
     class Monitor : SonicRetro.S2LVL.ObjectDefinition
     {
-        private string[] labels = { "@static1", "@eggman", "@sonic", "@shoes", "@shield", "@invincible", "@rings", "@s", "@goggles", "@broken" };
+        private int[] labels = { 1, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
         private Point offset;
         private BitmapBits img;
         private int imgw, imgh;
@@ -19,7 +19,7 @@ namespace S1ObjectDefinitions.Common
         public override void Init(Dictionary<string, string> data)
         {
             byte[] artfile = ObjectHelper.OpenArtFile("../artnem/Monitors.bin", Compression.CompressionType.Nemesis);
-            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Monitor.asm", "@static0", 0, out offset);
+            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Monitor.asm", 0, 0, out offset);
             imgw = img.Width;
             imgh = img.Height;
             Point off;

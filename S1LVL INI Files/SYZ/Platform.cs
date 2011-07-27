@@ -14,7 +14,7 @@ namespace S1ObjectDefinitions.SYZ
         public override void Init(Dictionary<string, string> data)
         {
             byte[] artfile = ObjectHelper.LevelArt;
-            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Platforms (SYZ).asm", "@platform", 2, out offset);
+            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Platforms (SYZ).asm", 0, 2, out offset);
         }
 
         public override ReadOnlyCollection<byte> Subtypes()

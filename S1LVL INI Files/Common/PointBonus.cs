@@ -7,7 +7,7 @@ namespace S1ObjectDefinitions.Common
 {
     class PointBonus : SonicRetro.S2LVL.ObjectDefinition
     {
-        private string[] labels = { "@10000", "@1000", "@100" };
+        private int[] labels = { 0, 1, 2 };
         private Point offset;
         private BitmapBits img;
         private int imgw, imgh;
@@ -19,7 +19,7 @@ namespace S1ObjectDefinitions.Common
         public override void Init(Dictionary<string, string> data)
         {
             byte[] artfile = ObjectHelper.OpenArtFile("../artnem/Hidden Bonuses.bin", Compression.CompressionType.Nemesis);
-            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Hidden Bonuses.asm", "@100", 0, out offset);
+            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Hidden Bonuses.asm", 2, 0, out offset);
             imgw = img.Width;
             imgh = img.Height;
             Point off;

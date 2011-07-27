@@ -33,7 +33,7 @@ namespace S1ObjectDefinitions.Common
         public override void Init(Dictionary<string, string> data)
         {
             byte[] artfile = ObjectHelper.OpenArtFile("../artnem/Rings.bin", Compression.CompressionType.Nemesis);
-            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Rings.asm", "@front", 1, out offset);
+            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Rings.asm", 0, 1, out offset);
             imgw = img.Width;
             imgh = img.Height;
         }

@@ -16,7 +16,7 @@ namespace S1ObjectDefinitions.GHZ
         public override void Init(Dictionary<string, string> data)
         {
             byte[] artfile = ObjectHelper.OpenArtFile("../artnem/GHZ Bridge.bin", Compression.CompressionType.Nemesis);
-            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Bridge.asm", "M_Bri_Log", 2, out offset);
+            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Bridge.asm", 0, 2, out offset);
             imgw = img.Width;
             imgh = img.Height;
         }
