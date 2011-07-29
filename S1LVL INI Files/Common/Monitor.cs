@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using SonicRetro.S2LVL;
+using SonicRetro.SonLVL;
 
 namespace S1ObjectDefinitions.Common
 {
-    class Monitor : SonicRetro.S2LVL.ObjectDefinition
+    class Monitor : SonicRetro.SonLVL.ObjectDefinition
     {
         private int[] labels = { 1, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
         private Point offset;

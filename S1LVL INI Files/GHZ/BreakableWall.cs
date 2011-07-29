@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using SonicRetro.S2LVL;
+using SonicRetro.SonLVL;
 
 namespace S1ObjectDefinitions.GHZ
 {
-    class BreakableWall : SonicRetro.S2LVL.ObjectDefinition
+    class BreakableWall : SonicRetro.SonLVL.ObjectDefinition
     {
         private int[] labels = { 0, 1, 2 };
         private Point offset;

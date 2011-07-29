@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using SonicRetro.S2LVL;
+using SonicRetro.SonLVL;
 
 namespace S1ObjectDefinitions.GHZ
 {
-    class Newtron : SonicRetro.S2LVL.ObjectDefinition
+    class Newtron : SonicRetro.SonLVL.ObjectDefinition
     {
         private int[] labels = { 3, 1 };
         private Point offset;
