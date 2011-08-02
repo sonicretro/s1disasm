@@ -2555,11 +2555,16 @@ SoundCF:	incbin	"sound/sfx/SndCF - Signpost.bin"
 		even
 SoundD0:	incbin	"sound/sfx/SndD0 - Waterfall.bin"
 		even
+
+		cnop ($8000-Size_of_SegaPCM),$8000
 SegaPCM:	incbin	"sound/dac/segapcm.bin"
 SegaPCM_End
 		even
 
-		if ((((SegaPCM_End-1)&$3F8000)/$8000)-((SegaPCM&$3F8000)/$8000))<>0
-		inform 3, "The Sega PCM does not fit in a single z80 sound bank. You should add a line with 'align $8000' before it, or move it around until this error goes away."
+		if SegaPCM_End-SegaPCM>$8000
+			inform 3,"Sega sound must fit within $8000 bytes, but you have a $%h byte Sega sound.",SegaPCM_End-SegaPCM
+		endc
+		if SegaPCM_End-SegaPCM>Size_of_SegaPCM
+			inform 3,"Size_of_SegaPCM = $%h, but you have a $%h byte Sega sound.",Size_of_SegaPCM,SegaPCM_End-SegaPCM
 		endc
 

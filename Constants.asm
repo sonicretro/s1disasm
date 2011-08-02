@@ -2,6 +2,8 @@
 ; Constants
 ; ---------------------------------------------------------------------------
 
+Size_of_SegaPCM:		equ $6978
+
 ; VDP addressses
 vdp_data_port:		equ $C00000
 vdp_control_port:	equ $C00004
