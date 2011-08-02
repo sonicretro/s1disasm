@@ -2560,6 +2560,6 @@ SegaPCM_End
 		even
 
 		if ((((SegaPCM_End-1)&$3F8000)/$8000)-((SegaPCM&$3F8000)/$8000))<>0
-		inform 3 "The Sega PCM does not fit in a single z80 sound bank. You should add a line with 'align $8000' before it, or move it aronud until this error goes away."
+		inform 3, "The Sega PCM does not fit in a single z80 sound bank. You should add a line with 'align $8000' before it, or move it aronud until this error goes away."
 		endc
 
