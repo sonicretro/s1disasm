@@ -1,5 +1,5 @@
 ; ---------------------------------------------------------------------------
-Go_SoundTypes:	dc.l SoundTypes
+Go_SoundPriorities:	dc.l SoundPriorities
 Go_SoundD0:	dc.l ptr_sndD0
 Go_MusicIndex:	dc.l MusicIndex
 Go_SoundIndex:	dc.l SoundIndex
@@ -52,11 +52,14 @@ ptr_mus91:	dc.l Music91
 ptr_mus92:	dc.l Music92
 ptr_mus93:	dc.l Music93
 ; ---------------------------------------------------------------------------
-; Type of sound	being played ($90 = music/command; $70 = normal	sound effect;
-; $80 = jump sound or special sound effect; $68 = splash sound;
-; $60 = fireball, electric zap, flame thrower, basaran flap)
+; Priority of sound. New music or SFX must have a priority higher than or equal
+; to what is stored in v_sndprio or it won't play. If bit 7 of new priority is
+; set ($80 and up), the new music or SFX will not set its priority -- meaning
+; any music or SFX can override it (as long as it can override whatever was
+; playing before). Usually, SFX will only override SFX, special SFX ($D0-$DF)
+; will only override special SFX and music will only override music.
 ; ---------------------------------------------------------------------------
-SoundTypes:
+SoundPriorities:
 		dc.b     $90,$90,$90,$90,$90,$90,$90,$90,$90,$90,$90,$90,$90,$90,$90	; $81
 		dc.b $90,$90,$90,$90,$90,$90,$90,$90,$90,$90,$90,$90,$90,$90,$90,$90	; $90
 		dc.b $80,$70,$70,$70,$70,$70,$70,$70,$70,$70,$68,$70,$70,$70,$60,$70	; $A0
@@ -463,10 +466,10 @@ FMUpdateFreq:
 		move.w	d6,d1
 		lsr.w	#8,d1
 		move.b	#$A4,d0		; Register for upper 6 bits of frequency
-		jsr	WriteFM0or1(pc)
+		jsr	WriteFMIorII(pc)
 		move.b	d6,d1
 		move.b	#$A0,d0		; Register for lower 8 bits of frequency
-		jsr	WriteFM0or1(pc)
+		jsr	WriteFMIorII(pc)
 
 locret_71E48:
 		rts	
@@ -489,8 +492,8 @@ PauseMusic:
 		moveq	#0,d1		; No panning, AMS or FMS
 
 @killpanloop:
-		jsr	WriteFM0(pc)
-		jsr	WriteFM1(pc)
+		jsr	WriteFMI(pc)
+		jsr	WriteFMII(pc)
 		addq.b	#1,d0
 		dbf	d3,@killpanloop
 
@@ -498,10 +501,10 @@ PauseMusic:
 		moveq	#$28,d0		; Key on/off register
 
 @noteoffloop:
-		move.b	d3,d1		; FM0, FM1, FM2
-		jsr	WriteFM0(pc)
+		move.b	d3,d1		; FM1, FM2, FM3
+		jsr	WriteFMI(pc)
 		addq.b	#4,d1		; FM4, FM5, FM6
-		jsr	WriteFM0(pc)
+		jsr	WriteFMI(pc)
 		dbf	d3,@noteoffloop
 
 		jsr	PSGSilenceAll(pc)
@@ -521,7 +524,7 @@ PauseMusic:
 		bne.s	@bgmfmnext	; Branch if yes
 		move.b	#$B4,d0		; Command to set AMS/FMS/panning
 		move.b	$A(a5),d1	; Get value from track RAM
-		jsr	WriteFM0or1(pc)
+		jsr	WriteFMIorII(pc)
 
 @bgmfmnext:
 		adda.w	d3,a5
@@ -537,7 +540,7 @@ PauseMusic:
 		bne.s	@sfxfmnext	; Branch if yes
 		move.b	#$B4,d0		; Command to set AMS/FMS/panning
 		move.b	$A(a5),d1	; Get value from track RAM
-		jsr	WriteFM0or1(pc)
+		jsr	WriteFMIorII(pc)
 
 @sfxfmnext:
 		adda.w	d3,a5
@@ -550,7 +553,7 @@ PauseMusic:
 		bne.s	@unpausedallfm	; Branch if yes
 		move.b	#$B4,d0		; Command to set AMS/FMS/panning
 		move.b	$A(a5),d1	; Get value from track RAM
-		jsr	WriteFM0or1(pc)
+		jsr	WriteFMIorII(pc)
 
 @unpausedallfm:
 		bra.w	DoStartZ80
@@ -563,9 +566,9 @@ PauseMusic:
 
 
 Sound_Play:				; XREF: UpdateMusic
-		movea.l	(Go_SoundTypes).l,a0
+		movea.l	(Go_SoundPriorities).l,a0
 		lea	v_playsnd1(a6),a1	; load music track number
-		move.b	v_sndtype(a6),d3
+		move.b	v_sndprio(a6),d3	; Get priority of currently playing SFX
 		moveq	#2,d4
 
 @inputloop:
@@ -583,17 +586,17 @@ Sound_Play:				; XREF: UpdateMusic
 @havesound:
 		andi.w	#$7F,d0		; Clear high byte and sign bit
 		move.b	(a0,d0.w),d2	; Get sound type
-		cmp.b	d3,d2		; Does it match current sound type?
-		blo.s	@nextinput	; Branch if new type is lower
-		move.b	d2,d3
+		cmp.b	d3,d2		; Is it a lower priority sound?
+		blo.s	@nextinput	; Branch if yes
+		move.b	d2,d3		; Store new priority
 		move.b	d1,v_playsnd0(a6)	; Queue sound for play
 
 @nextinput:
 		dbf	d4,@inputloop
 
-		tst.b	d3		; We don't want to change sound type unless it is normal SFX (except jump sound)
+		tst.b	d3		; We don't want to change sound priority if it is negative
 		bmi.s	@locret
-		move.b	d3,v_sndtype(a6)	; Set new sound type
+		move.b	d3,v_sndprio(a6)	; Set new sound priority
 
 @locret:
 		rts	
@@ -689,7 +692,7 @@ Sound_PlayBGM:
 		adda.w	#zTrackSz,a5
 		dbf	d0,@cleartrackplayloop
 
-		clr.b	v_sndtype(a6)
+		clr.b	v_sndprio(a6)	; Clear priority
 		movea.l	a6,a0
 		lea	v_1up_ram_copy(a6),a1
 		move.w	#$87,d0	; Backup $220 bytes
@@ -761,29 +764,29 @@ Sound_PlayBGM:
 		bne.s	@silencefm6
 		moveq	#$2B,d0		; DAC enable/disable register
 		moveq	#0,d1		; Disable DAC
-		jsr	WriteFM0(pc)
+		jsr	WriteFMI(pc)
 		bra.w	@bgm_fmdone
 ; ===========================================================================
 
 @silencefm6:
 		moveq	#$28,d0		; Key on/off register
 		moveq	#6,d1		; Note off on all operators of channel 6
-		jsr	WriteFM0(pc)
+		jsr	WriteFMI(pc)
 		move.b	#$42,d0		; TL for operator 1 of FM6
 		moveq	#$7F,d1		; Total silence
-		jsr	WriteFM1(pc)
+		jsr	WriteFMII(pc)
 		move.b	#$4A,d0		; TL for operator 3 of FM6
 		moveq	#$7F,d1		; Total silence
-		jsr	WriteFM1(pc)
+		jsr	WriteFMII(pc)
 		move.b	#$46,d0		; TL for operator 2 of FM6
 		moveq	#$7F,d1		; Total silence
-		jsr	WriteFM1(pc)
+		jsr	WriteFMII(pc)
 		move.b	#$4E,d0		; TL for operator 4 of FM6
 		moveq	#$7F,d1		; Total silence
-		jsr	WriteFM1(pc)
+		jsr	WriteFMII(pc)
 		move.b	#$B6,d0		; AMS/FMS/panning of FM6
 		move.b	#$C0,d1		; Stereo
-		jsr	WriteFM1(pc)
+		jsr	WriteFMII(pc)
 
 @bgm_fmdone:
 		moveq	#0,d7
@@ -810,7 +813,7 @@ Sound_PlayBGM:
 		dbf	d7,@bgm_psgloadloop
 
 @bgm_psgdone:
-		lea	v_sfx_fm2_track(a6),a1
+		lea	v_sfx_fm3_track(a6),a1
 		moveq	#5,d7		; 6 SFX tracks
 
 @sfxstoploop:
@@ -819,7 +822,7 @@ Sound_PlayBGM:
 		moveq	#0,d0
 		move.b	1(a1),d0	; Get playback control bits
 		bmi.s	@sfxpsgchannel	; Branch if this is a PSG channel
-		subq.b	#2,d0		; SFX can't have FM0 or FM1
+		subq.b	#2,d0		; SFX can't have FM1 or FM2
 		lsl.b	#2,d0		; Convert to index
 		bra.s	@gotchannelindex
 ; ===========================================================================
@@ -846,7 +849,7 @@ Sound_PlayBGM:
 		bset	#2,v_psg3_playback_control(a6)	; Set 'SFX is overriding' bit
 
 @sendfmnoteoff:
-		lea	v_fm0_track(a6),a5
+		lea	v_fm1_track(a6),a5
 		moveq	#5,d4
 
 @fmnoteoffloop:
@@ -875,11 +878,11 @@ PSGInitBytes:	dc.b $80, $A0, $C0, 0
 
 Sound_PlaySFX:
 		tst.b	f_1up_playing(a6)	; Is 1-up playing?
-		bne.w	@clear_sndtype		; Exit is it is
+		bne.w	@clear_sndprio		; Exit is it is
 		tst.b	v_fadeout_counter(a6)	; Is music being faded out?
-		bne.w	@clear_sndtype		; Exit if it is
+		bne.w	@clear_sndprio		; Exit if it is
 		tst.b	f_fadein_flag(a6)	; Is music being faded in?
-		bne.w	@clear_sndtype		; Exit if it is
+		bne.w	@clear_sndprio		; Exit if it is
 		cmpi.b	#sfx_Ring,d7		; is ring sound	effect played?
 		bne.s	@sfx_notRing	; if not, branch
 		tst.b	v_ring_speaker(a6)	; Is the ring sound playing on right speaker?
@@ -915,7 +918,7 @@ Sound_PlaySFX:
 		move.b	1(a1),d3	; Channel assignment bits
 		move.b	d3,d4
 		bmi.s	@sfxinitpsg	; Branch if PSG
-		subq.w	#2,d3		; SFX can only have FM2, FM4 or FM5
+		subq.w	#2,d3		; SFX can only have FM3, FM4 or FM5
 		lsl.w	#2,d3
 		lea	BGMChannelRAM(pc),a5
 		movea.l	(a5,d3.w),a5
@@ -975,14 +978,14 @@ Sound_PlaySFX:
 		rts	
 ; ===========================================================================
 
-@clear_sndtype:
-		clr.b	v_sndtype(a6)
+@clear_sndprio:
+		clr.b	v_sndprio(a6)		; Clear priority
 		rts	
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; RAM addresses for FM and PSG channel variables
 ; ---------------------------------------------------------------------------
-BGMChannelRAM:	dc.l (v_snddriver_ram+v_fm2_track)&$FFFFFF
+BGMChannelRAM:	dc.l (v_snddriver_ram+v_fm3_track)&$FFFFFF
 		dc.l 0
 		dc.l (v_snddriver_ram+v_fm4_track)&$FFFFFF
 		dc.l (v_snddriver_ram+v_fm5_track)&$FFFFFF
@@ -990,7 +993,7 @@ BGMChannelRAM:	dc.l (v_snddriver_ram+v_fm2_track)&$FFFFFF
 		dc.l (v_snddriver_ram+v_psg2_track)&$FFFFFF
 		dc.l (v_snddriver_ram+v_psg3_track)&$FFFFFF	; Plain PSG3
 		dc.l (v_snddriver_ram+v_psg3_track)&$FFFFFF	; Noise
-SFXChannelRAM:	dc.l (v_snddriver_ram+v_sfx_fm2_track)&$FFFFFF
+SFXChannelRAM:	dc.l (v_snddriver_ram+v_sfx_fm3_track)&$FFFFFF
 		dc.l 0
 		dc.l (v_snddriver_ram+v_sfx_fm4_track)&$FFFFFF
 		dc.l (v_snddriver_ram+v_sfx_fm5_track)&$FFFFFF
@@ -1090,7 +1093,7 @@ Sound_PlaySpecial:
 
 
 Snd_FadeOutSFX:
-		clr.b	v_sndtype(a6)
+		clr.b	v_sndprio(a6)		; Clear priority
 		lea	v_sfx_track_ram(a6),a5
 		moveq	#5,d7
 
@@ -1115,7 +1118,7 @@ Snd_FadeOutSFX:
 ; ===========================================================================
 
 @getfmpointer:
-		subq.b	#2,d3		; SFX only has FM2 and up
+		subq.b	#2,d3		; SFX only has FM3 and up
 		lsl.b	#2,d3
 		lea	BGMChannelRAM(pc),a0
 		movea.l	a5,a3
@@ -1226,7 +1229,7 @@ DoFadeOut:
 		subq.b	#1,v_fadeout_counter(a6)	; Update fade counter
 		beq.w	StopSoundAndMusic	; Branch if fade is done
 		move.b	#3,v_fadeout_delay(a6)	; Reset fade delay
-		lea	v_fm0_track(a6),a5
+		lea	v_fm1_track(a6),a5
 		moveq	#5,d7
 
 @fmloop:
@@ -1278,9 +1281,9 @@ FMSilenceAll:
 
 @noteoffloop:
 		move.b	d3,d1
-		jsr	WriteFM0(pc)
+		jsr	WriteFMI(pc)
 		addq.b	#4,d1		; Move to YM2612 part 1
-		jsr	WriteFM0(pc)
+		jsr	WriteFMI(pc)
 		dbf	d3,@noteoffloop
 
 		moveq	#$40,d0		; Set TL on FM channels...
@@ -1291,8 +1294,8 @@ FMSilenceAll:
 		moveq	#3,d3		; ... for all operators on each channel...
 
 @channeltlloop:
-		jsr	WriteFM0(pc)	; ... for part 0...
-		jsr	WriteFM1(pc)	; ... and part 1.
+		jsr	WriteFMI(pc)	; ... for part 0...
+		jsr	WriteFMII(pc)	; ... and part 1.
 		addq.w	#4,d0		; Next TL operator
 		dbf	d3,@channeltlloop
 
@@ -1310,10 +1313,10 @@ FMSilenceAll:
 StopSoundAndMusic:
 		moveq	#$2B,d0		; Enable/disable DAC
 		move.b	#$80,d1		; Enable DAC
-		jsr	WriteFM0(pc)
-		moveq	#$27,d0		; Timers, FM2/FM6 mode
-		moveq	#0,d1		; FM2/FM6 normal mode, disable timers
-		jsr	WriteFM0(pc)
+		jsr	WriteFMI(pc)
+		moveq	#$27,d0		; Timers, FM3/FM6 mode
+		moveq	#0,d1		; FM3/FM6 normal mode, disable timers
+		jsr	WriteFMI(pc)
 		movea.l	a6,a0
 		move.w	#$E3,d0		; Clear $390 bytes
 
@@ -1331,7 +1334,7 @@ StopSoundAndMusic:
 InitMusicPlayback:
 		movea.l	a6,a0
 		; Save several values
-		move.b	v_sndtype(a6),d1
+		move.b	v_sndprio(a6),d1
 		move.b	f_1up_playing(a6),d2
 		move.b	f_speedup(a6),d3
 		move.b	v_fadein_counter(a6),d4
@@ -1343,7 +1346,7 @@ InitMusicPlayback:
 		dbf	d0,@clearramloop
 
 		; Restore the values saved above
-		move.b	d1,v_sndtype(a6)
+		move.b	d1,v_sndprio(a6)
 		move.b	d2,f_1up_playing(a6)
 		move.b	d3,f_speedup(a6)
 		move.b	d4,v_fadein_counter(a6)
@@ -1425,7 +1428,7 @@ DoFadeIn:
 		beq.s	@fadedone			; Branch if yes
 		subq.b	#1,v_fadein_counter(a6)	; Update fade counter
 		move.b	#2,v_fadein_delay(a6)	; Reset fade delay
-		lea	v_fm0_track(a6),a5
+		lea	v_fm1_track(a6),a5
 		moveq	#5,d7
 
 @fmloop:
@@ -1473,7 +1476,7 @@ FMNoteOn:
 		moveq	#$28,d0		; Note on/off register
 		move.b	1(a5),d1	; Get channel bits
 		ori.b	#$F0,d1		; Note on on all operators
-		bra.w	WriteFM0
+		bra.w	WriteFMI
 ; ===========================================================================
 
 @locret:
@@ -1491,7 +1494,7 @@ FMNoteOff:
 SendFMNoteOff:
 		moveq	#$28,d0		; Note on/off register
 		move.b	1(a5),d1	; Note off to this channel
-		bra.w	WriteFM0
+		bra.w	WriteFMI
 ; ===========================================================================
 
 locret_72714:
@@ -1500,10 +1503,10 @@ locret_72714:
 
 ; ===========================================================================
 
-WriteFM0or1Main:
+WriteFMIorIIMain:
 		btst	#2,(a5)		; Is track being overriden by sfx?
 		bne.s	@locret	; Return if yes
-		bra.w	WriteFM0or1
+		bra.w	WriteFMIorII
 ; ===========================================================================
 
 @locret:
@@ -1512,20 +1515,20 @@ WriteFM0or1Main:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-WriteFM0or1:
-		btst	#2,1(a5)	; Is this bound for FM0 or for FM1?
-		bne.s	WriteFM1Part	; Branch if for FM1
+WriteFMIorII:
+		btst	#2,1(a5)	; Is this bound for part I or II?
+		bne.s	WriteFMIIPart	; Branch if for part II
 		add.b	1(a5),d0	; Add in voice control bits
-; End of function WriteFM0or1
+; End of function WriteFMIorII
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-WriteFM0:
+WriteFMI:
 		move.b	(YM2612_A0).l,d2
 		btst	#7,d2		; Is FM busy?
-		bne.s	WriteFM0		; Loop if so
+		bne.s	WriteFMI		; Loop if so
 		move.b	d0,(YM2612_A0).l
 		nop	
 		nop	
@@ -1538,11 +1541,11 @@ WriteFM0:
 
 		move.b	d1,(YM2612_D0).l
 		rts	
-; End of function WriteFM0
+; End of function WriteFMI
 
 ; ===========================================================================
 
-WriteFM1Part:
+WriteFMIIPart:
 		move.b	1(a5),d2	; Get voice control bits
 		bclr	#2,d2		; Clear chip toggle
 		add.b	d2,d0		; Add in to destination register
@@ -1550,10 +1553,10 @@ WriteFM1Part:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-WriteFM1:
+WriteFMII:
 		move.b	(YM2612_A0).l,d2
 		btst	#7,d2		; Is FM busy?
-		bne.s	WriteFM1		; Loop if so
+		bne.s	WriteFMII		; Loop if so
 		move.b	d0,(YM2612_A1).l
 		nop	
 		nop	
@@ -1566,7 +1569,7 @@ WriteFM1:
 
 		move.b	d1,(YM2612_D1).l
 		rts	
-; End of function WriteFM1
+; End of function WriteFMII
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -1883,7 +1886,7 @@ cfPanningAMSFMS:
 		or.b	d0,d1		; Mask in new value
 		move.b	d1,$A(a5)	; Store value
 		move.b	#$B4,d0		; Command to set AMS/FMS/panning
-		bra.w	WriteFM0or1Main
+		bra.w	WriteFMIorIIMain
 ; ===========================================================================
 
 locret_72AEA:
@@ -1925,7 +1928,7 @@ cfFadeInToPrevious:
 		move.b	#$28,d6
 		sub.b	v_fadein_counter(a6),d6		; If fade already in progress, this adjusts track volume accordingly
 		moveq	#5,d7
-		lea	v_fm0_track(a6),a5
+		lea	v_fm1_track(a6),a5
 
 @fmloop:
 		btst	#7,(a5)		; Is track playing?
@@ -2075,14 +2078,14 @@ SetVoice:
 		move.b	d1,$1F(a5)	; Save it to track RAM
 		move.b	d1,d4
 		move.b	#$B0,d0		; Command to write feedback/algorithm
-		jsr	WriteFM0or1(pc)
+		jsr	WriteFMIorII(pc)
 		lea	FMInstrumentOperatorTable(pc),a2
 		moveq	#$13,d3		; Don't want to send TL yet
 
 @sendvoiceloop:
 		move.b	(a2)+,d0
 		move.b	(a1)+,d1
-		jsr	WriteFM0or1(pc)
+		jsr	WriteFMIorII(pc)
 		dbf	d3,@sendvoiceloop
 
 		moveq	#3,d5
@@ -2098,12 +2101,12 @@ SetVoice:
 		add.b	d3,d1		; Include additional attenuation
 
 @sendtl:
-		jsr	WriteFM0or1(pc)
+		jsr	WriteFMIorII(pc)
 		dbf	d5,@sendtlloop
 		
 		move.b	#$B4,d0		; Register for AMS/FMS/Panning
 		move.b	$A(a5),d1	; Value to send
-		jsr	WriteFM0or1(pc)
+		jsr	WriteFMIorII(pc)
 
 locret_72CAA:
 		rts	
@@ -2156,7 +2159,7 @@ SendVoiceTL:
 		bcc.s	@senttl		; Branch if not
 		add.b	d3,d1		; Include additional attenuation
 		blo.s	@senttl		; Branch on overflow
-		jsr	WriteFM0or1(pc)
+		jsr	WriteFMIorII(pc)
 
 @senttl:
 		dbf	d5,@sendtlloop
@@ -2229,7 +2232,7 @@ cfStopTrack:
 @stoppedchannel:
 		tst.b	f_voice_selector(a6)	; Are we updating SFX?
 		bpl.w	@locexit				; Exit if not
-		clr.b	v_sndtype(a6)
+		clr.b	v_sndprio(a6)		; Clear priority
 		moveq	#0,d0
 		move.b	1(a5),d0	; Get voice control bits
 		bmi.s	@getpsgptr	; Branch if PSG
@@ -2245,7 +2248,7 @@ cfStopTrack:
 ; ===========================================================================
 
 @getpointer:
-		subq.b	#2,d0		; SFX can only use FM2 and up
+		subq.b	#2,d0		; SFX can only use FM3 and up
 		lsl.b	#2,d0
 		movea.l	(a0,d0.w),a5
 		tst.b	(a5)		; Is track playing?
@@ -2346,10 +2349,10 @@ cfJumpToGosub:
 cfOpF9:
 		move.b	#$88,d0		; D1L/RR of Operator 3
 		move.b	#$F,d1		; Loaded with fixed value (max RR, 1TL)
-		jsr	WriteFM0(pc)
+		jsr	WriteFMI(pc)
 		move.b	#$8C,d0		; D1L/RR of Operator 4
 		move.b	#$F,d1		; Loaded with fixed value (max RR, 1TL)
-		bra.w	WriteFM0
+		bra.w	WriteFMI
 ; ===========================================================================
 
 Kos_Z80:
