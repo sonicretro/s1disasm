@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using SonicRetro.SonLVL;
@@ -74,37 +75,13 @@ namespace S1ObjectDefinitions.Common
                 case 9:
                     return "Broken";
                 default:
-                    return string.Empty;
+                    return "Invalid";
             }
         }
 
         public override string FullName(byte subtype)
         {
-            switch (subtype)
-            {
-                case 0:
-                    return "Static Monitor";
-                case 1:
-                    return "Eggman Monitor";
-                case 2:
-                    return "Sonic Monitor";
-                case 3:
-                    return "Shoes Monitor";
-                case 4:
-                    return "Shield Monitor";
-                case 5:
-                    return "Invincibility Monitor";
-                case 6:
-                    return "Rings Monitor";
-                case 7:
-                    return "S Monitor";
-                case 8:
-                    return "Goggles Monitor";
-                case 9:
-                    return "Broken Monitor";
-                default:
-                    return "Monitor";
-            }
+            return SubtypeName(subtype) + " " + Name();
         }
 
         public override BitmapBits Image()
@@ -135,5 +112,41 @@ namespace S1ObjectDefinitions.Common
             bits.Flip(XFlip, YFlip);
             bmp.DrawBitmapComposited(bits, new Point(loc.X + offsets[subtype].X, loc.Y + offsets[subtype].Y));
         }
+
+        public override Type ObjectType { get { return typeof(MonitorS1ObjectEntry); } }
+    }
+
+    public class MonitorS1ObjectEntry : S1ObjectEntry
+    {
+        public MonitorS1ObjectEntry() : base() { }
+        public MonitorS1ObjectEntry(byte[] file, int address) : base(file, address) { }
+
+        public MonitorType Contents
+        {
+            get
+            {
+                if (SubType > 9) return MonitorType.Invalid;
+                return (MonitorType)SubType;
+            }
+            set
+            {
+                SubType = (byte)value;
+            }
+        }
+    }
+
+    public enum MonitorType
+    {
+        Static,
+        Eggman,
+        Sonic,
+        Shoes,
+        Shield,
+        Invincibility,
+        Rings,
+        S,
+        Goggles,
+        Broken,
+        Invalid
     }
 }
