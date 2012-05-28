@@ -3,22 +3,18 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
-using SonicRetro.SonLVL;
+using SonicRetro.SonLVL.API;
 
 namespace S1ObjectDefinitions.GHZ
 {
     class Bridge : ObjectDefinition
     {
-        private Point offset;
-        private BitmapBits img;
-        private int imgw, imgh;
+        private Sprite img;
 
-        public override void Init(Dictionary<string, string> data)
+        public override void Init(ObjectData data)
         {
             byte[] artfile = ObjectHelper.OpenArtFile("../artnem/GHZ Bridge.bin", Compression.CompressionType.Nemesis);
-            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Bridge.asm", 0, 2, out offset);
-            imgw = img.Width;
-            imgh = img.Height;
+            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Bridge.asm", 0, 2);
         }
 
         public override ReadOnlyCollection<byte> Subtypes()
@@ -41,35 +37,31 @@ namespace S1ObjectDefinitions.GHZ
             return (subtype & 0x1F) + " logs";
         }
 
-        public override string FullName(byte subtype)
-        {
-            return Name() + " - " + SubtypeName(subtype);
-        }
-
         public override BitmapBits Image()
         {
-            return img;
+            return img.Image;
         }
 
         public override BitmapBits Image(byte subtype)
         {
-            return img;
+            return img.Image;
         }
 
-        public override Rectangle Bounds(Point loc, byte subtype)
+        public override Rectangle Bounds(ObjectEntry obj, Point camera)
         {
-            int w = (subtype & 0x1F) * imgw;
-            return new Rectangle(loc.X - (w / 2) + offset.X, loc.Y + offset.Y, w, imgh);
+            int w = (obj.SubType & 0x1F) * img.Width;
+            return new Rectangle(obj.X - (w / 2) + img.X - camera.X, obj.Y + img.Y - camera.Y, w, img.Height);
         }
 
-        public override void Draw(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
+        public override Sprite GetSprite(ObjectEntry obj)
         {
-            BitmapBits bits = new BitmapBits(img);
-            int st = Bounds(loc, subtype).X;
-            for (int i = 0; i < (subtype & 0x1F); i++)
-            {
-                bmp.DrawBitmapComposited(bits, new Point(st + (i * imgw), loc.Y + offset.Y));
-            }
+            int st = -(((obj.SubType & 0x1F) * img.Width) / 2) + img.X;
+            List<Sprite> sprs = new List<Sprite>();
+            for (int i = 0; i < (obj.SubType & 0x1F); i++)
+                sprs.Add(new Sprite(img.Image, new Point(st + (i * img.Width), img.Y)));
+            Sprite spr = new Sprite(sprs.ToArray());
+            spr.Offset = new Point(spr.X + obj.X, spr.Y + obj.Y);
+            return spr;
         }
     }
 }

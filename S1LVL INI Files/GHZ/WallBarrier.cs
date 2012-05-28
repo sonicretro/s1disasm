@@ -2,37 +2,20 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using SonicRetro.SonLVL;
+using SonicRetro.SonLVL.API;
 
 namespace S1ObjectDefinitions.GHZ
 {
     class WallBarrier : ObjectDefinition
     {
-        private List<Point> offsets = new List<Point>();
-        private List<BitmapBits> imgs = new List<BitmapBits>();
-        private List<int> imgws = new List<int>();
-        private List<int> imghs = new List<int>();
+        private List<Sprite> imgs = new List<Sprite>();
 
-        public override void Init(Dictionary<string, string> data)
+        public override void Init(ObjectData data)
         {
             byte[] artfile = ObjectHelper.OpenArtFile("../artnem/GHZ Edge Wall.bin", Compression.CompressionType.Nemesis);
-            Point off;
-            BitmapBits im;
-            im = ObjectHelper.MapASMToBmp(artfile, "../_maps/GHZ Edge Walls.asm", 0, 2, out off);
-            imgs.Add(im);
-            offsets.Add(off);
-            imgws.Add(im.Width);
-            imghs.Add(im.Height);
-            im = ObjectHelper.MapASMToBmp(artfile, "../_maps/GHZ Edge Walls.asm", 1, 2, out off);
-            imgs.Add(im);
-            offsets.Add(off);
-            imgws.Add(im.Width);
-            imghs.Add(im.Height);
-            im = ObjectHelper.MapASMToBmp(artfile, "../_maps/GHZ Edge Walls.asm", 2, 2, out off);
-            imgs.Add(im);
-            offsets.Add(off);
-            imgws.Add(im.Width);
-            imghs.Add(im.Height);
+            imgs.Add(ObjectHelper.MapASMToBmp(artfile, "../_maps/GHZ Edge Walls.asm", 0, 2));
+            imgs.Add(ObjectHelper.MapASMToBmp(artfile, "../_maps/GHZ Edge Walls.asm", 1, 2));
+            imgs.Add(ObjectHelper.MapASMToBmp(artfile, "../_maps/GHZ Edge Walls.asm", 2, 2));
         }
 
         public override ReadOnlyCollection<byte> Subtypes()
@@ -55,14 +38,9 @@ namespace S1ObjectDefinitions.GHZ
             return ((EdgeType)(subtype & 0xF)).ToString();
         }
 
-        public override string FullName(byte subtype)
-        {
-            return Name() + " - " + SubtypeName(subtype);
-        }
-
         public override BitmapBits Image()
         {
-            return imgs[0];
+            return imgs[0].Image;
         }
 
         private int imgindex(byte SubType)
@@ -72,19 +50,19 @@ namespace S1ObjectDefinitions.GHZ
 
         public override BitmapBits Image(byte subtype)
         {
-            return imgs[imgindex(subtype)];
+            return imgs[imgindex(subtype)].Image;
         }
 
-        public override Rectangle Bounds(Point loc, byte subtype)
+        public override Rectangle Bounds(ObjectEntry obj, Point camera)
         {
-            return new Rectangle(loc.X + offsets[imgindex(subtype)].X, loc.Y + offsets[imgindex(subtype)].Y, imgws[imgindex(subtype)], imghs[imgindex(subtype)]);
+            return new Rectangle(obj.X +imgs[imgindex(obj.SubType)].X - camera.X, obj.Y + imgs[imgindex(obj.SubType)].Y - camera.Y, imgs[imgindex(obj.SubType)].Width, imgs[imgindex(obj.SubType)].Height);
         }
 
-        public override void Draw(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
+        public override Sprite GetSprite(ObjectEntry obj)
         {
-            BitmapBits bits = new BitmapBits(imgs[imgindex(subtype)]);
-            bits.Flip(XFlip, YFlip);
-            bmp.DrawBitmapComposited(bits, new Point(loc.X + offsets[imgindex(subtype)].X, loc.Y + offsets[imgindex(subtype)].Y));
+            BitmapBits bits = new BitmapBits(imgs[imgindex(obj.SubType)].Image);
+            bits.Flip(obj.XFlip, obj.YFlip);
+            return new Sprite(bits, new Point(obj.X + imgs[imgindex(obj.SubType)].Offset.X, obj.Y + imgs[imgindex(obj.SubType)].Offset.Y));
         }
 
         public override Type ObjectType

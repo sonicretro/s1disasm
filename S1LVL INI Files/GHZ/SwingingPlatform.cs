@@ -1,37 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using SonicRetro.SonLVL;
+using SonicRetro.SonLVL.API;
+using System;
 
 namespace S1ObjectDefinitions.GHZ
 {
-    class SwingingPlatform : SonicRetro.SonLVL.ObjectDefinition
+    class SwingingPlatform : ObjectDefinition
     {
         private int[] labels = { 0, 1, 2 };
-        private Point offset;
-        private BitmapBits img;
-        private int imgw, imgh;
-        private List<Point> offsets = new List<Point>();
-        private List<BitmapBits> imgs = new List<BitmapBits>();
-        private List<int> imgws = new List<int>();
-        private List<int> imghs = new List<int>();
+        private Sprite img;
+        private List<Sprite> imgs = new List<Sprite>();
 
-        public override void Init(Dictionary<string, string> data)
+        public override void Init(ObjectData data)
         {
             byte[] artfile = ObjectHelper.OpenArtFile("../artnem/GHZ Swinging Platform.bin", Compression.CompressionType.Nemesis);
-            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Swinging Platforms (GHZ).asm", 0, 2, out offset);
-            imgw = img.Width;
-            imgh = img.Height;
-            Point off;
-            BitmapBits im;
+            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Swinging Platforms (GHZ).asm", 0, 2);
             for (int i = 0; i < labels.Length; i++)
-            {
-                im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Swinging Platforms (GHZ).asm", labels[i], i == 1 ? 1 : 2, out off);
-                imgs.Add(im);
-                offsets.Add(off);
-                imgws.Add(im.Width);
-                imghs.Add(im.Height);
-            }
+                imgs.Add(ObjectHelper.MapASMToBmp(artfile, "../_maps/Swinging Platforms (GHZ).asm", labels[i], i == 1 ? 1 : 2));
         }
 
         public override ReadOnlyCollection<byte> Subtypes()
@@ -54,41 +40,37 @@ namespace S1ObjectDefinitions.GHZ
             return (subtype & 15) + " links";
         }
 
-        public override string FullName(byte subtype)
-        {
-            return Name() + " - " + SubtypeName(subtype);
-        }
-
         public override BitmapBits Image()
         {
-            return img;
+            return img.Image;
         }
 
         public override BitmapBits Image(byte subtype)
         {
-                return img;
+                return img.Image;
         }
 
-        public override Rectangle Bounds(Point loc, byte subtype)
+        public override Rectangle Bounds(ObjectEntry obj, Point camera)
         {
-            return new Rectangle(loc.X + offset.X, loc.Y + offset.Y, imgw, imgh * ((subtype & 15) + 2) - 8);
+            return new Rectangle(obj.X + img.Offset.X - camera.X, obj.Y + img.Offset.Y - camera.Y, img.Image.Width, img.Image.Height * ((obj.SubType & 15) + 2) - 8);
         }
 
-        public override void Draw(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
+        public override Sprite GetSprite(ObjectEntry obj)
         {
-            int length = subtype & 15;
-            BitmapBits bits = new BitmapBits(imgs[2]);
-            bmp.DrawBitmapComposited(bits, new Point(loc.X + offsets[2].X, loc.Y + offsets[2].Y));
-            loc.Y += 16;
-            bits = new BitmapBits(imgs[1]);
+            int length = obj.SubType & 15;
+            List<Sprite> sprs = new List<Sprite>();
+            sprs.Add(imgs[2]);
+            int yoff = 16;
             for (int i = 0; i < length; i++)
             {
-                bmp.DrawBitmapComposited(bits, new Point(loc.X + offsets[1].X, loc.Y + offsets[1].Y));
-                loc.Y += 16;
+                sprs.Add(new Sprite(imgs[1].Image, new Point(imgs[1].X, yoff + imgs[1].Y)));
+                yoff += 16;
             }
-            loc.Y -= 8;
-            bits = new BitmapBits(imgs[0]);
-            bmp.DrawBitmapComposited(bits, new Point(loc.X + offsets[0].X, loc.Y + offsets[0].Y));
+            yoff -= 8;
+            sprs.Add(new Sprite(imgs[0].Image, new Point(imgs[0].X, yoff + imgs[0].Y)));
+            Sprite spr = new Sprite(sprs.ToArray());
+            spr.Offset = new Point(spr.X + obj.X, spr.Y + obj.Y);
+            return spr;
         }
     }
 }

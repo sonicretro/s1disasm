@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using SonicRetro.SonLVL;
+using SonicRetro.SonLVL.API;
 
 namespace S1ObjectDefinitions.SYZ
 {
     class Platform : ObjectDefinition
     {
-        private Point offset;
-        private BitmapBits img;
+        private Sprite img;
 
-        public override void Init(Dictionary<string, string> data)
+        public override void Init(ObjectData data)
         {
             byte[] artfile = ObjectHelper.LevelArt;
-            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Platforms (SYZ).asm", 0, 2, out offset);
+            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Platforms (SYZ).asm", 0, 2);
         }
 
         public override ReadOnlyCollection<byte> Subtypes()
@@ -37,31 +36,26 @@ namespace S1ObjectDefinitions.SYZ
             return ((PlatformMovement)(subtype & 0xF)).ToString();
         }
 
-        public override string FullName(byte subtype)
-        {
-            return Name() + " - " + SubtypeName(subtype);
-        }
-
         public override BitmapBits Image()
         {
-            return img;
+            return img.Image;
         }
 
         public override BitmapBits Image(byte subtype)
         {
-            return img;
+            return img.Image;
         }
 
-        public override Rectangle Bounds(Point loc, byte subtype)
+        public override Rectangle Bounds(ObjectEntry obj, Point camera)
         {
-            return new Rectangle(loc.X + offset.X, loc.Y + offset.Y, img.Width, img.Height);
+            return new Rectangle(obj.X + img.X - camera.X, obj.Y + img.Y - camera.Y, img.Image.Width, img.Image.Height);
         }
 
-        public override void Draw(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
+        public override Sprite GetSprite(ObjectEntry obj)
         {
-            BitmapBits bits = new BitmapBits(img);
-            bits.Flip(XFlip, YFlip);
-            bmp.DrawBitmapComposited(bits, new Point(loc.X + offset.X, loc.Y + offset.Y));
+            BitmapBits bits = new BitmapBits(img.Image);
+            bits.Flip(obj.XFlip, obj.YFlip);
+            return new Sprite(bits, new Point(obj.X + img.X, obj.Y + img.Y));
         }
 
         public override Type ObjectType

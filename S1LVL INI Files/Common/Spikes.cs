@@ -3,35 +3,24 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Drawing;
-using SonicRetro.SonLVL;
+using SonicRetro.SonLVL.API;
 
 namespace S1ObjectDefinitions.Common
 {
     class Spikes : ObjectDefinition
     {
-        private Point offset;
-        private BitmapBits img;
-        private int imgw, imgh;
-        private List<Point> offsets = new List<Point>();
-        private List<BitmapBits> imgs = new List<BitmapBits>();
-        private List<int> imgws = new List<int>();
-        private List<int> imghs = new List<int>();
+        private Sprite img;
+        private List<Sprite> imgs = new List<Sprite>();
 
-        public override void Init(Dictionary<string, string> data)
+        public override void Init(ObjectData data)
         {
             byte[] artfile = ObjectHelper.OpenArtFile("../artnem/Spikes.bin", Compression.CompressionType.Nemesis);
-            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Spikes.asm", 0, 0, out offset);
-            imgw = img.Width;
-            imgh = img.Height;
-            Point off;
-            BitmapBits im;
+            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Spikes.asm", 0, 0);
+            Sprite im;
             for (int i = 0; i <= 5; i++)
             {
-                im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Spikes.asm", i, 0, out off);
+                im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Spikes.asm", i, 0);
                 imgs.Add(im);
-                offsets.Add(off);
-                imgws.Add(im.Width);
-                imghs.Add(im.Height);                
             }
         }
 
@@ -78,37 +67,32 @@ namespace S1ObjectDefinitions.Common
             return result;
         }
 
-        public override string FullName(byte subtype)
-        {
-            return SubtypeName(subtype) + " " + Name();
-        }
-
         public override BitmapBits Image()
         {
-            return img;
+            return img.Image;
         }
 
         public override BitmapBits Image(byte subtype)
         {
             int frame = subtype >> 4;
             if (frame > 5) frame = 0;
-            return imgs[frame];
+            return imgs[frame].Image;
         }
 
-        public override Rectangle Bounds(Point loc, byte subtype)
+        public override Rectangle Bounds(ObjectEntry obj, Point camera)
         {
-            int frame = subtype >> 4;
+            int frame = obj.SubType >> 4;
             if (frame > 5) frame = 0;
-            return new Rectangle(loc.X + offsets[frame].X, loc.Y + offsets[frame].Y, imgws[frame], imghs[frame]);
+            return new Rectangle(obj.X + imgs[frame].X - camera.X, obj.Y + imgs[frame].Y - camera.Y, imgs[frame].Width, imgs[frame].Height);
         }
 
-        public override void Draw(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
+        public override Sprite GetSprite(ObjectEntry obj)
         {
-            int frame = subtype >> 4;
+            int frame = obj.SubType >> 4;
             if (frame > 5) frame = 0;
-            BitmapBits bits = new BitmapBits(imgs[frame]);
-            bits.Flip(XFlip, YFlip);
-            bmp.DrawBitmapComposited(bits, new Point(loc.X + offsets[frame].X, loc.Y + offsets[frame].Y));
+            BitmapBits bits = new BitmapBits(imgs[frame].Image);
+            bits.Flip(obj.XFlip, obj.YFlip);
+            return new Sprite(bits, new Point(obj.X + imgs[frame].X, obj.Y + imgs[frame].Y));
         }
 
         public override Type ObjectType

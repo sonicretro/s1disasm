@@ -1,37 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using SonicRetro.SonLVL;
+using SonicRetro.SonLVL.API;
 
 namespace S1ObjectDefinitions.GHZ
 {
-    class BreakableWall : SonicRetro.SonLVL.ObjectDefinition
+    class BreakableWall : ObjectDefinition
     {
         private int[] labels = { 0, 1, 2 };
-        private Point offset;
-        private BitmapBits img;
-        private int imgw, imgh;
-        private List<Point> offsets = new List<Point>();
-        private List<BitmapBits> imgs = new List<BitmapBits>();
-        private List<int> imgws = new List<int>();
-        private List<int> imghs = new List<int>();
+        private Sprite img;
+        private List<Sprite> imgs = new List<Sprite>();
 
-        public override void Init(Dictionary<string, string> data)
+        public override void Init(ObjectData data)
         {
             byte[] artfile = ObjectHelper.OpenArtFile("../artnem/GHZ Breakable Wall.bin", Compression.CompressionType.Nemesis);
-            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Smashable Walls.asm", 0, 2, out offset);
-            imgw = img.Width;
-            imgh = img.Height;
-            Point off;
-            BitmapBits im;
+            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Smashable Walls.asm", 0, 2);
             for (int i = 0; i < labels.Length; i++)
-            {
-                im = ObjectHelper.MapASMToBmp(artfile, "../_maps/Smashable Walls.asm", labels[i], 2, out off);
-                imgs.Add(im);
-                offsets.Add(off);
-                imgws.Add(im.Width);
-                imghs.Add(im.Height);
-            }
+                imgs.Add(ObjectHelper.MapASMToBmp(artfile, "../_maps/Smashable Walls.asm", labels[i], 2));
         }
 
         public override ReadOnlyCollection<byte> Subtypes()
@@ -41,7 +26,7 @@ namespace S1ObjectDefinitions.GHZ
 
         public override string Name()
         {
-            return "BreakableWall";
+            return "Breakable Wall";
         }
 
         public override bool RememberState()
@@ -64,38 +49,34 @@ namespace S1ObjectDefinitions.GHZ
             }
         }
 
-        public override string FullName(byte subtype)
-        {
-            return Name() + " - " + SubtypeName(subtype);
-        }
-
         public override BitmapBits Image()
         {
-            return img;
+            return img.Image;
         }
 
         public override BitmapBits Image(byte subtype)
         {
             if (subtype < labels.Length)
-                return imgs[subtype];
+                return imgs[subtype].Image;
             else
-                return img;
+                return img.Image;
         }
 
-        public override Rectangle Bounds(Point loc, byte subtype)
+        public override Rectangle Bounds(ObjectEntry obj, Point camera)
         {
-            if (subtype < labels.Length)
-                return new Rectangle(loc.X + offsets[subtype].X, loc.Y + offsets[subtype].Y, imgws[subtype], imghs[subtype]);
+            if (obj.SubType < labels.Length)
+                return new Rectangle(obj.X + imgs[obj.SubType].X - camera.X, obj.Y + imgs[obj.SubType].Y - camera.Y, imgs[obj.SubType].Width, imgs[obj.SubType].Height);
             else
-                return new Rectangle(loc.X + offset.X, loc.Y + offset.Y, imgw, imgh);
+                return new Rectangle(obj.X + img.X - camera.X, obj.Y + img.Y - camera.Y, img.Image.Width, img.Image.Height);
         }
 
-        public override void Draw(BitmapBits bmp, Point loc, byte subtype, bool XFlip, bool YFlip, bool includeDebug)
+        public override Sprite GetSprite(ObjectEntry obj)
         {
+            byte subtype = obj.SubType;
             if (subtype > labels.Length) subtype = 0;
-            BitmapBits bits = new BitmapBits(imgs[subtype]);
-            bits.Flip(XFlip, YFlip);
-            bmp.DrawBitmapComposited(bits, new Point(loc.X + offsets[subtype].X, loc.Y + offsets[subtype].Y));
+            BitmapBits bits = new BitmapBits(imgs[subtype].Image);
+            bits.Flip(obj.XFlip, obj.YFlip);
+            return new Sprite(bits, new Point(obj.X + imgs[subtype].Offset.X, obj.Y + imgs[subtype].Offset.Y));
         }
     }
 }
