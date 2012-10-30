@@ -1,36 +1,60 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - doors (SBZ)
 ; ---------------------------------------------------------------------------
-Map_ADoor:	dc.w @closed-Map_ADoor, @01-Map_ADoor
-		dc.w @02-Map_ADoor, @03-Map_ADoor
-		dc.w @04-Map_ADoor, @05-Map_ADoor
-		dc.w @06-Map_ADoor, @07-Map_ADoor
-		dc.w @open-Map_ADoor
-@closed:	dc.b 2
-		dc.b $E0, 7, 8,	0, $F8	; door closed
-		dc.b 0,	7, 8, 0, $F8
-@01:		dc.b 2
-		dc.b $DC, 7, 8,	0, $F8
-		dc.b 4,	7, 8, 0, $F8
-@02:		dc.b 2
-		dc.b $D8, 7, 8,	0, $F8
-		dc.b 8,	7, 8, 0, $F8
-@03:		dc.b 2
-		dc.b $D4, 7, 8,	0, $F8
-		dc.b $C, 7, 8, 0, $F8
-@04:		dc.b 2
-		dc.b $D0, 7, 8,	0, $F8
-		dc.b $10, 7, 8,	0, $F8
-@05:		dc.b 2
-		dc.b $CC, 7, 8,	0, $F8
-		dc.b $14, 7, 8,	0, $F8
-@06:		dc.b 2
-		dc.b $C8, 7, 8,	0, $F8
-		dc.b $18, 7, 8,	0, $F8
-@07:		dc.b 2
-		dc.b $C4, 7, 8,	0, $F8
-		dc.b $1C, 7, 8,	0, $F8
-@open:		dc.b 2
-		dc.b $C0, 7, 8,	0, $F8	; door fully open
-		dc.b $20, 7, 8,	0, $F8
-		even
+Map_ADoor:	mappingsTable
+	mappingsTableEntry.w	@closed
+	mappingsTableEntry.w	@01
+	mappingsTableEntry.w	@02
+	mappingsTableEntry.w	@03
+	mappingsTableEntry.w	@04
+	mappingsTableEntry.w	@05
+	mappingsTableEntry.w	@06
+	mappingsTableEntry.w	@07
+	mappingsTableEntry.w	@open
+
+@closed:	spriteHeader
+	spritePiece	-8, -$20, 2, 4, 0, 1, 0, 0, 0
+	spritePiece	-8, 0, 2, 4, 0, 1, 0, 0, 0
+@closed_End
+
+@01:	spriteHeader
+	spritePiece	-8, -$24, 2, 4, 0, 1, 0, 0, 0
+	spritePiece	-8, 4, 2, 4, 0, 1, 0, 0, 0
+@01_End
+
+@02:	spriteHeader
+	spritePiece	-8, -$28, 2, 4, 0, 1, 0, 0, 0
+	spritePiece	-8, 8, 2, 4, 0, 1, 0, 0, 0
+@02_End
+
+@03:	spriteHeader
+	spritePiece	-8, -$2C, 2, 4, 0, 1, 0, 0, 0
+	spritePiece	-8, $C, 2, 4, 0, 1, 0, 0, 0
+@03_End
+
+@04:	spriteHeader
+	spritePiece	-8, -$30, 2, 4, 0, 1, 0, 0, 0
+	spritePiece	-8, $10, 2, 4, 0, 1, 0, 0, 0
+@04_End
+
+@05:	spriteHeader
+	spritePiece	-8, -$34, 2, 4, 0, 1, 0, 0, 0
+	spritePiece	-8, $14, 2, 4, 0, 1, 0, 0, 0
+@05_End
+
+@06:	spriteHeader
+	spritePiece	-8, -$38, 2, 4, 0, 1, 0, 0, 0
+	spritePiece	-8, $18, 2, 4, 0, 1, 0, 0, 0
+@06_End
+
+@07:	spriteHeader
+	spritePiece	-8, -$3C, 2, 4, 0, 1, 0, 0, 0
+	spritePiece	-8, $1C, 2, 4, 0, 1, 0, 0, 0
+@07_End
+
+@open:	spriteHeader
+	spritePiece	-8, -$40, 2, 4, 0, 1, 0, 0, 0
+	spritePiece	-8, $20, 2, 4, 0, 1, 0, 0, 0
+@open_End
+
+	even
