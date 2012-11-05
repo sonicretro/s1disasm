@@ -18,9 +18,23 @@ OscillateNumInit:			; XREF: GM_Level
 
 
 ; ===========================================================================
-@baselines:	dc.b %00000000		; oscillation direction bitfield
-		dc.b %01111100
-		incbin	"misc\Oscillating Number Baselines.bin"
+@baselines:	dc.w %0000000001111100	; oscillation direction bitfield
+		dc.w $80, 0
+		dc.w $80, 0
+		dc.w $80, 0
+		dc.w $80, 0
+		dc.w $80, 0
+		dc.w $80, 0
+		dc.w $80, 0
+		dc.w $80, 0
+		dc.w $80, 0
+		dc.w $50F0, $11E
+		dc.w $2080, $B4
+		dc.w $3080, $10E
+		dc.w $5080, $1C2
+		dc.w $7080, $276
+		dc.w $80, 0
+		dc.w $80, 0
 		even
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -42,10 +56,10 @@ OscillateNumDo:				; XREF: GM_Level
 		bne.s	@down		; branch if 1
 
 	@up:
-		move.w	2(a1),d0
-		add.w	d2,d0
+		move.w	2(a1),d0	; get current rate
+		add.w	d2,d0		; add frequency
 		move.w	d0,2(a1)
-		add.w	d0,0(a1)
+		add.w	d0,0(a1)	; add rate to value
 		cmp.b	0(a1),d4
 		bhi.s	@next
 		bset	d1,d3

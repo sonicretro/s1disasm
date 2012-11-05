@@ -86,7 +86,7 @@ UpdateMusic:				; XREF: VBlank; HBlank
 		btst	#0,(z80_bus_request).l		; Is the z80 busy?
 		bne.s	@updateloop					; If so, wait
 
-		btst	#7,(z80_DAC_Status).l		; Is DAC accepting new samples?
+		btst	#7,(z80_dac_status).l		; Is DAC accepting new samples?
 		beq.s	@driverinput				; Branch if yes
 		startZ80
 		nop	
@@ -250,7 +250,7 @@ UpdateDAC:
 		move.b	DAC_sample_rate(pc,d0.w),d0
 		; Warning: this affects the raw pitch of sample $83, meaning it will
 		; use this value from then on.
-		move.b	d0,(z80_DAC3_pitch).l
+		move.b	d0,(z80_dac3_pitch).l
 		move.b	#$83,(z80_dac_sample).l	; Use timpani
 		rts	
 ; End of function UpdateDAC
@@ -935,9 +935,9 @@ Sound_PlaySFX:
 		bne.s	@sfxoverridedone	; Branch if not
 		move.b	d4,d0
 		ori.b	#$1F,d0		; Command to silence PSG 3
-		move.b	d0,(PSG).l
+		move.b	d0,(psg_input).l
 		bchg	#5,d0		; Command to silence noise channel
-		move.b	d0,(PSG).l
+		move.b	d0,(psg_input).l
 
 @sfxoverridedone:
 		movea.l	SFXChannelRAM(pc,d3.w),a5
@@ -1072,9 +1072,9 @@ Sound_PlaySpecial:
 		bpl.s	@locret		; Branch if not
 		bset	#2,v_sfx2_psg3_playback_control(a6)	; Set SFX is overriding track
 		ori.b	#$1F,d4		; Command to silence channel
-		move.b	d4,(PSG).l
+		move.b	d4,(psg_input).l
 		bchg	#5,d4		; Command to silence noise channel
-		move.b	d4,(PSG).l
+		move.b	d4,(psg_input).l
 
 @locret:
 		rts	
@@ -1150,7 +1150,7 @@ Snd_FadeOutSFX:
 		bset	#1,(a0)		; Set track at rest bit
 		cmpi.b	#$E0,1(a0)	; Is this a noise channel?
 		bne.s	@nexttrack	; Branch if not
-		move.b	$1F(a0),(PSG).l	; Set noise type
+		move.b	$1F(a0),(psg_input).l	; Set noise type
 
 @nexttrack:
 		adda.w	#zTrackSz,a5
@@ -1195,7 +1195,7 @@ Snd_FadeOutSFX2:
 		bpl.s	@fadedpsg	; Return if not
 		cmpi.b	#$E0,1(a5)	; Is this a noise channel?
 		bne.s	@fadedpsg	; Return if not
-		move.b	$1F(a5),(PSG).l	; Set noise type
+		move.b	$1F(a5),(psg_input).l	; Set noise type
 
 @fadedpsg:
 		rts	
@@ -1526,20 +1526,20 @@ WriteFMIorII:
 
 
 WriteFMI:
-		move.b	(YM2612_A0).l,d2
+		move.b	(ym2612_a0).l,d2
 		btst	#7,d2		; Is FM busy?
 		bne.s	WriteFMI		; Loop if so
-		move.b	d0,(YM2612_A0).l
+		move.b	d0,(ym2612_a0).l
 		nop	
 		nop	
 		nop	
 
 @waitloop:
-		move.b	(YM2612_A0).l,d2
+		move.b	(ym2612_a0).l,d2
 		btst	#7,d2		; Is FM busy?
 		bne.s	@waitloop		; Loop if so
 
-		move.b	d1,(YM2612_D0).l
+		move.b	d1,(ym2612_d0).l
 		rts	
 ; End of function WriteFMI
 
@@ -1554,20 +1554,20 @@ WriteFMIIPart:
 
 
 WriteFMII:
-		move.b	(YM2612_A0).l,d2
+		move.b	(ym2612_a0).l,d2
 		btst	#7,d2		; Is FM busy?
 		bne.s	WriteFMII		; Loop if so
-		move.b	d0,(YM2612_A1).l
+		move.b	d0,(ym2612_a1).l
 		nop	
 		nop	
 		nop	
 
 @waitloop:
-		move.b	(YM2612_A0).l,d2
+		move.b	(ym2612_a0).l,d2
 		btst	#7,d2		; Is FM busy?
 		bne.s	@waitloop		; Loop if so
 
-		move.b	d1,(YM2612_D1).l
+		move.b	d1,(ym2612_d1).l
 		rts	
 ; End of function WriteFMII
 
@@ -1692,8 +1692,8 @@ PSGUpdateFreq:
 		or.b	d1,d0		; Latch tone data to channel
 		lsr.w	#4,d6		; Get upper 6 bits of frequency
 		andi.b	#$3F,d6		; Send to latched channel
-		move.b	d0,(PSG).l
-		move.b	d6,(PSG).l
+		move.b	d0,(psg_input).l
+		move.b	d6,(psg_input).l
 
 @locret:
 		rts	
@@ -1751,7 +1751,7 @@ SetPSGVolume:
 PSGSendVolume:
 		or.b	1(a5),d6	; Add in track selector bits
 		addi.b	#$10,d6		; Mark it as a volume command
-		move.b	d6,(PSG).l
+		move.b	d6,(psg_input).l
 
 locret_7298A:
 		rts	
@@ -1781,7 +1781,7 @@ PSGNoteOff:
 SendPSGNoteOff:
 		move.b	1(a5),d0	; PSG channel to change
 		ori.b	#$1F,d0		; Maximum volume attenuation
-		move.b	d0,(PSG).l
+		move.b	d0,(psg_input).l
 
 locret_729B4:
 		rts	
@@ -1792,7 +1792,7 @@ locret_729B4:
 
 
 PSGSilenceAll:
-		lea	(PSG).l,a0
+		lea	(psg_input).l,a0
 		move.b	#$9F,(a0)	; Silence PSG 1
 		move.b	#$BF,(a0)	; Silence PSG 2
 		move.b	#$DF,(a0)	; Silence PSG 3
@@ -2285,7 +2285,7 @@ cfStopTrack:
 		bset	#1,(a0)		; Set track at rest bit
 		cmpi.b	#$E0,1(a0)	; Is this a noise pointer?
 		bne.s	@locexit	; Branch if not
-		move.b	$1F(a0),(PSG).l	; Set noise tone
+		move.b	$1F(a0),(psg_input).l	; Set noise tone
 
 @locexit:
 		addq.w	#8,sp		; Tamper with return value so we don't go back to caller
@@ -2297,7 +2297,7 @@ cfSetPSGNoise:
 		move.b	(a4)+,$1F(a5)	; Save noise tone
 		btst	#2,(a5)		; Is track being overridden?
 		bne.s	@locret	; Return if yes
-		move.b	-1(a4),(PSG).l	; Set tone
+		move.b	-1(a4),(psg_input).l	; Set tone
 
 @locret:
 		rts	
