@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Namespace="S1ObjectDefinitions.Common" TypeName="Spring" Language="cs" Name="Spring" Image="redvert" RememberState="false" Debug="false">
+  <Images>
+    <ImageFromMappings id="redvert">
+      <ArtFile filename="../artnem/Spring Horizontal.bin" />
+      <MapFile type="ASM" filename="../_maps/Springs.asm" frame="0" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="yelvert">
+      <ArtFile filename="../artnem/Spring Horizontal.bin" />
+      <MapFile type="ASM" filename="../_maps/Springs.asm" frame="0" startpal="1" />
+    </ImageFromMappings>
+    <ImageFromMappings id="redhorz">
+      <ArtFile filename="../artnem/Spring Vertical.bin" />
+      <MapFile type="ASM" filename="../_maps/Springs.asm" frame="3" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="yelhorz">
+      <ArtFile filename="../artnem/Spring Vertical.bin" />
+      <MapFile type="ASM" filename="../_maps/Springs.asm" frame="3" startpal="1" />
+    </ImageFromMappings>
+  </Images>
+  <Subtypes>
+    <Subtype id="00" name="Red Up" image="redvert" />
+    <Subtype id="02" name="Yellow Up" image="yelvert" />
+    <Subtype id="10" name="Red Horizontal" image="redhorz" />
+    <Subtype id="12" name="Yellow Horizontal" image="yelhorz" />
+    <Subtype id="20" name="Red Down" image="redvert" />
+    <Subtype id="22" name="Yellow Down" image="yelvert" />
+  </Subtypes>
+  <Properties>
+    <BitsProperty name="Direction" type="SpringDirection" startbit="4" length="2" />
+    <BitsProperty name="Color" type="SpringColor" startbit="1" length="1" />
+  </Properties>
+  <Enums>
+    <Enum name="SpringDirection">
+      <EnumMember name="Up" />
+      <EnumMember name="Horizontal" />
+      <EnumMember name="Down" />
+      <EnumMember name="Horizontal 2" />
+    </Enum>
+    <Enum name="SpringColor">
+      <EnumMember name="Red" />
+      <EnumMember name="Yellow" />
+    </Enum>
+  </Enums>
+</ObjDef>

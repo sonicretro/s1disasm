@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Namespace="S1ObjectDefinitions.Common" TypeName="Spikes" Language="cs" Name="Spikes" Image="img1" RememberState="false" Debug="false">
+  <Images>
+    <ImageFromMappings id="img1">
+      <ArtFile filename="../artnem/Spikes.bin" />
+      <MapFile type="ASM" filename="../_maps/Spikes.asm" frame="0" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="img2">
+      <ArtFile filename="../artnem/Spikes.bin" />
+      <MapFile type="ASM" filename="../_maps/Spikes.asm" frame="1" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="img3">
+      <ArtFile filename="../artnem/Spikes.bin" />
+      <MapFile type="ASM" filename="../_maps/Spikes.asm" frame="2" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="img4">
+      <ArtFile filename="../artnem/Spikes.bin" />
+      <MapFile type="ASM" filename="../_maps/Spikes.asm" frame="3" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="img5">
+      <ArtFile filename="../artnem/Spikes.bin" />
+      <MapFile type="ASM" filename="../_maps/Spikes.asm" frame="4" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="img6">
+      <ArtFile filename="../artnem/Spikes.bin" />
+      <MapFile type="ASM" filename="../_maps/Spikes.asm" frame="5" startpal="0" />
+    </ImageFromMappings>
+  </Images>
+  <Subtypes>
+    <Subtype id="00" name="Three Vertical, Stationary" image="img1" />
+    <Subtype id="01" name="Three Vertical, Moving" image="img1" />
+    <Subtype id="10" name="Three Horizontal, Stationary" image="img2" />
+    <Subtype id="12" name="Three Horizontal, Moving" image="img2" />
+    <Subtype id="20" name="One Vertical, Stationary" image="img3" />
+    <Subtype id="21" name="One Vertical, Moving" image="img3" />
+    <Subtype id="30" name="Three Wide Vertical, Stationary" image="img4" />
+    <Subtype id="31" name="Three Wide Vertical, Moving" image="img4" />
+    <Subtype id="40" name="Six Wide Vertical, Stationary" image="img5" />
+    <Subtype id="41" name="Six Wide Vertical, Moving" image="img5" />
+    <Subtype id="50" name="One Horizontal, Stationary" image="img6" />
+    <Subtype id="52" name="One Horizontal, Moving" image="img6" />
+  </Subtypes>
+  <Properties>
+    <BitsProperty name="Type" type="SpikeType" startbit="4" length="3" />
+    <BitsProperty name="Movement" type="SpikeMovement" startbit="0" length="2" />
+  </Properties>
+  <Enums>
+    <Enum name="SpikeType">
+      <EnumMember name="Three Vertical" />
+      <EnumMember name="Three Horizontal" />
+      <EnumMember name="One Vertical" />
+      <EnumMember name="Three Wide Vertical" />
+      <EnumMember name="Six Wide Vertical" />
+      <EnumMember name="One Horizontal" />
+      <EnumMember name="Invalid 1" />
+      <EnumMember name="Invalid 2" />
+    </Enum>
+    <Enum name="SpikeMovement">
+      <EnumMember name="Still" />
+      <EnumMember name="Vertical" />
+      <EnumMember name="Horizontal" />
+      <EnumMember name="Invalid" />
+    </Enum>
+  </Enums>
+  <Display>
+    <DisplayOption>
+      <Condition property="Type" value="Three Vertical" />
+      <ImageRef image="img1" />
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Type" value="Three Horizontal" />
+      <ImageRef image="img2" />
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Type" value="One Vertical" />
+      <ImageRef image="img3" />
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Type" value="Three Wide Vertical" />
+      <ImageRef image="img4" />
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Type" value="Six Wide Vertical" />
+      <ImageRef image="img5" />
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Type" value="One Horizontal" />
+      <ImageRef image="img6" />
+    </DisplayOption>
+  </Display>
+</ObjDef>

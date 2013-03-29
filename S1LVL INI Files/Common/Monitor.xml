@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Namespace="S1ObjectDefinitions.Common" TypeName="Monitor" Language="cs" Name="Monitor" Image="img" Debug="false">
+  <Images>
+    <ImageFromMappings id="img">
+      <ArtFile filename="../artnem/Monitors.bin" />
+      <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="0" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="static">
+      <ArtFile filename="../artnem/Monitors.bin" />
+      <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="1" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="eggman">
+      <ArtFile filename="../artnem/Monitors.bin" />
+      <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="3" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="sonic">
+      <ArtFile filename="../artnem/Monitors.bin" />
+      <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="4" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="shoes">
+      <ArtFile filename="../artnem/Monitors.bin" />
+      <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="5" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="shield">
+      <ArtFile filename="../artnem/Monitors.bin" />
+      <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="6" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="invincibility">
+      <ArtFile filename="../artnem/Monitors.bin" />
+      <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="7" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="rings">
+      <ArtFile filename="../artnem/Monitors.bin" />
+      <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="8" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="s">
+      <ArtFile filename="../artnem/Monitors.bin" />
+      <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="9" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="goggles">
+      <ArtFile filename="../artnem/Monitors.bin" />
+      <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="10" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="broken">
+      <ArtFile filename="../artnem/Monitors.bin" />
+      <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="11" startpal="0" />
+    </ImageFromMappings>
+  </Images>
+  <Subtypes>
+    <Subtype id="00" name="Static" image="static" />
+    <Subtype id="01" name="Eggman" image="eggman" />
+    <Subtype id="02" name="Sonic" image="sonic" />
+    <Subtype id="03" name="Shoes" image="shoes" />
+    <Subtype id="04" name="Shield" image="shield" />
+    <Subtype id="05" name="Invincibility" image="invincibility" />
+    <Subtype id="06" name="Rings" image="rings" />
+    <Subtype id="07" name="S" image="s" />
+    <Subtype id="08" name="Goggles" image="goggles" />
+    <Subtype id="09" name="Broken" image="broken" />
+  </Subtypes>
+  <Properties>
+    <BitsProperty name="Contents" type="MonitorType" startbit="0" length="4" />
+  </Properties>
+  <Enums>
+    <Enum name="MonitorType">
+      <EnumMember name="Static" />
+      <EnumMember name="Eggman" />
+      <EnumMember name="Sonic" />
+      <EnumMember name="Shoes" />
+      <EnumMember name="Shield" />
+      <EnumMember name="Invincibility" />
+      <EnumMember name="Rings" />
+      <EnumMember name="S" />
+      <EnumMember name="Goggles" />
+      <EnumMember name="Broken" />
+    </Enum>
+  </Enums>
+</ObjDef>

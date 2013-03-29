@@ -19,19 +19,19 @@ namespace S1ObjectDefinitions.SYZ
                 imgs.Add(ObjectHelper.MapASMToBmp(artfile, "../_maps/Floating Blocks and Doors.asm", i, 2));
         }
 
-        public override ReadOnlyCollection<byte> Subtypes()
+        public override ReadOnlyCollection<byte> Subtypes
         {
-            return new ReadOnlyCollection<byte>(new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0B, 0x0C });
+            get { return new ReadOnlyCollection<byte>(new byte[] { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0B, 0x0C }); }
         }
 
-        public override string Name()
+        public override string Name
         {
-            return "Platform";
+            get { return "Platform"; }
         }
 
-        public override bool RememberState()
+        public override bool RememberState
         {
-            return false;
+            get { return false; }
         }
 
         public override string SubtypeName(byte subtype)
@@ -39,17 +39,17 @@ namespace S1ObjectDefinitions.SYZ
             return ((PlatformMovement)(subtype & 0xF)).ToString();
         }
 
-        public override BitmapBits Image()
+        public override Sprite Image
         {
-            return img.Image;
+            get { return img; }
         }
 
-        public override BitmapBits Image(byte subtype)
+        public override Sprite SubtypeImage(byte subtype)
         {
-            return imgs[(subtype & 0xE) << 1].Image;
+            return imgs[(subtype & 0xE) << 1];
         }
 
-        public override Rectangle Bounds(ObjectEntry obj, Point camera)
+        public override Rectangle GetBounds(ObjectEntry obj, Point camera)
         {
             return new Rectangle(obj.X + imgs[(obj.SubType & 0xE) << 1].X - camera.X, obj.Y + imgs[(obj.SubType & 0xE) << 1].Y - camera.Y, imgs[(obj.SubType & 0xE) << 1].Width, imgs[(obj.SubType & 0xE) << 1].Height);
         }
@@ -61,46 +61,38 @@ namespace S1ObjectDefinitions.SYZ
             return new Sprite(bits, new Point(obj.X + imgs[(obj.SubType & 0xE) << 1].X, obj.Y + imgs[(obj.SubType & 0xE) << 1].Y));
         }
 
-        public override Type ObjectType
+        private static readonly PropertySpec[] customProperties = new PropertySpec[] {
+            new PropertySpec("Movement", typeof(PlatformMovement), "Extended", null, null, GetMovement, SetMovement),
+            new PropertySpec("Switch ID", typeof(int), "Extended", null, null, GetSwitchID, SetSwitchID)
+        };
+
+        public override PropertySpec[] CustomProperties
         {
-            get
-            {
-                return typeof(BlockS1ObjectEntry);
-            }
+            get { return customProperties; }
+        }
+
+        public static object GetMovement(ObjectEntry obj)
+        {
+            return (PlatformMovement)(obj.SubType & 0xF);
+        }
+
+        public static void SetMovement(ObjectEntry obj, object value)
+        {
+            obj.SubType = (byte)((obj.SubType & ~0xF) | (int)value);
+        }
+
+        public static object GetSwitchID(ObjectEntry obj)
+        {
+            return (byte)(obj.SubType >> 4);
+        }
+
+        public static void SetSwitchID(ObjectEntry obj, object value)
+        {
+            obj.SubType = (byte)((obj.SubType & ~0xF0) | ((byte)value << 4));
         }
     }
 
-    public class BlockS1ObjectEntry : S1ObjectEntry
-    {
-        public BlockS1ObjectEntry() : base() { }
-        public BlockS1ObjectEntry(byte[] file, int address) : base(file, address) { }
-
-        public PlatformMovement Movement
-        {
-            get
-            {
-                return (PlatformMovement)(SubType & 0xF);
-            }
-            set
-            {
-                SubType = (byte)((SubType & ~0xF) | (int)value);
-            }
-        }
-
-        public byte SwitchID
-        {
-            get
-            {
-                return (byte)(SubType >> 4);
-            }
-            set
-            {
-                SubType = (byte)((SubType & ~0xF0) | (value << 4));
-            }
-        }
-    }
-
-    public enum PlatformMovement2
+    public enum PlatformMovement
     {
         Stationary,
         RightLeft,

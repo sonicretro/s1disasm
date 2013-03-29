@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Namespace="S1ObjectDefinitions.GHZ" TypeName="Newtron" Language="cs" Name="Newtron" RememberState="true" Image="img1">
+  <Images>
+    <ImageFromMappings id="img1">
+      <ArtFile filename="../artnem/Enemy Newtron.bin"/>
+      <MapFile type="ASM" filename="../_maps/Newtron.asm" frame="3" startpal="0"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="img2">
+      <ArtFile filename="../artnem/Enemy Newtron.bin"/>
+      <MapFile type="ASM" filename="../_maps/Newtron.asm" frame="1" startpal="0"/>
+    </ImageFromMappings>
+  </Images>
+  <Subtypes>
+    <Subtype id="00" name="Flies along the ground" image="img1"/>
+    <Subtype id="01" name="Fires missile, then disappears" image="img2"/>
+  </Subtypes>
+</ObjDef>

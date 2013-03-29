@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Namespace="S1ObjectDefinitions.Common" TypeName="PointBonus" Language="cs" Name="Hidden Point Bonus" Image="img100" RememberState="false" DefaultSubtype="03" Debug="false">
+  <Images>
+    <ImageFromMappings id="img10000">
+      <ArtFile filename="../artnem/Hidden Bonuses.bin" />
+      <MapFile type="ASM" filename="../_maps/Hidden Bonuses.asm" frame="1" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="img1000">
+      <ArtFile filename="../artnem/Hidden Bonuses.bin" />
+      <MapFile type="ASM" filename="../_maps/Hidden Bonuses.asm" frame="2" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="img100">
+      <ArtFile filename="../artnem/Hidden Bonuses.bin" />
+      <MapFile type="ASM" filename="../_maps/Hidden Bonuses.asm" frame="3" startpal="0" />
+    </ImageFromMappings>
+  </Images>
+  <Subtypes>
+    <Subtype id="01" name="10000 Points" image="img10000" />
+    <Subtype id="02" name="1000 Points" image="img1000" />
+    <Subtype id="03" name="100 Points" image="img100" />
+  </Subtypes>
+</ObjDef>

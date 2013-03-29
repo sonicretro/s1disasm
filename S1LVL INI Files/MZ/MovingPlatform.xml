@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Namespace="S1ObjectDefinitions.MZ" TypeName="MovingPlatform" Language="cs" Name="Grass Platform" Image="img1">
+  <Images>
+    <ImageFromMappings id="img1">
+      <ArtFile filename="LevelArt"/>
+      <MapFile type="ASM" filename="../_maps/MZ Large Grassy Platforms.asm" frame="0" startpal="2"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="img2">
+      <ArtFile filename="LevelArt"/>
+      <MapFile type="ASM" filename="../_maps/MZ Large Grassy Platforms.asm" frame="1" startpal="2"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="img3">
+      <ArtFile filename="LevelArt"/>
+      <MapFile type="ASM" filename="../_maps/MZ Large Grassy Platforms.asm" frame="2" startpal="2"/>
+    </ImageFromMappings>
+  </Images>
+  <Subtypes>
+    <Subtype id="00" name="Large Oscillating" image="img1"/>
+    <Subtype id="15" name="Sinking" image="img2"/>
+    <Subtype id="20" name="Small Oscillating (Speed 0)" image="img3"/>
+    <Subtype id="21" name="Small Oscillating (Speed 1)" image="img3"/>
+    <Subtype id="22" name="Small Oscillating (Speed 2)" image="img3"/>
+    <Subtype id="23" name="Small Oscillating (Speed 3)" image="img3"/>
+    <Subtype id="24" name="Small Oscillating (Speed 4)" image="img3"/>
+    <Subtype id="25" name="Small Oscillating (Speed 5)" image="img3"/>
+    <Subtype id="26" name="Small Oscillating (Speed 6)" image="img3"/>
+    <Subtype id="27" name="Small Oscillating (Speed 7)" image="img3"/>
+    <Subtype id="28" name="Small Oscillating (Speed 8)" image="img3"/>
+    <Subtype id="29" name="Small Oscillating (Speed 9)" image="img3"/>
+  </Subtypes>
+</ObjDef>

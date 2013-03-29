@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Namespace="S1ObjectDefinitions.SYZ" TypeName="Platform" Language="cs" Name="Platform" Image="img1">
+  <Images>
+    <ImageFromMappings id="img1">
+      <ArtFile filename="LevelArt"/>
+      <MapFile type="ASM" filename="../_maps/Platforms (SYZ).asm" frame="0" startpal="2"/>
+    </ImageFromMappings>
+  </Images>
+  <Subtypes>
+    <Subtype id="00" name="Stationary" image="img1"/>
+    <Subtype id="01" name="Right -> Left" image="img1"/>
+    <Subtype id="02" name="Down -> Up" image="img1"/>
+    <Subtype id="03" name="Falls when stood on" image="img1"/>
+    <Subtype id="04" name="Falls" image="img1"/>
+    <Subtype id="05" name="Left -> Right" image="img1"/>
+    <Subtype id="06" name="Up -> Down" image="img1"/>
+    <Subtype id="07" name="Moves up when switch is pressed" image="img1"/>
+    <Subtype id="08" name="Moves up" image="img1"/>
+    <Subtype id="0B" name="Down -> Up slow" image="img1"/>
+    <Subtype id="0C" name="Up -> Down slow" image="img1"/>
+  </Subtypes>
+  <Properties>
+    <BitsProperty name="Movement" type="PlatformMovement" startbit="0" length="4"/>
+    <BitsProperty name="SwitchID" displayname="Switch ID" type="byte" startbit="4" length="4"/>
+  </Properties>
+  <Enums>
+    <Enum name="PlatformMovement">
+      <EnumMember name="Stationary"/>
+      <EnumMember name="Right -> Left"/>
+      <EnumMember name="Down -> Up"/>
+      <EnumMember name="Falls when stood on"/>
+      <EnumMember name="Falls"/>
+      <EnumMember name="Left -> Right"/>
+      <EnumMember name="Up -> Down"/>
+      <EnumMember name="Moves up when switch is pressed"/>
+      <EnumMember name="Moves up"/>
+      <EnumMember name="Stationary 2"/>
+      <EnumMember name="Invalid 1"/>
+      <EnumMember name="Down -> Up slow"/>
+      <EnumMember name="Up -> Down slow"/>
+      <EnumMember name="Invalid 2"/>
+      <EnumMember name="Invalid 3"/>
+      <EnumMember name="Invalid 4"/>
+    </Enum>
+  </Enums>
+  <Display>
+    <DisplayOption>
+      <ImageRef image="img1"/>
+    </DisplayOption>
+  </Display>
+</ObjDef>

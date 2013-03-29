@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Namespace="S1ObjectDefinitions.GHZ" TypeName="WallBarrier" Language="cs" Name="Wall Barrier" RememberState="true" Image="img1">
+  <Images>
+    <ImageFromMappings id="img1">
+      <ArtFile filename="../artnem/GHZ Edge Wall.bin"/>
+      <MapFile type="ASM" filename="../_maps/GHZ Edge Walls.asm" frame="0" startpal="2"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="img2">
+      <ArtFile filename="../artnem/GHZ Edge Wall.bin"/>
+      <MapFile type="ASM" filename="../_maps/GHZ Edge Walls.asm" frame="1" startpal="2"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="img3">
+      <ArtFile filename="../artnem/GHZ Edge Wall.bin"/>
+      <MapFile type="ASM" filename="../_maps/GHZ Edge Walls.asm" frame="2" startpal="2"/>
+    </ImageFromMappings>
+  </Images>
+  <Subtypes>
+    <Subtype id="00" name="Shadow" image="img1"/>
+    <Subtype id="01" name="Light" image="img2"/>
+    <Subtype id="02" name="Dark" image="img3"/>
+    <Subtype id="10" name="Shadow (Solid)" image="img1"/>
+    <Subtype id="11" name="Light (Solid)" image="img2"/>
+    <Subtype id="12" name="Dark (Solid)" image="img3"/>
+  </Subtypes>
+  <Properties>
+    <BitsProperty name="Art" type="EdgeType" startbit="0" length="4"/>
+    <BitsProperty name="Solid" type="bool" startbit="4" length="1"/>
+  </Properties>
+  <Enums>
+    <Enum name="EdgeType">
+      <EnumMember name="Shadow"/>
+      <EnumMember name="Light"/>
+      <EnumMember name="Dark"/>
+    </Enum>
+  </Enums>
+  <Display>
+    <DisplayOption>
+      <Condition property="Art" value="Shadow"/>
+      <ImageRef image="img1"/>
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Art" value="Light"/>
+      <ImageRef image="img2"/>
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Art" value="Dark"/>
+      <ImageRef image="img3"/>
+    </DisplayOption>
+  </Display>
+</ObjDef>

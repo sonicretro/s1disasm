@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Namespace="S1ObjectDefinitions.Common" TypeName="EggPrison" Language="cs" Name="Egg Prison" Image="capsule" RememberState="false" Debug="false">
+  <Images>
+    <ImageFromMappings id="capsule">
+      <ArtFile filename="../artnem/Prison Capsule.bin" />
+      <MapFile type="ASM" filename="../_maps/Prison Capsule.asm" frame="0" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="button">
+      <ArtFile filename="../artnem/Prison Capsule.bin" />
+      <MapFile type="ASM" filename="../_maps/Prison Capsule.asm" frame="1" startpal="0" />
+    </ImageFromMappings>
+  </Images>
+  <Subtypes>
+    <Subtype id="00" name="Capsule" image="capsule" />
+    <Subtype id="01" name="Button" image="button" />
+  </Subtypes>
+  <Properties>
+    <BitsProperty name="Type" type="EggPrisonType" startbit="0" length="1" />
+  </Properties>
+  <Enums>
+    <Enum name="EggPrisonType">
+      <EnumMember name="Capsule" />
+      <EnumMember name="Button" />
+    </Enum>
+  </Enums>
+</ObjDef>

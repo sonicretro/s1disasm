@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Namespace="S1ObjectDefinitions.GHZ" TypeName="BreakableWall" Language="cs" Name="Breakable Wall" RememberState="true" Image="img1">
+  <Images>
+    <ImageFromMappings id="img1">
+      <ArtFile filename="../artnem/GHZ Breakable Wall.bin"/>
+      <MapFile type="ASM" filename="../_maps/Smashable Walls.asm" frame="0" startpal="2"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="img2">
+      <ArtFile filename="../artnem/GHZ Breakable Wall.bin"/>
+      <MapFile type="ASM" filename="../_maps/Smashable Walls.asm" frame="1" startpal="2"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="img3">
+      <ArtFile filename="../artnem/GHZ Breakable Wall.bin"/>
+      <MapFile type="ASM" filename="../_maps/Smashable Walls.asm" frame="2" startpal="2"/>
+    </ImageFromMappings>
+  </Images>
+  <Subtypes>
+    <Subtype id="00" name="Left" image="img1"/>
+    <Subtype id="01" name="Middle" image="img2"/>
+    <Subtype id="02" name="Right" image="img3"/>
+  </Subtypes>
+</ObjDef>
