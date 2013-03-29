@@ -1,7 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - moving block (LZ)
 ; ---------------------------------------------------------------------------
-Map_MBlockLZ:	dc.w @0-Map_MBlockLZ
-@0:		dc.b 1
-		dc.b $F8, $D, 0, 0, $F0
-		even
+Map_MBlockLZ:	mappingsTable
+	mappingsTableEntry.w	@0
+
+@0:	spriteHeader
+	spritePiece	-$10, -8, 4, 2, 0, 0, 0, 0, 0
+@0_End
+
+	even

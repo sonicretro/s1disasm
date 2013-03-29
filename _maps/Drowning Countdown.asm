@@ -1,7 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - drowning countdown numbers (LZ)
 ; ---------------------------------------------------------------------------
-Map_Drown:	dc.w @num-Map_Drown
-@num:		dc.b 1
-		dc.b $E8, $E, 0, 0, $F2
-		even
+Map_Drown:	mappingsTable
+	mappingsTableEntry.w	@num
+
+@num:	spriteHeader
+	spritePiece	-$E, -$18, 4, 3, 0, 0, 0, 0, 0
+@num_End
+
+	even

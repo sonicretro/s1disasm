@@ -286,3 +286,6 @@ zonewarning:	macro loc,elementsize
 		inform 1,"Size of \loc ($%h) does not match ZoneCount ($\#ZoneCount).",(@end-loc)/elementsize
 		endc
 		endm
+
+SonicMappingsVer	EQU	1
+		include	"SpritePiece.asm"
