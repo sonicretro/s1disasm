@@ -1,13 +1,19 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - pushable blocks (MZ, LZ)
 ; ---------------------------------------------------------------------------
-Map_Push:	dc.w @single-Map_Push
-		dc.w @four-Map_Push
-@single:	dc.b 1
-		dc.b $F0, $F, 0, 8, $F0	; single block
-@four:		dc.b 4
-		dc.b $F0, $F, 0, 8, $C0	; row of 4 blocks
-		dc.b $F0, $F, 0, 8, $E0
-		dc.b $F0, $F, 0, 8, 0
-		dc.b $F0, $F, 0, 8, $20
-		even
+Map_Push:	mappingsTable
+	mappingsTableEntry.w	@single
+	mappingsTableEntry.w	@four
+
+@single:	spriteHeader
+	spritePiece	-$10, -$10, 4, 4, 8, 0, 0, 0, 0
+@single_End
+
+@four:	spriteHeader
+	spritePiece	-$40, -$10, 4, 4, 8, 0, 0, 0, 0
+	spritePiece	-$20, -$10, 4, 4, 8, 0, 0, 0, 0
+	spritePiece	0, -$10, 4, 4, 8, 0, 0, 0, 0
+	spritePiece	$20, -$10, 4, 4, 8, 0, 0, 0, 0
+@four_End
+
+	even
