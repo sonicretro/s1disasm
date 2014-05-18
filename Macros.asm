@@ -270,6 +270,6 @@ gotoROM:	macro
 zonewarning:	macro loc,elementsize
 ._end:
 		if (._end-loc)-(ZoneCount*elementsize)<>0
-		;warning "Size of loc (\{(._end-loc)/elementsize}) does not match ZoneCount (\{ZoneCount})."
+		warning "Size of loc (\{(._end-loc)/elementsize}) does not match ZoneCount (\{ZoneCount})."
 		endif
 		endm

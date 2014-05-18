@@ -26,8 +26,7 @@ set AS_MSGPATH=AS/Win32
 set USEANSI=n
 
 REM // allow the user to choose to output error messages to file by supplying the -logerrors parameter
-REM IF "%1"=="-logerrors" ( "AS/Win32/asw.exe" -xx -q -c -E -A sonic.asm ) ELSE "AS/Win32/asw.exe" -xx -q -c -A sonic.asm
-"AS/Win32/asw.exe" -xx -q -c -E -A sonic.asm
+IF "%1"=="-logerrors" ( "AS/Win32/asw.exe" -xx -q -c -E -A sonic.asm ) ELSE "AS/Win32/asw.exe" -xx -q -c -A sonic.asm
 
 REM // if there were errors, a log file is produced
 IF "%1"=="-logerrors" ( IF EXIST sonic.log goto LABLERROR3 )
