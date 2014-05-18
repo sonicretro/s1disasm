@@ -29,21 +29,21 @@ Mon_Main:	; Routine 0
 		move.b	obRespawnNo(a0),d0
 		bclr	#7,2(a2,d0.w)
 		btst	#0,2(a2,d0.w)	; has monitor been broken?
-		beq.s	@notbroken	; if not, branch
+		beq.s	.notbroken	; if not, branch
 		move.b	#8,obRoutine(a0) ; run "Mon_Display" routine
 		move.b	#$B,obFrame(a0)	; use broken monitor frame
 		rts	
 ; ===========================================================================
 
-	@notbroken:
+.notbroken:
 		move.b	#$46,obColType(a0)
 		move.b	obSubtype(a0),obAnim(a0)
 
 Mon_Solid:	; Routine 2
 		move.b	ob2ndRout(a0),d0 ; is monitor set to fall?
-		beq.s	@normal		; if not, branch
+		beq.s	.normal		; if not, branch
 		subq.b	#2,d0
-		bne.s	@fall
+		bne.s	.fall
 
 		; 2nd Routine 2
 		moveq	#0,d1
@@ -51,19 +51,19 @@ Mon_Solid:	; Routine 2
 		addi.w	#$B,d1
 		bsr.w	ExitPlatform
 		btst	#3,obStatus(a1) ; is Sonic on top of the monitor?
-		bne.w	@ontop		; if yes, branch
+		bne.w	.ontop		; if yes, branch
 		clr.b	ob2ndRout(a0)
 		bra.w	Mon_Animate
 ; ===========================================================================
 
-	@ontop:
+.ontop:
 		move.w	#$10,d3
 		move.w	obX(a0),d2
 		bsr.w	MvSonicOnPtfm
 		bra.w	Mon_Animate
 ; ===========================================================================
 
-@fall:		; 2nd Routine 4
+.fall:		; 2nd Routine 4
 		bsr.w	ObjectFall
 		jsr	ObjFloorDist
 		tst.w	d1
@@ -74,7 +74,7 @@ Mon_Solid:	; Routine 2
 		bra.w	Mon_Animate
 ; ===========================================================================
 
-@normal:	; 2nd Routine 0
+.normal:	; 2nd Routine 0
 		move.w	#$1A,d1
 		move.w	#$F,d2
 		bsr.w	Mon_SolidSides
@@ -150,13 +150,13 @@ Mon_BreakOpen:	; Routine 4
 
 Mon_Explode:
 		bsr.w	FindFreeObj
-		bne.s	@fail
+		bne.s	.fail
 		move.b	#id_ExplosionItem,0(a1) ; load explosion object
 		addq.b	#2,obRoutine(a1) ; don't create an animal
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 
-	@fail:
+.fail:
 		lea	(v_objstate).w,a2
 		moveq	#0,d0
 		move.b	obRespawnNo(a0),d0

@@ -12,8 +12,8 @@ Spin_Index:	dc.w Spin_Main-Spin_Index
 		dc.w Spin_Trapdoor-Spin_Index
 		dc.w Spin_Spinner-Spin_Index
 
-spin_timer:	= $30		; time counter until change
-spin_timelen:	= $32		; time between changes (general)
+spin_timer := $30		; time counter until change
+spin_timelen := $32		; time between changes (general)
 ; ===========================================================================
 
 Spin_Main:	; Routine 0
@@ -52,19 +52,19 @@ Spin_Main:	; Routine 0
 
 Spin_Trapdoor:	; Routine 2
 		subq.w	#1,spin_timer(a0) ; decrement timer
-		bpl.s	@animate	; if time remains, branch
+		bpl.s	.animate	; if time remains, branch
 
 		move.w	spin_timelen(a0),spin_timer(a0)
 		bchg	#0,obAnim(a0)
 		tst.b	obRender(a0)
-		bpl.s	@animate
+		bpl.s	.animate
 		sfx	sfx_Door	; play door sound
 
-	@animate:
+.animate:
 		lea	(Ani_Spin).l,a1
 		jsr	AnimateSprite
 		tst.b	obFrame(a0)	; is frame number 0 displayed?
-		bne.s	@notsolid	; if not, branch
+		bne.s	.notsolid	; if not, branch
 		move.w	#$4B,d1
 		move.w	#$C,d2
 		move.w	d2,d3
@@ -74,38 +74,38 @@ Spin_Trapdoor:	; Routine 2
 		bra.w	RememberState
 ; ===========================================================================
 
-@notsolid:
+.notsolid:
 		btst	#3,obStatus(a0) ; is Sonic standing on the trapdoor?
-		beq.s	@display	; if not, branch
+		beq.s	.display	; if not, branch
 		lea	(v_player).w,a1
 		bclr	#3,obStatus(a1)
 		bclr	#3,obStatus(a0)
 		clr.b	obSolid(a0)
 
-	@display:
+.display:
 		bra.w	RememberState
 ; ===========================================================================
 
 Spin_Spinner:	; Routine 4
 		move.w	(v_framecount).w,d0
 		and.w	$36(a0),d0
-		bne.s	@delay
+		bne.s	.delay
 		move.b	#1,$34(a0)
 
-	@delay:
+.delay:
 		tst.b	$34(a0)
-		beq.s	@animate
+		beq.s	.animate
 		subq.w	#1,spin_timer(a0)
-		bpl.s	@animate
+		bpl.s	.animate
 		move.w	spin_timelen(a0),spin_timer(a0)
 		clr.b	$34(a0)
 		bchg	#0,obAnim(a0)
 
-	@animate:
+.animate:
 		lea	(Ani_Spin).l,a1
 		jsr	AnimateSprite
 		tst.b	obFrame(a0)	; check	if frame number	0 is displayed
-		bne.s	@notsolid2	; if not, branch
+		bne.s	.notsolid2	; if not, branch
 		move.w	#$1B,d1
 		move.w	#7,d2
 		move.w	d2,d3
@@ -115,13 +115,13 @@ Spin_Spinner:	; Routine 4
 		bra.w	RememberState
 ; ===========================================================================
 
-@notsolid2:
+.notsolid2:
 		btst	#3,obStatus(a0)
-		beq.s	@display
+		beq.s	.display
 		lea	(v_player).w,a1
 		bclr	#3,obStatus(a1)
 		bclr	#3,obStatus(a0)
 		clr.b	obSolid(a0)
 
-	@display:
+.display:
 		bra.w	RememberState

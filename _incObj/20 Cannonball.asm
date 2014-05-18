@@ -11,7 +11,7 @@ Cannonball:				; XREF: Obj_Index
 Cbal_Index:	dc.w Cbal_Main-Cbal_Index
 		dc.w Cbal_Bounce-Cbal_Index
 
-cbal_time:	= $30		; time until the cannonball explodes (2 bytes)
+cbal_time := $30		; time until the cannonball explodes (2 bytes)
 ; ===========================================================================
 
 Cbal_Main:	; Routine 0
@@ -57,7 +57,7 @@ Cbal_ChkExplode:			; XREF: Cbal_Bounce
 		subq.w	#1,cbal_time(a0) ; subtract 1 from explosion time
 		bpl.s	Cbal_Animate	; if time is > 0, branch
 
-	Cbal_Explode:
+Cbal_Explode:
 		move.b	#id_MissileDissolve,0(a0)
 		move.b	#id_ExplosionBomb,0(a0)	; change object	to an explosion	($3F)
 		move.b	#0,obRoutine(a0) ; reset routine counter

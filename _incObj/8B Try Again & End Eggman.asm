@@ -7,14 +7,14 @@ EndEggman:				; XREF: Obj_Index
 		move.b	obRoutine(a0),d0
 		move.w	EEgg_Index(pc,d0.w),d1
 		jsr	EEgg_Index(pc,d1.w)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 EEgg_Index:	dc.w EEgg_Main-EEgg_Index
 		dc.w EEgg_Animate-EEgg_Index
 		dc.w EEgg_Juggle-EEgg_Index
 		dc.w EEgg_Wait-EEgg_Index
 
-eegg_time:	= $30		; time between juggle motions
+eegg_time := $30		; time between juggle motions
 ; ===========================================================================
 
 EEgg_Main:	; Routine 0
@@ -36,35 +36,35 @@ EEgg_Main:	; Routine 0
 
 EEgg_Animate:	; Routine 2
 		lea	(Ani_EEgg).l,a1
-		jmp	AnimateSprite
+		jmp	(AnimateSprite).l
 ; ===========================================================================
 
 EEgg_Juggle:	; Routine 4
 		addq.b	#2,obRoutine(a0)
 		moveq	#2,d0
 		btst	#0,obAnim(a0)
-		beq.s	@noflip
+		beq.s	.noflip
 		neg.w	d0
 
-	@noflip:
+.noflip:
 		lea	(v_objspace+$800).w,a1 ; get RAM address for emeralds
 		moveq	#5,d1
 
-@emeraldloop:
+.emeraldloop:
 		move.b	d0,$3E(a1)
 		move.w	d0,d2
 		asl.w	#3,d2
 		add.b	d2,obAngle(a1)
 		lea	$40(a1),a1
-		dbf	d1,@emeraldloop
+		dbf	d1,.emeraldloop
 		addq.b	#1,obFrame(a0)
 		move.w	#112,eegg_time(a0)
 
 EEgg_Wait:	; Routine 6
 		subq.w	#1,eegg_time(a0) ; decrement timer
-		bpl.s	@nochg		; branch if time remains
+		bpl.s	.nochg		; branch if time remains
 		bchg	#0,obAnim(a0)
 		move.b	#2,obRoutine(a0) ; goto EEgg_Animate next
 
-	@nochg:
+.nochg:
 		rts	

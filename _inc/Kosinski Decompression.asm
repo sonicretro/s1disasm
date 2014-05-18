@@ -25,13 +25,13 @@ KosDec:
 Kos_Loop:
 		lsr.w	#1,d5	; shift bit into the c flag
 		move	sr,d6
-		dbf	d4,@chkbit
+		dbf	d4,.chkbit
 		move.b	(a0)+,1(sp)
 		move.b	(a0)+,(sp)
 		move.w	(sp),d5
 		moveq	#$F,d4
 
-	@chkbit:
+.chkbit:
 		move	d6,ccr	; was the bit set?
 		bcc.s	Kos_RLE	; if not, branch
 
@@ -43,33 +43,33 @@ Kos_RLE:				; XREF: KosDec
 		moveq	#0,d3
 		lsr.w	#1,d5	; get next bit
 		move	sr,d6
-		dbf	d4,@chkbit
+		dbf	d4,.chkbit
 		move.b	(a0)+,1(sp)
 		move.b	(a0)+,(sp)
 		move.w	(sp),d5
 		moveq	#$F,d4
 
-	@chkbit:
+.chkbit:
 		move	d6,ccr	; was the bit set?
 		bcs.s	Kos_SeparateRLE ; if yes, branch
 
 		lsr.w	#1,d5	; shift bit into the x flag
-		dbf	d4,@loop1
+		dbf	d4,.loop1
 		move.b	(a0)+,1(sp)
 		move.b	(a0)+,(sp)
 		move.w	(sp),d5
 		moveq	#$F,d4
 
-	@loop1:
+.loop1:
 		roxl.w	#1,d3	; get high repeat count bit
 		lsr.w	#1,d5
-		dbf	d4,@loop2
+		dbf	d4,.loop2
 		move.b	(a0)+,1(sp)
 		move.b	(a0)+,(sp)
 		move.w	(sp),d5
 		moveq	#$F,d4
 
-	@loop2:
+.loop2:
 		roxl.w	#1,d3	; get low repeat count bit
 		addq.w	#1,d3	; increment repeat count
 		moveq	#-1,d2

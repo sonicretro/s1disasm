@@ -15,14 +15,14 @@ ptr_Crab_Delete:	dc.w Crab_Delete-Crab_Index
 ptr_Crab_BallMain:	dc.w Crab_BallMain-Crab_Index
 ptr_Crab_BallMove:	dc.w Crab_BallMove-Crab_Index
 
-id_Crab_Main:		= ptr_Crab_Main-Crab_Index	; 0
-id_Crab_Action:		= ptr_Crab_Action-Crab_Index	; 2
-id_Crab_Delete:		= ptr_Crab_Delete-Crab_Index	; 4
-id_Crab_BallMain:	= ptr_Crab_BallMain-Crab_Index	; 6
-id_Crab_BallMove:	= ptr_Crab_BallMove-Crab_Index	; 8
+id_Crab_Main := ptr_Crab_Main-Crab_Index	; 0
+id_Crab_Action := ptr_Crab_Action-Crab_Index	; 2
+id_Crab_Delete := ptr_Crab_Delete-Crab_Index	; 4
+id_Crab_BallMain := ptr_Crab_BallMain-Crab_Index	; 6
+id_Crab_BallMove := ptr_Crab_BallMove-Crab_Index	; 8
 
-timedelay:	= $30
-crabmode:	= $32
+timedelay := $30
+crabmode := $32
 ; ===========================================================================
 
 Crab_Main:	; Routine 0
@@ -37,38 +37,38 @@ Crab_Main:	; Routine 0
 		bsr.w	ObjectFall
 		jsr	ObjFloorDist	; find floor
 		tst.w	d1
-		bpl.s	@floornotfound
+		bpl.s	.floornotfound
 		add.w	d1,obY(a0)
 		move.b	d3,obAngle(a0)
 		move.w	#0,obVelY(a0)
 		addq.b	#2,obRoutine(a0)
 
-	@floornotfound:
+.floornotfound:
 		rts	
 ; ===========================================================================
 
 Crab_Action:	; Routine 2
 		moveq	#0,d0
 		move.b	ob2ndRout(a0),d0
-		move.w	@index(pc,d0.w),d1
-		jsr	@index(pc,d1.w)
+		move.w	.index(pc,d0.w),d1
+		jsr	.index(pc,d1.w)
 		lea	(Ani_Crab).l,a1
 		bsr.w	AnimateSprite
 		bra.w	RememberState
 ; ===========================================================================
-@index:		dc.w @waittofire-@index
-		dc.w @walkonfloor-@index
+.index:		dc.w .waittofire-.index
+		dc.w .walkonfloor-.index
 ; ===========================================================================
 
-@waittofire:				; XREF: @index
+.waittofire:				; XREF: .index
 		subq.w	#1,timedelay(a0) ; subtract 1 from time delay
-		bpl.s	@dontmove
+		bpl.s	.dontmove
 		tst.b	obRender(a0)
-		bpl.s	@movecrab
+		bpl.s	.movecrab
 		bchg	#1,crabmode(a0)
-		bne.s	@fire
+		bne.s	.fire
 
-	@movecrab:
+.movecrab:
 		addq.b	#2,ob2ndRout(a0)
 		move.w	#127,timedelay(a0) ; set time delay to approx 2 seconds
 		move.w	#$80,obVelX(a0)	; move Crabmeat	to the right
@@ -76,19 +76,19 @@ Crab_Action:	; Routine 2
 		addq.b	#3,d0
 		move.b	d0,obAnim(a0)
 		bchg	#0,obStatus(a0)
-		bne.s	@noflip
+		bne.s	.noflip
 		neg.w	obVelX(a0)	; change direction
 
-	@dontmove:
-	@noflip:
+.dontmove:
+.noflip:
 		rts	
 ; ===========================================================================
 
-@fire:
+.fire:
 		move.w	#59,timedelay(a0)
 		move.b	#6,obAnim(a0)	; use firing animation
 		bsr.w	FindFreeObj
-		bne.s	@failleft
+		bne.s	.failleft
 		move.b	#id_Crabmeat,0(a1) ; load left fireball
 		move.b	#id_Crab_BallMain,obRoutine(a1)
 		move.w	obX(a0),obX(a1)
@@ -96,9 +96,9 @@ Crab_Action:	; Routine 2
 		move.w	obY(a0),obY(a1)
 		move.w	#-$100,obVelX(a1)
 
-	@failleft:
+.failleft:
 		bsr.w	FindFreeObj
-		bne.s	@failright
+		bne.s	.failright
 		move.b	#id_Crabmeat,0(a1) ; load right fireball
 		move.b	#id_Crab_BallMain,obRoutine(a1)
 		move.w	obX(a0),obX(a1)
@@ -106,11 +106,11 @@ Crab_Action:	; Routine 2
 		move.w	obY(a0),obY(a1)
 		move.w	#$100,obVelX(a1)
 
-	@failright:
+.failright:
 		rts	
 ; ===========================================================================
 
-@walkonfloor:				; XREF: @index
+.walkonfloor:				; XREF: .index
 		subq.w	#1,timedelay(a0)
 		bmi.s	loc_966E
 		bsr.w	SpeedToPos
@@ -211,8 +211,8 @@ Crab_BallMove:	; Routine 8
 		move.w	(v_limitbtm2).w,d0
 		addi.w	#$E0,d0
 		cmp.w	obY(a0),d0	; has object moved below the level boundary?
-		bcs.s	@delete		; if yes, branch
+		bcs.s	.delete		; if yes, branch
 		rts	
 
-	@delete:
+.delete:
 		bra.w	DeleteObject

@@ -11,8 +11,8 @@ RunningDisc:				; XREF: Obj_Index
 Disc_Index:	dc.w Disc_Main-Disc_Index
 		dc.w Disc_Action-Disc_Index
 
-disc_origX:	= $32		; original x-axis position
-disc_origY:	= $30		; original y-axis position
+disc_origX := $32		; original x-axis position
+disc_origY := $30		; original y-axis position
 ; ===========================================================================
 
 Disc_Main:	; Routine 0
@@ -28,11 +28,11 @@ Disc_Main:	; Routine 0
 		move.b	#$48,$38(a0)
 		move.b	obSubtype(a0),d1 ; get object type
 		andi.b	#$F,d1		; read only the	2nd digit
-		beq.s	@typeis0	; branch if 0
+		beq.s	.typeis0	; branch if 0
 		move.b	#$10,$34(a0)
 		move.b	#$38,$38(a0)
 
-	@typeis0:
+.typeis0:
 		move.b	obSubtype(a0),d1 ; get object type
 		andi.b	#$F0,d1		; read only the	1st digit
 		ext.w	d1
@@ -152,8 +152,8 @@ Disc_MoveSpot:				; XREF: Disc_Action
 ; ===========================================================================
 
 Disc_ChkDel:				; XREF: Disc_Action
-		out_of_range.s	@delete,disc_origX(a0)
+		out_of_range.s	.delete,disc_origX(a0)
 		jmp	DisplaySprite
 
-	@delete:
+.delete:
 		jmp	DeleteObject

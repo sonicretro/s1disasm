@@ -2,6 +2,12 @@
 ; Object 5E - seesaws (SLZ)
 ; ---------------------------------------------------------------------------
 
+see_origX := $30		; original x-axis position
+see_origY := $34		; original y-axis position
+see_speed := $38		; speed of collision
+see_frame := $3A		; 
+see_parent := $3C		; RAM address of parent object
+
 Seesaw:					; XREF: Obj_Index
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
@@ -25,11 +31,6 @@ See_Index:	dc.w See_Main-See_Index
 		dc.w See_MoveSpike-See_Index
 		dc.w See_SpikeFall-See_Index
 
-see_origX:	= $30		; original x-axis position
-see_origY:	= $34		; original y-axis position
-see_speed:	= $38		; speed of collision
-see_frame:	= $3A		; 
-see_parent:	= $3C		; RAM address of parent object
 ; ===========================================================================
 
 See_Main:	; Routine 0
@@ -41,10 +42,10 @@ See_Main:	; Routine 0
 		move.b	#$30,obActWid(a0)
 		move.w	obX(a0),see_origX(a0)
 		tst.b	obSubtype(a0)	; is object type 00 ?
-		bne.s	@noball		; if not, branch
+		bne.s	.noball		; if not, branch
 
 		bsr.w	FindNextFreeObj
-		bne.s	@noball
+		bne.s	.noball
 		move.b	#id_Seesaw,0(a1) ; load spikeball object
 		addq.b	#6,obRoutine(a1) ; use See_Spikeball routine
 		move.w	obX(a0),obX(a1)
@@ -52,12 +53,12 @@ See_Main:	; Routine 0
 		move.b	obStatus(a0),obStatus(a1)
 		move.l	a0,see_parent(a1)
 
-	@noball:
+.noball:
 		btst	#0,obStatus(a0)	; is seesaw flipped?
-		beq.s	@noflip		; if not, branch
+		beq.s	.noflip		; if not, branch
 		move.b	#2,obFrame(a0)	; use different frame
 
-	@noflip:
+.noflip:
 		move.b	obFrame(a0),see_frame(a0)
 
 See_Slope:	; Routine 2
@@ -65,10 +66,10 @@ See_Slope:	; Routine 2
 		bsr.w	See_ChgFrame
 		lea	(See_DataSlope).l,a2
 		btst	#0,obFrame(a0)	; is seesaw flat?
-		beq.s	@notflat	; if not, branch
+		beq.s	.notflat	; if not, branch
 		lea	(See_DataFlat).l,a2
 
-	@notflat:
+.notflat:
 		lea	(v_player).w,a1
 		move.w	obVelY(a1),see_speed(a0)
 		move.w	#$30,d1
@@ -80,10 +81,10 @@ See_Slope2:	; Routine 4
 		bsr.w	See_ChkSide
 		lea	(See_DataSlope).l,a2
 		btst	#0,obFrame(a0)	; is seesaw flat?
-		beq.s	@notflat	; if not, branch
+		beq.s	.notflat	; if not, branch
 		lea	(See_DataFlat).l,a2
 
-	@notflat:
+.notflat:
 		move.w	#$30,d1
 		jsr	(ExitPlatform).l
 		move.w	#$30,d1
@@ -97,11 +98,11 @@ See_ChkSide:
 		lea	(v_player).w,a1
 		move.w	obX(a0),d0
 		sub.w	obX(a1),d0	; is Sonic on the left side of the seesaw?
-		bcc.s	@leftside	; if yes, branch
+		bcc.s	.leftside	; if yes, branch
 		neg.w	d0
 		moveq	#0,d1
 
-	@leftside:
+.leftside:
 		cmpi.w	#8,d0
 		bcc.s	See_ChgFrame
 		moveq	#1,d1
@@ -109,20 +110,20 @@ See_ChkSide:
 See_ChgFrame:
 		move.b	obFrame(a0),d0
 		cmp.b	d1,d0		; does frame need to change?
-		beq.s	@noflip		; if not, branch
-		bcc.s	@loc_11772
+		beq.s	.noflip		; if not, branch
+		bcc.s	.loc_11772
 		addq.b	#2,d0
 
-	@loc_11772:
+.loc_11772:
 		subq.b	#1,d0
 		move.b	d0,obFrame(a0)
 		move.b	d1,see_frame(a0)
 		bclr	#0,obRender(a0)
 		btst	#1,obFrame(a0)
-		beq.s	@noflip
+		beq.s	.noflip
 		bset	#0,obRender(a0)
 
-	@noflip:
+.noflip:
 		rts	
 ; ===========================================================================
 
@@ -266,7 +267,7 @@ locret_11938:
 ; ===========================================================================
 See_Speeds:	dc.w -8, -$1C, -$2F, -$1C, -8
 
-See_DataSlope:	incbin	"misc\slzssaw1.bin"
+See_DataSlope:	binclude	"misc\slzssaw1.bin"
 		even
-See_DataFlat:	incbin	"misc\slzssaw2.bin"
+See_DataFlat:	binclude	"misc\slzssaw2.bin"
 		even

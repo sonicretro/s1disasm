@@ -13,7 +13,7 @@ Smash_Index:	dc.w Smash_Main-Smash_Index
 		dc.w Smash_Solid-Smash_Index
 		dc.w Smash_FragMove-Smash_Index
 
-speed:		= $30		; Sonic's horizontal speed
+speed := $30		; Sonic's horizontal speed
 ; ===========================================================================
 
 Smash_Main:	; Routine 0
@@ -33,32 +33,32 @@ Smash_Solid:	; Routine 2
 		move.w	obX(a0),d4
 		bsr.w	SolidObject
 		btst	#5,obStatus(a0)	; is Sonic pushing against the wall?
-		bne.s	@chkroll	; if yes, branch
+		bne.s	.chkroll	; if yes, branch
 
-@donothing:
+.donothing:
 		rts	
 ; ===========================================================================
 
-@chkroll:
+.chkroll:
 		cmpi.b	#id_Roll,obAnim(a1) ; is Sonic rolling?
-		bne.s	@donothing	; if not, branch
+		bne.s	.donothing	; if not, branch
 		move.w	speed(a0),d0
-		bpl.s	@chkspeed
+		bpl.s	.chkspeed
 		neg.w	d0
 
-	@chkspeed:
+.chkspeed:
 		cmpi.w	#$480,d0	; is Sonic's speed $480 or higher?
-		bcs.s	@donothing	; if not, branch
+		bcs.s	.donothing	; if not, branch
 		move.w	speed(a0),obVelX(a1)
 		addq.w	#4,obX(a1)
 		lea	(Smash_FragSpd1).l,a4 ;	use fragments that move	right
 		move.w	obX(a0),d0
 		cmp.w	obX(a1),d0	; is Sonic to the right	of the block?
-		bcs.s	@smash		; if yes, branch
+		bcs.s	.smash		; if yes, branch
 		subq.w	#8,obX(a1)
 		lea	(Smash_FragSpd2).l,a4 ;	use fragments that move	left
 
-	@smash:
+.smash:
 		move.w	obVelX(a1),obInertia(a1)
 		bclr	#5,obStatus(a0)
 		bclr	#5,obStatus(a1)

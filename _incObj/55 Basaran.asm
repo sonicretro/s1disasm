@@ -25,98 +25,98 @@ Bas_Main:	; Routine 0
 Bas_Action:	; Routine 2
 		moveq	#0,d0
 		move.b	ob2ndRout(a0),d0
-		move.w	@index(pc,d0.w),d1
-		jsr	@index(pc,d1.w)
+		move.w	.index(pc,d0.w),d1
+		jsr	.index(pc,d1.w)
 		lea	(Ani_Bas).l,a1
 		bsr.w	AnimateSprite
 		bra.w	RememberState
 ; ===========================================================================
-@index:		dc.w @dropcheck-@index
-		dc.w @dropfly-@index
-		dc.w @flapsound-@index
-		dc.w @flyup-@index
+.index:		dc.w .dropcheck-.index
+		dc.w .dropfly-.index
+		dc.w .flapsound-.index
+		dc.w .flyup-.index
 ; ===========================================================================
 
-@dropcheck:				; XREF: @index
+.dropcheck:				; XREF: .index
 		move.w	#$80,d2
-		bsr.w	@chkdistance	; is Sonic < $80 pixels from basaran?
-		bcc.s	@nodrop		; if not, branch
+		bsr.w	.chkdistance	; is Sonic < $80 pixels from basaran?
+		bcc.s	.nodrop		; if not, branch
 		move.w	(v_player+obY).w,d0
 		move.w	d0,$36(a0)
 		sub.w	obY(a0),d0
-		bcs.s	@nodrop
+		bcs.s	.nodrop
 		cmpi.w	#$80,d0		; is Sonic < $80 pixels from basaran?
-		bcc.s	@nodrop		; if not, branch
+		bcc.s	.nodrop		; if not, branch
 		tst.w	(v_debuguse).w	; is debug mode	on?
-		bne.s	@nodrop		; if yes, branch
+		bne.s	.nodrop		; if yes, branch
 
 		move.b	(v_vbla_byte).w,d0
 		add.b	d7,d0
 		andi.b	#7,d0
-		bne.s	@nodrop
+		bne.s	.nodrop
 		move.b	#1,obAnim(a0)
 		addq.b	#2,ob2ndRout(a0)
 
-	@nodrop:
+.nodrop:
 		rts	
 ; ===========================================================================
 
-@dropfly:				; XREF: @index
+.dropfly:				; XREF: .index
 		bsr.w	SpeedToPos
 		addi.w	#$18,obVelY(a0)	; make basaran fall
 		move.w	#$80,d2
-		bsr.w	@chkdistance
+		bsr.w	.chkdistance
 		move.w	$36(a0),d0
 		sub.w	obY(a0),d0
-		bcs.s	@chkdel
+		bcs.s	.chkdel
 		cmpi.w	#$10,d0		; is basaran close to Sonic vertically?
-		bcc.s	@dropmore	; if not, branch
+		bcc.s	.dropmore	; if not, branch
 		move.w	d1,obVelX(a0)	; make basaran fly horizontally
 		move.w	#0,obVelY(a0)	; stop basaran falling
 		move.b	#2,obAnim(a0)
 		addq.b	#2,ob2ndRout(a0)
 
-	@dropmore:
+.dropmore:
 		rts	
 
-	@chkdel:
+.chkdel:
 		tst.b	obRender(a0)
 		bpl.w	DeleteObject
 		rts	
 ; ===========================================================================
 
-@flapsound:				; XREF: @index
+.flapsound:				; XREF: .index
 		move.b	(v_vbla_byte).w,d0
 		andi.b	#$F,d0
-		bne.s	@nosound
+		bne.s	.nosound
 		sfx	sfx_Basaran	; play flapping sound every 16th frame
 
-	@nosound:
+.nosound:
 		bsr.w	SpeedToPos
 		move.w	(v_player+obX).w,d0
 		sub.w	obX(a0),d0
-		bcc.s	@isright	; if Sonic is right of basaran, branch
+		bcc.s	.isright	; if Sonic is right of basaran, branch
 		neg.w	d0
 
-	@isright:
+.isright:
 		cmpi.w	#$80,d0		; is Sonic within $80 pixels of basaran?
-		bcs.s	@dontflyup	; if yes, branch
+		bcs.s	.dontflyup	; if yes, branch
 		move.b	(v_vbla_byte).w,d0
 		add.b	d7,d0
 		andi.b	#7,d0
-		bne.s	@dontflyup
+		bne.s	.dontflyup
 		addq.b	#2,ob2ndRout(a0)
 
-@dontflyup:
+.dontflyup:
 		rts	
 ; ===========================================================================
 
-@flyup:					; XREF: @index
+.flyup:					; XREF: .index
 		bsr.w	SpeedToPos
 		subi.w	#$18,obVelY(a0)	; make basaran fly upwards
 		bsr.w	ObjHitCeiling
 		tst.w	d1		; has basaran hit the ceiling?
-		bpl.s	@noceiling	; if not, branch
+		bpl.s	.noceiling	; if not, branch
 		sub.w	d1,obY(a0)
 		andi.w	#$FFF8,obX(a0)
 		clr.w	obVelX(a0)	; stop basaran moving
@@ -124,7 +124,7 @@ Bas_Action:	; Routine 2
 		clr.b	obAnim(a0)
 		clr.b	ob2ndRout(a0)
 
-	@noceiling:
+.noceiling:
 		rts	
 ; ===========================================================================
 
@@ -137,17 +137,17 @@ Bas_Action:	; Routine 2
 ;	d0 = distance between Sonic and basaran
 ;	d1 = speed/direction for basaran to fly
 
-@chkdistance:
+.chkdistance:
 		move.w	#$100,d1
 		bset	#0,obStatus(a0)
 		move.w	(v_player+obX).w,d0
 		sub.w	obX(a0),d0
-		bcc.s	@right		; if Sonic is right of basaran, branch
+		bcc.s	.right		; if Sonic is right of basaran, branch
 		neg.w	d0
 		neg.w	d1
 		bclr	#0,obStatus(a0)
 
-	@right:
+.right:
 		cmp.w	d2,d0
 		rts	
 ; ===========================================================================

@@ -1,27 +1,14 @@
 ; ---------------------------------------------------------------------------
-; Align and pad
-; input: length to align to, value to use as padding (default is 0)
-; ---------------------------------------------------------------------------
-
-align:	macro
-	if (narg=1)
-	dcb.b \1-(*%\1),0
-	else
-	dcb.b \1-(*%\1),\2
-	endc
-	endm
-
-; ---------------------------------------------------------------------------
 ; Set a VRAM address via the VDP control port.
 ; input: 16-bit VRAM address, control port (default is ($C00004).l)
 ; ---------------------------------------------------------------------------
 
 locVRAM:	macro loc,controlport
-		if (narg=1)
+		if ("controlport"=="")
 		move.l	#($40000000+((loc&$3FFF)<<16)+((loc&$C000)>>14)),(vdp_control_port).l
 		else
 		move.l	#($40000000+((loc&$3FFF)<<16)+((loc&$C000)>>14)),controlport
-		endc
+		endif
 		endm
 
 ; ---------------------------------------------------------------------------
@@ -29,13 +16,13 @@ locVRAM:	macro loc,controlport
 ; input: source, length, destination
 ; ---------------------------------------------------------------------------
 
-writeVRAM:	macro
+writeVRAM:	macro source,length,destination
 		lea	(vdp_control_port).l,a5
-		move.l	#$94000000+(((\2>>1)&$FF00)<<8)+$9300+((\2>>1)&$FF),(a5)
-		move.l	#$96000000+(((\1>>1)&$FF00)<<8)+$9500+((\1>>1)&$FF),(a5)
-		move.w	#$9700+((((\1>>1)&$FF0000)>>16)&$7F),(a5)
-		move.w	#$4000+(\3&$3FFF),(a5)
-		move.w	#$80+((\3&$C000)>>14),(v_vdp_buffer2).w
+		move.l	#$94000000+(((length>>1)&$FF00)<<8)+$9300+((length>>1)&$FF),(a5)
+		move.l	#$96000000+(((source>>1)&$FF00)<<8)+$9500+((source>>1)&$FF),(a5)
+		move.w	#$9700+((((source>>1)&$FF0000)>>16)&$7F),(a5)
+		move.w	#$4000+(destination&$3FFF),(a5)
+		move.w	#$80+((destination&$C000)>>14),(v_vdp_buffer2).w
 		move.w	(v_vdp_buffer2).w,(a5)
 		endm
 
@@ -44,13 +31,13 @@ writeVRAM:	macro
 ; input: source, length, destination
 ; ---------------------------------------------------------------------------
 
-writeCRAM:	macro
+writeCRAM:	macro source,length,destination
 		lea	(vdp_control_port).l,a5
-		move.l	#$94000000+(((\2>>1)&$FF00)<<8)+$9300+((\2>>1)&$FF),(a5)
-		move.l	#$96000000+(((\1>>1)&$FF00)<<8)+$9500+((\1>>1)&$FF),(a5)
-		move.w	#$9700+((((\1>>1)&$FF0000)>>16)&$7F),(a5)
-		move.w	#$C000+(\3&$3FFF),(a5)
-		move.w	#$80+((\3&$C000)>>14),(v_vdp_buffer2).w
+		move.l	#$94000000+(((length>>1)&$FF00)<<8)+$9300+((length>>1)&$FF),(a5)
+		move.l	#$96000000+(((source>>1)&$FF00)<<8)+$9500+((source>>1)&$FF),(a5)
+		move.w	#$9700+((((source>>1)&$FF0000)>>16)&$7F),(a5)
+		move.w	#$C000+(destination&$3FFF),(a5)
+		move.w	#$80+((destination&$C000)>>14),(v_vdp_buffer2).w
 		move.w	(v_vdp_buffer2).w,(a5)
 		endm
 
@@ -94,8 +81,8 @@ stopZ80:	macro
 ; ---------------------------------------------------------------------------
 
 waitZ80:	macro
-	@wait:	btst	#0,(z80_bus_request).l
-		bne.s	@wait
+.wait:	btst	#0,(z80_bus_request).l
+		bne.s	.wait
 		endm
 
 ; ---------------------------------------------------------------------------
@@ -139,15 +126,15 @@ enable_ints:	macro
 ; ---------------------------------------------------------------------------
 
 jhi:		macro loc
-		bls.s	@nojump
+		bls.s	.nojump
 		jmp	loc
-	@nojump:
+.nojump:
 		endm
 
 jcc:		macro loc
-		bcs.s	@nojump
+		bcs.s	.nojump
 		jmp	loc
-	@nojump:
+.nojump:
 		endm
 
 jhs:		macro loc
@@ -155,15 +142,15 @@ jhs:		macro loc
 		endm
 
 jls:		macro loc
-		bhi.s	@nojump
+		bhi.s	.nojump
 		jmp	loc
-	@nojump:
+.nojump:
 		endm
 
 jcs:		macro loc
-		bcc.s	@nojump
+		bcc.s	.nojump
 		jmp	loc
-	@nojump:
+.nojump:
 		endm
 
 jlo:		macro loc
@@ -171,51 +158,51 @@ jlo:		macro loc
 		endm
 
 jeq:		macro loc
-		bne.s	@nojump
+		bne.s	.nojump
 		jmp	loc
-	@nojump:
+.nojump:
 		endm
 
 jne:		macro loc
-		beq.s	@nojump
+		beq.s	.nojump
 		jmp	loc
-	@nojump:
+.nojump:
 		endm
 
 jgt:		macro loc
-		ble.s	@nojump
+		ble.s	.nojump
 		jmp	loc
-	@nojump:
+.nojump:
 		endm
 
 jge:		macro loc
-		blt.s	@nojump
+		blt.s	.nojump
 		jmp	loc
-	@nojump:
+.nojump:
 		endm
 
 jle:		macro loc
-		bgt.s	@nojump
+		bgt.s	.nojump
 		jmp	loc
-	@nojump:
+.nojump:
 		endm
 
 jlt:		macro loc
-		bge.s	@nojump
+		bge.s	.nojump
 		jmp	loc
-	@nojump:
+.nojump:
 		endm
 
 jpl:		macro loc
-		bmi.s	@nojump
+		bmi.s	.nojump
 		jmp	loc
-	@nojump:
+.nojump:
 		endm
 
 jmi:		macro loc
-		bpl.s	@nojump
+		bpl.s	.nojump
 		jmp	loc
-	@nojump:
+.nojump:
 		endm
 
 ; ---------------------------------------------------------------------------
@@ -224,18 +211,18 @@ jmi:		macro loc
 ; ---------------------------------------------------------------------------
 
 out_of_range:	macro exit,pos
-		if (narg=2)
+		if ("pos"<>"")
 		move.w	pos,d0		; get object position (if specified as not obX)
 		else
 		move.w	obX(a0),d0	; get object position
-		endc
+		endif
 		andi.w	#$FF80,d0	; round down to nearest $80
 		move.w	(v_screenposx).w,d1 ; get screen position
 		subi.w	#128,d1
 		andi.w	#$FF80,d1
 		sub.w	d1,d0		; approx distance between object and screen
 		cmpi.w	#128+320+192,d0
-		bhi.\0	exit
+		bhi.ATTRIBUTE	exit
 		endm
 
 ; ---------------------------------------------------------------------------
@@ -245,20 +232,20 @@ out_of_range:	macro exit,pos
 
 music:		macro track,terminate
 		move.w	#track,d0
-		if (narg=1)
+		if ("terminate"="")
 		jsr	(PlaySound).l
 		else
 		jmp	(PlaySound).l
-		endc
+		endif
 		endm
 
 sfx:		macro track,terminate
 		move.w	#track,d0
-		if (narg=1)
+		if ("terminate"="")
 		jsr	(PlaySound_Special).l
 		else
 		jmp	(PlaySound_Special).l
-		endc
+		endif
 		endm
 
 ; ---------------------------------------------------------------------------
@@ -281,8 +268,8 @@ gotoROM:	macro
 ; ---------------------------------------------------------------------------
 
 zonewarning:	macro loc,elementsize
-	@end:
-		if (@end-loc)-(ZoneCount*elementsize)<>0
-		inform 1,"Size of \loc ($%h) does not match ZoneCount ($\#ZoneCount).",(@end-loc)/elementsize
-		endc
+._end:
+		if (._end-loc)-(ZoneCount*elementsize)<>0
+		;warning "Size of loc (\{(._end-loc)/elementsize}) does not match ZoneCount (\{ZoneCount})."
+		endif
 		endm

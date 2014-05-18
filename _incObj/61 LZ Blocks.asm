@@ -16,11 +16,11 @@ LBlk_Var:	dc.b $10, $10		; width, height
 		dc.b $10, $10
 		dc.b $10, $10
 
-lblk_height:	= $16		; block height
-lblk_origX:	= $34		; original x-axis position
-lblk_origY:	= $30		; original y-axis position
-lblk_time:	= $36		; time delay for block movement
-lblk_untouched:	= $38		; flag block as untouched
+lblk_height := $16		; block height
+lblk_origX := $34		; original x-axis position
+lblk_origY := $30		; original y-axis position
+lblk_time := $36		; time delay for block movement
+lblk_untouched := $38		; flag block as untouched
 ; ===========================================================================
 
 LBlk_Main:	; Routine 0
@@ -53,11 +53,11 @@ LBlk_Action:	; Routine 2
 		move.b	obSubtype(a0),d0
 		andi.w	#$F,d0
 		add.w	d0,d0
-		move.w	@index(pc,d0.w),d1
-		jsr	@index(pc,d1.w)
+		move.w	.index(pc,d0.w),d1
+		jsr	.index(pc,d1.w)
 		move.w	(sp)+,d4
 		tst.b	obRender(a0)
-		bpl.s	@chkdel
+		bpl.s	.chkdel
 		moveq	#0,d1
 		move.b	obActWid(a0),d1
 		addi.w	#$B,d1
@@ -69,114 +69,114 @@ LBlk_Action:	; Routine 2
 		move.b	d4,$3F(a0)
 		bsr.w	loc_12180
 
-@chkdel:
+.chkdel:
 		out_of_range	DeleteObject,lblk_origX(a0)
 		bra.w	DisplaySprite
 ; ===========================================================================
-@index:		dc.w @type00-@index, @type01-@index
-		dc.w @type02-@index, @type03-@index
-		dc.w @type04-@index, @type05-@index
-		dc.w @type06-@index, @type07-@index
+.index:		dc.w .type00-.index, .type01-.index
+		dc.w .type02-.index, .type03-.index
+		dc.w .type04-.index, .type05-.index
+		dc.w .type06-.index, .type07-.index
 ; ===========================================================================
 
-@type00:
+.type00:
 		rts	
 ; ===========================================================================
 
-@type01:
-@type03:
+.type01:
+.type03:
 		tst.w	lblk_time(a0)	; does time remain?
-		bne.s	@wait01		; if yes, branch
+		bne.s	.wait01		; if yes, branch
 		btst	#3,obStatus(a0)	; is Sonic standing on the object?
-		beq.s	@donothing01	; if not, branch
+		beq.s	.donothing01	; if not, branch
 		move.w	#30,lblk_time(a0) ; wait for half second
 
-	@donothing01:
+.donothing01:
 		rts	
 ; ===========================================================================
 
-	@wait01:
+.wait01:
 		subq.w	#1,lblk_time(a0); decrement waiting time
-		bne.s	@donothing01	; if time remains, branch
-		addq.b	#1,obSubtype(a0) ; goto @type02 or @type04
+		bne.s	.donothing01	; if time remains, branch
+		addq.b	#1,obSubtype(a0) ; goto .type02 or .type04
 		clr.b	lblk_untouched(a0) ; flag block as touched
 		rts	
 ; ===========================================================================
 
-@type02:
-@type06:
+.type02:
+.type06:
 		bsr.w	SpeedToPos
 		addq.w	#8,obVelY(a0)	; make block fall
 		bsr.w	ObjFloorDist
 		tst.w	d1		; has block hit the floor?
-		bpl.w	@nofloor02	; if not, branch
+		bpl.w	.nofloor02	; if not, branch
 		addq.w	#1,d1
 		add.w	d1,obY(a0)
 		clr.w	obVelY(a0)	; stop when it touches the floor
 		clr.b	obSubtype(a0)	; set type to 00 (non-moving type)
 
-	@nofloor02:
+.nofloor02:
 		rts	
 ; ===========================================================================
 
-@type04:
+.type04:
 		bsr.w	SpeedToPos
 		subq.w	#8,obVelY(a0)	; make block rise
 		bsr.w	ObjHitCeiling
 		tst.w	d1		; has block hit the ceiling?
-		bpl.w	@noceiling04	; if not, branch
+		bpl.w	.noceiling04	; if not, branch
 		sub.w	d1,obY(a0)
 		clr.w	obVelY(a0)	; stop when it touches the ceiling
 		clr.b	obSubtype(a0)	; set type to 00 (non-moving type)
 
-	@noceiling04:
+.noceiling04:
 		rts	
 ; ===========================================================================
 
-@type05:
+.type05:
 		cmpi.b	#1,$3F(a0)	; is Sonic touching the	block?
-		bne.s	@notouch05	; if not, branch
-		addq.b	#1,obSubtype(a0) ; goto @type06
+		bne.s	.notouch05	; if not, branch
+		addq.b	#1,obSubtype(a0) ; goto .type06
 		clr.b	lblk_untouched(a0)
 
-	@notouch05:
+.notouch05:
 		rts	
 ; ===========================================================================
 
-@type07:
+.type07:
 		move.w	(v_waterpos1).w,d0
 		sub.w	obY(a0),d0	; is block level with water?
-		beq.s	@stop07		; if yes, branch
-		bcc.s	@fall07		; branch if block is above water
+		beq.s	.stop07		; if yes, branch
+		bcc.s	.fall07		; branch if block is above water
 		cmpi.w	#-2,d0
-		bge.s	@loc_1214E
+		bge.s	.loc_1214E
 		moveq	#-2,d0
 
-	@loc_1214E:
+.loc_1214E:
 		add.w	d0,obY(a0)	; make the block rise with water level
 		bsr.w	ObjHitCeiling
 		tst.w	d1		; has block hit the ceiling?
-		bpl.w	@noceiling07	; if not, branch
+		bpl.w	.noceiling07	; if not, branch
 		sub.w	d1,obY(a0)	; stop block
 
-	@noceiling07:
+.noceiling07:
 		rts	
 ; ===========================================================================
 
-@fall07:
+.fall07:
 		cmpi.w	#2,d0
-		ble.s	@loc_1216A
+		ble.s	.loc_1216A
 		moveq	#2,d0
 
-	@loc_1216A:
+.loc_1216A:
 		add.w	d0,obY(a0)	; make the block sink with water level
 		bsr.w	ObjFloorDist
 		tst.w	d1
-		bpl.w	@stop07
+		bpl.w	.stop07
 		addq.w	#1,d1
 		add.w	d1,obY(a0)
 
-	@stop07:
+.stop07:
 		rts	
 ; ===========================================================================
 

@@ -13,49 +13,49 @@ HUD_Update:
 		tst.w	(f_debugmode).w	; is debug mode	on?
 		bne.w	HudDebug	; if yes, branch
 		tst.b	(f_scorecount).w ; does the score need updating?
-		beq.s	@chkrings	; if not, branch
+		beq.s	.chkrings	; if not, branch
 
 		clr.b	(f_scorecount).w
 		hudVRAM	$DC80		; set VRAM address
 		move.l	(v_score).w,d1	; load score
 		bsr.w	Hud_Score
 
-	@chkrings:
+.chkrings:
 		tst.b	(f_ringcount).w	; does the ring	counter	need updating?
-		beq.s	@chktime	; if not, branch
-		bpl.s	@notzero
+		beq.s	.chktime	; if not, branch
+		bpl.s	.notzero
 		bsr.w	Hud_LoadZero	; reset rings to 0 if Sonic is hit
 
-	@notzero:
+.notzero:
 		clr.b	(f_ringcount).w
 		hudVRAM	$DF40		; set VRAM address
 		moveq	#0,d1
 		move.w	(v_rings).w,d1	; load number of rings
 		bsr.w	Hud_Rings
 
-	@chktime:
+.chktime:
 		tst.b	(f_timecount).w	; does the time	need updating?
-		beq.s	@chklives	; if not, branch
+		beq.s	.chklives	; if not, branch
 		tst.w	(f_pause).w	; is the game paused?
-		bne.s	@chklives	; if yes, branch
+		bne.s	.chklives	; if yes, branch
 		lea	(v_time).w,a1
 		cmpi.l	#(9*$10000)+(59*$100)+59,(a1)+ ; is the time 9:59:59?
 		beq.s	TimeOver	; if yes, branch
 
 		addq.b	#1,-(a1)	; increment 1/60s counter
 		cmpi.b	#60,(a1)	; check if passed 60
-		bcs.s	@chklives
+		bcs.s	.chklives
 		move.b	#0,(a1)
 		addq.b	#1,-(a1)	; increment second counter
 		cmpi.b	#60,(a1)	; check if passed 60
-		bcs.s	@updatetime
+		bcs.s	.updatetime
 		move.b	#0,(a1)
 		addq.b	#1,-(a1)	; increment minute counter
 		cmpi.b	#9,(a1)		; check if passed 9
-		bcs.s	@updatetime
+		bcs.s	.updatetime
 		move.b	#9,(a1)		; keep as 9
 
-	@updatetime:
+.updatetime:
 		hudVRAM	$DE40
 		moveq	#0,d1
 		move.b	(v_timemin).w,d1 ; load	minutes
@@ -65,15 +65,15 @@ HUD_Update:
 		move.b	(v_timesec).w,d1 ; load	seconds
 		bsr.w	Hud_Secs
 
-	@chklives:
+.chklives:
 		tst.b	(f_lifecount).w ; does the lives counter need updating?
-		beq.s	@chkbonus	; if not, branch
+		beq.s	.chkbonus	; if not, branch
 		clr.b	(f_lifecount).w
 		bsr.w	Hud_Lives
 
-	@chkbonus:
+.chkbonus:
 		tst.b	(f_endactbonus).w ; do time/ring bonus counters need updating?
-		beq.s	@finish		; if not, branch
+		beq.s	.finish		; if not, branch
 		clr.b	(f_endactbonus).w
 		locVRAM	$AE00
 		moveq	#0,d1
@@ -83,11 +83,11 @@ HUD_Update:
 		move.w	(v_ringbonus).w,d1 ; load ring bonus
 		bsr.w	Hud_TimeRingBonus
 
-	@finish:
+.finish:
 		rts	
 ; ===========================================================================
 
-TimeOver:				; XREF: @chktime
+TimeOver:				; XREF: .chktime
 		clr.b	(f_timecount).w
 		lea	(v_player).w,a0
 		movea.l	a0,a2
@@ -99,30 +99,30 @@ TimeOver:				; XREF: @chktime
 HudDebug:				; XREF: HUD_Update
 		bsr.w	HudDb_XY
 		tst.b	(f_ringcount).w	; does the ring	counter	need updating?
-		beq.s	@objcounter	; if not, branch
-		bpl.s	@notzero
+		beq.s	.objcounter	; if not, branch
+		bpl.s	.notzero
 		bsr.w	Hud_LoadZero	; reset rings to 0 if Sonic is hit
 
-	@notzero:
+.notzero:
 		clr.b	(f_ringcount).w
 		hudVRAM	$DF40		; set VRAM address
 		moveq	#0,d1
 		move.w	(v_rings).w,d1	; load number of rings
 		bsr.w	Hud_Rings
 
-	@objcounter:
+.objcounter:
 		hudVRAM	$DEC0		; set VRAM address
 		moveq	#0,d1
 		move.b	(v_spritecount).w,d1 ; load "number of objects" counter
 		bsr.w	Hud_Secs
 		tst.b	(f_lifecount).w ; does the lives counter need updating?
-		beq.s	@chkbonus	; if not, branch
+		beq.s	.chkbonus	; if not, branch
 		clr.b	(f_lifecount).w
 		bsr.w	Hud_Lives
 
-	@chkbonus:
+.chkbonus:
 		tst.b	(f_endactbonus).w ; does the ring/time bonus counter need updating?
-		beq.s	@finish		; if not, branch
+		beq.s	.finish		; if not, branch
 		clr.b	(f_endactbonus).w
 		locVRAM	$AE00		; set VRAM address
 		moveq	#0,d1
@@ -132,7 +132,7 @@ HudDebug:				; XREF: HUD_Update
 		move.w	(v_ringbonus).w,d1 ; load ring bonus
 		bsr.w	Hud_TimeRingBonus
 
-	@finish:
+.finish:
 		rts	
 ; End of function HUD_Update
 

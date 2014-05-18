@@ -8,17 +8,17 @@
 
 OscillateNumInit:			; XREF: GM_Level
 		lea	(v_oscillate).w,a1
-		lea	(@baselines).l,a2
+		lea	(.baselines).l,a2
 		moveq	#$20,d1
 
-	@loop:
+.loop:
 		move.w	(a2)+,(a1)+	; copy baseline values to RAM
-		dbf	d1,@loop
+		dbf	d1,.loop
 		rts	
 
 
 ; ===========================================================================
-@baselines:	dc.w %0000000001111100	; oscillation direction bitfield
+.baselines:	dc.w %0000000001111100	; oscillation direction bitfield
 		dc.w $80, 0
 		dc.w $80, 0
 		dc.w $80, 0
@@ -43,48 +43,48 @@ OscillateNumInit:			; XREF: GM_Level
 
 OscillateNumDo:				; XREF: GM_Level
 		cmpi.b	#6,(v_player+obRoutine).w ; has Sonic just died?
-		bcc.s	@end		; if yes, branch
+		bcc.s	.end		; if yes, branch
 		lea	(v_oscillate).w,a1
-		lea	(@settings).l,a2
+		lea	(.settings).l,a2
 		move.w	(a1)+,d3	; get oscillation direction bitfield
 		moveq	#$F,d1
 
-@loop:
+.loop:
 		move.w	(a2)+,d2	; get frequency
 		move.w	(a2)+,d4	; get amplitude
 		btst	d1,d3		; check oscillation direction
-		bne.s	@down		; branch if 1
+		bne.s	.down		; branch if 1
 
-	@up:
+.up:
 		move.w	2(a1),d0	; get current rate
 		add.w	d2,d0		; add frequency
 		move.w	d0,2(a1)
 		add.w	d0,0(a1)	; add rate to value
 		cmp.b	0(a1),d4
-		bhi.s	@next
+		bhi.s	.next
 		bset	d1,d3
-		bra.s	@next
+		bra.s	.next
 
-	@down:
+.down:
 		move.w	2(a1),d0
 		sub.w	d2,d0
 		move.w	d0,2(a1)
 		add.w	d0,0(a1)
 		cmp.b	0(a1),d4
-		bls.s	@next
+		bls.s	.next
 		bclr	d1,d3
 
-	@next:
+.next:
 		addq.w	#4,a1
-		dbf	d1,@loop
+		dbf	d1,.loop
 		move.w	d3,(v_oscillate).w
 
-@end:
+.end:
 		rts	
 ; End of function OscillateNumDo
 
 ; ===========================================================================
-@settings:	dc.w 2,	$10	; frequency, amplitude
+.settings:	dc.w 2,	$10	; frequency, amplitude
 		dc.w 2,	$18
 		dc.w 2,	$20
 		dc.w 2,	$30

@@ -22,6 +22,6 @@ WSnd_PlaySnd:	; Routine 2
 		bne.s	WSnd_ChkDel
 		sfx	sfx_Waterfall	; play waterfall sound
 
-	WSnd_ChkDel:
+WSnd_ChkDel:
 		out_of_range	DeleteObject
 		rts	

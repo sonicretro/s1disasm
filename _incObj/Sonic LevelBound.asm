@@ -15,26 +15,26 @@ Sonic_LevelBound:			; XREF: Obj01_MdNormal; et al
 		move.w	(v_limitleft2).w,d0
 		addi.w	#$10,d0
 		cmp.w	d1,d0		; has Sonic touched the	side boundary?
-		bhi.s	@sides		; if yes, branch
+		bhi.s	.sides		; if yes, branch
 		move.w	(v_limitright2).w,d0
 		addi.w	#$128,d0
 		tst.b	(f_lockscreen).w
-		bne.s	@screenlocked
+		bne.s	.screenlocked
 		addi.w	#$40,d0
 
-	@screenlocked:
+.screenlocked:
 		cmp.w	d1,d0		; has Sonic touched the	side boundary?
-		bls.s	@sides		; if yes, branch
+		bls.s	.sides		; if yes, branch
 
-	@chkbottom:
+.chkbottom:
 		move.w	(v_limitbtm2).w,d0
 		addi.w	#$E0,d0
 		cmp.w	obY(a0),d0	; has Sonic touched the	bottom boundary?
-		blt.s	@bottom		; if yes, branch
+		blt.s	.bottom		; if yes, branch
 		rts	
 ; ===========================================================================
 
-@bottom:
+.bottom:
 		cmpi.w	#(id_SBZ<<8)+1,(v_zone).w ; is level SBZ2 ?
 		bne.w	KillSonic	; if not, kill Sonic
 		cmpi.w	#$2000,(v_player+obX).w
@@ -45,10 +45,10 @@ Sonic_LevelBound:			; XREF: Obj01_MdNormal; et al
 		rts	
 ; ===========================================================================
 
-@sides:
+.sides:
 		move.w	d0,obX(a0)
 		move.w	#0,obX+2(a0)
 		move.w	#0,obVelX(a0)	; stop Sonic moving
 		move.w	#0,obInertia(a0)
-		bra.s	@chkbottom
+		bra.s	.chkbottom
 ; End of function Sonic_LevelBound

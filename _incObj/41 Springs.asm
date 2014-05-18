@@ -22,7 +22,7 @@ Spring_Index:	dc.w Spring_Main-Spring_Index
 		dc.w Spring_AniDwn-Spring_Index
 		dc.w Spring_ResetDwn-Spring_Index
 
-spring_pow:	= $30			; power of current spring
+spring_pow := $30			; power of current spring
 
 Spring_Powers:	dc.w -$1000		; power	of red spring
 		dc.w -$A00		; power	of yellow spring
@@ -45,14 +45,14 @@ Spring_Main:	; Routine 0
 		move.w	#$533,obGfx(a0)
 		move.b	#8,obActWid(a0)
 
-	Spring_NotLR:
+Spring_NotLR:
 		btst	#5,d0		; does the spring face downwards?
 		beq.s	Spring_NotDwn	; if not, branch
 
 		move.b	#$E,obRoutine(a0) ; use "Spring_Dwn" routine
 		bset	#1,obStatus(a0)
 
-	Spring_NotDwn:
+Spring_NotDwn:
 		btst	#1,d0
 		beq.s	loc_DB72
 		bset	#5,obGfx(a0)
@@ -122,7 +122,7 @@ Spring_BounceLR:
 		subi.w	#$10,obX(a1)
 		neg.w	obVelX(a1)	; move Sonic to	the right
 
-	Spring_Flipped:
+Spring_Flipped:
 		move.w	#$F,$3E(a1)
 		move.w	obVelX(a1),obInertia(a1)
 		bchg	#0,obStatus(a1)

@@ -23,10 +23,10 @@ WFall_Main:	; Routine 0
 		move.b	#$18,obActWid(a0)
 		move.b	#1,obPriority(a0)
 		move.b	obSubtype(a0),d0 ; get object type
-		bpl.s	@under80	; branch if $00-$7F
+		bpl.s	.under80	; branch if $00-$7F
 		bset	#7,obGfx(a0)
 
-	@under80:
+.under80:
 		andi.b	#$F,d0		; read only the	2nd digit
 		move.b	d0,obFrame(a0)	; set frame number
 		cmpi.b	#9,d0		; is object type $x9 ?
@@ -35,11 +35,11 @@ WFall_Main:	; Routine 0
 		clr.b	obPriority(a0)	; object is in front of Sonic
 		subq.b	#2,obRoutine(a0) ; goto WFall_Animate next
 		btst	#6,obSubtype(a0) ; is object type $49 ?
-		beq.s	@not49		; if not, branch
+		beq.s	.not49		; if not, branch
 
 		move.b	#6,obRoutine(a0) ; goto WFall_OnWater next
 
-	@not49:
+.not49:
 		btst	#5,obSubtype(a0) ; is object type $A9 ?
 		beq.s	WFall_Animate	; if not, branch
 		move.b	#8,obRoutine(a0) ; goto loc_12B36 next
@@ -62,8 +62,8 @@ WFall_OnWater:	; Routine 6
 loc_12B36:	; Routine 8
 		bclr	#7,obGfx(a0)
 		cmpi.b	#7,(v_lvllayout+$106).w
-		bne.s	@animate
+		bne.s	.animate
 		bset	#7,obGfx(a0)
 
-	@animate:
+.animate:
 		bra.s	WFall_Animate

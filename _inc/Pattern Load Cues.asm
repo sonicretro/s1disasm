@@ -54,7 +54,7 @@ PLC_Main:	dc.w ((PLC_Mainend-PLC_Main-2)/6)-1
 		plcm	Nem_Lives, $FA80	; lives	counter
 		plcm	Nem_Ring, $F640 	; rings
 		plcm	Nem_Points, $F2E0	; points from enemy
-	PLC_Mainend:
+PLC_Mainend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - standard block 2
 ; ---------------------------------------------------------------------------
@@ -62,19 +62,19 @@ PLC_Main2:	dc.w ((PLC_Main2end-PLC_Main2-2)/6)-1
 		plcm	Nem_Monitors, $D000	; monitors
 		plcm	Nem_Shield, $A820	; shield
 		plcm	Nem_Stars, $AB80	; invincibility	stars
-	PLC_Main2end:
+PLC_Main2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - explosion
 ; ---------------------------------------------------------------------------
 PLC_Explode:	dc.w ((PLC_Explodeend-PLC_Explode-2)/6)-1
 		plcm	Nem_Explode, $B400	; explosion
-	PLC_Explodeend:
+PLC_Explodeend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - game/time	over
 ; ---------------------------------------------------------------------------
 PLC_GameOver:	dc.w ((PLC_GameOverend-PLC_GameOver-2)/6)-1
 		plcm	Nem_GameOver, $ABC0	; game/time over
-	PLC_GameOverend:
+PLC_GameOverend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Green Hill
 ; ---------------------------------------------------------------------------
@@ -99,7 +99,7 @@ PLC_GHZ2:	dc.w ((PLC_GHZ2end-PLC_GHZ2-2)/6)-1
 		plcm	Nem_Ball, $7540		; giant	ball
 		plcm	Nem_GhzWall1, $A1E0	; breakable wall
 		plcm	Nem_GhzWall2, $6980	; normal wall
-	PLC_GHZ2end:
+PLC_GHZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Labyrinth
 ; ---------------------------------------------------------------------------
@@ -124,8 +124,7 @@ PLC_LZ2:	dc.w ((PLC_LZ2end-PLC_LZ2-2)/6)-1
 		plcm	Nem_Gargoyle, $5D20	; gargoyle head
 		if Revision=0
 		plcm	Nem_LzSonic, $8800	; Sonic	holding	his breath
-		else
-		endc
+		endif
 		plcm	Nem_LzPlatfm, $89E0	; rising platform
 		plcm	Nem_Orbinaut, $8CE0	; orbinaut enemy
 		plcm	Nem_Jaws, $90C0		; jaws enemy
@@ -134,7 +133,7 @@ PLC_LZ2:	dc.w ((PLC_LZ2end-PLC_LZ2-2)/6)-1
 		plcm	Nem_Spikes, $A360	; spikes
 		plcm	Nem_HSpring, $A460	; horizontal spring
 		plcm	Nem_VSpring, $A660	; vertical spring
-	PLC_LZ2end:
+PLC_LZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Marble
 ; ---------------------------------------------------------------------------
@@ -156,7 +155,7 @@ PLC_MZ2:	dc.w ((PLC_MZ2end-PLC_MZ2-2)/6)-1
 		plcm	Nem_HSpring, $A460	; horizontal spring
 		plcm	Nem_VSpring, $A660	; vertical spring
 		plcm	Nem_MzBlock, $5700	; green	stone block
-	PLC_MZ2end:
+PLC_MZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Star Light
 ; ---------------------------------------------------------------------------
@@ -178,7 +177,7 @@ PLC_SLZ2:	dc.w ((PLC_SLZ2end-PLC_SLZ2-2)/6)-1
 		plcm	Nem_SlzSwing, $7B80	; swinging platform
 		plcm	Nem_SlzCannon, $9B00	; fireball launcher
 		plcm	Nem_SlzSpike, $9E00	; spikeball
-	PLC_SLZ2end:
+PLC_SLZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Spring Yard
 ; ---------------------------------------------------------------------------
@@ -198,7 +197,7 @@ PLC_SYZ2:	dc.w ((PLC_SYZ2end-PLC_SYZ2-2)/6)-1
 		plcm	Nem_Spikes, $A360	; spikes
 		plcm	Nem_HSpring, $A460	; horizontal spring
 		plcm	Nem_VSpring, $A660	; vertical spring
-	PLC_SYZ2end:
+PLC_SYZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Scrap Brain
 ; ---------------------------------------------------------------------------
@@ -230,13 +229,13 @@ PLC_SBZ2:	dc.w ((PLC_SBZ2end-PLC_SBZ2-2)/6)-1
 		plcm	Nem_Spikes, $A360	; spikes
 		plcm	Nem_HSpring, $A460	; horizontal spring
 		plcm	Nem_VSpring, $A660	; vertical spring
-	PLC_SBZ2end:
+PLC_SBZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - title card
 ; ---------------------------------------------------------------------------
 PLC_TitleCard:	dc.w ((PLC_TitleCardend-PLC_TitleCard-2)/6)-1
 		plcm	Nem_TitleCard, $B000
-	PLC_TitleCardend:
+PLC_TitleCardend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - act 3 boss
 ; ---------------------------------------------------------------------------
@@ -247,7 +246,7 @@ PLC_Boss:	dc.w ((PLC_Bossend-PLC_Boss-2)/6)-1
 		plcm	Nem_Bomb, $A300		; bomb enemy ((gets overwritten)
 		plcm	Nem_SlzSpike, $A300	; spikeball ((SLZ boss)
 		plcm	Nem_Exhaust, $A540	; exhaust flame
-	PLC_Bossend:
+PLC_Bossend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - act 1/2 signpost
 ; ---------------------------------------------------------------------------
@@ -255,7 +254,7 @@ PLC_Signpost:	dc.w ((PLC_Signpostend-PLC_Signpost-2)/6)-1
 		plcm	Nem_SignPost, $D000	; signpost
 		plcm	Nem_Bonus, $96C0	; hidden bonus points
 		plcm	Nem_BigFlash, $8C40	; giant	ring flash effect
-	PLC_Signpostend:
+PLC_Signpostend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - beta special stage warp effect
 ; ---------------------------------------------------------------------------
@@ -263,9 +262,8 @@ PLC_Warp:
 		if Revision=0
 		dc.w ((PLC_Warpend-PLC_Warp-2)/6)-1
 		plcm	Nem_Warp, $A820
-		else
-		endc
-	PLC_Warpend:
+		endif
+PLC_Warpend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - special stage
 ; ---------------------------------------------------------------------------
@@ -287,7 +285,7 @@ PLC_SpecialStage:	dc.w ((PLC_SpeStageend-PLC_SpecialStage-2)/6)-1
 		plcm	Nem_SSZone1, $F2E0	; ZONE 1 block
 		plcm	Nem_SSZone2, $F400	; ZONE 2 block
 		plcm	Nem_SSZone3, $F520	; ZONE 3 block
-	PLC_SpeStageend:
+PLC_SpeStageend:
 		plcm	Nem_SSZone4, $F2E0	; ZONE 4 block
 		plcm	Nem_SSZone5, $F400	; ZONE 5 block
 		plcm	Nem_SSZone6, $F520	; ZONE 6 block
@@ -297,49 +295,49 @@ PLC_SpecialStage:	dc.w ((PLC_SpeStageend-PLC_SpecialStage-2)/6)-1
 PLC_GHZAnimals:	dc.w ((PLC_GHZAnimalsend-PLC_GHZAnimals-2)/6)-1
 		plcm	Nem_Rabbit, $B000	; rabbit
 		plcm	Nem_Flicky, $B240	; flicky
-	PLC_GHZAnimalsend:
+PLC_GHZAnimalsend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - LZ animals
 ; ---------------------------------------------------------------------------
 PLC_LZAnimals:	dc.w ((PLC_LZAnimalsend-PLC_LZAnimals-2)/6)-1
 		plcm	Nem_BlackBird, $B000	; blackbird
 		plcm	Nem_Seal, $B240		; seal
-	PLC_LZAnimalsend:
+PLC_LZAnimalsend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - MZ animals
 ; ---------------------------------------------------------------------------
 PLC_MZAnimals:	dc.w ((PLC_MZAnimalsend-PLC_MZAnimals-2)/6)-1
 		plcm	Nem_Squirrel, $B000	; squirrel
 		plcm	Nem_Seal, $B240		; seal
-	PLC_MZAnimalsend:
+PLC_MZAnimalsend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - SLZ animals
 ; ---------------------------------------------------------------------------
 PLC_SLZAnimals:	dc.w ((PLC_SLZAnimalsend-PLC_SLZAnimals-2)/6)-1
 		plcm	Nem_Pig, $B000		; pig
 		plcm	Nem_Flicky, $B240	; flicky
-	PLC_SLZAnimalsend:
+PLC_SLZAnimalsend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - SYZ animals
 ; ---------------------------------------------------------------------------
 PLC_SYZAnimals:	dc.w ((PLC_SYZAnimalsend-PLC_SYZAnimals-2)/6)-1
 		plcm	Nem_Pig, $B000		; pig
 		plcm	Nem_Chicken, $B240	; chicken
-	PLC_SYZAnimalsend:
+PLC_SYZAnimalsend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - SBZ animals
 ; ---------------------------------------------------------------------------
 PLC_SBZAnimals:	dc.w ((PLC_SBZAnimalsend-PLC_SBZAnimals-2)/6)-1
 		plcm	Nem_Rabbit, $B000		; rabbit
 		plcm	Nem_Chicken, $B240	; chicken
-	PLC_SBZAnimalsend:
+PLC_SBZAnimalsend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - special stage results screen
 ; ---------------------------------------------------------------------------
 PLC_SSResult:dc.w ((PLC_SpeStResultend-PLC_SSResult-2)/6)-1
 		plcm	Nem_ResultEm, $A820	; emeralds
 		plcm	Nem_MiniSonic, $AA20	; mini Sonic
-	PLC_SpeStResultend:
+PLC_SpeStResultend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - ending sequence
 ; ---------------------------------------------------------------------------
@@ -352,8 +350,7 @@ PLC_Ending:	dc.w ((PLC_Endingend-PLC_Ending-2)/6)-1
 		plcm	Nem_EndSonic, $7C20	; Sonic
 		if Revision=0
 		plcm	Nem_EndEggman, $A480	; Eggman's death ((unused)
-		else
-		endc
+		endif
 		plcm	Nem_Rabbit, $AA60	; rabbit
 		plcm	Nem_Chicken, $ACA0	; chicken
 		plcm	Nem_BlackBird, $AE60	; blackbird
@@ -362,7 +359,7 @@ PLC_Ending:	dc.w ((PLC_Endingend-PLC_Ending-2)/6)-1
 		plcm	Nem_Flicky, $B4A0	; flicky
 		plcm	Nem_Squirrel, $B660	; squirrel
 		plcm	Nem_EndStH, $B8A0	; "SONIC THE HEDGEHOG"
-	PLC_Endingend:
+PLC_Endingend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - "TRY AGAIN" and "END" screens
 ; ---------------------------------------------------------------------------
@@ -370,7 +367,7 @@ PLC_TryAgain:	dc.w ((PLC_TryAgainend-PLC_TryAgain-2)/6)-1
 		plcm	Nem_EndEm, $78A0	; emeralds
 		plcm	Nem_TryAgain, $7C20	; Eggman
 		plcm	Nem_CreditText, $B400	; credits alphabet
-	PLC_TryAgainend:
+PLC_TryAgainend:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - Eggman on SBZ 2
 ; ---------------------------------------------------------------------------
@@ -378,7 +375,7 @@ PLC_EggmanSBZ2:	dc.w ((PLC_EggmanSBZ2end-PLC_EggmanSBZ2-2)/6)-1
 		plcm	Nem_SbzBlock, $A300	; block
 		plcm	Nem_Sbz2Eggman, $8000	; Eggman
 		plcm	Nem_LzSwitch, $9400	; switch
-	PLC_EggmanSBZ2end:
+PLC_EggmanSBZ2end:
 ; ---------------------------------------------------------------------------
 ; Pattern load cues - final boss
 ; ---------------------------------------------------------------------------
@@ -388,7 +385,7 @@ PLC_FZBoss:	dc.w ((PLC_FZBossend-PLC_FZBoss-2)/6)-1
 		plcm	Nem_Eggman, $8000	; Eggman main patterns
 		plcm	Nem_Sbz2Eggman, $8E00	; Eggman without ship
 		plcm	Nem_Exhaust, $A540	; exhaust flame
-	PLC_FZBossend:
+PLC_FZBossend:
 		even
 
 ; ---------------------------------------------------------------------------

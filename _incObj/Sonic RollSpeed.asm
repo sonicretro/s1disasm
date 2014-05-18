@@ -15,17 +15,17 @@ Sonic_RollSpeed:			; XREF: Obj01_MdRoll
 		tst.b	(f_jumponly).w
 		bne.w	loc_131CC
 		tst.w	$3E(a0)
-		bne.s	@notright
+		bne.s	.notright
 		btst	#bitL,(v_jpadhold2).w ; is left being pressed?
-		beq.s	@notleft	; if not, branch
+		beq.s	.notleft	; if not, branch
 		bsr.w	Sonic_RollLeft
 
-	@notleft:
+.notleft:
 		btst	#bitR,(v_jpadhold2).w ; is right being pressed?
-		beq.s	@notright	; if not, branch
+		beq.s	.notright	; if not, branch
 		bsr.w	Sonic_RollRight
 
-	@notright:
+.notright:
 		move.w	obInertia(a0),d0
 		beq.s	loc_131AA
 		bmi.s	loc_1319E

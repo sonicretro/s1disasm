@@ -7,10 +7,10 @@
 
 RandomNumber:
 		move.l	(v_random).w,d1
-		bne.s	@scramble	; if d0 is not 0, branch
+		bne.s	.scramble	; if d0 is not 0, branch
 		move.l	#$2A6D365A,d1	; if do is 0, use seed number
 
-	@scramble:
+.scramble:
 		move.l	d1,d0
 		asl.l	#2,d1
 		add.l	d0,d1

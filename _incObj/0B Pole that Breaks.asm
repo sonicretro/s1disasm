@@ -12,8 +12,8 @@ Pole_Index:	dc.w Pole_Main-Pole_Index
 		dc.w Pole_Action-Pole_Index
 		dc.w Pole_Display-Pole_Index
 
-pole_time:	= $30		; time between grabbing the pole & breaking
-pole_grabbed:	= $32		; flag set when Sonic grabs the pole
+pole_time := $30		; time between grabbing the pole & breaking
+pole_grabbed := $32		; flag set when Sonic grabs the pole
 ; ===========================================================================
 
 Pole_Main:	; Routine 0
@@ -31,41 +31,41 @@ Pole_Main:	; Routine 0
 
 Pole_Action:	; Routine 2
 		tst.b	pole_grabbed(a0) ; has pole already been grabbed?
-		beq.s	@grab		; if not, branch
+		beq.s	.grab		; if not, branch
 		tst.w	pole_time(a0)
-		beq.s	@moveup
+		beq.s	.moveup
 		subq.w	#1,pole_time(a0) ; decrement time until break
-		bne.s	@moveup
+		bne.s	.moveup
 		move.b	#1,obFrame(a0)	; break	the pole
-		bra.s	@release
+		bra.s	.release
 ; ===========================================================================
 
-@moveup:
+.moveup:
 		lea	(v_player).w,a1
 		move.w	obY(a0),d0
 		subi.w	#$18,d0
 		btst	#bitUp,(v_jpadhold1).w ; is "up" pressed?
-		beq.s	@movedown	; if not, branch
+		beq.s	.movedown	; if not, branch
 		subq.w	#1,obY(a1)	; move Sonic up
 		cmp.w	obY(a1),d0
-		bcs.s	@movedown
+		bcs.s	.movedown
 		move.w	d0,obY(a1)
 
-@movedown:
+.movedown:
 		addi.w	#$24,d0
 		btst	#bitDn,(v_jpadhold1).w ; is "down" pressed?
-		beq.s	@letgo		; if not, branch
+		beq.s	.letgo		; if not, branch
 		addq.w	#1,obY(a1)	; move Sonic down
 		cmp.w	obY(a1),d0
-		bcc.s	@letgo
+		bcc.s	.letgo
 		move.w	d0,obY(a1)
 
-@letgo:
+.letgo:
 		move.b	(v_jpadpress2).w,d0
 		andi.w	#btnABC,d0	; is A/B/C pressed?
 		beq.s	Pole_Display	; if not, branch
 
-@release:
+.release:
 		clr.b	obColType(a0)
 		addq.b	#2,obRoutine(a0) ; goto Pole_Display next
 		clr.b	(f_lockmulti).w
@@ -74,7 +74,7 @@ Pole_Action:	; Routine 2
 		bra.s	Pole_Display
 ; ===========================================================================
 
-@grab:
+.grab:
 		tst.b	obColProp(a0)	; has Sonic touched the	pole?
 		beq.s	Pole_Display	; if not, branch
 		lea	(v_player).w,a1

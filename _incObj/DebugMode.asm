@@ -24,28 +24,28 @@ Debug_Main:	; Routine 0
 		move.b	#0,obFrame(a0)
 		move.b	#id_Walk,obAnim(a0)
 		cmpi.b	#id_Special,(v_gamemode).w ; is game mode $10 (special stage)?
-		bne.s	@islevel	; if not, branch
+		bne.s	.islevel	; if not, branch
 
 		move.w	#0,(v_ssrotate).w ; stop special stage rotating
 		move.w	#0,(v_ssangle).w ; make	special	stage "upright"
 		moveq	#6,d0		; use 6th debug	item list
-		bra.s	@selectlist
+		bra.s	.selectlist
 ; ===========================================================================
 
-@islevel:
+.islevel:
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
 
-@selectlist:
+.selectlist:
 		lea	(DebugList).l,a2
 		add.w	d0,d0
 		adda.w	(a2,d0.w),a2
 		move.w	(a2)+,d6
 		cmp.b	(v_debugitem).w,d6 ; have you gone past the last item?
-		bhi.s	@noreset	; if not, branch
+		bhi.s	.noreset	; if not, branch
 		move.b	#0,(v_debugitem).w ; back to start of list
 
-	@noreset:
+.noreset:
 		bsr.w	Debug_ShowItem
 		move.b	#12,(v_debugxspeed).w
 		move.b	#1,(v_debugyspeed).w
@@ -53,12 +53,12 @@ Debug_Main:	; Routine 0
 Debug_Action:	; Routine 2
 		moveq	#6,d0
 		cmpi.b	#id_Special,(v_gamemode).w
-		beq.s	@isntlevel
+		beq.s	.isntlevel
 
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
 
-	@isntlevel:
+.isntlevel:
 		lea	(DebugList).l,a2
 		add.w	d0,d0
 		adda.w	(a2,d0.w),a2
@@ -74,26 +74,26 @@ Debug_Control:
 		move.w	#1,d1
 		move.b	(v_jpadpress1).w,d4
 		andi.w	#btnDir,d4	; is up/down/left/right	pressed?
-		bne.s	@dirpressed	; if yes, branch
+		bne.s	.dirpressed	; if yes, branch
 
 		move.b	(v_jpadhold1).w,d0
 		andi.w	#btnDir,d0	; is up/down/left/right	held?
-		bne.s	@dirheld	; if yes, branch
+		bne.s	.dirheld	; if yes, branch
 
 		move.b	#12,(v_debugxspeed).w
 		move.b	#15,(v_debugyspeed).w
 		bra.w	Debug_ChgItem
 ; ===========================================================================
 
-@dirheld:
+.dirheld:
 		subq.b	#1,(v_debugxspeed).w
 		bne.s	loc_1D01C
 		move.b	#1,(v_debugxspeed).w
 		addq.b	#1,(v_debugyspeed).w
-		bne.s	@dirpressed
+		bne.s	.dirpressed
 		move.b	#-1,(v_debugyspeed).w
 
-@dirpressed:
+.dirpressed:
 		move.b	(v_jpadhold1).w,d4
 
 loc_1D01C:
@@ -136,32 +136,32 @@ loc_1D066:
 
 Debug_ChgItem:
 		btst	#bitA,(v_jpadhold1).w ; is button A pressed?
-		beq.s	@createitem	; if not, branch
+		beq.s	.createitem	; if not, branch
 		btst	#bitC,(v_jpadpress1).w ; is button C pressed?
-		beq.s	@nextitem	; if not, branch
+		beq.s	.nextitem	; if not, branch
 		subq.b	#1,(v_debugitem).w ; go back 1 item
-		bcc.s	@display
+		bcc.s	.display
 		add.b	d6,(v_debugitem).w
-		bra.s	@display
+		bra.s	.display
 ; ===========================================================================
 
-@nextitem:
+.nextitem:
 		btst	#bitA,(v_jpadpress1).w ; is button A pressed?
-		beq.s	@createitem	; if not, branch
+		beq.s	.createitem	; if not, branch
 		addq.b	#1,(v_debugitem).w ; go forwards 1 item
 		cmp.b	(v_debugitem).w,d6
-		bhi.s	@display
+		bhi.s	.display
 		move.b	#0,(v_debugitem).w ; loop back to first item
 
-	@display:
+.display:
 		bra.w	Debug_ShowItem
 ; ===========================================================================
 
-@createitem:
+.createitem:
 		btst	#bitC,(v_jpadpress1).w ; is button C pressed?
-		beq.s	@backtonormal	; if not, branch
+		beq.s	.backtonormal	; if not, branch
 		jsr	FindFreeObj
-		bne.s	@backtonormal
+		bne.s	.backtonormal
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		move.b	4(a0),0(a1)	; create object
@@ -175,9 +175,9 @@ Debug_ChgItem:
 		rts	
 ; ===========================================================================
 
-@backtonormal:
+.backtonormal:
 		btst	#bitB,(v_jpadpress1).w ; is button B pressed?
-		beq.s	@stayindebug	; if not, branch
+		beq.s	.stayindebug	; if not, branch
 		moveq	#0,d0
 		move.w	d0,(v_debuguse).w ; deactivate debug mode
 		move.l	#Map_Sonic,(v_player+obMap).w
@@ -188,7 +188,7 @@ Debug_ChgItem:
 		move.w	(v_limittopdb).w,(v_limittop2).w ; restore level boundaries
 		move.w	(v_limitbtmdb).w,(v_limitbtm1).w
 		cmpi.b	#id_Special,(v_gamemode).w ; are you in the special stage?
-		bne.s	@stayindebug	; if not, branch
+		bne.s	.stayindebug	; if not, branch
 
 		clr.w	(v_ssangle).w
 		move.w	#$40,(v_ssrotate).w ; set new level rotation speed
@@ -198,7 +198,7 @@ Debug_ChgItem:
 		bset	#2,(v_player+obStatus).w
 		bset	#1,(v_player+obStatus).w
 
-	@stayindebug:
+.stayindebug:
 		rts	
 ; End of function Debug_Control
 

@@ -2,6 +2,9 @@
 ; Object 5A - platforms	moving in circles (SLZ)
 ; ---------------------------------------------------------------------------
 
+circ_origX := $32		; original x-axis position
+circ_origY := $30		; original y-axis position
+
 CirclingPlatform:			; XREF: Obj_Index
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
@@ -14,8 +17,6 @@ Circ_Index:	dc.w Circ_Main-Circ_Index
 		dc.w Circ_Platform-Circ_Index
 		dc.w Circ_Action-Circ_Index
 
-circ_origX:	= $32		; original x-axis position
-circ_origY:	= $30		; original y-axis position
 ; ===========================================================================
 
 Circ_Main:	; Routine 0
@@ -50,14 +51,14 @@ Circ_Types:
 		move.b	obSubtype(a0),d0
 		andi.w	#$C,d0
 		lsr.w	#1,d0
-		move.w	@index(pc,d0.w),d1
-		jmp	@index(pc,d1.w)
+		move.w	.index(pc,d0.w),d1
+		jmp	.index(pc,d1.w)
 ; ===========================================================================
-@index:		dc.w @type00-@index
-		dc.w @type04-@index
+.index:		dc.w .type00-.index
+		dc.w .type04-.index
 ; ===========================================================================
 
-@type00:				; XREF: @index
+.type00:				; XREF: .index
 		move.b	(v_oscillate+$22).w,d1 ; get rotating value
 		subi.b	#$50,d1		; set radius of circle
 		ext.w	d1
@@ -65,17 +66,17 @@ Circ_Types:
 		subi.b	#$50,d2
 		ext.w	d2
 		btst	#0,obSubtype(a0)
-		beq.s	@noshift00a
+		beq.s	.noshift00a
 		neg.w	d1
 		neg.w	d2
 
-	@noshift00a:
+.noshift00a:
 		btst	#1,obSubtype(a0)
-		beq.s	@noshift00b
+		beq.s	.noshift00b
 		neg.w	d1
 		exg	d1,d2
 
-	@noshift00b:
+.noshift00b:
 		add.w	circ_origX(a0),d1
 		move.w	d1,obX(a0)
 		add.w	circ_origY(a0),d2
@@ -83,7 +84,7 @@ Circ_Types:
 		rts	
 ; ===========================================================================
 
-@type04:				; XREF: @index
+.type04:				; XREF: .index
 		move.b	(v_oscillate+$22).w,d1
 		subi.b	#$50,d1
 		ext.w	d1
@@ -91,17 +92,17 @@ Circ_Types:
 		subi.b	#$50,d2
 		ext.w	d2
 		btst	#0,obSubtype(a0)
-		beq.s	@noshift04a
+		beq.s	.noshift04a
 		neg.w	d1
 		neg.w	d2
 
-	@noshift04a:
+.noshift04a:
 		btst	#1,obSubtype(a0)
-		beq.s	@noshift04b
+		beq.s	.noshift04b
 		neg.w	d1
 		exg	d1,d2
 
-	@noshift04b:
+.noshift04b:
 		neg.w	d1
 		add.w	circ_origX(a0),d1
 		move.w	d1,obX(a0)

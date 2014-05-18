@@ -11,7 +11,7 @@ Burrobot:				; XREF: Obj_Index
 Burro_Index:	dc.w Burro_Main-Burro_Index
 		dc.w Burro_Action-Burro_Index
 
-timedelay:	= $30		; time between direction changes
+timedelay := $30		; time between direction changes
 ; ===========================================================================
 
 Burro_Main:	; Routine 0
@@ -30,34 +30,34 @@ Burro_Main:	; Routine 0
 Burro_Action:	; Routine 2
 		moveq	#0,d0
 		move.b	ob2ndRout(a0),d0
-		move.w	@index(pc,d0.w),d1
-		jsr	@index(pc,d1.w)
+		move.w	.index(pc,d0.w),d1
+		jsr	.index(pc,d1.w)
 		lea	(Ani_Burro).l,a1
 		bsr.w	AnimateSprite
 		bra.w	RememberState
 ; ===========================================================================
-@index:		dc.w @changedir-@index
-		dc.w Burro_Move-@index
-		dc.w Burro_Jump-@index
-		dc.w Burro_ChkSonic-@index
+.index:		dc.w .changedir-.index
+		dc.w Burro_Move-.index
+		dc.w Burro_Jump-.index
+		dc.w Burro_ChkSonic-.index
 ; ===========================================================================
 
-@changedir:				; XREF: @index
+.changedir:				; XREF: .index
 		subq.w	#1,timedelay(a0)
-		bpl.s	@nochg
+		bpl.s	.nochg
 		addq.b	#2,ob2ndRout(a0)
 		move.w	#255,timedelay(a0)
 		move.w	#$80,obVelX(a0)
 		move.b	#1,obAnim(a0)
 		bchg	#0,obStatus(a0)	; change direction the Burrobot	is facing
-		beq.s	@nochg
+		beq.s	.nochg
 		neg.w	obVelX(a0)	; change direction the Burrobot	is moving
 
-	@nochg:
+.nochg:
 		rts	
 ; ===========================================================================
 
-Burro_Move:				; XREF: @index
+Burro_Move:				; XREF: .index
 		subq.w	#1,timedelay(a0)
 		bmi.s	loc_AD84
 		bsr.w	SpeedToPos
@@ -99,7 +99,7 @@ loc_ADA4:
 		rts	
 ; ===========================================================================
 
-Burro_Jump:				; XREF: @index
+Burro_Jump:				; XREF: .index
 		bsr.w	SpeedToPos
 		addi.w	#$18,obVelY(a0)
 		bmi.s	locret_ADF0
@@ -118,7 +118,7 @@ locret_ADF0:
 		rts	
 ; ===========================================================================
 
-Burro_ChkSonic:				; XREF: @index
+Burro_ChkSonic:				; XREF: .index
 		move.w	#$60,d2
 		bsr.w	Burro_ChkSonic2
 		bcc.s	locret_AE20

@@ -16,9 +16,9 @@ GMake_Index:	dc.w GMake_Main-GMake_Index
 		dc.w GMake_Display-GMake_Index
 		dc.w GMake_Delete-GMake_Index
 
-gmake_time:	= $34		; time delay (2 bytes)
-gmake_timer:	= $32		; current time remaining (2 bytes)
-gmake_parent:	= $3C		; address of parent object
+gmake_time := $34		; time delay (2 bytes)
+gmake_timer := $32		; current time remaining (2 bytes)
+gmake_parent := $3C		; address of parent object
 ; ===========================================================================
 
 GMake_Main:	; Routine 0
@@ -32,41 +32,41 @@ GMake_Main:	; Routine 0
 
 GMake_Wait:	; Routine 2
 		subq.w	#1,gmake_timer(a0) ; decrement timer
-		bpl.s	@cancel		; if time remains, branch
+		bpl.s	.cancel		; if time remains, branch
 
 		move.w	gmake_time(a0),gmake_timer(a0) ; reset timer
 		move.w	(v_player+obY).w,d0
 		move.w	obY(a0),d1
 		cmp.w	d1,d0
-		bcc.s	@cancel
+		bcc.s	.cancel
 		subi.w	#$170,d1
 		cmp.w	d1,d0
-		bcs.s	@cancel
+		bcs.s	.cancel
 		addq.b	#2,obRoutine(a0) ; if Sonic is within range, goto GMake_ChkType
 
-	@cancel:
+.cancel:
 		rts	
 ; ===========================================================================
 
 GMake_MakeLava:	; Routine 6
 		addq.b	#2,obRoutine(a0)
 		bsr.w	FindNextFreeObj
-		bne.s	@fail
+		bne.s	.fail
 		move.b	#id_LavaGeyser,0(a1) ; load lavafall object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		move.b	obSubtype(a0),obSubtype(a1)
 		move.l	a0,gmake_parent(a1)
 
-	@fail:
+.fail:
 		move.b	#1,obAnim(a0)
 		tst.b	obSubtype(a0)	; is object type 0 (geyser) ?
-		beq.s	@isgeyser	; if yes, branch
+		beq.s	.isgeyser	; if yes, branch
 		move.b	#4,obAnim(a0)
 		bra.s	GMake_Display
 ; ===========================================================================
 
-	@isgeyser:
+.isgeyser:
 		movea.l	gmake_parent(a0),a1 ; get parent object address
 		bset	#1,obStatus(a1)
 		move.w	#-$580,obVelY(a1)
@@ -118,25 +118,25 @@ Geyser_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.w	obY(a0),$30(a0)
 		tst.b	obSubtype(a0)
-		beq.s	@isgeyser
+		beq.s	.isgeyser
 		subi.w	#$250,obY(a0)
 
-	@isgeyser:
+.isgeyser:
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0
 		add.w	d0,d0
 		move.w	Geyser_Speeds(pc,d0.w),obVelY(a0)
 		movea.l	a0,a1
 		moveq	#1,d1
-		bsr.s	@makelava
-		bra.s	@activate
+		bsr.s	.makelava
+		bra.s	.activate
 ; ===========================================================================
 
-	@loop:
+.loop:
 		bsr.w	FindNextFreeObj
-		bne.s	@fail
+		bne.s	.fail
 
-@makelava:				; XREF: Geyser_Main
+.makelava:				; XREF: Geyser_Main
 		move.b	#id_LavaGeyser,0(a1)
 		move.l	#Map_Geyser,obMap(a1)
 		move.w	#$63A8,obGfx(a1)
@@ -148,15 +148,15 @@ Geyser_Main:	; Routine 0
 		move.b	#1,obPriority(a1)
 		move.b	#5,obAnim(a1)
 		tst.b	obSubtype(a0)
-		beq.s	@fail
+		beq.s	.fail
 		move.b	#2,obAnim(a1)
 
-	@fail:
-		dbf	d1,@loop
+.fail:
+		dbf	d1,.loop
 		rts	
 ; ===========================================================================
 
-@activate:				; XREF: Geyser_Main
+.activate:				; XREF: Geyser_Main
 		addi.w	#$60,obY(a1)
 		move.w	$30(a0),$30(a1)
 		addi.w	#$60,$30(a1)
@@ -166,9 +166,9 @@ Geyser_Main:	; Routine 0
 		addq.b	#4,obRoutine(a1)
 		move.l	a0,$3C(a1)
 		tst.b	obSubtype(a0)
-		beq.s	@sound
+		beq.s	.sound
 		moveq	#0,d1
-		bsr.w	@loop
+		bsr.w	.loop
 		addq.b	#2,obRoutine(a1)
 		bset	#4,obGfx(a1)
 		addi.w	#$100,obY(a1)
@@ -177,7 +177,7 @@ Geyser_Main:	; Routine 0
 		move.l	$3C(a0),$3C(a1)
 		move.b	#0,obSubtype(a0)
 
-	@sound:
+.sound:
 		sfx	sfx_Burning	; play flame sound
 
 Geyser_Action:	; Routine 2

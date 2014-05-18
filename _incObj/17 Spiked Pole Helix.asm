@@ -14,7 +14,7 @@ Hel_Index:	dc.w Hel_Main-Hel_Index
 		dc.w Hel_Delete-Hel_Index
 		dc.w Hel_Display-Hel_Index
 
-hel_frame:	= $3E		; start frame (different for each spike)
+hel_frame := $3E		; start frame (different for each spike)
 
 ;		$29-38 are used for child object addresses
 ; ===========================================================================
@@ -73,7 +73,7 @@ Hel_Build:
 		addi.w	#$10,d3		; skip to next spike
 		addq.b	#1,obSubtype(a0)
 
-	Hel_NotCentre:
+Hel_NotCentre:
 		dbf	d1,Hel_Build ; repeat d1 times (helix length)
 
 Hel_Action:	; Routine 2, 4
@@ -111,7 +111,7 @@ Hel_DelAll:				; XREF: Hel_ChkDel
 		subq.b	#2,d2
 		bcs.s	Hel_Delete
 
-	Hel_DelLoop:
+Hel_DelLoop:
 		moveq	#0,d0
 		move.b	(a2)+,d0
 		lsl.w	#6,d0

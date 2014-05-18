@@ -20,7 +20,7 @@ SSR_Index:	dc.w SSR_ChkPLC-SSR_Index
 		dc.w SSR_Exit-SSR_Index
 		dc.w loc_C91A-SSR_Index
 
-ssr_mainX:	= $30		; position for card to display on
+ssr_mainX := $30		; position for card to display on
 ; ===========================================================================
 
 SSR_ChkPLC:	; Routine 0
@@ -37,7 +37,7 @@ SSR_Main:
 		bcs.s	SSR_Loop	; if no, branch
 		addq.w	#1,d1		; if yes, add 1	to d1 (number of sprites)
 
-	SSR_Loop:
+SSR_Loop:
 		move.b	#id_SSResult,0(a1)
 		move.w	(a2)+,obX(a1)	; load start x-position
 		move.w	(a2)+,ssr_mainX(a1) ; load main x-position

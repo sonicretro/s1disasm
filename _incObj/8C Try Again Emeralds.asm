@@ -7,7 +7,7 @@ TryChaos:				; XREF: Obj_Index
 		move.b	obRoutine(a0),d0
 		move.w	TCha_Index(pc,d0.w),d1
 		jsr	TCha_Index(pc,d1.w)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 TCha_Index:	dc.w TCha_Main-TCha_Index
 		dc.w TCha_Move-TCha_Index
@@ -20,7 +20,7 @@ TCha_Main:	; Routine 0
 		moveq	#5,d1
 		sub.b	(v_emeralds).w,d1
 
-@makeemerald:				; XREF: loc_5B42
+.makeemerald:				; XREF: loc_5B42
 		move.b	#id_TryChaos,(a1) ; load emerald object
 		addq.b	#2,obRoutine(a1)
 		move.l	#Map_ECha,obMap(a1)
@@ -34,23 +34,23 @@ TCha_Main:	; Routine 0
 		move.b	#$1C,$3C(a1)
 		lea	(v_emldlist).w,a3
 
-	@chkemerald:
+.chkemerald:
 		moveq	#0,d0
 		move.b	(v_emeralds).w,d0
 		subq.w	#1,d0
-		bcs.s	@loc_5B42
+		bcs.s	.loc_5B42
 
-	@chkloop:
+.chkloop:
 		cmp.b	(a3,d0.w),d2
-		bne.s	@notgot
+		bne.s	.notgot
 		addq.b	#1,d2
-		bra.s	@chkemerald
+		bra.s	.chkemerald
 ; ===========================================================================
 
-	@notgot:
-		dbf	d0,@chkloop
+.notgot:
+		dbf	d0,.chkloop
 
-@loc_5B42:
+.loc_5B42:
 		move.b	d2,obFrame(a1)
 		addq.b	#1,obFrame(a1)
 		addq.b	#1,d2
@@ -59,7 +59,7 @@ TCha_Main:	; Routine 0
 		move.b	d3,obDelayAni(a1)
 		addi.w	#10,d3
 		lea	$40(a1),a1
-		dbf	d1,@makeemerald	; repeat 5 times
+		dbf	d1,.makeemerald	; repeat 5 times
 
 TCha_Move:	; Routine 2
 		tst.w	$3E(a0)

@@ -20,8 +20,8 @@ Glass_Index:	dc.w Glass_Main-Glass_Index
 		dc.w Glass_Block34-Glass_Index
 		dc.w Glass_Reflect34-Glass_Index
 
-glass_dist:	= $32		; distance block moves when switch is pressed
-glass_parent:	= $3C		; address of parent object
+glass_dist := $32		; distance block moves when switch is pressed
+glass_parent := $3C		; address of parent object
 
 Glass_Vars1:	dc.b 2,	0, 0	; routine num, y-axis dist from	origin,	frame num
 		dc.b 4,	0, 1
@@ -34,22 +34,22 @@ Glass_Main:	; Routine 0
 		moveq	#1,d1
 		move.b	#$48,obHeight(a0)
 		cmpi.b	#3,obSubtype(a0) ; is object type 0/1/2 ?
-		bcs.s	@IsType012	; if yes, branch
+		bcs.s	.IsType012	; if yes, branch
 
 		lea	(Glass_Vars2).l,a2
 		moveq	#1,d1
 		move.b	#$38,obHeight(a0)
 
-	@IsType012:
+.IsType012:
 		movea.l	a0,a1
-		bra.s	@Load		; load main object
+		bra.s	.Load		; load main object
 ; ===========================================================================
 
-	@Repeat:
+.Repeat:
 		bsr.w	FindNextFreeObj
-		bne.s	@Fail
+		bne.s	.Fail
 
-@Load:
+.Load:
 		move.b	(a2)+,obRoutine(a1)
 		move.b	#id_GlassBlock,0(a1)
 		move.w	obX(a0),obX(a1)
@@ -66,14 +66,14 @@ Glass_Main:	; Routine 0
 		move.b	#4,obPriority(a1)
 		move.b	(a2)+,obFrame(a1)
 		move.l	a0,glass_parent(a1)
-		dbf	d1,@Repeat	; repeat once to load "reflection object"
+		dbf	d1,.Repeat	; repeat once to load "reflection object"
 
 		move.b	#$10,obActWid(a1)
 		move.b	#3,obPriority(a1)
 		addq.b	#8,obSubtype(a1)
 		andi.b	#$F,obSubtype(a1)
 
-	@Fail:
+.Fail:
 		move.w	#$90,glass_dist(a0)
 		bset	#4,obRender(a0)
 

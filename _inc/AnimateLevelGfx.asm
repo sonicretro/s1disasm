@@ -7,7 +7,7 @@
 
 AnimateLevelGfx:			; XREF: Demo_Time; VBla_0C_NoChg
 		tst.w	(f_pause).w	; is the game paused?
-		bne.s	@ispaused	; if yes, branch
+		bne.s	.ispaused	; if yes, branch
 		lea	(vdp_data_port).l,a6
 		bsr.w	AniArt_GiantRing
 		moveq	#0,d0
@@ -16,7 +16,7 @@ AnimateLevelGfx:			; XREF: Demo_Time; VBla_0C_NoChg
 		move.w	AniArt_Index(pc,d0.w),d0
 		jmp	AniArt_Index(pc,d0.w)
 
-	@ispaused:
+.ispaused:
 		rts	
 
 ; ===========================================================================
@@ -34,7 +34,7 @@ AniArt_GHZ:				; XREF: AniArt_Index
 
 AniArt_GHZ_Waterfall:
 
-@size:		= 8	; number of tiles per frame
+.size:		= 8	; number of tiles per frame
 
 		subq.b	#1,(v_lani0_time).w ; decrement timer
 		bpl.s	AniArt_GHZ_Bigflower ; branch if not 0
@@ -44,18 +44,18 @@ AniArt_GHZ_Waterfall:
 		move.b	(v_lani0_frame).w,d0
 		addq.b	#1,(v_lani0_frame).w ; increment frame counter
 		andi.w	#1,d0		; there are only 2 frames
-		beq.s	@isframe0	; branch if frame 0
-		lea	@size*$20(a1),a1 ; use graphics for frame 1
+		beq.s	.isframe0	; branch if frame 0
+		lea	.size*$20(a1),a1 ; use graphics for frame 1
 
-	@isframe0:
+.isframe0:
 		locVRAM	$6F00		; VRAM address
-		move.w	#@size-1,d1	; number of 8x8	tiles
+		move.w	#.size-1,d1	; number of 8x8	tiles
 		bra.w	LoadTiles
 ; ===========================================================================
 
 AniArt_GHZ_Bigflower:
 
-@size:		= 16	; number of tiles per frame
+.size:		= 16	; number of tiles per frame
 
 		subq.b	#1,(v_lani1_time).w
 		bpl.s	AniArt_GHZ_Smallflower
@@ -65,29 +65,29 @@ AniArt_GHZ_Bigflower:
 		move.b	(v_lani1_frame).w,d0
 		addq.b	#1,(v_lani1_frame).w
 		andi.w	#1,d0
-		beq.s	@isframe0
-		lea	@size*$20(a1),a1
+		beq.s	.isframe0
+		lea	.size*$20(a1),a1
 
-	@isframe0:
+.isframe0:
 		locVRAM	$6B80
-		move.w	#@size-1,d1
+		move.w	#.size-1,d1
 		bra.w	LoadTiles
 ; ===========================================================================
 
 AniArt_GHZ_Smallflower:
 		subq.b	#1,(v_lani2_time).w
-		bpl.s	@end
+		bpl.s	.end
 
 		move.b	#7,(v_lani2_time).w
 		move.b	(v_lani2_frame).w,d0
 		addq.b	#1,(v_lani2_frame).w ; increment frame counter
 		andi.w	#3,d0		; there are 4 frames
-		move.b	@sequence(pc,d0.w),d0
+		move.b	.sequence(pc,d0.w),d0
 		btst	#0,d0		; is frame 0 or 2? (actual frame, not frame counter)
-		bne.s	@isframe1	; if not, branch
+		bne.s	.isframe1	; if not, branch
 		move.b	#$7F,(v_lani2_time).w ; set longer duration for frames 0 and 2
 
-	@isframe1:
+.isframe1:
 		lsl.w	#7,d0		; multiply frame num by $80
 		move.w	d0,d1
 		add.w	d0,d0
@@ -98,10 +98,10 @@ AniArt_GHZ_Smallflower:
 		move.w	#11,d1
 		bsr.w	LoadTiles
 
-@end:
+.end:
 		rts	
 
-@sequence:	dc.b 0,	1, 2, 1
+.sequence:	dc.b 0,	1, 2, 1
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Animated pattern routine - Marble
@@ -111,7 +111,7 @@ AniArt_MZ:				; XREF: AniArt_Index
 
 AniArt_MZ_Lava:
 
-@size:		= 8	; number of tiles per frame
+.size:		= 8	; number of tiles per frame
 
 		subq.b	#1,(v_lani0_time).w ; decrement timer
 		bpl.s	AniArt_MZ_Magma	; branch if not 0
@@ -122,15 +122,15 @@ AniArt_MZ_Lava:
 		move.b	(v_lani0_frame).w,d0
 		addq.b	#1,d0		; increment frame counter
 		cmpi.b	#3,d0		; there are 3 frames
-		bne.s	@frame01or2	; branch if frame 0, 1 or 2
+		bne.s	.frame01or2	; branch if frame 0, 1 or 2
 		moveq	#0,d0
 
-	@frame01or2:
+.frame01or2:
 		move.b	d0,(v_lani0_frame).w
-		mulu.w	#@size*$20,d0
+		mulu.w	#.size*$20,d0
 		adda.w	d0,a1		; jump to appropriate tile
 		locVRAM	$5C40
-		move.w	#@size-1,d1
+		move.w	#.size-1,d1
 		bsr.w	LoadTiles
 
 AniArt_MZ_Magma:
@@ -150,7 +150,7 @@ AniArt_MZ_Magma:
 		move.b	(v_oscillate+$A).w,d3 ; get oscillating value
 		move.w	#3,d2
 
-	@loop:
+.loop:
 		move.w	d3,d0
 		add.w	d0,d0
 		andi.w	#$1E,d0
@@ -161,16 +161,16 @@ AniArt_MZ_Magma:
 		move.w	#$1F,d1
 		jsr	(a3)
 		addq.w	#4,d3
-		dbf	d2,@loop
+		dbf	d2,.loop
 		rts	
 ; ===========================================================================
 
 AniArt_MZ_Torch:
 
-@size:		= 6	; number of tiles per frame
+.size:		= 6	; number of tiles per frame
 
 		subq.b	#1,(v_lani2_time).w ; decrement timer
-		bpl.w	@end		; branch if not 0
+		bpl.w	.end		; branch if not 0
 		
 		move.b	#7,(v_lani2_time).w ; time to display each frame
 		lea	(Art_MzTorch).l,a1 ; load torch	patterns
@@ -178,13 +178,13 @@ AniArt_MZ_Torch:
 		move.b	(v_lani3_frame).w,d0
 		addq.b	#1,(v_lani3_frame).w ; increment frame counter
 		andi.b	#3,(v_lani3_frame).w ; there are 3 frames
-		mulu.w	#@size*$20,d0
+		mulu.w	#.size*$20,d0
 		adda.w	d0,a1		; jump to appropriate tile
 		locVRAM	$5E40
-		move.w	#@size-1,d1
+		move.w	#.size-1,d1
 		bra.w	LoadTiles
 
-@end:
+.end:
 		rts	
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -193,18 +193,18 @@ AniArt_MZ_Torch:
 
 AniArt_SBZ:				; XREF: AniArt_Index
 
-@size:		= 12	; number of tiles per frame
+.size:		= 12	; number of tiles per frame
 
 		tst.b	(v_lani2_frame).w
-		beq.s	@smokepuff	; branch if counter hits 0
+		beq.s	.smokepuff	; branch if counter hits 0
 		
 		subq.b	#1,(v_lani2_frame).w ; decrement counter
-		bra.s	@chk_smokepuff2
+		bra.s	.chk_smokepuff2
 ; ===========================================================================
 
-@smokepuff:
+.smokepuff:
 		subq.b	#1,(v_lani0_time).w ; decrement timer
-		bpl.s	@chk_smokepuff2 ; branch if not 0
+		bpl.s	.chk_smokepuff2 ; branch if not 0
 		
 		move.b	#7,(v_lani0_time).w ; time to display each frame
 		lea	(Art_SbzSmoke).l,a1 ; load smoke patterns
@@ -212,36 +212,36 @@ AniArt_SBZ:				; XREF: AniArt_Index
 		move.b	(v_lani0_frame).w,d0
 		addq.b	#1,(v_lani0_frame).w ; increment frame counter
 		andi.w	#7,d0
-		beq.s	@untilnextpuff	; branch if frame 0
+		beq.s	.untilnextpuff	; branch if frame 0
 		subq.w	#1,d0
-		mulu.w	#@size*$20,d0
+		mulu.w	#.size*$20,d0
 		lea	(a1,d0.w),a1
-		move.w	#@size-1,d1
+		move.w	#.size-1,d1
 		bra.w	LoadTiles
 ; ===========================================================================
 
-@untilnextpuff:
+.untilnextpuff:
 		move.b	#180,(v_lani2_frame).w ; time between smoke puffs (3 seconds)
 
-@clearsky:
-		move.w	#(@size/2)-1,d1
+.clearsky:
+		move.w	#(.size/2)-1,d1
 		bsr.w	LoadTiles
 		lea	(Art_SbzSmoke).l,a1
-		move.w	#(@size/2)-1,d1
+		move.w	#(.size/2)-1,d1
 		bra.w	LoadTiles	; load blank tiles for no smoke puff
 ; ===========================================================================
 
-@chk_smokepuff2:
+.chk_smokepuff2:
 		tst.b	(v_lani2_time).w
-		beq.s	@smokepuff2	; branch if counter hits 0
+		beq.s	.smokepuff2	; branch if counter hits 0
 		
 		subq.b	#1,(v_lani2_time).w ; decrement counter
-		bra.s	@end
+		bra.s	.end
 ; ===========================================================================
 
-@smokepuff2:
+.smokepuff2:
 		subq.b	#1,(v_lani1_time).w ; decrement timer
-		bpl.s	@end		; branch if not 0
+		bpl.s	.end		; branch if not 0
 		
 		move.b	#7,(v_lani1_time).w ; time to display each frame
 		lea	(Art_SbzSmoke).l,a1 ; load smoke patterns
@@ -249,20 +249,20 @@ AniArt_SBZ:				; XREF: AniArt_Index
 		move.b	(v_lani1_frame).w,d0
 		addq.b	#1,(v_lani1_frame).w ; increment frame counter
 		andi.w	#7,d0
-		beq.s	@untilnextpuff2	; branch if frame 0
+		beq.s	.untilnextpuff2	; branch if frame 0
 		subq.w	#1,d0
-		mulu.w	#@size*$20,d0
+		mulu.w	#.size*$20,d0
 		lea	(a1,d0.w),a1
-		move.w	#@size-1,d1
+		move.w	#.size-1,d1
 		bra.w	LoadTiles
 ; ===========================================================================
 
-@untilnextpuff2:
+.untilnextpuff2:
 		move.b	#120,(v_lani2_time).w ; time between smoke puffs (2 seconds)
-		bra.s	@clearsky
+		bra.s	.clearsky
 ; ===========================================================================
 
-@end:
+.end:
 		rts	
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -273,7 +273,7 @@ AniArt_Ending:				; XREF: AniArt_Index
 
 AniArt_Ending_BigFlower:
 
-@size:		= 16	; number of tiles per frame
+.size:		= 16	; number of tiles per frame
 
 		subq.b	#1,(v_lani1_time).w ; decrement timer
 		bpl.s	AniArt_Ending_SmallFlower ; branch if not 0
@@ -284,23 +284,23 @@ AniArt_Ending_BigFlower:
 		move.b	(v_lani1_frame).w,d0
 		addq.b	#1,(v_lani1_frame).w ; increment frame counter
 		andi.w	#1,d0		; only 2 frames
-		beq.s	@isframe0	; branch if frame 0
-		lea	@size*$20(a1),a1
-		lea	@size*$20(a2),a2
+		beq.s	.isframe0	; branch if frame 0
+		lea	.size*$20(a1),a1
+		lea	.size*$20(a2),a2
 
-	@isframe0:
+.isframe0:
 		locVRAM	$6B80
-		move.w	#@size-1,d1
+		move.w	#.size-1,d1
 		bsr.w	LoadTiles
 		movea.l	a2,a1
 		locVRAM	$7200
-		move.w	#@size-1,d1
+		move.w	#.size-1,d1
 		bra.w	LoadTiles
 ; ===========================================================================
 
 AniArt_Ending_SmallFlower:
 
-@size:		= 12	; number of tiles per frame
+.size:		= 12	; number of tiles per frame
 
 		subq.b	#1,(v_lani2_time).w ; decrement timer
 		bpl.s	AniArt_Ending_Flower3 ; branch if not 0
@@ -309,7 +309,7 @@ AniArt_Ending_SmallFlower:
 		move.b	(v_lani2_frame).w,d0
 		addq.b	#1,(v_lani2_frame).w ; increment frame counter
 		andi.w	#7,d0		; max 8 frames
-		move.b	@sequence(pc,d0.w),d0 ; get actual frame num from sequence data
+		move.b	.sequence(pc,d0.w),d0 ; get actual frame num from sequence data
 		lsl.w	#7,d0		; multiply by $80
 		move.w	d0,d1
 		add.w	d0,d0
@@ -317,15 +317,15 @@ AniArt_Ending_SmallFlower:
 		locVRAM	$6D80
 		lea	(Art_GhzFlower2).l,a1 ;	load small flower patterns
 		lea	(a1,d0.w),a1	; jump to appropriate tile
-		move.w	#@size-1,d1
+		move.w	#.size-1,d1
 		bra.w	LoadTiles
 ; ===========================================================================
-@sequence:	dc.b 0,	0, 0, 1, 2, 2, 2, 1
+.sequence:	dc.b 0,	0, 0, 1, 2, 2, 2, 1
 ; ===========================================================================
 
 AniArt_Ending_Flower3:
 
-@size:		= 16	; number of tiles per frame
+.size:		= 16	; number of tiles per frame
 
 		subq.b	#1,(v_lani4_time).w ; decrement timer
 		bpl.s	AniArt_Ending_Flower4 ; branch if not 0
@@ -340,7 +340,7 @@ AniArt_Ending_Flower3:
 		locVRAM	$7000
 		lea	($FFFF9800).w,a1 ; load	special	flower patterns	(from RAM)
 		lea	(a1,d0.w),a1	; jump to appropriate tile
-		move.w	#@size-1,d1
+		move.w	#.size-1,d1
 		bra.w	LoadTiles
 ; ===========================================================================
 AniArt_Ending_Flower3_sequence:	dc.b 0,	1, 2, 1
@@ -348,10 +348,10 @@ AniArt_Ending_Flower3_sequence:	dc.b 0,	1, 2, 1
 
 AniArt_Ending_Flower4:
 
-@size:		= 16	; number of tiles per frame
+.size:		= 16	; number of tiles per frame
 
 		subq.b	#1,(v_lani5_time).w ; decrement timer
-		bpl.s	@end		; branch if not 0
+		bpl.s	.end		; branch if not 0
 		
 		move.b	#$B,(v_lani5_time).w
 		move.b	(v_lani5_frame).w,d0
@@ -363,11 +363,11 @@ AniArt_Ending_Flower4:
 		locVRAM	$6800
 		lea	($FFFF9E00).w,a1 ; load	special	flower patterns	(from RAM)
 		lea	(a1,d0.w),a1	; jump to appropriate tile
-		move.w	#@size-1,d1
+		move.w	#.size-1,d1
 		bra.w	LoadTiles
 ; ===========================================================================
 
-@end:
+.end:
 		rts	
 ; ===========================================================================
 

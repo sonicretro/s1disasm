@@ -11,8 +11,8 @@ LargeGrass:				; XREF: Obj_Index
 LGrass_Index:	dc.w LGrass_Main-LGrass_Index
 		dc.w LGrass_Action-LGrass_Index
 
-origX:		= $2A
-origY:		= $2C
+origX := $2A
+origY := $2C
 
 LGrass_Data:	dc.w LGrass_Data1-LGrass_Data 	; collision angle data
 		dc.b 0,	$40			; frame	number,	platform width
@@ -263,9 +263,9 @@ locret_B116:
 ; ---------------------------------------------------------------------------
 ; Collision data for large moving platforms (MZ)
 ; ---------------------------------------------------------------------------
-LGrass_Data1:	incbin	misc\mz_pfm1.bin
+LGrass_Data1:	binclude	misc\mz_pfm1.bin
 		even
-LGrass_Data2:	incbin	misc\mz_pfm2.bin
+LGrass_Data2:	binclude	misc\mz_pfm2.bin
 		even
-LGrass_Data3:	incbin	misc\mz_pfm3.bin
+LGrass_Data3:	binclude	misc\mz_pfm3.bin
 		even

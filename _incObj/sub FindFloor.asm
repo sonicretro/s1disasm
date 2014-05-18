@@ -21,11 +21,11 @@ FindFloor:				; XREF: Sonic_AnglePos; et al
 		move.w	(a1),d0		; get value for solidness, orientation and 16x16 tile number
 		move.w	d0,d4
 		andi.w	#$7FF,d0
-		beq.s	@isblank	; branch if tile is blank
+		beq.s	.isblank	; branch if tile is blank
 		btst	d5,d4		; is the tile solid?
-		bne.s	@issolid	; if yes, branch
+		bne.s	.issolid	; if yes, branch
 
-@isblank:
+.isblank:
 		add.w	a3,d2
 		bsr.w	FindFloor2	; try tile below the nearest
 		sub.w	a3,d2
@@ -33,28 +33,28 @@ FindFloor:				; XREF: Sonic_AnglePos; et al
 		rts	
 ; ===========================================================================
 
-@issolid:
+.issolid:
 		movea.l	(v_collindex).w,a2
 		move.b	(a2,d0.w),d0	; get collision block number
 		andi.w	#$FF,d0
-		beq.s	@isblank	; branch if 0
+		beq.s	.isblank	; branch if 0
 		lea	(AngleMap).l,a2
 		move.b	(a2,d0.w),(a4)	; get collision angle value
 		lsl.w	#4,d0
 		move.w	d3,d1		; get x-pos. of object
 		btst	#$B,d4		; is block flipped horizontally?
-		beq.s	@noflip		; if not, branch
+		beq.s	.noflip		; if not, branch
 		not.w	d1
 		neg.b	(a4)
 
-	@noflip:
+.noflip:
 		btst	#$C,d4		; is block flipped vertically?
-		beq.s	@noflip2	; if not, branch
+		beq.s	.noflip2	; if not, branch
 		addi.b	#$40,(a4)
 		neg.b	(a4)
 		subi.b	#$40,(a4)
 
-	@noflip2:
+.noflip2:
 		andi.w	#$F,d1
 		add.w	d0,d1		; (block num. * $10) + x-pos. = place in array
 		lea	(CollArray1).l,a2
@@ -62,15 +62,15 @@ FindFloor:				; XREF: Sonic_AnglePos; et al
 		ext.w	d0
 		eor.w	d6,d4
 		btst	#$C,d4		; is block flipped vertically?
-		beq.s	@noflip3	; if not, branch
+		beq.s	.noflip3	; if not, branch
 		neg.w	d0
 
-	@noflip3:
+.noflip3:
 		tst.w	d0
-		beq.s	@isblank	; branch if height is 0
-		bmi.s	@negfloor	; branch if height is negative
+		beq.s	.isblank	; branch if height is 0
+		bmi.s	.negfloor	; branch if height is negative
 		cmpi.b	#$10,d0
-		beq.s	@maxfloor	; branch if height is $10 (max)
+		beq.s	.maxfloor	; branch if height is $10 (max)
 		move.w	d2,d1		; get y-pos. of object
 		andi.w	#$F,d1
 		add.w	d1,d0
@@ -79,13 +79,13 @@ FindFloor:				; XREF: Sonic_AnglePos; et al
 		rts	
 ; ===========================================================================
 
-@negfloor:
+.negfloor:
 		move.w	d2,d1
 		andi.w	#$F,d1
 		add.w	d1,d0
-		bpl.w	@isblank
+		bpl.w	.isblank
 
-@maxfloor:
+.maxfloor:
 		sub.w	a3,d2
 		bsr.w	FindFloor2	; try tile above the nearest
 		add.w	a3,d2
@@ -102,11 +102,11 @@ FindFloor2:				; XREF: FindFloor
 		move.w	(a1),d0
 		move.w	d0,d4
 		andi.w	#$7FF,d0
-		beq.s	@isblank2
+		beq.s	.isblank2
 		btst	d5,d4
-		bne.s	@issolid
+		bne.s	.issolid
 
-@isblank2:
+.isblank2:
 		move.w	#$F,d1
 		move.w	d2,d0
 		andi.w	#$F,d0
@@ -114,28 +114,28 @@ FindFloor2:				; XREF: FindFloor
 		rts	
 ; ===========================================================================
 
-@issolid:
+.issolid:
 		movea.l	(v_collindex).w,a2
 		move.b	(a2,d0.w),d0
 		andi.w	#$FF,d0
-		beq.s	@isblank2
+		beq.s	.isblank2
 		lea	(AngleMap).l,a2
 		move.b	(a2,d0.w),(a4)
 		lsl.w	#4,d0
 		move.w	d3,d1
 		btst	#$B,d4
-		beq.s	@noflip
+		beq.s	.noflip
 		not.w	d1
 		neg.b	(a4)
 
-	@noflip:
+.noflip:
 		btst	#$C,d4
-		beq.s	@noflip2
+		beq.s	.noflip2
 		addi.b	#$40,(a4)
 		neg.b	(a4)
 		subi.b	#$40,(a4)
 
-	@noflip2:
+.noflip2:
 		andi.w	#$F,d1
 		add.w	d0,d1
 		lea	(CollArray1).l,a2
@@ -143,13 +143,13 @@ FindFloor2:				; XREF: FindFloor
 		ext.w	d0
 		eor.w	d6,d4
 		btst	#$C,d4
-		beq.s	@noflip3
+		beq.s	.noflip3
 		neg.w	d0
 
-	@noflip3:
+.noflip3:
 		tst.w	d0
-		beq.s	@isblank2
-		bmi.s	@negfloor
+		beq.s	.isblank2
+		bmi.s	.negfloor
 		move.w	d2,d1
 		andi.w	#$F,d1
 		add.w	d1,d0
@@ -158,11 +158,11 @@ FindFloor2:				; XREF: FindFloor
 		rts	
 ; ===========================================================================
 
-@negfloor:
+.negfloor:
 		move.w	d2,d1
 		andi.w	#$F,d1
 		add.w	d1,d0
-		bpl.w	@isblank2
+		bpl.w	.isblank2
 		not.w	d1
 		rts	
 ; End of function FindFloor2

@@ -7,7 +7,7 @@ EndSonic:				; XREF: Obj_Index
 		move.b	ob2ndRout(a0),d0
 		move.w	ESon_Index(pc,d0.w),d1
 		jsr	ESon_Index(pc,d1.w)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 ESon_Index:	dc.w ESon_Main-ESon_Index, ESon_MakeEmeralds-ESon_Index
 		dc.w Obj87_Animate-ESon_Index,	Obj87_LookUp-ESon_Index
@@ -15,7 +15,7 @@ ESon_Index:	dc.w ESon_Main-ESon_Index, ESon_MakeEmeralds-ESon_Index
 		dc.w Obj87_MakeLogo-ESon_Index, Obj87_Animate-ESon_Index
 		dc.w Obj87_Leap-ESon_Index, Obj87_Animate-ESon_Index
 
-eson_time:	= $30	; time to wait between events
+eson_time := $30	; time to wait between events
 ; ===========================================================================
 
 ESon_Main:	; Routine 0
@@ -44,7 +44,7 @@ ESon_MakeEmeralds:
 		move.w	#1,obAnim(a0)
 		move.b	#$88,(v_objspace+$400).w ; load chaos emeralds objects
 
-	ESon_Wait:
+ESon_Wait:
 		rts	
 ; ===========================================================================
 
@@ -92,7 +92,7 @@ ESon_Wait3:
 
 Obj87_Animate:	; Rountine 4, $A, $E, $12
 		lea	(AniScript_ESon).l,a1
-		jmp	AnimateSprite
+		jmp	(AnimateSprite).l
 ; ===========================================================================
 
 Obj87_Leap:	; Routine $10

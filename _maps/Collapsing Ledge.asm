@@ -1,9 +1,9 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - GHZ	collapsing ledge
 ; ---------------------------------------------------------------------------
-Map_Ledge:	dc.w @left-Map_Ledge, @right-Map_Ledge
-		dc.w @leftsmash-Map_Ledge, @rightsmash-Map_Ledge
-@left:		dc.b $10
+Map_Ledge:	dc.w .left-Map_Ledge, .right-Map_Ledge
+		dc.w .leftsmash-Map_Ledge, .rightsmash-Map_Ledge
+.left:		dc.b $10
 		dc.b $C8, $E, 0, $57, $10 ; ledge facing left
 		dc.b $D0, $D, 0, $63, $F0
 		dc.b $E0, $D, 0, $6B, $10
@@ -20,7 +20,7 @@ Map_Ledge:	dc.w @left-Map_Ledge, @right-Map_Ledge
 		dc.b 0,	5, 0, $B3, $D0
 		dc.b $10, $D, 0, $AB, $10
 		dc.b $10, 5, 0,	$B7, 0
-@right:		dc.b $10
+.right:		dc.b $10
 		dc.b $C8, $E, 0, $57, $10 ; ledge facing right
 		dc.b $D0, $D, 0, $63, $F0
 		dc.b $E0, $D, 0, $6B, $10
@@ -37,7 +37,7 @@ Map_Ledge:	dc.w @left-Map_Ledge, @right-Map_Ledge
 		dc.b 0,	5, 0, $B7, $D0
 		dc.b $10, $D, 0, $AB, $10
 		dc.b $10, 5, 0,	$B7, 0
-@leftsmash:	dc.b $19
+.leftsmash:	dc.b $19
 		dc.b $C8, 6, 0,	$5D, $20 ; ledge facing	left in	pieces
 		dc.b $C8, 6, 0,	$57, $10
 		dc.b $D0, 5, 0,	$67, 0
@@ -63,7 +63,7 @@ Map_Ledge:	dc.w @left-Map_Ledge, @right-Map_Ledge
 		dc.b $10, 5, 0,	$AB, $20
 		dc.b $10, 5, 0,	$AB, $10
 		dc.b $10, 5, 0,	$B7, 0
-@rightsmash:	dc.b $19
+.rightsmash:	dc.b $19
 		dc.b $C8, 6, 0,	$5D, $20 ; ledge facing	right in pieces
 		dc.b $C8, 6, 0,	$57, $10
 		dc.b $D0, 5, 0,	$67, 0

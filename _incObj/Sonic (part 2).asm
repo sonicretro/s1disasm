@@ -109,5 +109,5 @@ Sonic_ResetLevel:; Routine 8
 		bne.s	locret_13914
 		move.w	#1,(f_restart).w ; restart the level
 
-	locret_13914:
+locret_13914:
 		rts	

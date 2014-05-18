@@ -15,10 +15,10 @@ Bub_Index:	dc.w Bub_Main-Bub_Index
 		dc.w Bub_Delete-Bub_Index
 		dc.w Bub_BblMaker-Bub_Index
 
-bub_inhalable:	= $2E		; flag set when bubble is collectable
-bub_origX:	= $30		; original x-axis position
-bub_time:	= $32		; time until next bubble spawn
-bub_freq:	= $33		; frequency of bubble spawn
+bub_inhalable := $2E		; flag set when bubble is collectable
+bub_origX := $30		; original x-axis position
+bub_time := $32		; time until next bubble spawn
+bub_freq := $33		; frequency of bubble spawn
 ; ===========================================================================
 
 Bub_Main:	; Routine 0
@@ -29,7 +29,7 @@ Bub_Main:	; Routine 0
 		move.b	#$10,obActWid(a0)
 		move.b	#1,obPriority(a0)
 		move.b	obSubtype(a0),d0 ; get bubble type
-		bpl.s	@bubble		; if type is $0-$7F, branch
+		bpl.s	.bubble		; if type is $0-$7F, branch
 
 		addq.b	#8,obRoutine(a0) ; goto Bub_BblMaker next
 		andi.w	#$7F,d0		; read only last 7 bits	(deduct	$80)
@@ -39,7 +39,7 @@ Bub_Main:	; Routine 0
 		bra.w	Bub_BblMaker
 ; ===========================================================================
 
-@bubble:
+.bubble:
 		move.b	d0,obAnim(a0)
 		move.w	obX(a0),bub_origX(a0)
 		move.w	#-$88,obVelY(a0) ; float bubble upwards
@@ -57,15 +57,15 @@ Bub_Animate:	; Routine 2
 Bub_ChkWater:	; Routine 4
 		move.w	(v_waterpos1).w,d0
 		cmp.w	obY(a0),d0	; is bubble underwater?
-		bcs.s	@wobble		; if yes, branch
+		bcs.s	.wobble		; if yes, branch
 
-@burst:
+.burst:
 		move.b	#6,obRoutine(a0) ; goto Bub_Display next
 		addq.b	#3,obAnim(a0)	; run "bursting" animation
 		bra.w	Bub_Display
 ; ===========================================================================
 
-@wobble:
+.wobble:
 		move.b	obAngle(a0),d0
 		addq.b	#1,obAngle(a0)
 		andi.w	#$7F,d0
@@ -75,9 +75,9 @@ Bub_ChkWater:	; Routine 4
 		add.w	bub_origX(a0),d0
 		move.w	d0,obX(a0)	; change bubble's x-axis position
 		tst.b	bub_inhalable(a0)
-		beq.s	@display
+		beq.s	.display
 		bsr.w	Bub_ChkSonic	; has Sonic touched the	bubble?
-		beq.s	@display	; if not, branch
+		beq.s	.display	; if not, branch
 
 		bsr.w	ResumeMusic	; cancel countdown music
 		sfx	sfx_Bubble	; play collecting bubble sound
@@ -91,21 +91,21 @@ Bub_ChkWater:	; Routine 4
 		bclr	#5,obStatus(a1)
 		bclr	#4,obStatus(a1)
 		btst	#2,obStatus(a1)
-		beq.w	@burst
+		beq.w	.burst
 		bclr	#2,obStatus(a1)
 		move.b	#$13,obHeight(a1)
 		move.b	#9,obWidth(a1)
 		subq.w	#5,obY(a1)
-		bra.w	@burst
+		bra.w	.burst
 ; ===========================================================================
 
-@display:
+.display:
 		bsr.w	SpeedToPos
 		tst.b	obRender(a0)
-		bpl.s	@delete
+		bpl.s	.delete
 		jmp	DisplaySprite
 
-	@delete:
+.delete:
 		jmp	DeleteObject
 ; ===========================================================================
 
@@ -113,10 +113,10 @@ Bub_Display:	; Routine 6
 		lea	(Ani_Bub).l,a1
 		jsr	AnimateSprite
 		tst.b	obRender(a0)
-		bpl.s	@delete
+		bpl.s	.delete
 		jmp	DisplaySprite
 
-	@delete:
+.delete:
 		jmp	DeleteObject
 ; ===========================================================================
 
@@ -126,22 +126,22 @@ Bub_Delete:	; Routine 8
 
 Bub_BblMaker:	; Routine $A
 		tst.w	$36(a0)
-		bne.s	@loc_12874
+		bne.s	.loc_12874
 		move.w	(v_waterpos1).w,d0
 		cmp.w	obY(a0),d0	; is bubble maker underwater?
-		bcc.w	@chkdel		; if not, branch
+		bcc.w	.chkdel		; if not, branch
 		tst.b	obRender(a0)
-		bpl.w	@chkdel
+		bpl.w	.chkdel
 		subq.w	#1,$38(a0)
-		bpl.w	@loc_12914
+		bpl.w	.loc_12914
 		move.w	#1,$36(a0)
 
-	@tryagain:
+.tryagain:
 		jsr	(RandomNumber).l
 		move.w	d0,d1
 		andi.w	#7,d0
 		cmpi.w	#6,d0		; random number over 6?
-		bcc.s	@tryagain	; if yes, branch
+		bcc.s	.tryagain	; if yes, branch
 
 		move.b	d0,$34(a0)
 		andi.w	#$C,d1
@@ -149,24 +149,24 @@ Bub_BblMaker:	; Routine $A
 		adda.w	d1,a1
 		move.l	a1,$3C(a0)
 		subq.b	#1,bub_time(a0)
-		bpl.s	@loc_12872
+		bpl.s	.loc_12872
 		move.b	bub_freq(a0),bub_time(a0)
 		bset	#7,$36(a0)
 
-@loc_12872:
-		bra.s	@loc_1287C
+.loc_12872:
+		bra.s	.loc_1287C
 ; ===========================================================================
 
-@loc_12874:
+.loc_12874:
 		subq.w	#1,$38(a0)
-		bpl.w	@loc_12914
+		bpl.w	.loc_12914
 
-@loc_1287C:
+.loc_1287C:
 		jsr	(RandomNumber).l
 		andi.w	#$1F,d0
 		move.w	d0,$38(a0)
 		bsr.w	FindFreeObj
-		bne.s	@fail
+		bne.s	.fail
 		move.b	#id_Bubble,0(a1) ; load bubble object
 		move.w	obX(a0),obX(a1)
 		jsr	(RandomNumber).l
@@ -179,35 +179,35 @@ Bub_BblMaker:	; Routine $A
 		movea.l	$3C(a0),a2
 		move.b	(a2,d0.w),obSubtype(a1)
 		btst	#7,$36(a0)
-		beq.s	@fail
+		beq.s	.fail
 		jsr	(RandomNumber).l
 		andi.w	#3,d0
-		bne.s	@loc_buh
+		bne.s	.loc_buh
 		bset	#6,$36(a0)
-		bne.s	@fail
+		bne.s	.fail
 		move.b	#2,obSubtype(a1)
 
-@loc_buh:
+.loc_buh:
 		tst.b	$34(a0)
-		bne.s	@fail
+		bne.s	.fail
 		bset	#6,$36(a0)
-		bne.s	@fail
+		bne.s	.fail
 		move.b	#2,obSubtype(a1)
 
-	@fail:
+.fail:
 		subq.b	#1,$34(a0)
-		bpl.s	@loc_12914
+		bpl.s	.loc_12914
 		jsr	(RandomNumber).l
 		andi.w	#$7F,d0
 		addi.w	#$80,d0
 		add.w	d0,$38(a0)
 		clr.w	$36(a0)
 
-@loc_12914:
+.loc_12914:
 		lea	(Ani_Bub).l,a1
 		jsr	AnimateSprite
 
-@chkdel:
+.chkdel:
 		out_of_range	DeleteObject
 		move.w	(v_waterpos1).w,d0
 		cmp.w	obY(a0),d0
@@ -222,29 +222,29 @@ Bub_BblTypes:	dc.b 0,	1, 0, 0, 0, 0, 1, 0, 0,	0, 0, 1, 0, 1, 0, 0, 1,	0
 
 ; ===========================================================================
 
-Bub_ChkSonic:				; XREF: @wobble
+Bub_ChkSonic:				; XREF: .wobble
 		tst.b	(f_lockmulti).w
-		bmi.s	@loc_12998
+		bmi.s	.loc_12998
 		lea	(v_player).w,a1
 		move.w	obX(a1),d0
 		move.w	obX(a0),d1
 		subi.w	#$10,d1
 		cmp.w	d0,d1
-		bcc.s	@loc_12998
+		bcc.s	.loc_12998
 		addi.w	#$20,d1
 		cmp.w	d0,d1
-		bcs.s	@loc_12998
+		bcs.s	.loc_12998
 		move.w	obY(a1),d0
 		move.w	obY(a0),d1
 		cmp.w	d0,d1
-		bcc.s	@loc_12998
+		bcc.s	.loc_12998
 		addi.w	#$10,d1
 		cmp.w	d0,d1
-		bcs.s	@loc_12998
+		bcs.s	.loc_12998
 		moveq	#1,d0
 		rts	
 ; ===========================================================================
 
-@loc_12998:
+.loc_12998:
 		moveq	#0,d0
 		rts	

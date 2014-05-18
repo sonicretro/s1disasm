@@ -75,7 +75,7 @@ PCycle_LZ:				; XREF: PCycle_Index
 		bne.s	PCycLZ_NotSBZ3
 		lea	(Pal_SBZ3Cyc1).l,a0 ; load SBZ3	palette instead
 
-	PCycLZ_NotSBZ3:
+PCycLZ_NotSBZ3:
 		lea	(v_pal_dry+$56).w,a1
 		move.l	(a0,d0.w),(a1)+
 		move.l	4(a0,d0.w),(a1)
@@ -94,7 +94,7 @@ PCycLZ_Skip1:
 		beq.s	PCycLZ_NoRev	; if not, branch
 		neg.w	d1
 
-	PCycLZ_NoRev:
+PCycLZ_NoRev:
 		move.w	(v_pal_buffer).w,d0
 		andi.w	#3,d0
 		add.w	d1,d0

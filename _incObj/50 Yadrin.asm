@@ -44,7 +44,7 @@ Yadrin:					; XREF: Obj_Index
 Yad_Index:	dc.w Yad_Main-Yad_Index
 		dc.w Yad_Action-Yad_Index
 
-timedelay:	= $30
+timedelay := $30
 ; ===========================================================================
 
 Yad_Main:	; Routine 0
@@ -65,7 +65,7 @@ Yad_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		bchg	#0,obStatus(a0)
 
-	locret_F89E:
+locret_F89E:
 		rts	
 ; ===========================================================================
 
@@ -92,7 +92,7 @@ Yad_Move:				; XREF: Yad_Index2
 		bne.s	locret_F8E2
 		neg.w	obVelX(a0)	; change direction
 
-	locret_F8E2:
+locret_F8E2:
 		rts	
 ; ===========================================================================
 

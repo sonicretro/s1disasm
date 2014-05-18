@@ -28,7 +28,7 @@ Roll_Main:	; Routine 0
 		move.b	#4,obPriority(a0)
 		move.b	#$10,obActWid(a0)
 
-	locret_E052:
+locret_E052:
 		rts	
 ; ===========================================================================
 

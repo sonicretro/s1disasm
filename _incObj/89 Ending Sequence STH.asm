@@ -10,14 +10,14 @@ EndSTH:					; XREF: Obj_Index
 		jmp	ESth_Index(pc,d1.w)
 		else
 		jsr	ESth_Index(pc,d1.w)
-		jmp	DisplaySprite
-		endc
+		jmp	(DisplaySprite).l
+		endif
 ; ===========================================================================
 ESth_Index:	dc.w ESth_Main-ESth_Index
 		dc.w ESth_Move-ESth_Index
 		dc.w ESth_GotoCredits-ESth_Index
 
-esth_time:	= $30		; time until exit
+esth_time := $30		; time until exit
 ; ===========================================================================
 
 ESth_Main:	; Routine 0
@@ -37,7 +37,7 @@ ESth_Move:	; Routine 2
 		bra.w	DisplaySprite
 		else
 		rts
-		endc
+		endif
 
 ESth_Delay:
 		addq.b	#2,obRoutine(a0)
@@ -45,7 +45,7 @@ ESth_Delay:
 		move.w	#120,esth_time(a0) ; set duration for delay (2 seconds)
 		else
 		move.w	#300,esth_time(a0) ; set duration for delay (5 seconds)
-		endc
+		endif
 
 ESth_GotoCredits:
 		; Routine 4
@@ -53,9 +53,9 @@ ESth_GotoCredits:
 		bpl.s	ESth_Wait
 		move.b	#id_Credits,(v_gamemode).w ; exit to credits
 
-	ESth_Wait:
+ESth_Wait:
 		if Revision=0
 		bra.w	DisplaySprite
 		else
 		rts
-		endc
+		endif

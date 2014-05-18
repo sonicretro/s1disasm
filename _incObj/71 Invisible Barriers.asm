@@ -11,7 +11,7 @@ Invisibarrier:				; XREF: Obj_Index
 Invis_Index:	dc.w Invis_Main-Invis_Index
 		dc.w Invis_Solid-Invis_Index
 
-invis_height:	= $16		; height in pixels
+invis_height := $16		; height in pixels
 ; ===========================================================================
 
 Invis_Main:	; Routine 0
@@ -32,7 +32,7 @@ Invis_Main:	; Routine 0
 
 Invis_Solid:	; Routine 2
 		bsr.w	ChkObjectVisible
-		bne.s	@chkdel
+		bne.s	.chkdel
 		moveq	#0,d1
 		move.b	obActWid(a0),d1
 		addi.w	#$B,d1
@@ -43,14 +43,14 @@ Invis_Solid:	; Routine 2
 		move.w	obX(a0),d4
 		bsr.w	SolidObject71
 
-@chkdel:
-		out_of_range.s	@delete
+.chkdel:
+		out_of_range.s	.delete
 		tst.w	(v_debuguse).w	; are you using	debug mode?
-		beq.s	@nodisplay	; if not, branch
+		beq.s	.nodisplay	; if not, branch
 		jmp	DisplaySprite	; if yes, display the object
 
-	@nodisplay:
+.nodisplay:
 		rts	
 
-	@delete:
+.delete:
 		jmp	DeleteObject

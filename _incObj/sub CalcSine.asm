@@ -24,7 +24,7 @@ CalcSine:				; XREF: SS_BGAnimate; et al
 
 ; ===========================================================================
 
-Sine_Data:	incbin	"misc\sinewave.bin"	; values for a 360º sine wave
+Sine_Data:	binclude	"misc\sinewave.bin"	; values for a 360º sine wave
 
 ; ===========================================================================
 
@@ -38,7 +38,7 @@ Sine_Data:	incbin	"misc\sinewave.bin"	; values for a 360º sine wave
 		move.w	d0,d1
 		moveq	#7,d2
 
-	loc_2C80:
+loc_2C80:
 		rol.l	#2,d1
 		add.w	d0,d0
 		addq.w	#1,d0
@@ -52,11 +52,10 @@ Sine_Data:	incbin	"misc\sinewave.bin"	; values for a 360º sine wave
 		rts	
 ; ===========================================================================
 
-	loc_2C9A:
+loc_2C9A:
 		addq.w	#1,d0
 		dbf	d2,loc_2C80
 		lsr.w	#1,d0
 		movem.l	(sp)+,d1-d2
 		rts	
-		else
-		endc
+		endif

@@ -16,15 +16,15 @@ SmashObject:
 		move.b	0(a0),d4
 		move.b	obRender(a0),d5
 		movea.l	a0,a1
-		bra.s	@loadfrag
+		bra.s	.loadfrag
 ; ===========================================================================
 
-	@loop:
+.loop:
 		bsr.w	FindFreeObj
-		bne.s	@playsnd
+		bne.s	.playsnd
 		addq.w	#5,a3
 
-@loadfrag:
+.loadfrag:
 		move.b	#4,obRoutine(a1)
 		move.b	d4,0(a1)
 		move.l	a3,obMap(a1)
@@ -37,7 +37,7 @@ SmashObject:
 		move.w	(a4)+,obVelX(a1)
 		move.w	(a4)+,obVelY(a1)
 		cmpa.l	a0,a1
-		bcc.s	@loc_D268
+		bcc.s	.loc_D268
 		move.l	a0,-(sp)
 		movea.l	a1,a0
 		bsr.w	SpeedToPos
@@ -45,10 +45,10 @@ SmashObject:
 		movea.l	(sp)+,a0
 		bsr.w	DisplaySprite1
 
-	@loc_D268:
-		dbf	d1,@loop
+.loc_D268:
+		dbf	d1,.loop
 
-	@playsnd:
+.playsnd:
 		sfx	sfx_WallSmash,1 ; play smashing sound
 
 ; End of function SmashObject

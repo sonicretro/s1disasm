@@ -13,9 +13,9 @@ Bom_Index:	dc.w Bom_Main-Bom_Index
 		dc.w Bom_Display-Bom_Index
 		dc.w Bom_End-Bom_Index
 
-bom_time:	= $30		; time of fuse
-bom_origY:	= $34		; original y-axis position
-bom_parent:	= $3C		; address of parent object
+bom_time := $30		; time of fuse
+bom_origY := $34		; original y-axis position
+bom_parent := $3C		; address of parent object
 ; ===========================================================================
 
 Bom_Main:	; Routine 0
@@ -38,42 +38,42 @@ loc_11A3C:
 Bom_Action:	; Routine 2
 		moveq	#0,d0
 		move.b	ob2ndRout(a0),d0
-		move.w	@index(pc,d0.w),d1
-		jsr	@index(pc,d1.w)
+		move.w	.index(pc,d0.w),d1
+		jsr	.index(pc,d1.w)
 		lea	(Ani_Bomb).l,a1
 		bsr.w	AnimateSprite
 		bra.w	RememberState
 ; ===========================================================================
-@index:		dc.w @walk-@index
-		dc.w @wait-@index
-		dc.w @explode-@index
+.index:		dc.w .walk-.index
+		dc.w .wait-.index
+		dc.w .explode-.index
 ; ===========================================================================
 
-@walk:					; XREF: @index
-		bsr.w	@chksonic
+.walk:					; XREF: .index
+		bsr.w	.chksonic
 		subq.w	#1,bom_time(a0)	; subtract 1 from time delay
-		bpl.s	@noflip		; if time remains, branch
-		addq.b	#2,ob2ndRout(a0) ; goto @wait
+		bpl.s	.noflip		; if time remains, branch
+		addq.b	#2,ob2ndRout(a0) ; goto .wait
 		move.w	#1535,bom_time(a0) ; set time delay to 25 seconds
 		move.w	#$10,obVelX(a0)
 		move.b	#1,obAnim(a0)	; use walking animation
 		bchg	#0,obStatus(a0)
-		beq.s	@noflip
+		beq.s	.noflip
 		neg.w	obVelX(a0)	; change direction
 
-	@noflip:
+.noflip:
 		rts	
 ; ===========================================================================
 
-@wait:					; XREF: @index
-		bsr.w	@chksonic
+.wait:					; XREF: .index
+		bsr.w	.chksonic
 		subq.w	#1,bom_time(a0)	; subtract 1 from time delay
-		bmi.s	@stopwalking	; if time expires, branch
+		bmi.s	.stopwalking	; if time expires, branch
 		bsr.w	SpeedToPos
 		rts	
 ; ===========================================================================
 
-	@stopwalking:
+.stopwalking:
 		subq.b	#2,ob2ndRout(a0)
 		move.w	#179,bom_time(a0) ; set time delay to 3 seconds
 		clr.w	obVelX(a0)	; stop walking
@@ -81,42 +81,42 @@ Bom_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@explode:				; XREF: @index
+.explode:				; XREF: .index
 		subq.w	#1,bom_time(a0)	; subtract 1 from time delay
-		bpl.s	@noexplode	; if time remains, branch
+		bpl.s	.noexplode	; if time remains, branch
 		move.b	#id_ExplosionBomb,0(a0) ; change bomb into an explosion
 		move.b	#0,obRoutine(a0)
 
-	@noexplode:
+.noexplode:
 		rts	
 ; ===========================================================================
 
-@chksonic:				; XREF: @walk; @wait
+.chksonic:				; XREF: .walk; .wait
 		move.w	(v_player+obX).w,d0
 		sub.w	obX(a0),d0
-		bcc.s	@isleft
+		bcc.s	.isleft
 		neg.w	d0
 
-	@isleft:
+.isleft:
 		cmpi.w	#$60,d0		; is Sonic within $60 pixels?
-		bcc.s	@outofrange	; if not, branch
+		bcc.s	.outofrange	; if not, branch
 		move.w	(v_player+obY).w,d0
 		sub.w	obY(a0),d0
-		bcc.s	@isabove
+		bcc.s	.isabove
 		neg.w	d0
 
-	@isabove:
+.isabove:
 		cmpi.w	#$60,d0
-		bcc.s	@outofrange
+		bcc.s	.outofrange
 		tst.w	(v_debuguse).w
-		bne.s	@outofrange
+		bne.s	.outofrange
 
 		move.b	#4,ob2ndRout(a0)
 		move.w	#143,bom_time(a0) ; set fuse time
 		clr.w	obVelX(a0)
 		move.b	#2,obAnim(a0)	; use activated animation
 		bsr.w	FindNextFreeObj
-		bne.s	@outofrange
+		bne.s	.outofrange
 		move.b	#id_Bomb,0(a1)	; load fuse object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
@@ -126,14 +126,14 @@ Bom_Action:	; Routine 2
 		move.b	#3,obAnim(a1)
 		move.w	#$10,obVelY(a1)
 		btst	#1,obStatus(a0)	; is bomb upside-down?
-		beq.s	@normal		; if not, branch
+		beq.s	.normal		; if not, branch
 		neg.w	obVelY(a1)	; reverse direction for fuse
 
-	@normal:
+.normal:
 		move.w	#143,bom_time(a1) ; set fuse time
 		move.l	a0,bom_parent(a1)
 
-@outofrange:
+.outofrange:
 		rts	
 ; ===========================================================================
 
@@ -158,14 +158,14 @@ loc_11B7C:
 		moveq	#3,d1
 		movea.l	a0,a1
 		lea	(Bom_ShrSpeed).l,a2 ; load shrapnel speed data
-		bra.s	@makeshrapnel
+		bra.s	.makeshrapnel
 ; ===========================================================================
 
-	@loop:
+.loop:
 		bsr.w	FindNextFreeObj
-		bne.s	@fail
+		bne.s	.fail
 
-@makeshrapnel:			; XREF: loc_11B7C
+.makeshrapnel:			; XREF: loc_11B7C
 		move.b	#id_Bomb,0(a1)	; load shrapnel	object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
@@ -176,8 +176,8 @@ loc_11B7C:
 		move.b	#$98,obColType(a1)
 		bset	#7,obRender(a1)
 
-	@fail:
-		dbf	d1,@loop	; repeat 3 more	times
+.fail:
+		dbf	d1,.loop	; repeat 3 more	times
 
 		move.b	#6,obRoutine(a0)
 

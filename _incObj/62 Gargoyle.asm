@@ -32,13 +32,13 @@ Gar_Main:	; Routine 0
 
 Gar_MakeFire:	; Routine 2
 		subq.b	#1,obTimeFrame(a0) ; decrement timer
-		bne.s	@nofire		; if time remains, branch
+		bne.s	.nofire		; if time remains, branch
 
 		move.b	obDelayAni(a0),obTimeFrame(a0) ; reset timer
 		bsr.w	ChkObjectVisible
-		bne.s	@nofire
+		bne.s	.nofire
 		bsr.w	FindFreeObj
-		bne.s	@nofire
+		bne.s	.nofire
 		move.b	#id_Gargoyle,0(a1) ; load fireball object
 		addq.b	#4,obRoutine(a1) ; use Gar_FireBall routine
 		move.w	obX(a0),obX(a1)
@@ -46,7 +46,7 @@ Gar_MakeFire:	; Routine 2
 		move.b	obRender(a0),obRender(a1)
 		move.b	obStatus(a0),obStatus(a1)
 
-	@nofire:
+.nofire:
 		rts	
 ; ===========================================================================
 
@@ -64,29 +64,29 @@ Gar_FireBall:	; Routine 4
 		addq.w	#8,obY(a0)
 		move.w	#$200,obVelX(a0)
 		btst	#0,obStatus(a0)	; is gargoyle facing left?
-		bne.s	@noflip		; if not, branch
+		bne.s	.noflip		; if not, branch
 		neg.w	obVelX(a0)
 
-	@noflip:
+.noflip:
 		sfx	sfx_Fireball	; play lava ball sound
 
 Gar_AniFire:	; Routine 6
 		move.b	(v_framebyte).w,d0
 		andi.b	#7,d0
-		bne.s	@nochg
+		bne.s	.nochg
 		bchg	#0,obFrame(a0)	; change every 8 frames
 
-	@nochg:
+.nochg:
 		bsr.w	SpeedToPos
 		btst	#0,obStatus(a0) ; is fireball moving left?
-		bne.s	@isright	; if not, branch
+		bne.s	.isright	; if not, branch
 		moveq	#-8,d3
 		bsr.w	ObjHitWallLeft
 		tst.w	d1
 		bmi.w	DeleteObject	; delete if the	fireball hits a	wall
 		rts	
 
-	@isright:
+.isright:
 		moveq	#8,d3
 		bsr.w	ObjHitWallRight
 		tst.w	d1

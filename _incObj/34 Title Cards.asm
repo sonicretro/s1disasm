@@ -13,8 +13,8 @@ Card_Index:	dc.w Card_CheckSBZ3-Card_Index
 		dc.w Card_Wait-Card_Index
 		dc.w Card_Wait-Card_Index
 
-card_mainX:	= $30		; position for card to display on
-card_finalX:	= $32		; position for card to finish on
+card_mainX := $30		; position for card to display on
+card_finalX := $32		; position for card to finish on
 ; ===========================================================================
 
 Card_CheckSBZ3:	; Routine 0
@@ -25,14 +25,14 @@ Card_CheckSBZ3:	; Routine 0
 		bne.s	Card_CheckFZ
 		moveq	#5,d0		; load title card number 5 (SBZ)
 
-	Card_CheckFZ:
+Card_CheckFZ:
 		move.w	d0,d2
 		cmpi.w	#(id_SBZ<<8)+2,(v_zone).w ; check if level is FZ
 		bne.s	Card_LoadConfig
 		moveq	#6,d0		; load title card number 6 (FZ)
 		moveq	#$B,d2		; use "FINAL" mappings
 
-	Card_LoadConfig:
+Card_LoadConfig:
 		lea	(Card_ConData).l,a3
 		lsl.w	#4,d0
 		adda.w	d0,a3
@@ -50,7 +50,7 @@ Card_Loop:
 		bne.s	Card_ActNumber
 		move.b	d2,d0
 
-	Card_ActNumber:
+Card_ActNumber:
 		cmpi.b	#7,d0
 		bne.s	Card_MakeSprite
 		add.b	(v_act).w,d0
@@ -58,7 +58,7 @@ Card_Loop:
 		bne.s	Card_MakeSprite
 		subq.b	#1,d0
 
-	Card_MakeSprite:
+Card_MakeSprite:
 		move.b	d0,obFrame(a1)	; display frame	number d0
 		move.l	#Map_Card,obMap(a1)
 		move.w	#$8580,obGfx(a1)

@@ -12,7 +12,7 @@ Harp_Index:	dc.w Harp_Main-Harp_Index
 		dc.w Harp_Move-Harp_Index
 		dc.w Harp_Wait-Harp_Index
 
-harp_time:	= $30		; time between stabbing/retracting
+harp_time := $30		; time between stabbing/retracting
 ; ===========================================================================
 
 Harp_Main:	; Routine 0
@@ -30,19 +30,19 @@ Harp_Move:	; Routine 2
 		bsr.w	AnimateSprite
 		moveq	#0,d0
 		move.b	obFrame(a0),d0	; get frame number
-		move.b	@types(pc,d0.w),obColType(a0) ; get collision type
+		move.b	.types(pc,d0.w),obColType(a0) ; get collision type
 		bra.w	RememberState
 
-	@types:
+.types:
 		dc.b $9B, $9C, $9D, $9E, $9F, $A0
 		even
 
 Harp_Wait:	; Routine 4
 		subq.w	#1,harp_time(a0) ; decrement timer
-		bpl.s	@chkdel		; branch if time remains
+		bpl.s	.chkdel		; branch if time remains
 		move.w	#60,harp_time(a0) ; reset timer
 		subq.b	#2,obRoutine(a0) ; run "Harp_Move" subroutine
 		bchg	#0,obAnim(a0)	; reverse animation
 
-	@chkdel:
+.chkdel:
 		bra.w	RememberState

@@ -7,11 +7,11 @@
 
 Sonic_Loops:				; XREF: Obj01_Control
 		cmpi.b	#id_SLZ,(v_zone).w ; is level SLZ ?
-		beq.s	@isstarlight	; if yes, branch
+		beq.s	.isstarlight	; if yes, branch
 		tst.b	(v_zone).w	; is level GHZ ?
-		bne.w	@noloops	; if not, branch
+		bne.w	.noloops	; if not, branch
 
-	@isstarlight:
+.isstarlight:
 		move.w	obY(a0),d0
 		lsr.w	#1,d0
 		andi.w	#$380,d0
@@ -27,57 +27,57 @@ Sonic_Loops:				; XREF: Obj01_Control
 		beq.w	Sonic_ChkRoll
 
 		cmp.b	(v_256loop1).w,d1 ; is Sonic on a loop tile?
-		beq.s	@chkifleft	; if yes, branch
+		beq.s	.chkifleft	; if yes, branch
 		cmp.b	(v_256loop2).w,d1
-		beq.s	@chkifinair
+		beq.s	.chkifinair
 		bclr	#6,obRender(a0) ; return Sonic to high plane
 		rts	
 ; ===========================================================================
 
-@chkifinair:
+.chkifinair:
 		btst	#1,obStatus(a0)	; is Sonic in the air?
-		beq.s	@chkifleft	; if not, branch
+		beq.s	.chkifleft	; if not, branch
 
 		bclr	#6,obRender(a0)	; return Sonic to high plane
 		rts	
 ; ===========================================================================
 
-@chkifleft:
+.chkifleft:
 		move.w	obX(a0),d2
 		cmpi.b	#$2C,d2
-		bcc.s	@chkifright
+		bcc.s	.chkifright
 
 		bclr	#6,obRender(a0)	; return Sonic to high plane
 		rts	
 ; ===========================================================================
 
-@chkifright:
+.chkifright:
 		cmpi.b	#$E0,d2
-		bcs.s	@chkangle1
+		bcs.s	.chkangle1
 
 		bset	#6,obRender(a0)	; send Sonic to	low plane
 		rts	
 ; ===========================================================================
 
-@chkangle1:
+.chkangle1:
 		btst	#6,obRender(a0) ; is Sonic on low plane?
-		bne.s	@chkangle2	; if yes, branch
+		bne.s	.chkangle2	; if yes, branch
 
 		move.b	obAngle(a0),d1
-		beq.s	@done
+		beq.s	.done
 		cmpi.b	#$80,d1		; is Sonic upside-down?
-		bhi.s	@done		; if yes, branch
+		bhi.s	.done		; if yes, branch
 		bset	#6,obRender(a0)	; send Sonic to	low plane
 		rts	
 ; ===========================================================================
 
-@chkangle2:
+.chkangle2:
 		move.b	obAngle(a0),d1
 		cmpi.b	#$80,d1		; is Sonic upright?
-		bls.s	@done		; if yes, branch
+		bls.s	.done		; if yes, branch
 		bclr	#6,obRender(a0)	; send Sonic to	high plane
 
-@noloops:
-@done:
+.noloops:
+.done:
 		rts	
 ; End of function Sonic_Loops

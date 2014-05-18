@@ -26,7 +26,7 @@ SSRC_Main:	; Routine 0
 		subq.b	#1,d1		; subtract 1 from d1
 		bcs.w	DeleteObject	; if you have 0	emeralds, branch
 
-	SSRC_Loop:
+SSRC_Loop:
 		move.b	#id_SSRChaos,0(a1)
 		move.w	(a2)+,obX(a1)	; set x-position
 		move.w	#$F0,obScreenY(a1) ; set y-position
@@ -49,5 +49,5 @@ SSRC_Flash:	; Routine 2
 		bne.s	SSRC_Display
 		move.b	obAnim(a0),obFrame(a0) ; load visible frame
 
-	SSRC_Display:
+SSRC_Display:
 		bra.w	DisplaySprite

@@ -24,8 +24,8 @@ FindNearestTile:			; XREF: FindFloor; et al
 		moveq	#-1,d1
 		lea	(v_lvllayout).w,a1
 		move.b	(a1,d0.w),d1	; get 256x256 tile number
-		beq.s	@blanktile	; branch if 0
-		bmi.s	@specialtile	; branch if >$7F
+		beq.s	.blanktile	; branch if 0
+		bmi.s	.specialtile	; branch if >$7F
 		subq.b	#1,d1
 		ext.w	d1
 		ror.w	#7,d1
@@ -38,21 +38,21 @@ FindNearestTile:			; XREF: FindFloor; et al
 		andi.w	#$1E,d0
 		add.w	d0,d1
 
-@blanktile:
+.blanktile:
 		movea.l	d1,a1
 		rts	
 ; ===========================================================================
 
-@specialtile:
+.specialtile:
 		andi.w	#$7F,d1
 		btst	#6,obRender(a0) ; is object "behind a loop"?
-		beq.s	@treatasnormal	; if not, branch
+		beq.s	.treatasnormal	; if not, branch
 		addq.w	#1,d1
 		cmpi.w	#$29,d1
-		bne.s	@treatasnormal
+		bne.s	.treatasnormal
 		move.w	#$51,d1
 
-	@treatasnormal:
+.treatasnormal:
 		subq.b	#1,d1
 		ror.w	#7,d1
 		move.w	d2,d0

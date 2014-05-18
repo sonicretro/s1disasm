@@ -7,18 +7,18 @@
 
 Sonic_Water:				; XREF: loc_12C7E
 		cmpi.b	#1,(v_zone).w	; is level LZ?
-		beq.s	@islabyrinth	; if yes, branch
+		beq.s	.islabyrinth	; if yes, branch
 
-	@exit:
+.exit:
 		rts	
 ; ===========================================================================
 
-	@islabyrinth:
+.islabyrinth:
 		move.w	(v_waterpos1).w,d0
 		cmp.w	obY(a0),d0	; is Sonic above the water?
-		bge.s	@abovewater	; if yes, branch
+		bge.s	.abovewater	; if yes, branch
 		bset	#6,obStatus(a0)
-		bne.s	@exit
+		bne.s	.exit
 		bsr.w	ResumeMusic
 		move.b	#$A,(v_objspace+$340).w ; load bubbles object from Sonic's mouth
 		move.b	#$81,(v_objspace+$340+obSubtype).w
@@ -28,25 +28,25 @@ Sonic_Water:				; XREF: loc_12C7E
 		asr	obVelX(a0)
 		asr	obVelY(a0)
 		asr	obVelY(a0)	; slow Sonic
-		beq.s	@exit		; branch if Sonic stops moving
+		beq.s	.exit		; branch if Sonic stops moving
 		move.b	#id_Splash,(v_objspace+$300).w ; load splash object
 		sfx	sfx_Splash,1	 ; play splash sound
 ; ===========================================================================
 
-@abovewater:
+.abovewater:
 		bclr	#6,obStatus(a0)
-		beq.s	@exit
+		beq.s	.exit
 		bsr.w	ResumeMusic
 		move.w	#$600,(v_sonspeedmax).w ; restore Sonic's speed
 		move.w	#$C,(v_sonspeedacc).w ; restore Sonic's acceleration
 		move.w	#$80,(v_sonspeeddec).w ; restore Sonic's deceleration
 		asl	obVelY(a0)
-		beq.w	@exit
+		beq.w	.exit
 		move.b	#id_Splash,(v_objspace+$300).w ; load splash object
 		cmpi.w	#-$1000,obVelY(a0)
-		bgt.s	@belowmaxspeed
+		bgt.s	.belowmaxspeed
 		move.w	#-$1000,obVelY(a0) ; set maximum speed on leaving water
 
-	@belowmaxspeed:
+.belowmaxspeed:
 		sfx	sfx_Splash,1	 ; play splash sound
 ; End of function Sonic_Water

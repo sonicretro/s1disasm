@@ -38,7 +38,7 @@ LevelSizeLoad:				; XREF: GM_Title; GM_Level; GM_Ending
 ; ---------------------------------------------------------------------------
 ; Level size array
 ; ---------------------------------------------------------------------------
-LevelSizeArray:	incbin	"misc\Level Size Array.bin"
+LevelSizeArray:	binclude	"misc\Level Size Array.bin"
 		even
 		zonewarning LevelSizeArray,$30
 
@@ -54,7 +54,7 @@ LevSz_ChkLamp:				; XREF: LevelSizeLoad
 		tst.b	(v_lastlamp).w	; have any lampposts been hit?
 		beq.s	LevSz_StartLoc	; if not, branch
 
-		jsr	Lamp_LoadInfo
+		jsr	(Lamp_LoadInfo).l
 		move.w	(v_player+obX).w,d1
 		move.w	(v_player+obY).w,d0
 		bra.s	LevSz_SkipStartPos
@@ -82,30 +82,30 @@ LevSz_SonicPos:
 		move.w	d0,(v_player+obY).w ; set Sonic's position on y-axis
 
 SetScreen:
-	LevSz_SkipStartPos:
+LevSz_SkipStartPos:
 		subi.w	#160,d1		; is Sonic more than 160px from left edge?
 		bcc.s	SetScr_WithinLeft ; if yes, branch
 		moveq	#0,d1
 
-	SetScr_WithinLeft:
+SetScr_WithinLeft:
 		move.w	(v_limitright2).w,d2
 		cmp.w	d2,d1		; is Sonic inside the right edge?
 		bcs.s	SetScr_WithinRight ; if yes, branch
 		move.w	d2,d1
 
-	SetScr_WithinRight:
+SetScr_WithinRight:
 		move.w	d1,(v_screenposx).w ; set horizontal screen position
 
 		subi.w	#96,d0		; is Sonic within 96px of upper edge?
 		bcc.s	SetScr_WithinTop ; if yes, branch
 		moveq	#0,d0
 
-	SetScr_WithinTop:
+SetScr_WithinTop:
 		cmp.w	(v_limitbtm2).w,d0 ; is Sonic above the bottom edge?
 		blt.s	SetScr_WithinBottom ; if yes, branch
 		move.w	(v_limitbtm2).w,d0
 
-	SetScr_WithinBottom:
+SetScr_WithinBottom:
 		move.w	d0,(v_screenposy).w ; set vertical screen position
 		bsr.w	BgScrollSpeed
 		moveq	#0,d0

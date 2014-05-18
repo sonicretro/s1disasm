@@ -2,13 +2,13 @@
 ; Debug	mode item lists
 ; ---------------------------------------------------------------------------
 DebugList:
-	dc.w @GHZ-DebugList
-	dc.w @LZ-DebugList
-	dc.w @MZ-DebugList
-	dc.w @SLZ-DebugList
-	dc.w @SYZ-DebugList
-	dc.w @SBZ-DebugList
-	dc.w @Ending-DebugList
+	dc.w .GHZ-DebugList
+	dc.w .LZ-DebugList
+	dc.w .MZ-DebugList
+	dc.w .SLZ-DebugList
+	dc.w .SYZ-DebugList
+	dc.w .SBZ-DebugList
+	dc.w .Ending-DebugList
 	zonewarning DebugList,2
 
 dbug:	macro map,object,subtype,frame,vram
@@ -17,8 +17,8 @@ dbug:	macro map,object,subtype,frame,vram
 	dc.w vram
 	endm
 
-@GHZ:
-	dc.w (@GHZend-@GHZ-2)/8
+.GHZ:
+	dc.w (.GHZend-.GHZ-2)/8
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug 	Map_Ring,	id_Rings,	0,	0,	$27B2
@@ -37,10 +37,10 @@ dbug:	macro map,object,subtype,frame,vram
 	dbug	Map_Lamp,	id_Lamppost,	1,	0,	$7A0
 	dbug	Map_GRing,	id_GiantRing,	0,	0,	$2400
 	dbug	Map_Bonus,	id_HiddenBonus,	1,	1,	$84B6
-	@GHZend:
+.GHZend:
 
-@LZ:
-	dc.w (@LZend-@LZ-2)/8
+.LZ:
+	dc.w (.LZend-.LZ-2)/8
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug	Map_Ring,	id_Rings,	0,	0,	$27B2
@@ -68,10 +68,10 @@ dbug:	macro map,object,subtype,frame,vram
 	dbug	Map_Pole,	id_Pole,	0,	0,	$43DE
 	dbug	Map_Flap,	id_FlapDoor,	2,	0,	$4328
 	dbug	Map_Lamp,	id_Lamppost,	1,	0,	$7A0
-	@LZend:
+.LZend:
 
-@MZ:
-	dc.w (@MZend-@MZ-2)/8
+.MZ:
+	dc.w (.MZend-.MZ-2)/8
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug	Map_Ring,	id_Rings,	0,	0,	$27B2
@@ -92,10 +92,10 @@ dbug:	macro map,object,subtype,frame,vram
 	dbug	Map_Bas,	id_Basaran,	0,	0,	$4B8
 	dbug	Map_Cat,	id_Caterkiller,	0,	0,	$24FF
 	dbug	Map_Lamp,	id_Lamppost,	1,	0,	$7A0
-	@MZend:
+.MZend:
 
-@SLZ:
-	dc.w (@SLZend-@SLZ-2)/8
+.SLZ:
+	dc.w (.SLZend-.SLZ-2)/8
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug	Map_Ring,	id_Rings,	0,	0,	$27B2
@@ -113,10 +113,10 @@ dbug:	macro map,object,subtype,frame,vram
 	dbug	Map_Bomb,	id_Bomb,	0,	0,	$400
 	dbug	Map_Orb,	id_Orbinaut,	0,	0,	$2429
 	dbug	Map_Lamp,	id_Lamppost,	1,	0,	$7A0
-	@SLZend:
+.SLZend:
 
-@SYZ:
-	dc.w (@SYZend-@SYZ-2)/8
+.SYZ:
+	dc.w (.SYZend-.SYZ-2)/8
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug	Map_Ring,	id_Rings,	0,	0,	$27B2
@@ -134,10 +134,10 @@ dbug:	macro map,object,subtype,frame,vram
 	dbug	Map_But,	id_Button,	0,	0,	$513
 	dbug	Map_Cat,	id_Caterkiller,	0,	0,	$24FF
 	dbug	Map_Lamp,	id_Lamppost,	1,	0,	$7A0
-	@SYZend:
+.SYZend:
 
-@SBZ:
-	dc.w (@SBZend-@SBZ-2)/8
+.SBZ:
+	dc.w (.SBZend-.SBZ-2)/8
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug	Map_Ring,	id_Rings,	0,	0,	$27B2
@@ -169,10 +169,10 @@ dbug:	macro map,object,subtype,frame,vram
 	dbug	Map_Invis,	id_Invisibarrier, $11,	0,	$8680
 	dbug	Map_Hog,	id_BallHog,	4,	0,	$2302
 	dbug	Map_Lamp,	id_Lamppost,	1,	0,	$7A0
-	@SBZend:
+.SBZend:
 
-@Ending:
-	dc.w (@Endingend-@Ending-2)/8
+.Ending:
+	dc.w (.Endingend-.Ending-2)/8
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug	Map_Ring,	id_Rings,	0,	0,	$27B2
@@ -191,7 +191,7 @@ dbug:	macro map,object,subtype,frame,vram
 	dbug	Map_Animal3,	id_Animals,	$14,	0,	$5B3
 	else
 	dbug	Map_Ring,	id_Rings,	0,	8,	$27B2
-	endc
-	@Endingend:
+	endif
+.Endingend:
 
 	even

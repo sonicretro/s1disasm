@@ -12,8 +12,8 @@ Ledge_Index:	dc.w Ledge_Main-Ledge_Index, Ledge_Touch-Ledge_Index
 		dc.w Ledge_Collapse-Ledge_Index, Ledge_Display-Ledge_Index
 		dc.w Ledge_Delete-Ledge_Index, Ledge_WalkOff-Ledge_Index
 
-timedelay:	= $38		; time between touching the ledge and it collapsing
-collapse:	= $3A		; collapse flag
+timedelay := $38		; time between touching the ledge and it collapsing
+collapse := $3A		; collapse flag
 ; ===========================================================================
 
 Ledge_Main:	; Routine 0
@@ -30,12 +30,12 @@ Ledge_Main:	; Routine 0
 
 Ledge_Touch:	; Routine 2
 		tst.b	collapse(a0)	; is ledge collapsing?
-		beq.s	@slope		; if not, branch
+		beq.s	.slope		; if not, branch
 		tst.b	timedelay(a0)	; has time reached zero?
 		beq.w	Ledge_Fragment	; if yes, branch
 		subq.b	#1,timedelay(a0) ; subtract 1 from time
 
-	@slope:
+.slope:
 		move.w	#$30,d1
 		lea	(Ledge_SlopeData).l,a2
 		bsr.w	SlopeObject

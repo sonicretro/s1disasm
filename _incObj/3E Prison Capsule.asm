@@ -7,10 +7,10 @@ Prison:					; XREF: Obj_Index
 		move.b	obRoutine(a0),d0
 		move.w	Pri_Index(pc,d0.w),d1
 		jsr	Pri_Index(pc,d1.w)
-		out_of_range.s	@delete
+		out_of_range.s	.delete
 		jmp	DisplaySprite
 
-	@delete:
+.delete:
 		jmp	DeleteObject
 ; ===========================================================================
 Pri_Index:	dc.w Pri_Main-Pri_Index
@@ -22,7 +22,7 @@ Pri_Index:	dc.w Pri_Main-Pri_Index
 		dc.w Pri_Animals-Pri_Index
 		dc.w Pri_EndAct-Pri_Index
 
-pri_origY:	= $30		; original y-axis position
+pri_origY := $30		; original y-axis position
 
 Pri_Var:	dc.b 2,	$20, 4,	0	; routine, width, priority, frame
 		dc.b 4,	$C, 5, 1
@@ -44,18 +44,18 @@ Pri_Main:	; Routine 0
 		move.b	(a1)+,obPriority(a0)
 		move.b	(a1)+,obFrame(a0)
 		cmpi.w	#8,d0		; is object type number	02?
-		bne.s	@not02		; if not, branch
+		bne.s	.not02		; if not, branch
 
 		move.b	#6,obColType(a0)
 		move.b	#8,obColProp(a0)
 
-	@not02:
+.not02:
 		rts	
 ; ===========================================================================
 
 Pri_BodyMain:	; Routine 2
 		cmpi.b	#2,(v_bossstatus).w
-		beq.s	@chkopened
+		beq.s	.chkopened
 		move.w	#$2B,d1
 		move.w	#$18,d2
 		move.w	#$18,d3
@@ -63,14 +63,14 @@ Pri_BodyMain:	; Routine 2
 		jmp	SolidObject
 ; ===========================================================================
 
-@chkopened:
+.chkopened:
 		tst.b	ob2ndRout(a0)	; has the prison been opened?
-		beq.s	@open		; if yes, branch
+		beq.s	.open		; if yes, branch
 		clr.b	ob2ndRout(a0)
 		bclr	#3,(v_player+obStatus).w
 		bset	#1,(v_player+obStatus).w
 
-	@open:
+.open:
 		move.b	#2,obFrame(a0)	; use frame number 2 (destroyed	prison)
 		rts	
 ; ===========================================================================
@@ -85,7 +85,7 @@ Pri_Switched:	; Routine 4
 		jsr	AnimateSprite
 		move.w	pri_origY(a0),obY(a0)
 		tst.b	ob2ndRout(a0)	; has prison already been opened?
-		beq.s	@open2		; if yes, branch
+		beq.s	.open2		; if yes, branch
 
 		addq.w	#8,obY(a0)
 		move.b	#$A,obRoutine(a0)
@@ -98,16 +98,16 @@ Pri_Switched:	; Routine 4
 		bclr	#3,(v_player+obStatus).w
 		bset	#1,(v_player+obStatus).w
 
-	@open2:
+.open2:
 		rts	
 ; ===========================================================================
 
 Pri_Explosion:	; Routine 6, 8, $A
 		moveq	#7,d0
 		and.b	(v_vbla_byte).w,d0
-		bne.s	@noexplosion
+		bne.s	.noexplosion
 		jsr	FindFreeObj
-		bne.s	@noexplosion
+		bne.s	.noexplosion
 		move.b	#id_ExplosionBomb,0(a1) ; load explosion object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
@@ -121,13 +121,13 @@ Pri_Explosion:	; Routine 6, 8, $A
 		lsr.b	#3,d0
 		add.w	d0,obY(a1)
 
-	@noexplosion:
+.noexplosion:
 		subq.w	#1,obTimeFrame(a0)
-		beq.s	@makeanimal
+		beq.s	.makeanimal
 		rts	
 ; ===========================================================================
 
-@makeanimal:
+.makeanimal:
 		move.b	#2,(v_bossstatus).w
 		move.b	#$C,obRoutine(a0)	; replace explosions with animals
 		move.b	#6,obFrame(a0)
@@ -137,9 +137,9 @@ Pri_Explosion:	; Routine 6, 8, $A
 		move.w	#$9A,d5
 		moveq	#-$1C,d4
 
-	@loop:
+.loop:
 		jsr	FindFreeObj
-		bne.s	@fail
+		bne.s	.fail
 		move.b	#id_Animals,0(a1) ; load animal object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
@@ -147,18 +147,18 @@ Pri_Explosion:	; Routine 6, 8, $A
 		addq.w	#7,d4
 		move.w	d5,$36(a1)
 		subq.w	#8,d5
-		dbf	d6,@loop	; repeat 7 more	times
+		dbf	d6,.loop	; repeat 7 more	times
 
-	@fail:
+.fail:
 		rts	
 ; ===========================================================================
 
 Pri_Animals:	; Routine $C
 		moveq	#7,d0
 		and.b	(v_vbla_byte).w,d0
-		bne.s	@noanimal
+		bne.s	.noanimal
 		jsr	FindFreeObj
-		bne.s	@noanimal
+		bne.s	.noanimal
 		move.b	#id_Animals,0(a1) ; load animal object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
@@ -166,20 +166,20 @@ Pri_Animals:	; Routine $C
 		andi.w	#$1F,d0
 		subq.w	#6,d0
 		tst.w	d1
-		bpl.s	@ispositive
+		bpl.s	.ispositive
 		neg.w	d0
 
-	@ispositive:
+.ispositive:
 		add.w	d0,obX(a1)
 		move.w	#$C,$36(a1)
 
-	@noanimal:
+.noanimal:
 		subq.w	#1,obTimeFrame(a0)
-		bne.s	@wait
+		bne.s	.wait
 		addq.b	#2,obRoutine(a0)
 		move.w	#180,obTimeFrame(a0)
 
-	@wait:
+.wait:
 		rts	
 ; ===========================================================================
 
@@ -189,14 +189,14 @@ Pri_EndAct:	; Routine $E
 		moveq	#$40,d2
 		lea	(v_objspace+$40).w,a1 ; load object RAM
 
-	@findanimal:
+.findanimal:
 		cmp.b	(a1),d1		; is object $28	(animal) loaded?
-		beq.s	@found		; if yes, branch
+		beq.s	.found		; if yes, branch
 		adda.w	d2,a1		; next object RAM
-		dbf	d0,@findanimal	; repeat $3E times
+		dbf	d0,.findanimal	; repeat $3E times
 
 		jsr	GotThroughAct
 		jmp	DeleteObject
 
-	@found:
+.found:
 		rts	

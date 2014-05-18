@@ -15,11 +15,11 @@ ptr_Ring_Collect:	dc.w Ring_Collect-Ring_Index
 ptr_Ring_Sparkle:	dc.w Ring_Sparkle-Ring_Index
 ptr_Ring_Delete:	dc.w Ring_Delete-Ring_Index
 
-id_Ring_Main:		= ptr_Ring_Main-Ring_Index	; 0
-id_Ring_Animate:	= ptr_Ring_Animate-Ring_Index	; 2
-id_Ring_Collect:	= ptr_Ring_Collect-Ring_Index	; 4
-id_Ring_Sparkle:	= ptr_Ring_Sparkle-Ring_Index	; 6
-id_Ring_Delete:		= ptr_Ring_Delete-Ring_Index	; 8
+id_Ring_Main := ptr_Ring_Main-Ring_Index	; 0
+id_Ring_Animate := ptr_Ring_Animate-Ring_Index	; 2
+id_Ring_Collect := ptr_Ring_Collect-Ring_Index	; 4
+id_Ring_Sparkle := ptr_Ring_Sparkle-Ring_Index	; 6
+id_Ring_Delete := ptr_Ring_Delete-Ring_Index	; 8
 ; ---------------------------------------------------------------------------
 ; Distances between rings (format: horizontal, vertical)
 ; ---------------------------------------------------------------------------
@@ -54,7 +54,7 @@ Ring_Main:	; Routine 0
 		bne.s	loc_9B80
 		moveq	#6,d1
 
-	loc_9B80:
+loc_9B80:
 		swap	d1
 		move.w	#0,d1
 		lsr.b	#4,d0
@@ -141,20 +141,20 @@ CollectRing:				; XREF: Ring_Collect
 		ori.b	#1,(f_ringcount).w ; update the rings counter
 		move.w	#sfx_Ring,d0	; play ring sound
 		cmpi.w	#100,(v_rings).w ; do you have < 100 rings?
-		bcs.s	@playsnd	; if yes, branch
+		bcs.s	.playsnd	; if yes, branch
 		bset	#1,(v_lifecount).w ; update lives counter
-		beq.s	@got100
+		beq.s	.got100
 		cmpi.w	#200,(v_rings).w ; do you have < 200 rings?
-		bcs.s	@playsnd	; if yes, branch
+		bcs.s	.playsnd	; if yes, branch
 		bset	#2,(v_lifecount).w ; update lives counter
-		bne.s	@playsnd
+		bne.s	.playsnd
 
-	@got100:
+.got100:
 		addq.b	#1,(v_lives).w	; add 1 to the number of lives you have
 		addq.b	#1,(f_lifecount).w ; update the lives counter
 		move.w	#bgm_ExtraLife,d0 ; play extra life music
 
-	@playsnd:
+.playsnd:
 		jmp	(PlaySound_Special).l
 ; End of function CollectRing
 
@@ -182,20 +182,20 @@ RLoss_Count:	; Routine 0
 		move.w	(v_rings).w,d5	; check number of rings you have
 		moveq	#32,d0
 		cmp.w	d0,d5		; do you have 32 or more?
-		bcs.s	@belowmax	; if not, branch
+		bcs.s	.belowmax	; if not, branch
 		move.w	d0,d5		; if yes, set d5 to 32
 
-	@belowmax:
+.belowmax:
 		subq.w	#1,d5
 		move.w	#$288,d4
-		bra.s	@makerings
+		bra.s	.makerings
 ; ===========================================================================
 
-	@loop:
+.loop:
 		bsr.w	FindFreeObj
-		bne.w	@resetcounter
+		bne.w	.resetcounter
 
-@makerings:
+.makerings:
 		move.b	#id_RingLoss,0(a1) ; load bouncing ring object
 		addq.b	#2,obRoutine(a1)
 		move.b	#8,obHeight(a1)
@@ -210,7 +210,7 @@ RLoss_Count:	; Routine 0
 		move.b	#8,obActWid(a1)
 		move.b	#-1,(v_ani3_time).w
 		tst.w	d4
-		bmi.s	@loc_9D62
+		bmi.s	.loc_9D62
 		move.w	d4,d0
 		bsr.w	CalcSine
 		move.w	d4,d2
@@ -220,19 +220,19 @@ RLoss_Count:	; Routine 0
 		move.w	d0,d2
 		move.w	d1,d3
 		addi.b	#$10,d4
-		bcc.s	@loc_9D62
+		bcc.s	.loc_9D62
 		subi.w	#$80,d4
-		bcc.s	@loc_9D62
+		bcc.s	.loc_9D62
 		move.w	#$288,d4
 
-	@loc_9D62:
+.loc_9D62:
 		move.w	d2,obVelX(a1)
 		move.w	d3,obVelY(a1)
 		neg.w	d2
 		neg.w	d4
-		dbf	d5,@loop	; repeat for number of rings (max 31)
+		dbf	d5,.loop	; repeat for number of rings (max 31)
 
-@resetcounter:
+.resetcounter:
 		move.w	#0,(v_rings).w	; reset number of rings to zero
 		move.b	#$80,(f_ringcount).w ; update ring counter
 		move.b	#0,(v_lifecount).w
@@ -242,21 +242,21 @@ RLoss_Bounce:	; Routine 2
 		move.b	(v_ani3_frame).w,obFrame(a0)
 		bsr.w	SpeedToPos
 		addi.w	#$18,obVelY(a0)
-		bmi.s	@chkdel
+		bmi.s	.chkdel
 		move.b	(v_vbla_byte).w,d0
 		add.b	d7,d0
 		andi.b	#3,d0
-		bne.s	@chkdel
+		bne.s	.chkdel
 		jsr	ObjFloorDist
 		tst.w	d1
-		bpl.s	@chkdel
+		bpl.s	.chkdel
 		add.w	d1,obY(a0)
 		move.w	obVelY(a0),d0
 		asr.w	#2,d0
 		sub.w	d0,obVelY(a0)
 		neg.w	obVelY(a0)
 
-	@chkdel:
+.chkdel:
 		tst.b	(v_ani3_time).w
 		beq.s	RLoss_Delete
 		move.w	(v_limitbtm2).w,d0

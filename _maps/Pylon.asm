@@ -1,8 +1,8 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - metal pylons in foreground (SLZ)
 ; ---------------------------------------------------------------------------
-Map_Pylon:	dc.w @pylon-Map_Pylon
-@pylon:		dc.b 9
+Map_Pylon:	dc.w .pylon-Map_Pylon
+.pylon:		dc.b 9
 		dc.b $80, $F, 0, 0, $F0
 		dc.b $A0, $F, $10, 0, $F0
 		dc.b $C0, $F, 0, 0, $F0

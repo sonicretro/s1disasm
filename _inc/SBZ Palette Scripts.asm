@@ -2,9 +2,9 @@
 ; Scrap Brain Zone palette cycling script
 ; ---------------------------------------------------------------------------
 
-mSBZp:	macro
-	dc.b \1, \2
-	dc.w \3, \4
+mSBZp:	macro one,two,three,four
+	dc.b one, two
+	dc.w three, four
 	endm
 
 ; duration in frames, number of colours, palette address, RAM address

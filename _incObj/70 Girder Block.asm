@@ -11,12 +11,12 @@ Girder:					; XREF: Obj_Index
 Gird_Index:	dc.w Gird_Main-Gird_Index
 		dc.w Gird_Action-Gird_Index
 
-gird_height:	= $16
-gird_origX:	= $32		; original x-axis position
-gird_origY:	= $30		; original y-axis position
-gird_time:	= $34		; duration for movement in a direction
-gird_set:	= $38		; which movement settings to use (0/8/16/24)
-gird_delay:	= $3A		; delay for movement
+gird_height := $16
+gird_origX := $32		; original x-axis position
+gird_origY := $30		; original y-axis position
+gird_time := $34		; duration for movement in a direction
+gird_set := $38		; which movement settings to use (0/8/16/24)
+gird_delay := $3A		; delay for movement
 ; ===========================================================================
 
 Gird_Main:	; Routine 0
@@ -34,20 +34,20 @@ Gird_Main:	; Routine 0
 Gird_Action:	; Routine 2
 		move.w	obX(a0),-(sp)
 		tst.w	gird_delay(a0)
-		beq.s	@beginmove
+		beq.s	.beginmove
 		subq.w	#1,gird_delay(a0)
-		bne.s	@solid
+		bne.s	.solid
 
-	@beginmove:
+.beginmove:
 		jsr	SpeedToPos
 		subq.w	#1,gird_time(a0) ; decrement movement duration
-		bne.s	@solid		; if time remains, branch
+		bne.s	.solid		; if time remains, branch
 		bsr.w	Gird_ChgMove	; if time is zero, branch
 
-	@solid:
+.solid:
 		move.w	(sp)+,d4
 		tst.b	obRender(a0)
-		bpl.s	@chkdel
+		bpl.s	.chkdel
 		moveq	#0,d1
 		move.b	obActWid(a0),d1
 		addi.w	#$B,d1
@@ -57,18 +57,18 @@ Gird_Action:	; Routine 2
 		addq.w	#1,d3
 		bsr.w	SolidObject
 
-	@chkdel:
-		out_of_range.s	@delete,gird_origX(a0)
+.chkdel:
+		out_of_range.s	.delete,gird_origX(a0)
 		jmp	DisplaySprite
 
-	@delete:
+.delete:
 		jmp	DeleteObject
 ; ===========================================================================
 
 Gird_ChgMove:
 		move.b	gird_set(a0),d0
 		andi.w	#$18,d0
-		lea	(@settings).l,a1
+		lea	(.settings).l,a1
 		lea	(a1,d0.w),a1
 		move.w	(a1)+,obVelX(a0)
 		move.w	(a1)+,obVelY(a0)
@@ -77,7 +77,7 @@ Gird_ChgMove:
 		move.w	#7,gird_delay(a0)
 		rts	
 ; ===========================================================================
-@settings:	;   x-speed, y-speed, duration
+.settings:	;   x-speed, y-speed, duration
 		dc.w   $100,	 0,   $60,     0 ; right
 		dc.w	  0,  $100,   $30,     0 ; down
 		dc.w  -$100,  -$40,   $60,     0 ; up/left

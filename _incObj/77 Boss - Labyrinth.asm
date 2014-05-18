@@ -269,10 +269,9 @@ loc_180F6:				; XREF: Obj77_ShipIndex
 
 loc_18112:
 		music	bgm_LZ		; play LZ music
-		if Revision=0
-		else
+		if Revision<>0
 			clr.b	(f_lockscreen).w
-		endc
+		endif
 		bset	#0,obStatus(a0)
 		addq.b	#2,ob2ndRout(a0)
 

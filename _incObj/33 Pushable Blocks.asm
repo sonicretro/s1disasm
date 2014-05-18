@@ -23,10 +23,10 @@ PushB_Main:	; Routine 0
 		move.l	#Map_Push,obMap(a0)
 		move.w	#$42B8,obGfx(a0) ; MZ specific code
 		cmpi.b	#1,(v_zone).w
-		bne.s	@notLZ
+		bne.s	.notLZ
 		move.w	#$43DE,obGfx(a0) ; LZ specific code
 
-	@notLZ:
+.notLZ:
 		move.b	#4,obRender(a0)
 		move.b	#3,obPriority(a0)
 		move.w	obX(a0),$34(a0)
@@ -39,10 +39,10 @@ PushB_Main:	; Routine 0
 		move.b	(a2)+,obActWid(a0)
 		move.b	(a2)+,obFrame(a0)
 		tst.b	obSubtype(a0)
-		beq.s	@chkgone
+		beq.s	.chkgone
 		move.w	#$C2B8,obGfx(a0)
 
-	@chkgone:
+.chkgone:
 		lea	(v_objstate).w,a2
 		moveq	#0,d0
 		move.b	obRespawnNo(a0),d0
@@ -75,7 +75,7 @@ loc_BF6E:	; Routine 2
 		bset	#7,(v_obj31ypos).w
 		bset	#7,obSubtype(a0)
 
-	loc_BFC6:
+loc_BFC6:
 		out_of_range.s	loc_ppppp
 		bra.w	DisplaySprite
 ; ===========================================================================

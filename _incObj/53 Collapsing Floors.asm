@@ -12,8 +12,8 @@ CFlo_Index:	dc.w CFlo_Main-CFlo_Index, CFlo_Touch-CFlo_Index
 		dc.w CFlo_Collapse-CFlo_Index, CFlo_Display-CFlo_Index
 		dc.w CFlo_Delete-CFlo_Index, CFlo_WalkOff-CFlo_Index
 
-timedelay:	= $38
-collapse:	= $3A
+timedelay := $38
+collapse := $3A
 ; ===========================================================================
 
 CFlo_Main:	; Routine 0
@@ -21,17 +21,17 @@ CFlo_Main:	; Routine 0
 		move.l	#Map_CFlo,obMap(a0)
 		move.w	#$42B8,obGfx(a0)
 		cmpi.b	#id_SLZ,(v_zone).w ; check if level is SLZ
-		bne.s	@notSLZ
+		bne.s	.notSLZ
 
 		move.w	#$44E0,obGfx(a0) ; SLZ specific code
 		addq.b	#2,obFrame(a0)
 
-	@notSLZ:
+.notSLZ:
 		cmpi.b	#id_SBZ,(v_zone).w ; check if level is SBZ
-		bne.s	@notSBZ
+		bne.s	.notSBZ
 		move.w	#$43F5,obGfx(a0) ; SBZ specific code
 
-	@notSBZ:
+.notSBZ:
 		ori.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#7,timedelay(a0)
@@ -39,25 +39,25 @@ CFlo_Main:	; Routine 0
 
 CFlo_Touch:	; Routine 2
 		tst.b	collapse(a0)	; has Sonic touched the	object?
-		beq.s	@solid		; if not, branch
+		beq.s	.solid		; if not, branch
 		tst.b	timedelay(a0)	; has time delay reached zero?
 		beq.w	CFlo_Fragment	; if yes, branch
 		subq.b	#1,timedelay(a0) ; subtract 1 from time
 
-	@solid:
+.solid:
 		move.w	#$20,d1
 		bsr.w	PlatformObject
 		tst.b	obSubtype(a0)
-		bpl.s	@remstate
+		bpl.s	.remstate
 		btst	#3,obStatus(a1)
-		beq.s	@remstate
+		beq.s	.remstate
 		bclr	#0,obRender(a0)
 		move.w	obX(a1),d0
 		sub.w	obX(a0),d0
-		bcc.s	@remstate
+		bcc.s	.remstate
 		bset	#0,obRender(a0)
 
-	@remstate:
+.remstate:
 		bra.w	RememberState
 ; ===========================================================================
 

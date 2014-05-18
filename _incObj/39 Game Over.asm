@@ -26,7 +26,7 @@ Over_Main:
 		beq.s	Over_1stWord	; if not, branch
 		move.w	#$1F0,obX(a0)	; set x-position for "OVER"
 
-	Over_1stWord:
+Over_1stWord:
 		move.w	#$F0,obScreenY(a0)
 		move.l	#Map_Over,obMap(a0)
 		move.w	#$855E,obGfx(a0)
@@ -40,7 +40,7 @@ Over_Move:	; Routine 2
 		bcs.s	Over_UpdatePos
 		neg.w	d1
 
-	Over_UpdatePos:
+Over_UpdatePos:
 		add.w	d1,obX(a0)	; change item's position
 		bra.w	DisplaySprite
 ; ===========================================================================
@@ -74,10 +74,9 @@ Over_ChgMode:				; XREF: Over_Wait
 ; ===========================================================================
 
 Over_ResetLvl:				; XREF: Over_ChgMode
-		if Revision=0
-		else
+		if Revision<>0
 			clr.l	(v_lamp_time).w
-		endc
+		endif
 		move.w	#1,(f_restart).w ; restart level
 
 Over_Display:				; XREF: Over_ChgMode

@@ -19,13 +19,13 @@ DemoRecorder:
 		adda.w	d0,a1
 		move.b	(v_jpadhold1).w,d0
 		cmp.b	(a1),d0
-		bne.s	@next
+		bne.s	.next
 		addq.b	#1,1(a1)
 		cmpi.b	#$FF,1(a1)
-		beq.s	@next
+		beq.s	.next
 		rts	
 
-	@next:
+.next:
 		move.b	d0,2(a1)
 		move.b	#0,3(a1)
 		addq.w	#2,(v_btnpushtime1).w
@@ -35,31 +35,31 @@ DemoRecorder:
 
 MDemo_On:				; XREF: MoveSonicInDemo
 		tst.b	(v_jpadhold1).w	; is start button pressed?
-		bpl.s	@dontquit	; if not, branch
+		bpl.s	.dontquit	; if not, branch
 		tst.w	(f_demo).w	; is this an ending sequence demo?
-		bmi.s	@dontquit	; if yes, branch
+		bmi.s	.dontquit	; if yes, branch
 		move.b	#id_Title,(v_gamemode).w ; go to title screen
 
-	@dontquit:
+.dontquit:
 		lea	(DemoDataPtr).l,a1
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
 		cmpi.b	#id_Special,(v_gamemode).w ; is this a special stage?
-		bne.s	@notspecial	; if not, branch
+		bne.s	.notspecial	; if not, branch
 		moveq	#6,d0		; use demo #6
 
-	@notspecial:
+.notspecial:
 		lsl.w	#2,d0
 		movea.l	(a1,d0.w),a1	; fetch address for demo data
 		tst.w	(f_demo).w	; is this an ending sequence demo?
-		bpl.s	@notcredits	; if not, branch
+		bpl.s	.notcredits	; if not, branch
 		lea	(DemoEndDataPtr).l,a1
 		move.w	(v_creditsnum).w,d0
 		subq.w	#1,d0
 		lsl.w	#2,d0
 		movea.l	(a1,d0.w),a1	; fetch address for credits demo
 
-	@notcredits:
+.notcredits:
 		move.w	(v_btnpushtime1).w,d0
 		adda.w	d0,a1
 		move.b	(a1),d0
@@ -69,17 +69,17 @@ MDemo_On:				; XREF: MoveSonicInDemo
 		move.b	(a0),d2
 		else
 			moveq	#0,d2
-		endc
+		endif
 		eor.b	d2,d0
 		move.b	d1,(a0)+
 		and.b	d1,d0
 		move.b	d0,(a0)+
 		subq.b	#1,(v_btnpushtime2).w
-		bcc.s	@end
+		bcc.s	.end
 		move.b	3(a1),(v_btnpushtime2).w
 		addq.w	#2,(v_btnpushtime1).w
 
-	@end:
+.end:
 		rts	
 ; End of function MoveSonicInDemo
 

@@ -21,7 +21,7 @@ But_Main:	; Routine 0
 
 		move.w	#$513,obGfx(a0)	; SYZ, LZ and SBZ specific code
 
-	But_IsMZ:
+But_IsMZ:
 		move.b	#4,obRender(a0)
 		move.b	#$10,obActWid(a0)
 		move.b	#4,obPriority(a0)

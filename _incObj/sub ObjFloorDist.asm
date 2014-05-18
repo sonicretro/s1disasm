@@ -36,7 +36,7 @@ ObjFloorDist2:
 		beq.s	locret_14E4E
 		move.b	#0,d3
 
-	locret_14E4E:
+locret_14E4E:
 		rts	
 
 ; End of function ObjFloorDist2

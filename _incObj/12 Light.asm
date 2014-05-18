@@ -22,13 +22,13 @@ Light_Main:	; Routine 0
 
 Light_Animate:	; Routine 2
 		subq.b	#1,obTimeFrame(a0)
-		bpl.s	@chkdel
+		bpl.s	.chkdel
 		move.b	#7,obTimeFrame(a0)
 		addq.b	#1,obFrame(a0)
 		cmpi.b	#6,obFrame(a0)
-		bcs.s	@chkdel
+		bcs.s	.chkdel
 		move.b	#0,obFrame(a0)
 
-	@chkdel:
+.chkdel:
 		out_of_range	DeleteObject
 		bra.w	DisplaySprite

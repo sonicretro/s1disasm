@@ -40,5 +40,5 @@ LavaM_MakeLava:	; Routine 2
 		move.w	obY(a0),obY(a1)
 		move.b	obSubtype(a0),obSubtype(a1)
 
-	LavaM_Wait:
+LavaM_Wait:
 		rts	

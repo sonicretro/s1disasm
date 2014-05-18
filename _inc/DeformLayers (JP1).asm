@@ -625,7 +625,7 @@ ScrollHoriz:				; XREF: DeformLayers
 		bset	#2,(v_bgscroll1).w ; screen moves backward
 		rts	
 
-	SH_Forward:
+SH_Forward:
 		bset	#3,(v_bgscroll1).w ; screen moves forward
 
 locret_65B0:
@@ -652,7 +652,7 @@ SH_AheadOfMid:
 		bcs.s	SH_Ahead16	; if yes, branch
 		move.w	#16,d0		; set to 16 if greater
 
-	SH_Ahead16:
+SH_Ahead16:
 		add.w	(v_screenposx).w,d0
 		cmp.w	(v_limitright2).w,d0
 		blt.s	SH_SetScreen
@@ -700,7 +700,7 @@ ScrollVertical:				; XREF: DeformLayers
 		beq.s	SV_NotRolling	; if not, branch
 		subq.w	#5,d0
 
-	SV_NotRolling:
+SV_NotRolling:
 		btst	#1,(v_player+obStatus).w ; is Sonic jumping?
 		beq.s	loc_664A	; if not, branch
 

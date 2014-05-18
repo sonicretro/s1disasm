@@ -11,10 +11,10 @@ ScrapStomp:				; XREF: Obj_Index
 Sto_Index:	dc.w Sto_Main-Sto_Index
 		dc.w Sto_Action-Sto_Index
 
-sto_height:	= $16
-sto_origX:	= $34		; original x-axis position
-sto_origY:	= $30		; original y-axis position
-sto_active:	= $38		; flag set when a switch is pressed
+sto_height := $16
+sto_origX := $34		; original x-axis position
+sto_origY := $30		; original y-axis position
+sto_active := $38		; flag set when a switch is pressed
 
 Sto_Var:	dc.b  $40,  $C,	$80,   1 ; width, height, ????,	type number
 		dc.b  $1C, $20,	$38,   3
@@ -37,36 +37,36 @@ Sto_Main:	; Routine 0
 		move.l	#Map_Stomp,obMap(a0)
 		move.w	#$22C0,obGfx(a0)
 		cmpi.b	#id_LZ,(v_zone).w ; check if level is LZ/SBZ3
-		bne.s	@isSBZ12	; if not, branch
+		bne.s	.isSBZ12	; if not, branch
 		bset	#0,(v_obj6B).w
-		beq.s	@isSBZ3
+		beq.s	.isSBZ3
 
-@chkdel:
+.chkdel:
 		lea	(v_objstate).w,a2
 		moveq	#0,d0
 		move.b	obRespawnNo(a0),d0
-		beq.s	@delete
+		beq.s	.delete
 		bclr	#7,2(a2,d0.w)
 
-	@delete:
+.delete:
 		jmp	DeleteObject
 ; ===========================================================================
 
-@isSBZ3:
+.isSBZ3:
 		move.w	#$41F0,obGfx(a0)
 		cmpi.w	#$A80,obX(a0)
-		bne.s	@isSBZ12
+		bne.s	.isSBZ12
 		lea	(v_objstate).w,a2
 		moveq	#0,d0
 		move.b	obRespawnNo(a0),d0
-		beq.s	@isSBZ12
+		beq.s	.isSBZ12
 		btst	#0,2(a2,d0.w)
-		beq.s	@isSBZ12
+		beq.s	.isSBZ12
 		clr.b	(v_obj6B).w
-		bra.s	@chkdel
+		bra.s	.chkdel
 ; ===========================================================================
 
-@isSBZ12:
+.isSBZ12:
 		ori.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.w	obX(a0),sto_origX(a0)
@@ -81,10 +81,10 @@ Sto_Main:	; Routine 0
 		move.b	d0,$3E(a0)
 		move.b	(a3),obSubtype(a0)
 		cmpi.b	#5,(a3)
-		bne.s	@chkgone
+		bne.s	.chkgone
 		bset	#4,obRender(a0)
 
-	@chkgone:
+.chkgone:
 		lea	(v_objstate).w,a2
 		moveq	#0,d0
 		move.b	obRespawnNo(a0),d0
@@ -97,11 +97,11 @@ Sto_Action:	; Routine 2
 		move.b	obSubtype(a0),d0
 		andi.w	#$F,d0
 		add.w	d0,d0
-		move.w	@index(pc,d0.w),d1
-		jsr	@index(pc,d1.w)
+		move.w	.index(pc,d0.w),d1
+		jsr	.index(pc,d1.w)
 		move.w	(sp)+,d4
 		tst.b	obRender(a0)
-		bpl.s	@chkdel
+		bpl.s	.chkdel
 		moveq	#0,d1
 		move.b	obActWid(a0),d1
 		addi.w	#$B,d1
@@ -111,217 +111,217 @@ Sto_Action:	; Routine 2
 		addq.w	#1,d3
 		bsr.w	SolidObject
 
-	@chkdel:
-		out_of_range.s	@chkgone,sto_origX(a0)
+.chkdel:
+		out_of_range.s	.chkgone,sto_origX(a0)
 		jmp	DisplaySprite
 
-	@chkgone:
+.chkgone:
 		cmpi.b	#id_LZ,(v_zone).w
-		bne.s	@delete
+		bne.s	.delete
 		clr.b	(v_obj6B).w
 		lea	(v_objstate).w,a2
 		moveq	#0,d0
 		move.b	obRespawnNo(a0),d0
-		beq.s	@delete
+		beq.s	.delete
 		bclr	#7,2(a2,d0.w)
 
-	@delete:
+.delete:
 		jmp	DeleteObject
 ; ===========================================================================
-@index:		dc.w @type00-@index, @type01-@index
-		dc.w @type02-@index, @type03-@index
-		dc.w @type04-@index, @type05-@index
+.index:		dc.w .type00-.index, .type01-.index
+		dc.w .type02-.index, .type03-.index
+		dc.w .type04-.index, .type05-.index
 ; ===========================================================================
 
-@type00:				; XREF: @index
+.type00:				; XREF: .index
 		rts
 ; ===========================================================================
 
-@type01:				; XREF: @index
+.type01:				; XREF: .index
 		tst.b	sto_active(a0)
-		bne.s	@isactive01
+		bne.s	.isactive01
 		lea	(f_switch).w,a2
 		moveq	#0,d0
 		move.b	$3E(a0),d0
 		btst	#0,(a2,d0.w)
-		beq.s	@loc_15DC2
+		beq.s	.loc_15DC2
 		move.b	#1,sto_active(a0)
 
-	@isactive01:
+.isactive01:
 		move.w	$3C(a0),d0
 		cmp.w	$3A(a0),d0
-		beq.s	@loc_15DE0
+		beq.s	.loc_15DE0
 		addq.w	#2,$3A(a0)
 
-	@loc_15DC2:
+.loc_15DC2:
 		move.w	$3A(a0),d0
 		btst	#0,obStatus(a0)
-		beq.s	@noflip01
+		beq.s	.noflip01
 		neg.w	d0
 		addi.w	#$80,d0
 
-	@noflip01:
+.noflip01:
 		move.w	sto_origX(a0),d1
 		sub.w	d0,d1
 		move.w	d1,obX(a0)
 		rts	
 ; ===========================================================================
 
-@loc_15DE0:
+.loc_15DE0:
 		addq.b	#1,obSubtype(a0)
 		move.w	#$B4,$36(a0)
 		clr.b	sto_active(a0)
 		lea	(v_objstate).w,a2
 		moveq	#0,d0
 		move.b	obRespawnNo(a0),d0
-		beq.s	@loc_15DC2
+		beq.s	.loc_15DC2
 		bset	#0,2(a2,d0.w)
-		bra.s	@loc_15DC2
+		bra.s	.loc_15DC2
 ; ===========================================================================
 
-@type02:				; XREF: @index
+.type02:				; XREF: .index
 		tst.b	sto_active(a0)
-		bne.s	@isactive02
+		bne.s	.isactive02
 		subq.w	#1,$36(a0)
-		bne.s	@loc_15E1E
+		bne.s	.loc_15E1E
 		move.b	#1,sto_active(a0)
 
-	@isactive02:
+.isactive02:
 		tst.w	$3A(a0)
-		beq.s	@loc_15E3C
+		beq.s	.loc_15E3C
 		subq.w	#2,$3A(a0)
 
-	@loc_15E1E:
+.loc_15E1E:
 		move.w	$3A(a0),d0
 		btst	#0,obStatus(a0)
-		beq.s	@noflip02
+		beq.s	.noflip02
 		neg.w	d0
 		addi.w	#$80,d0
 
-	@noflip02:
+.noflip02:
 		move.w	sto_origX(a0),d1
 		sub.w	d0,d1
 		move.w	d1,obX(a0)
 		rts	
 ; ===========================================================================
 
-@loc_15E3C:
+.loc_15E3C:
 		subq.b	#1,obSubtype(a0)
 		clr.b	sto_active(a0)
 		lea	(v_objstate).w,a2
 		moveq	#0,d0
 		move.b	obRespawnNo(a0),d0
-		beq.s	@loc_15E1E
+		beq.s	.loc_15E1E
 		bclr	#0,2(a2,d0.w)
-		bra.s	@loc_15E1E
+		bra.s	.loc_15E1E
 ; ===========================================================================
 
-@type03:				; XREF: @index
+.type03:				; XREF: .index
 		tst.b	sto_active(a0)
-		bne.s	@isactive03
+		bne.s	.isactive03
 		tst.w	$3A(a0)
-		beq.s	@loc_15E6A
+		beq.s	.loc_15E6A
 		subq.w	#1,$3A(a0)
-		bra.s	@loc_15E8E
+		bra.s	.loc_15E8E
 ; ===========================================================================
 
-@loc_15E6A:
+.loc_15E6A:
 		subq.w	#1,$36(a0)
-		bpl.s	@loc_15E8E
+		bpl.s	.loc_15E8E
 		move.w	#$3C,$36(a0)
 		move.b	#1,sto_active(a0)
 
-@isactive03:
+.isactive03:
 		addq.w	#8,$3A(a0)
 		move.w	$3A(a0),d0
 		cmp.w	$3C(a0),d0
-		bne.s	@loc_15E8E
+		bne.s	.loc_15E8E
 		clr.b	sto_active(a0)
 
-@loc_15E8E:
+.loc_15E8E:
 		move.w	$3A(a0),d0
 		btst	#0,obStatus(a0)
-		beq.s	@noflip03
+		beq.s	.noflip03
 		neg.w	d0
 		addi.w	#$38,d0
 
-	@noflip03:
+.noflip03:
 		move.w	sto_origY(a0),d1
 		add.w	d0,d1
 		move.w	d1,obY(a0)
 		rts	
 ; ===========================================================================
 
-@type04:				; XREF: @index
+.type04:				; XREF: .index
 		tst.b	sto_active(a0)
-		bne.s	@isactive04
+		bne.s	.isactive04
 		tst.w	$3A(a0)
-		beq.s	@loc_15EBE
+		beq.s	.loc_15EBE
 		subq.w	#8,$3A(a0)
-		bra.s	@loc_15EF0
+		bra.s	.loc_15EF0
 ; ===========================================================================
 
-@loc_15EBE:
+.loc_15EBE:
 		subq.w	#1,$36(a0)
-		bpl.s	@loc_15EF0
+		bpl.s	.loc_15EF0
 		move.w	#$3C,$36(a0)
 		move.b	#1,sto_active(a0)
 
-@isactive04:
+.isactive04:
 		move.w	$3A(a0),d0
 		cmp.w	$3C(a0),d0
-		beq.s	@loc_15EE0
+		beq.s	.loc_15EE0
 		addq.w	#8,$3A(a0)
-		bra.s	@loc_15EF0
+		bra.s	.loc_15EF0
 ; ===========================================================================
 
-@loc_15EE0:
+.loc_15EE0:
 		subq.w	#1,$36(a0)
-		bpl.s	@loc_15EF0
+		bpl.s	.loc_15EF0
 		move.w	#$3C,$36(a0)
 		clr.b	sto_active(a0)
 
-@loc_15EF0:
+.loc_15EF0:
 		move.w	$3A(a0),d0
 		btst	#0,obStatus(a0)
-		beq.s	@noflip04
+		beq.s	.noflip04
 		neg.w	d0
 		addi.w	#$38,d0
 
-	@noflip04:
+.noflip04:
 		move.w	sto_origY(a0),d1
 		add.w	d0,d1
 		move.w	d1,obY(a0)
 		rts	
 ; ===========================================================================
 
-@type05:				; XREF: @index
+.type05:				; XREF: .index
 		tst.b	sto_active(a0)
-		bne.s	@loc_15F3E
+		bne.s	.loc_15F3E
 		lea	(f_switch).w,a2
 		moveq	#0,d0
 		move.b	$3E(a0),d0
 		btst	#0,(a2,d0.w)
-		beq.s	@locret_15F5C
+		beq.s	.locret_15F5C
 		move.b	#1,sto_active(a0)
 		lea	(v_objstate).w,a2
 		moveq	#0,d0
 		move.b	obRespawnNo(a0),d0
-		beq.s	@loc_15F3E
+		beq.s	.loc_15F3E
 		bset	#0,2(a2,d0.w)
 
-@loc_15F3E:
+.loc_15F3E:
 		subi.l	#$10000,obX(a0)
 		addi.l	#$8000,obY(a0)
 		move.w	obX(a0),sto_origX(a0)
 		cmpi.w	#$980,obX(a0)
-		beq.s	@loc_15F5E
+		beq.s	.loc_15F5E
 
-@locret_15F5C:
+.locret_15F5C:
 		rts	
 ; ===========================================================================
 
-@loc_15F5E:
+.loc_15F5E:
 		clr.b	obSubtype(a0)
 		clr.b	sto_active(a0)
 		rts	

@@ -1,9 +1,9 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - SCORE, TIME, RINGS
 ; ---------------------------------------------------------------------------
-Map_HUD:	dc.w @allyellow-Map_HUD, @ringred-Map_HUD
-		dc.w @timered-Map_HUD, @allred-Map_HUD
-@allyellow:	dc.b $A
+Map_HUD:	dc.w .allyellow-Map_HUD, .ringred-Map_HUD
+		dc.w .timered-Map_HUD, .allred-Map_HUD
+.allyellow:	dc.b $A
 		dc.b $80, $D, $80, 0, 0
 		dc.b $80, $D, $80, $18,	$20
 		dc.b $80, $D, $80, $20,	$40
@@ -15,7 +15,7 @@ Map_HUD:	dc.w @allyellow-Map_HUD, @ringred-Map_HUD
 		dc.b $40, 5, $81, $A, 0
 		dc.b $40, $D, $81, $E, $10
 		dc.b 0
-@ringred:	dc.b $A
+.ringred:	dc.b $A
 		dc.b $80, $D, $80, 0, 0
 		dc.b $80, $D, $80, $18,	$20
 		dc.b $80, $D, $80, $20,	$40
@@ -27,7 +27,7 @@ Map_HUD:	dc.w @allyellow-Map_HUD, @ringred-Map_HUD
 		dc.b $40, 5, $81, $A, 0
 		dc.b $40, $D, $81, $E, $10
 		dc.b 0
-@timered:	dc.b $A
+.timered:	dc.b $A
 		dc.b $80, $D, $80, 0, 0
 		dc.b $80, $D, $80, $18,	$20
 		dc.b $80, $D, $80, $20,	$40
@@ -39,7 +39,7 @@ Map_HUD:	dc.w @allyellow-Map_HUD, @ringred-Map_HUD
 		dc.b $40, 5, $81, $A, 0
 		dc.b $40, $D, $81, $E, $10
 		dc.b 0
-@allred:	dc.b $A
+.allred:	dc.b $A
 		dc.b $80, $D, $80, 0, 0
 		dc.b $80, $D, $80, $18,	$20
 		dc.b $80, $D, $80, $20,	$40

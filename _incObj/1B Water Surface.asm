@@ -11,8 +11,8 @@ WaterSurface:				; XREF: Obj_Index
 Surf_Index:	dc.w Surf_Main-Surf_Index
 		dc.w Surf_Action-Surf_Index
 
-origX:		= $30		; original x-axis position
-freeze:		= $32		; flag to freeze animation
+origX := $30		; original x-axis position
+freeze := $32		; flag to freeze animation
 ; ===========================================================================
 
 Surf_Main:	; Routine 0
@@ -28,36 +28,36 @@ Surf_Action:	; Routine 2
 		andi.w	#$FFE0,d1
 		add.w	origX(a0),d1
 		btst	#0,(v_framebyte).w
-		beq.s	@even		; branch on even frames
+		beq.s	.even		; branch on even frames
 		addi.w	#$20,d1
 
-	@even:
+.even:
 		move.w	d1,obX(a0)	; match	obj x-position to screen position
 		move.w	(v_waterpos1).w,d1
 		move.w	d1,obY(a0)	; match	obj y-position to water	height
 		tst.b	freeze(a0)
-		bne.s	@stopped
+		bne.s	.stopped
 		btst	#bitStart,(v_jpadpress1).w ; is Start button pressed?
-		beq.s	@animate	; if not, branch
+		beq.s	.animate	; if not, branch
 		addq.b	#3,obFrame(a0)	; use different	frames
 		move.b	#1,freeze(a0) ; stop animation
-		bra.s	@display
+		bra.s	.display
 ; ===========================================================================
 
-@stopped:
+.stopped:
 		tst.w	(f_pause).w	; is the game paused?
-		bne.s	@display	; if yes, branch
+		bne.s	.display	; if yes, branch
 		move.b	#0,freeze(a0) ; resume animation
 		subq.b	#3,obFrame(a0)	; use normal frames
 
-@animate:
+.animate:
 		subq.b	#1,obTimeFrame(a0)
-		bpl.s	@display
+		bpl.s	.display
 		move.b	#7,obTimeFrame(a0)
 		addq.b	#1,obFrame(a0)
 		cmpi.b	#3,obFrame(a0)
-		bcs.s	@display
+		bcs.s	.display
 		move.b	#0,obFrame(a0)
 
-@display:
+.display:
 		bra.w	DisplaySprite

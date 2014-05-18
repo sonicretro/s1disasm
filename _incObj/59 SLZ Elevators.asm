@@ -2,6 +2,10 @@
 ; Object 59 - platforms	that move when you stand on them (SLZ)
 ; ---------------------------------------------------------------------------
 
+elev_origX := $32		; original x-axis position
+elev_origY := $30		; original y-axis position
+elev_dist := $3C		; distance to move (2 bytes)
+
 Elevator:				; XREF: Obj_Index
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
@@ -14,10 +18,6 @@ Elev_Index:	dc.w Elev_Main-Elev_Index
 		dc.w Elev_Platform-Elev_Index
 		dc.w Elev_Action-Elev_Index
 		dc.w Elev_MakeMulti-Elev_Index
-
-elev_origX:	= $32		; original x-axis position
-elev_origY:	= $30		; original y-axis position
-elev_dist:	= $3C		; distance to move (2 bytes)
 
 Elev_Var1:	dc.b $28, 0		; width, frame number
 
@@ -42,7 +42,7 @@ Elev_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0
-		bpl.s	@normal		; branch for types 00-7F
+		bpl.s	.normal		; branch for types 00-7F
 		addq.b	#4,obRoutine(a0) ; goto Elev_MakeMulti next
 		andi.w	#$7F,d0
 		mulu.w	#6,d0
@@ -52,7 +52,7 @@ Elev_Main:	; Routine 0
 		rts	
 ; ===========================================================================
 
-	@normal:
+.normal:
 		lsr.w	#3,d0
 		andi.w	#$1E,d0
 		lea	Elev_Var1(pc,d0.w),a2
@@ -89,10 +89,10 @@ Elev_Action:	; Routine 4
 		bsr.w	Elev_Types
 		move.w	(sp)+,d2
 		tst.b	0(a0)
-		beq.s	@deleted
+		beq.s	.deleted
 		jmp	(MvSonicOnPtfm2).l
 
-	@deleted:
+.deleted:
 		rts	
 ; ===========================================================================
 
@@ -101,30 +101,30 @@ Elev_Types:
 		move.b	obSubtype(a0),d0
 		andi.w	#$F,d0
 		add.w	d0,d0
-		move.w	@index(pc,d0.w),d1
-		jmp	@index(pc,d1.w)
+		move.w	.index(pc,d0.w),d1
+		jmp	.index(pc,d1.w)
 ; ===========================================================================
-@index:		dc.w @type00-@index, @type01-@index
-		dc.w @type02-@index, @type01-@index
-		dc.w @type04-@index, @type01-@index
-		dc.w @type06-@index, @type01-@index
-		dc.w @type08-@index, @type09-@index
+.index:		dc.w .type00-.index, .type01-.index
+		dc.w .type02-.index, .type01-.index
+		dc.w .type04-.index, .type01-.index
+		dc.w .type06-.index, .type01-.index
+		dc.w .type08-.index, .type09-.index
 ; ===========================================================================
 
-@type00:				; XREF: @index
+.type00:				; XREF: .index
 		rts	
 ; ===========================================================================
 
-@type01:				; XREF: @index
+.type01:				; XREF: .index
 		cmpi.b	#4,obRoutine(a0) ; check if Sonic is standing on the object
-		bne.s	@notstanding
+		bne.s	.notstanding
 		addq.b	#1,obSubtype(a0) ; if yes, add 1 to type
 
-	@notstanding:
+.notstanding:
 		rts	
 ; ===========================================================================
 
-@type02:				; XREF: @index
+.type02:				; XREF: .index
 		bsr.w	Elev_Move
 		move.w	$34(a0),d0
 		neg.w	d0
@@ -133,7 +133,7 @@ Elev_Types:
 		rts	
 ; ===========================================================================
 
-@type04:				; XREF: @index
+.type04:				; XREF: .index
 		bsr.w	Elev_Move
 		move.w	$34(a0),d0
 		add.w	elev_origY(a0),d0
@@ -141,7 +141,7 @@ Elev_Types:
 		rts	
 ; ===========================================================================
 
-@type06:				; XREF: @index
+.type06:				; XREF: .index
 		bsr.w	Elev_Move
 		move.w	$34(a0),d0
 		asr.w	#1,d0
@@ -154,7 +154,7 @@ Elev_Types:
 		rts	
 ; ===========================================================================
 
-@type08:				; XREF: @index
+.type08:				; XREF: .index
 		bsr.w	Elev_Move
 		move.w	$34(a0),d0
 		asr.w	#1,d0
@@ -167,31 +167,31 @@ Elev_Types:
 		rts	
 ; ===========================================================================
 
-@type09:				; XREF: @index
+.type09:				; XREF: .index
 		bsr.w	Elev_Move
 		move.w	$34(a0),d0
 		neg.w	d0
 		add.w	elev_origY(a0),d0
 		move.w	d0,obY(a0)
 		tst.b	obSubtype(a0)
-		beq.w	@typereset
+		beq.w	.typereset
 		rts	
 ; ===========================================================================
 
-	@typereset:
+.typereset:
 		btst	#3,obStatus(a0)
-		beq.s	@delete
+		beq.s	.delete
 		bset	#1,obStatus(a1)
 		bclr	#3,obStatus(a1)
 		move.b	#2,obRoutine(a1)
 
-	@delete:
+.delete:
 		bra.w	DeleteObject
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Elev_Move:				; XREF: @type02; et al
+Elev_Move:				; XREF: .type02; et al
 		move.w	$38(a0),d0
 		tst.b	$3A(a0)
 		bne.s	loc_10CC8
@@ -232,16 +232,16 @@ locret_10CFA:
 
 Elev_MakeMulti:	; Routine 6
 		subq.w	#1,elev_dist(a0)
-		bne.s	@chkdel
+		bne.s	.chkdel
 		move.w	$3E(a0),elev_dist(a0)
 		bsr.w	FindFreeObj
-		bne.s	@chkdel
+		bne.s	.chkdel
 		move.b	#id_Elevator,0(a1) ; duplicate the object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		move.b	#$E,obSubtype(a1)
 
-@chkdel:
+.chkdel:
 		addq.l	#4,sp
 		out_of_range	DeleteObject
 		rts	

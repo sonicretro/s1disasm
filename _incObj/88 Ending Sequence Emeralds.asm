@@ -7,15 +7,15 @@ EndChaos:				; XREF: Obj_Index
 		move.b	obRoutine(a0),d0
 		move.w	ECha_Index(pc,d0.w),d1
 		jsr	ECha_Index(pc,d1.w)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 ECha_Index:	dc.w ECha_Main-ECha_Index
 		dc.w ECha_Move-ECha_Index
 
-echa_origX:	= $38	; x-axis centre of emerald circle (2 bytes)
-echa_origY:	= $3A	; y-axis centre of emerald circle (2 bytes)
-echa_radius:	= $3C	; radius (2 bytes)
-echa_angle:	= $3E	; angle for rotation (2 bytes)
+echa_origX := $38	; x-axis centre of emerald circle (2 bytes)
+echa_origY := $3A	; y-axis centre of emerald circle (2 bytes)
+echa_radius := $3C	; radius (2 bytes)
+echa_angle := $3E	; angle for rotation (2 bytes)
 ; ===========================================================================
 
 ECha_Main:	; Routine 0
@@ -33,7 +33,7 @@ ECha_CreateEms:
 		moveq	#1,d2
 		moveq	#5,d1
 
-	ECha_LoadLoop:
+ECha_LoadLoop:
 		move.b	#id_EndChaos,(a1) ; load chaos emerald object
 		addq.b	#2,obRoutine(a1)
 		move.l	#Map_ECha,obMap(a1)
@@ -66,17 +66,17 @@ ECha_Move:	; Routine 2
 		move.w	d1,obX(a0)
 		move.w	d0,obY(a0)
 
-	ECha_Expand:
+ECha_Expand:
 		cmpi.w	#$2000,echa_radius(a0)
 		beq.s	ECha_Rotate
 		addi.w	#$20,echa_radius(a0) ; expand circle of emeralds
 
-	ECha_Rotate:
+ECha_Rotate:
 		cmpi.w	#$2000,echa_angle(a0)
 		beq.s	ECha_Rise
 		addi.w	#$20,echa_angle(a0) ; move emeralds around the centre
 
-	ECha_Rise:
+ECha_Rise:
 		cmpi.w	#$140,echa_origY(a0)
 		beq.s	ECha_End
 		subq.w	#1,echa_origY(a0) ; make circle rise

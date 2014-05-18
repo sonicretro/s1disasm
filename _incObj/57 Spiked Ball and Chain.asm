@@ -12,12 +12,12 @@ SBall_Index:	dc.w SBall_Main-SBall_Index
 		dc.w SBall_Move-SBall_Index
 		dc.w SBall_Display-SBall_Index
 
-sball_childs:	= $29		; number of child objects (1 byte)
+sball_childs := $29		; number of child objects (1 byte)
 		; $30-$37	; object RAM numbers of childs (1 byte each)
-sball_origX:	= $3A		; centre x-axis position (2 bytes)
-sball_origY:	= $38		; centre y-axis position (2 bytes)
-sball_radius:	= $3C		; radius (1 byte)
-sball_speed:	= $3E		; rate of spin (2 bytes)
+sball_origX := $3A		; centre x-axis position (2 bytes)
+sball_origY := $38		; centre y-axis position (2 bytes)
+sball_radius := $3C		; radius (1 byte)
+sball_speed := $3E		; rate of spin (2 bytes)
 ; ===========================================================================
 
 SBall_Main:	; Routine 0
@@ -31,13 +31,13 @@ SBall_Main:	; Routine 0
 		move.w	obY(a0),sball_origY(a0)
 		move.b	#$98,obColType(a0) ; SYZ specific code (chain hurts Sonic)
 		cmpi.b	#id_LZ,(v_zone).w ; check if level is LZ
-		bne.s	@notlz
+		bne.s	.notlz
 
 		move.b	#0,obColType(a0) ; LZ specific code (chain doesn't hurt)
 		move.w	#$310,obGfx(a0)
 		move.l	#Map_SBall2,obMap(a0)
 
-	@notlz:
+.notlz:
 		move.b	obSubtype(a0),d1 ; get object type
 		andi.b	#$F0,d1		; read only the	1st digit
 		ext.w	d1
@@ -55,15 +55,15 @@ SBall_Main:	; Routine 0
 		lsl.w	#4,d3
 		move.b	d3,sball_radius(a0)
 		subq.w	#1,d1		; set chain length (type-1)
-		bcs.s	@fail
+		bcs.s	.fail
 		btst	#3,obSubtype(a0)
-		beq.s	@makechain
+		beq.s	.makechain
 		subq.w	#1,d1
-		bcs.s	@fail
+		bcs.s	.fail
 
-@makechain:
+.makechain:
 		bsr.w	FindFreeObj
-		bne.s	@fail
+		bne.s	.fail
 		addq.b	#1,sball_childs(a0) ; increment child object counter
 		move.w	a1,d5		; get child object RAM address
 		subi.w	#$D000,d5	; subtract $D000
@@ -81,16 +81,16 @@ SBall_Main:	; Routine 0
 		subi.b	#$10,d3
 		move.b	d3,sball_radius(a1)
 		cmpi.b	#id_LZ,(v_zone).w ; check if level is LZ
-		bne.s	@notlzagain
+		bne.s	.notlzagain
 
 		tst.b	d3
-		bne.s	@notlzagain
+		bne.s	.notlzagain
 		move.b	#2,obFrame(a1)	; use different frame for LZ chain
 
-	@notlzagain:
-		dbf	d1,@makechain ; repeat for length of chain
+.notlzagain:
+		dbf	d1,.makechain ; repeat for length of chain
 
-	@fail:
+.fail:
 		move.w	a0,d5
 		subi.w	#$D000,d5
 		lsr.w	#6,d5
@@ -103,11 +103,11 @@ SBall_Main:	; Routine 0
 		move.b	#1,obFrame(a0)	; use different	frame
 
 SBall_Move:	; Routine 2
-		bsr.w	@movesub
-		bra.w	@chkdel
+		bsr.w	.movesub
+		bra.w	.chkdel
 ; ===========================================================================
 
-@movesub:
+.movesub:
 		move.w	sball_speed(a0),d0
 		add.w	d0,obAngle(a0)
 		move.b	obAngle(a0),d0
@@ -118,7 +118,7 @@ SBall_Move:	; Routine 2
 		moveq	#0,d6
 		move.b	(a2)+,d6
 
-	@loop:
+.loop:
 		moveq	#0,d4
 		move.b	(a2)+,d4
 		lsl.w	#6,d4
@@ -135,28 +135,28 @@ SBall_Move:	; Routine 2
 		add.w	d3,d5
 		move.w	d4,obY(a1)
 		move.w	d5,obX(a1)
-		dbf	d6,@loop
+		dbf	d6,.loop
 		rts	
 ; ===========================================================================
 
-@chkdel:
-		out_of_range	@delete,sball_origX(a0)
+.chkdel:
+		out_of_range	.delete,sball_origX(a0)
 		bra.w	DisplaySprite
 ; ===========================================================================
 
-@delete:
+.delete:
 		moveq	#0,d2
 		lea	sball_childs(a0),a2
 		move.b	(a2)+,d2
 
-	@deleteloop:
+.deleteloop:
 		moveq	#0,d0
 		move.b	(a2)+,d0
 		lsl.w	#6,d0
 		addi.l	#v_objspace&$FFFFFF,d0
 		movea.l	d0,a1
 		bsr.w	DeleteChild
-		dbf	d2,@deleteloop ; delete all pieces of	chain
+		dbf	d2,.deleteloop ; delete all pieces of	chain
 
 		rts	
 ; ===========================================================================

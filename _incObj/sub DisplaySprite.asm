@@ -17,7 +17,7 @@ DisplaySprite:
 		adda.w	(a1),a1		; jump to empty position
 		move.w	a0,(a1)		; insert RAM address for object
 
-	DSpr_Full:
+DSpr_Full:
 		rts	
 
 ; End of function DisplaySprite
@@ -42,7 +42,7 @@ DisplaySprite1:
 		adda.w	(a2),a2
 		move.w	a1,(a2)
 
-	DSpr1_Full:
+DSpr1_Full:
 		rts	
 
 ; End of function DisplaySprite1

@@ -26,13 +26,13 @@ MDis_Main:	; Routine 0
 
 MDis_Animate:	; Routine 2
 		subq.b	#1,obTimeFrame(a0) ; subtract 1 from frame duration
-		bpl.s	@display
+		bpl.s	.display
 		move.b	#9,obTimeFrame(a0) ; set frame duration to 9 frames
 		addq.b	#1,obFrame(a0)	; next frame
 		cmpi.b	#4,obFrame(a0)	; has animation completed?
 		beq.w	DeleteObject	; if yes, branch
 
-	@display:
+.display:
 		bra.w	DisplaySprite
 ; ===========================================================================
 
@@ -74,13 +74,13 @@ ExItem_Main:	; Routine 2
 
 ExItem_Animate:	; Routine 4 (2 for ExplosionBomb)
 		subq.b	#1,obTimeFrame(a0) ; subtract 1 from frame duration
-		bpl.s	@display
+		bpl.s	.display
 		move.b	#7,obTimeFrame(a0) ; set frame duration to 7 frames
 		addq.b	#1,obFrame(a0)	; next frame
 		cmpi.b	#5,obFrame(a0)	; is the final frame (05) displayed?
 		beq.w	DeleteObject	; if yes, branch
 
-	@display:
+.display:
 		bra.w	DisplaySprite
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
