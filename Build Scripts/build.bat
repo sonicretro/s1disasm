@@ -32,7 +32,7 @@ REM // if there were errors, a log file is produced
 IF "%1"=="-logerrors" ( IF EXIST sonic.log goto LABLERROR3 )
 
 REM // combine the assembler output into a rom
-IF EXIST sonic.p "AS/Win32/p2bin" sonic.p s1built.bin
+IF EXIST sonic.p "AS/Win32/p2bin" sonic.p s1built.bin -r $-$
 
 REM // done -- pause if we seem to have failed, then exit
 IF NOT EXIST sonic.p goto LABLPAUSE
