@@ -81,7 +81,7 @@ Ring_MakeRings:
 		bne.s	loc_9C0E
 
 loc_9BBA:				; XREF: Ring_Main
-		move.b	#id_Rings,0(a1)	; load ring object
+		_move.b	#id_Rings,0(a1)	; load ring object
 		addq.b	#2,obRoutine(a1)
 		move.w	d2,obX(a1)	; set x-axis position based on d2
 		move.w	obX(a0),$32(a1)
@@ -196,7 +196,7 @@ RLoss_Count:	; Routine 0
 		bne.w	.resetcounter
 
 .makerings:
-		move.b	#id_RingLoss,0(a1) ; load bouncing ring object
+		_move.b	#id_RingLoss,0(a1) ; load bouncing ring object
 		addq.b	#2,obRoutine(a1)
 		move.b	#8,obHeight(a1)
 		move.b	#8,obWidth(a1)

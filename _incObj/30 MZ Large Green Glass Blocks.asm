@@ -7,7 +7,7 @@ GlassBlock:				; XREF: Obj_Index
 		move.b	obRoutine(a0),d0
 		move.w	Glass_Index(pc,d0.w),d1
 		jsr	Glass_Index(pc,d1.w)
-		out_of_range	Glass_Delete
+		out_of_range.w	Glass_Delete
 		bra.w	DisplaySprite
 ; ===========================================================================
 
@@ -51,7 +51,7 @@ Glass_Main:	; Routine 0
 
 .Load:
 		move.b	(a2)+,obRoutine(a1)
-		move.b	#id_GlassBlock,0(a1)
+		_move.b	#id_GlassBlock,0(a1)
 		move.w	obX(a0),obX(a1)
 		move.b	(a2)+,d0
 		ext.w	d0

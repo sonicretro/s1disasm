@@ -10,7 +10,7 @@ Signpost:				; XREF: Obj_Index
 		lea	(Ani_Sign).l,a1
 		bsr.w	AnimateSprite
 		bsr.w	DisplaySprite
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		rts	
 ; ===========================================================================
 Sign_Index:	dc.w Sign_Main-Sign_Index
@@ -67,7 +67,7 @@ Sign_Spin:	; Routine 4
 		lea	Sign_SparkPos(pc,d0.w),a2 ; load sparkle position data
 		bsr.w	FindFreeObj
 		bne.s	.fail
-		move.b	#id_Rings,0(a1)	; load rings object
+		_move.b	#id_Rings,0(a1)	; load rings object
 		move.b	#id_Ring_Sparkle,obRoutine(a1) ; jump to ring sparkle subroutine
 		move.b	(a2)+,d0
 		ext.w	d0

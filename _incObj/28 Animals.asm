@@ -109,7 +109,7 @@ loc_90C0:
 		bne.s	loc_911C
 		bsr.w	FindFreeObj
 		bne.s	Anml_Display
-		move.b	#id_Points,0(a1) ; load points object
+		_move.b	#id_Points,0(a1) ; load points object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		move.w	$3E(a0),d0

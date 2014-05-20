@@ -167,7 +167,7 @@ Bub_BblMaker:	; Routine $A
 		move.w	d0,$38(a0)
 		bsr.w	FindFreeObj
 		bne.s	.fail
-		move.b	#id_Bubble,0(a1) ; load bubble object
+		_move.b	#id_Bubble,0(a1) ; load bubble object
 		move.w	obX(a0),obX(a1)
 		jsr	(RandomNumber).l
 		andi.w	#$F,d0
@@ -208,7 +208,7 @@ Bub_BblMaker:	; Routine $A
 		jsr	(AnimateSprite).l
 
 .chkdel:
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		move.w	(v_waterpos1).w,d0
 		cmp.w	obY(a0),d0
 		bcs.w	DisplaySprite

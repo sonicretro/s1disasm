@@ -79,7 +79,7 @@ loc_7BCE:
 ; ===========================================================================
 
 Swing_ChkDel:				; XREF: Swing_Action; Swing_Action2
-		out_of_range	Swing_DelAll,$3A(a0)
+		out_of_range.w	Swing_DelAll,$3A(a0)
 		rts	
 ; ===========================================================================
 

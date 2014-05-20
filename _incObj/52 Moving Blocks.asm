@@ -72,7 +72,7 @@ MBlock_StandOn:	; Routine 4
 		jsr	(MvSonicOnPtfm2).l
 
 MBlock_ChkDel:				; XREF: MBlock_Platform
-		out_of_range	DeleteObject,origX(a0)
+		out_of_range.w	DeleteObject,origX(a0)
 		bra.w	DisplaySprite
 ; ===========================================================================
 
@@ -173,7 +173,7 @@ MBlock_Type07:				; XREF: MBlock_TypeIndex
 
 MBlock_07_ChkDel:
 		addq.l	#4,sp
-		out_of_range	DeleteObject,origX(a0)
+		out_of_range.w	DeleteObject,origX(a0)
 		rts	
 ; ===========================================================================
 

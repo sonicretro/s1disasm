@@ -52,7 +52,7 @@ GMake_MakeLava:	; Routine 6
 		addq.b	#2,obRoutine(a0)
 		bsr.w	FindNextFreeObj
 		bne.s	.fail
-		move.b	#id_LavaGeyser,0(a1) ; load lavafall object
+		_move.b	#id_LavaGeyser,0(a1) ; load lavafall object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		move.b	obSubtype(a0),obSubtype(a1)
@@ -137,7 +137,7 @@ Geyser_Main:	; Routine 0
 		bne.s	.fail
 
 .makelava:				; XREF: Geyser_Main
-		move.b	#id_LavaGeyser,0(a1)
+		_move.b	#id_LavaGeyser,0(a1)
 		move.l	#Map_Geyser,obMap(a1)
 		move.w	#$63A8,obGfx(a1)
 		move.b	#4,obRender(a1)
@@ -191,7 +191,7 @@ Geyser_Action:	; Routine 2
 		bsr.w	AnimateSprite
 
 Geyser_ChkDel:				; XREF: GeyserMaker
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		rts	
 ; ===========================================================================
 Geyser_Types:	dc.w Geyser_Type00-Geyser_Types

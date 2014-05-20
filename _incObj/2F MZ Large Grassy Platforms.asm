@@ -175,7 +175,7 @@ loc_B01C:
 		move.b	#1,$35(a0)
 		bsr.w	FindNextFreeObj
 		bne.s	loc_B07A
-		move.b	#id_GrassFire,0(a1) ; load sitting flame object
+		_move.b	#id_GrassFire,0(a1) ; load sitting flame object
 		move.w	obX(a0),obX(a1)
 		move.w	origY(a0),origY(a1)
 		addq.w	#8,origY(a1)
@@ -231,7 +231,7 @@ LGrass_ChkDel:				; XREF: LGrass_Display
 		bpl.s	LGrass_DelFlames
 
 loc_B0C6:
-		out_of_range	DeleteObject,origX(a0)
+		out_of_range.w	DeleteObject,origX(a0)
 		rts	
 ; ===========================================================================
 

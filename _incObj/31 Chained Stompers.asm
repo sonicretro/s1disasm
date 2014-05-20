@@ -62,7 +62,7 @@ CStom_Loop:
 
 CStom_MakeStomper:
 		move.b	(a2)+,obRoutine(a1)
-		move.b	#id_ChainStomp,0(a1)
+		_move.b	#id_ChainStomp,0(a1)
 		move.w	obX(a0),obX(a1)
 		move.b	(a2)+,d0
 		ext.w	d0
@@ -153,7 +153,7 @@ CStom_Display2:	; Routine 6
 		bsr.w	DisplaySprite
 
 CStom_ChkDel:				; XREF: CStom_Display
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		rts	
 ; ===========================================================================
 

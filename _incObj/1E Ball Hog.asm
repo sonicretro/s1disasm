@@ -56,7 +56,7 @@ Hog_Action:	; Routine 2
 		move.b	#1,launchflag(a0)
 		bsr.w	FindFreeObj
 		bne.s	.fail
-		move.b	#id_Cannonball,0(a1) ; load cannonball object ($20)
+		_move.b	#id_Cannonball,0(a1) ; load cannonball object ($20)
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		move.w	#-$100,obVelX(a1) ; cannonball bounces to the left

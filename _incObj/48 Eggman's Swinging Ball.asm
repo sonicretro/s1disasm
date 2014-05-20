@@ -33,7 +33,7 @@ GBall_MakeLinks:
 		bne.s	GBall_MakeBall
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
-		move.b	#id_BossBall,0(a1) ; load chain link object
+		_move.b	#id_BossBall,0(a1) ; load chain link object
 		move.b	#6,obRoutine(a1)
 		move.l	#Map_Swing_GHZ,obMap(a1)
 		move.w	#$380,obGfx(a1)
@@ -127,7 +127,7 @@ loc_17C3C:
 		move.b	obStatus(a1),obStatus(a0)
 		tst.b	obStatus(a1)
 		bpl.s	locret_17C66
-		move.b	#$3F,0(a0)
+		_move.b	#$3F,0(a0)
 		move.b	#0,obRoutine(a0)
 
 locret_17C66:
@@ -140,7 +140,7 @@ loc_17C68:	; Routine 6
 		movea.l	$34(a0),a1
 		tst.b	obStatus(a1)
 		bpl.s	GBall_Display3
-		move.b	#$3F,0(a0)
+		_move.b	#$3F,0(a0)
 		move.b	#0,obRoutine(a0)
 
 GBall_Display3:

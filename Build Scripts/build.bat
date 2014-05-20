@@ -36,7 +36,9 @@ IF EXIST sonic.p "AS/Win32/p2bin" sonic.p s1built.bin -r $-$
 
 REM // done -- pause if we seem to have failed, then exit
 IF NOT EXIST sonic.p goto LABLPAUSE
-IF EXIST s1built.bin exit /b
+IF NOT EXIST s1built.bin goto LABLPAUSE
+fixheader s1built.bin
+exit /b
 :LABLPAUSE
 
 pause

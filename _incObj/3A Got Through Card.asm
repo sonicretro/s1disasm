@@ -34,7 +34,7 @@ Got_Main:
 		moveq	#6,d1
 
 Got_Loop:
-		move.b	#id_GotThroughCard,0(a1)
+		_move.b	#id_GotThroughCard,0(a1)
 		move.w	(a2),obX(a1)	; load start x-position
 		move.w	(a2)+,got_finalX(a1) ; load finish x-position (same as start)
 		move.w	(a2)+,got_mainX(a1) ; load main x-position

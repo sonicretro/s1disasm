@@ -10,7 +10,7 @@ CirclingPlatform:			; XREF: Obj_Index
 		move.b	obRoutine(a0),d0
 		move.w	Circ_Index(pc,d0.w),d1
 		jsr	Circ_Index(pc,d1.w)
-		out_of_range	DeleteObject,circ_origX(a0)
+		out_of_range.w	DeleteObject,circ_origX(a0)
 		bra.w	DisplaySprite
 ; ===========================================================================
 Circ_Index:	dc.w Circ_Main-Circ_Index

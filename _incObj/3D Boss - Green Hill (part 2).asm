@@ -10,7 +10,7 @@ BGHZ_MakeBall:				; XREF: BGHZ_ShipIndex
 		addq.b	#2,ob2ndRout(a0)
 		jsr	(FindNextFreeObj).l
 		bne.s	loc_17910
-		move.b	#id_BossBall,0(a1) ; load swinging ball object
+		_move.b	#id_BossBall,0(a1) ; load swinging ball object
 		move.w	$30(a0),obX(a1)
 		move.w	$38(a0),obY(a1)
 		move.l	a0,$34(a1)

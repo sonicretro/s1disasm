@@ -60,7 +60,7 @@ Buzz_Action:	; Routine 2
 .fire:
 		bsr.w	FindFreeObj
 		bne.s	.fail
-		move.b	#id_Missile,0(a1) ; load missile object
+		_move.b	#id_Missile,0(a1) ; load missile object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		addi.w	#$1C,obY(a1)

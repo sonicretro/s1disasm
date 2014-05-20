@@ -525,7 +525,7 @@ loc_1C4C4:				; XREF: AniArt_MZextra
 loc_1C4D2:				; XREF: AniArt_MZextra
 		move.l	$C(a1),d0
 		rol.l	#8,d0
-		move.b	0(a1),d0
+		_move.b	0(a1),d0
 		move.l	d0,(a6)
 		lea	$10(a1),a1
 		dbf	d1,loc_1C4D2
@@ -534,14 +534,14 @@ loc_1C4D2:				; XREF: AniArt_MZextra
 
 loc_1C4E8:				; XREF: AniArt_MZextra
 		move.w	$E(a1),(a6)
-		move.w	0(a1),(a6)
+		_move.w	0(a1),(a6)
 		lea	$10(a1),a1
 		dbf	d1,loc_1C4E8
 		rts	
 ; ===========================================================================
 
 loc_1C4FA:				; XREF: AniArt_MZextra
-		move.l	0(a1),d0
+		_move.l	0(a1),d0
 		move.b	$F(a1),d0
 		ror.l	#8,d0
 		move.l	d0,(a6)

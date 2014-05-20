@@ -134,7 +134,7 @@ loc_19EA8:				; XREF: off_19E80
 		addq.w	#2,d1
 		tst.l	d0
 		bpl.s	loc_19EC6
-		exg	d1,d0
+		exg	d0,d1
 
 loc_19EC6:
 		lea	word_19FD6(pc),a1

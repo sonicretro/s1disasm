@@ -70,7 +70,7 @@ LBlk_Action:	; Routine 2
 		bsr.w	loc_12180
 
 .chkdel:
-		out_of_range	DeleteObject,lblk_origX(a0)
+		out_of_range.w	DeleteObject,lblk_origX(a0)
 		bra.w	DisplaySprite
 ; ===========================================================================
 .index:		dc.w .type00-.index, .type01-.index

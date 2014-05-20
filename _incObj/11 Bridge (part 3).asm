@@ -105,7 +105,7 @@ Obj11_BendData2:binclude	"misc\ghzbend2.bin"
 ; ===========================================================================
 
 Bri_ChkDel:				; XREF: Bri_Display; Bri_Platform
-		out_of_range	.deletebridge
+		out_of_range.w	.deletebridge
 		rts	
 ; ===========================================================================
 

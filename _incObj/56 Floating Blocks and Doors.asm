@@ -126,7 +126,7 @@ FBlock_Action:	; Routine 2
 
 .chkdel:
 		if Revision=0
-		out_of_range	DeleteObject,fb_origX(a0)
+		out_of_range.w	DeleteObject,fb_origX(a0)
 		bra.w	DisplaySprite
 		else
 			out_of_range.s	.chkdel2,fb_origX(a0)

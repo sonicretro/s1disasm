@@ -35,7 +35,7 @@ LavaM_MakeLava:	; Routine 2
 		bne.s	LavaM_Wait
 		bsr.w	FindFreeObj
 		bne.s	LavaM_Wait
-		move.b	#id_LavaBall,0(a1) ; load lava ball object
+		_move.b	#id_LavaBall,0(a1) ; load lava ball object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		move.b	obSubtype(a0),obSubtype(a1)

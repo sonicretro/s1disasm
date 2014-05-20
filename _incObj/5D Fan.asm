@@ -95,5 +95,5 @@ Fan_Delay:	; Routine 2
 
 .chkdel:
 		bsr.w	DisplaySprite
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		rts	

@@ -568,7 +568,7 @@ PauseMusic:
 Sound_Play:				; XREF: UpdateMusic
 		movea.l	(Go_SoundPriorities).l,a0
 		lea	v_playsnd1(a6),a1	; load music track number
-		move.b	v_sndprio(a6),d3	; Get priority of currently playing SFX
+		_move.b	v_sndprio(a6),d3	; Get priority of currently playing SFX
 		moveq	#2,d4
 
 .inputloop:
@@ -596,7 +596,7 @@ Sound_Play:				; XREF: UpdateMusic
 
 		tst.b	d3		; We don't want to change sound priority if it is negative
 		bmi.s	.locret
-		move.b	d3,v_sndprio(a6)	; Set new sound priority
+		_move.b	d3,v_sndprio(a6)	; Set new sound priority
 
 .locret:
 		rts	
@@ -692,7 +692,7 @@ Sound_PlayBGM:
 		adda.w	#zTrackSz,a5
 		dbf	d0,.cleartrackplayloop
 
-		clr.b	v_sndprio(a6)	; Clear priority
+		_clr.b	v_sndprio(a6)	; Clear priority
 		movea.l	a6,a0
 		lea	v_1up_ram_copy(a6),a1
 		move.w	#$87,d0	; Backup $220 bytes
@@ -702,7 +702,7 @@ Sound_PlayBGM:
 		dbf	d0,.backupramloop
 
 		move.b	#$80,f_1up_playing(a6)
-		clr.b	0(a6)
+		_clr.b	0(a6)
 		bra.s	.bgm_loadMusic
 ; ===========================================================================
 
@@ -979,7 +979,7 @@ Sound_PlaySFX:
 ; ===========================================================================
 
 .clear_sndprio:
-		clr.b	v_sndprio(a6)		; Clear priority
+		_clr.b	v_sndprio(a6)		; Clear priority
 		rts	
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -1093,7 +1093,7 @@ Sound_PlaySpecial:
 
 
 Snd_FadeOutSFX:
-		clr.b	v_sndprio(a6)		; Clear priority
+		_clr.b	v_sndprio(a6)		; Clear priority
 		lea	v_sfx_track_ram(a6),a5
 		moveq	#5,d7
 
@@ -1334,7 +1334,7 @@ StopSoundAndMusic:
 InitMusicPlayback:
 		movea.l	a6,a0
 		; Save several values
-		move.b	v_sndprio(a6),d1
+		_move.b	v_sndprio(a6),d1
 		move.b	f_1up_playing(a6),d2
 		move.b	f_speedup(a6),d3
 		move.b	v_fadein_counter(a6),d4
@@ -1346,7 +1346,7 @@ InitMusicPlayback:
 		dbf	d0,.clearramloop
 
 		; Restore the values saved above
-		move.b	d1,v_sndprio(a6)
+		_move.b	d1,v_sndprio(a6)
 		move.b	d2,f_1up_playing(a6)
 		move.b	d3,f_speedup(a6)
 		move.b	d4,v_fadein_counter(a6)
@@ -2232,7 +2232,7 @@ cfStopTrack:
 .stoppedchannel:
 		tst.b	f_voice_selector(a6)	; Are we updating SFX?
 		bpl.w	.locexit				; Exit if not
-		clr.b	v_sndprio(a6)		; Clear priority
+		_clr.b	v_sndprio(a6)		; Clear priority
 		moveq	#0,d0
 		move.b	1(a5),d0	; Get voice control bits
 		bmi.s	.getpsgptr	; Branch if PSG

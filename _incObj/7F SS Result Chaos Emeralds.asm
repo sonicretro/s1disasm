@@ -27,7 +27,7 @@ SSRC_Main:	; Routine 0
 		bcs.w	DeleteObject	; if you have 0	emeralds, branch
 
 SSRC_Loop:
-		move.b	#id_SSRChaos,0(a1)
+		_move.b	#id_SSRChaos,0(a1)
 		move.w	(a2)+,obX(a1)	; set x-position
 		move.w	#$F0,obScreenY(a1) ; set y-position
 		lea	(v_emldlist).w,a3 ; check which emeralds you have

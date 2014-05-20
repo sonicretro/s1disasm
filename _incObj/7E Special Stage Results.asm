@@ -38,7 +38,7 @@ SSR_Main:
 		addq.w	#1,d1		; if yes, add 1	to d1 (number of sprites)
 
 SSR_Loop:
-		move.b	#id_SSResult,0(a1)
+		_move.b	#id_SSResult,0(a1)
 		move.w	(a2)+,obX(a1)	; load start x-position
 		move.w	(a2)+,ssr_mainX(a1) ; load main x-position
 		move.w	(a2)+,obScreenY(a1) ; load y-position

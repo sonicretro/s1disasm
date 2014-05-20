@@ -75,7 +75,7 @@ loc_62F6:
 		moveq	#0,d0
 loc_630A:
 		neg.w	d0
-		swap.w	d0
+		swap	d0
 		lea	($FFFFA800).w,a2
 		addi.l	#$10000,(a2)+
 		addi.l	#$C000,(a2)+
@@ -132,9 +132,9 @@ loc_63A4:
 		move.w	d3,d0
 		neg.w	d0
 		move.l	d0,(a1)+
-		swap.w	d3
+		swap	d3
 		add.l	d2,d3
-		swap.w	d3
+		swap	d3
 		dbra	d1,loc_63A4
 		rts
 ; End of function Deform_GHZ
@@ -155,8 +155,8 @@ Deform_LZ:				; XREF: Deform_Index
 		asl.l	#7,d5
 		bsr	ScrollBlock1
 		move.w	($FFFFF70C).w,($FFFFF618).w
-		lea	(Lz_Scroll_Data),a3
-		lea	(Drown_WobbleData),a2
+		lea	(Lz_Scroll_Data).l,a3
+		lea	(Drown_WobbleData).l,a2
 		move.b	($FFFFF7D8).w,d2
 		move.b	d2,d3
 		addi.w	#$80,($FFFFF7D8).w
@@ -169,7 +169,7 @@ Deform_LZ:				; XREF: Deform_Index
 		move.w	(v_screenposx).w,d0
 		neg.w	d0
 		move.w	d0,d6
-		swap.w	d0
+		swap	d0
 		move.w	($FFFFF708).w,d0
 		neg.w	d0
 		move.w	(v_waterpos1).w,d4
@@ -279,9 +279,9 @@ loc_6590:
 		move.w	#4,d1
 loc_65DE:		
 		move.w	d3,(a1)+
-		swap.w	d3
+		swap	d3
 		add.l	d0,d3
-		swap.w	d3
+		swap	d3
 		dbra	d1,loc_65DE
 		move.w	($FFFFF718).w,d0
 		neg.w	d0
@@ -345,9 +345,9 @@ Deform_SLZ:				; XREF: Deform_Index
 		move.w	#$1B,d1
 loc_6678:		
 		move.w	d3,(a1)+
-		swap.w	d3
+		swap	d3
 		add.l	d0,d3
-		swap.w	d3
+		swap	d3
 		dbra	d1,loc_6678
 		move.w	d2,d0
 		asr.w	#3,d0
@@ -384,7 +384,7 @@ Bg_Scroll_X:
 		move.w	#$E,d1
 		move.w	(v_screenposx).w,d0
 		neg.w	d0
-		swap.w	d0
+		swap	d0
 		andi.w	#$F,d2
 		add.w	d2,d2
 		move.w	(a2)+,d0
@@ -445,9 +445,9 @@ Deform_SYZ:				; XREF: Deform_Index
 		move.w	#7,d1
 loc_6750:		
 		move.w	d3,(a1)+
-		swap.w	d3
+		swap	d3
 		add.l	d0,d3
-		swap.w	d3
+		swap	d3
 		dbra	d1,loc_6750
 		move.w	d2,d0
 		asr.w	#3,d0
@@ -477,9 +477,9 @@ loc_6772:
 		move.w	#$D,d1
 loc_6798:		
 		move.w	d3,(a1)+
-		swap.w	d3
+		swap	d3
 		add.l	d0,d3
-		swap.w	d3
+		swap	d3
 		dbra	d1,loc_6798
 		lea	($FFFFA800).w,a2
 		move.w	($FFFFF70C).w,d0
@@ -550,9 +550,9 @@ Deform_SBZ:				; XREF: Deform_Index
 		move.w	#3,d1
 loc_684E:		
 		move.w	d3,(a1)+
-		swap.w	d3
+		swap	d3
 		add.l	d0,d3
-		swap.w	d3
+		swap	d3
 		dbra	d1,loc_684E
 		move.w	($FFFFF718).w,d0
 		neg.w	d0
@@ -593,7 +593,7 @@ Bg_Scroll_SBz_2:;loc_68A2:
 		move.w	#223,d1
 		move.w	(v_screenposx).w,d0
 		neg.w	d0
-		swap.w	d0
+		swap	d0
 		move.w	($FFFFF708).w,d0
 		neg.w	d0
 loc_68D2:		
@@ -856,7 +856,7 @@ ScrollBlock1:				; XREF: Deform_GHZ; et al
 		add.l	d4,d0
 		move.l	d0,($FFFFF708).w
 		move.l	d0,d1
-		swap.w	d1
+		swap	d1
 		andi.w	#$10,d1
 		move.b	($FFFFF74C).w,d3
 		eor.b	d3,d1
@@ -874,7 +874,7 @@ loc_6AF8:
 		add.l	d5,d0
 		move.l	d0,($FFFFF70C).w
 		move.l	d0,d1
-		swap.w	d1
+		swap	d1
 		andi.w	#$10,d1
 		move.b	($FFFFF74D).w,d2
 		eor.b	d2,d1
@@ -896,7 +896,7 @@ Bg_Scroll_Y:
 		add.l	d5,d0
 		move.l	d0,($FFFFF70C).w
 		move.l	d0,d1
-		swap.w	d1
+		swap	d1
 		andi.w	#$10,d1
 		move.b	($FFFFF74D).w,d2
 		eor.b	d2,d1
@@ -944,7 +944,7 @@ ScrollBlock3:				; XREF: Deform_GHZ; et al
 		add.l	d4,d0
 		move.l	d0,($FFFFF708).w
 		move.l	d0,d1
-		swap.w	d1
+		swap	d1
 		andi.w	#$10,d1
 		move.b	($FFFFF74C).w,d3
 		eor.b	d3,d1
@@ -971,7 +971,7 @@ ScrollBlock4:				; XREF: Deform_GHZ
 		add.l	d4,d0
 		move.l	d0,($FFFFF710).w
 		move.l	d0,d1
-		swap.w	d1
+		swap	d1
 		andi.w	#$10,d1
 		move.b	($FFFFF74E).w,d3
 		eor.b	d3,d1
@@ -993,7 +993,7 @@ ScrollBlock5:
 		add.l	d4,d0
 		move.l	d0,($FFFFF718).w
 		move.l	d0,d1
-		swap.w	d1
+		swap	d1
 		andi.w	#$10,d1
 		move.b	($FFFFF750).w,d3
 		eor.b	d3,d1

@@ -29,7 +29,7 @@ Hel_Main:	; Routine 0
 		move.b	#8,obActWid(a0)
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
-		move.b	0(a0),d4
+		_move.b	0(a0),d4
 		lea	obSubtype(a0),a2 ; move helix length to a2
 		moveq	#0,d1
 		move.b	(a2),d1		; move helix length to d1
@@ -52,7 +52,7 @@ Hel_Build:
 		andi.w	#$7F,d5
 		move.b	d5,(a2)+	; copy child address to parent RAM
 		move.b	#8,obRoutine(a1)
-		move.b	d4,0(a1)
+		_move.b	d4,0(a1)
 		move.w	d2,ObY(a1)
 		move.w	d3,obX(a1)
 		move.l	obMap(a0),obMap(a1)
@@ -100,7 +100,7 @@ locret_7DA6:
 ; ===========================================================================
 
 Hel_ChkDel:				; XREF: Hel_Action
-		out_of_range	Hel_DelAll
+		out_of_range.w	Hel_DelAll
 		rts	
 ; ===========================================================================
 

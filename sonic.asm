@@ -8,6 +8,10 @@
 ; ===========================================================================
 
 	cpu 68000
+
+zeroOffsetOptimization = 0
+;	| If 1, makes a handful of zero-offset instructions smaller
+
 	include "MacroSetup.asm"
 	include	"Variables.asm"
 	include	"Constants.asm"
@@ -4544,13 +4548,13 @@ Draw_SBz:
 			beq.s	locj_6E72
 			move.w	#$E0,d4
 locj_6E28:
-			lea	(locj_6DF4+1),A0
+			lea	(locj_6DF4+1).l,A0
 			move.w	($FFFFF70C).w,d0
 			add.w	d4,d0
 			andi.w	#$1F0,d0
 			lsr.w	#4,d0
 			move.b	(a0,d0),d0
-			lea	(locj_6FE4),a3
+			lea	(locj_6FE4).l,a3
 			move.w	(a3,d0),a3
 			beq.s	locj_6E5E
 			moveq	#-$10,d5
@@ -4582,7 +4586,7 @@ locj_6E78:
 			move.b	d0,(a2)
 			move.w	#$140,d5
 locj_6E8C:
-			lea	(locj_6DF4),a0
+			lea	(locj_6DF4).l,a0
 			move.w	($FFFFF70C).w,d0
 			andi.w	#$1F0,d0
 			lsr.w	#4,d0
@@ -4635,7 +4639,7 @@ Draw_Mz:
 			beq.s	locj_6FAE
 			move.w	#$E0,d4
 locj_6F66:
-			lea	(locj_6EF2+1),a0
+			lea	(locj_6EF2+1).l,a0
 			move.w	($FFFFF70C).w,d0
 			subi.w	#$200,d0
 			add.w	d4,d0
@@ -4673,7 +4677,7 @@ locj_6FB4:
 			move.b	d0,(a2)
 			move.w	#$140,d5
 locj_6FC8:
-			lea	(locj_6EF2),a0
+			lea	(locj_6EF2).l,a0
 			move.w	($FFFFF70C).w,d0
 			subi.w	#$200,d0
 			andi.w	#$7F0,d0
@@ -5004,7 +5008,7 @@ Draw_GHz_Bg:
 			moveq	#$F,d6
 locj_7224:			
 			movem.l	d4-d6,-(sp)
-			lea	(locj_724a),a0
+			lea	(locj_724a).l,a0
 			move.w	($FFFFF70C).w,d0
 			add.w	d4,d0
 			andi.w	#$F0,d0
@@ -5021,7 +5025,7 @@ Draw_Mz_Bg:;locj_725a:
 			moveq	#$F,d6
 locj_725E:			
 			movem.l	d4-d6,-(sp)
-			lea	(locj_6EF2+$01),a0
+			lea	(locj_6EF2+$01).l,a0
 			move.w	($FFFFF70C).w,d0
 			subi.w	#$200,d0
 			add.w	d4,d0
@@ -5037,7 +5041,7 @@ Draw_SBz_Bg:;locj_7288:
 			moveq	#$F,d6
 locj_728C:			
 			movem.l	d4-d6,-(sp)
-			lea	(locj_6DF4+$01),a0
+			lea	(locj_6DF4+$01).l,a0
 			move.w	($FFFFF70C).w,d0
 			add.w	d4,d0
 			andi.w	#$1F0,d0
@@ -5435,7 +5439,7 @@ loc_8486:				; XREF: CFlo_Fragment
 		adda.w	(a3,d0.w),a3
 		addq.w	#1,a3
 		bset	#5,obRender(a0)
-		move.b	0(a0),d4
+		_move.b	0(a0),d4
 		move.b	obRender(a0),d5
 		movea.l	a0,a1
 		bra.s	loc_84B2
@@ -5448,7 +5452,7 @@ loc_84AA:
 
 loc_84B2:
 		move.b	#6,obRoutine(a1)
-		move.b	d4,0(a1)
+		_move.b	d4,0(a1)
 		move.l	a3,obMap(a1)
 		move.b	d5,obRender(a1)
 		move.w	obX(a0),obX(a1)
@@ -6598,7 +6602,7 @@ OPL_MakeItem:
 		move.b	d2,obRespawnNo(a1)
 
 loc_DA80:
-		move.b	d0,0(a1)
+		_move.b	d0,0(a1)
 		move.b	(a0)+,obSubtype(a1)
 		moveq	#0,d0
 
@@ -7556,7 +7560,7 @@ BossDefeated:
 		bne.s	locret_178A2
 		jsr	(FindFreeObj).l
 		bne.s	locret_178A2
-		move.b	#id_ExplosionBomb,0(a1)	; load explosion object
+		_move.b	#id_ExplosionBomb,0(a1)	; load explosion object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		jsr	(RandomNumber).l

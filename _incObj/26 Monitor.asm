@@ -134,7 +134,7 @@ Mon_Animate:	; Routine 6
 
 Mon_Display:	; Routine 8
 		bsr.w	DisplaySprite
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		rts	
 ; ===========================================================================
 
@@ -143,7 +143,7 @@ Mon_BreakOpen:	; Routine 4
 		move.b	#0,obColType(a0)
 		bsr.w	FindFreeObj
 		bne.s	Mon_Explode
-		move.b	#id_PowerUp,0(a1) ; load monitor contents object
+		_move.b	#id_PowerUp,0(a1) ; load monitor contents object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		move.b	obAnim(a0),obAnim(a1)
@@ -151,7 +151,7 @@ Mon_BreakOpen:	; Routine 4
 Mon_Explode:
 		bsr.w	FindFreeObj
 		bne.s	.fail
-		move.b	#id_ExplosionItem,0(a1) ; load explosion object
+		_move.b	#id_ExplosionItem,0(a1) ; load explosion object
 		addq.b	#2,obRoutine(a1) ; don't create an animal
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)

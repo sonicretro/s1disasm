@@ -150,7 +150,7 @@ loc_6EB0:
 		bcs.s	locret_6EE8
 		bsr.w	FindFreeObj
 		bne.s	loc_6ED0
-		move.b	#id_BossGreenHill,0(a1) ; load GHZ boss	object
+		_move.b	#id_BossGreenHill,0(a1) ; load GHZ boss	object
 		move.w	#$2A60,obX(a1)
 		move.w	#$280,obY(a1)
 
@@ -211,7 +211,7 @@ loc_6F28:
 		bcc.s	locret_6F62
 		bsr.w	FindFreeObj
 		bne.s	loc_6F4A
-		move.b	#id_BossLabyrinth,0(a1) ; load LZ boss object
+		_move.b	#id_BossLabyrinth,0(a1) ; load LZ boss object
 
 loc_6F4A:
 		move.w	#bgm_Boss,d0
@@ -390,7 +390,7 @@ DLE_MZ3boss:
 		bcs.s	locret_70E8
 		bsr.w	FindFreeObj
 		bne.s	loc_70D0
-		move.b	#id_BossMarble,0(a1) ; load MZ boss object
+		_move.b	#id_BossMarble,0(a1) ; load MZ boss object
 		move.w	#$19F0,obX(a1)
 		move.w	#$22C,obY(a1)
 

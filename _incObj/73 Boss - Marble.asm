@@ -34,7 +34,7 @@ Obj73_Main:	; Routine 0
 Obj73_Loop:
 		jsr	(FindNextFreeObj).l
 		bne.s	Obj73_ShipMain
-		move.b	#id_BossMarble,0(a1)
+		_move.b	#id_BossMarble,0(a1)
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 
@@ -175,7 +175,7 @@ Obj73_MakeLava:
 		bcc.s	loc_1845C
 		jsr	(FindFreeObj).l
 		bne.s	loc_1844A
-		move.b	#id_LavaBall,0(a1) ; load lava ball object
+		_move.b	#id_LavaBall,0(a1) ; load lava ball object
 		move.w	#$2E8,obY(a1)	; set Y	position
 		jsr	(RandomNumber).l
 		andi.l	#$FFFF,d0

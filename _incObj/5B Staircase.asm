@@ -12,7 +12,7 @@ Staircase:				; XREF: Obj_Index
 		move.b	obRoutine(a0),d0
 		move.w	Stair_Index(pc,d0.w),d1
 		jsr	Stair_Index(pc,d1.w)
-		out_of_range	DeleteObject,stair_origX(a0)
+		out_of_range.w	DeleteObject,stair_origX(a0)
 		bra.w	DisplaySprite
 ; ===========================================================================
 Stair_Index:	dc.w Stair_Main-Stair_Index
@@ -43,7 +43,7 @@ Stair_Main:	; Routine 0
 		move.b	#4,obRoutine(a1)
 
 .makeblocks:
-		move.b	#id_Staircase,0(a1) ; load another block object
+		_move.b	#id_Staircase,0(a1) ; load another block object
 		move.l	#Map_Stair,obMap(a1)
 		move.w	#$4000,obGfx(a1)
 		move.b	#4,obRender(a1)

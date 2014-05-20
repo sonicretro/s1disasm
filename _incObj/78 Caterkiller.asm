@@ -66,7 +66,7 @@ Cat_Loop:
 		else
 			bne.w	Cat_ChkGone
 		endif
-		move.b	#id_Caterkiller,0(a1) ; load body segment object
+		_move.b	#id_Caterkiller,0(a1) ; load body segment object
 		move.b	d6,obRoutine(a1) ; goto Cat_BodySeg1 or Cat_BodySeg2 next
 		addq.b	#2,d6		; alternate between the two
 		move.l	obMap(a0),obMap(a1)
@@ -115,7 +115,7 @@ Cat_Head:	; Routine 2
 		move.b	d0,obFrame(a0)
 
 .display:
-		out_of_range	Cat_ChkGone
+		out_of_range.w	Cat_ChkGone
 		jmp	(DisplaySprite).l
 
 Cat_ChkGone:
@@ -190,7 +190,7 @@ loc_16B02:				; XREF: Cat_Index2
 		cmp.w	obX(a0),d2
 		beq.s	.notmoving
 		else
-			swap.w	d3
+			swap	d3
 			cmp.w	obX(a0),d3
 			beq.s	.notmoving
 			jsr	(ObjFloorDist).l
@@ -340,7 +340,7 @@ loc_16C50:
 loc_16C64:
 		cmpi.b	#$C,obRoutine(a1)
 		beq.s	loc_16C90
-		cmpi.b	#id_ExplosionItem,0(a1)
+		_cmpi.b	#id_ExplosionItem,0(a1)
 		beq.s	loc_16C7C
 		cmpi.b	#$A,obRoutine(a1)
 		bne.s	loc_16C82
