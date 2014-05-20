@@ -29,7 +29,7 @@ FFloor_Main:	; Routine 0
 		lea	$30(a0),a2
 
 FFloor_MakeBlock:
-		jsr	FindFreeObj
+		jsr	(FindFreeObj).l
 		bne.s	FFloor_ExitMake
 		move.w	a1,(a2)+
 		move.b	#id_FalseFloor,(a1) ; load block object
@@ -71,7 +71,7 @@ FFloor_Solid:
 		add.w	d0,d1
 		moveq	#$10,d2
 		moveq	#$11,d3
-		jmp	SolidObject
+		jmp	(SolidObject).l
 ; ===========================================================================
 
 loc_19C36:	; Routine 4
@@ -101,14 +101,14 @@ loc_19C62:	; Routine 6
 loc_19C72:	; Routine 8
 		cmpi.w	#$474F,obSubtype(a0) ; is object set to disintegrate?
 		beq.s	FFloor_Break	; if yes, branch
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 loc_19C80:	; Routine $A
 		tst.b	obRender(a0)
 		bpl.w	loc_1982C
-		jsr	ObjectFall
-		jmp	DisplaySprite
+		jsr	(ObjectFall).l
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 FFloor_Break:				; XREF: loc_19C72
@@ -125,7 +125,7 @@ FFloor_Break:				; XREF: loc_19C72
 ; ===========================================================================
 
 FFloor_LoopFrag:
-		jsr	FindNextFreeObj
+		jsr	(FindNextFreeObj).l
 		bne.s	FFloor_BreakSnd
 
 FFloor_MakeFrag:				; XREF: FFloor_Break
@@ -151,7 +151,7 @@ loc_19CC4:
 
 FFloor_BreakSnd:
 		sfx	sfx_WallSmash	; play smashing sound
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 FFloor_FragSpeed:dc.w $80, 0
 		dc.w $120, $C0

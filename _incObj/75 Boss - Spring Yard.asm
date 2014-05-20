@@ -34,7 +34,7 @@ Obj75_Main:	; Routine 0
 ; ===========================================================================
 
 Obj75_Loop:
-		jsr	FindNextFreeObj
+		jsr	(FindNextFreeObj).l
 		bne.s	Obj75_ShipMain
 		move.b	#id_BossSpringYard,(a1)
 		move.w	obX(a0),obX(a1)
@@ -59,12 +59,12 @@ Obj75_ShipMain:	; Routine 2
 		move.w	Obj75_ShipIndex(pc,d0.w),d1
 		jsr	Obj75_ShipIndex(pc,d1.w)
 		lea	(Ani_Eggman).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		moveq	#3,d0
 		and.b	obStatus(a0),d0
 		andi.b	#$FC,obRender(a0)
 		or.b	d0,obRender(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 Obj75_ShipIndex:dc.w loc_191CC-Obj75_ShipIndex,	loc_19270-Obj75_ShipIndex
 		dc.w loc_192EC-Obj75_ShipIndex,	loc_19474-Obj75_ShipIndex
@@ -438,7 +438,7 @@ loc_19512:
 ; ===========================================================================
 
 Obj75_ShipDelete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 Obj75_FaceMain:	; Routine 4
@@ -456,7 +456,7 @@ Obj75_FaceMain:	; Routine 4
 ; ===========================================================================
 
 Obj75_FaceDelete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 off_19546:	dc.w loc_19574-off_19546, loc_19574-off_19546
 		dc.w loc_1955A-off_19546, loc_19552-off_19546
@@ -527,12 +527,12 @@ loc_195B6:
 ; ===========================================================================
 
 Obj75_FlameDelete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 loc_195BE:
 		lea	(Ani_Eggman).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		movea.l	$34(a0),a1
 		move.w	obX(a1),obX(a0)
 		move.w	obY(a1),obY(a0)
@@ -543,7 +543,7 @@ loc_195DA:
 		and.b	obStatus(a0),d0
 		andi.b	#$FC,obRender(a0)
 		or.b	d0,obRender(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 Obj75_SpikeMain:; Routine 8
@@ -600,4 +600,4 @@ loc_19688:
 ; ===========================================================================
 
 Obj75_SpikeDelete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l

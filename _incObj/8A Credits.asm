@@ -34,7 +34,7 @@ Cred_Main:	; Routine 0
 		bne.s	Cred_Display	; if not, branch
 		move.w	#cWhite,(v_pal_dry_dup+$40).w ; 3rd palette, 1st entry = white
 		move.w	#$880,(v_pal_dry_dup+$42).w ; 3rd palette, 2nd entry = cyan
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 Cred_Display:	; Routine 2

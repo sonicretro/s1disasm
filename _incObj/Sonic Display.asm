@@ -13,7 +13,7 @@ Sonic_Display:
 		bcc.s	.chkinvincible
 
 .display:
-		jsr	DisplaySprite
+		jsr	(DisplaySprite).l
 
 .chkinvincible:
 		tst.b	(v_invinc).w	; does Sonic have invincibility?

@@ -47,8 +47,8 @@ Obj09_NoDebug:
 		andi.w	#2,d0
 		move.w	Obj09_Modes(pc,d0.w),d1
 		jsr	Obj09_Modes(pc,d1.w)
-		jsr	Sonic_LoadGfx
-		jmp	DisplaySprite
+		jsr	(Sonic_LoadGfx).l
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 Obj09_Modes:	dc.w Obj09_OnWall-Obj09_Modes
 		dc.w Obj09_InAir-Obj09_Modes
@@ -69,12 +69,12 @@ Obj09_InAir:				; XREF: Obj09_Modes
 Obj09_Display:				; XREF: Obj09_OnWall
 		bsr.w	Obj09_ChkItems
 		bsr.w	Obj09_ChkItems2
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		bsr.w	SS_FixCamera
 		move.w	(v_ssangle).w,d0
 		add.w	(v_ssrotate).w,d0
 		move.w	d0,(v_ssangle).w
-		jsr	Sonic_Animate
+		jsr	(Sonic_Animate).l
 		rts	
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -297,10 +297,10 @@ loc_1BC12:
 		move.w	(v_ssangle).w,d0
 		add.w	(v_ssrotate).w,d0
 		move.w	d0,(v_ssangle).w
-		jsr	Sonic_Animate
-		jsr	Sonic_LoadGfx
+		jsr	(Sonic_Animate).l
+		jsr	(Sonic_LoadGfx).l
 		bsr.w	SS_FixCamera
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 Obj09_Exit2:				; XREF: Obj09_Index
@@ -309,10 +309,10 @@ Obj09_Exit2:				; XREF: Obj09_Index
 		move.b	#id_Level,(v_gamemode).w
 
 loc_1BC40:
-		jsr	Sonic_Animate
-		jsr	Sonic_LoadGfx
+		jsr	(Sonic_Animate).l
+		jsr	(Sonic_LoadGfx).l
 		bsr.w	SS_FixCamera
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
@@ -468,7 +468,7 @@ Obj09_ChkCont:
 		move.l	a1,4(a2)
 
 Obj09_GetCont:
-		jsr	CollectRing
+		jsr	(CollectRing).l
 		cmpi.w	#50,(v_rings).w	; check if you have 50 rings
 		bcs.s	Obj09_NoCont
 		bset	#0,(v_lifecount).w

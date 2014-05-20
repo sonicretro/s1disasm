@@ -70,14 +70,14 @@ Burro_Move:				; XREF: .index
 		subi.w	#$18,d3
 
 loc_AD6A:
-		jsr	ObjFloorDist2
+		jsr	(ObjFloorDist2).l
 		cmpi.w	#$C,d1
 		bge.s	loc_AD84
 		rts	
 ; ===========================================================================
 
 loc_AD78:				; XREF: Burro_Move
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		add.w	d1,obY(a0)
 		rts	
 ; ===========================================================================
@@ -104,7 +104,7 @@ Burro_Jump:				; XREF: .index
 		addi.w	#$18,obVelY(a0)
 		bmi.s	locret_ADF0
 		move.b	#3,obAnim(a0)
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.s	locret_ADF0
 		add.w	d1,obY(a0)

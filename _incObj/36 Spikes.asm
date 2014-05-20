@@ -92,7 +92,7 @@ Spik_Hurt:				; XREF: Spik_SideWays; Spik_Upright
 		asl.l	#8,d0
 		sub.l	d0,d3
 		move.l	d3,obY(a0)
-		jsr	HurtSonic
+		jsr	(HurtSonic).l
 
 loc_CF20:
 		movea.l	(sp)+,a0

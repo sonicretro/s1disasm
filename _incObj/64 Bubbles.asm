@@ -48,7 +48,7 @@ Bub_Main:	; Routine 0
 
 Bub_Animate:	; Routine 2
 		lea	(Ani_Bub).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		cmpi.b	#6,obFrame(a0)	; is bubble full-size?
 		bne.s	Bub_ChkWater	; if not, branch
 
@@ -103,21 +103,21 @@ Bub_ChkWater:	; Routine 4
 		bsr.w	SpeedToPos
 		tst.b	obRender(a0)
 		bpl.s	.delete
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 .delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 Bub_Display:	; Routine 6
 		lea	(Ani_Bub).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		tst.b	obRender(a0)
 		bpl.s	.delete
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 .delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 Bub_Delete:	; Routine 8
@@ -205,7 +205,7 @@ Bub_BblMaker:	; Routine $A
 
 .loc_12914:
 		lea	(Ani_Bub).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 
 .chkdel:
 		out_of_range	DeleteObject

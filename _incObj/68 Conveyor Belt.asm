@@ -36,7 +36,7 @@ Conv_Action:	; Routine 2
 		rts	
 
 .delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 .movesonic:

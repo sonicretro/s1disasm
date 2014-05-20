@@ -247,7 +247,7 @@ RLoss_Bounce:	; Routine 2
 		add.b	d7,d0
 		andi.b	#3,d0
 		bne.s	.chkdel
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.s	.chkdel
 		add.w	d1,obY(a0)

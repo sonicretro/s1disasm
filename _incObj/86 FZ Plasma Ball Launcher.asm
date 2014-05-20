@@ -34,7 +34,7 @@ Obj86_Generator:; Routine 2
 		bne.s	loc_1A850
 		move.b	#$3F,(a0)
 		move.b	#0,obRoutine(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 loc_1A850:
@@ -50,7 +50,7 @@ loc_1A86C:
 		move.w	#8,d2
 		move.w	#$11,d3
 		move.w	obX(a0),d4
-		jsr	SolidObject
+		jsr	(SolidObject).l
 		move.w	(v_player+obX).w,d0
 		sub.w	obX(a0),d0
 		bmi.s	loc_1A89A
@@ -61,8 +61,8 @@ loc_1A86C:
 
 loc_1A89A:
 		lea	Ani_PLaunch(pc),a1
-		jsr	AnimateSprite
-		jmp	DisplaySprite
+		jsr	(AnimateSprite).l
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 Obj86_MakeBalls:; Routine 4
@@ -77,7 +77,7 @@ Obj86_MakeBalls:; Routine 4
 		moveq	#3,d2
 
 Obj86_Loop:
-		jsr	FindNextFreeObj
+		jsr	(FindNextFreeObj).l
 		bne.w	loc_1A954
 		move.b	#id_BossPlasma,(a1)
 		move.w	obX(a0),obX(a1)
@@ -132,8 +132,8 @@ loc_1A982:	; Routine 8
 		move.w	Obj86_Index2(pc,d0.w),d0
 		jsr	Obj86_Index2(pc,d0.w)
 		lea	Ani_Plasma(pc),a1
-		jsr	AnimateSprite
-		jmp	DisplaySprite
+		jsr	(AnimateSprite).l
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 Obj86_Index2:	dc.w loc_1A9A6-Obj86_Index2
 		dc.w loc_1A9C0-Obj86_Index2
@@ -153,7 +153,7 @@ loc_1A9A6:				; XREF: Obj86_Index2
 loc_1A9C0:				; XREF: Obj86_Index2
 		tst.w	obVelX(a0)
 		beq.s	loc_1A9E6
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		move.w	obX(a0),d0
 		sub.w	$30(a0),d0
 		bcc.s	loc_1A9E6
@@ -181,7 +181,7 @@ locret_1AA1C:
 ; ===========================================================================
 
 loc_1AA1E:				; XREF: Obj86_Index2
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		cmpi.w	#$5E0,obY(a0)
 		bcc.s	loc_1AA34
 		subq.w	#1,obSubtype(a0)

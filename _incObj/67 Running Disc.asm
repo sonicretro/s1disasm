@@ -153,7 +153,7 @@ Disc_MoveSpot:				; XREF: Disc_Action
 
 Disc_ChkDel:				; XREF: Disc_Action
 		out_of_range.s	.delete,disc_origX(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 .delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l

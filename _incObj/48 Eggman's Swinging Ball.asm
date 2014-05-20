@@ -29,7 +29,7 @@ GBall_Main:	; Routine 0
 ; ===========================================================================
 
 GBall_MakeLinks:
-		jsr	FindNextFreeObj
+		jsr	(FindNextFreeObj).l
 		bne.s	GBall_MakeBall
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
@@ -102,13 +102,13 @@ GBall_Display:
 		bsr.w	sub_17C2A
 		move.b	obAngle(a0),d0
 		jsr	(Swing_Move2).l
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 GBall_Display2:	; Routine 4
 		bsr.w	sub_17C2A
 		jsr	(Obj48_Move).l
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
@@ -144,7 +144,7 @@ loc_17C68:	; Routine 6
 		move.b	#0,obRoutine(a0)
 
 GBall_Display3:
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 GBall_ChkVanish:; Routine 8
@@ -166,4 +166,4 @@ GBall_Vanish:
 		move.b	#0,obRoutine(a0)
 
 GBall_Display4:
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l

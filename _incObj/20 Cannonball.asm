@@ -30,10 +30,10 @@ Cbal_Main:	; Routine 0
 		move.b	#4,obFrame(a0)
 
 Cbal_Bounce:	; Routine 2
-		jsr	ObjectFall
+		jsr	(ObjectFall).l
 		tst.w	obVelY(a0)
 		bmi.s	Cbal_ChkExplode
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		tst.w	d1		; has ball hit the floor?
 		bpl.s	Cbal_ChkExplode	; if not, branch
 

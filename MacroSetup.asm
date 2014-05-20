@@ -25,16 +25,16 @@ org macro address
 
 ; define an alternate org that fills the extra space with 0s instead of FFs
 org0 macro address
-diff := address - *
-	if diff < 0
+.diff := address - *
+	if .diff < 0
 		error "too much stuff before org0 $\{address} ($\{(-diff)} bytes)"
 	else
-		while diff > 1024
+		while .diff > 1024
 			; AS can only generate 1 kb of code on a single line
 			dc.b [1024]0
-diff := diff - 1024
+.diff := .diff - 1024
 		endm
-		dc.b [diff]0
+		dc.b [.diff]0
 	endif
     endm
 
@@ -64,7 +64,7 @@ align0 macro alignment
 
 ; define the even pseudo-instruction
 even macro
-	align 2
+	align0 2
     endm
 
 ; define a trace macro

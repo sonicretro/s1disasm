@@ -26,7 +26,7 @@ BGHZ_Main:	; Routine 0
 ; ===========================================================================
 
 BGHZ_Loop:
-		jsr	FindNextFreeObj
+		jsr	(FindNextFreeObj).l
 		bne.s	loc_17772
 
 BGHZ_LoadBoss:				; XREF: BGHZ_Main
@@ -55,12 +55,12 @@ BGHZ_ShipMain:	; Routine 2
 		move.w	BGHZ_ShipIndex(pc,d0.w),d1
 		jsr	BGHZ_ShipIndex(pc,d1.w)
 		lea	(Ani_Eggman).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		move.b	obStatus(a0),d0
 		andi.b	#3,d0
 		andi.b	#$FC,obRender(a0)
 		or.b	d0,obRender(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 BGHZ_ShipIndex:	dc.w BGHZ_ShipStart-BGHZ_ShipIndex
 		dc.w BGHZ_MakeBall-BGHZ_ShipIndex

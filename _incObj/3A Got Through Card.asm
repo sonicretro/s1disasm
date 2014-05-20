@@ -130,7 +130,7 @@ locret_C692:
 ; ===========================================================================
 
 Got_AddBonus:				; XREF: Got_ChkBonus
-		jsr	AddPoints
+		jsr	(AddPoints).l
 		move.b	(v_vbla_byte).w,d0
 		andi.b	#3,d0
 		bne.s	locret_C692

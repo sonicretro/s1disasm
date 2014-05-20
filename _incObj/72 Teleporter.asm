@@ -11,7 +11,7 @@ Teleport:				; XREF: Obj_Index
 		rts	
 
 .delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 Tele_Index:	dc.w Tele_Main-Tele_Index
 		dc.w loc_166C8-Tele_Index

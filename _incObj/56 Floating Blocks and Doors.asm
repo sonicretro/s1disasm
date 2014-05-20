@@ -60,12 +60,12 @@ FBlock_Main:	; Routine 0
 			bne.s	.notatpos
 			tst.b	($FFFFF7CE).w
 			beq.s	.dontdelete
-			jmp	DeleteObject
+			jmp	(DeleteObject).l
 .notatpos:
 			clr.b	obSubtype(a0)
 			tst.b	($FFFFF7CE).w
 			bne.s	.dontdelete
-			jmp	DeleteObject
+			jmp	(DeleteObject).l
 .dontdelete:
 		endif
 		moveq	#0,d0
@@ -138,7 +138,7 @@ FBlock_Action:	; Routine 2
 			tst.b	$38(a0)
 			bne.s	.display
 .delete:
-			jmp     DeleteObject
+			jmp (    DeleteObject).l
 		endif
 ; ===========================================================================
 .index:		dc.w .type00-.index, .type01-.index

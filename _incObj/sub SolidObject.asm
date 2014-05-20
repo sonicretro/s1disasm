@@ -243,7 +243,7 @@ Solid_Squash:
 		bne.s	Solid_TopBtmAir	; if yes, branch
 		move.l	a0,-(sp)
 		movea.l	a1,a0
-		jsr	KillSonic	; kill Sonic
+		jsr	(KillSonic).l	; kill Sonic
 		movea.l	(sp)+,a0
 		moveq	#-1,d4
 		rts	
@@ -305,7 +305,7 @@ Solid_ResetFloor:
 		beq.s	.notinair	; if not, branch
 		move.l	a0,-(sp)
 		movea.l	a1,a0
-		jsr	Sonic_ResetOnFloor ; reset Sonic as if on floor
+		jsr	(Sonic_ResetOnFloor).l ; reset Sonic as if on floor
 		movea.l	(sp)+,a0
 
 .notinair:

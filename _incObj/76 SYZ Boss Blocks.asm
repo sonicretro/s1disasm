@@ -22,7 +22,7 @@ Obj76_Main:	; Routine 0
 ; ===========================================================================
 
 Obj76_Loop:
-		jsr	FindFreeObj
+		jsr	(FindFreeObj).l
 		bne.s	Obj76_ExitLoop
 
 Obj76_MakeBlock:			; XREF: Obj76_Main
@@ -78,21 +78,21 @@ Obj76_Solid:				; XREF: Obj76_Action
 		move.w	#$10,d2
 		move.w	#$11,d3
 		move.w	obX(a0),d4
-		jsr	SolidObject
+		jsr	(SolidObject).l
 
 Obj76_Display:				; XREF: Obj76_Action
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 loc_19762:	; Routine 4
 		tst.b	obRender(a0)
 		bpl.s	Obj76_Delete
-		jsr	ObjectFall
-		jmp	DisplaySprite
+		jsr	(ObjectFall).l
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 Obj76_Delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
@@ -111,7 +111,7 @@ Obj76_Break:				; XREF: Obj76_Action
 ; ===========================================================================
 
 Obj76_LoopFrag:
-		jsr	FindNextFreeObj
+		jsr	(FindNextFreeObj).l
 		bne.s	loc_197D4
 
 Obj76_MakeFrag:

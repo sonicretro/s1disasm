@@ -40,14 +40,14 @@ Shi_Shield:	; Routine 2
 		move.w	(v_player+obY).w,obY(a0)
 		move.b	(v_player+obStatus).w,obStatus(a0)
 		lea	(Ani_Shield).l,a1
-		jsr	AnimateSprite
-		jmp	DisplaySprite
+		jsr	(AnimateSprite).l
+		jmp	(DisplaySprite).l
 
 .remove:
 		rts	
 
 .delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 Shi_Stars:	; Routine 4
@@ -93,9 +93,9 @@ Shi_Stars:	; Routine 4
 		move.w	(a1)+,obY(a0)
 		move.b	(v_player+obStatus).w,obStatus(a0)
 		lea	(Ani_Shield).l,a1
-		jsr	AnimateSprite
-		jmp	DisplaySprite
+		jsr	(AnimateSprite).l
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 Shi_Start_Delete:	
-		jmp	DeleteObject
+		jmp	(DeleteObject).l

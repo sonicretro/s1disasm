@@ -7,7 +7,7 @@ Lamppost:				; XREF: Obj_Index
 		move.b	obRoutine(a0),d0
 		move.w	Lamp_Index(pc,d0.w),d1
 		jsr	Lamp_Index(pc,d1.w)
-		jmp	RememberState
+		jmp	(RememberState).l
 ; ===========================================================================
 Lamp_Index:	dc.w Lamp_Main-Lamp_Index
 		dc.w Lamp_Blue-Lamp_Index
@@ -80,7 +80,7 @@ Lamp_Blue:	; Routine 2
 
 		sfx	sfx_Lamppost	; play lamppost sound
 		addq.b	#2,obRoutine(a0)
-		jsr	FindFreeObj
+		jsr	(FindFreeObj).l
 		bne.s	.fail
 		move.b	#$79,0(a1)	; load twirling	lamp object
 		move.b	#6,obRoutine(a1) ; goto Lamp_Twirl next

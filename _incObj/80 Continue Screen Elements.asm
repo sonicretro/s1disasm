@@ -25,7 +25,7 @@ CSI_Main:	; Routine 0
 		move.w	#0,(v_rings).w	; clear rings
 
 CSI_Display:	; Routine 2
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 CSI_MiniSonicPos:
@@ -40,7 +40,7 @@ CSI_MakeMiniSonic:
 		move.b	(v_continues).w,d1
 		subq.b	#2,d1
 		bcc.s	CSI_MoreThan1
-		jmp	DeleteObject	; cancel if you have 0-1 continues
+		jmp	(DeleteObject).l	; cancel if you have 0-1 continues
 
 CSI_MoreThan1:
 		moveq	#1,d3
@@ -93,8 +93,8 @@ CSI_Animate:
 		bchg	#0,obFrame(a0)
 
 CSI_Display2:
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 CSI_Delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l

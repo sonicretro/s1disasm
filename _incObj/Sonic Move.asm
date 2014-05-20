@@ -55,7 +55,7 @@ Sonic_Move:				; XREF: Obj01_MdNormal
 ; ===========================================================================
 
 Sonic_Balance:
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		cmpi.w	#$C,d1
 		blt.s	Sonic_LookUp
 		cmpi.b	#3,$36(a0)

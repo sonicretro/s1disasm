@@ -33,7 +33,7 @@ Obj77_Main:	; Routine 0
 ; ===========================================================================
 
 Obj77_Loop:
-		jsr	FindNextFreeObj
+		jsr	(FindNextFreeObj).l
 		bne.s	Obj77_ShipMain
 		move.b	#id_BossLabyrinth,0(a1)
 		move.w	obX(a0),obX(a1)
@@ -59,12 +59,12 @@ Obj77_ShipMain:	; Routine 2
 		move.w	Obj77_ShipIndex(pc,d0.w),d1
 		jsr	Obj77_ShipIndex(pc,d1.w)
 		lea	(Ani_Eggman).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		moveq	#3,d0
 		and.b	obStatus(a0),d0
 		andi.b	#$FC,obRender(a0)
 		or.b	d0,obRender(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 Obj77_ShipIndex:dc.w loc_17F1E-Obj77_ShipIndex,	loc_17FA0-Obj77_ShipIndex
 		dc.w loc_17FE0-Obj77_ShipIndex,	loc_1801E-Obj77_ShipIndex
@@ -312,7 +312,7 @@ loc_18166:
 ; ===========================================================================
 
 Obj77_ShipDel:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 Obj77_FaceMain:	; Routine 4
@@ -354,7 +354,7 @@ loc_181B6:
 ; ===========================================================================
 
 Obj77_FaceDel:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 Obj77_FlameMain:; Routine 6
@@ -379,12 +379,12 @@ loc_181F0:
 ; ===========================================================================
 
 Obj77_FlameDel:				; XREF: Obj77_FlameMain
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 Obj77_Display:
 		lea	(Ani_Eggman).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		movea.l	$34(a0),a1
 		move.w	obX(a1),obX(a0)
 		move.w	obY(a1),obY(a0)
@@ -393,4 +393,4 @@ Obj77_Display:
 		and.b	obStatus(a0),d0
 		andi.b	#$FC,obRender(a0)
 		or.b	d0,obRender(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
