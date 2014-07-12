@@ -117,12 +117,13 @@ UpdateMusic:				; XREF: VBlank; HBlank
 		jsr	DoFadeIn(pc)
 
 @skipfadein:
+		; DANGER! The following line only checks v_playsnd1 and v_playsnd2, breaking v_playnull.
 		tst.w	v_playsnd1(a6)		; is a music or sound queued for played?
 		beq.s	@nosndinput	; if not, branch
 		jsr	Sound_Play(pc)
 
 @nosndinput:
-		cmpi.b	#$80,v_playsnd0(a6)	; is song queue set for silence?
+		cmpi.b	#$80,v_playsnd0(a6)	; is song queue set for silence (empty)?
 		beq.s	@nonewsound	; If yes, branch
 		jsr	Sound_ChkValue(pc)
 
@@ -569,7 +570,7 @@ Sound_Play:				; XREF: UpdateMusic
 		movea.l	(Go_SoundPriorities).l,a0
 		lea	v_playsnd1(a6),a1	; load music track number
 		move.b	v_sndprio(a6),d3	; Get priority of currently playing SFX
-		moveq	#2,d4
+		moveq	#2,d4			; Number of queues-1 (v_playsnd1, v_playsnd2, v_playnull)
 
 @inputloop:
 		move.b	(a1),d0		; move track number to d0
@@ -577,7 +578,7 @@ Sound_Play:				; XREF: UpdateMusic
 		clr.b	(a1)+		; Clear entry
 		subi.b	#$81,d0		; Make it into 0-based index
 		blo.s	@nextinput	; If negative (i.e., it was $80 or lower), branch
-		cmpi.b	#$80,v_playsnd0(a6)	; Is v_playsnd0 a $80 (silence)?
+		cmpi.b	#$80,v_playsnd0(a6)	; Is v_playsnd0 a $80 (silence/empty)?
 		beq.s	@havesound	; If yes, branch
 		move.b	d1,v_playsnd1(a6)	; Put sound into v_playsnd1
 		bra.s	@nextinput
@@ -677,7 +678,7 @@ Sound_PlayBGM:
 		tst.b	f_1up_playing(a6)	; Is a 1-up music playing?
 		bne.w	@locdblret	; if yes, branch
 		lea	v_track_ram(a6),a5
-		moveq	#9,d0	; [(1 DAC + 6 FM) or (7 FM)] + 3 PSG
+		moveq	#9,d0	; 1 DAC + 6 FM + 3 PSG
 
 @clearsfxloop:
 		bclr	#2,(a5)	; Clear 'SFX is overriding' bit
@@ -702,7 +703,7 @@ Sound_PlayBGM:
 		dbf	d0,@backupramloop
 
 		move.b	#$80,f_1up_playing(a6)
-		clr.b	0(a6)
+		clr.b	v_sndprio(a6)	; Clear priority again (?)
 		bra.s	@bgm_loadMusic
 ; ===========================================================================
 
@@ -909,6 +910,9 @@ Sound_PlaySFX:
 		move.w	(a1)+,d1	; Voice pointer
 		add.l	a3,d1		; Relative pointer
 		move.b	(a1)+,d5	; Dividing timing
+		; DANGER! there is a missing 'moveq	#0,d7' here, without which SFXes whose
+		; index entry is above $3F will cause a crash. This is actually the same way that
+		; this bug is fixed in Ristar's driver.
 		move.b	(a1)+,d7	; Number of channels (FM + PSG)
 		subq.b	#1,d7
 		moveq	#zTrackSz,d6
@@ -1019,11 +1023,11 @@ Sound_PlaySpecial:
 		movea.l	(a0,d7.w),a3
 		movea.l	a3,a1
 		moveq	#0,d0
-		move.w	(a1)+,d0	; Voice pointer
-		add.l	a3,d0		; Relative pointer
-		move.l	d0,$20(a6)	; Store voice pointer
-		move.b	(a1)+,d5	; Dividing timing
-		move.b	(a1)+,d7	; Number of channels (FM + PSG)
+		move.w	(a1)+,d0			; Voice pointer
+		add.l	a3,d0				; Relative pointer
+		move.l	d0,v_special_voice_ptr(a6)	; Store voice pointer
+		move.b	(a1)+,d5			; Dividing timing
+		move.b	(a1)+,d7			; Number of channels (FM + PSG)
 		subq.b	#1,d7
 		moveq	#zTrackSz,d6
 
@@ -1082,10 +1086,13 @@ Sound_PlaySpecial:
 
 ; ===========================================================================
 ; Unused
+; BGMFM4PSG3RAM:
 		dc.l (v_snddriver_ram+v_fm4_track)&$FFFFFF
 		dc.l (v_snddriver_ram+v_psg3_track)&$FFFFFF
+; SFXFM4PSG3RAM:
 		dc.l (v_snddriver_ram+v_sfx_fm4_track)&$FFFFFF
 		dc.l (v_snddriver_ram+v_sfx_psg3_track)&$FFFFFF
+; SpecialSFXFM4PSG3RAM:
 		dc.l (v_snddriver_ram+v_sfx2_fm4_track)&$FFFFFF
 		dc.l (v_snddriver_ram+v_sfx2_psg3_track)&$FFFFFF
 
@@ -1261,7 +1268,7 @@ DoFadeOut:
 ; ===========================================================================
 
 @sendpsgvol:
-		move.b	9(a5),d6	;Store new volume attenuation
+		move.b	9(a5),d6	; Store new volume attenuation
 		jsr	SetPSGVolume(pc)
 
 @nextpsg:
@@ -1362,9 +1369,9 @@ InitMusicPlayback:
 
 TempoWait:
 		move.b	v_main_tempo(a6),v_main_tempo_timeout(a6)	; Reset main tempo timeout
-		lea	v_dac_note_timeout(a6),a0
+		lea	v_track_ram+$E(a6),a0	; note timeout
 		moveq	#zTrackSz,d0
-		moveq	#9,d1	; [(1 DAC + 6 FM) or (7 FM)] + 3 PSG
+		moveq	#9,d1	; 1 DAC + 6 FM + 3 PSG
 
 @tempoloop:
 		addq.b	#1,(a0)	; Delay note by 1 frame
@@ -1601,8 +1608,8 @@ PSGUpdateTrack:
 		jsr	NoteFillUpdate(pc)
 		jsr	PSGUpdateVolFX(pc)
 		jsr	DoModulation(pc)
-		jsr	PSGUpdateFreq(pc)
-		rts	
+		jsr	PSGUpdateFreq(pc)	; It would be better if this were a jmp and the rts was removed
+		rts
 ; End of function PSGUpdateTrack
 
 
@@ -1712,7 +1719,7 @@ PSGUpdateVolFX:
 		tst.b	$B(a5)		; Test PSG tone
 		beq.w	locret_7298A	; Return if it is zero
 
-PSGDoVolFX:
+PSGDoVolFX:	; This can actually be made a bit more efficient, see the comments for more
 		move.b	9(a5),d6	; Get volume
 		moveq	#0,d0
 		move.b	$B(a5),d0	; Get PSG tone
@@ -1721,13 +1728,13 @@ PSGDoVolFX:
 		subq.w	#1,d0
 		lsl.w	#2,d0
 		movea.l	(a0,d0.w),a0
-		move.b	$C(a5),d0	; Get flutter index
-		move.b	(a0,d0.w),d0	; Flutter value
-		addq.b	#1,$C(a5)	; Increment flutter index
-		btst	#7,d0		; Is flutter value negative?
-		beq.s	@gotflutter	; Branch if not
-		cmpi.b	#$80,d0		; Is it the terminator?
-		beq.s	FlutterDone	; If so, branch
+		move.b	$C(a5),d0	; Get flutter index		; move.b	$C(a5),d0
+		move.b	(a0,d0.w),d0	; Flutter value			; addq.b	#1,$C(a5)
+		addq.b	#1,$C(a5)	; Increment flutter index	; move.b	(a0,d0.w),d0
+		btst	#7,d0		; Is flutter value negative?	; <-- makes this line redundant
+		beq.s	@gotflutter	; Branch if not			; but you gotta make this one a bpl
+		cmpi.b	#$80,d0		; Is it the terminator?		; Since this is the only check, you can take the optimisation a step further:
+		beq.s	FlutterDone	; If so, branch			; Change the previous beq (bpl) to a bmi and make it branch to FlutterDone to make these last two lines redundant
 
 @gotflutter:
 		add.w	d0,d6		; Add flutter to volume
@@ -1828,7 +1835,7 @@ coordflagLookup:
 ; ===========================================================================
 		bra.w	cfAlterNotes		; $E1
 ; ===========================================================================
-		bra.w	cfUnknown1			; $E2
+		bra.w	cfSetCommunication	; $E2
 ; ===========================================================================
 		bra.w	cfJumpReturn		; $E3
 ; ===========================================================================
@@ -1898,8 +1905,8 @@ cfAlterNotes:
 		rts	
 ; ===========================================================================
 
-cfUnknown1:
-		move.b	(a4)+,7(a6)		; Set otherwise unused value to parameter
+cfSetCommunication:
+		move.b	(a4)+,7(a6)	; Set otherwise unused communication byte to parameter
 		rts	
 ; ===========================================================================
 
