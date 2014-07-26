@@ -1,7 +1,8 @@
 ; ---------------------------------------------------------------------------
 ; Go_SoundTypes:
 Go_SoundPriorities:	dc.l SoundPriorities
-Go_SoundD0:		dc.l ptr_sndD0
+; Go_SoundD0:
+Go_SpecSoundIndex:	dc.l SpecSoundIndex
 Go_MusicIndex:		dc.l MusicIndex
 Go_SoundIndex:		dc.l SoundIndex
 ; off_719A0:
@@ -1032,7 +1033,7 @@ Sound_PlaySpecial:
 		bne.w	@locret		; Exit if it is
 		tst.b	f_fadein_flag(a6)	; Is music being faded in?
 		bne.w	@locret		; Exit if it is
-		movea.l	(Go_SoundD0).l,a0
+		movea.l	(Go_SpecSoundIndex).l,a0
 		subi.b	#spec__First,d7	; Make it 0-based
 		lsl.w	#2,d7
 		movea.l	(a0,d7.w),a3
