@@ -474,7 +474,7 @@ Obj09_GetCont:
 		bset	#0,(v_lifecount).w
 		bne.s	Obj09_NoCont
 		addq.b	#1,(v_continues).w ; add 1 to number of continues
-		move.w	#$BF,d0
+		move.w	#sfx_Continue,d0
 		jsr	(PlaySound).l	; play extra continue sound
 
 Obj09_NoCont:
@@ -519,7 +519,7 @@ Obj09_GetEmer:
 		addq.b	#1,(v_emeralds).w ; add 1 to number of emeralds
 
 Obj09_NoEmer:
-		move.w	#$93,d0
+		move.w	#bgm_Emerald,d0
 		jsr	(PlaySound_Special).l ;	play emerald music
 		moveq	#0,d4
 		rts	

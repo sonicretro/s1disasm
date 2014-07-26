@@ -69,7 +69,7 @@ Pow_ChkShoes:
 		move.w	#$C00,(v_sonspeedmax).w ; change Sonic's top speed
 		move.w	#$18,(v_sonspeedacc).w	; change Sonic's acceleration
 		move.w	#$80,(v_sonspeeddec).w	; change Sonic's deceleration
-		music	$E2,1		; Speed	up the music
+		music	bgm_Speedup,1		; Speed	up the music
 ; ===========================================================================
 
 Pow_ChkShield:
