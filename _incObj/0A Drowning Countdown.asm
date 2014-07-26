@@ -207,8 +207,7 @@ Drown_Countdown:; Routine $A
 		bhi.s	.reduceair	; if air is above 12, branch
 
 		bne.s	.skipmusic	; if air is less than 12, branch
-		move.w	#$92,d0
-		jsr	(PlaySound).l	; play countdown music
+		music	bgm_Drowning	; play countdown music
 
 .skipmusic:
 		subq.b	#1,$32(a0)

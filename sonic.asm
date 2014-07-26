@@ -2271,9 +2271,11 @@ LevelSelect:
 		beq.s	LevSel_Credits	; if yes, branch
 
 LevSel_NoCheat:
-		cmpi.w	#$94,d0		; is sound $80-$94 being played?
+		; This is a workaround for a bug, see Sound_ChkValue for more.
+		; Once you've fixed the bugs there, comment these four instructions out
+		cmpi.w	#bgm__Last+1,d0	; is sound $80-$93 being played?
 		blo.s	LevSel_PlaySnd	; if yes, branch
-		cmpi.w	#$A0,d0		; is sound $95-$A0 being played?
+		cmpi.w	#sfx__First,d0	; is sound $94-$9F being played?
 		blo.s	LevelSelect	; if yes, branch
 
 LevSel_PlaySnd:
@@ -2333,7 +2335,7 @@ PlayLevel:
 		if Revision<>0
 			move.l	#5000,(v_scorelife).w ; extra life is awarded at 50000 points
 		endif
-		move.b	#$E0,d0
+		move.b	#bgm_Fade,d0
 		bsr.w	PlaySound_Special ; fade out music
 		rts	
 ; ===========================================================================
