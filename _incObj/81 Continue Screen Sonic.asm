@@ -56,7 +56,7 @@ CSon_GetUp:
 		move.b	#id_Float4,obAnim(a0) ; use "getting up" animation
 		clr.w	obInertia(a0)
 		subq.w	#8,obY(a0)
-		move.b	#$E0,d0
+		move.b	#bgm_Fade,d0
 		bsr.w	PlaySound_Special ; fade out music
 
 CSon_Run:	; Routine 6
