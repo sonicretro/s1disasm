@@ -1,7 +1,8 @@
 ; ---------------------------------------------------------------------------
 ; Go_SoundTypes:
 Go_SoundPriorities:	dc.l SoundPriorities
-Go_SoundD0:		dc.l ptr_sndD0
+; Go_SoundD0:
+Go_SpecSoundIndex:	dc.l SpecSoundIndex
 Go_MusicIndex:		dc.l MusicIndex
 Go_SoundIndex:		dc.l SoundIndex
 ; off_719A0:
@@ -54,6 +55,7 @@ ptr_mus90:	dc.l Music90
 ptr_mus91:	dc.l Music91
 ptr_mus92:	dc.l Music92
 ptr_mus93:	dc.l Music93
+ptr_musend
 ; ---------------------------------------------------------------------------
 ; Priority of sound. New music or SFX must have a priority higher than or equal
 ; to what is stored in v_sndprio or it won't play. If bit 7 of new priority is
@@ -581,7 +583,7 @@ Sound_Play:				; XREF: UpdateMusic
 		move.b	(a1),d0		; move track number to d0
 		move.b	d0,d1
 		clr.b	(a1)+		; Clear entry
-		subi.b	#$81,d0		; Make it into 0-based index
+		subi.b	#bgm__First,d0		; Make it into 0-based index
 		blo.s	@nextinput	; If negative (i.e., it was $80 or lower), branch
 		cmpi.b	#$80,v_playsnd0(a6)	; Is v_playsnd0 a $80 (silence/empty)?
 		beq.s	@havesound	; If yes, branch
@@ -618,17 +620,25 @@ Sound_ChkValue:
 		beq.w	StopSoundAndMusic
 		bpl.s	@locret				; If >= 0, return (not a valid sound, bgm or command)
 		move.b	#$80,v_playsnd0(a6)	; reset	music flag
-		cmpi.b	#$9F,d7				; Is this music ($81-$9F)?
+		; DANGER! Music ends at $93, yet this checks until $9F; attempting to
+		; play sounds $94-$9F will cause a crash! Remove the '+$C' to fix this
+		; See LevSel_NoCheat for more
+		cmpi.b	#bgm__Last+$C,d7		; Is this music ($81-$9F)?
 		bls.w	Sound_PlayBGM		; Branch if yes
-		cmpi.b	#$A0,d7				; Is this after music but before sfx? (redundant check)
+		cmpi.b	#sfx__First,d7			; Is this after music but before sfx? (redundant check)
 		blo.w	@locret				; Return if yes
-		cmpi.b	#$CF,d7				; Is this sfx ($A0-$CF)?
+		cmpi.b	#sfx__Last,d7			; Is this sfx ($A0-$CF)?
 		bls.w	Sound_PlaySFX		; Branch if yes
-		cmpi.b	#$D0,d7				; Is this after sfx but before $D0? (redundant check)
+		cmpi.b	#spec__First,d7			; Is this after sfx but before special sfx? (redundant check)
 		blo.w	@locret				; Return if yes
-		cmpi.b	#$E0,d7				; Is this $D0-$DF?
+		; DANGER! Special SFXes end at $D0, yet this checks until $DF; attempting to
+		; play sounds $D1-$DF will cause a crash! Remove the '+$10' and change the 'blo' to a 'bls'
+		; and uncomment the two lines below to fix this
+		cmpi.b	#spec__Last+$10,d7		; Is this special sfx ($D0-$DF)?
 		blo.w	Sound_PlaySpecial	; Branch if yes
-		cmpi.b	#$E4,d7				; Is this $E0-$E4?
+		;cmpi.b	#flg__First,d7			; Is this after special sfx but before $E0?
+		;blo.w	@locret				; Return if yes
+		cmpi.b	#flg__Last,d7			; Is this $E0-$E4?
 		bls.s	Sound_E0toE4		; Branch if yes
 ; locret_71F8C:
 @locret:
@@ -636,21 +646,18 @@ Sound_ChkValue:
 ; ===========================================================================
 
 Sound_E0toE4:				; XREF: Sound_ChkValue
-		subi.b	#$E0,d7
+		subi.b	#flg__First,d7
 		lsl.w	#2,d7
 		jmp	Sound_ExIndex(pc,d7.w)
 ; ===========================================================================
 
 Sound_ExIndex:
-		bra.w	FadeOutMusic		; $E0
-; ===========================================================================
-		bra.w	PlaySega			; $E1
-; ===========================================================================
-		bra.w	SpeedUpMusic		; $E2
-; ===========================================================================
-		bra.w	SlowDownMusic		; $E3
-; ===========================================================================
-		bra.w	StopSoundAndMusic	; $E4
+ptr_flgE0:	bra.w	FadeOutMusic		; $E0
+ptr_flgE1:	bra.w	PlaySega			; $E1
+ptr_flgE2:	bra.w	SpeedUpMusic		; $E2
+ptr_flgE3:	bra.w	SlowDownMusic		; $E3
+ptr_flgE4:	bra.w	StopSoundAndMusic	; $E4
+ptr_flgend
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Play "Say-gaa" PCM sound
@@ -719,7 +726,7 @@ Sound_PlayBGM:
 @bgm_loadMusic:
 		jsr	InitMusicPlayback(pc)
 		movea.l	(Go_SpeedUpIndex).l,a4
-		subi.b	#$81,d7
+		subi.b	#bgm__First,d7
 		move.b	(a4,d7.w),v_speeduptempo(a6)
 		movea.l	(Go_MusicIndex).l,a4
 		lsl.w	#2,d7
@@ -909,7 +916,7 @@ Sound_PlaySFX:
 ; Sound_notA7:
 @sfx_notPush:
 		movea.l	(Go_SoundIndex).l,a0
-		subi.b	#$A0,d7		; Make it 0-based
+		subi.b	#sfx__First,d7		; Make it 0-based
 		lsl.w	#2,d7		; Convert sfx ID into index
 		movea.l	(a0,d7.w),a3	; SFX data pointer
 		movea.l	a3,a1
@@ -1026,8 +1033,8 @@ Sound_PlaySpecial:
 		bne.w	@locret		; Exit if it is
 		tst.b	f_fadein_flag(a6)	; Is music being faded in?
 		bne.w	@locret		; Exit if it is
-		movea.l	(Go_SoundD0).l,a0
-		subi.b	#$D0,d7		; Make it 0-based
+		movea.l	(Go_SpecSoundIndex).l,a0
+		subi.b	#spec__First,d7	; Make it 0-based
 		lsl.w	#2,d7
 		movea.l	(a0,d7.w),a3
 		movea.l	a3,a1
@@ -2480,7 +2487,13 @@ ptr_sndCC:	dc.l SoundCC
 ptr_sndCD:	dc.l SoundCD
 ptr_sndCE:	dc.l SoundCE
 ptr_sndCF:	dc.l SoundCF
+ptr_sndend
+; ---------------------------------------------------------------------------
+; Special sound effect pointers
+; ---------------------------------------------------------------------------
+SpecSoundIndex:
 ptr_sndD0:	dc.l SoundD0
+ptr_specend
 SoundA0:	incbin	"sound/sfx/SndA0 - Jump.bin"
 		even
 SoundA1:	incbin	"sound/sfx/SndA1 - Lamppost.bin"
