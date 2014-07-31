@@ -52,12 +52,12 @@ Deform_GHZ:				; XREF: Deform_Index
 		asl.l	#1,d4
 		add.l	d1,d4
 		moveq	#0,d6
-		bsr	ScrollBlock5
+		bsr.w	ScrollBlock5
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#7,d4
 		moveq	#0,d6
-		bsr	ScrollBlock4
+		bsr.w	ScrollBlock4
 		lea	(v_hscrolltablebuffer).w,a1
 		move.w	(v_screenposy).w,d0
 		andi.w	#$7FF,d0
@@ -153,7 +153,7 @@ Deform_LZ:				; XREF: Deform_Index
 		move.w	($FFFFF73C).w,d5
 		ext.l	d5
 		asl.l	#7,d5
-		bsr	ScrollBlock1
+		bsr.w	ScrollBlock1
 		move.w	($FFFFF70C).w,($FFFFF618).w
 		lea	(Lz_Scroll_Data).l,a3
 		lea	(Drown_WobbleData).l,a2
@@ -231,17 +231,17 @@ Deform_MZ:				; XREF: Deform_Index
 		asl.l	#1,d4
 		add.l	d1,d4
 		moveq	#2,d6
-		bsr	ScrollBlock3
+		bsr.w	ScrollBlock3
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#6,d4
 		moveq	#6,d6
-		bsr	ScrollBlock5
+		bsr.w	ScrollBlock5
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#7,d4
 		moveq	#4,d6
-		bsr	ScrollBlock4
+		bsr.w	ScrollBlock4
 		move.w	#$200,d0
 		move.w	(v_screenposy).w,d1
 		subi.w	#$1C8,d1
@@ -254,7 +254,7 @@ Deform_MZ:				; XREF: Deform_Index
 loc_6590:
 		move.w	d0,($FFFFF714).w
 		move.w	d0,($FFFFF71C).w
-		bsr	ScrollBlock2
+		bsr.w	ScrollBlock2
 		move.w	($FFFFF70C).w,($FFFFF618).w
 		move.b	(v_bgscroll2).w,d0
 		or.b	(v_bgscroll3).w,d0
@@ -312,7 +312,7 @@ loc_6632:
 		andi.w	#$1F0,d0
 		lsr.w	#3,d0
 		lea	(a2,d0),a2
-		bra	Bg_Scroll_X
+		bra.w	Bg_Scroll_X
 ; End of function Deform_MZ
 
 ; ---------------------------------------------------------------------------
@@ -326,7 +326,7 @@ Deform_SLZ:				; XREF: Deform_Index
 		move.w	($FFFFF73C).w,d5
 		ext.l	d5
 		asl.l	#7,d5
-		bsr	Bg_Scroll_Y
+		bsr.w	Bg_Scroll_Y
 		move.w	($FFFFF70C).w,($FFFFF618).w
 		lea	($FFFFA800).w,a1
 		move.w	(v_screenposx).w,d2
@@ -425,7 +425,7 @@ Deform_SYZ:				; XREF: Deform_Index
 		move.l	d5,d1
 		asl.l	#1,d5
 		add.l	d1,d5
-		bsr	Bg_Scroll_Y
+		bsr.w	Bg_Scroll_Y
 		move.w	($FFFFF70C).w,($FFFFF618).w
 		lea	($FFFFA800).w,a1
 		move.w	(v_screenposx).w,d2
@@ -487,7 +487,7 @@ loc_6798:
 		andi.w	#$1F0,d0
 		lsr.w	#3,d0
 		lea	(a2,d0),a2
-		bra	Bg_Scroll_X
+		bra.w	Bg_Scroll_X
 ; End of function Deform_SYZ
 
 ; ---------------------------------------------------------------------------
@@ -499,17 +499,17 @@ loc_6798:
 
 Deform_SBZ:				; XREF: Deform_Index
 		tst.b	(v_act).w
-		bne	Bg_Scroll_SBz_2
+		bne.w	Bg_Scroll_SBz_2
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#7,d4
 		moveq	#2,d6
-		bsr	ScrollBlock3
+		bsr.w	ScrollBlock3
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#6,d4
 		moveq	#6,d6
-		bsr	ScrollBlock5
+		bsr.w	ScrollBlock5
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#5,d4
@@ -517,12 +517,12 @@ Deform_SBZ:				; XREF: Deform_Index
 		asl.l	#1,d4
 		add.l	d1,d4
 		moveq	#4,d6
-		bsr	ScrollBlock4
+		bsr.w	ScrollBlock4
 		moveq	#0,d4
 		move.w	($FFFFF73C).w,d5
 		ext.l	d5
 		asl.l	#5,d5
-		bsr	loc_6AF8
+		bsr.w	loc_6AF8
 		move.w	($FFFFF70C).w,d0
 		move.w	d0,($FFFFF714).w
 		move.w	d0,($FFFFF71C).w
@@ -578,7 +578,7 @@ loc_6884:
 		andi.w	#$1F0,d0
 		lsr.w	#3,d0
 		lea	(a2,d0),a2
-		bra	Bg_Scroll_X
+		bra.w	Bg_Scroll_X
 ;-------------------------------------------------------------------------------
 Bg_Scroll_SBz_2:;loc_68A2:
 		move.w	(v_scrshiftx).w,d4
@@ -587,7 +587,7 @@ Bg_Scroll_SBz_2:;loc_68A2:
 		move.w	($FFFFF73C).w,d5
 		ext.l	d5
 		asl.l	#5,d5
-		bsr	ScrollBlock1
+		bsr.w	ScrollBlock1
 		move.w	($FFFFF70C).w,($FFFFF618).w
 		lea	(v_hscrolltablebuffer).w,a1
 		move.w	#223,d1

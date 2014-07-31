@@ -4375,39 +4375,39 @@ loc_69EE:
 			bsr.w	Calc_VRAM_Pos
 			moveq	#-$10,d4
 			moveq	#-$10,d5
-			bsr	DrawTiles_TB
+			bsr.w	DrawTiles_TB
 locj_6D56:
 
 			bclr	#3,(a2)
 			beq.s	locj_6D70
 			moveq	#-$10,d4
 			move.w	#$140,d5
-			bsr	Calc_VRAM_Pos
+			bsr.w	Calc_VRAM_Pos
 			moveq	#-$10,d4
 			move.w	#$140,d5
-			bsr	DrawTiles_TB
+			bsr.w	DrawTiles_TB
 locj_6D70:
 
 			bclr	#4,(a2)
 			beq.s	locj_6D88
 			moveq	#-$10,d4
 			moveq	#$00,d5
-			bsr	Calc_VRAM_Pos_2
+			bsr.w	Calc_VRAM_Pos_2
 			moveq	#-$10,d4
 			moveq	#0,d5
 			moveq	#$1F,d6
-			bsr	DrawTiles_LR_3
+			bsr.w	DrawTiles_LR_3
 locj_6D88:
 
 			bclr	#5,(a2)
 			beq.s	locret_69F2
 			move.w	#$00E0,d4
 			moveq	#0,d5
-			bsr	Calc_VRAM_Pos_2
+			bsr.w	Calc_VRAM_Pos_2
 			move.w	#$E0,d4
 			moveq	#0,d5
 			moveq	#$1F,d6
-			bsr	DrawTiles_LR_3
+			bsr.w	DrawTiles_LR_3
 		endif
 
 locret_69F2:
@@ -4513,28 +4513,28 @@ locret_6AD6:
 		else
 
 			tst.b	(a2)
-			beq	locj_6DF2
+			beq.w	locj_6DF2
 			cmpi.b	#id_SBZ,(v_zone).w
-			beq	Draw_SBz
+			beq.w	Draw_SBz
 			bclr	#0,(a2)
 			beq.s	locj_6DD2
 			move.w	#$70,d4
 			moveq	#-$10,d5
-			bsr	Calc_VRAM_Pos
+			bsr.w	Calc_VRAM_Pos
 			move.w	#$70,d4
 			moveq	#-$10,d5
 			moveq	#2,d6
-			bsr	DrawTiles_TB_2
+			bsr.w	DrawTiles_TB_2
 locj_6DD2:
 			bclr	#1,(a2)
 			beq.s	locj_6DF2
 			move.w	#$70,d4
 			move.w	#$140,d5
-			bsr	Calc_VRAM_Pos
+			bsr.w	Calc_VRAM_Pos
 			move.w	#$70,d4
 			move.w	#$140,d5
 			moveq	#2,d6
-			bsr	DrawTiles_TB_2
+			bsr.w	DrawTiles_TB_2
 locj_6DF2:
 			rts
 locj_6DF4:
@@ -4561,18 +4561,18 @@ locj_6E28:
 			beq.s	locj_6E5E
 			moveq	#-$10,d5
 			movem.l	d4/d5,-(sp)
-			bsr	Calc_VRAM_Pos
+			bsr.w	Calc_VRAM_Pos
 			movem.l	(sp)+,d4/d5
-			bsr	DrawTiles_LR
+			bsr.w	DrawTiles_LR
 			bra.s	locj_6E72
 ;===============================================================================
 locj_6E5E:
 			moveq	#0,d5
 			movem.l	d4/d5,-(sp)
-			bsr	Calc_VRAM_Pos_2
+			bsr.w	Calc_VRAM_Pos_2
 			movem.l	(sp)+,d4/d5
 			moveq	#$1F,d6
-			bsr	DrawTiles_LR_3
+			bsr.w	DrawTiles_LR_3
 locj_6E72:
 			tst.b	(a2)
 			bne.s	locj_6E78
@@ -4593,35 +4593,35 @@ locj_6E8C:
 			andi.w	#$1F0,d0
 			lsr.w	#4,d0
 			lea	(a0,d0),a0
-			bra	locj_6FEC						
+			bra.w	locj_6FEC						
 ;===============================================================================
 
 
 
 locj_6EA4:
 			tst.b	(a2)
-			beq	locj_6EF0
+			beq.w	locj_6EF0
 			cmpi.b	#id_MZ,(v_zone).w
-			beq	Draw_Mz
+			beq.w	Draw_Mz
 			bclr	#0,(a2)
 			beq.s	locj_6ED0
 			move.w	#$40,d4
 			moveq	#-$10,d5
-			bsr	Calc_VRAM_Pos
+			bsr.w	Calc_VRAM_Pos
 			move.w	#$40,d4
 			moveq	#-$10,d5
 			moveq	#2,d6
-			bsr	DrawTiles_TB_2
+			bsr.w	DrawTiles_TB_2
 locj_6ED0:
 			bclr	#1,(a2)
 			beq.s	locj_6EF0
 			move.w	#$40,d4
 			move.w	#$140,d5
-			bsr	Calc_VRAM_Pos
+			bsr.w	Calc_VRAM_Pos
 			move.w	#$40,d4
 			move.w	#$140,d5
 			moveq	#2,d6
-			bsr	DrawTiles_TB_2
+			bsr.w	DrawTiles_TB_2
 locj_6EF0:
 			rts
 locj_6EF2:
@@ -4652,18 +4652,18 @@ locj_6F66:
 			beq.s	locj_6F9A
 			moveq	#-$10,d5
 			movem.l	d4/d5,-(sp)
-			bsr	Calc_VRAM_Pos
+			bsr.w	Calc_VRAM_Pos
 			movem.l	(sp)+,d4/d5
-			bsr	DrawTiles_LR
+			bsr.w	DrawTiles_LR
 			bra.s	locj_6FAE
 ;===============================================================================
 locj_6F9A:
 			moveq	#0,d5
 			movem.l	d4/d5,-(sp)
-			bsr	Calc_VRAM_Pos_2
+			bsr.w	Calc_VRAM_Pos_2
 			movem.l	(sp)+,d4/d5
 			moveq	#$1F,d6
-			bsr	DrawTiles_LR_3
+			bsr.w	DrawTiles_LR_3
 locj_6FAE:
 			tst.b	(a2)
 			bne.s	locj_6FB4
@@ -4685,7 +4685,7 @@ locj_6FC8:
 			andi.w	#$7F0,d0
 			lsr.w	#4,d0
 			lea	(a0,d0),a0
-			bra	locj_6FEC
+			bra.w	locj_6FEC
 ;===============================================================================			
 locj_6FE4:
 			dc.b $FF,$18,$FF,$18,$FF,$20,$FF,$28
@@ -4700,10 +4700,10 @@ locj_6FF4:
 			move.w	locj_6FE4(pc,d0),a3
 			movem.l	d4/d5/a0,-(sp)
 			movem.l	d4/d5,-(sp)
-			bsr	DrawBlocks
+			bsr.w	DrawBlocks
 			movem.l	(sp)+,d4/d5
-			bsr	Calc_VRAM_Pos
-			bsr	DrawTiles
+			bsr.w	Calc_VRAM_Pos
+			bsr.w	DrawTiles
 			movem.l	(sp)+,d4/d5/a0
 locj_701C:
 			addi.w	#$10,d4
@@ -4971,13 +4971,13 @@ LoadTilesFromStart:			; XREF: GM_Level; GM_Ending
 		move.w	#$6000,d2
 		if Revision<>0
 			tst.b	(v_zone).w
-			beq	Draw_GHz_Bg
+			beq.w	Draw_GHz_Bg
 			cmpi.b	#id_MZ,(v_zone).w
-			beq	Draw_Mz_Bg
+			beq.w	Draw_Mz_Bg
 			cmpi.w	#(id_SBZ<<8)+0,(v_zone).w
-			beq	Draw_SBz_Bg
+			beq.w	Draw_SBz_Bg
 			cmpi.b	#id_EndZ,(v_zone).w
-			beq	Draw_GHz_Bg
+			beq.w	Draw_GHz_Bg
 		endif
 ; End of function LoadTilesFromStart
 
@@ -5014,7 +5014,7 @@ locj_7224:
 			move.w	($FFFFF70C).w,d0
 			add.w	d4,d0
 			andi.w	#$F0,d0
-			bsr	locj_72Ba
+			bsr.w	locj_72Ba
 			movem.l	(sp)+,d4-d6
 			addi.w	#$10,d4
 			dbra	d6,locj_7224
@@ -5032,7 +5032,7 @@ locj_725E:
 			subi.w	#$200,d0
 			add.w	d4,d0
 			andi.w	#$7F0,d0
-			bsr	locj_72Ba
+			bsr.w	locj_72Ba
 			movem.l	(sp)+,d4-d6
 			addi.w	#$10,d4
 			dbra	d6,locj_725E
@@ -5047,7 +5047,7 @@ locj_728C:
 			move.w	($FFFFF70C).w,d0
 			add.w	d4,d0
 			andi.w	#$1F0,d0
-			bsr	locj_72Ba
+			bsr.w	locj_72Ba
 			movem.l	(sp)+,d4-d6
 			addi.w	#$10,d4
 			dbra	d6,locj_728C
@@ -5062,17 +5062,17 @@ locj_72Ba:
 			beq.s	locj_72da
 			moveq	#-$10,d5
 			movem.l	d4/d5,-(sp)
-			bsr	Calc_VRAM_Pos
+			bsr.w	Calc_VRAM_Pos
 			movem.l	(sp)+,d4/d5
-			bsr	DrawTiles_LR
+			bsr.w	DrawTiles_LR
 			bra.s	locj_72EE
 locj_72da:
 			moveq	#0,d5
 			movem.l	d4/d5,-(sp)
-			bsr	Calc_VRAM_Pos_2
+			bsr.w	Calc_VRAM_Pos_2
 			movem.l	(sp)+,d4/d5
 			moveq	#$1F,d6
-			bsr	DrawTiles_LR_3
+			bsr.w	DrawTiles_LR_3
 locj_72EE:
 			rts
 		endif
