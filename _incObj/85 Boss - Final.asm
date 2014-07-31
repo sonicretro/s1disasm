@@ -223,7 +223,7 @@ loc_19FBC:
 		if Revision=0
 		else
 			moveq	#100,d0
-			bsr	AddPoints
+			bsr.w	AddPoints
 		endc
 		move.b	#6,$34(a0)
 		move.w	#$25C0,obX(a0)
