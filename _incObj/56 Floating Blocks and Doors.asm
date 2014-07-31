@@ -132,7 +132,7 @@ FBlock_Action:	; Routine 2
 		else
 			out_of_range.s	@chkdel2,fb_origX(a0)
 		@display:                
-			bra	DisplaySprite
+			bra.w	DisplaySprite
 		@chkdel2:
 			cmpi.b	#$37,obSubtype(a0)
 			bne.s	@delete
