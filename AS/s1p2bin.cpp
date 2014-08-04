@@ -5,7 +5,7 @@
 const char* codeFileName = NULL;
 const char* romFileName = NULL;
 
-void printUsage() { printf("usage: s2p2bin.exe inputcodefile.p outputromfile.bin\n"); }
+void printUsage() { printf("usage: s1p2bin.exe inputcodefile.p outputromfile.bin\n"); }
 bool buildRom(FILE* from, FILE* to);
 
 int main(int argc, char *argv[])
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 
 	if(codeFileName && romFileName)
 	{
-		printf("\ns2p2bin.exe: generating %s from %s", romFileName, codeFileName);
+		printf("\ns1p2bin.exe: generating %s from %s", romFileName, codeFileName);
 		
 		FILE* from = fopen(codeFileName, "rb");
 		if(from)
