@@ -68,7 +68,7 @@ Gar_FireBall:	; Routine 4
 		neg.w	obVelX(a0)
 
 	@noflip:
-		sfx	sfx_Fireball	; play lava ball sound
+		sfx	sfx_Fireball,0,0,0	; play lava ball sound
 
 Gar_AniFire:	; Routine 6
 		move.b	(v_framebyte).w,d0

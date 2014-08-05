@@ -67,7 +67,7 @@ loc_1670E:
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		clr.b	$32(a0)
-		sfx	sfx_Roll	; play Sonic rolling sound
+		sfx	sfx_Roll,0,0,0	; play Sonic rolling sound
 
 locret_1675C:
 		rts	
@@ -86,7 +86,7 @@ loc_1675E:	; Routine 4
 		bne.s	locret_16796
 		bsr.w	sub_1681C
 		addq.b	#2,obRoutine(a0)
-		sfx	sfx_Teleport	; play teleport sound
+		sfx	sfx_Teleport,0,0,0	; play teleport sound
 
 locret_16796:
 		rts	

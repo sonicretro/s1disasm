@@ -61,7 +61,7 @@ loc_BDBE:
 loc_BDC8:
 		tst.b	(a3)
 		bne.s	loc_BDD6
-		sfx	sfx_Switch	; play switch sound
+		sfx	sfx_Switch,0,0,0	; play switch sound
 
 loc_BDD6:
 		bset	d3,(a3)

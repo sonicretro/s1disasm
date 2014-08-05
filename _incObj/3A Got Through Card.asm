@@ -116,7 +116,7 @@ Got_RingBonus:
 Got_ChkBonus:
 		tst.w	d0		; is there any bonus?
 		bne.s	Got_AddBonus	; if yes, branch
-		sfx	sfx_Cash	; play "ker-ching" sound
+		sfx	sfx_Cash,0,0,0	; play "ker-ching" sound
 		addq.b	#2,obRoutine(a0)
 		cmpi.w	#(id_SBZ<<8)+1,(v_zone).w
 		bne.s	Got_SetDelay
@@ -134,7 +134,7 @@ Got_AddBonus:				; XREF: Got_ChkBonus
 		move.b	(v_vbla_byte).w,d0
 		andi.b	#3,d0
 		bne.s	locret_C692
-		sfx	sfx_Switch,1	; play "blip" sound
+		sfx	sfx_Switch,1,0,0	; play "blip" sound
 ; ===========================================================================
 
 Got_NextLevel:	; Routine $A
@@ -201,7 +201,7 @@ Got_SBZ2:				; XREF: Got_Move2
 		bne.w	DeleteObject
 		addq.b	#2,obRoutine(a0)
 		clr.b	(f_lockctrl).w	; unlock controls
-		music	bgm_FZ,1	; play FZ music
+		music	bgm_FZ,1,0,0	; play FZ music
 ; ===========================================================================
 
 loc_C766:	; Routine $10

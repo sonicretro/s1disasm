@@ -254,7 +254,7 @@ See_Spring:
 		clr.b	$3C(a2)
 		move.b	#id_Spring,obAnim(a2) ; change Sonic's animation to "spring" ($10)
 		move.b	#2,obRoutine(a2)
-		sfx	sfx_Spring	; play spring sound
+		sfx	sfx_Spring,0,0,0	; play spring sound
 
 loc_1192C:
 		clr.w	obVelX(a0)

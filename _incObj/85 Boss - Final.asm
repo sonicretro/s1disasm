@@ -152,7 +152,7 @@ loc_19EC6:
 		move.w	#0,$30(a1)
 		move.w	#1,$32(a0)
 		clr.b	$35(a0)
-		sfx	sfx_Rumbling	; play rumbling sound
+		sfx	sfx_Rumbling,0,0,0	; play rumbling sound
 
 loc_19F10:
 		tst.w	$32(a0)
@@ -193,7 +193,7 @@ loc_19F6A:
 		bne.s	loc_19F88
 		subq.b	#1,obColProp(a0)
 		move.b	#$64,$35(a0)
-		sfx	sfx_HitBoss	; play boss damage sound
+		sfx	sfx_HitBoss,0,0,0	; play boss damage sound
 
 loc_19F88:
 		subq.b	#1,$35(a0)
@@ -262,7 +262,7 @@ locret_1A01E:
 ; ===========================================================================
 
 loc_1A020:
-		sfx	sfx_Electric,1	; play electricity sound
+		sfx	sfx_Electric,1,0,0	; play electricity sound
 ; ===========================================================================
 
 loc_1A02A:				; XREF: off_19E80
@@ -413,7 +413,7 @@ loc_1A1D4:				; XREF: off_19E80
 		tst.b	obColType(a0)
 		bne.s	loc_1A216
 		move.w	#$1E,$30(a0)
-		sfx	sfx_HitBoss	; play boss damage sound
+		sfx	sfx_HitBoss,0,0,0	; play boss damage sound
 
 loc_1A1FC:
 		subq.w	#1,$30(a0)
