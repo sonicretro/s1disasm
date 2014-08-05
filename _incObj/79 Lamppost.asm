@@ -82,7 +82,7 @@ Lamp_Blue:	; Routine 2
 		addq.b	#2,obRoutine(a0)
 		jsr	(FindFreeObj).l
 		bne.s	.fail
-		_move.b	#$79,0(a1)	; load twirling	lamp object
+		_move.b	#id_Lamppost,0(a1)	; load twirling	lamp object
 		move.b	#6,obRoutine(a1) ; goto Lamp_Twirl next
 		move.w	obX(a0),lamp_origX(a1)
 		move.w	obY(a0),lamp_origY(a1)

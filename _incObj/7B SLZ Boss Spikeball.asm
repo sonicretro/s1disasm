@@ -309,7 +309,7 @@ byte_19026:	dc.b 8,	$F0, 8,	$F0
 ; ===========================================================================
 
 Obj7B_Explode:	; Routine 8
-		move.b	#$3F,(a0)
+		move.b	#id_ExplosionBomb,(a0)
 		clr.b	obRoutine(a0)
 		cmpi.w	#$20,obSubtype(a0)
 		beq.s	Obj7B_MakeFrag

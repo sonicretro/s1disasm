@@ -127,7 +127,7 @@ loc_17C3C:
 		move.b	obStatus(a1),obStatus(a0)
 		tst.b	obStatus(a1)
 		bpl.s	locret_17C66
-		_move.b	#$3F,0(a0)
+		_move.b	#id_ExplosionBomb,0(a0)
 		move.b	#0,obRoutine(a0)
 
 locret_17C66:
@@ -140,7 +140,7 @@ loc_17C68:	; Routine 6
 		movea.l	$34(a0),a1
 		tst.b	obStatus(a1)
 		bpl.s	GBall_Display3
-		_move.b	#$3F,0(a0)
+		_move.b	#id_ExplosionBomb,0(a0)
 		move.b	#0,obRoutine(a0)
 
 GBall_Display3:
@@ -162,7 +162,7 @@ GBall_Vanish:
 		bsr.w	BossDefeated
 		subq.b	#1,$3C(a0)
 		bpl.s	GBall_Display4
-		move.b	#$3F,(a0)
+		move.b	#id_ExplosionBomb,(a0)
 		move.b	#0,obRoutine(a0)
 
 GBall_Display4:

@@ -29,7 +29,7 @@ LWall_Main:	; Routine 0
 		bne.s	.fail
 
 .make:
-		_move.b	#$4E,0(a1)	; load object
+		_move.b	#id_LavaWall,0(a1)	; load object
 		move.l	#Map_LWall,obMap(a1)
 		move.w	#$63A8,obGfx(a1)
 		move.b	#4,obRender(a1)
