@@ -51,7 +51,7 @@ LBall_Main:	; Routine 0
 		move.w	#0,obVelY(a0)	; delete vertical speed
 
 	@sound:
-		sfx	sfx_Fireball	; play lava ball sound
+		sfx	sfx_Fireball,0,0,0	; play lava ball sound
 
 LBall_Action:	; Routine 2
 		moveq	#0,d0
