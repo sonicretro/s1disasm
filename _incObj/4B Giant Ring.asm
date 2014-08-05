@@ -55,7 +55,7 @@ GRing_Collect:	; Routine 4
 		bset	#0,obRender(a1)	; reverse flash	object
 
 GRing_PlaySnd:
-		sfx	sfx_GiantRing	; play giant ring sound
+		sfx	sfx_GiantRing,0,0,0	; play giant ring sound
 		bra.s	GRing_Animate
 ; ===========================================================================
 

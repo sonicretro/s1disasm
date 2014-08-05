@@ -236,7 +236,7 @@ RLoss_Count:	; Routine 0
 		move.w	#0,(v_rings).w	; reset number of rings to zero
 		move.b	#$80,(f_ringcount).w ; update ring counter
 		move.b	#0,(v_lifecount).w
-		sfx	sfx_RingLoss	; play ring loss sound
+		sfx	sfx_RingLoss,0,0,0	; play ring loss sound
 
 RLoss_Bounce:	; Routine 2
 		move.b	(v_ani3_frame).w,obFrame(a0)

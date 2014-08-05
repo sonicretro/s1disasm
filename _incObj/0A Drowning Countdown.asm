@@ -207,7 +207,7 @@ Drown_Countdown:; Routine $A
 		bhi.s	.reduceair	; if air is above 12, branch
 
 		bne.s	.skipmusic	; if air is less than 12, branch
-		music	bgm_Drowning	; play countdown music
+		music	bgm_Drowning,0,0,0	; play countdown music
 
 .skipmusic:
 		subq.b	#1,$32(a0)
@@ -218,7 +218,7 @@ Drown_Countdown:; Routine $A
 ; ===========================================================================
 
 .warnsound:
-		sfx	sfx_Warning	; play "ding-ding" warning sound
+		sfx	sfx_Warning,0,0,0	; play "ding-ding" warning sound
 
 .reduceair:
 		subq.w	#1,(v_air).w	; subtract 1 from air remaining
@@ -227,7 +227,7 @@ Drown_Countdown:; Routine $A
 		; Sonic drowns here
 		bsr.w	ResumeMusic
 		move.b	#$81,(f_lockmulti).w ; lock controls
-		sfx	sfx_Drown	; play drowning sound
+		sfx	sfx_Drown,0,0,0	; play drowning sound
 		move.b	#$A,$34(a0)
 		move.w	#1,$36(a0)
 		move.w	#$78,$2C(a0)

@@ -103,7 +103,7 @@ loc_19202:
 		tst.b	$3E(a0)
 		bne.s	loc_1923A
 		move.b	#$20,$3E(a0)
-		sfx	sfx_HitBoss	; play boss damage sound
+		sfx	sfx_HitBoss,0,0,0	; play boss damage sound
 
 loc_1923A:
 		lea	(v_pal_dry+$22).w,a1
@@ -413,7 +413,7 @@ loc_194DA:
 
 loc_194E0:
 		clr.w	obVelY(a0)
-		music	bgm_SYZ		; play SYZ music
+		music	bgm_SYZ,0,0,0		; play SYZ music
 
 loc_194EE:
 		bra.w	loc_191F2

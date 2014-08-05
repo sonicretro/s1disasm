@@ -150,7 +150,7 @@ loc_19CC4:
 		dbf	d1,FFloor_LoopFrag ; repeat sequence 3 more times
 
 FFloor_BreakSnd:
-		sfx	sfx_WallSmash	; play smashing sound
+		sfx	sfx_WallSmash,0,0,0	; play smashing sound
 		jmp	(DisplaySprite).l
 ; ===========================================================================
 FFloor_FragSpeed:dc.w $80, 0

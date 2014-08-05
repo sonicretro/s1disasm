@@ -51,7 +51,7 @@ Sonic_Display:
 		move.w	#$C,(v_sonspeedacc).w ; restore Sonic's acceleration
 		move.w	#$80,(v_sonspeeddec).w ; restore Sonic's deceleration
 		move.b	#0,(v_shoes).w	; cancel speed shoes
-		music	bgm_Slowdown,1	; run music at normal speed
+		music	bgm_Slowdown,1,0,0	; run music at normal speed
 
 .exit:
 		rts	

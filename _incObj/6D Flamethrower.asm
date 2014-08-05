@@ -42,7 +42,7 @@ Flame_Action:	; Routine 2
 		bchg	#0,obAnim(a0)
 		beq.s	loc_E57A
 		move.w	$32(a0),$30(a0)	; begin	flaming	time
-		sfx	sfx_Flamethrower ; play flame sound
+		sfx	sfx_Flamethrower,0,0,0 ; play flame sound
 
 loc_E57A:
 		lea	(Ani_Flame).l,a1
