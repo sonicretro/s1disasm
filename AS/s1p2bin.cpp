@@ -74,6 +74,7 @@ bool buildRom(FILE* from, FILE* to)
 	int cpuType = 0, segmentType = 0, granularity = 0;
 	signed long start = 0;
 	unsigned short length = 0;
+	long maxpos = 0;
 	static const int scratchSize = 4096;
 	unsigned char scratch [scratchSize];
 	
@@ -124,10 +125,24 @@ bool buildRom(FILE* from, FILE* to)
 			return false;
 		}
 
-		if(start+3 < ftell(to)) // 3 bytes of leeway for instruction patching
+		long cur = ftell(to);
+
+		if(start+3 < cur) // 3 bytes of leeway for instruction patching
 			printf("\nWarning: overlapping allocation detected! $%X < $%X", start, ftell(to));
 
-		fseek(to, start, SEEK_SET);
+		// hack to make padding directives use 0xFF without breaking backwards orgs
+		if (start < cur || start < maxpos)
+			fseek(to, start, SEEK_SET);
+		else
+			while (cur < start)
+			{
+				int dif = start - cur;
+				if (dif > scratchSize)
+					dif = scratchSize;
+				memset(scratch, -1, dif);
+				fwrite(scratch, dif, 1, to);
+				cur += dif;
+			}
 
 //		printf("copying $%X-$%X -> $%X-$%X\n", ftell(from), ftell(from)+length, start, start+length);
 		while(length)
@@ -139,7 +154,9 @@ bool buildRom(FILE* from, FILE* to)
 			fwrite(scratch, copy, 1, to);
 			length -= copy;
 		}
-		
+		cur = ftell(to);
+		if (cur > maxpos)
+			maxpos = cur;
 	}
 
 	return true;
