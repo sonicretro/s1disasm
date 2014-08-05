@@ -32,7 +32,7 @@ Obj86_Generator:; Routine 2
 		movea.l	$34(a0),a1
 		cmpi.b	#6,$34(a1)
 		bne.s	loc_1A850
-		move.b	#$3F,(a0)
+		move.b	#id_ExplosionBomb,(a0)
 		move.b	#0,obRoutine(a0)
 		jmp	DisplaySprite
 ; ===========================================================================
