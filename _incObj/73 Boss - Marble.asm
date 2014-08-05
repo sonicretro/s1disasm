@@ -236,7 +236,7 @@ Obj73_MakeLava2:			; XREF: off_183C2
 		move.w	$30(a0),obX(a1)
 		move.w	$38(a0),obY(a1)
 		addi.w	#$18,obY(a1)
-		move.b	#$74,(a1)	; load lava ball object
+		move.b	#id_BossFire,(a1)	; load lava ball object
 		move.b	#1,obSubtype(a1)
 
 loc_184EA:
