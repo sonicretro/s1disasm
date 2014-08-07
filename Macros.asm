@@ -311,5 +311,12 @@ zonewarning:	macro loc,elementsize
 		endc
 		endm
 
+zonewarningnoending:	macro loc,elementsize
+	@end:
+		if (@end-loc)-((ZoneCount-1)*elementsize)<>0
+		inform 1,"Size of \loc ($%h) does not match ZoneCount (minus ending) ($\#ZoneCount-1).",(@end-loc)/elementsize
+		endc
+		endm
+
 SonicMappingsVer	EQU	1
 		include	"SpritePiece.asm"
