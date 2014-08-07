@@ -297,3 +297,10 @@ zonewarning:	macro loc,elementsize
 		warning "Size of loc (\{(._end-loc)/elementsize}) does not match ZoneCount (\{ZoneCount})."
 		endif
 		endm
+
+zonewarningnoending:	macro loc,elementsize
+	@end:
+		if (@end-loc)-((ZoneCount-1)*elementsize)<>0
+		inform 1,"Size of \loc ($%h) does not match ZoneCount (minus ending) ($\#ZoneCount-1).",(@end-loc)/elementsize
+		endc
+		endm

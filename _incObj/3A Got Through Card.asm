@@ -172,7 +172,7 @@ Got_Display2:				; XREF: Got_NextLevel, Got_ChkSS
 ; ---------------------------------------------------------------------------
 LevelOrder:	binclude	"misc\Level Order.bin"
 		even
-		zonewarning LevelOrder,8
+		zonewarningnoending LevelOrder,8
 ; ===========================================================================
 
 Got_Move2:	; Routine $E

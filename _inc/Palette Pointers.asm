@@ -22,7 +22,7 @@ ptr_Pal_MZ:		palp	Pal_MZ,$FB20,$30		; 6 - MZ
 ptr_Pal_SLZ:		palp	Pal_SLZ,$FB20,$30		; 7 - SLZ
 ptr_Pal_SYZ:		palp	Pal_SYZ,$FB20,$30		; 8 - SYZ
 ptr_Pal_SBZ1:		palp	Pal_SBZ1,$FB20,$30		; 9 - SBZ1
-			zonewarning Pal_Levels,8
+			zonewarningnoending Pal_Levels,8
 ptr_Pal_Special:	palp	Pal_Special,$FB00,$40		; $A (10) - special stage
 ptr_Pal_LZWater:	palp	Pal_LZWater,$FB00,$40		; $B (11) - LZ underwater
 ptr_Pal_SBZ3:		palp	Pal_SBZ3,$FB20,$30		; $C (12) - SBZ3
