@@ -3030,7 +3030,7 @@ ColPointers:	dc.l Col_GHZ
 		dc.l Col_SYZ
 		dc.l Col_SBZ
 ;		dc.l Col_GHZ ; Pointer for Ending is missing by default.
-		zonewarning ColPointers,4
+		zonewarningnoending ColPointers,4
 
 		include	"_inc\Oscillatory Routines.asm"
 
@@ -6821,7 +6821,7 @@ Sonic_Modes:	dc.w Sonic_MdNormal-Sonic_Modes
 ; Music	to play	after invincibility wears off
 ; ---------------------------------------------------------------------------
 MusicList2:	dc.b bgm_GHZ, bgm_LZ, bgm_MZ, bgm_SLZ, bgm_SYZ, bgm_SBZ
-		zonewarning MusicList2,1
+		zonewarningnoending MusicList2,1
 		even
 
 		include	"_incObj\Sonic Display.asm"
