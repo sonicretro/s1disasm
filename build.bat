@@ -1,7 +1,5 @@
 @ECHO OFF
 
-cd ..
-
 REM // make sure we can write to the file s1built.bin
 REM // also make a backup to s1built.prev.bin
 IF NOT EXIST s1built.bin goto LABLNOCOPY

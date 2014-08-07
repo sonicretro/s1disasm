@@ -2,8 +2,8 @@
 import sys
 sys.dont_write_bytecode = True
 
-import build
+import build_defs
 
 
-build.run(False, True, False)
+build_defs.run()
 
