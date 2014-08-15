@@ -4,8 +4,9 @@ v_regbuffer:	= $FFFFFC00	; stores registers d0-a7 during an error event ($40 byt
 v_spbuffer:	= $FFFFFC40	; stores most recent sp address (4 bytes)
 v_errortype:	= $FFFFFC44	; error type
 
-v_256x256:	=   $FF0000	; 256x256 tile mappings ($A400 bytes)
-v_lvllayout:	= $FFFFA400	; level and background layouts ($400 bytes)
+v_128x128:	=   $FF0000	; 128x128 tile mappings ($A400 bytes)
+v_lvllayoutfg:	= $FFFFA400	; level layout ROM address (4 bytes)
+v_lvllayoutbg:	= $FFFFA404	; background layout ROM address (4 bytes)
 
 v_ngfx_buffer:	= $FFFFAA00	; Nemesis graphics decompression buffer ($200 bytes)
 v_spritequeue:	= $FFFFAC00	; sprite display queue, in order of priority ($400 bytes)
@@ -605,10 +606,6 @@ v_bossstatus:	= $FFFFF7A7	; status of boss and prison capsule (01 = boss defeate
 v_trackpos:	= $FFFFF7A8	; position tracking reference number (2 bytes)
 v_trackbyte:	= $FFFFF7A9	; low byte for position tracking
 f_lockscreen:	= $FFFFF7AA	; flag set to lock screen during bosses
-v_256loop1:	= $FFFFF7AC	; 256x256 level tile which contains a loop (GHZ/SLZ)
-v_256loop2:	= $FFFFF7AD	; 256x256 level tile which contains a loop (GHZ/SLZ)
-v_256roll1:	= $FFFFF7AE	; 256x256 level tile which contains a roll tunnel (GHZ)
-v_256roll2:	= $FFFFF7AF	; 256x256 level tile which contains a roll tunnel (GHZ)
 v_lani0_frame:	= $FFFFF7B0	; level graphics animation 0 - current frame
 v_lani0_time:	= $FFFFF7B1	; level graphics animation 0 - time until next frame
 v_lani1_frame:	= $FFFFF7B2	; level graphics animation 1 - current frame
@@ -711,6 +708,9 @@ v_levselitem:	= $FFFFFF82	; level select - item selected (2 bytes)
 v_levselsound:	= $FFFFFF84	; level select - sound selected (2 bytes)
 v_scorecopy:	= $FFFFFFC0	; score, duplicate (4 bytes)
 v_scorelife:	= $FFFFFFC0	; points required for an extra life (4 bytes) (JP1 only)
+v_coladdr1:	= $FFFFFFD0	; (4 bytes)
+v_coladdr2:	= $FFFFFFD4	; (4 bytes)
+v_collayer:	= $FFFFFFD8	; (1 byte)
 f_levselcheat:	= $FFFFFFE0	; level select cheat flag
 f_slomocheat:	= $FFFFFFE1	; slow motion & frame advance cheat flag
 f_debugcheat:	= $FFFFFFE2	; debug mode cheat flag

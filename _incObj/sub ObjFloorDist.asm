@@ -7,7 +7,7 @@
 ; output:
 ;	d1 = distance to the floor
 ;	d3 = floor angle
-;	a1 = address within 256x256 mappings where object is standing
+;	a1 = address within 128x128 mappings where object is standing
 ;	     (refers to a 16x16 tile number)
 ;	(a4) = floor angle
 ; ---------------------------------------------------------------------------
@@ -29,8 +29,8 @@ ObjFloorDist2:
 		move.b	#0,(a4)
 		movea.w	#$10,a3		; height of a 16x16 tile
 		move.w	#0,d6
-		moveq	#$D,d5		; bit to test for solidness
-		bsr.w	FindFloor
+		moveq	#$C,d5			; MJ: set solid type to check
+		bsr.w	FindFloor		; MJ: check solidity
 		move.b	(v_anglebuffer).w,d3
 		btst	#0,d3
 		beq.s	locret_14E4E

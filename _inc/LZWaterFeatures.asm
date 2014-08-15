@@ -170,7 +170,7 @@ DynWater_LZ3:				; XREF: DynWater_Index
 		bcc.s	@setwaterlz3	; if not, branch
 
 		move.w	#$4C8,d1	; set new water height
-		move.b	#$4B,(v_lvllayout+$106).w ; update level layout
+		move.l	#Level_LZ3,(v_lvllayoutfg).w ; MJ: Set normal version of act 3's layout to be read
 		move.b	#1,(v_wtr_routine).w ; use second routine next
 		sfx	sfx_Rumbling,0,1,0 ; play sound $B7 (rumbling)
 
@@ -380,21 +380,22 @@ LZWaterSlides:				; XREF: LZWaterFeatures
 		lea	(v_player).w,a1
 		btst	#1,obStatus(a1)	; is Sonic jumping?
 		bne.s	loc_3F6A	; if not, branch
-		move.w	obY(a1),d0
-		lsr.w	#1,d0
-		andi.w	#$380,d0
-		move.b	obX(a1),d1
-		andi.w	#$7F,d1
-		add.w	d1,d0
-		lea	(v_lvllayout).w,a2
-		move.b	(a2,d0.w),d0
+		move.w	obY(a1),d0		; MJ: Load Y position
+		add.w	d0,d0			; MJ: multiply by 2 (Because every 80 bytes switch from FG to BG..)
+		andi.w	#$F00,d0		; MJ: keep Y position within 800 pixels (in multiples of 80)
+		move.w	obX(a1),d1		; MJ: Load Y position
+		lsr.w	#7,d1			; MJ: divide X position by 80 (00 = 0, 80 = 1, etc)
+		andi.w	#$7F,d1			; MJ: keep within 4000 pixels (4000 / 80 = 80)
+		add.w	d1,d0			; MJ: add together
+		movea.l	(v_lvllayoutfg).w,a2	; MJ: Load address of layout
+		move.b	(a2,d0.w),d0		; MJ: collect correct chunk ID based on the position of Sonic
 		lea	Slide_Chunks_End(pc),a2
 		moveq	#Slide_Chunks_End-Slide_Chunks-1,d1
 
 loc_3F62:
-		cmp.b	-(a2),d0
-		dbeq	d1,loc_3F62
-		beq.s	LZSlide_Move
+		cmp.b	-(a2),d0	; MJ: does the chunk match?
+		dbeq	d1,loc_3F62	; MJ: if not, loop
+		beq.s	LZSlide_Move	; MJ: if so, branch
 
 loc_3F6A:
 		tst.b	(f_jumponly).w
@@ -433,12 +434,20 @@ locret_3FBE:
 
 ; ===========================================================================
 ; byte_3FC0:
-Slide_Speeds:
-		dc.b $A, $F5, $A, $F6, $F5, $F4, $B
+Slide_Speeds:	dc.b	$0A,$0A,$0A,$0A				; MJ: Values for speed, format XX00 = Speed in $14(a-)
+		dc.b	$F6,$F6,$F6,$F6
+		dc.b	$0B,$0B,$0B,$0B
+		dc.b	$F5,$F5,$F5,$F5
+		dc.b	$F4,$F4,$F4,$F4
+		dc.b	$F5
 		even
 
-Slide_Chunks:
-		dc.b 2, 7, 3, $4C, $4B, 8, 4
-; byte_3FCF		; XREF: LZWaterSlides
+; byte_3FCF:			; XREF: LZWaterSlides
+Slide_Chunks:	dc.b	$05,$06,$09,$0A				; MJ: Chunks to read (128x128 ID's)
+		dc.b	$FA,$FB,$FC,$FD
+		dc.b	$0B,$0C,$0D,$0E
+		dc.b	$15,$16,$F8,$F9
+		dc.b	$19,$1A,$1B,$1C
+		dc.b	$17
 Slide_Chunks_End
 		even

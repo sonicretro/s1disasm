@@ -64,7 +64,7 @@ LevSz_StartLoc:
 		move.w	(v_zone).w,d0
 		lsl.b	#6,d0
 		lsr.w	#4,d0
-		lea	StartLocArray(pc,d0.w),a1 ; load Sonic's start location
+		lea	StartLocArray(pc,d0.w),a1 ; MJ: load Sonic's start location address
 		tst.w	(f_demo).w	; is ending demo mode on?
 		bpl.s	LevSz_SonicPos	; if not, branch
 
@@ -80,6 +80,14 @@ LevSz_SonicPos:
 		moveq	#0,d0
 		move.w	(a1),d0
 		move.w	d0,(v_player+obY).w ; set Sonic's position on y-axis
+		move.b	(v_gamemode).w,d2			; MJ: load game mode
+		andi.w	#$FC,d2					; MJ: keep in range
+		cmpi.b	#4,d2					; MJ: is screen mode at title?
+		bne.s	SetScreen				; MJ: if not, branch
+		move.w	#$50,d1					; MJ: set positions for title screen
+		move.w	#$3B0,d0				; MJ: ''
+		move.w	d1,(v_player+obX).w			; MJ: save to object 1 so title screen follows
+		move.w	d0,(v_player+obY).w			; MJ: ''
 
 SetScreen:
 	LevSz_SkipStartPos:
@@ -107,36 +115,13 @@ SetScreen:
 
 	SetScr_WithinBottom:
 		move.w	d0,(v_screenposy).w ; set vertical screen position
-		bsr.w	BgScrollSpeed
-		moveq	#0,d0
-		move.b	(v_zone).w,d0
-		lsl.b	#2,d0
-		move.l	LoopTileNums(pc,d0.w),(v_256loop1).w
-		rts
+		bra.w	BgScrollSpeed
+
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Sonic start location array
 ; ---------------------------------------------------------------------------
 StartLocArray:	include	"_inc\Start Location Array - Levels.asm"
-
-; ---------------------------------------------------------------------------
-; Which	256x256	tiles contain loops or roll-tunnels
-; ---------------------------------------------------------------------------
-
-LoopTileNums:
-
-; 		loop	loop	tunnel	tunnel
-
-	dc.b	$B5,	$7F,	$1F,	$20	; Green Hill
-	dc.b	$7F,	$7F,	$7F,	$7F	; Labyrinth
-	dc.b	$7F,	$7F,	$7F,	$7F	; Marble
-	dc.b	$AA,	$B4,	$7F,	$7F	; Star Light
-	dc.b	$7F,	$7F,	$7F,	$7F	; Spring Yard
-	dc.b	$7F,	$7F,	$7F,	$7F	; Scrap Brain
-	dc.b	$7F,	$7F,	$7F,	$7F	; Ending (Green Hill)
-	zonewarning LoopTileNums,4
-
-		even
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	set scroll speed of some backgrounds
