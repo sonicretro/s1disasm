@@ -25,7 +25,7 @@ Layout Format:         0
 Layout Compression:    0
 FG Level Layout:       ..\levels\sbz1.bin
 BG 128x128 Page:       0
-BG Level Layout:       ..\levels\sbzbg.bin
+BG Level Layout:       ..\levels\sbz1bg.bin
 
 Objects Format:        1
 Objects:               ..\objpos\sbz1.bin
