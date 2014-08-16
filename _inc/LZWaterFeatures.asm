@@ -387,8 +387,8 @@ LZWaterSlides:				; XREF: LZWaterFeatures
 		add.w	d1,d0
 		lea	(v_lvllayout).w,a2
 		move.b	(a2,d0.w),d0
-		lea	byte_3FCF(pc),a2
-		moveq	#6,d1
+		lea	Slide_Chunks_End(pc),a2
+		moveq	#Slide_Chunks_End-Slide_Chunks-1,d1
 
 loc_3F62:
 		cmp.b	-(a2),d0
@@ -412,7 +412,7 @@ LZSlide_Move:
 
 loc_3F84:
 		bclr	#0,obStatus(a1)
-		move.b	byte_3FC0(pc,d1.w),d0
+		move.b	Slide_Speeds(pc,d1.w),d0
 		move.b	d0,obInertia(a1)
 		bpl.s	loc_3F9A
 		bset	#0,obStatus(a1)
@@ -431,6 +431,13 @@ locret_3FBE:
 ; End of function LZWaterSlides
 
 ; ===========================================================================
-byte_3FC0:	dc.b $A, $F5, $A, $F6, $F5, $F4, $B, 0,	2, 7, 3, $4C, $4B, 8, 4
-byte_3FCF:	dc.b 0			; XREF: LZWaterSlides
+; byte_3FC0:
+Slide_Speeds:
+		dc.b $A, $F5, $A, $F6, $F5, $F4, $B
+		even
+
+Slide_Chunks:
+		dc.b 2, 7, 3, $4C, $4B, 8, 4
+; byte_3FCF		; XREF: LZWaterSlides
+Slide_Chunks_End
 		even

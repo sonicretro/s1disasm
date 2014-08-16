@@ -25,7 +25,7 @@ Layout Format:         0
 Layout Compression:    0
 FG Level Layout:       ..\levels\mz2.bin
 BG 128x128 Page:       0
-BG Level Layout:       ..\levels\mzbg.bin
+BG Level Layout:       ..\levels\mz2bg.bin
 
 Objects Format:        1
 Objects:               ..\objpos\mz2.bin
