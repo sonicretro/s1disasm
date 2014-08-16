@@ -1,7 +1,7 @@
 Type: Level
 
 Zone ID:    5
-Act ID:     3
+Act ID:     0
 
 Object Def: objdef\s1obj
 Object Palette: objdef\s1obj1.pcx
@@ -19,19 +19,19 @@ Metatile Size:         128
 Metatile Compression:  1
 Num Metatile Pages:    1
 Page0 16x16 Page:      0
-Metatile Tiles Page 0: ..\map128\SBZ.bin
+Metatile Tiles Page 0: ..\map128\SBZ (JP1).bin
 
 Layout Format:         1
 Layout Compression:    0
 BG 128x128 Page:       0
-FG Level Layout:       ..\levels\sbz2.bin
+FG Level Layout:       ..\levels\sbz1.bin
 
 Objects Format:        1
-Objects:               ..\objpos\fz.bin
+Objects:               ..\objpos\sbz1 (JP1).bin
 Rings Format:          0
 Misc Format:           0
 Num Start Positions:   1
-Start Position 0:      ..\startpos\fz.bin
+Start Position 0:      ..\startpos\sbz1.bin
 
 Palettes-
 
@@ -47,17 +47,17 @@ Palettes-
 
    Start index:       16
    Number of entries: 48
-   File:              ..\palette\SBZ Act 2.bin
+   File:              ..\palette\SBZ Act 1.bin
 
 Collision Map Format:    0
 Collision Array:         ..\collide\Collision Array (Normal).bin
 Rotated Collision Array: ..\collide\Collision Array (Rotated).bin
 Angle Array:             ..\collide\Angle Map.bin
 
-Collision Index Format      : 1
-Collision Index Compression : 0
-Collision Index 1           : ..\collide\SBZ1.bin
-Collision Index 2           : ..\collide\SBZ2.bin
+Collision Index Format:      1
+Collision Index Compression: 0
+Collision Index 1:           ..\collide\SBZ1.bin
+Collision Index 2:           ..\collide\SBZ2.bin
 
 Game Name: Sonic 1
 
