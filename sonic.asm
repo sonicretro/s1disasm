@@ -3025,7 +3025,7 @@ ColIndexLoad:				; XREF: GM_Level
 ; ---------------------------------------------------------------------------
 ; Collision index pointers
 ; ---------------------------------------------------------------------------
-ColPointers:	dc.l Col_GHZ_1
+ColPointers:	dc.l Col_GHZ_1	; MJ: each zone now has two entries
 		dc.l Col_GHZ_2
 		dc.l Col_LZ_1
 		dc.l Col_LZ_2
@@ -3037,7 +3037,7 @@ ColPointers:	dc.l Col_GHZ_1
 		dc.l Col_SYZ_2
 		dc.l Col_SBZ_1
 		dc.l Col_SBZ_2
-;		dc.l Col_GHZ_1 ; Pointer for Ending is missing by default.
+;		dc.l Col_GHZ_1 ; Pointers for Ending are missing by default.
 ;		dc.l Col_GHZ_2
 		zonewarningnoending ColPointers,8
 
@@ -3896,7 +3896,7 @@ End_ChkEmerald:
 		tst.w	(f_restart).w
 		beq.w	End_AllEmlds
 		clr.w	(f_restart).w
-		move.l	#Level_EndGood,(v_lvllayoutfg).w ; modify level layout
+		move.l	#Level_EndGood,(v_lvllayoutfg).w ; MJ: set extra flowers version of ending's layout to be read
 		lea	(vdp_control_port).l,a5
 		lea	(vdp_data_port).l,a6
 		lea	(v_screenposx).w,a3
@@ -5144,7 +5144,7 @@ LevelLayoutLoad:			; XREF: GM_Title; LevelDataLoad
 		lea	(Level_Index).l,a1
 		movea.l	(a1,d0.w),a1		; MJ: moving the address strait to a1 rather than adding a word to an address
 		move.l	a1,(v_lvllayoutfg).w	; MJ: save location of layout to $FFFFA400
-		adda.w	#$80,a1			; MJ: add 80 (As the BG line is always after the FG line)
+		lea	$80(a1),a1		; MJ: add 80 (As the BG line is always after the FG line)
 		move.l	a1,(v_lvllayoutbg).w	; MJ: save location of layout to $FFFFA404
 		rts				; MJ: Return
 ; End of function LevelLayoutLoad
@@ -8808,7 +8808,7 @@ Art_SbzSmoke:	incbin	"artunc\SBZ Background Smoke.bin"
 ; ---------------------------------------------------------------------------
 ; Level	layout index
 ; ---------------------------------------------------------------------------
-Level_Index:	dc.l Level_GHZ1
+Level_Index:	dc.l Level_GHZ1	; MJ: unused data and BG data have been stripped out
 		dc.l Level_GHZ2
 		dc.l Level_GHZ3
 		dc.l Level_Null
