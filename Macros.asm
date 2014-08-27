@@ -231,7 +231,13 @@ out_of_range:	macro exit,pos
 ; ---------------------------------------------------------------------------
 
 music:		macro track,terminate,branch,byte
-	 	    if ("byte"<>"0")|(OptimiseSound<>0)
+		  if (OptimiseSound<>0)
+			move.b	#track,(v_snddriver_ram+v_playsnd1).l
+		    if ("terminate"<>"0")
+			rts
+		    endif
+		  else
+	 	    if ("byte"<>"0")
 			move.b	#track,d0
 		    else
 			move.w	#track,d0
@@ -249,10 +255,17 @@ music:		macro track,terminate,branch,byte
 			jmp	(PlaySound).l
 		      endif
 		    endif
+		  endif
 		endm
 
 sfx:		macro track,terminate,branch,byte
-	 	    if ("byte"<>"0")|(OptimiseSound<>0)
+		  if (OptimiseSound<>0)
+			move.b	#track,(v_snddriver_ram+v_playsnd2).l
+		    if ("terminate"<>"0")
+			rts
+		    endif
+		  else
+	 	    if ("byte"<>"0")
 			move.b	#track,d0
 		    else
 			move.w	#track,d0
@@ -270,6 +283,7 @@ sfx:		macro track,terminate,branch,byte
 			jmp	(PlaySound_Special).l
 		      endif
 		    endif
+		  endif
 		endm
 
 ; ---------------------------------------------------------------------------
