@@ -4,7 +4,6 @@
 FindWall:				; XREF: Sonic_WalkVertR; et al
 		bsr.w	FindNearestTile		; MJ: get chunk/block location
 		move.w	(a1),d0			; MJ: load block ID from chunk
-		bsr.w	ColisionChkLayer	; MJ: check solid settings to use
 		move.w	d0,d4			; MJ: copy to d4
 		andi.w	#$3FF,d0		; MJ: clear flip/mirror/etc data
 		beq.s	loc_14B1E		; MJ: if it was null, branch
@@ -86,7 +85,6 @@ loc_14BA6:
 FindWall2:				; XREF: FindWall
 		bsr.w	FindNearestTile
 		move.w	(a1),d0
-		bsr.w	ColisionChkLayer	; MJ: check solid settings to use
 		move.w	d0,d4
 		andi.w	#$3FF,d0
 		beq.s	loc_14BC6

@@ -77,7 +77,7 @@ Obj03_MainX:
 		lea	$34(a0),a2
 		lea	(v_player).w,a1 ; a1=character
 		tst.b	(a2)+
-		bne.s	Obj03_MainX_Alt
+		bne.w	Obj03_MainX_Alt
 		cmp.w	obX(a1),d1
 		bhi.w	return_1FEAC
 		move.b	#1,-1(a2)
@@ -98,10 +98,12 @@ Obj03_MainX:
 @jump:
 		btst	#0,obRender(a0)
 		bne.s	@jump2
-		clr.b	(v_collayer).l
+		move.b	#$C,(v_top_solid_bit).w	; MJ: set collision to 1st
+		move.b	#$D,(v_lrb_solid_bit).w	; MJ: set collision to 1st
 		btst	#3,d0
 		beq.s	@jump2
-		move.b	#1,(v_collayer).l
+		move.b	#$E,(v_top_solid_bit).w	; MJ: set collision to 2nd
+		move.b	#$F,(v_lrb_solid_bit).w	; MJ: set collision to 2nd
 @jump2:
 		tst.b	(f_debugcheat).w
 		beq.s	@jump3
@@ -111,7 +113,7 @@ Obj03_MainX:
 		btst	#5,d0
 		beq.w	return_1FEAC
 		ori.w	#(1<<15),obGfx(a1)
-		bra.s	return_1FEAC
+		bra.w	return_1FEAC
 ; ===========================================================================
 ; loc_1FE38:
 Obj03_MainX_Alt:
@@ -135,10 +137,12 @@ Obj03_MainX_Alt:
 @jump:
 		btst	#0,obRender(a0)
 		bne.s	@jump2
-		clr.b	(v_collayer).l
+		move.b	#$C,(v_top_solid_bit).w	; MJ: set collision to 1st
+		move.b	#$D,(v_lrb_solid_bit).w	; MJ: set collision to 1st
 		btst	#4,d0
 		beq.s	@jump2
-		move.b	#1,(v_collayer).l
+		move.b	#$E,(v_top_solid_bit).w	; MJ: set collision to 2nd
+		move.b	#$F,(v_lrb_solid_bit).w	; MJ: set collision to 2nd
 @jump2:
 		tst.b	(f_debugcheat).w
 		beq.s	@jump3
@@ -181,10 +185,12 @@ Obj03_MainY:
 @jump:
 		btst	#0,obRender(a0)
 		bne.s	@jump2
-		clr.b	(v_collayer).l
+		move.b	#$C,(v_top_solid_bit).w	; MJ: set collision to 1st
+		move.b	#$D,(v_lrb_solid_bit).w	; MJ: set collision to 1st
 		btst	#3,d0
 		beq.s	@jump2
-		move.b	#1,(v_collayer).l
+		move.b	#$E,(v_top_solid_bit).w	; MJ: set collision to 2nd
+		move.b	#$F,(v_lrb_solid_bit).w	; MJ: set collision to 2nd
 @jump2:
 		andi.w	#$7FFF,obGfx(a1)
 		btst	#5,d0
@@ -214,10 +220,12 @@ Obj03_MainY_Alt:
 @jump:
 		btst	#0,obRender(a0)
 		bne.s	@jump2
-		clr.b	(v_collayer).l
+		move.b	#$C,(v_top_solid_bit).w	; MJ: set collision to 1st
+		move.b	#$D,(v_lrb_solid_bit).w	; MJ: set collision to 1st
 		btst	#4,d0
 		beq.s	@jump2
-		move.b	#1,(v_collayer).l
+		move.b	#$E,(v_top_solid_bit).w	; MJ: set collision to 2nd
+		move.b	#$F,(v_lrb_solid_bit).w	; MJ: set collision to 2nd
 @jump2:
 		andi.w	#$7FFF,obGfx(a1)
 		btst	#6,d0

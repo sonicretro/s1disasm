@@ -6,6 +6,12 @@
 
 
 Sonic_Floor:				; XREF: Obj01_MdJump; Obj01_MdJump2
+		move.l	(v_colladdr1).w,(v_collindex).w		; MJ: load first collision data location
+		cmpi.b	#$C,(v_top_solid_bit).w			; MJ: is second collision set to be used?
+		beq.s	@first					; MJ: if not, branch
+		move.l	(v_colladdr2).w,(v_collindex).w		; MJ: load second collision data location
+@first:
+		move.b	(v_lrb_solid_bit).w,d5
 		move.w	obVelX(a0),d1
 		move.w	obVelY(a0),d2
 		jsr	(CalcAngle).l

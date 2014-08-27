@@ -16,23 +16,9 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-ColisionChkLayer:
-		tst.b	(v_collayer).w		; MJ: is collision set to first?
-		beq.s	CCL_NoChange		; MJ: if so, branch
-		move.w	d0,d4			; MJ: load block ID to d4
-		andi.w	#$FFF,d0		; MJ: clear solid settings of d0
-		andi.w	#$C000,d4		; MJ: get only second solid settings of d4
-		lsr.w	#2,d4			; MJ: shift them to first solid settings location
-		add.w	d4,d0			; MJ: add to rest of block ID
-
-CCL_NoChange:
-		rts						; MJ: return
-
-
 FindFloor:				; XREF: Sonic_AnglePos; et al
-		bsr.w	FindNearestTile
+		bsr.s	FindNearestTile
 		move.w	(a1),d0		; get value for solidness, orientation and 16x16 tile number
-		bsr.s	ColisionChkLayer	; MJ: check solid settings to use
 		move.w	d0,d4
 		andi.w	#$3FF,d0
 		beq.s	@isblank	; branch if tile is blank
@@ -114,7 +100,6 @@ FindFloor:				; XREF: Sonic_AnglePos; et al
 FindFloor2:				; XREF: FindFloor
 		bsr.w	FindNearestTile
 		move.w	(a1),d0
-		bsr.w	ColisionChkLayer	; MJ: check solid settings to use
 		move.w	d0,d4
 		andi.w	#$3FF,d0
 		beq.s	@isblank2

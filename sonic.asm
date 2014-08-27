@@ -3015,9 +3015,9 @@ ColIndexLoad:				; XREF: GM_Level
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
 		lsl.w	#3,d0					; MJ: multiply by 8 not 4
-		move.l	ColPointers(pc,d0.w),(v_coladdr1).w	; MJ: get first collision set
+		move.l	ColPointers(pc,d0.w),(v_colladdr1).w	; MJ: get first collision set
 		addq.w	#4,d0					; MJ: increase to next location
-		move.l	ColPointers(pc,d0.w),(v_coladdr2).w	; MJ: get second collision set
+		move.l	ColPointers(pc,d0.w),(v_colladdr2).w	; MJ: get second collision set
 		rts	
 ; End of function ColIndexLoad
 
@@ -3794,8 +3794,8 @@ End_LoadData:
 		bset	#2,(v_bgscroll1).w
 		bsr.w	LevelDataLoad
 		bsr.w	LoadTilesFromStart
-		move.l	#Col_GHZ_1,(v_coladdr1).w ; MJ: Set first collision for ending
-		move.l	#Col_GHZ_2,(v_coladdr2).w ; MJ: Set second collision for ending
+		move.l	#Col_GHZ_1,(v_colladdr1).w ; MJ: Set first collision for ending
+		move.l	#Col_GHZ_2,(v_colladdr2).w ; MJ: Set second collision for ending
 		enable_ints
 		lea	(Kos_EndFlowers).l,a0 ;	load extra flower patterns
 		lea	($FFFF9400).w,a1 ; RAM address to buffer the patterns
@@ -6724,7 +6724,8 @@ Sonic_Index:	dc.w Sonic_Main-Sonic_Index
 ; ===========================================================================
 
 Sonic_Main:	; Routine 0
-		clr.b	(v_collayer).l	; MJ: set collision to 1st
+		move.b	#$C,(v_top_solid_bit).w	; MJ: set collision to 1st
+		move.b	#$D,(v_lrb_solid_bit).w	; MJ: set collision to 1st
 		addq.b	#2,obRoutine(a0)
 		move.b	#$13,obHeight(a0)
 		move.b	#9,obWidth(a0)
@@ -7058,6 +7059,12 @@ loc_14CD6:
 
 
 Sonic_WalkSpeed:			; XREF: Sonic_Move
+		move.l	(v_colladdr1).w,(v_collindex).w		; MJ: load first collision data location
+		cmpi.b	#$C,(v_top_solid_bit).w			; MJ: is second collision set to be used?
+		beq.s	@first					; MJ: if not, branch
+		move.l	(v_colladdr2).w,(v_collindex).w		; MJ: load second collision data location
+@first:
+		move.b	(v_lrb_solid_bit).w,d5
 		move.l	obX(a0),d3
 		move.l	obY(a0),d2
 		move.w	obVelX(a0),d1
@@ -7113,6 +7120,12 @@ loc_14D3C:
 
 
 sub_14D48:				; XREF: Sonic_Jump
+		move.l	(v_colladdr1).w,(v_collindex).w		; MJ: load first collision data location
+		cmpi.b	#$C,(v_top_solid_bit).w			; MJ: is second collision set to be used?
+		beq.s	@first					; MJ: if not, branch
+		move.l	(v_colladdr2).w,(v_collindex).w		; MJ: load second collision data location
+@first:
+		move.b	(v_lrb_solid_bit).w,d5
 		move.b	d0,(v_anglebuffer).w
 		move.b	d0,($FFFFF76A).w
 		addi.b	#$20,d0
@@ -7134,6 +7147,12 @@ sub_14D48:				; XREF: Sonic_Jump
 
 
 Sonic_HitFloor:				; XREF: Sonic_Floor
+		move.l	(v_colladdr1).w,(v_collindex).w		; MJ: load first collision data location
+		cmpi.b	#$C,(v_top_solid_bit).w			; MJ: is second collision set to be used?
+		beq.s	@first					; MJ: if not, branch
+		move.l	(v_colladdr2).w,(v_collindex).w		; MJ: load second collision data location
+@first:
+		move.b	(v_top_solid_bit).w,d5
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 		moveq	#0,d0
@@ -7146,7 +7165,6 @@ Sonic_HitFloor:				; XREF: Sonic_Floor
 		lea	(v_anglebuffer).w,a4
 		movea.w	#$10,a3
 		move.w	#0,d6
-		moveq	#$C,d5		; MJ: set solid type to check
 		bsr.w	FindFloor	; MJ: check solidity
 		move.w	d1,-(sp)
 		move.w	obY(a0),d2
@@ -7161,7 +7179,6 @@ Sonic_HitFloor:				; XREF: Sonic_Floor
 		lea	($FFFFF76A).w,a4
 		movea.w	#$10,a3
 		move.w	#0,d6
-		moveq	#$C,d5		; MJ: set solid type to check
 		bsr.w	FindFloor	; MJ: check solidity
 		move.w	(sp)+,d0
 		move.b	#0,d2
@@ -7192,7 +7209,6 @@ loc_14DF0:				; XREF: Sonic_WalkSpeed
 		lea	(v_anglebuffer).w,a4
 		movea.w	#$10,a3
 		move.w	#0,d6
-		moveq	#$D,d5		; MJ: set solid type to check
 		bsr.w	FindFloor	; MJ: check solidity
 		move.b	#0,d2
 
@@ -7224,7 +7240,6 @@ sub_14E50:				; XREF: sub_14D48
 		lea	(v_anglebuffer).w,a4
 		movea.w	#$10,a3
 		move.w	#0,d6
-		moveq	#$D,d5		; MJ: set solid type to check
 		bsr.w	FindWall	; MJ: check solidity
 		move.w	d1,-(sp)
 		move.w	obY(a0),d2
@@ -7239,7 +7254,6 @@ sub_14E50:				; XREF: sub_14D48
 		lea	($FFFFF76A).w,a4
 		movea.w	#$10,a3
 		move.w	#0,d6
-		moveq	#$D,d5		; MJ: set solid type to check
 		bsr.w	FindWall	; MJ: check solidity
 		move.w	(sp)+,d0
 		move.b	#-$40,d2
@@ -7260,7 +7274,6 @@ loc_14EBC:
 		lea	(v_anglebuffer).w,a4
 		movea.w	#$10,a3
 		move.w	#0,d6
-		moveq	#$D,d5		; MJ: set solid type to check
 		bsr.w	FindWall	; MJ: check solidity
 		move.b	#-$40,d2
 		bra.w	loc_14E0A
@@ -7315,7 +7328,6 @@ Sonic_DontRunOnWalls:			; XREF: Sonic_Floor; et al
 		lea	(v_anglebuffer).w,a4
 		movea.w	#-$10,a3
 		move.w	#$800,d6
-		moveq	#$D,d5		; MJ: set solid type to check
 		bsr.w	FindFloor	; MJ: check solidity
 		move.w	d1,-(sp)
 		move.w	obY(a0),d2
@@ -7331,7 +7343,6 @@ Sonic_DontRunOnWalls:			; XREF: Sonic_Floor; et al
 		lea	($FFFFF76A).w,a4
 		movea.w	#-$10,a3
 		move.w	#$800,d6
-		moveq	#$D,d5		; MJ: set solid type to check
 		bsr.w	FindFloor	; MJ: check solidity
 		move.w	(sp)+,d0
 		move.b	#-$80,d2
@@ -7348,7 +7359,6 @@ loc_14F7C:
 		lea	(v_anglebuffer).w,a4
 		movea.w	#-$10,a3
 		move.w	#$800,d6
-		moveq	#$D,d5		; MJ: set solid type to check
 		bsr.w	FindFloor	; MJ: check solidity
 		move.b	#-$80,d2
 		bra.w	loc_14E0A
@@ -7394,7 +7404,6 @@ loc_14FD6:				; XREF: sub_14D48
 		lea	(v_anglebuffer).w,a4
 		movea.w	#-$10,a3
 		move.w	#$400,d6
-		moveq	#$D,d5		; MJ: set solid type to check
 		bsr.w	FindWall	; MJ: check solidity
 		move.w	d1,-(sp)
 		move.w	obY(a0),d2
@@ -7410,7 +7419,6 @@ loc_14FD6:				; XREF: sub_14D48
 		lea	($FFFFF76A).w,a4
 		movea.w	#-$10,a3
 		move.w	#$400,d6
-		moveq	#$D,d5		; MJ: set solid type to check
 		bsr.w	FindWall	; MJ: check solidity
 		move.w	(sp)+,d0
 		move.b	#$40,d2
@@ -7433,7 +7441,6 @@ loc_1504A:
 		lea	(v_anglebuffer).w,a4
 		movea.w	#-$10,a3
 		move.w	#$400,d6
-		moveq	#$D,d5		; MJ: set solid type to check
 		bsr.w	FindWall	; MJ: check solidity
 		move.b	#$40,d2
 		bra.w	loc_14E0A

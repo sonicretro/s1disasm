@@ -6,11 +6,12 @@
 
 
 Sonic_AnglePos:				; XREF: Obj01_MdNormal; Obj01_MdRoll
-		move.l	(v_coladdr1).w,(v_collindex).w		; MJ: load first collision data location
-		tst.b	(v_collayer).w				; MJ: is second sollision set to be used?
+		move.l	(v_colladdr1).w,(v_collindex).w		; MJ: load first collision data location
+		cmpi.b	#$C,(v_top_solid_bit).w			; MJ: is second collision set to be used?
 		beq.s	@first					; MJ: if not, branch
-		move.l	(v_coladdr2).w,(v_collindex).w		; MJ: load second collision data location
+		move.l	(v_colladdr2).w,(v_collindex).w		; MJ: load second collision data location
 @first:
+		move.b	(v_top_solid_bit).w,d5
 		btst	#3,obStatus(a0)
 		beq.s	loc_14602
 		moveq	#0,d0
@@ -63,7 +64,6 @@ loc_14630:
 		lea	($FFFFF768).w,a4
 		movea.w	#$10,a3
 		move.w	#0,d6
-		moveq	#$C,d5		; MJ: set solid type to check
 		bsr.w	FindFloor	; MJ: check solidity
 		move.w	d1,-(sp)
 		move.w	obY(a0),d2
@@ -79,7 +79,6 @@ loc_14630:
 		lea	($FFFFF76A).w,a4
 		movea.w	#$10,a3
 		move.w	#0,d6
-		moveq	#$C,d5		; MJ: set solid type to check
 		bsr.w	FindFloor	; MJ: check solidity
 		move.w	(sp)+,d0
 		bsr.w	Sonic_Angle
@@ -209,7 +208,6 @@ Sonic_WalkVertR:			; XREF: Sonic_AnglePos
 		lea	($FFFFF768).w,a4
 		movea.w	#$10,a3
 		move.w	#0,d6
-		moveq	#$C,d5		; MJ: set solid type to check
 		bsr.w	FindWall	; MJ: check solidity
 		move.w	d1,-(sp)
 		move.w	obY(a0),d2
@@ -224,7 +222,6 @@ Sonic_WalkVertR:			; XREF: Sonic_AnglePos
 		lea	($FFFFF76A).w,a4
 		movea.w	#$10,a3
 		move.w	#0,d6
-		moveq	#$C,d5		; MJ: set solid type to check
 		bsr.w	FindWall	; MJ: check solidity
 		move.w	(sp)+,d0
 		bsr.w	Sonic_Angle
@@ -278,7 +275,6 @@ Sonic_WalkCeiling:			; XREF: Sonic_AnglePos
 		lea	($FFFFF768).w,a4
 		movea.w	#-$10,a3
 		move.w	#$800,d6
-		moveq	#$C,d5		; MJ: set solid type to check
 		bsr.w	FindFloor	; MJ: check solidity
 		move.w	d1,-(sp)
 		move.w	obY(a0),d2
@@ -294,7 +290,6 @@ Sonic_WalkCeiling:			; XREF: Sonic_AnglePos
 		lea	($FFFFF76A).w,a4
 		movea.w	#-$10,a3
 		move.w	#$800,d6
-		moveq	#$C,d5		; MJ: set solid type to check
 		bsr.w	FindFloor	; MJ: check solidity
 		move.w	(sp)+,d0
 		bsr.w	Sonic_Angle
@@ -348,7 +343,6 @@ Sonic_WalkVertL:			; XREF: Sonic_AnglePos
 		lea	($FFFFF768).w,a4	; MJ: load address of the angle value set
 		movea.w	#-$10,a3
 		move.w	#$400,d6
-		moveq	#$C,d5			; MJ: set solid type to check
 		bsr.w	FindWall		; MJ: check solidity
 		move.w	d1,-(sp)
 		move.w	obY(a0),d2
@@ -364,7 +358,6 @@ Sonic_WalkVertL:			; XREF: Sonic_AnglePos
 		lea	($FFFFF76A).w,a4
 		movea.w	#-$10,a3
 		move.w	#$400,d6
-		moveq	#$C,d5		; MJ: set solid type to check
 		bsr.w	FindWall	; MJ: check solidity
 		move.w	(sp)+,d0
 		bsr.w	Sonic_Angle
