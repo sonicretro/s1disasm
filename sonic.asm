@@ -19,7 +19,7 @@ Revision:	= 0	; change to 1 for JP1 revision
 
 ZoneCount:	= 7	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, SBZ and Ending
 
-OptimiseSound:	= 0	; force branches to PlaySound(Special) to use move.b only
+OptimiseSound:	= 0	; change to 1 to optimise sound queuing
 
 ; ===========================================================================
 
