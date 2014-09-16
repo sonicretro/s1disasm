@@ -24,7 +24,7 @@ Metatile Tiles Page 0: ..\map128\LZ.bin
 Layout Format:         1
 Layout Compression:    0
 BG 128x128 Page:       0
-FG Level Layout:       ..\levels\lz3_wall.bin
+FG Level Layout:       ..\levels\lz3_nowall.bin
 
 Objects Format:        1
 Objects:               ..\objpos\lz3 (JP1).bin

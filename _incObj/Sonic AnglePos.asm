@@ -11,7 +11,7 @@ Sonic_AnglePos:				; XREF: Obj01_MdNormal; Obj01_MdRoll
 		beq.s	@first					; MJ: if not, branch
 		move.l	(v_colladdr2).w,(v_collindex).w		; MJ: load second collision data location
 @first:
-		move.b	(v_top_solid_bit).w,d5
+		move.b	(v_top_solid_bit).w,d5			; MJ: load L/R/B soldity bit
 		btst	#3,obStatus(a0)
 		beq.s	loc_14602
 		moveq	#0,d0
@@ -274,7 +274,7 @@ Sonic_WalkCeiling:			; XREF: Sonic_AnglePos
 		add.w	d0,d3
 		lea	($FFFFF768).w,a4
 		movea.w	#-$10,a3
-		move.w	#$800,d6
+		move.w	#$800,d6	; MJ: $1000/2
 		bsr.w	FindFloor	; MJ: check solidity
 		move.w	d1,-(sp)
 		move.w	obY(a0),d2
@@ -289,7 +289,7 @@ Sonic_WalkCeiling:			; XREF: Sonic_AnglePos
 		sub.w	d0,d3
 		lea	($FFFFF76A).w,a4
 		movea.w	#-$10,a3
-		move.w	#$800,d6
+		move.w	#$800,d6	; MJ: $1000/2
 		bsr.w	FindFloor	; MJ: check solidity
 		move.w	(sp)+,d0
 		bsr.w	Sonic_Angle
@@ -342,7 +342,7 @@ Sonic_WalkVertL:			; XREF: Sonic_AnglePos
 		eori.w	#$F,d3
 		lea	($FFFFF768).w,a4	; MJ: load address of the angle value set
 		movea.w	#-$10,a3
-		move.w	#$400,d6
+		move.w	#$400,d6		; MJ: $800/2
 		bsr.w	FindWall		; MJ: check solidity
 		move.w	d1,-(sp)
 		move.w	obY(a0),d2
@@ -357,7 +357,7 @@ Sonic_WalkVertL:			; XREF: Sonic_AnglePos
 		eori.w	#$F,d3
 		lea	($FFFFF76A).w,a4
 		movea.w	#-$10,a3
-		move.w	#$400,d6
+		move.w	#$400,d6	; MJ: $800/2
 		bsr.w	FindWall	; MJ: check solidity
 		move.w	(sp)+,d0
 		bsr.w	Sonic_Angle

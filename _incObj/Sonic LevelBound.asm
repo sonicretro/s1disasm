@@ -36,9 +36,9 @@ Sonic_LevelBound:			; XREF: Obj01_MdNormal; et al
 
 @bottom:
 		cmpi.w	#(id_SBZ<<8)+1,(v_zone).w ; is level SBZ2 ?
-		bne.s	@killsonic	; if not, kill Sonic
+		bne.s	@killsonic	; if not, kill Sonic	; MJ: Fix out-of-range branch
 		cmpi.w	#$2000,(v_player+obX).w
-		bcs.s	@killsonic
+		bcs.s	@killsonic				; MJ: Fix out-of-range branch
 		clr.b	(v_lastlamp).w	; clear	lamppost counter
 		move.w	#1,(f_restart).w ; restart the level
 		move.w	#(id_LZ<<8)+3,(v_zone).w ; set level to SBZ3 (LZ4)
@@ -54,5 +54,5 @@ Sonic_LevelBound:			; XREF: Obj01_MdNormal; et al
 ; ===========================================================================
 
 @killsonic:
-		jmp	(KillSonic).l
+		jmp	(KillSonic).l	; MJ: Fix out-of-range branch
 ; End of function Sonic_LevelBound

@@ -2,11 +2,11 @@
 ; Object 03 - Collision plane/layer switcher
 ; ----------------------------------------------------------------------------
 ; Sprite_1FCDC:
-Obj03:
+PathSwapper:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
-		move.w	Obj03_Index(pc,d0.w),d1
-		jsr	Obj03_Index(pc,d1.w)
+		move.w	PSwapper_Index(pc,d0.w),d1
+		jsr	PSwapper_Index(pc,d1.w)
 		tst.w	(f_debugcheat).w
 		bne.w	RememberState
 		move.w	obX(a0),d0
@@ -20,24 +20,24 @@ Obj03:
 		rts
 ; ===========================================================================
 ; off_1FCF0:
-Obj03_Index:
-		dc.w Obj03_Init-Obj03_Index	; 0
-		dc.w Obj03_MainX-Obj03_Index	; 2
-		dc.w Obj03_MainY-Obj03_Index	; 4
+PSwapper_Index:
+		dc.w PSwapper_Init-PSwapper_Index	; 0
+		dc.w PSwapper_MainX-PSwapper_Index	; 2
+		dc.w PSwapper_MainY-PSwapper_Index	; 4
 ; ===========================================================================
 ; loc_1FCF6:
-Obj03_Init:
-		addq.b	#2,obRoutine(a0) ; => Obj03_MainX
-		move.l	#Obj03_MapUnc_1FFB8,obMap(a0)
+PSwapper_Init:
+		addq.b	#2,obRoutine(a0) ; => PSwapper_MainX
+		move.l	#Map_PathSwapper,obMap(a0)
 		move.w	#$27B2,obGfx(a0)
 		ori.b	#4,obRender(a0)
 		move.b	#$10,obActWid(a0)
 		move.b	#5,obPriority(a0)
 		move.b	obSubtype(a0),d0
 		btst	#2,d0
-		beq.s	Obj03_Init_CheckX
-;Obj03_Init_CheckY:
-		addq.b	#2,obRoutine(a0) ; => Obj03_MainY
+		beq.s	PSwapper_Init_CheckX
+;PSwapper_Init_CheckY:
+		addq.b	#2,obRoutine(a0) ; => PSwapper_MainY
 		andi.w	#7,d0
 		move.b	d0,obFrame(a0)
 		andi.w	#3,d0
@@ -46,9 +46,9 @@ Obj03_Init:
 		move.w	obY(a0),d1
 		lea	(v_player).w,a1 ; a1=character
 		cmp.w	obY(a1),d1
-		bhs.w	Obj03_MainY
+		bhs.w	PSwapper_MainY
 		move.b	#1,$34(a0)
-		bra.w	Obj03_MainY
+		bra.w	PSwapper_MainY
 ; ===========================================================================
 word_1FD68:
 	dc.w   $20
@@ -57,7 +57,7 @@ word_1FD68:
 	dc.w  $100	; 3
 ; ===========================================================================
 ; loc_1FD70:
-Obj03_Init_CheckX:
+PSwapper_Init_CheckX:
 		andi.w	#3,d0
 		move.b	d0,obFrame(a0)
 		add.w	d0,d0
@@ -70,14 +70,14 @@ Obj03_Init_CheckX:
 @jump:
 
 ; loc_1FDA4:
-Obj03_MainX:
+PSwapper_MainX:
 		tst.w	(v_debuguse).w
 		bne.w	return_1FEAC
 		move.w	obX(a0),d1
 		lea	$34(a0),a2
 		lea	(v_player).w,a1 ; a1=character
 		tst.b	(a2)+
-		bne.w	Obj03_MainX_Alt
+		bne.w	PSwapper_MainX_Alt
 		cmp.w	obX(a1),d1
 		bhi.w	return_1FEAC
 		move.b	#1,-1(a2)
@@ -116,7 +116,7 @@ Obj03_MainX:
 		bra.w	return_1FEAC
 ; ===========================================================================
 ; loc_1FE38:
-Obj03_MainX_Alt:
+PSwapper_MainX_Alt:
 		cmp.w	obX(a1),d1
 		bls.w	return_1FEAC
 		move.b	#0,-1(a2)
@@ -157,14 +157,14 @@ return_1FEAC:
 		rts
 ; ===========================================================================
 
-Obj03_MainY:
+PSwapper_MainY:
 		tst.w	(v_debuguse).w
 		bne.w	return_1FFB6
 		move.w	obY(a0),d1
 		lea	$34(a0),a2
 		lea	(v_player).w,a1 ; a1=character
 		tst.b	(a2)+
-		bne.s	Obj03_MainY_Alt
+		bne.s	PSwapper_MainY_Alt
 		cmp.w	obY(a1),d1
 		bhi.w	return_1FFB6
 		move.b	#1,-1(a2)
@@ -199,7 +199,7 @@ Obj03_MainY:
 		bra.s	return_1FFB6
 ; ===========================================================================
 ; loc_1FF42:
-Obj03_MainY_Alt:
+PSwapper_MainY_Alt:
 		cmp.w	obY(a1),d1
 		bls.w	return_1FFB6
 		move.b	#0,-1(a2)
@@ -238,5 +238,5 @@ return_1FFB6:
 ; -------------------------------------------------------------------------------
 ; sprite mappings
 ; -------------------------------------------------------------------------------
-Obj03_MapUnc_1FFB8:	include "_maps/Collision Switcher.asm"
+Map_PathSwapper:	include "_maps/Collision Switcher.asm"
 ; ===========================================================================

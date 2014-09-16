@@ -34,31 +34,6 @@ FindNearestTile:			; XREF: FindFloor; et al
 		andi.w	#$E,d0			; MJ: keep X within 10 pixels
 		add.w	d0,d1			; MJ: add to ror'd chunk ID
 
-@blanktile:
 		movea.l	d1,a1			; MJ: set address (Chunk to read)
 		rts				; MJ: return
-; ===========================================================================
-
-@specialtile:
-		andi.w	#$7F,d1
-		btst	#6,obRender(a0) ; is object "behind a loop"?
-		beq.s	@treatasnormal	; if not, branch
-		addq.w	#1,d1
-		cmpi.w	#$29,d1
-		bne.s	@treatasnormal
-		move.w	#$51,d1
-
-	@treatasnormal:
-		ror.w	#7,d1
-		ror.w	#2,d1
-		move.w	d2,d0
-		add.w	d0,d0
-		andi.w	#$70,d0
-		add.w	d0,d1
-		move.w	d3,d0
-		lsr.w	#3,d0
-		andi.w	#$E,d0
-		add.w	d0,d1
-		movea.l	d1,a1
-		rts	
 ; End of function FindNearestTile

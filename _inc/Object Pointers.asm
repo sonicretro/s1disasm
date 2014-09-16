@@ -3,7 +3,7 @@
 ; ---------------------------------------------------------------------------
 ptr_SonicPlayer:	dc.l SonicPlayer	; $01
 ptr_Obj02:		dc.l ObjectFall
-ptr_Obj03:		dc.l Obj03
+ptr_PathSwapper:	dc.l PathSwapper
 ptr_Obj04:		dc.l ObjectFall
 ptr_Obj05:		dc.l ObjectFall
 ptr_Obj06:		dc.l ObjectFall

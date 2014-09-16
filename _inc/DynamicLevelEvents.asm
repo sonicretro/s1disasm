@@ -194,9 +194,9 @@ DLE_LZ12:
 DLE_LZ3:
 		tst.b	(f_switch+$F).w	; has switch $F	been pressed?
 		beq.s	loc_6F28	; if not, branch
-		cmpi.l	#Level_LZ3_WALL,(v_lvllayoutfg).w	; MJ: is current layout already set to wall version?
+		cmpi.l	#Level_LZ3NoWall,(v_lvllayoutfg).w	; MJ: is current layout already set to wall version?
 		beq.s	loc_6F28				; MJ: if so, branch to skip
-		move.l	#Level_LZ3_WALL,(v_lvllayoutfg).w	; MJ: Set wall version of act 3's layout to be read
+		move.l	#Level_LZ3NoWall,(v_lvllayoutfg).w	; MJ: Set wall version of act 3's layout to be read
 		sfx	sfx_Rumbling,0,1,0 ; play rumbling sound
 
 loc_6F28:

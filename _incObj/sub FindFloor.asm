@@ -20,7 +20,7 @@ FindFloor:				; XREF: Sonic_AnglePos; et al
 		bsr.s	FindNearestTile
 		move.w	(a1),d0		; get value for solidness, orientation and 16x16 tile number
 		move.w	d0,d4
-		andi.w	#$3FF,d0
+		andi.w	#$3FF,d0	; MJ: ($800/2)-1
 		beq.s	@isblank	; branch if tile is blank
 		btst	d5,d4		; is the tile solid?
 		bne.s	@issolid	; if yes, branch
@@ -101,7 +101,7 @@ FindFloor2:				; XREF: FindFloor
 		bsr.w	FindNearestTile
 		move.w	(a1),d0
 		move.w	d0,d4
-		andi.w	#$3FF,d0
+		andi.w	#$3FF,d0	; MJ: ($800/2)-1
 		beq.s	@isblank2
 		btst	d5,d4
 		bne.s	@issolid

@@ -86,7 +86,7 @@ FindWall2:				; XREF: FindWall
 		bsr.w	FindNearestTile
 		move.w	(a1),d0
 		move.w	d0,d4
-		andi.w	#$3FF,d0
+		andi.w	#$3FF,d0	; MJ: ($800/2)-1
 		beq.s	loc_14BC6
 		btst	d5,d4
 		bne.s	loc_14BD4

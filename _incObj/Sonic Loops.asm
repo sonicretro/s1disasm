@@ -23,12 +23,12 @@ Sonic_Loops:				; XREF: Obj01_Control
 		movea.l	(v_lvllayoutfg).w,a1	; MJ: Load address of layout
 		move.b	(a1,d0.w),d1		; MJ: collect correct 128x128 chunk ID based on the position of Sonic
 
-		lea	STunnel_Chunks_End(pc),a2
-		moveq	#STunnel_Chunks_End-STunnel_Chunks-1,d2
+		lea	STunnel_Chunks_End(pc),a2			; MJ: lead list of S-Tunnel chunks
+		moveq	#(STunnel_Chunks_End-STunnel_Chunks)-1,d2	; MJ: get size of list
 
 @loop:
 		cmp.b	-(a2),d1	; MJ: is the chunk an S-Tunnel chunk?
-		dbeq	d2,@loop
+		dbeq	d2,@loop	; MJ: check for each listed S-Tunnel chunk
 		beq.w	Sonic_ChkRoll	; MJ: if so, branch
 
 		bclr	#6,obRender(a0) ; return Sonic to high plane
@@ -84,6 +84,7 @@ Sonic_Loops:				; XREF: Obj01_Control
 ; End of function Sonic_Loops
 
 ; ===========================================================================
-STunnel_Chunks:	dc.b	$75,$76,$77,$78
+STunnel_Chunks:		; MJ: list of S-Tunnel chunks
+		dc.b	$75,$76,$77,$78
 		dc.b	$79,$7A,$7B,$7C
 STunnel_Chunks_End
