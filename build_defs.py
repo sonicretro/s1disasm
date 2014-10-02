@@ -60,7 +60,7 @@ def run():
 	delete(binaryOutputPath);
 	delete("sonic.p");
 	
-	assembleCommand = [asBinary, "-xx", "-n", "-q", "-A"];
+	assembleCommand = [asBinary, "-xx", "-n", "-q", "-A", "-L"];
 	
 	# Input asm file
 	assembleCommand.append("sonic.asm");

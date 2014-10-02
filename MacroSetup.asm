@@ -1,5 +1,5 @@
 	padding off	; we don't want AS padding out dc.b instructions
-	listing off	; we don't need to generate anything for a listing file
+	listing purecode	; Want listing file, but only the final code in expanded macros
 	supmode on	; we don't need warnings about privileged instructions
 
 notZ80 function cpu,(cpu<>128)&&(cpu<>32988)
