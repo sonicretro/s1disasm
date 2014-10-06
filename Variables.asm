@@ -512,8 +512,6 @@ v_sfx2_psg3_loop_index:	= $394	; Several bytes, may overlap with gosub/return st
 
 v_1up_ram_copy:	= $3A0
 
-f_fastmusic:	= $3CA	; flag set to speed up the music (00 = normal; 80 = fast)
-
 ; =================================================================================
 ; From here on, no longer relative to sound driver RAM
 ; =================================================================================
