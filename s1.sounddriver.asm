@@ -1117,15 +1117,15 @@ Sound_PlaySpecial:
 ; These were actually used in Moonwalker's driver
 
 ; BGMFM4PSG3RAM:
-;SpecSFX_SFX_BGMChannelRAM:
+;SpecSFX_BGMChannelRAM:
 		dc.l (v_snddriver_ram+v_fm4_track)&$FFFFFF
 		dc.l (v_snddriver_ram+v_psg3_track)&$FFFFFF
 ; SFXFM4PSG3RAM:
-;SpecSFX_SFX_SFXChannelRAM:
+;SpecSFX_SFXChannelRAM:
 		dc.l (v_snddriver_ram+v_sfx_fm4_track)&$FFFFFF
 		dc.l (v_snddriver_ram+v_sfx_psg3_track)&$FFFFFF
 ; SpecialSFXFM4PSG3RAM:
-;SpecSFX_SpecSFX_SFXChannelRAM:
+;SpecSFX_SpecSFXChannelRAM:
 		dc.l (v_snddriver_ram+v_sfx2_fm4_track)&$FFFFFF
 		dc.l (v_snddriver_ram+v_sfx2_psg3_track)&$FFFFFF
 
