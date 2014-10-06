@@ -141,7 +141,7 @@ UpdateMusic:				; XREF: VBlank; HBlank
 ; loc_71BD4:
 .dacdone:
 		clr.b	f_updating_dac(a6)
-		moveq	#5,d7
+		moveq	#5,d7		; 6 FM channels
 ; loc_71BDA:
 .bgmfmloop:
 		adda.w	#zTrackSz,a5
@@ -152,7 +152,7 @@ UpdateMusic:				; XREF: VBlank; HBlank
 .bgmfmnext:
 		dbf	d7,.bgmfmloop
 
-		moveq	#2,d7
+		moveq	#2,d7		; 3 PSG channels
 ; loc_71BEC:
 .bgmpsgloop:
 		adda.w	#zTrackSz,a5
@@ -164,7 +164,7 @@ UpdateMusic:				; XREF: VBlank; HBlank
 		dbf	d7,.bgmpsgloop
 
 		move.b	#$80,f_voice_selector(a6)	; Now at SFX tracks
-		moveq	#2,d7
+		moveq	#2,d7		; 3 FM channels (SFX)
 ; loc_71C04:
 .sfxfmloop:
 		adda.w	#zTrackSz,a5
@@ -175,7 +175,7 @@ UpdateMusic:				; XREF: VBlank; HBlank
 .sfxfmnext:
 		dbf	d7,.sfxfmloop
 
-		moveq	#2,d7
+		moveq	#2,d7		; 3 PSG channels (SFX)
 ; loc_71C16:
 .sfxpsgloop:
 		adda.w	#zTrackSz,a5
@@ -477,7 +477,7 @@ FMUpdateFreq:
 		jsr	WriteFMIorII(pc)
 		move.b	d6,d1
 		move.b	#$A0,d0		; Register for lower 8 bits of frequency
-		jsr	WriteFMIorII(pc)
+		jsr	WriteFMIorII(pc) ; (It would be better if this were a jmp)
 ; locret_71E48:
 locret_71E48:
 		rts	
@@ -523,7 +523,7 @@ PauseMusic:
 		clr.b	f_stopmusic(a6)
 		moveq	#zTrackSz,d3
 		lea	v_track_ram(a6),a5
-		moveq	#6,d4
+		moveq	#6,d4		; 6 FM + 1 DAC channels
 ; loc_71EA0:
 .bgmfmloop:
 		btst	#7,(a5)		; Is track playing?
@@ -539,7 +539,7 @@ PauseMusic:
 		dbf	d4,.bgmfmloop
 
 		lea	v_sfx_track_ram(a6),a5
-		moveq	#2,d4
+		moveq	#2,d4		; 3 FM channels (SFX)
 ; loc_71EC4:
 .sfxfmloop:
 		btst	#7,(a5)		; Is track playing?
@@ -637,7 +637,7 @@ Sound_ChkValue:
 		cmpi.b	#spec__Last+$10,d7		; Is this special sfx ($D0-$DF)?
 		blo.w	Sound_PlaySpecial	; Branch if yes
 		;cmpi.b	#flg__First,d7			; Is this after special sfx but before $E0?
-		;blo.w	@locret				; Return if yes
+		;blo.w	.locret				; Return if yes
 		cmpi.b	#flg__Last,d7			; Is this $E0-$E4?
 		bls.s	Sound_E0toE4		; Branch if yes
 ; locret_71F8C:
@@ -844,7 +844,7 @@ Sound_PlayBGM:
 		lsr.b	#3,d0		; Convert to index
 ; loc_72170:
 .gotchannelindex:
-		lea	BGMChannelRAM(pc),a0
+		lea	SFX_BGMChannelRAM(pc),a0
 		movea.l	(a0,d0.w),a0
 		bset	#2,(a0)		; Set 'SFX is overriding' bit
 ; loc_7217C:
@@ -863,13 +863,13 @@ Sound_PlayBGM:
 ; loc_7219A:
 .sendfmnoteoff:
 		lea	v_fm1_track(a6),a5
-		moveq	#5,d4
+		moveq	#5,d4			; 6 FM channels
 ; loc_721A0:
 .fmnoteoffloop:
 		jsr	FMNoteOff(pc)
 		adda.w	d6,a5
 		dbf	d4,.fmnoteoffloop	; run all FM channels
-		moveq	#2,d4
+		moveq	#2,d4			; 3 PSG channels
 ; loc_721AC:
 .psgnoteoffloop:
 		jsr	PSGNoteOff(pc)
@@ -938,7 +938,7 @@ Sound_PlaySFX:
 		bmi.s	.sfxinitpsg	; Branch if PSG
 		subq.w	#2,d3		; SFX can only have FM3, FM4 or FM5
 		lsl.w	#2,d3
-		lea	BGMChannelRAM(pc),a5
+		lea	SFX_BGMChannelRAM(pc),a5
 		movea.l	(a5,d3.w),a5
 		bset	#2,(a5)		; Mark music track as being overridden
 		bra.s	.sfxoverridedone
@@ -946,7 +946,7 @@ Sound_PlaySFX:
 ; loc_72244:
 .sfxinitpsg:
 		lsr.w	#3,d3
-		lea	BGMChannelRAM(pc),a5
+		lea	SFX_BGMChannelRAM(pc),a5
 		movea.l	(a5,d3.w),a5
 		bset	#2,(a5)		; Mark music track as being overridden
 		cmpi.b	#$C0,d4		; Is this PSG 3?
@@ -958,7 +958,7 @@ Sound_PlaySFX:
 		move.b	d0,(psg_input).l
 ; loc_7226E:
 .sfxoverridedone:
-		movea.l	SFXChannelRAM(pc,d3.w),a5
+		movea.l	SFX_SFXChannelRAM(pc,d3.w),a5
 		movea.l	a5,a2
 		moveq	#$B,d0	; $30 bytes
 ; loc_72276:
@@ -1001,10 +1001,11 @@ Sound_PlaySFX:
 		rts	
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; RAM addresses for FM and PSG channel variables
+; RAM addresses for FM and PSG channel variables used by the SFX
 ; ---------------------------------------------------------------------------
-; dword_722CC:
-BGMChannelRAM:	dc.l (v_snddriver_ram+v_fm3_track)&$FFFFFF
+; dword_722CC: BGMChannelRAM:
+SFX_BGMChannelRAM:
+		dc.l (v_snddriver_ram+v_fm3_track)&$FFFFFF
 		dc.l 0
 		dc.l (v_snddriver_ram+v_fm4_track)&$FFFFFF
 		dc.l (v_snddriver_ram+v_fm5_track)&$FFFFFF
@@ -1012,8 +1013,9 @@ BGMChannelRAM:	dc.l (v_snddriver_ram+v_fm3_track)&$FFFFFF
 		dc.l (v_snddriver_ram+v_psg2_track)&$FFFFFF
 		dc.l (v_snddriver_ram+v_psg3_track)&$FFFFFF	; Plain PSG3
 		dc.l (v_snddriver_ram+v_psg3_track)&$FFFFFF	; Noise
-; dword_722EC:
-SFXChannelRAM:	dc.l (v_snddriver_ram+v_sfx_fm3_track)&$FFFFFF
+; dword_722EC: SFXChannelRAM:
+SFX_SFXChannelRAM:
+		dc.l (v_snddriver_ram+v_sfx_fm3_track)&$FFFFFF
 		dc.l 0
 		dc.l (v_snddriver_ram+v_sfx_fm4_track)&$FFFFFF
 		dc.l (v_snddriver_ram+v_sfx_fm5_track)&$FFFFFF
@@ -1101,14 +1103,29 @@ Sound_PlaySpecial:
 ; End of function Sound_ChkValue
 
 ; ===========================================================================
-; Unused
+; ---------------------------------------------------------------------------
+; Unused RAM addresses for FM and PSG channel variables used by the Special SFX
+; ---------------------------------------------------------------------------
+; The first block would have been used for overriding the music channels
+; as they have a lower priority, just as they are in Sound_PlaySFX
+; The third block would be used to set up the Special SFX
+; The second block, however, is for the SFX channels, which have a higher priority
+; and would be checked for if they're currently playing
+; If they are, then the third block would be used again, this time to mark
+; the new tracks as 'currently playing'
+
+; These were actually used in Moonwalker's driver
+
 ; BGMFM4PSG3RAM:
+;SpecSFX_SFX_BGMChannelRAM:
 		dc.l (v_snddriver_ram+v_fm4_track)&$FFFFFF
 		dc.l (v_snddriver_ram+v_psg3_track)&$FFFFFF
 ; SFXFM4PSG3RAM:
+;SpecSFX_SFX_SFXChannelRAM:
 		dc.l (v_snddriver_ram+v_sfx_fm4_track)&$FFFFFF
 		dc.l (v_snddriver_ram+v_sfx_psg3_track)&$FFFFFF
 ; SpecialSFXFM4PSG3RAM:
+;SpecSFX_SpecSFX_SFXChannelRAM:
 		dc.l (v_snddriver_ram+v_sfx2_fm4_track)&$FFFFFF
 		dc.l (v_snddriver_ram+v_sfx2_psg3_track)&$FFFFFF
 
@@ -1118,7 +1135,7 @@ Sound_PlaySpecial:
 FadeOutSFX:
 		_clr.b	v_sndprio(a6)		; Clear priority
 		lea	v_sfx_track_ram(a6),a5
-		moveq	#5,d7
+		moveq	#5,d7		; 3 FM + 3 PSG tracks (SFX)
 ; loc_723EA:
 .trackloop:
 		tst.b	(a5)		; Is track playing?
@@ -1143,7 +1160,7 @@ FadeOutSFX:
 .getfmpointer:
 		subq.b	#2,d3		; SFX only has FM3 and up
 		lsl.b	#2,d3
-		lea	BGMChannelRAM(pc),a0
+		lea	SFX_BGMChannelRAM(pc),a0
 		movea.l	a5,a3
 		movea.l	(a0,d3.w),a5
 		movea.l	v_voice_ptr(a6),a1	; Get music voice pointer
@@ -1165,7 +1182,7 @@ FadeOutSFX:
 		cmpi.b	#$C0,d3		; Is this PSG 3?
 		beq.s	.gotpsgpointer	; Branch if yes
 		lsr.b	#3,d3
-		lea	BGMChannelRAM(pc),a0
+		lea	SFX_BGMChannelRAM(pc),a0
 		movea.l	(a0,d3.w),a0
 ; loc_7245A:
 .gotpsgpointer:
@@ -1253,7 +1270,7 @@ DoFadeOut:
 		beq.w	StopSoundAndMusic	; Branch if fade is done
 		move.b	#3,v_fadeout_delay(a6)	; Reset fade delay
 		lea	v_fm1_track(a6),a5
-		moveq	#5,d7
+		moveq	#5,d7		; 6 FM channels
 ; loc_72524:
 .fmloop:
 		tst.b	(a5)		; Is track playing?
@@ -1271,7 +1288,7 @@ DoFadeOut:
 		adda.w	#zTrackSz,a5
 		dbf	d7,.fmloop
 
-		moveq	#2,d7
+		moveq	#2,d7		; 3 PSG channels
 ; loc_72542:
 .psgloop:
 		tst.b	(a5)		; Is track playing?
@@ -1452,7 +1469,7 @@ DoFadeIn:
 		subq.b	#1,v_fadein_counter(a6)	; Update fade counter
 		move.b	#2,v_fadein_delay(a6)	; Reset fade delay
 		lea	v_fm1_track(a6),a5
-		moveq	#5,d7
+		moveq	#5,d7		; 6 FM channels
 ; loc_7269E:
 .fmloop:
 		tst.b	(a5)		; Is track playing?
@@ -1463,7 +1480,7 @@ DoFadeIn:
 .nextfm:
 		adda.w	#zTrackSz,a5
 		dbf	d7,.fmloop
-		moveq	#2,d7
+		moveq	#2,d7		; 3 PSG channels
 ; loc_726B4:
 .psgloop:
 		tst.b	(a5)		; Is track playing?
@@ -1952,7 +1969,7 @@ cfFadeInToPrevious:
 		movea.l	a5,a3
 		move.b	#$28,d6
 		sub.b	v_fadein_counter(a6),d6		; If fade already in progress, this adjusts track volume accordingly
-		moveq	#5,d7
+		moveq	#5,d7		; 6 FM channels
 		lea	v_fm1_track(a6),a5
 ; loc_72B3A:
 .fmloop:
@@ -1971,7 +1988,7 @@ cfFadeInToPrevious:
 		adda.w	#zTrackSz,a5
 		dbf	d7,.fmloop
 
-		moveq	#2,d7
+		moveq	#2,d7		; 3 PSG channels
 ; loc_72B66:
 .psgloop:
 		btst	#7,(a5)		; Is track playing?
@@ -2131,7 +2148,7 @@ SetVoice:
 		
 		move.b	#$B4,d0		; Register for AMS/FMS/Panning
 		move.b	$A(a5),d1	; Value to send
-		jsr	WriteFMIorII(pc)
+		jsr	WriteFMIorII(pc) ; (It would be better if this were a jmp)
 
 locret_72CAA:
 		rts	
@@ -2264,7 +2281,7 @@ cfStopTrack:
 		moveq	#0,d0
 		move.b	1(a5),d0	; Get voice control bits
 		bmi.s	.getpsgptr	; Branch if PSG
-		lea	BGMChannelRAM(pc),a0
+		lea	SFX_BGMChannelRAM(pc),a0
 		movea.l	a5,a3
 		cmpi.b	#4,d0	; Is this FM4?
 		bne.s	.getpointer	; Branch if not
@@ -2304,7 +2321,7 @@ cfStopTrack:
 		beq.s	.gotchannelptr	; Branch if yes
 ; loc_72DE0:
 .getchannelptr:
-		lea	BGMChannelRAM(pc),a0
+		lea	SFX_BGMChannelRAM(pc),a0
 		lsr.b	#3,d0
 		movea.l	(a0,d0.w),a0
 ; loc_72DEA:
