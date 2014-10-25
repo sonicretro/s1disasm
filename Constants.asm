@@ -32,6 +32,35 @@ ym2612_d1: 		equ $A04003
 security_addr:		equ $A14000
 
 ; Sound driver constants
+zTrackPlaybackControl:	equ 0
+zTrackVoiceControl:	equ 1
+zTrackTempoDivider:	equ 2
+zTrackDataPointer:	equ 4		; & 5,6,7
+zTrackKeyOffset:	equ 8
+zTrackVolume:		equ 9
+zTrackAMSFMSPan:	equ $A
+zTrackVoiceIndex:	equ $B
+zTrackVolFlutter:	equ $C
+zTrackStackPointer:	equ $D
+zTrackDurationTimeout:	equ $E
+zTrackSavedDuration:	equ $F
+zTrackSavedDAC:		equ $10
+zTrackFreq:		equ $10		; & $11
+zTrackNoteFillTimeout:	equ $12
+zTrackNoteFillMaster:	equ $13
+zTrackModulationPtr:	equ $14		; & $15,$16,$17
+zTrackModulationWait:	equ $18
+zTrackModulationSpeed:	equ $19
+zTrackModulationDelta:	equ $1A
+zTrackModulationSteps:	equ $1B
+zTrackModulationVal:	equ $1C		; & $1D
+zTrackFreqDisplacement:	equ $1E
+zTrackPSGNoise:		equ $1F
+zTrackFeedbackAlgo:	equ $1F
+zTrackVoicePtr:		equ $20		; & $21,$22,$23
+zTrackLoopCounters:	equ $24		; multiple bytes
+zTrackGoSubStack:	equ zTrackSz	; multiple bytes. This equate won't get to be used because of an optimisation that just uses zTrackSz
+
 zTrackSz:	equ $30
 
 ; VRAM data
