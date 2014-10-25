@@ -13,8 +13,8 @@ zeroOffsetOptimization = 0
 ;	| If 1, makes a handful of zero-offset instructions smaller
 
 	include "MacroSetup.asm"
-	include	"Variables.asm"
 	include	"Constants.asm"
+	include	"Variables.asm"
 	include	"Macros.asm"
 
 EnableSRAM	= 0	; change to 1 to enable SRAM
