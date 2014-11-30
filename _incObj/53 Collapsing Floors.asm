@@ -92,7 +92,7 @@ CFlo_Display:	; Routine 6
 loc_8402:
 		subq.b	#1,timedelay(a0)
 		bsr.w	CFlo_WalkOff
-		lea	(v_objspace).w,a1
+		lea	(v_player).w,a1
 		btst	#3,obStatus(a1)
 		beq.s	loc_842E
 		tst.b	timedelay(a0)
