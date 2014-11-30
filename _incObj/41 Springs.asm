@@ -128,7 +128,7 @@ Spring_BounceLR:
 		bchg	#0,obStatus(a1)
 		btst	#2,obStatus(a1)
 		bne.s	loc_DC56
-		move.b	#0,obAnim(a1)	; use running animation
+		move.b	#id_Walk,obAnim(a1)	; use walking animation
 
 loc_DC56:
 		bclr	#5,obStatus(a0)

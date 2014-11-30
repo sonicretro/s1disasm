@@ -330,7 +330,7 @@ LZWindTunnels:				; XREF: LZWaterFeatures
 		addq.w	#4,obX(a1)
 		move.w	#$400,obVelX(a1) ; move Sonic horizontally
 		move.w	#0,obVelY(a1)
-		move.b	#$F,obAnim(a1)	; use floating animation
+		move.b	#id_Float2,obAnim(a1)	; use floating animation
 		bset	#1,obStatus(a1)
 		btst	#0,(v_jpadhold2).w ; is up pressed?
 		beq.s	@down		; if not, branch
@@ -350,7 +350,7 @@ LZWindTunnels:				; XREF: LZWaterFeatures
 		dbf	d1,@chksonic	; on act 1, repeat for a second tunnel
 		tst.b	(f_wtunnelmode).w ; is Sonic still in a tunnel?
 		beq.s	@quit		; if yes, branch
-		move.b	#0,obAnim(a1)	; use walking animation
+		move.b	#id_Walk,obAnim(a1)	; use walking animation
 
 @clrquit:
 		clr.b	(f_wtunnelmode).w ; finish tunnel

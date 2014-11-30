@@ -234,7 +234,7 @@ Drown_Countdown:; Routine $A
 		move.l	a0,-(sp)
 		lea	(v_player).w,a0
 		bsr.w	Sonic_ResetOnFloor
-		move.b	#$17,obAnim(a0)	; use Sonic's drowning animation
+		move.b	#id_Drown,obAnim(a0)	; use Sonic's drowning animation
 		bset	#1,obStatus(a0)
 		bset	#7,obGfx(a0)
 		move.w	#0,obVelY(a0)
