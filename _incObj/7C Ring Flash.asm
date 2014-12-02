@@ -41,7 +41,7 @@ Flash_Collect:
 		bne.s	locret_9F76	; if not, branch
 		movea.l	$3C(a0),a1	; get parent object address
 		move.b	#6,obRoutine(a1) ; delete parent object
-		move.b	#$1C,(v_player+obAnim).w ; make Sonic invisible
+		move.b	#id_Null,(v_player+obAnim).w ; make Sonic invisible
 		move.b	#1,(f_bigring).w ; stop	Sonic getting bonuses
 		clr.b	(v_invinc).w	; remove invincibility
 		clr.b	(v_shield).w	; remove shield
