@@ -180,7 +180,7 @@ loc_19F48:
 
 loc_19F50:
 		addq.w	#7,(v_random).w
-		cmpi.b	#2,(v_player+obAnim).w
+		cmpi.b	#id_Roll,(v_player+obAnim).w
 		bne.s	loc_19F48
 		move.w	#$300,d0
 		btst	#0,obStatus(a0)
