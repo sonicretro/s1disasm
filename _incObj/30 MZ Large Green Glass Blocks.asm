@@ -107,7 +107,7 @@ Glass_Reflect34:
 		movea.l	$3C(a0),a1
 		move.w	glass_dist(a1),glass_dist(a0)
 		move.w	obY(a1),$30(a0)
-		bra.w	*+4
+		bra.w	Glass_Types
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 

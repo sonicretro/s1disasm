@@ -154,7 +154,7 @@ loc_16404:
 		clr.b	obSolid(a0)
 
 loc_16420:
-		bra.w	*+4
+		bra.w	loc_16424
 
 loc_16424:
 		move.w	obX(a0),d0

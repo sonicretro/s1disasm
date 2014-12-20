@@ -124,7 +124,7 @@ loc_B798:	; Routine 2
 		cmpi.b	#$10,$32(a0)
 		bcc.s	CStom_Display
 		movea.l	a0,a2
-		lea	(v_objspace).w,a0
+		lea	(v_player).w,a0
 		jsr	(KillSonic).l
 		movea.l	a2,a0
 
