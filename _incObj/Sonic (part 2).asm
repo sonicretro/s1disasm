@@ -71,8 +71,8 @@ GameOver:				; XREF: Sonic_Death
 		subq.b	#1,(v_lives).w	; subtract 1 from number of lives
 		bne.s	loc_138D4
 		move.w	#0,$3A(a0)
-		move.b	#$39,(v_objspace+$80).w ; load GAME object
-		move.b	#$39,(v_objspace+$C0).w ; load OVER object
+		move.b	#id_GameOverCard,(v_objspace+$80).w ; load GAME object
+		move.b	#id_GameOverCard,(v_objspace+$C0).w ; load OVER object
 		move.b	#1,(v_objspace+$C0+obFrame).w ; set OVER object to correct frame
 		clr.b	(f_timeover).w
 
@@ -87,8 +87,8 @@ loc_138D4:
 		tst.b	(f_timeover).w	; is TIME OVER tag set?
 		beq.s	locret_13900	; if not, branch
 		move.w	#0,$3A(a0)
-		move.b	#$39,(v_objspace+$80).w ; load TIME object
-		move.b	#$39,(v_objspace+$C0).w ; load OVER object
+		move.b	#id_GameOverCard,(v_objspace+$80).w ; load TIME object
+		move.b	#id_GameOverCard,(v_objspace+$C0).w ; load OVER object
 		move.b	#2,(v_objspace+$80+obFrame).w
 		move.b	#3,(v_objspace+$C0+obFrame).w
 		bra.s	loc_138C2

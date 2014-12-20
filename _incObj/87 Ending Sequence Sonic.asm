@@ -42,7 +42,7 @@ ESon_MakeEmeralds:
 		bne.s	ESon_Wait
 		addq.b	#2,ob2ndRout(a0)
 		move.w	#1,obAnim(a0)
-		move.b	#$88,(v_objspace+$400).w ; load chaos emeralds objects
+		move.b	#id_EndChaos,(v_objspace+$400).w ; load chaos emeralds objects
 
 	ESon_Wait:
 		rts	
