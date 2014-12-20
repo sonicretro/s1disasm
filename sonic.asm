@@ -2801,7 +2801,7 @@ Level_TtlCardLoop:
 		jsr	FloorLog_Unk
 		bsr.w	ColIndexLoad
 		bsr.w	LZWaterFeatures
-		move.b	#id_SonicPlayer,(v_objspace).w ; load Sonic object
+		move.b	#id_SonicPlayer,(v_player).w ; load Sonic object
 		tst.w	(f_demo).w
 		bmi.s	Level_ChkDebug
 		move.b	#id_HUD,(v_objspace+$40).w ; load HUD object
@@ -3196,7 +3196,7 @@ GM_Special:				; XREF: GameModeArray
 		jsr	SS_Load		; load SS layout data
 		move.l	#0,(v_screenposx).w
 		move.l	#0,(v_screenposy).w
-		move.b	#9,(v_objspace).w ; load special stage Sonic object
+		move.b	#id_SonicSpecial,(v_player).w ; load special stage Sonic object
 		bsr.w	PalCycle_SS
 		clr.w	(v_ssangle).w	; set stage angle to "upright"
 		move.w	#$40,(v_ssrotate).w ; set stage rotation speed
@@ -3312,7 +3312,7 @@ loc_47D4:
 		move.l	d0,(a1)+
 		dbf	d1,SS_EndClrObjRam ; clear object RAM
 
-		move.b	#$7E,(v_objspace+$5C0).w ; load results screen object
+		move.b	#id_SSResult,(v_objspace+$5C0).w ; load results screen object
 
 SS_NormalExit:
 		bsr.w	PauseGame
@@ -3667,7 +3667,7 @@ GM_Continue:				; XREF: GameModeArray
 		move.w	#659,(v_demolength).w ; set time delay to 11 seconds
 		clr.l	(v_screenposx).w
 		move.l	#$1000000,(v_screenposy).w
-		move.b	#id_ContSonic,(v_objspace).w ; load Sonic object
+		move.b	#id_ContSonic,(v_player).w ; load Sonic object
 		move.b	#id_ContScrItem,(v_objspace+$40).w ; load continue screen objects
 		move.b	#id_ContScrItem,(v_objspace+$80).w
 		move.b	#3,(v_objspace+$80+obPriority).w
@@ -3688,7 +3688,7 @@ GM_Continue:				; XREF: GameModeArray
 Cont_MainLoop:
 		move.b	#$16,(v_vbla_routine).w
 		bsr.w	WaitForVBla
-		cmpi.b	#6,(v_objspace+obRoutine).w
+		cmpi.b	#6,(v_player+obRoutine).w
 		bhs.s	loc_4DF2
 		disable_ints
 		move.w	(v_demolength).w,d1
@@ -3700,9 +3700,9 @@ Cont_MainLoop:
 loc_4DF2:
 		jsr	ExecuteObjects
 		jsr	BuildSprites
-		cmpi.w	#$180,(v_objspace+obX).w ; has Sonic run off screen?
+		cmpi.w	#$180,(v_player+obX).w ; has Sonic run off screen?
 		bhs.s	Cont_GotoLevel	; if yes, branch
-		cmpi.b	#6,(v_objspace+obRoutine).w
+		cmpi.b	#6,(v_player+obRoutine).w
 		bhs.s	Cont_MainLoop
 		tst.w	(v_demolength).w
 		bne.w	Cont_MainLoop
@@ -3808,7 +3808,7 @@ End_LoadData:
 		move.b	#1,(f_debugmode).w ; enable debug mode
 
 End_LoadSonic:
-		move.b	#id_SonicPlayer,(v_objspace).w ; load Sonic object
+		move.b	#id_SonicPlayer,(v_player).w ; load Sonic object
 		bset	#0,(v_player+obStatus).w ; make Sonic face left
 		move.b	#1,(f_lockctrl).w ; lock controls
 		move.w	#(btnL<<8),(v_jpadhold2).w ; move Sonic to the left
@@ -3950,7 +3950,7 @@ End_MoveSon3:
 		bne.s	End_MoveSonExit
 		addq.b	#2,(v_sonicend).w
 		move.w	#$A0,(v_player+obX).w
-		move.b	#id_EndSonic,(v_objspace).w ; load Sonic ending sequence object
+		move.b	#id_EndSonic,(v_player).w ; load Sonic ending sequence object
 		clr.w	(v_player+obRoutine).w
 
 End_MoveSonExit:
