@@ -77,12 +77,12 @@ CSI_MiniSonicLoop:
 CSI_ChkDel:	; Routine 6
 		tst.b	obSubtype(a0)	; do you have 16 or more continues?
 		beq.s	CSI_Animate	; if yes, branch
-		cmpi.b	#6,(v_objspace+obRoutine).w ; is Sonic running?
+		cmpi.b	#6,(v_player+obRoutine).w ; is Sonic running?
 		bcs.s	CSI_Animate	; if not, branch
 		move.b	(v_vbla_byte).w,d0
 		andi.b	#1,d0
 		bne.s	CSI_Animate
-		tst.w	(v_objspace+obVelX).w ; is Sonic running?
+		tst.w	(v_player+obVelX).w ; is Sonic running?
 		bne.s	CSI_Delete	; if yes, goto delete
 		rts	
 
