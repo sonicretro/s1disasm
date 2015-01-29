@@ -97,9 +97,9 @@ locret_76CA:
 ; GHZ bridge-bending data
 ; (Defines how the bridge bends	when Sonic walks across	it)
 ; ---------------------------------------------------------------------------
-Obj11_BendData:	binclude	"misc\ghzbend1.bin"
+Obj11_BendData:	binclude	"misc/ghzbend1.bin"
 		even
-Obj11_BendData2:binclude	"misc\ghzbend2.bin"
+Obj11_BendData2:binclude	"misc/ghzbend2.bin"
 		even
 
 ; ===========================================================================

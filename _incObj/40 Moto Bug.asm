@@ -51,7 +51,7 @@ Moto_Action:	; Routine 2
 		lea	(Ani_Moto).l,a1
 		bsr.w	AnimateSprite
 
-		include	"_incObj\sub RememberState.asm" ; Moto_Action terminates in this file
+		include	"_incObj/sub RememberState.asm" ; Moto_Action terminates in this file
 
 ; ===========================================================================
 Moto_ActIndex:	dc.w .move-Moto_ActIndex

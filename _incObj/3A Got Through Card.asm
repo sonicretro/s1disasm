@@ -170,7 +170,7 @@ Got_Display2:				; XREF: Got_NextLevel, Got_ChkSS
 ; ---------------------------------------------------------------------------
 ; Level	order array
 ; ---------------------------------------------------------------------------
-LevelOrder:	binclude	"misc\Level Order.bin"
+LevelOrder:	binclude	"misc/Level Order.bin"
 		even
 		zonewarningnoending LevelOrder,8
 ; ===========================================================================

@@ -267,7 +267,7 @@ locret_11938:
 ; ===========================================================================
 See_Speeds:	dc.w -8, -$1C, -$2F, -$1C, -8
 
-See_DataSlope:	binclude	"misc\slzssaw1.bin"
+See_DataSlope:	binclude	"misc/slzssaw1.bin"
 		even
-See_DataFlat:	binclude	"misc\slzssaw2.bin"
+See_DataFlat:	binclude	"misc/slzssaw2.bin"
 		even

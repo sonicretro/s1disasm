@@ -24,7 +24,7 @@ ESth_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.w	#-$20,obX(a0)	; object starts	outside	the level boundary
 		move.w	#$D8,obScreenY(a0)
-		move.l	#Map_ESTH,obMap(a0)
+		move.l	#Map_ESth,obMap(a0)
 		move.w	#$5C5,obGfx(a0)
 		move.b	#0,obRender(a0)
 		move.b	#0,obPriority(a0)

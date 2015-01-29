@@ -478,7 +478,7 @@ ErrorWaitForC:				; XREF: loc_478
 
 ; ===========================================================================
 
-Art_Text:	binclude	"artunc\menutext.bin" ; text used in level select and debug mode
+Art_Text:	binclude	"artunc/menutext.bin" ; text used in level select and debug mode
 		even
 
 ; ===========================================================================
@@ -1022,8 +1022,8 @@ SoundDriverLoad:			; XREF: GameClrRAM; GM_Title
 		rts	
 ; End of function SoundDriverLoad
 
-		include	"_incObj\sub PlaySound.asm"
-		include	"_inc\PauseGame.asm"
+		include	"_incObj/sub PlaySound.asm"
+		include	"_inc/PauseGame.asm"
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	copy a tile map from RAM to VRAM namespace
@@ -1054,7 +1054,7 @@ Tilemap_Cell:
 		rts	
 ; End of function TilemapToVRAM
 
-		include	"_inc\Nemesis Decompression.asm"
+		include	"_inc/Nemesis Decompression.asm"
 
 ; ---------------------------------------------------------------------------
 ; Subroutines to load pattern load cues
@@ -1277,33 +1277,33 @@ Qplc_Loop:
 		rts	
 ; End of function QuickPLC
 
-		include	"_inc\Enigma Decompression.asm"
-		include	"_inc\Kosinski Decompression.asm"
+		include	"_inc/Enigma Decompression.asm"
+		include	"_inc/Kosinski Decompression.asm"
 
-		include	"_inc\PaletteCycle.asm"
+		include	"_inc/PaletteCycle.asm"
 
-Pal_TitleCyc:	binclude	"palette\Cycle - Title Screen Water.bin"
-Pal_GHZCyc:	binclude	"palette\Cycle - GHZ.bin"
-Pal_LZCyc1:	binclude	"palette\Cycle - LZ Waterfall.bin"
-Pal_LZCyc2:	binclude	"palette\Cycle - LZ Conveyor Belt.bin"
-Pal_LZCyc3:	binclude	"palette\Cycle - LZ Conveyor Belt Underwater.bin"
-Pal_SBZ3Cyc1:	binclude	"palette\Cycle - SBZ3 Waterfall.bin"
-Pal_SLZCyc:	binclude	"palette\Cycle - SLZ.bin"
-Pal_SYZCyc1:	binclude	"palette\Cycle - SYZ1.bin"
-Pal_SYZCyc2:	binclude	"palette\Cycle - SYZ2.bin"
+Pal_TitleCyc:	binclude	"palette/Cycle - Title Screen Water.bin"
+Pal_GHZCyc:	binclude	"palette/Cycle - GHZ.bin"
+Pal_LZCyc1:	binclude	"palette/Cycle - LZ Waterfall.bin"
+Pal_LZCyc2:	binclude	"palette/Cycle - LZ Conveyor Belt.bin"
+Pal_LZCyc3:	binclude	"palette/Cycle - LZ Conveyor Belt Underwater.bin"
+Pal_SBZ3Cyc1:	binclude	"palette/Cycle - SBZ3 Waterfall.bin"
+Pal_SLZCyc:	binclude	"palette/Cycle - SLZ.bin"
+Pal_SYZCyc1:	binclude	"palette/Cycle - SYZ1.bin"
+Pal_SYZCyc2:	binclude	"palette/Cycle - SYZ2.bin"
 
-		include	"_inc\SBZ Palette Scripts.asm"
+		include	"_inc/SBZ Palette Scripts.asm"
 
-Pal_SBZCyc1:	binclude	"palette\Cycle - SBZ 1.bin"
-Pal_SBZCyc2:	binclude	"palette\Cycle - SBZ 2.bin"
-Pal_SBZCyc3:	binclude	"palette\Cycle - SBZ 3.bin"
-Pal_SBZCyc4:	binclude	"palette\Cycle - SBZ 4.bin"
-Pal_SBZCyc5:	binclude	"palette\Cycle - SBZ 5.bin"
-Pal_SBZCyc6:	binclude	"palette\Cycle - SBZ 6.bin"
-Pal_SBZCyc7:	binclude	"palette\Cycle - SBZ 7.bin"
-Pal_SBZCyc8:	binclude	"palette\Cycle - SBZ 8.bin"
-Pal_SBZCyc9:	binclude	"palette\Cycle - SBZ 9.bin"
-Pal_SBZCyc10:	binclude	"palette\Cycle - SBZ 10.bin"
+Pal_SBZCyc1:	binclude	"palette/Cycle - SBZ 1.bin"
+Pal_SBZCyc2:	binclude	"palette/Cycle - SBZ 2.bin"
+Pal_SBZCyc3:	binclude	"palette/Cycle - SBZ 3.bin"
+Pal_SBZCyc4:	binclude	"palette/Cycle - SBZ 4.bin"
+Pal_SBZCyc5:	binclude	"palette/Cycle - SBZ 5.bin"
+Pal_SBZCyc6:	binclude	"palette/Cycle - SBZ 6.bin"
+Pal_SBZCyc7:	binclude	"palette/Cycle - SBZ 7.bin"
+Pal_SBZCyc8:	binclude	"palette/Cycle - SBZ 8.bin"
+Pal_SBZCyc9:	binclude	"palette/Cycle - SBZ 9.bin"
+Pal_SBZCyc10:	binclude	"palette/Cycle - SBZ 10.bin"
 ; ---------------------------------------------------------------------------
 ; Subroutine to	fade in from black
 ; ---------------------------------------------------------------------------
@@ -1786,8 +1786,8 @@ loc_20BC:
 
 ; ===========================================================================
 
-Pal_Sega1:	binclude	"palette\Sega1.bin"
-Pal_Sega2:	binclude	"palette\Sega2.bin"
+Pal_Sega1:	binclude	"palette/Sega1.bin"
+Pal_Sega2:	binclude	"palette/Sega2.bin"
 
 ; ---------------------------------------------------------------------------
 ; Subroutines to load palettes
@@ -1875,31 +1875,31 @@ PalLoad4_Water:
 
 ; ===========================================================================
 
-		include	"_inc\Palette Pointers.asm"
+		include	"_inc/Palette Pointers.asm"
 
 ; ---------------------------------------------------------------------------
 ; Palette data
 ; ---------------------------------------------------------------------------
-Pal_SegaBG:	binclude	"palette\Sega Background.bin"
-Pal_Title:	binclude	"palette\Title Screen.bin"
-Pal_LevelSel:	binclude	"palette\Level Select.bin"
-Pal_Sonic:	binclude	"palette\Sonic.bin"
-Pal_GHZ:	binclude	"palette\Green Hill Zone.bin"
-Pal_LZ:		binclude	"palette\Labyrinth Zone.bin"
-Pal_LZWater:	binclude	"palette\Labyrinth Zone Underwater.bin"
-Pal_MZ:		binclude	"palette\Marble Zone.bin"
-Pal_SLZ:	binclude	"palette\Star Light Zone.bin"
-Pal_SYZ:	binclude	"palette\Spring Yard Zone.bin"
-Pal_SBZ1:	binclude	"palette\SBZ Act 1.bin"
-Pal_SBZ2:	binclude	"palette\SBZ Act 2.bin"
-Pal_Special:	binclude	"palette\Special Stage.bin"
-Pal_SBZ3:	binclude	"palette\SBZ Act 3.bin"
-Pal_SBZ3Water:	binclude	"palette\SBZ Act 3 Underwater.bin"
-Pal_LZSonWater:	binclude	"palette\Sonic - LZ Underwater.bin"
-Pal_SBZ3SonWat:	binclude	"palette\Sonic - SBZ3 Underwater.bin"
-Pal_SSResult:	binclude	"palette\Special Stage Results.bin"
-Pal_Continue:	binclude	"palette\Special Stage Continue Bonus.bin"
-Pal_Ending:	binclude	"palette\Ending.bin"
+Pal_SegaBG:	binclude	"palette/Sega Background.bin"
+Pal_Title:	binclude	"palette/Title Screen.bin"
+Pal_LevelSel:	binclude	"palette/Level Select.bin"
+Pal_Sonic:	binclude	"palette/Sonic.bin"
+Pal_GHZ:	binclude	"palette/Green Hill Zone.bin"
+Pal_LZ:		binclude	"palette/Labyrinth Zone.bin"
+Pal_LZWater:	binclude	"palette/Labyrinth Zone Underwater.bin"
+Pal_MZ:		binclude	"palette/Marble Zone.bin"
+Pal_SLZ:	binclude	"palette/Star Light Zone.bin"
+Pal_SYZ:	binclude	"palette/Spring Yard Zone.bin"
+Pal_SBZ1:	binclude	"palette/SBZ Act 1.bin"
+Pal_SBZ2:	binclude	"palette/SBZ Act 2.bin"
+Pal_Special:	binclude	"palette/Special Stage.bin"
+Pal_SBZ3:	binclude	"palette/SBZ Act 3.bin"
+Pal_SBZ3Water:	binclude	"palette/SBZ Act 3 Underwater.bin"
+Pal_LZSonWater:	binclude	"palette/Sonic - LZ Underwater.bin"
+Pal_SBZ3SonWat:	binclude	"palette/Sonic - SBZ3 Underwater.bin"
+Pal_SSResult:	binclude	"palette/Special Stage Results.bin"
+Pal_Continue:	binclude	"palette/Special Stage Continue Bonus.bin"
+Pal_Ending:	binclude	"palette/Ending.bin"
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	wait for VBlank routines to complete
@@ -1917,9 +1917,9 @@ WaitForVBla:				; XREF: PauseGame
 		rts	
 ; End of function WaitForVBla
 
-		include	"_incObj\sub RandomNumber.asm"
-		include	"_incObj\sub CalcSine.asm"
-		include	"_incObj\sub CalcAngle.asm"
+		include	"_incObj/sub RandomNumber.asm"
+		include	"_incObj/sub CalcSine.asm"
+		include	"_incObj/sub CalcAngle.asm"
 
 ; ---------------------------------------------------------------------------
 ; Sega screen
@@ -2458,7 +2458,7 @@ Demo_Level:
 ; ---------------------------------------------------------------------------
 ; Levels used in demos
 ; ---------------------------------------------------------------------------
-Demo_Levels:	binclude	"misc\Demo Level Order - Intro.bin"
+Demo_Levels:	binclude	"misc/Demo Level Order - Intro.bin"
 		even
 
 ; ---------------------------------------------------------------------------
@@ -2631,9 +2631,9 @@ LevSel_CharOk:
 ; Level	select menu text
 ; ---------------------------------------------------------------------------
 LevelMenuText:	if Revision=0
-		binclude	"misc\Level Select Text.bin"
+		binclude	"misc/Level Select Text.bin"
 		else
-		binclude	"misc\Level Select Text (JP1).bin"
+		binclude	"misc/Level Select Text (JP1).bin"
 		endif
 		even
 ; ---------------------------------------------------------------------------
@@ -3000,8 +3000,8 @@ loc_3BC8:
 		rts	
 ; ===========================================================================
 
-		include	"_inc\LZWaterFeatures.asm"
-		include	"_inc\MoveSonicInDemo.asm"
+		include	"_inc/LZWaterFeatures.asm"
+		include	"_inc/MoveSonicInDemo.asm"
 
 ; ---------------------------------------------------------------------------
 ; Collision index pointer loading subroutine
@@ -3031,7 +3031,7 @@ ColPointers:	dc.l Col_GHZ
 ;		dc.l Col_GHZ ; Pointer for Ending is missing by default.
 		zonewarningnoending ColPointers,4
 
-		include	"_inc\Oscillatory Routines.asm"
+		include	"_inc/Oscillatory Routines.asm"
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	change synchronised animation variables (rings, giant rings)
@@ -3116,10 +3116,10 @@ SignpostArtLoad:			; XREF: GM_Level
 ; End of function SignpostArtLoad
 
 ; ===========================================================================
-Demo_GHZ:	binclude	"demodata\Intro - GHZ.bin"
-Demo_MZ:	binclude	"demodata\Intro - MZ.bin"
-Demo_SYZ:	binclude	"demodata\Intro - SYZ.bin"
-Demo_SS:	binclude	"demodata\Intro - Special Stage.bin"
+Demo_GHZ:	binclude	"demodata/Intro - GHZ.bin"
+Demo_MZ:	binclude	"demodata/Intro - MZ.bin"
+Demo_SYZ:	binclude	"demodata/Intro - SYZ.bin"
+Demo_SS:	binclude	"demodata/Intro - Special Stage.bin"
 ; ===========================================================================
 
 ; ---------------------------------------------------------------------------
@@ -3507,9 +3507,9 @@ byte_4A3C:	dc.b 3,	0, 7, $92, 3, 0, 7, $90, 3, 0, 7, $8E, 3, 0, 7,	$8C
 byte_4ABC:	dc.b $10, 1, $18, 0, $18, 1, $20, 0, $20, 1, $28, 0, $28, 1
 		even
 
-Pal_SSCyc1:	binclude	"palette\Cycle - Special Stage 1.bin"
+Pal_SSCyc1:	binclude	"palette/Cycle - Special Stage 1.bin"
 		even
-Pal_SSCyc2:	binclude	"palette\Cycle - Special Stage 2.bin"
+Pal_SSCyc2:	binclude	"palette/Cycle - Special Stage 2.bin"
 		even
 
 ; ---------------------------------------------------------------------------
@@ -3711,10 +3711,10 @@ Cont_GotoLevel:
 		rts	
 ; ===========================================================================
 
-		include	"_incObj\80 Continue Screen Elements.asm"
-		include	"_incObj\81 Continue Screen Sonic.asm"
-		include	"_anim\Continue Screen Sonic.asm"
-		include	"_maps\Continue Screen.asm"
+		include	"_incObj/80 Continue Screen Elements.asm"
+		include	"_incObj/81 Continue Screen Sonic.asm"
+		include	"_anim/Continue Screen Sonic.asm"
+		include	"_maps/Continue Screen.asm"
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -3947,13 +3947,13 @@ End_MoveSonExit:
 
 ; ===========================================================================
 
-		include	"_incObj\87 Ending Sequence Sonic.asm"
-		include "_anim\Ending Sequence Sonic.asm"
-		include	"_incObj\88 Ending Sequence Emeralds.asm"
-		include	"_incObj\89 Ending Sequence STH.asm"
-		include	"_maps\Ending Sequence Sonic.asm"
-		include	"_maps\Ending Sequence Emeralds.asm"
-		include	"_maps\Ending Sequence STH.asm"
+		include	"_incObj/87 Ending Sequence Sonic.asm"
+		include "_anim/Ending Sequence Sonic.asm"
+		include	"_incObj/88 Ending Sequence Emeralds.asm"
+		include	"_incObj/89 Ending Sequence STH.asm"
+		include	"_maps/Ending Sequence Sonic.asm"
+		include	"_maps/Ending Sequence Emeralds.asm"
+		include	"_maps/Ending Sequence STH.asm"
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -4068,7 +4068,7 @@ EndDemo_Exit:
 ; ---------------------------------------------------------------------------
 ; Levels used in the end sequence demos
 ; ---------------------------------------------------------------------------
-EndDemo_Levels:	binclude	"misc\Demo Level Order - Ending.bin"
+EndDemo_Levels:	binclude	"misc/Demo Level Order - Ending.bin"
 
 ; ---------------------------------------------------------------------------
 ; Lamppost variables in the end sequence demo (Star Light Zone)
@@ -4151,37 +4151,37 @@ TryAg_Exit:
 
 ; ===========================================================================
 
-		include	"_incObj\8B Try Again & End Eggman.asm"
-		include "_anim\Try Again & End Eggman.asm"
-		include	"_incObj\8C Try Again Emeralds.asm"
-		include	"_maps\Try Again & End Eggman.asm"
+		include	"_incObj/8B Try Again & End Eggman.asm"
+		include "_anim/Try Again & End Eggman.asm"
+		include	"_incObj/8C Try Again Emeralds.asm"
+		include	"_maps/Try Again & End Eggman.asm"
 
 ; ---------------------------------------------------------------------------
 ; Ending sequence demos
 ; ---------------------------------------------------------------------------
-Demo_EndGHZ1:	binclude	"demodata\Ending - GHZ1.bin"
+Demo_EndGHZ1:	binclude	"demodata/Ending - GHZ1.bin"
 		even
-Demo_EndMZ:	binclude	"demodata\Ending - MZ.bin"
+Demo_EndMZ:	binclude	"demodata/Ending - MZ.bin"
 		even
-Demo_EndSYZ:	binclude	"demodata\Ending - SYZ.bin"
+Demo_EndSYZ:	binclude	"demodata/Ending - SYZ.bin"
 		even
-Demo_EndLZ:	binclude	"demodata\Ending - LZ.bin"
+Demo_EndLZ:	binclude	"demodata/Ending - LZ.bin"
 		even
-Demo_EndSLZ:	binclude	"demodata\Ending - SLZ.bin"
+Demo_EndSLZ:	binclude	"demodata/Ending - SLZ.bin"
 		even
-Demo_EndSBZ1:	binclude	"demodata\Ending - SBZ1.bin"
+Demo_EndSBZ1:	binclude	"demodata/Ending - SBZ1.bin"
 		even
-Demo_EndSBZ2:	binclude	"demodata\Ending - SBZ2.bin"
+Demo_EndSBZ2:	binclude	"demodata/Ending - SBZ2.bin"
 		even
-Demo_EndGHZ2:	binclude	"demodata\Ending - GHZ2.bin"
+Demo_EndGHZ2:	binclude	"demodata/Ending - GHZ2.bin"
 		even
 
 		if Revision=0
-		include	"_inc\LevelSizeLoad & BgScrollSpeed.asm"
-		include	"_inc\DeformLayers.asm"
+		include	"_inc/LevelSizeLoad & BgScrollSpeed.asm"
+		include	"_inc/DeformLayers.asm"
 		else
-		include	"_inc\LevelSizeLoad & BgScrollSpeed (JP1).asm"
-		include	"_inc\DeformLayers (JP1).asm"
+		include	"_inc/LevelSizeLoad & BgScrollSpeed (JP1).asm"
+		include	"_inc/DeformLayers (JP1).asm"
 		endif
 
 
@@ -5171,9 +5171,9 @@ LevLoad_Row:
 		rts	
 ; End of function LevelLayoutLoad2
 
-		include	"_inc\DynamicLevelEvents.asm"
+		include	"_inc/DynamicLevelEvents.asm"
 
-		include	"_incObj\11 Bridge (part 1).asm"
+		include	"_incObj/11 Bridge (part 1).asm"
 
 ; ---------------------------------------------------------------------------
 ; Platform subroutine
@@ -5312,7 +5312,7 @@ Swing_Solid:				; XREF: Obj15_SetSolid
 
 ; ===========================================================================
 
-		include	"_incObj\11 Bridge (part 2).asm"
+		include	"_incObj/11 Bridge (part 2).asm"
 
 ; ---------------------------------------------------------------------------
 ; Subroutine allowing Sonic to walk or jump off	a platform
@@ -5345,10 +5345,10 @@ locret_75F2:
 		rts	
 ; End of function ExitPlatform
 
-		include	"_incObj\11 Bridge (part 3).asm"
-		include	"_maps\Bridge.asm"
+		include	"_incObj/11 Bridge (part 3).asm"
+		include	"_maps/Bridge.asm"
 
-		include	"_incObj\15 Swinging Platforms (part 1).asm"
+		include	"_incObj/15 Swinging Platforms (part 1).asm"
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	change Sonic's position with a platform
@@ -5394,20 +5394,20 @@ locret_7B62:
 		rts	
 ; End of function MvSonicOnPtfm2
 
-		include	"_incObj\15 Swinging Platforms (part 2).asm"
-		include	"_maps\Swinging Platforms (GHZ).asm"
-		include	"_maps\Swinging Platforms (SLZ).asm"
-		include	"_incObj\17 Spiked Pole Helix.asm"
-		include	"_maps\Spiked Pole Helix.asm"
-		include	"_incObj\18 Platforms.asm"
-		include	"_maps\Platforms (unused).asm"
-		include	"_maps\Platforms (GHZ).asm"
-		include	"_maps\Platforms (SYZ).asm"
-		include	"_maps\Platforms (SLZ).asm"
-		include	"_incObj\19.asm"
-		include	"_maps\GHZ Ball.asm"
-		include	"_incObj\1A Collapsing Ledge (part 1).asm"
-		include	"_incObj\53 Collapsing Floors.asm"
+		include	"_incObj/15 Swinging Platforms (part 2).asm"
+		include	"_maps/Swinging Platforms (GHZ).asm"
+		include	"_maps/Swinging Platforms (SLZ).asm"
+		include	"_incObj/17 Spiked Pole Helix.asm"
+		include	"_maps/Spiked Pole Helix.asm"
+		include	"_incObj/18 Platforms.asm"
+		include	"_maps/Platforms (unused).asm"
+		include	"_maps/Platforms (GHZ).asm"
+		include	"_maps/Platforms (SYZ).asm"
+		include	"_maps/Platforms (SLZ).asm"
+		include	"_incObj/19.asm"
+		include	"_maps/GHZ Ball.asm"
+		include	"_incObj/1A Collapsing Ledge (part 1).asm"
+		include	"_incObj/53 Collapsing Floors.asm"
 
 ; ===========================================================================
 
@@ -5509,21 +5509,21 @@ locret_856E:
 ; Collision data for GHZ collapsing ledge
 ; ---------------------------------------------------------------------------
 Ledge_SlopeData:
-		binclude	"misc\GHZ Collapsing Ledge Heightmap.bin"
+		binclude	"misc/GHZ Collapsing Ledge Heightmap.bin"
 		even
 
-		include	"_maps\Collapsing Ledge.asm"
-		include	"_maps\Collapsing Floors.asm"
+		include	"_maps/Collapsing Ledge.asm"
+		include	"_maps/Collapsing Floors.asm"
 
-		include	"_incObj\1C Scenery.asm"
-		include	"_maps\Scenery.asm"
+		include	"_incObj/1C Scenery.asm"
+		include	"_maps/Scenery.asm"
 
-		include	"_incObj\1D Unused Switch.asm"
-		include	"_maps\Unused Switch.asm"
+		include	"_incObj/1D Unused Switch.asm"
+		include	"_maps/Unused Switch.asm"
 
-		include	"_incObj\2A SBZ Small Door.asm"
-		include	"_anim\SBZ Small Door.asm"
-		include	"_maps\SBZ Small Door.asm"
+		include	"_incObj/2A SBZ Small Door.asm"
+		include	"_anim/SBZ Small Door.asm"
+		include	"_maps/SBZ Small Door.asm"
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
@@ -5648,93 +5648,93 @@ loc_8B48:
 
 ; ===========================================================================
 
-		include	"_incObj\1E Ball Hog.asm"
-		include	"_incObj\20 Cannonball.asm"
-		include	"_incObj\24, 27 & 3F Explosions.asm"
-		include	"_anim\Ball Hog.asm"
-		include	"_maps\Ball Hog.asm"
-		include	"_maps\Buzz Bomber Missile Dissolve.asm"
-		include	"_maps\Explosions.asm"
+		include	"_incObj/1E Ball Hog.asm"
+		include	"_incObj/20 Cannonball.asm"
+		include	"_incObj/24, 27 & 3F Explosions.asm"
+		include	"_anim/Ball Hog.asm"
+		include	"_maps/Ball Hog.asm"
+		include	"_maps/Buzz Bomber Missile Dissolve.asm"
+		include	"_maps/Explosions.asm"
 
-		include	"_incObj\28 Animals.asm"
-		include	"_incObj\29 Points.asm"
-		include	"_maps\Animals 1.asm"
-		include	"_maps\Animals 2.asm"
-		include	"_maps\Animals 3.asm"
-		include	"_maps\Points.asm"
+		include	"_incObj/28 Animals.asm"
+		include	"_incObj/29 Points.asm"
+		include	"_maps/Animals 1.asm"
+		include	"_maps/Animals 2.asm"
+		include	"_maps/Animals 3.asm"
+		include	"_maps/Points.asm"
 
-		include	"_incObj\1F Crabmeat.asm"
-		include	"_anim\Crabmeat.asm"
-		include	"_maps\Crabmeat.asm"
-		include	"_incObj\22 Buzz Bomber.asm"
-		include	"_incObj\23 Buzz Bomber Missile.asm"
-		include	"_anim\Buzz Bomber.asm"
-		include	"_anim\Buzz Bomber Missile.asm"
-		include	"_maps\Buzz Bomber.asm"
-		include	"_maps\Buzz Bomber Missile.asm"
+		include	"_incObj/1F Crabmeat.asm"
+		include	"_anim/Crabmeat.asm"
+		include	"_maps/Crabmeat.asm"
+		include	"_incObj/22 Buzz Bomber.asm"
+		include	"_incObj/23 Buzz Bomber Missile.asm"
+		include	"_anim/Buzz Bomber.asm"
+		include	"_anim/Buzz Bomber Missile.asm"
+		include	"_maps/Buzz Bomber.asm"
+		include	"_maps/Buzz Bomber Missile.asm"
 
-		include	"_incObj\25 & 37 Rings.asm"
-		include	"_incObj\4B Giant Ring.asm"
-		include	"_incObj\7C Ring Flash.asm"
+		include	"_incObj/25 & 37 Rings.asm"
+		include	"_incObj/4B Giant Ring.asm"
+		include	"_incObj/7C Ring Flash.asm"
 
-		include	"_anim\Rings.asm"
+		include	"_anim/Rings.asm"
 		if Revision=0
-		include	"_maps\Rings.asm"
+		include	"_maps/Rings.asm"
 		else
-			include	"_maps\Rings (JP1).asm"
+			include	"_maps/Rings (JP1).asm"
 		endif
-		include	"_maps\Giant Ring.asm"
-		include	"_maps\Ring Flash.asm"
-		include	"_incObj\26 Monitor.asm"
-		include	"_incObj\2E Monitor Content Power-Up.asm"
-		include	"_incObj\26 Monitor (SolidSides subroutine).asm"
-		include	"_anim\Monitor.asm"
-		include	"_maps\Monitor.asm"
+		include	"_maps/Giant Ring.asm"
+		include	"_maps/Ring Flash.asm"
+		include	"_incObj/26 Monitor.asm"
+		include	"_incObj/2E Monitor Content Power-Up.asm"
+		include	"_incObj/26 Monitor (SolidSides subroutine).asm"
+		include	"_anim/Monitor.asm"
+		include	"_maps/Monitor.asm"
 
-		include	"_incObj\0E Title Screen Sonic.asm"
-		include	"_incObj\0F Press Start and TM.asm"
+		include	"_incObj/0E Title Screen Sonic.asm"
+		include	"_incObj/0F Press Start and TM.asm"
 
-		include	"_anim\Title Screen Sonic.asm"
-		include	"_anim\Press Start and TM.asm"
+		include	"_anim/Title Screen Sonic.asm"
+		include	"_anim/Press Start and TM.asm"
 
-		include	"_incObj\sub AnimateSprite.asm"
+		include	"_incObj/sub AnimateSprite.asm"
 
-		include	"_maps\Press Start and TM.asm"
-		include	"_maps\Title Screen Sonic.asm"
+		include	"_maps/Press Start and TM.asm"
+		include	"_maps/Title Screen Sonic.asm"
 
-		include	"_incObj\2B Chopper.asm"
-		include	"_anim\Chopper.asm"
-		include	"_maps\Chopper.asm"
-		include	"_incObj\2C Jaws.asm"
-		include	"_anim\Jaws.asm"
-		include	"_maps\Jaws.asm"
-		include	"_incObj\2D Burrobot.asm"
-		include	"_anim\Burrobot.asm"
-		include	"_maps\Burrobot.asm"
+		include	"_incObj/2B Chopper.asm"
+		include	"_anim/Chopper.asm"
+		include	"_maps/Chopper.asm"
+		include	"_incObj/2C Jaws.asm"
+		include	"_anim/Jaws.asm"
+		include	"_maps/Jaws.asm"
+		include	"_incObj/2D Burrobot.asm"
+		include	"_anim/Burrobot.asm"
+		include	"_maps/Burrobot.asm"
 
-		include	"_incObj\2F MZ Large Grassy Platforms.asm"
-		include	"_incObj\35 Burning Grass.asm"
-		include	"_anim\Burning Grass.asm"
-		include	"_maps\MZ Large Grassy Platforms.asm"
-		include	"_maps\Fireballs.asm"
-		include	"_incObj\30 MZ Large Green Glass Blocks.asm"
-		include	"_maps\MZ Large Green Glass Blocks.asm"
-		include	"_incObj\31 Chained Stompers.asm"
-		include	"_incObj\45 Sideways Stomper.asm"
-		include	"_maps\Chained Stompers.asm"
-		include	"_maps\Sideways Stomper.asm"
+		include	"_incObj/2F MZ Large Grassy Platforms.asm"
+		include	"_incObj/35 Burning Grass.asm"
+		include	"_anim/Burning Grass.asm"
+		include	"_maps/MZ Large Grassy Platforms.asm"
+		include	"_maps/Fireballs.asm"
+		include	"_incObj/30 MZ Large Green Glass Blocks.asm"
+		include	"_maps/MZ Large Green Glass Blocks.asm"
+		include	"_incObj/31 Chained Stompers.asm"
+		include	"_incObj/45 Sideways Stomper.asm"
+		include	"_maps/Chained Stompers.asm"
+		include	"_maps/Sideways Stomper.asm"
 
-		include	"_incObj\32 Button.asm"
-		include	"_maps\Button.asm"
+		include	"_incObj/32 Button.asm"
+		include	"_maps/Button.asm"
 
-		include	"_incObj\33 Pushable Blocks.asm"
-		include	"_maps\Pushable Blocks.asm"
+		include	"_incObj/33 Pushable Blocks.asm"
+		include	"_maps/Pushable Blocks.asm"
 
-		include	"_incObj\34 Title Cards.asm"
-		include	"_incObj\39 Game Over.asm"
-		include	"_incObj\3A Got Through Card.asm"
-		include	"_incObj\7E Special Stage Results.asm"
-		include	"_incObj\7F SS Result Chaos Emeralds.asm"
+		include	"_incObj/34 Title Cards.asm"
+		include	"_incObj/39 Game Over.asm"
+		include	"_incObj/3A Got Through Card.asm"
+		include	"_incObj/7E Special Stage Results.asm"
+		include	"_incObj/7F SS Result Chaos Emeralds.asm"
 
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - zone title cards
@@ -5854,7 +5854,7 @@ M_Card_FZ:	dc.b 5			; FINAL
 		dc.b $F8, 5, 0,	$26, $14
 		even
 
-		include	"_maps\Game Over.asm"
+		include	"_maps/Game Over.asm"
 
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - "SONIC HAS PASSED" title card
@@ -5994,16 +5994,16 @@ byte_CDA8:	dc.b $F			; "SONIC GOT THEM ALL"
 		dc.b $F8, 5, 0,	$26, $78
 		even
 
-		include	"_maps\SS Result Chaos Emeralds.asm"
+		include	"_maps/SS Result Chaos Emeralds.asm"
 
-		include	"_incObj\36 Spikes.asm"
-		include	"_maps\Spikes.asm"
-		include	"_incObj\3B Purple Rock.asm"
-		include	"_incObj\49 Waterfall Sound.asm"
-		include	"_maps\Purple Rock.asm"
-		include	"_incObj\3C Smashable Wall.asm"
+		include	"_incObj/36 Spikes.asm"
+		include	"_maps/Spikes.asm"
+		include	"_incObj/3B Purple Rock.asm"
+		include	"_incObj/49 Waterfall Sound.asm"
+		include	"_maps/Purple Rock.asm"
+		include	"_incObj/3C Smashable Wall.asm"
 
-		include	"_incObj\sub SmashObject.asm"
+		include	"_incObj/sub SmashObject.asm"
 
 ; ===========================================================================
 ; Smashed block	fragment speeds
@@ -6026,7 +6026,7 @@ Smash_FragSpd2:	dc.w -$600, -$600
 		dc.w -$600, $100
 		dc.w -$400, $500
 
-		include	"_maps\Smashable Walls.asm"
+		include	"_maps/Smashable Walls.asm"
 
 ; ---------------------------------------------------------------------------
 ; Object code execution subroutine
@@ -6083,12 +6083,12 @@ loc_D37C:
 ; Object pointers
 ; ---------------------------------------------------------------------------
 Obj_Index:
-		include	"_inc\Object Pointers.asm"
+		include	"_inc/Object Pointers.asm"
 
-		include	"_incObj\sub ObjectFall.asm"
-		include	"_incObj\sub SpeedToPos.asm"
-		include	"_incObj\sub DisplaySprite.asm"
-		include	"_incObj\sub DeleteObject.asm"
+		include	"_incObj/sub ObjectFall.asm"
+		include	"_incObj/sub SpeedToPos.asm"
+		include	"_incObj/sub DisplaySprite.asm"
+		include	"_incObj/sub DeleteObject.asm"
 
 ; ===========================================================================
 BldSpr_ScrPos:	dc.l 0			; blank
@@ -6373,7 +6373,7 @@ loc_D876:
 locret_D87C:
 		rts	
 
-		include	"_incObj\sub ChkObjectVisible.asm"
+		include	"_incObj/sub ChkObjectVisible.asm"
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	load a level's objects
@@ -6597,129 +6597,129 @@ loc_DA80:
 locret_DA8A:
 		rts	
 
-		include	"_incObj\sub FindFreeObj.asm"
-		include	"_incObj\41 Springs.asm"
-		include	"_anim\Springs.asm"
-		include	"_maps\Springs.asm"
+		include	"_incObj/sub FindFreeObj.asm"
+		include	"_incObj/41 Springs.asm"
+		include	"_anim/Springs.asm"
+		include	"_maps/Springs.asm"
 
-		include	"_incObj\42 Newtron.asm"
-		include	"_anim\Newtron.asm"
-		include	"_maps\Newtron.asm"
-		include	"_incObj\43 Roller.asm"
-		include	"_anim\Roller.asm"
-		include	"_maps\Roller.asm"
+		include	"_incObj/42 Newtron.asm"
+		include	"_anim/Newtron.asm"
+		include	"_maps/Newtron.asm"
+		include	"_incObj/43 Roller.asm"
+		include	"_anim/Roller.asm"
+		include	"_maps/Roller.asm"
 
-		include	"_incObj\44 GHZ Edge Walls.asm"
-		include	"_maps\GHZ Edge Walls.asm"
+		include	"_incObj/44 GHZ Edge Walls.asm"
+		include	"_maps/GHZ Edge Walls.asm"
 
-		include	"_incObj\13 Lava Ball Maker.asm"
-		include	"_incObj\14 Lava Ball.asm"
-		include	"_anim\Fireballs.asm"
+		include	"_incObj/13 Lava Ball Maker.asm"
+		include	"_incObj/14 Lava Ball.asm"
+		include	"_anim/Fireballs.asm"
 
-		include	"_incObj\6D Flamethrower.asm"
-		include	"_anim\Flamethrower.asm"
-		include	"_maps\Flamethrower.asm"
+		include	"_incObj/6D Flamethrower.asm"
+		include	"_anim/Flamethrower.asm"
+		include	"_maps/Flamethrower.asm"
 
-		include	"_incObj\46 MZ Bricks.asm"
-		include	"_maps\MZ Bricks.asm"
+		include	"_incObj/46 MZ Bricks.asm"
+		include	"_maps/MZ Bricks.asm"
 
-		include	"_incObj\12 Light.asm"
-		include	"_maps\Light.asm"
-		include	"_incObj\47 Bumper.asm"
-		include	"_anim\Bumper.asm"
-		include	"_maps\Bumper.asm"
+		include	"_incObj/12 Light.asm"
+		include	"_maps/Light.asm"
+		include	"_incObj/47 Bumper.asm"
+		include	"_anim/Bumper.asm"
+		include	"_maps/Bumper.asm"
 
-		include	"_incObj\0D Signpost.asm" ; includes "GotThroughAct" subroutine
-		include	"_anim\Signpost.asm"
-		include	"_maps\Signpost.asm"
+		include	"_incObj/0D Signpost.asm" ; includes "GotThroughAct" subroutine
+		include	"_anim/Signpost.asm"
+		include	"_maps/Signpost.asm"
 
-		include	"_incObj\4C & 4D Lava Geyser Maker.asm"
-		include	"_incObj\4E Wall of Lava.asm"
-		include	"_incObj\54 Lava Tag.asm"
-		include	"_maps\Lava Tag.asm"
-		include	"_anim\Lava Geyser.asm"
-		include	"_anim\Wall of Lava.asm"
-		include	"_maps\Lava Geyser.asm"
-		include	"_maps\Wall of Lava.asm"
+		include	"_incObj/4C & 4D Lava Geyser Maker.asm"
+		include	"_incObj/4E Wall of Lava.asm"
+		include	"_incObj/54 Lava Tag.asm"
+		include	"_maps/Lava Tag.asm"
+		include	"_anim/Lava Geyser.asm"
+		include	"_anim/Wall of Lava.asm"
+		include	"_maps/Lava Geyser.asm"
+		include	"_maps/Wall of Lava.asm"
 
-		include	"_incObj\40 Moto Bug.asm" ; includes "_incObj\sub RememberState.asm"
-		include	"_anim\Moto Bug.asm"
-		include	"_maps\Moto Bug.asm"
-		include	"_incObj\4F.asm"
+		include	"_incObj/40 Moto Bug.asm" ; includes "_incObj/sub RememberState.asm"
+		include	"_anim/Moto Bug.asm"
+		include	"_maps/Moto Bug.asm"
+		include	"_incObj/4F.asm"
 
-		include	"_incObj\50 Yadrin.asm"
-		include	"_anim\Yadrin.asm"
-		include	"_maps\Yadrin.asm"
+		include	"_incObj/50 Yadrin.asm"
+		include	"_anim/Yadrin.asm"
+		include	"_maps/Yadrin.asm"
 
-		include	"_incObj\sub SolidObject.asm"
+		include	"_incObj/sub SolidObject.asm"
 
-		include	"_incObj\51 Smashable Green Block.asm"
-		include	"_maps\Smashable Green Block.asm"
+		include	"_incObj/51 Smashable Green Block.asm"
+		include	"_maps/Smashable Green Block.asm"
 
-		include	"_incObj\52 Moving Blocks.asm"
-		include	"_maps\Moving Blocks (MZ and SBZ).asm"
-		include	"_maps\Moving Blocks (LZ).asm"
+		include	"_incObj/52 Moving Blocks.asm"
+		include	"_maps/Moving Blocks (MZ and SBZ).asm"
+		include	"_maps/Moving Blocks (LZ).asm"
 
-		include	"_incObj\55 Basaran.asm"
-		include	"_anim\Basaran.asm"
-		include	"_maps\Basaran.asm"
+		include	"_incObj/55 Basaran.asm"
+		include	"_anim/Basaran.asm"
+		include	"_maps/Basaran.asm"
 
-		include	"_incObj\56 Floating Blocks and Doors.asm"
-		include	"_maps\Floating Blocks and Doors.asm"
+		include	"_incObj/56 Floating Blocks and Doors.asm"
+		include	"_maps/Floating Blocks and Doors.asm"
 
-		include	"_incObj\57 Spiked Ball and Chain.asm"
-		include	"_maps\Spiked Ball and Chain (SYZ).asm"
-		include	"_maps\Spiked Ball and Chain (LZ).asm"
-		include	"_incObj\58 Big Spiked Ball.asm"
-		include	"_maps\Big Spiked Ball.asm"
-		include	"_incObj\59 SLZ Elevators.asm"
-		include	"_maps\SLZ Elevators.asm"
-		include	"_incObj\5A SLZ Circling Platform.asm"
-		include	"_maps\SLZ Circling Platform.asm"
-		include	"_incObj\5B Staircase.asm"
-		include	"_maps\Staircase.asm"
-		include	"_incObj\5C Pylon.asm"
-		include	"_maps\Pylon.asm"
+		include	"_incObj/57 Spiked Ball and Chain.asm"
+		include	"_maps/Spiked Ball and Chain (SYZ).asm"
+		include	"_maps/Spiked Ball and Chain (LZ).asm"
+		include	"_incObj/58 Big Spiked Ball.asm"
+		include	"_maps/Big Spiked Ball.asm"
+		include	"_incObj/59 SLZ Elevators.asm"
+		include	"_maps/SLZ Elevators.asm"
+		include	"_incObj/5A SLZ Circling Platform.asm"
+		include	"_maps/SLZ Circling Platform.asm"
+		include	"_incObj/5B Staircase.asm"
+		include	"_maps/Staircase.asm"
+		include	"_incObj/5C Pylon.asm"
+		include	"_maps/Pylon.asm"
 
-		include	"_incObj\1B Water Surface.asm"
-		include	"_maps\Water Surface.asm"
-		include	"_incObj\0B Pole that Breaks.asm"
-		include	"_maps\Pole that Breaks.asm"
-		include	"_incObj\0C Flapping Door.asm"
-		include	"_anim\Flapping Door.asm"
-		include	"_maps\Flapping Door.asm"
+		include	"_incObj/1B Water Surface.asm"
+		include	"_maps/Water Surface.asm"
+		include	"_incObj/0B Pole that Breaks.asm"
+		include	"_maps/Pole that Breaks.asm"
+		include	"_incObj/0C Flapping Door.asm"
+		include	"_anim/Flapping Door.asm"
+		include	"_maps/Flapping Door.asm"
 
-		include	"_incObj\71 Invisible Barriers.asm"
-		include	"_maps\Invisible Barriers.asm"
+		include	"_incObj/71 Invisible Barriers.asm"
+		include	"_maps/Invisible Barriers.asm"
 
-		include	"_incObj\5D Fan.asm"
-		include	"_maps\Fan.asm"
-		include	"_incObj\5E Seesaw.asm"
-		include	"_maps\Seesaw.asm"
-		include	"_maps\Seesaw Ball.asm"
-		include	"_incObj\5F Bomb Enemy.asm"
-		include	"_anim\Bomb Enemy.asm"
-		include	"_maps\Bomb Enemy.asm"
+		include	"_incObj/5D Fan.asm"
+		include	"_maps/Fan.asm"
+		include	"_incObj/5E Seesaw.asm"
+		include	"_maps/Seesaw.asm"
+		include	"_maps/Seesaw Ball.asm"
+		include	"_incObj/5F Bomb Enemy.asm"
+		include	"_anim/Bomb Enemy.asm"
+		include	"_maps/Bomb Enemy.asm"
 
-		include	"_incObj\60 Orbinaut.asm"
-		include	"_anim\Orbinaut.asm"
-		include	"_maps\Orbinaut.asm"
+		include	"_incObj/60 Orbinaut.asm"
+		include	"_anim/Orbinaut.asm"
+		include	"_maps/Orbinaut.asm"
 
-		include	"_incObj\16 Harpoon.asm"
-		include	"_anim\Harpoon.asm"
-		include	"_maps\Harpoon.asm"
-		include	"_incObj\61 LZ Blocks.asm"
-		include	"_maps\LZ Blocks.asm"
-		include	"_incObj\62 Gargoyle.asm"
-		include	"_maps\Gargoyle.asm"
-		include	"_incObj\63 LZ Conveyor.asm"
-		include	"_maps\LZ Conveyor.asm"
-		include	"_incObj\64 Bubbles.asm"
-		include	"_anim\Bubbles.asm"
-		include	"_maps\Bubbles.asm"
-		include	"_incObj\65 Waterfalls.asm"
-		include	"_anim\Waterfalls.asm"
-		include	"_maps\Waterfalls.asm"
+		include	"_incObj/16 Harpoon.asm"
+		include	"_anim/Harpoon.asm"
+		include	"_maps/Harpoon.asm"
+		include	"_incObj/61 LZ Blocks.asm"
+		include	"_maps/LZ Blocks.asm"
+		include	"_incObj/62 Gargoyle.asm"
+		include	"_maps/Gargoyle.asm"
+		include	"_incObj/63 LZ Conveyor.asm"
+		include	"_maps/LZ Conveyor.asm"
+		include	"_incObj/64 Bubbles.asm"
+		include	"_anim/Bubbles.asm"
+		include	"_maps/Bubbles.asm"
+		include	"_incObj/65 Waterfalls.asm"
+		include	"_anim/Waterfalls.asm"
+		include	"_maps/Waterfalls.asm"
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -6816,9 +6816,9 @@ MusicList2:	dc.b bgm_GHZ, bgm_LZ, bgm_MZ, bgm_SLZ, bgm_SYZ, bgm_SBZ
 		zonewarningnoending MusicList2,1
 		even
 
-		include	"_incObj\Sonic Display.asm"
-		include	"_incObj\Sonic RecordPosition.asm"
-		include	"_incObj\Sonic Water.asm"
+		include	"_incObj/Sonic Display.asm"
+		include	"_incObj/Sonic RecordPosition.asm"
+		include	"_incObj/Sonic Water.asm"
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -6877,9 +6877,9 @@ loc_12EA6:
 		bsr.w	Sonic_Floor
 		rts	
 
-		include	"_incObj\Sonic Move.asm"
-		include	"_incObj\Sonic RollSpeed.asm"
-		include	"_incObj\Sonic JumpDirection.asm"
+		include	"_incObj/Sonic Move.asm"
+		include	"_incObj/Sonic RollSpeed.asm"
+		include	"_incObj/Sonic JumpDirection.asm"
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -6900,23 +6900,23 @@ loc_12EA6:
 locret_13302:
 		rts	
 
-		include	"_incObj\Sonic LevelBound.asm"
-		include	"_incObj\Sonic Roll.asm"
-		include	"_incObj\Sonic Jump.asm"
-		include	"_incObj\Sonic JumpHeight.asm"
-		include	"_incObj\Sonic SlopeResist.asm"
-		include	"_incObj\Sonic RollRepel.asm"
-		include	"_incObj\Sonic SlopeRepel.asm"
-		include	"_incObj\Sonic JumpAngle.asm"
-		include	"_incObj\Sonic Floor.asm"
-		include	"_incObj\Sonic ResetOnFloor.asm"
-		include	"_incObj\Sonic (part 2).asm"
-		include	"_incObj\Sonic Loops.asm"
-		include	"_incObj\Sonic Animate.asm"
-		include	"_anim\Sonic.asm"
-		include	"_incObj\Sonic LoadGfx.asm"
+		include	"_incObj/Sonic LevelBound.asm"
+		include	"_incObj/Sonic Roll.asm"
+		include	"_incObj/Sonic Jump.asm"
+		include	"_incObj/Sonic JumpHeight.asm"
+		include	"_incObj/Sonic SlopeResist.asm"
+		include	"_incObj/Sonic RollRepel.asm"
+		include	"_incObj/Sonic SlopeRepel.asm"
+		include	"_incObj/Sonic JumpAngle.asm"
+		include	"_incObj/Sonic Floor.asm"
+		include	"_incObj/Sonic ResetOnFloor.asm"
+		include	"_incObj/Sonic (part 2).asm"
+		include	"_incObj/Sonic Loops.asm"
+		include	"_incObj/Sonic Animate.asm"
+		include	"_anim/Sonic.asm"
+		include	"_incObj/Sonic LoadGfx.asm"
 
-		include	"_incObj\0A Drowning Countdown.asm"
+		include	"_incObj/0A Drowning Countdown.asm"
 
 
 ; ---------------------------------------------------------------------------
@@ -6956,24 +6956,24 @@ ResumeMusic:				; XREF: Obj64_Wobble; Sonic_Water; Obj0A_ReduceAir
 
 ; ===========================================================================
 
-		include	"_anim\Drowning Countdown.asm"
-		include	"_maps\Drowning Countdown.asm"
+		include	"_anim/Drowning Countdown.asm"
+		include	"_maps/Drowning Countdown.asm"
 
-		include	"_incObj\38 Shield and Invincibility.asm"
-		include	"_incObj\4A Special Stage Entry (Unused).asm"
-		include	"_incObj\08 Water Splash.asm"
-		include	"_anim\Shield and Invincibility.asm"
-		include	"_maps\Shield and Invincibility.asm"
-		include	"_anim\Special Stage Entry (Unused).asm"
-		include	"_maps\Special Stage Entry (Unused).asm"
-		include	"_anim\Water Splash.asm"
-		include	"_maps\Water Splash.asm"
+		include	"_incObj/38 Shield and Invincibility.asm"
+		include	"_incObj/4A Special Stage Entry (Unused).asm"
+		include	"_incObj/08 Water Splash.asm"
+		include	"_anim/Shield and Invincibility.asm"
+		include	"_maps/Shield and Invincibility.asm"
+		include	"_anim/Special Stage Entry (Unused).asm"
+		include	"_maps/Special Stage Entry (Unused).asm"
+		include	"_anim/Water Splash.asm"
+		include	"_maps/Water Splash.asm"
 
-		include	"_incObj\Sonic AnglePos.asm"
+		include	"_incObj/Sonic AnglePos.asm"
 
-		include	"_incObj\sub FindNearestTile.asm"
-		include	"_incObj\sub FindFloor.asm"
-		include	"_incObj\sub FindWall.asm"
+		include	"_incObj/sub FindNearestTile.asm"
+		include	"_incObj/sub FindFloor.asm"
+		include	"_incObj/sub FindWall.asm"
 
 ; ---------------------------------------------------------------------------
 ; Unused floor/wall subroutine - logs something	to do with collision
@@ -7224,7 +7224,7 @@ loc_14E0A:				; XREF: sub_14EB4
 locret_14E16:
 		rts	
 
-		include	"_incObj\sub ObjFloorDist.asm"
+		include	"_incObj/sub ObjFloorDist.asm"
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -7485,27 +7485,27 @@ locret_15098:
 
 ; ===========================================================================
 
-		include	"_incObj\66 Rotating Junction.asm"
-		include	"_maps\Rotating Junction.asm"
-		include	"_incObj\67 Running Disc.asm"
-		include	"_maps\Running Disc.asm"
-		include	"_incObj\68 Conveyor Belt.asm"
-		include	"_incObj\69 SBZ Spinning Platforms.asm"
-		include	"_anim\SBZ Spinning Platforms.asm"
-		include	"_maps\Trapdoor.asm"
-		include	"_maps\SBZ Spinning Platforms.asm"
-		include	"_incObj\6A Saws and Pizza Cutters.asm"
-		include	"_maps\Saws and Pizza Cutters.asm"
-		include	"_incObj\6B SBZ Stomper and Door.asm"
-		include	"_maps\SBZ Stomper and Door.asm"
-		include	"_incObj\6C SBZ Vanishing Platforms.asm"
-		include	"_anim\SBZ Vanishing Platforms.asm"
-		include	"_maps\SBZ Vanishing Platforms.asm"
-		include	"_incObj\6E Electrocuter.asm"
-		include	"_anim\Electrocuter.asm"
-		include	"_maps\Electrocuter.asm"
-		include	"_incObj\6F SBZ Spin Platform Conveyor.asm"
-		include	"_anim\SBZ Spin Platform Conveyor.asm"
+		include	"_incObj/66 Rotating Junction.asm"
+		include	"_maps/Rotating Junction.asm"
+		include	"_incObj/67 Running Disc.asm"
+		include	"_maps/Running Disc.asm"
+		include	"_incObj/68 Conveyor Belt.asm"
+		include	"_incObj/69 SBZ Spinning Platforms.asm"
+		include	"_anim/SBZ Spinning Platforms.asm"
+		include	"_maps/Trapdoor.asm"
+		include	"_maps/SBZ Spinning Platforms.asm"
+		include	"_incObj/6A Saws and Pizza Cutters.asm"
+		include	"_maps/Saws and Pizza Cutters.asm"
+		include	"_incObj/6B SBZ Stomper and Door.asm"
+		include	"_maps/SBZ Stomper and Door.asm"
+		include	"_incObj/6C SBZ Vanishing Platforms.asm"
+		include	"_anim/SBZ Vanishing Platforms.asm"
+		include	"_maps/SBZ Vanishing Platforms.asm"
+		include	"_incObj/6E Electrocuter.asm"
+		include	"_anim/Electrocuter.asm"
+		include	"_maps/Electrocuter.asm"
+		include	"_incObj/6F SBZ Spin Platform Conveyor.asm"
+		include	"_anim/SBZ Spin Platform Conveyor.asm"
 
 off_164A6:	dc.w word_164B2-off_164A6, word_164C6-off_164A6, word_164DA-off_164A6
 		dc.w word_164EE-off_164A6, word_16502-off_164A6, word_16516-off_164A6
@@ -7517,23 +7517,23 @@ word_16502:	dc.w $10, $1B80, $1B14,	$670, $1BEF, $602, $1BEF, $640,	$1B14, $6AE
 word_16516:	dc.w $10, $1C80, $1C14,	$5E0, $1CEF, $572, $1CEF, $5B0,	$1C14, $61E
 ; ===========================================================================
 
-		include	"_incObj\70 Girder Block.asm"
-		include	"_maps\Girder Block.asm"
-		include	"_incObj\72 Teleporter.asm"
+		include	"_incObj/70 Girder Block.asm"
+		include	"_maps/Girder Block.asm"
+		include	"_incObj/72 Teleporter.asm"
 
-		include	"_incObj\78 Caterkiller.asm"
-		include	"_anim\Caterkiller.asm"
-		include	"_maps\Caterkiller.asm"
+		include	"_incObj/78 Caterkiller.asm"
+		include	"_anim/Caterkiller.asm"
+		include	"_maps/Caterkiller.asm"
 
-		include	"_incObj\79 Lamppost.asm"
-		include	"_maps\Lamppost.asm"
-		include	"_incObj\7D Hidden Bonuses.asm"
-		include	"_maps\Hidden Bonuses.asm"
+		include	"_incObj/79 Lamppost.asm"
+		include	"_maps/Lamppost.asm"
+		include	"_incObj/7D Hidden Bonuses.asm"
+		include	"_maps/Hidden Bonuses.asm"
 
-		include	"_incObj\8A Credits.asm"
-		include	"_maps\Credits.asm"
+		include	"_incObj/8A Credits.asm"
+		include	"_maps/Credits.asm"
 
-		include	"_incObj\3D Boss - Green Hill (part 1).asm"
+		include	"_incObj/3D Boss - Green Hill (part 1).asm"
 
 ; ---------------------------------------------------------------------------
 ; Defeated boss	subroutine
@@ -7591,50 +7591,50 @@ BossMove:
 
 ; ===========================================================================
 
-		include	"_incObj\3D Boss - Green Hill (part 2).asm"
-		include	"_incObj\48 Eggman's Swinging Ball.asm"
-		include	"_anim\Eggman.asm"
-		include	"_maps\Eggman.asm"
-		include	"_maps\Boss Items.asm"
-		include	"_incObj\77 Boss - Labyrinth.asm"
-		include	"_incObj\73 Boss - Marble.asm"
-		include	"_incObj\74 MZ Boss Fire.asm"
+		include	"_incObj/3D Boss - Green Hill (part 2).asm"
+		include	"_incObj/48 Eggman's Swinging Ball.asm"
+		include	"_anim/Eggman.asm"
+		include	"_maps/Eggman.asm"
+		include	"_maps/Boss Items.asm"
+		include	"_incObj/77 Boss - Labyrinth.asm"
+		include	"_incObj/73 Boss - Marble.asm"
+		include	"_incObj/74 MZ Boss Fire.asm"
 
 Obj7A_Delete:
 		jmp	(DeleteObject).l
 
-		include	"_incObj\7A Boss - Star Light.asm"
-		include	"_incObj\7B SLZ Boss Spikeball.asm"
-		include	"_maps\SLZ Boss Spikeball.asm"
-		include	"_incObj\75 Boss - Spring Yard.asm"
-		include	"_incObj\76 SYZ Boss Blocks.asm"
-		include	"_maps\SYZ Boss Blocks.asm"
+		include	"_incObj/7A Boss - Star Light.asm"
+		include	"_incObj/7B SLZ Boss Spikeball.asm"
+		include	"_maps/SLZ Boss Spikeball.asm"
+		include	"_incObj/75 Boss - Spring Yard.asm"
+		include	"_incObj/76 SYZ Boss Blocks.asm"
+		include	"_maps/SYZ Boss Blocks.asm"
 
 loc_1982C:				; XREF: loc_19C62; loc_19C80
 		jmp	(DeleteObject).l
 
-		include	"_incObj\82 Eggman - Scrap Brain 2.asm"
-		include	"_anim\Eggman - Scrap Brain 2 & Final.asm"
-		include	"_maps\Eggman - Scrap Brain 2.asm"
-		include	"_incObj\83 SBZ Eggman's Crumbling Floor.asm"
-		include	"_maps\SBZ Eggman's Crumbling Floor.asm"
-		include	"_incObj\85 Boss - Final.asm"
-		include	"_anim\FZ Eggman in Ship.asm"
-		include	"_maps\FZ Damaged Eggmobile.asm"
-		include	"_maps\FZ Eggmobile Legs.asm"
-		include	"_incObj\84 FZ Eggman's Cylinders.asm"
-		include	"_maps\FZ Eggman's Cylinders.asm"
-		include	"_incObj\86 FZ Plasma Ball Launcher.asm"
-		include	"_anim\Plasma Ball Launcher.asm"
-		include	"_maps\Plasma Ball Launcher.asm"
-		include	"_anim\Plasma Balls.asm"
-		include	"_maps\Plasma Balls.asm"
+		include	"_incObj/82 Eggman - Scrap Brain 2.asm"
+		include	"_anim/Eggman - Scrap Brain 2 & Final.asm"
+		include	"_maps/Eggman - Scrap Brain 2.asm"
+		include	"_incObj/83 SBZ Eggman's Crumbling Floor.asm"
+		include	"_maps/SBZ Eggman's Crumbling Floor.asm"
+		include	"_incObj/85 Boss - Final.asm"
+		include	"_anim/FZ Eggman in Ship.asm"
+		include	"_maps/FZ Damaged Eggmobile.asm"
+		include	"_maps/FZ Eggmobile Legs.asm"
+		include	"_incObj/84 FZ Eggman's Cylinders.asm"
+		include	"_maps/FZ Eggman's Cylinders.asm"
+		include	"_incObj/86 FZ Plasma Ball Launcher.asm"
+		include	"_anim/Plasma Ball Launcher.asm"
+		include	"_maps/Plasma Ball Launcher.asm"
+		include	"_anim/Plasma Balls.asm"
+		include	"_maps/Plasma Balls.asm"
 
-		include	"_incObj\3E Prison Capsule.asm"
-		include	"_anim\Prison Capsule.asm"
-		include	"_maps\Prison Capsule.asm"
+		include	"_incObj/3E Prison Capsule.asm"
+		include	"_anim/Prison Capsule.asm"
+		include	"_maps/Prison Capsule.asm"
 
-		include	"_incObj\sub ReactToItem.asm"
+		include	"_incObj/sub ReactToItem.asm"
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	show the special stage layout
@@ -8096,7 +8096,7 @@ SS_LayoutIndex:
 ; ---------------------------------------------------------------------------
 ; Special stage start locations
 ; ---------------------------------------------------------------------------
-SS_StartLoc:	include	"_inc\Start Location Array - Special Stages.asm"
+SS_StartLoc:	include	"_inc/Start Location Array - Special Stages.asm"
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	load special stage layout
@@ -8186,22 +8186,22 @@ loc_1B730:
 ; ===========================================================================
 
 SS_MapIndex:
-		include	"_inc\Special Stage Mappings & VRAM Pointers.asm"
+		include	"_inc/Special Stage Mappings & VRAM Pointers.asm"
 
-		include	"_maps\SS R Block.asm"
-		include	"_maps\SS Glass Block.asm"
-		include	"_maps\SS UP Block.asm"
-		include	"_maps\SS DOWN Block.asm"
-		include	"_maps\SS Chaos Emeralds.asm"
+		include	"_maps/SS R Block.asm"
+		include	"_maps/SS Glass Block.asm"
+		include	"_maps/SS UP Block.asm"
+		include	"_maps/SS DOWN Block.asm"
+		include	"_maps/SS Chaos Emeralds.asm"
 
-		include	"_incObj\09 Sonic in Special Stage.asm"
+		include	"_incObj/09 Sonic in Special Stage.asm"
 
-		include	"_incObj\10.asm"
+		include	"_incObj/10.asm"
 
-		include	"_inc\AnimateLevelGfx.asm"
+		include	"_inc/AnimateLevelGfx.asm"
 
-		include	"_incObj\21 HUD.asm"
-		include	"_maps\HUD.asm"
+		include	"_incObj/21 HUD.asm"
+		include	"_maps/HUD.asm"
 
 ; ---------------------------------------------------------------------------
 ; Add points subroutine
@@ -8255,7 +8255,7 @@ AddPoints:
 		rts	
 ; End of function AddPoints
 
-		include	"_inc\HUD_Update.asm"
+		include	"_inc/HUD_Update.asm"
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	load countdown numbers on the continue screen
@@ -8310,440 +8310,440 @@ loc_1C962:
 
 ; ===========================================================================
 
-		include	"_inc\HUD (part 2).asm"
+		include	"_inc/HUD (part 2).asm"
 
-Art_Hud:	binclude	"artunc\HUD Numbers.bin" ; 8x16 pixel numbers on HUD
+Art_Hud:	binclude	"artunc/HUD Numbers.bin" ; 8x16 pixel numbers on HUD
 		even
-Art_LivesNums:	binclude	"artunc\Lives Counter Numbers.bin" ; 8x8 pixel numbers on lives counter
+Art_LivesNums:	binclude	"artunc/Lives Counter Numbers.bin" ; 8x8 pixel numbers on lives counter
 		even
 
-		include	"_incObj\DebugMode.asm"
-		include	"_inc\DebugList.asm"
-		include	"_inc\LevelHeaders.asm"
-		include	"_inc\Pattern Load Cues.asm"
+		include	"_incObj/DebugMode.asm"
+		include	"_inc/DebugList.asm"
+		include	"_inc/LevelHeaders.asm"
+		include	"_inc/Pattern Load Cues.asm"
 
 		align	$100,$FF
 		if Revision=0
-Nem_SegaLogo:	binclude	"artnem\Sega Logo.bin"	; large Sega logo
+Nem_SegaLogo:	binclude	"artnem/Sega Logo.bin"	; large Sega logo
 		even
-Eni_SegaLogo:	binclude	"tilemaps\Sega Logo.bin" ; large Sega logo (mappings)
+Eni_SegaLogo:	binclude	"tilemaps/Sega Logo.bin" ; large Sega logo (mappings)
 		even
 		else
 		rept $400
 			dc.b	$FF
 		endm
-Nem_SegaLogo:	binclude	"artnem\Sega Logo (JP1).bin" ; large Sega logo
+Nem_SegaLogo:	binclude	"artnem/Sega Logo (JP1).bin" ; large Sega logo
 			even
-Eni_SegaLogo:	binclude	"tilemaps\Sega Logo (JP1).bin" ; large Sega logo (mappings)
+Eni_SegaLogo:	binclude	"tilemaps/Sega Logo (JP1).bin" ; large Sega logo (mappings)
 			even
 		endif
-Eni_Title:	binclude	"tilemaps\Title Screen.bin" ; title screen foreground (mappings)
+Eni_Title:	binclude	"tilemaps/Title Screen.bin" ; title screen foreground (mappings)
 		even
-Nem_TitleFg:	binclude	"artnem\Title Screen Foreground.bin"
+Nem_TitleFg:	binclude	"artnem/Title Screen Foreground.bin"
 		even
-Nem_TitleSonic:	binclude	"artnem\Title Screen Sonic.bin"
+Nem_TitleSonic:	binclude	"artnem/Title Screen Sonic.bin"
 		even
-Nem_TitleTM:	binclude	"artnem\Title Screen TM.bin"
+Nem_TitleTM:	binclude	"artnem/Title Screen TM.bin"
 		even
-Eni_JapNames:	binclude	"tilemaps\Hidden Japanese Credits.bin" ; Japanese credits (mappings)
+Eni_JapNames:	binclude	"tilemaps/Hidden Japanese Credits.bin" ; Japanese credits (mappings)
 		even
-Nem_JapNames:	binclude	"artnem\Hidden Japanese Credits.bin"
+Nem_JapNames:	binclude	"artnem/Hidden Japanese Credits.bin"
 		even
 
-		include	"_maps\Sonic.asm"
-		include	"_maps\Sonic - Dynamic Gfx Script.asm"
+		include	"_maps/Sonic.asm"
+		include	"_maps/Sonic - Dynamic Gfx Script.asm"
 
 ; ---------------------------------------------------------------------------
 ; Uncompressed graphics	- Sonic
 ; ---------------------------------------------------------------------------
-Art_Sonic:	binclude	"artunc\Sonic.bin"	; Sonic
+Art_Sonic:	binclude	"artunc/Sonic.bin"	; Sonic
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - various
 ; ---------------------------------------------------------------------------
 		if Revision=0
-Nem_Smoke:	binclude	"artnem\Unused - Smoke.bin"
+Nem_Smoke:	binclude	"artnem/Unused - Smoke.bin"
 		even
-Nem_SyzSparkle:	binclude	"artnem\Unused - SYZ Sparkles.bin"
+Nem_SyzSparkle:	binclude	"artnem/Unused - SYZ Sparkles.bin"
 		even
 		endif
-Nem_Shield:	binclude	"artnem\Shield.bin"
+Nem_Shield:	binclude	"artnem/Shield.bin"
 		even
-Nem_Stars:	binclude	"artnem\Invincibility Stars.bin"
+Nem_Stars:	binclude	"artnem/Invincibility Stars.bin"
 		even
 		if Revision=0
-Nem_LzSonic:	binclude	"artnem\Unused - LZ Sonic.bin" ; Sonic holding his breath
+Nem_LzSonic:	binclude	"artnem/Unused - LZ Sonic.bin" ; Sonic holding his breath
 		even
-Nem_UnkFire:	binclude	"artnem\Unused - Fireball.bin" ; unused fireball
+Nem_UnkFire:	binclude	"artnem/Unused - Fireball.bin" ; unused fireball
 		even
-Nem_Warp:	binclude	"artnem\Unused - SStage Flash.bin" ; entry to special stage flash
+Nem_Warp:	binclude	"artnem/Unused - SStage Flash.bin" ; entry to special stage flash
 		even
-Nem_Goggle:	binclude	"artnem\Unused - Goggles.bin" ; unused goggles
+Nem_Goggle:	binclude	"artnem/Unused - Goggles.bin" ; unused goggles
 		even
 		endif
 
-		include	"_maps\SS Walls.asm"
+		include	"_maps/SS Walls.asm"
 
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - special stage
 ; ---------------------------------------------------------------------------
-Nem_SSWalls:	binclude	"artnem\Special Walls.bin" ; special stage walls
+Nem_SSWalls:	binclude	"artnem/Special Walls.bin" ; special stage walls
 		even
-Eni_SSBg1:	binclude	"tilemaps\SS Background 1.bin" ; special stage background (mappings)
+Eni_SSBg1:	binclude	"tilemaps/SS Background 1.bin" ; special stage background (mappings)
 		even
-Nem_SSBgFish:	binclude	"artnem\Special Birds & Fish.bin" ; special stage birds and fish background
+Nem_SSBgFish:	binclude	"artnem/Special Birds & Fish.bin" ; special stage birds and fish background
 		even
-Eni_SSBg2:	binclude	"tilemaps\SS Background 2.bin" ; special stage background (mappings)
+Eni_SSBg2:	binclude	"tilemaps/SS Background 2.bin" ; special stage background (mappings)
 		even
-Nem_SSBgCloud:	binclude	"artnem\Special Clouds.bin" ; special stage clouds background
+Nem_SSBgCloud:	binclude	"artnem/Special Clouds.bin" ; special stage clouds background
 		even
-Nem_SSGOAL:	binclude	"artnem\Special GOAL.bin" ; special stage GOAL block
+Nem_SSGOAL:	binclude	"artnem/Special GOAL.bin" ; special stage GOAL block
 		even
-Nem_SSRBlock:	binclude	"artnem\Special R.bin"	; special stage R block
+Nem_SSRBlock:	binclude	"artnem/Special R.bin"	; special stage R block
 		even
-Nem_SS1UpBlock:	binclude	"artnem\Special 1UP.bin" ; special stage 1UP block
+Nem_SS1UpBlock:	binclude	"artnem/Special 1UP.bin" ; special stage 1UP block
 		even
-Nem_SSEmStars:	binclude	"artnem\Special Emerald Twinkle.bin" ; special stage stars from a collected emerald
+Nem_SSEmStars:	binclude	"artnem/Special Emerald Twinkle.bin" ; special stage stars from a collected emerald
 		even
-Nem_SSRedWhite:	binclude	"artnem\Special Red-White.bin" ; special stage red/white block
+Nem_SSRedWhite:	binclude	"artnem/Special Red-White.bin" ; special stage red/white block
 		even
-Nem_SSZone1:	binclude	"artnem\Special ZONE1.bin" ; special stage ZONE1 block
+Nem_SSZone1:	binclude	"artnem/Special ZONE1.bin" ; special stage ZONE1 block
 		even
-Nem_SSZone2:	binclude	"artnem\Special ZONE2.bin" ; ZONE2 block
+Nem_SSZone2:	binclude	"artnem/Special ZONE2.bin" ; ZONE2 block
 		even
-Nem_SSZone3:	binclude	"artnem\Special ZONE3.bin" ; ZONE3 block
+Nem_SSZone3:	binclude	"artnem/Special ZONE3.bin" ; ZONE3 block
 		even
-Nem_SSZone4:	binclude	"artnem\Special ZONE4.bin" ; ZONE4 block
+Nem_SSZone4:	binclude	"artnem/Special ZONE4.bin" ; ZONE4 block
 		even
-Nem_SSZone5:	binclude	"artnem\Special ZONE5.bin" ; ZONE5 block
+Nem_SSZone5:	binclude	"artnem/Special ZONE5.bin" ; ZONE5 block
 		even
-Nem_SSZone6:	binclude	"artnem\Special ZONE6.bin" ; ZONE6 block
+Nem_SSZone6:	binclude	"artnem/Special ZONE6.bin" ; ZONE6 block
 		even
-Nem_SSUpDown:	binclude	"artnem\Special UP-DOWN.bin" ; special stage UP/DOWN block
+Nem_SSUpDown:	binclude	"artnem/Special UP-DOWN.bin" ; special stage UP/DOWN block
 		even
-Nem_SSEmerald:	binclude	"artnem\Special Emeralds.bin" ; special stage chaos emeralds
+Nem_SSEmerald:	binclude	"artnem/Special Emeralds.bin" ; special stage chaos emeralds
 		even
-Nem_SSGhost:	binclude	"artnem\Special Ghost.bin" ; special stage ghost block
+Nem_SSGhost:	binclude	"artnem/Special Ghost.bin" ; special stage ghost block
 		even
-Nem_SSWBlock:	binclude	"artnem\Special W.bin"	; special stage W block
+Nem_SSWBlock:	binclude	"artnem/Special W.bin"	; special stage W block
 		even
-Nem_SSGlass:	binclude	"artnem\Special Glass.bin" ; special stage destroyable glass block
+Nem_SSGlass:	binclude	"artnem/Special Glass.bin" ; special stage destroyable glass block
 		even
-Nem_ResultEm:	binclude	"artnem\Special Result Emeralds.bin" ; chaos emeralds on special stage results screen
+Nem_ResultEm:	binclude	"artnem/Special Result Emeralds.bin" ; chaos emeralds on special stage results screen
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - GHZ stuff
 ; ---------------------------------------------------------------------------
-Nem_Stalk:	binclude	"artnem\GHZ Flower Stalk.bin"
+Nem_Stalk:	binclude	"artnem/GHZ Flower Stalk.bin"
 		even
-Nem_Swing:	binclude	"artnem\GHZ Swinging Platform.bin"
+Nem_Swing:	binclude	"artnem/GHZ Swinging Platform.bin"
 		even
-Nem_Bridge:	binclude	"artnem\GHZ Bridge.bin"
+Nem_Bridge:	binclude	"artnem/GHZ Bridge.bin"
 		even
-Nem_GhzUnkBlock:binclude	"artnem\Unused - GHZ Block.bin"
+Nem_GhzUnkBlock:binclude	"artnem/Unused - GHZ Block.bin"
 		even
-Nem_Ball:	binclude	"artnem\GHZ Giant Ball.bin"
+Nem_Ball:	binclude	"artnem/GHZ Giant Ball.bin"
 		even
-Nem_Spikes:	binclude	"artnem\Spikes.bin"
+Nem_Spikes:	binclude	"artnem/Spikes.bin"
 		even
-Nem_GhzLog:	binclude	"artnem\Unused - GHZ Log.bin"
+Nem_GhzLog:	binclude	"artnem/Unused - GHZ Log.bin"
 		even
-Nem_SpikePole:	binclude	"artnem\GHZ Spiked Log.bin"
+Nem_SpikePole:	binclude	"artnem/GHZ Spiked Log.bin"
 		even
-Nem_PplRock:	binclude	"artnem\GHZ Purple Rock.bin"
+Nem_PplRock:	binclude	"artnem/GHZ Purple Rock.bin"
 		even
-Nem_GhzWall1:	binclude	"artnem\GHZ Breakable Wall.bin"
+Nem_GhzWall1:	binclude	"artnem/GHZ Breakable Wall.bin"
 		even
-Nem_GhzWall2:	binclude	"artnem\GHZ Edge Wall.bin"
+Nem_GhzWall2:	binclude	"artnem/GHZ Edge Wall.bin"
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - LZ stuff
 ; ---------------------------------------------------------------------------
-Nem_Water:	binclude	"artnem\LZ Water Surface.bin"
+Nem_Water:	binclude	"artnem/LZ Water Surface.bin"
 		even
-Nem_Splash:	binclude	"artnem\LZ Water & Splashes.bin"
+Nem_Splash:	binclude	"artnem/LZ Water & Splashes.bin"
 		even
-Nem_LzSpikeBall:binclude	"artnem\LZ Spiked Ball & Chain.bin"
+Nem_LzSpikeBall:binclude	"artnem/LZ Spiked Ball & Chain.bin"
 		even
-Nem_FlapDoor:	binclude	"artnem\LZ Flapping Door.bin"
+Nem_FlapDoor:	binclude	"artnem/LZ Flapping Door.bin"
 		even
-Nem_Bubbles:	binclude	"artnem\LZ Bubbles & Countdown.bin"
+Nem_Bubbles:	binclude	"artnem/LZ Bubbles & Countdown.bin"
 		even
-Nem_LzBlock3:	binclude	"artnem\LZ 32x16 Block.bin"
+Nem_LzBlock3:	binclude	"artnem/LZ 32x16 Block.bin"
 		even
-Nem_LzDoor1:	binclude	"artnem\LZ Vertical Door.bin"
+Nem_LzDoor1:	binclude	"artnem/LZ Vertical Door.bin"
 		even
-Nem_Harpoon:	binclude	"artnem\LZ Harpoon.bin"
+Nem_Harpoon:	binclude	"artnem/LZ Harpoon.bin"
 		even
-Nem_LzPole:	binclude	"artnem\LZ Breakable Pole.bin"
+Nem_LzPole:	binclude	"artnem/LZ Breakable Pole.bin"
 		even
-Nem_LzDoor2:	binclude	"artnem\LZ Horizontal Door.bin"
+Nem_LzDoor2:	binclude	"artnem/LZ Horizontal Door.bin"
 		even
-Nem_LzWheel:	binclude	"artnem\LZ Wheel.bin"
+Nem_LzWheel:	binclude	"artnem/LZ Wheel.bin"
 		even
-Nem_Gargoyle:	binclude	"artnem\LZ Gargoyle & Fireball.bin"
+Nem_Gargoyle:	binclude	"artnem/LZ Gargoyle & Fireball.bin"
 		even
-Nem_LzBlock2:	binclude	"artnem\LZ Blocks.bin"
+Nem_LzBlock2:	binclude	"artnem/LZ Blocks.bin"
 		even
-Nem_LzPlatfm:	binclude	"artnem\LZ Rising Platform.bin"
+Nem_LzPlatfm:	binclude	"artnem/LZ Rising Platform.bin"
 		even
-Nem_Cork:	binclude	"artnem\LZ Cork.bin"
+Nem_Cork:	binclude	"artnem/LZ Cork.bin"
 		even
-Nem_LzBlock1:	binclude	"artnem\LZ 32x32 Block.bin"
+Nem_LzBlock1:	binclude	"artnem/LZ 32x32 Block.bin"
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - MZ stuff
 ; ---------------------------------------------------------------------------
-Nem_MzMetal:	binclude	"artnem\MZ Metal Blocks.bin"
+Nem_MzMetal:	binclude	"artnem/MZ Metal Blocks.bin"
 		even
-Nem_MzSwitch:	binclude	"artnem\MZ Switch.bin"
+Nem_MzSwitch:	binclude	"artnem/MZ Switch.bin"
 		even
-Nem_MzGlass:	binclude	"artnem\MZ Green Glass Block.bin"
+Nem_MzGlass:	binclude	"artnem/MZ Green Glass Block.bin"
 		even
-Nem_UnkGrass:	binclude	"artnem\Unused - Grass.bin"
+Nem_UnkGrass:	binclude	"artnem/Unused - Grass.bin"
 		even
-Nem_MzFire:	binclude	"artnem\Fireballs.bin"
+Nem_MzFire:	binclude	"artnem/Fireballs.bin"
 		even
-Nem_Lava:	binclude	"artnem\MZ Lava.bin"
+Nem_Lava:	binclude	"artnem/MZ Lava.bin"
 		even
-Nem_MzBlock:	binclude	"artnem\MZ Green Pushable Block.bin"
+Nem_MzBlock:	binclude	"artnem/MZ Green Pushable Block.bin"
 		even
-Nem_MzUnkBlock:	binclude	"artnem\Unused - MZ Background.bin"
+Nem_MzUnkBlock:	binclude	"artnem/Unused - MZ Background.bin"
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - SLZ stuff
 ; ---------------------------------------------------------------------------
-Nem_Seesaw:	binclude	"artnem\SLZ Seesaw.bin"
+Nem_Seesaw:	binclude	"artnem/SLZ Seesaw.bin"
 		even
-Nem_SlzSpike:	binclude	"artnem\SLZ Little Spikeball.bin"
+Nem_SlzSpike:	binclude	"artnem/SLZ Little Spikeball.bin"
 		even
-Nem_Fan:	binclude	"artnem\SLZ Fan.bin"
+Nem_Fan:	binclude	"artnem/SLZ Fan.bin"
 		even
-Nem_SlzWall:	binclude	"artnem\SLZ Breakable Wall.bin"
+Nem_SlzWall:	binclude	"artnem/SLZ Breakable Wall.bin"
 		even
-Nem_Pylon:	binclude	"artnem\SLZ Pylon.bin"
+Nem_Pylon:	binclude	"artnem/SLZ Pylon.bin"
 		even
-Nem_SlzSwing:	binclude	"artnem\SLZ Swinging Platform.bin"
+Nem_SlzSwing:	binclude	"artnem/SLZ Swinging Platform.bin"
 		even
-Nem_SlzBlock:	binclude	"artnem\SLZ 32x32 Block.bin"
+Nem_SlzBlock:	binclude	"artnem/SLZ 32x32 Block.bin"
 		even
-Nem_SlzCannon:	binclude	"artnem\SLZ Cannon.bin"
+Nem_SlzCannon:	binclude	"artnem/SLZ Cannon.bin"
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - SYZ stuff
 ; ---------------------------------------------------------------------------
-Nem_Bumper:	binclude	"artnem\SYZ Bumper.bin"
+Nem_Bumper:	binclude	"artnem/SYZ Bumper.bin"
 		even
-Nem_SyzSpike2:	binclude	"artnem\SYZ Small Spikeball.bin"
+Nem_SyzSpike2:	binclude	"artnem/SYZ Small Spikeball.bin"
 		even
-Nem_LzSwitch:	binclude	"artnem\Switch.bin"
+Nem_LzSwitch:	binclude	"artnem/Switch.bin"
 		even
-Nem_SyzSpike1:	binclude	"artnem\SYZ Large Spikeball.bin"
+Nem_SyzSpike1:	binclude	"artnem/SYZ Large Spikeball.bin"
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - SBZ stuff
 ; ---------------------------------------------------------------------------
-Nem_SbzWheel1:	binclude	"artnem\SBZ Running Disc.bin"
+Nem_SbzWheel1:	binclude	"artnem/SBZ Running Disc.bin"
 		even
-Nem_SbzWheel2:	binclude	"artnem\SBZ Junction Wheel.bin"
+Nem_SbzWheel2:	binclude	"artnem/SBZ Junction Wheel.bin"
 		even
-Nem_Cutter:	binclude	"artnem\SBZ Pizza Cutter.bin"
+Nem_Cutter:	binclude	"artnem/SBZ Pizza Cutter.bin"
 		even
-Nem_Stomper:	binclude	"artnem\SBZ Stomper.bin"
+Nem_Stomper:	binclude	"artnem/SBZ Stomper.bin"
 		even
-Nem_SpinPform:	binclude	"artnem\SBZ Spinning Platform.bin"
+Nem_SpinPform:	binclude	"artnem/SBZ Spinning Platform.bin"
 		even
-Nem_TrapDoor:	binclude	"artnem\SBZ Trapdoor.bin"
+Nem_TrapDoor:	binclude	"artnem/SBZ Trapdoor.bin"
 		even
-Nem_SbzFloor:	binclude	"artnem\SBZ Collapsing Floor.bin"
+Nem_SbzFloor:	binclude	"artnem/SBZ Collapsing Floor.bin"
 		even
-Nem_Electric:	binclude	"artnem\SBZ Electrocuter.bin"
+Nem_Electric:	binclude	"artnem/SBZ Electrocuter.bin"
 		even
-Nem_SbzBlock:	binclude	"artnem\SBZ Vanishing Block.bin"
+Nem_SbzBlock:	binclude	"artnem/SBZ Vanishing Block.bin"
 		even
-Nem_FlamePipe:	binclude	"artnem\SBZ Flaming Pipe.bin"
+Nem_FlamePipe:	binclude	"artnem/SBZ Flaming Pipe.bin"
 		even
-Nem_SbzDoor1:	binclude	"artnem\SBZ Small Vertical Door.bin"
+Nem_SbzDoor1:	binclude	"artnem/SBZ Small Vertical Door.bin"
 		even
-Nem_SlideFloor:	binclude	"artnem\SBZ Sliding Floor Trap.bin"
+Nem_SlideFloor:	binclude	"artnem/SBZ Sliding Floor Trap.bin"
 		even
-Nem_SbzDoor2:	binclude	"artnem\SBZ Large Horizontal Door.bin"
+Nem_SbzDoor2:	binclude	"artnem/SBZ Large Horizontal Door.bin"
 		even
-Nem_Girder:	binclude	"artnem\SBZ Crushing Girder.bin"
+Nem_Girder:	binclude	"artnem/SBZ Crushing Girder.bin"
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - enemies
 ; ---------------------------------------------------------------------------
-Nem_BallHog:	binclude	"artnem\Enemy Ball Hog.bin"
+Nem_BallHog:	binclude	"artnem/Enemy Ball Hog.bin"
 		even
-Nem_Crabmeat:	binclude	"artnem\Enemy Crabmeat.bin"
+Nem_Crabmeat:	binclude	"artnem/Enemy Crabmeat.bin"
 		even
-Nem_Buzz:	binclude	"artnem\Enemy Buzz Bomber.bin"
+Nem_Buzz:	binclude	"artnem/Enemy Buzz Bomber.bin"
 		even
-Nem_UnkExplode:	binclude	"artnem\Unused - Explosion.bin"
+Nem_UnkExplode:	binclude	"artnem/Unused - Explosion.bin"
 		even
-Nem_Burrobot:	binclude	"artnem\Enemy Burrobot.bin"
+Nem_Burrobot:	binclude	"artnem/Enemy Burrobot.bin"
 		even
-Nem_Chopper:	binclude	"artnem\Enemy Chopper.bin"
+Nem_Chopper:	binclude	"artnem/Enemy Chopper.bin"
 		even
-Nem_Jaws:	binclude	"artnem\Enemy Jaws.bin"
+Nem_Jaws:	binclude	"artnem/Enemy Jaws.bin"
 		even
-Nem_Roller:	binclude	"artnem\Enemy Roller.bin"
+Nem_Roller:	binclude	"artnem/Enemy Roller.bin"
 		even
-Nem_Motobug:	binclude	"artnem\Enemy Motobug.bin"
+Nem_Motobug:	binclude	"artnem/Enemy Motobug.bin"
 		even
-Nem_Newtron:	binclude	"artnem\Enemy Newtron.bin"
+Nem_Newtron:	binclude	"artnem/Enemy Newtron.bin"
 		even
-Nem_Yadrin:	binclude	"artnem\Enemy Yadrin.bin"
+Nem_Yadrin:	binclude	"artnem/Enemy Yadrin.bin"
 		even
-Nem_Basaran:	binclude	"artnem\Enemy Basaran.bin"
+Nem_Basaran:	binclude	"artnem/Enemy Basaran.bin"
 		even
-Nem_Splats:	binclude	"artnem\Enemy Splats.bin"
+Nem_Splats:	binclude	"artnem/Enemy Splats.bin"
 		even
-Nem_Bomb:	binclude	"artnem\Enemy Bomb.bin"
+Nem_Bomb:	binclude	"artnem/Enemy Bomb.bin"
 		even
-Nem_Orbinaut:	binclude	"artnem\Enemy Orbinaut.bin"
+Nem_Orbinaut:	binclude	"artnem/Enemy Orbinaut.bin"
 		even
-Nem_Cater:	binclude	"artnem\Enemy Caterkiller.bin"
+Nem_Cater:	binclude	"artnem/Enemy Caterkiller.bin"
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - various
 ; ---------------------------------------------------------------------------
-Nem_TitleCard:	binclude	"artnem\Title Cards.bin"
+Nem_TitleCard:	binclude	"artnem/Title Cards.bin"
 		even
-Nem_Hud:	binclude	"artnem\HUD.bin"	; HUD (rings, time, score)
+Nem_Hud:	binclude	"artnem/HUD.bin"	; HUD (rings, time, score)
 		even
-Nem_Lives:	binclude	"artnem\HUD - Life Counter Icon.bin"
+Nem_Lives:	binclude	"artnem/HUD - Life Counter Icon.bin"
 		even
-Nem_Ring:	binclude	"artnem\Rings.bin"
+Nem_Ring:	binclude	"artnem/Rings.bin"
 		even
-Nem_Monitors:	binclude	"artnem\Monitors.bin"
+Nem_Monitors:	binclude	"artnem/Monitors.bin"
 		even
-Nem_Explode:	binclude	"artnem\Explosion.bin"
+Nem_Explode:	binclude	"artnem/Explosion.bin"
 		even
-Nem_Points:	binclude	"artnem\Points.bin"	; points from destroyed enemy or object
+Nem_Points:	binclude	"artnem/Points.bin"	; points from destroyed enemy or object
 		even
-Nem_GameOver:	binclude	"artnem\Game Over.bin"	; game over / time over
+Nem_GameOver:	binclude	"artnem/Game Over.bin"	; game over / time over
 		even
-Nem_HSpring:	binclude	"artnem\Spring Horizontal.bin"
+Nem_HSpring:	binclude	"artnem/Spring Horizontal.bin"
 		even
-Nem_VSpring:	binclude	"artnem\Spring Vertical.bin"
+Nem_VSpring:	binclude	"artnem/Spring Vertical.bin"
 		even
-Nem_SignPost:	binclude	"artnem\Signpost.bin"	; end of level signpost
+Nem_SignPost:	binclude	"artnem/Signpost.bin"	; end of level signpost
 		even
-Nem_Lamp:	binclude	"artnem\Lamppost.bin"
+Nem_Lamp:	binclude	"artnem/Lamppost.bin"
 		even
-Nem_BigFlash:	binclude	"artnem\Giant Ring Flash.bin"
+Nem_BigFlash:	binclude	"artnem/Giant Ring Flash.bin"
 		even
-Nem_Bonus:	binclude	"artnem\Hidden Bonuses.bin" ; hidden bonuses at end of a level
+Nem_Bonus:	binclude	"artnem/Hidden Bonuses.bin" ; hidden bonuses at end of a level
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - continue screen
 ; ---------------------------------------------------------------------------
-Nem_ContSonic:	binclude	"artnem\Continue Screen Sonic.bin"
+Nem_ContSonic:	binclude	"artnem/Continue Screen Sonic.bin"
 		even
-Nem_MiniSonic:	binclude	"artnem\Continue Screen Stuff.bin"
+Nem_MiniSonic:	binclude	"artnem/Continue Screen Stuff.bin"
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - animals
 ; ---------------------------------------------------------------------------
-Nem_Rabbit:	binclude	"artnem\Animal Rabbit.bin"
+Nem_Rabbit:	binclude	"artnem/Animal Rabbit.bin"
 		even
-Nem_Chicken:	binclude	"artnem\Animal Chicken.bin"
+Nem_Chicken:	binclude	"artnem/Animal Chicken.bin"
 		even
-Nem_BlackBird:	binclude	"artnem\Animal Blackbird.bin"
+Nem_BlackBird:	binclude	"artnem/Animal Blackbird.bin"
 		even
-Nem_Seal:	binclude	"artnem\Animal Seal.bin"
+Nem_Seal:	binclude	"artnem/Animal Seal.bin"
 		even
-Nem_Pig:	binclude	"artnem\Animal Pig.bin"
+Nem_Pig:	binclude	"artnem/Animal Pig.bin"
 		even
-Nem_Flicky:	binclude	"artnem\Animal Flicky.bin"
+Nem_Flicky:	binclude	"artnem/Animal Flicky.bin"
 		even
-Nem_Squirrel:	binclude	"artnem\Animal Squirrel.bin"
+Nem_Squirrel:	binclude	"artnem/Animal Squirrel.bin"
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - primary patterns and block mappings
 ; ---------------------------------------------------------------------------
-Blk16_GHZ:	binclude	"map16\GHZ.bin"
+Blk16_GHZ:	binclude	"map16/GHZ.bin"
 		even
-Nem_GHZ_1st:	binclude	"artnem\8x8 - GHZ1.bin"	; GHZ primary patterns
+Nem_GHZ_1st:	binclude	"artnem/8x8 - GHZ1.bin"	; GHZ primary patterns
 		even
-Nem_GHZ_2nd:	binclude	"artnem\8x8 - GHZ2.bin"	; GHZ secondary patterns
+Nem_GHZ_2nd:	binclude	"artnem/8x8 - GHZ2.bin"	; GHZ secondary patterns
 		even
-Blk256_GHZ:	binclude	"map256\GHZ.bin"
+Blk256_GHZ:	binclude	"map256/GHZ.bin"
 		even
-Blk16_LZ:	binclude	"map16\LZ.bin"
+Blk16_LZ:	binclude	"map16/LZ.bin"
 		even
-Nem_LZ:		binclude	"artnem\8x8 - LZ.bin"	; LZ primary patterns
+Nem_LZ:		binclude	"artnem/8x8 - LZ.bin"	; LZ primary patterns
 		even
-Blk256_LZ:	binclude	"map256\LZ.bin"
+Blk256_LZ:	binclude	"map256/LZ.bin"
 		even
-Blk16_MZ:	binclude	"map16\MZ.bin"
+Blk16_MZ:	binclude	"map16/MZ.bin"
 		even
-Nem_MZ:		binclude	"artnem\8x8 - MZ.bin"	; MZ primary patterns
+Nem_MZ:		binclude	"artnem/8x8 - MZ.bin"	; MZ primary patterns
 		even
 Blk256_MZ:	if Revision=0
-		binclude	"map256\MZ.bin"
+		binclude	"map256/MZ.bin"
 		else
-		binclude	"map256\MZ (JP1).bin"
+		binclude	"map256/MZ (JP1).bin"
 		endif
 		even
-Blk16_SLZ:	binclude	"map16\SLZ.bin"
+Blk16_SLZ:	binclude	"map16/SLZ.bin"
 		even
-Nem_SLZ:	binclude	"artnem\8x8 - SLZ.bin"	; SLZ primary patterns
+Nem_SLZ:	binclude	"artnem/8x8 - SLZ.bin"	; SLZ primary patterns
 		even
-Blk256_SLZ:	binclude	"map256\SLZ.bin"
+Blk256_SLZ:	binclude	"map256/SLZ.bin"
 		even
-Blk16_SYZ:	binclude	"map16\SYZ.bin"
+Blk16_SYZ:	binclude	"map16/SYZ.bin"
 		even
-Nem_SYZ:	binclude	"artnem\8x8 - SYZ.bin"	; SYZ primary patterns
+Nem_SYZ:	binclude	"artnem/8x8 - SYZ.bin"	; SYZ primary patterns
 		even
-Blk256_SYZ:	binclude	"map256\SYZ.bin"
+Blk256_SYZ:	binclude	"map256/SYZ.bin"
 		even
-Blk16_SBZ:	binclude	"map16\SBZ.bin"
+Blk16_SBZ:	binclude	"map16/SBZ.bin"
 		even
-Nem_SBZ:	binclude	"artnem\8x8 - SBZ.bin"	; SBZ primary patterns
+Nem_SBZ:	binclude	"artnem/8x8 - SBZ.bin"	; SBZ primary patterns
 		even
 Blk256_SBZ:	if Revision=0
-		binclude	"map256\SBZ.bin"
+		binclude	"map256/SBZ.bin"
 		else
-		binclude	"map256\SBZ (JP1).bin"
+		binclude	"map256/SBZ (JP1).bin"
 		endif
 		even
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - bosses and ending sequence
 ; ---------------------------------------------------------------------------
-Nem_Eggman:	binclude	"artnem\Boss - Main.bin"
+Nem_Eggman:	binclude	"artnem/Boss - Main.bin"
 		even
-Nem_Weapons:	binclude	"artnem\Boss - Weapons.bin"
+Nem_Weapons:	binclude	"artnem/Boss - Weapons.bin"
 		even
-Nem_Prison:	binclude	"artnem\Prison Capsule.bin"
+Nem_Prison:	binclude	"artnem/Prison Capsule.bin"
 		even
-Nem_Sbz2Eggman:	binclude	"artnem\Boss - Eggman in SBZ2 & FZ.bin"
+Nem_Sbz2Eggman:	binclude	"artnem/Boss - Eggman in SBZ2 & FZ.bin"
 		even
-Nem_FzBoss:	binclude	"artnem\Boss - Final Zone.bin"
+Nem_FzBoss:	binclude	"artnem/Boss - Final Zone.bin"
 		even
-Nem_FzEggman:	binclude	"artnem\Boss - Eggman after FZ Fight.bin"
+Nem_FzEggman:	binclude	"artnem/Boss - Eggman after FZ Fight.bin"
 		even
-Nem_Exhaust:	binclude	"artnem\Boss - Exhaust Flame.bin"
+Nem_Exhaust:	binclude	"artnem/Boss - Exhaust Flame.bin"
 		even
-Nem_EndEm:	binclude	"artnem\Ending - Emeralds.bin"
+Nem_EndEm:	binclude	"artnem/Ending - Emeralds.bin"
 		even
-Nem_EndSonic:	binclude	"artnem\Ending - Sonic.bin"
+Nem_EndSonic:	binclude	"artnem/Ending - Sonic.bin"
 		even
-Nem_TryAgain:	binclude	"artnem\Ending - Try Again.bin"
+Nem_TryAgain:	binclude	"artnem/Ending - Try Again.bin"
 		even
 Nem_EndEggman:	if Revision=0
-		binclude	"artnem\Unused - Eggman Ending.bin"
+		binclude	"artnem/Unused - Eggman Ending.bin"
 		endif
 		even
-Kos_EndFlowers:	binclude	"artkos\Flowers at Ending.bin" ; ending sequence animated flowers
+Kos_EndFlowers:	binclude	"artkos/Flowers at Ending.bin" ; ending sequence animated flowers
 		even
-Nem_EndFlower:	binclude	"artnem\Ending - Flowers.bin"
+Nem_EndFlower:	binclude	"artnem/Ending - Flowers.bin"
 		even
-Nem_CreditText:	binclude	"artnem\Ending - Credits.bin"
+Nem_CreditText:	binclude	"artnem/Ending - Credits.bin"
 		even
-Nem_EndStH:	binclude	"artnem\Ending - StH Logo.bin"
+Nem_EndStH:	binclude	"artnem/Ending - StH Logo.bin"
 		even
 
 		if Revision=0
@@ -8758,61 +8758,61 @@ Nem_EndStH:	binclude	"artnem\Ending - StH Logo.bin"
 ; ---------------------------------------------------------------------------
 ; Collision data
 ; ---------------------------------------------------------------------------
-AngleMap:	binclude	"collide\Angle Map.bin"
+AngleMap:	binclude	"collide/Angle Map.bin"
 		even
-CollArray1:	binclude	"collide\Collision Array (Normal).bin"
+CollArray1:	binclude	"collide/Collision Array (Normal).bin"
 		even
-CollArray2:	binclude	"collide\Collision Array (Rotated).bin"
+CollArray2:	binclude	"collide/Collision Array (Rotated).bin"
 		even
-Col_GHZ:	binclude	"collide\GHZ.bin"	; GHZ index
+Col_GHZ:	binclude	"collide/GHZ.bin"	; GHZ index
 		even
-Col_LZ:		binclude	"collide\LZ.bin"	; LZ index
+Col_LZ:		binclude	"collide/LZ.bin"	; LZ index
 		even
-Col_MZ:		binclude	"collide\MZ.bin"	; MZ index
+Col_MZ:		binclude	"collide/MZ.bin"	; MZ index
 		even
-Col_SLZ:	binclude	"collide\SLZ.bin"	; SLZ index
+Col_SLZ:	binclude	"collide/SLZ.bin"	; SLZ index
 		even
-Col_SYZ:	binclude	"collide\SYZ.bin"	; SYZ index
+Col_SYZ:	binclude	"collide/SYZ.bin"	; SYZ index
 		even
-Col_SBZ:	binclude	"collide\SBZ.bin"	; SBZ index
+Col_SBZ:	binclude	"collide/SBZ.bin"	; SBZ index
 		even
 ; ---------------------------------------------------------------------------
 ; Special Stage layouts
 ; ---------------------------------------------------------------------------
-SS_1:		binclude	"sslayout\1.bin"
+SS_1:		binclude	"sslayout/1.bin"
 		even
-SS_2:		binclude	"sslayout\2.bin"
+SS_2:		binclude	"sslayout/2.bin"
 		even
-SS_3:		binclude	"sslayout\3.bin"
+SS_3:		binclude	"sslayout/3.bin"
 		even
-SS_4:		binclude	"sslayout\4.bin"
+SS_4:		binclude	"sslayout/4.bin"
 		even
 		if Revision=0
-SS_5:		binclude	"sslayout\5.bin"
+SS_5:		binclude	"sslayout/5.bin"
 		even
-SS_6:		binclude	"sslayout\6.bin"
+SS_6:		binclude	"sslayout/6.bin"
 		else
-SS_5:		binclude	"sslayout\5 (JP1).bin"
+SS_5:		binclude	"sslayout/5 (JP1).bin"
 			even
-SS_6:		binclude	"sslayout\6 (JP1).bin"
+SS_6:		binclude	"sslayout/6 (JP1).bin"
 		endif
 		even
 ; ---------------------------------------------------------------------------
 ; Animated uncompressed graphics
 ; ---------------------------------------------------------------------------
-Art_GhzWater:	binclude	"artunc\GHZ Waterfall.bin"
+Art_GhzWater:	binclude	"artunc/GHZ Waterfall.bin"
 		even
-Art_GhzFlower1:	binclude	"artunc\GHZ Flower Large.bin"
+Art_GhzFlower1:	binclude	"artunc/GHZ Flower Large.bin"
 		even
-Art_GhzFlower2:	binclude	"artunc\GHZ Flower Small.bin"
+Art_GhzFlower2:	binclude	"artunc/GHZ Flower Small.bin"
 		even
-Art_MzLava1:	binclude	"artunc\MZ Lava Surface.bin"
+Art_MzLava1:	binclude	"artunc/MZ Lava Surface.bin"
 		even
-Art_MzLava2:	binclude	"artunc\MZ Lava.bin"
+Art_MzLava2:	binclude	"artunc/MZ Lava.bin"
 		even
-Art_MzTorch:	binclude	"artunc\MZ Background Torch.bin"
+Art_MzTorch:	binclude	"artunc/MZ Background Torch.bin"
 		even
-Art_SbzSmoke:	binclude	"artunc\SBZ Background Smoke.bin"
+Art_SbzSmoke:	binclude	"artunc/SBZ Background Smoke.bin"
 		even
 
 ; ---------------------------------------------------------------------------
@@ -8848,93 +8848,93 @@ Level_Index:	dc.w Level_GHZ1-Level_Index, Level_GHZbg-Level_Index, byte_68D70-Le
 		dc.w byte_6A320-Level_Index, byte_6A320-Level_Index, byte_6A320-Level_Index
 		zonewarning Level_Index,24
 
-Level_GHZ1:	binclude	levels\ghz1.bin
+Level_GHZ1:	binclude	levels/ghz1.bin
 		even
 byte_68D70:	dc.b 0,	0, 0, 0
-Level_GHZ2:	binclude	levels\ghz2.bin
+Level_GHZ2:	binclude	levels/ghz2.bin
 		even
 byte_68E3C:	dc.b 0,	0, 0, 0
-Level_GHZ3:	binclude	levels\ghz3.bin
+Level_GHZ3:	binclude	levels/ghz3.bin
 		even
-Level_GHZbg:	binclude	levels\ghzbg.bin
+Level_GHZbg:	binclude	levels/ghzbg.bin
 		even
 byte_68F84:	dc.b 0,	0, 0, 0
 byte_68F88:	dc.b 0,	0, 0, 0
 
-Level_LZ1:	binclude	levels\lz1.bin
+Level_LZ1:	binclude	levels/lz1.bin
 		even
-Level_LZbg:	binclude	levels\lzbg.bin
+Level_LZbg:	binclude	levels/lzbg.bin
 		even
 byte_69190:	dc.b 0,	0, 0, 0
-Level_LZ2:	binclude	levels\lz2.bin
+Level_LZ2:	binclude	levels/lz2.bin
 		even
 byte_6922E:	dc.b 0,	0, 0, 0
-Level_LZ3:	binclude	levels\lz3.bin
+Level_LZ3:	binclude	levels/lz3.bin
 		even
 byte_6934C:	dc.b 0,	0, 0, 0
-Level_SBZ3:	binclude	levels\sbz3.bin
+Level_SBZ3:	binclude	levels/sbz3.bin
 		even
 byte_6940A:	dc.b 0,	0, 0, 0
 
-Level_MZ1:	binclude	levels\mz1.bin
+Level_MZ1:	binclude	levels/mz1.bin
 		even
-Level_MZ1bg:	binclude	levels\mz1bg.bin
+Level_MZ1bg:	binclude	levels/mz1bg.bin
 		even
-Level_MZ2:	binclude	levels\mz2.bin
+Level_MZ2:	binclude	levels/mz2.bin
 		even
-Level_MZ2bg:	binclude	levels\mz2bg.bin
+Level_MZ2bg:	binclude	levels/mz2bg.bin
 		even
 byte_6965C:	dc.b 0,	0, 0, 0
-Level_MZ3:	binclude	levels\mz3.bin
+Level_MZ3:	binclude	levels/mz3.bin
 		even
-Level_MZ3bg:	binclude	levels\mz3bg.bin
+Level_MZ3bg:	binclude	levels/mz3bg.bin
 		even
 byte_697E6:	dc.b 0,	0, 0, 0
 byte_697EA:	dc.b 0,	0, 0, 0
 
-Level_SLZ1:	binclude	levels\slz1.bin
+Level_SLZ1:	binclude	levels/slz1.bin
 		even
-Level_SLZbg:	binclude	levels\slzbg.bin
+Level_SLZbg:	binclude	levels/slzbg.bin
 		even
-Level_SLZ2:	binclude	levels\slz2.bin
+Level_SLZ2:	binclude	levels/slz2.bin
 		even
-Level_SLZ3:	binclude	levels\slz3.bin
+Level_SLZ3:	binclude	levels/slz3.bin
 		even
 byte_69B84:	dc.b 0,	0, 0, 0
 
-Level_SYZ1:	binclude	levels\syz1.bin
+Level_SYZ1:	binclude	levels/syz1.bin
 		even
 Level_SYZbg:	if Revision=0
-		binclude	levels\syzbg.bin
+		binclude	levels/syzbg.bin
 		else
-		binclude	"levels\syzbg (JP1).bin"
+		binclude	"levels/syzbg (JP1).bin"
 		endif
 		even
 byte_69C7E:	dc.b 0,	0, 0, 0
-Level_SYZ2:	binclude	levels\syz2.bin
+Level_SYZ2:	binclude	levels/syz2.bin
 		even
 byte_69D86:	dc.b 0,	0, 0, 0
-Level_SYZ3:	binclude	levels\syz3.bin
+Level_SYZ3:	binclude	levels/syz3.bin
 		even
 byte_69EE4:	dc.b 0,	0, 0, 0
 byte_69EE8:	dc.b 0,	0, 0, 0
 
-Level_SBZ1:	binclude	levels\sbz1.bin
+Level_SBZ1:	binclude	levels/sbz1.bin
 		even
-Level_SBZ1bg:	binclude	levels\sbz1bg.bin
+Level_SBZ1bg:	binclude	levels/sbz1bg.bin
 		even
-Level_SBZ2:	binclude	levels\sbz2.bin
+Level_SBZ2:	binclude	levels/sbz2.bin
 		even
-Level_SBZ2bg:	binclude	levels\sbz2bg.bin
+Level_SBZ2bg:	binclude	levels/sbz2bg.bin
 		even
 byte_6A2F8:	dc.b 0,	0, 0, 0
 byte_6A2FC:	dc.b 0,	0, 0, 0
-Level_End:	binclude	levels\ending.bin
+Level_End:	binclude	levels/ending.bin
 		even
 byte_6A320:	dc.b 0,	0, 0, 0
 
 
-Art_BigRing:	binclude	"artunc\Giant Ring.bin"
+Art_BigRing:	binclude	"artunc/Giant Ring.bin"
 		even
 
 		align	$100,$FF
@@ -8982,93 +8982,93 @@ ObjPos_Index:	dc.w ObjPos_GHZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_SBZ1pf5-ObjPos_Index, ObjPos_SBZ1pf6-ObjPos_Index
 		dc.w ObjPos_SBZ1pf1-ObjPos_Index, ObjPos_SBZ1pf2-ObjPos_Index
 		dc.b $FF, $FF, 0, 0, 0,	0
-ObjPos_GHZ1:	binclude	objpos\ghz1.bin
+ObjPos_GHZ1:	binclude	objpos/ghz1.bin
 		even
-ObjPos_GHZ2:	binclude	objpos\ghz2.bin
+ObjPos_GHZ2:	binclude	objpos/ghz2.bin
 		even
 ObjPos_GHZ3:	if Revision=0
-		binclude	objpos\ghz3.bin
+		binclude	objpos/ghz3.bin
 		else
-		binclude	"objpos\ghz3 (JP1).bin"
+		binclude	"objpos/ghz3 (JP1).bin"
 		endif
 		even
 ObjPos_LZ1:	if Revision=0
-		binclude	objpos\lz1.bin
+		binclude	objpos/lz1.bin
 		else
-		binclude	"objpos\lz1 (JP1).bin"
+		binclude	"objpos/lz1 (JP1).bin"
 		endif
 		even
-ObjPos_LZ2:	binclude	objpos\lz2.bin
+ObjPos_LZ2:	binclude	objpos/lz2.bin
 		even
 ObjPos_LZ3:	if Revision=0
-		binclude	objpos\lz3.bin
+		binclude	objpos/lz3.bin
 		else
-		binclude	"objpos\lz3 (JP1).bin"
+		binclude	"objpos/lz3 (JP1).bin"
 		endif
 		even
-ObjPos_SBZ3:	binclude	objpos\sbz3.bin
+ObjPos_SBZ3:	binclude	objpos/sbz3.bin
 		even
-ObjPos_LZ1pf1:	binclude	objpos\lz1pf1.bin
+ObjPos_LZ1pf1:	binclude	objpos/lz1pf1.bin
 		even
-ObjPos_LZ1pf2:	binclude	objpos\lz1pf2.bin
+ObjPos_LZ1pf2:	binclude	objpos/lz1pf2.bin
 		even
-ObjPos_LZ2pf1:	binclude	objpos\lz2pf1.bin
+ObjPos_LZ2pf1:	binclude	objpos/lz2pf1.bin
 		even
-ObjPos_LZ2pf2:	binclude	objpos\lz2pf2.bin
+ObjPos_LZ2pf2:	binclude	objpos/lz2pf2.bin
 		even
-ObjPos_LZ3pf1:	binclude	objpos\lz3pf1.bin
+ObjPos_LZ3pf1:	binclude	objpos/lz3pf1.bin
 		even
-ObjPos_LZ3pf2:	binclude	objpos\lz3pf2.bin
+ObjPos_LZ3pf2:	binclude	objpos/lz3pf2.bin
 		even
 ObjPos_MZ1:	if Revision=0
-		binclude	objpos\mz1.bin
+		binclude	objpos/mz1.bin
 		else
-		binclude	"objpos\mz1 (JP1).bin"
+		binclude	"objpos/mz1 (JP1).bin"
 		endif
 		even
-ObjPos_MZ2:	binclude	objpos\mz2.bin
+ObjPos_MZ2:	binclude	objpos/mz2.bin
 		even
-ObjPos_MZ3:	binclude	objpos\mz3.bin
+ObjPos_MZ3:	binclude	objpos/mz3.bin
 		even
-ObjPos_SLZ1:	binclude	objpos\slz1.bin
+ObjPos_SLZ1:	binclude	objpos/slz1.bin
 		even
-ObjPos_SLZ2:	binclude	objpos\slz2.bin
+ObjPos_SLZ2:	binclude	objpos/slz2.bin
 		even
-ObjPos_SLZ3:	binclude	objpos\slz3.bin
+ObjPos_SLZ3:	binclude	objpos/slz3.bin
 		even
-ObjPos_SYZ1:	binclude	objpos\syz1.bin
+ObjPos_SYZ1:	binclude	objpos/syz1.bin
 		even
-ObjPos_SYZ2:	binclude	objpos\syz2.bin
+ObjPos_SYZ2:	binclude	objpos/syz2.bin
 		even
 ObjPos_SYZ3:	if Revision=0
-		binclude	objpos\syz3.bin
+		binclude	objpos/syz3.bin
 		else
-		binclude	"objpos\syz3 (JP1).bin"
+		binclude	"objpos/syz3 (JP1).bin"
 		endif
 		even
 ObjPos_SBZ1:	if Revision=0
-		binclude	objpos\sbz1.bin
+		binclude	objpos/sbz1.bin
 		else
-		binclude	"objpos\sbz1 (JP1).bin"
+		binclude	"objpos/sbz1 (JP1).bin"
 		endif
 		even
-ObjPos_SBZ2:	binclude	objpos\sbz2.bin
+ObjPos_SBZ2:	binclude	objpos/sbz2.bin
 		even
-ObjPos_FZ:	binclude	objpos\fz.bin
+ObjPos_FZ:	binclude	objpos/fz.bin
 		even
-ObjPos_SBZ1pf1:	binclude	objpos\sbz1pf1.bin
+ObjPos_SBZ1pf1:	binclude	objpos/sbz1pf1.bin
 		even
-ObjPos_SBZ1pf2:	binclude	objpos\sbz1pf2.bin
+ObjPos_SBZ1pf2:	binclude	objpos/sbz1pf2.bin
 		even
-ObjPos_SBZ1pf3:	binclude	objpos\sbz1pf3.bin
+ObjPos_SBZ1pf3:	binclude	objpos/sbz1pf3.bin
 		even
-ObjPos_SBZ1pf4:	binclude	objpos\sbz1pf4.bin
+ObjPos_SBZ1pf4:	binclude	objpos/sbz1pf4.bin
 		even
-ObjPos_SBZ1pf5:	binclude	objpos\sbz1pf5.bin
+ObjPos_SBZ1pf5:	binclude	objpos/sbz1pf5.bin
 		even
-ObjPos_SBZ1pf6:	binclude	objpos\sbz1pf6.bin
+ObjPos_SBZ1pf6:	binclude	objpos/sbz1pf6.bin
 		even
-ObjPos_End:	binclude	objpos\ending.bin
+ObjPos_End:	binclude	objpos/ending.bin
 		even
 ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
 

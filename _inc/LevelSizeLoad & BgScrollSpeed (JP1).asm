@@ -38,7 +38,7 @@ LevelSizeLoad:				; XREF: GM_Title; GM_Level; GM_Ending
 ; ---------------------------------------------------------------------------
 ; Level size array
 ; ---------------------------------------------------------------------------
-LevelSizeArray:	binclude	"misc\Level Size Array.bin"
+LevelSizeArray:	binclude	"misc/Level Size Array.bin"
 		even
 		zonewarning LevelSizeArray,$30
 
@@ -46,7 +46,7 @@ LevelSizeArray:	binclude	"misc\Level Size Array.bin"
 ; Ending start location array
 ; ---------------------------------------------------------------------------
 EndingStLocArray:
-		include	"_inc\Start Location Array - Ending.asm"
+		include	"_inc/Start Location Array - Ending.asm"
 
 ; ===========================================================================
 
@@ -117,7 +117,7 @@ SetScr_WithinBottom:
 ; ---------------------------------------------------------------------------
 ; Sonic start location array
 ; ---------------------------------------------------------------------------
-StartLocArray:	include	"_inc\Start Location Array - Levels.asm"
+StartLocArray:	include	"_inc/Start Location Array - Levels.asm"
 
 ; ---------------------------------------------------------------------------
 ; Which	256x256	tiles contain loops or roll-tunnels

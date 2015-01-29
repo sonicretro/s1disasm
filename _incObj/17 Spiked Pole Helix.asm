@@ -53,7 +53,7 @@ Hel_Build:
 		move.b	d5,(a2)+	; copy child address to parent RAM
 		move.b	#8,obRoutine(a1)
 		_move.b	d4,0(a1)
-		move.w	d2,ObY(a1)
+		move.w	d2,obY(a1)
 		move.w	d3,obX(a1)
 		move.l	obMap(a0),obMap(a1)
 		move.w	#$4398,obGfx(a1)

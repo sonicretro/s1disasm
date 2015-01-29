@@ -24,7 +24,7 @@ CalcSine:				; XREF: SS_BGAnimate; et al
 
 ; ===========================================================================
 
-Sine_Data:	binclude	"misc\sinewave.bin"	; values for a 360º sine wave
+Sine_Data:	binclude	"misc/sinewave.bin"	; values for a 360º sine wave
 
 ; ===========================================================================
 
