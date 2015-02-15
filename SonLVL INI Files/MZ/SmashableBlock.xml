@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Smashable Block" Image="img1">
+  <Images>
+    <ImageFromMappings id="img1">
+      <ArtFile filename="../artnem/MZ Green Pushable Block.bin"/>
+      <MapFile type="ASM" filename="../_maps/Smashable Green Block.asm" frame="0" startpal="2"/>
+    </ImageFromMappings>
+  </Images>
+  <Subtypes>
+    <Subtype id="00" name="2-Piece Sprite" image="img1"/>
+    <Subtype id="01" name="4-Piece Sprite" image="img1"/>
+  </Subtypes>
+  <Properties>
+    <BitsProperty name="Frame" type="MZBlockFrame" startbit="0" length="1" />
+  </Properties>
+  <Enums>
+    <Enum name="MZBlockFrame">
+      <EnumMember name="Frame 0 (2 Pieces)" />
+      <EnumMember name="Frame 1 (4 Pieces)" />
+    </Enum>
+  </Enums>
+</ObjDef>
