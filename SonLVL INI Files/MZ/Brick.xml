@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ObjDef xmlns="http://www.sonicretro.org" Namespace="S1ObjectDefinitions.MZ" TypeName="Brick" Language="cs" Name="Brick" Image="img1">
+<ObjDef xmlns="http://www.sonicretro.org" Name="Brick" Image="img1">
   <Images>
     <ImageFromMappings id="img1">
       <ArtFile filename="LevelArt"/>

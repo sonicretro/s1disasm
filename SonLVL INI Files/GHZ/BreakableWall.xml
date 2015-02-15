@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ObjDef xmlns="http://www.sonicretro.org" Namespace="S1ObjectDefinitions.GHZ" TypeName="BreakableWall" Language="cs" Name="Breakable Wall" RememberState="true" Image="img1">
+<ObjDef xmlns="http://www.sonicretro.org" Name="Breakable Wall" RememberState="true" Image="img1">
   <Images>
     <ImageFromMappings id="img1">
       <ArtFile filename="../artnem/GHZ Breakable Wall.bin"/>
