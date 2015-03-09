@@ -881,10 +881,10 @@ Sound_PlayBGM:
 		rts	
 ; ===========================================================================
 ; byte_721BA:
-FMDACInitBytes:	dc.b 6,	0, 1, 2, 4, 5, 6, 0
+FMDACInitBytes:	dc.b 6,	0, 1, 2, 4, 5, 6	; first byte is for DAC; then notice the 0, 1, 2 then 4, 5, 6; this is the gap between parts I and II for YM2612 port writes
 		even
 ; byte_721C2:
-PSGInitBytes:	dc.b $80, $A0, $C0, 0
+PSGInitBytes:	dc.b $80, $A0, $C0	; Specifically, these configure writes to the PSG port for each channel
 		even
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
