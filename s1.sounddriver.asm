@@ -881,10 +881,10 @@ Sound_PlayBGM:
 		rts	
 ; ===========================================================================
 ; byte_721BA:
-FMDACInitBytes:	dc.b 6,	0, 1, 2, 4, 5, 6, 0
+FMDACInitBytes:	dc.b 6,	0, 1, 2, 4, 5, 6	; first byte is for DAC; then notice the 0, 1, 2 then 4, 5, 6; this is the gap between parts I and II for YM2612 port writes
 		even
 ; byte_721C2:
-PSGInitBytes:	dc.b $80, $A0, $C0, 0
+PSGInitBytes:	dc.b $80, $A0, $C0	; Specifically, these configure writes to the PSG port for each channel
 		even
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -1360,7 +1360,7 @@ StopSoundAndMusic:
 		moveq	#0,d1		; FM3/FM6 normal mode, disable timers
 		jsr	WriteFMI(pc)
 		movea.l	a6,a0
-		; DANGER! This should be clearing all variables and track data, but misses the last $10 of v_sfx2_psg3_track.
+		; DANGER! This should be clearing all variables and track data, but misses the last $10 bytes of v_sfx2_psg3_track.
 		; Remove the '-$10' to fix this.
 		move.w	#(((v_sfx2_psg3_track+zTrackSz-$10)-v_startofvariables)/4)-1,d0	; Clear $390 bytes: all variables and most track data
 ; loc_725B6:

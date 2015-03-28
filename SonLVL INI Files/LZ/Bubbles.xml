@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Namespace="S1ObjectDefinitions.LZ" TypeName="Bubbles" Language="cs" Name="Bubbles" Image="img1" DefaultSubtype="80">
+  <Images>
+    <ImageFromMappings id="img1">
+      <ArtFile filename="../artnem/LZ Bubbles &amp; Countdown.bin"/>
+      <MapFile type="ASM" filename="../_maps/Bubbles.asm" frame="19" startpal="0" />
+    </ImageFromMappings>
+  </Images>
+  <Properties>
+    <CustomProperty name="Delay" displayname="Bubble-Making Delay" type="int">
+      <get><![CDATA[return obj.SubType & 0x7F;]]></get>
+      <set><![CDATA[obj.SubType = (byte)(System.Math.Min(0x7F, value) | 0x80);]]></set>
+    </CustomProperty>
+  </Properties>
+  <Display>
+    <DisplayOption>
+      <ImageRef image="img1" />
+    </DisplayOption>
+  </Display>
+</ObjDef>
