@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Door" Image="vertical" RememberState="true">
+  <Images>
+    <ImageFromMappings id="vertical">
+      <ArtFile filename="../artnem/LZ Vertical Door.bin"/>
+      <MapFile type="ASM" filename="../_maps/Floating Blocks and Doors.asm" frame="6" startpal="2"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="horizontal">
+      <ArtFile filename="../artnem/LZ Horizontal Door.bin" offset="1088"/>
+      <MapFile type="ASM" filename="../_maps/Floating Blocks and Doors.asm" frame="7" startpal="2"/>
+    </ImageFromMappings>
+  </Images>
+  <Properties>
+    <BitsProperty name="SwitchID" displayname="Switch ID" type="SwitchID" startbit="0" length="4" />
+    <BitsProperty name="Type" type="DoorType" startbit="4" length="4" />
+  </Properties>
+  <Enums>
+    <Enum name="DoorType">
+      <EnumMember name="Vertical" value="14" />
+      <EnumMember name="Horizontal" value="15" />
+    </Enum>
+    <Enum name="SwitchID">
+      <EnumMember name="Switch 00" />
+      <EnumMember name="Switch 01" />
+      <EnumMember name="Switch 02" />
+      <EnumMember name="Switch 03" />
+      <EnumMember name="Switch 04" />
+      <EnumMember name="Switch 05" />
+      <EnumMember name="Switch 06" />
+      <EnumMember name="Switch 07" />
+      <EnumMember name="Switch 08" />
+      <EnumMember name="Switch 09" />
+      <EnumMember name="Switch 0A" />
+      <EnumMember name="Switch 0B" />
+      <EnumMember name="Switch 0C" />
+      <EnumMember name="Switch 0D" />
+      <EnumMember name="Switch 0E" />
+      <EnumMember name="Switch 0F" />
+    </Enum>
+  </Enums>
+  <Display>
+    <DisplayOption>
+      <Condition property="Type" value="Vertical" />
+      <ImageRef image="vertical" />
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Type" value="Horizontal" />
+      <ImageRef image="horizontal" xflip="NeverFlip" />
+    </DisplayOption>
+  </Display>
+</ObjDef>

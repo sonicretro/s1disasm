@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ObjDef xmlns="http://www.sonicretro.org" Namespace="S1ObjectDefinitions.GHZ" TypeName="WallBarrier" Language="cs" Name="Wall Barrier" RememberState="true" Image="img1">
+<ObjDef xmlns="http://www.sonicretro.org" Name="Wall Barrier" RememberState="true" Image="img1">
   <Images>
     <ImageFromMappings id="img1">
       <ArtFile filename="../artnem/GHZ Edge Wall.bin"/>
