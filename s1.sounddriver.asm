@@ -2407,7 +2407,7 @@ cfOpF9:
 Kos_Z80:	include		"sound/z80.asm"
 	else
 ; locations in Z80 RAM
-Sample3_Pitch:	equ $00EA
+zSample3_Pitch:	equ $00EA
 zDAC_Status:	equ $1FFD
 zDAC_Sample:	equ $1FFF
 

@@ -10,7 +10,7 @@
 	CPU Z80
 	listing purecode
 
-SEGA_Pitch:		equ	0Bh					; The pitch of the SEGA sound
+zSEGA_Pitch:	equ	0Bh					; The pitch of the SEGA sound
 
 
 z80_stack:		equ 1FFCh
@@ -42,7 +42,7 @@ endpad := $
 	endif
     endm
 
-Z80Driver_Start:
+;Z80Driver_Start:
 	di									; Disable interrupts. Interrupts will never be reenabled
 	di									; for the z80, so that no code will be executed on V-Int.
 	di									; This means that the sample loop is all the z80 does.
@@ -57,12 +57,12 @@ Z80Driver_Start:
 	ld	b,8								; Number of bits to latch to ROM bank
 	ld	a,zmake68kBank(SegaPCM)>>1		; Bank ID without the least significant bit
 	
-BankSwitchLoop:	
+zBankSwitchLoop:	
 	ld	(zBankRegister),a				; Latch another bit to bank register.
 	rrca								; Move next bit into position
-	djnz	BankSwitchLoop				; decrement and loop if not zero
+	djnz	zBankSwitchLoop				; decrement and loop if not zero
 
-	jr	CheckForSamples
+	jr	zCheckForSamples
 
 ; ===========================================================================
 ; JMan2050's DAC decode lookup table
@@ -72,21 +72,21 @@ zDACDecodeTbl:
 	db	   0,	 1,   2,   4,   8,  10h,  20h,  40h
 	db	 80h,	-1,  -2,  -4,  -8, -10h, -20h, -40h
 
-CheckForSamples:
+zCheckForSamples:
 	ld	hl,zDAC_Sample					; Load the address of next sample.
 
-WaitDACLoop:	
+zWaitDACLoop:	
 	ld	a,(hl)							; a = next sample to play.
 	or	a								; Do we have a valid sample?
-	jp	p,WaitDACLoop					; Loop until we do
+	jp	p,zWaitDACLoop					; Loop until we do
 
 	sub	81h								; Make 0-based index
 	ld	(hl),a							; Store it back into sample index (i.e., mark it as being played)
 	cp	6								; Is the sample 87h or higher?
-	jr	nc,Play_SegaPCM					; If yes, branch
+	jr	nc,zPlay_SegaPCM				; If yes, branch
 
 	ld	de,0							; de = 0
-	ld	iy,PCM_Table					; iy = pointer to PCM Table
+	ld	iy,zPCM_Table					; iy = pointer to PCM Table
 
 	; Each entry on PCM table has 8 bytes in size, so multiply a by 8
 	; Warning: do NOT play samples 84h-86h!
@@ -116,7 +116,7 @@ WaitDACLoop:
 	exx
 	ld	h,(zDACDecodeTbl&0FF00h)>>8		; We set low byte of pointer below
 
-PlayPCMLoop:	
+zPlayPCMLoop:	
 	ld	a,(de)							; a = byte from DAC sample
 	and	0F0h							; Get upper nibble
 	; Shift-right 4 times to rotate the nibble into place
@@ -174,40 +174,40 @@ PlayPCMLoop:
 	exx
 	ld	a,(zDAC_Sample)					; a = sample we're playing (minus 81h)
 	bit	7,a								; Test bit 7 of register a
-	jp	nz,CheckForSamples				; If it is set, we need to get a new sample
+	jp	nz,zCheckForSamples				; If it is set, we need to get a new sample
 
 	inc	de								; Point to next byte of DAC sample
 	dec	bc								; Decrement remaining bytes on DAC sample
 	ld	a,c								; a = low byte of remainig bytes
 	or	b								; Are there any bytes left?
-	jp	nz,PlayPCMLoop					; If yes, keep playing sample
+	jp	nz,zPlayPCMLoop					; If yes, keep playing sample
 
-	jp	CheckForSamples					; Sample is done; wait for new samples
+	jp	zCheckForSamples				; Sample is done; wait for new samples
 ; 
 ; Subroutine - Play_SegaPCM
 ;
 ; This subroutine plays the "SEGA" sound.
 ; 
-Play_SegaPCM:	
+zPlay_SegaPCM:	
 	ld	de,zmake68kPtr(SegaPCM)			; de = bank-relative location of the SEGA sound
 	ld	hl,SegaPCM_End-SegaPCM			; hl = size of the SEGA sound
 	ld	c,2Ah							; c = Command to select DAC output register
 
-PlaySEGAPCMLoop:
+zPlaySEGAPCMLoop:
 	ld	a,(de)							; a = next byte from SEGA PCM
 	ld	(ix+0),c						; Select DAC output register
 	ld	(ix+1),a						; Send current data
 
-	ld	b,SEGA_Pitch					; b = pitch of the SEGA sample
+	ld	b,zSEGA_Pitch					; b = pitch of the SEGA sample
 	djnz	$							; Pitch loop
 
 	inc	de								; Point to next byte of DAC sample
 	dec	hl								; Decrement remaining bytes on DAC sample
 	ld	a,l								; a = low byte of remainig bytes
 	or	h								; Are there any bytes left?
-	jp	nz,PlaySEGAPCMLoop				; If yes, keep playing sample
+	jp	nz,zPlaySEGAPCMLoop				; If yes, keep playing sample
 
-	jp	CheckForSamples					; SEGA sound is done; wait for new samples
+	jp	zCheckForSamples				; SEGA sound is done; wait for new samples
 
 ;
 ; Table referencing the three PCM samples
@@ -216,26 +216,26 @@ PlaySEGAPCMLoop:
 ;
 
 
-PCM_Table:
-	dw	DAC_Sample1	; Kick sample
-	dw	(DAC_Sample1_End-DAC_Sample1)
-	dw	0017h		; Pitch = 17h
+zPCM_Table:
+	dw	zDAC_Sample1	; Kick sample
+	dw	(zDAC_Sample1_End-zDAC_Sample1)
+	dw	0017h			; Pitch = 17h
 	dw	0000h
 	
-	dw	DAC_Sample2	; Snare sample
-	dw	(DAC_Sample2_End-DAC_Sample2)
-	dw	0001h		; Pitch = 1h
+	dw	zDAC_Sample2	; Snare sample
+	dw	(zDAC_Sample2_End-zDAC_Sample2)
+	dw	0001h			; Pitch = 1h
 	dw	0000h
 	
-	dw	DAC_Sample3	; Timpani sample
-	dw	(Dac_Sample3_End-DAC_Sample3)
-Sample3_Pitch:
-	dw	001Bh		; Pitch = 1Bh
+	dw	zDAC_Sample3	; Timpani sample
+	dw	(zDac_Sample3_End-zDAC_Sample3)
+zSample3_Pitch:
+	dw	001Bh			; Pitch = 1Bh
 	dw	0000h
 	
 
 
-DAC_Sample1:
+zDAC_Sample1:
 	db	 90h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 01h, 00h, 91h, 3Bh,0C7h,0FDh, 52h,0DDh, 53h
 	db	0BFh, 7Dh, 0Fh, 76h,0EDh, 7Eh,0FEh, 8Dh, 64h,0EEh, 77h,0E9h, 6Eh, 65h, 3Dh, 54h, 2Dh, 50h, 00h, 00h
 	db	 00h, 0Dh, 4Bh, 2Eh,0EDh,0C4h,0FDh, 5Dh,0DDh,0ECh,0CBh, 90h, 00h, 00h, 4Ah,0B2h, 59h,0B3h, 4Ch, 32h
@@ -279,9 +279,9 @@ DAC_Sample1:
 	db	 10h, 91h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 09h, 00h, 00h, 00h
 	db	 00h, 09h, 00h, 00h, 09h, 00h, 00h, 90h, 00h, 00h, 00h, 90h, 00h, 00h, 00h, 09h, 00h, 00h, 00h, 00h
 	db	 00h, 00h, 00h, 00h, 00h, 00h, 01h, 91h, 00h, 00h
-DAC_Sample1_End:
+zDAC_Sample1_End:
 
-DAC_Sample2:
+zDAC_Sample2:
 	db	 9Ah, 19h,0A9h,0BDh,0EEh,0D6h, 56h, 55h, 56h, 7Fh, 47h, 1Fh, 2Eh, 7Dh, 2Dh,0DDh,0EDh,0CDh,0DAh,0D5h
 	db	 5Fh,0D7h,0F2h, 77h,0FDh, 84h,0FFh, 66h, 6Eh,0D7h,0FFh, 56h, 6Dh,0D6h,0F5h, 66h,0E5h, 46h,0AEh, 6Ch
 	db	0D6h,0F6h, 5Eh, 64h,0E3h, 47h, 58h, 25h, 7Dh,0C6h, 34h, 3Dh,0EFh, 71h, 0Ch,0DCh, 0Dh, 4Dh,0BCh,0B1h
@@ -378,9 +378,9 @@ DAC_Sample2:
 	db	 2Ah, 22h,0ABh, 92h,0A0h, 90h, 9Ah, 22h, 12h, 00h, 02h, 29h,0A9h,0B2h, 2Bh, 92h, 92h, 91h,0B9h, 19h
 	db	 1Bh,0B0h, 10h, 02h,0A2h, 32h,0A0h,0A3h, 0Ah,0B2h,0B2h, 3Ah,0B9h, 90h, 21h, 1Ah, 2Bh,0B2h, 39h, 00h
 	db	 13h, 2Bh, 92h, 12h
-DAC_Sample2_End:
+zDAC_Sample2_End:
 
-DAC_Sample3:
+zDAC_Sample3:
 	db	0ABh,0B2h, 45h, 4Dh,0E0h, 54h, 34h, 4Ch,0DEh, 6Eh,0ECh,0B3h, 4Bh, 56h, 66h, 55h, 63h, 03h, 32h,0DEh
 	db	0FEh, 57h,0DEh,0DEh,0DCh, 15h, 3Dh,0EBh,0B5h, 76h, 66h, 43h, 5Eh,0FCh,0ADh,0CCh,0EBh, 44h,0BBh, 73h
 	db	0C0h, 2Dh,0DCh, 13h, 21h,0BCh,0CCh,0A3h, 64h, 25h, 65h, 66h, 50h, 0Ah,0DDh,0CCh, 25h, 3Dh,0DDh,0C6h
@@ -587,7 +587,7 @@ DAC_Sample3:
 	db	 00h, 00h, 00h, 09h, 01h, 00h, 00h, 01h, 00h, 01h, 00h, 00h, 10h, 00h, 00h, 00h, 00h, 00h, 00h, 90h
 	db	 00h, 09h, 00h, 90h, 00h, 00h, 90h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 10h, 00h, 10h, 00h, 00h, 00h
 	db	 00h, 00h, 00h, 09h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00
-DAC_Sample3_End:
+zDAC_Sample3_End:
 
 	if MOMPASS==2
 		if $ > z80_stack
