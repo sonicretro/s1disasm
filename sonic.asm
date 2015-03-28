@@ -17,15 +17,17 @@ zeroOffsetOptimization = 0
 	include	"Variables.asm"
 	include	"Macros.asm"
 
-EnableSRAM	= 0	; change to 1 to enable SRAM
-BackupSRAM	= 1
-AddressSRAM	= 3	; 0 = odd+even; 2 = even only; 3 = odd only
+EnableSRAM	  = 0	; change to 1 to enable SRAM
+BackupSRAM	  = 1
+AddressSRAM	  = 3	; 0 = odd+even; 2 = even only; 3 = odd only
 
-Revision	= 0	; change to 1 for JP1 revision
+Revision	  = 0	; change to 1 for JP1 revision
 
-ZoneCount	= 7	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, SBZ and Ending
+ZoneCount	  = 7	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, SBZ and Ending
 
-OptimiseSound	= 0	; change to 1 to optimise sound queuing
+OptimiseSound	  = 0	; change to 1 to optimise sound queuing
+
+AssembleDACDriver = 0	; does not produce bit-perfect results, hence the inclusion of a pre-assembled/compressed option
 
 ; ===========================================================================
 

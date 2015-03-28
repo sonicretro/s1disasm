@@ -2403,6 +2403,14 @@ cfOpF9:
 		bra.w	WriteFMI
 ; ===========================================================================
 
+	if AssembleDACDriver
+Kos_Z80:	include		"sound/z80.asm"
+	else
+; locations in Z80 RAM
+Sample3_Pitch:	equ $00EA
+zDAC_Status:	equ $1FFD
+zDAC_Sample:	equ $1FFF
+
 Kos_Z80:
 		binclude	"sound/z80_1.bin"			; z80 Start-up code
 		dc.b ((SegaPCM&$3F8000)/$8000)&1						; Least bit of bank ID (bit 15 of address), being loaded into register a
@@ -2416,6 +2424,7 @@ Kos_Z80:
 		dc.w (((SegaPCM_End-SegaPCM)&$FF)<<8)+(((SegaPCM_End-SegaPCM)&$FF00)>>8)	; ... the size of the Sega PCM (little endian)
 		binclude	"sound/z80_3.bin"
 		even
+	endif
 
 Music81:	binclude	"sound/music/Mus81 - GHZ.bin"
 		even
