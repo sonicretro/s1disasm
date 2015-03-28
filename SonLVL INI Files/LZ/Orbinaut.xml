@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Orbinaut" RememberState="true">
+  <Images>
+    <ImageFromMappings id="spikeball">
+      <ArtFile filename="../artnem/Enemy Orbinaut.bin"/>
+      <MapFile type="ASM" filename="../_maps/Orbinaut.asm" frame="3" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="body">
+      <ArtFile filename="../artnem/Enemy Orbinaut.bin"/>
+      <MapFile type="ASM" filename="../_maps/Orbinaut.asm" frame="0" startpal="0" />
+    </ImageFromMappings>
+  </Images>
+  <DefaultImage>
+    <ImageRef image="spikeball">
+      <Offset X="-7" Y="-15" />
+    </ImageRef>
+    <ImageRef image="spikeball">
+      <Offset X="6" Y="14" />
+    </ImageRef>
+    <ImageRef image="spikeball">
+      <Offset X="-15" Y="6" />
+    </ImageRef>
+    <ImageRef image="spikeball">
+      <Offset X="14" Y="-7" />
+    </ImageRef>
+    <ImageRef image="body" />
+  </DefaultImage>
+  <Display>
+    <DisplayOption>
+    <ImageRef image="spikeball">
+      <Offset X="-7" Y="-15" />
+    </ImageRef>
+    <ImageRef image="spikeball">
+      <Offset X="6" Y="14" />
+    </ImageRef>
+    <ImageRef image="spikeball">
+      <Offset X="-15" Y="6" />
+    </ImageRef>
+    <ImageRef image="spikeball">
+      <Offset X="14" Y="-7" />
+    </ImageRef>
+      <ImageRef image="body" />
+    </DisplayOption>
+  </Display>
+</ObjDef>

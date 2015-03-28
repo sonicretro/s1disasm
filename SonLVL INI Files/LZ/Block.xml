@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Block/Cork" Image="cork" DefaultSubtype="27">
+  <Images>
+    <ImageFromMappings id="fallingplatform">
+      <ArtFile filename="../artnem/LZ Horizontal Door.bin"/>
+      <MapFile type="ASM" filename="../_maps/LZ Blocks.asm" frame="0" startpal="2"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="wideplatform">
+      <ArtFile filename="../artnem/LZ Rising Platform.bin" offset="3360"/>
+      <MapFile type="ASM" filename="../_maps/LZ Blocks.asm" frame="1" startpal="2"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="cork">
+      <ArtFile filename="../artnem/LZ Cork.bin" offset="9024"/>
+      <MapFile type="ASM" filename="../_maps/LZ Blocks.asm" frame="2" startpal="2"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="staticplatform">
+      <ArtFile filename="../artnem/LZ 32x32 Block.bin" offset="48960" />
+      <MapFile type="ASM" filename="../_maps/LZ Blocks.asm" frame="3" startpal="3"/>
+    </ImageFromMappings>
+  </Images>
+  <Subtypes>
+    <Subtype id="01" name="Falling Platform" image="fallingplatform"/>
+    <Subtype id="13" name="Rising Platform" image="wideplatform"/>
+    <Subtype id="27" name="Cork" image="cork"/>
+    <Subtype id="30" name="Block" image="staticplatform"/>
+  </Subtypes>
+</ObjDef>

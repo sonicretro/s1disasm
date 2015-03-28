@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Conveyor Belt" Image="wheel">
+  <Images>
+    <ImageFromMappings id="wheel">
+      <ArtFile filename="../artnem/LZ Wheel.bin"/>
+      <MapFile type="ASM" filename="../_maps/LZ Conveyor.asm" frame="0" startpal="0"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="platform">
+      <ArtFile filename="../artnem/LZ Wheel.bin"/>
+      <MapFile type="ASM" filename="../_maps/LZ Conveyor.asm" frame="4" startpal="2"/>
+    </ImageFromMappings>
+  </Images>
+  <Subtypes>
+    <Subtype id="80" name="Spawner (Group 0)"  image="platform"/>
+    <Subtype id="81" name="Spawner (Group 1)"  image="platform"/>
+    <Subtype id="82" name="Spawner (Group 2)"  image="platform"/>
+    <Subtype id="83" name="Spawner (Group 3)"  image="platform"/>
+    <Subtype id="84" name="Spawner (Group 4)"  image="platform"/>
+    <Subtype id="85" name="Spawner (Group 5)"  image="platform"/>
+    <Subtype id="7F" name="Wheel" image="wheel"/>
+  </Subtypes>
+</ObjDef>

@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Namespace="S1ObjectDefinitions.LZ" TypeName="Spikeball" Language="cs" Name="Spikeball on Chain" Image="spikeball" DefaultSubtype="05">
+  <Images>
+    <ImageFromMappings id="link">
+      <ArtFile filename="../artnem/LZ Spiked Ball &amp; Chain.bin"/>
+      <MapFile type="ASM" filename="../_maps/Spiked Ball and Chain (LZ).asm" frame="0" startpal="0"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="spikeball">
+      <ArtFile filename="../artnem/LZ Spiked Ball &amp; Chain.bin"/>
+      <MapFile type="ASM" filename="../_maps/Spiked Ball and Chain (LZ).asm" frame="1" startpal="0"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="base">
+      <ArtFile filename="../artnem/LZ Spiked Ball &amp; Chain.bin"/>
+      <MapFile type="ASM" filename="../_maps/Spiked Ball and Chain (LZ).asm" frame="2" startpal="0"/>
+    </ImageFromMappings>
+  </Images>
+  <Properties>
+    <CustomProperty name="Chainlinks" type="int">
+      <get><![CDATA[return obj.SubType & 0x07;]]></get>
+      <set><![CDATA[
+	value = System.Math.Min(0x07, value);
+	obj.SubType = (byte)((obj.SubType & ~0x07) | value);]]>
+      </set>
+    </CustomProperty>
+    <CustomProperty name="Speed" type="int">
+      <get><![CDATA[
+	if ((obj.SubType & 0x80) == 0x80)
+		return (((~obj.SubType & 0xF0) >> 4) + 1);
+	else
+		return ((obj.SubType & 0xF0) >> 4);]]>
+      </get>
+      <set><![CDATA[
+	if ((obj.SubType & 0x80) == 0x80)
+		obj.SubType = (byte)((obj.SubType & ~0xF0) | ((~(System.Math.Min(0x08, value) - 1) & 0x0F) << 4));
+	else
+		obj.SubType = (byte)((obj.SubType & ~0xF0) | (System.Math.Min(0x07, value) << 4));]]>
+      </set>
+    </CustomProperty>
+    <CustomProperty name="Rotation" type="ChainRotation">
+      <get><![CDATA[return ((obj.SubType & 0x80) >> 7);]]></get>
+      <set><![CDATA[
+	if ((value==1) && (obj.SubType & 0x80) == 0)
+		obj.SubType = (byte)((((~obj.SubType) & 0xF0) + 0x10) | (obj.SubType & 0x0F));
+	else if (((value==0) && (obj.SubType & 0x80) == 0x80))
+		obj.SubType = (byte)(((((~obj.SubType) & 0xF0) + 0x10) | (obj.SubType & 0x0F)) & 0x7F);]]>
+      </set>
+    </CustomProperty>
+  </Properties>
+  <Enums>
+    <Enum name="ChainRotation">
+      <EnumMember name="Clockwise" />
+      <EnumMember name="Counterclockwise" />
+    </Enum>
+  </Enums>
+  <Display>
+    <DisplayOption>
+      <Condition property="Chainlinks" value="0" />
+      <ImageRef image="base" />
+      <ImageRef image="spikeball" />
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Chainlinks" value="1" />
+      <ImageRef image="base" />
+      <ImageRef image="spikeball">
+        <Offset Y="-16" />
+      </ImageRef>
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Chainlinks" value="2" />
+      <ImageRef image="base" />
+      <ImageRef image="link">
+        <Offset Y="-16" />
+      </ImageRef>
+      <ImageRef image="spikeball">
+        <Offset Y="-32" />
+      </ImageRef>
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Chainlinks" value="3" />
+      <ImageRef image="base" />
+      <ImageRef image="link">
+        <Offset Y="-16" />
+      </ImageRef>
+      <ImageRef image="link">
+        <Offset Y="-32" />
+      </ImageRef>
+      <ImageRef image="spikeball">
+        <Offset Y="-48" />
+      </ImageRef>
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Chainlinks" value="4" />
+      <ImageRef image="base" />
+      <ImageRef image="link">
+        <Offset Y="-16" />
+      </ImageRef>
+      <ImageRef image="link">
+        <Offset Y="-32" />
+      </ImageRef>
+      <ImageRef image="link">
+        <Offset Y="-48" />
+      </ImageRef>
+      <ImageRef image="spikeball">
+        <Offset Y="-64" />
+      </ImageRef>
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Chainlinks" value="5" />
+      <ImageRef image="base" />
+      <ImageRef image="link">
+        <Offset Y="-16" />
+      </ImageRef>
+      <ImageRef image="link">
+        <Offset Y="-32" />
+      </ImageRef>
+      <ImageRef image="link">
+        <Offset Y="-48" />
+      </ImageRef>
+      <ImageRef image="link">
+        <Offset Y="-64" />
+      </ImageRef>
+      <ImageRef image="spikeball">
+        <Offset Y="-80" />
+      </ImageRef>
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Chainlinks" value="6" />
+      <ImageRef image="base" />
+      <ImageRef image="link">
+        <Offset Y="-16" />
+      </ImageRef>
+      <ImageRef image="link">
+        <Offset Y="-32" />
+      </ImageRef>
+      <ImageRef image="link">
+        <Offset Y="-48" />
+      </ImageRef>
+      <ImageRef image="link">
+        <Offset Y="-64" />
+      </ImageRef>
+      <ImageRef image="link">
+        <Offset Y="-80" />
+      </ImageRef>
+      <ImageRef image="spikeball">
+        <Offset Y="-96" />
+      </ImageRef>
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Chainlinks" value="7" />
+      <ImageRef image="base" />
+      <ImageRef image="link">
+        <Offset Y="-16" />
+      </ImageRef>
+      <ImageRef image="link">
+        <Offset Y="-32" />
+      </ImageRef>
+      <ImageRef image="link">
+        <Offset Y="-48" />
+      </ImageRef>
+      <ImageRef image="link">
+        <Offset Y="-64" />
+      </ImageRef>
+      <ImageRef image="link">
+        <Offset Y="-80" />
+      </ImageRef>
+      <ImageRef image="link">
+        <Offset Y="-96" />
+      </ImageRef>
+      <ImageRef image="spikeball">
+        <Offset Y="-112" />
+      </ImageRef>
+    </DisplayOption>
+  </Display>
+</ObjDef>
