@@ -586,7 +586,7 @@ zDAC_Sample3:
 	db	 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 10h, 00h, 00h, 00h, 00h, 09h, 00h, 00h, 90h, 00h, 00h, 00h
 	db	 00h, 00h, 00h, 09h, 01h, 00h, 00h, 01h, 00h, 01h, 00h, 00h, 10h, 00h, 00h, 00h, 00h, 00h, 00h, 90h
 	db	 00h, 09h, 00h, 90h, 00h, 00h, 90h, 00h, 00h, 00h, 00h, 01h, 00h, 00h, 10h, 00h, 10h, 00h, 00h, 00h
-	db	 00h, 00h, 00h, 09h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00
+	db	 00h, 00h, 00h, 09h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h, 00h
 zDAC_Sample3_End:
 
 	if MOMPASS==2
