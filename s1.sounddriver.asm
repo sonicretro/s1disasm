@@ -2403,28 +2403,7 @@ cfOpF9:
 		bra.w	WriteFMI
 ; ===========================================================================
 
-	if AssembleDACDriver
 Kos_Z80:	include		"sound/z80.asm"
-	else
-; locations in Z80 RAM
-zSample3_Pitch:	equ $00EA
-zDAC_Status:	equ $1FFD
-zDAC_Sample:	equ $1FFF
-
-Kos_Z80:
-		binclude	"sound/z80_1.bin"			; z80 Start-up code
-		dc.b ((SegaPCM&$3F8000)/$8000)&1						; Least bit of bank ID (bit 15 of address), being loaded into register a
-		dc.b $32,$00,$60			; ld	(zBankRegister),a		; Latch it to bank register, initializing bank switch
-		dc.b $06,$08				; ld	b,8				; Number of bits remaining to complete bank switch
-		dc.b $3E				; ld	a,X				; Load into register a...
-		dc.b ((SegaPCM&$3F8000)/$8000)>>1						; ... the remaining bits of bank ID (bits 16-23)
-		binclude	"sound/z80_2.bin"						; Finishes bank switch, Jman2050 table, DAC sample loop
-		dc.w ((SegaPCM&$FF)<<8)+((SegaPCM&$7F00)>>8)|$80				; Pointer to Sega PCM, relative to start of ROM bank (i.e., little_endian($8000 + SegaPCM&$7FFF), loaded into de
-		dc.b $21				; ld	hl,XX				; Load into register hl...
-		dc.w (((SegaPCM_End-SegaPCM)&$FF)<<8)+(((SegaPCM_End-SegaPCM)&$FF00)>>8)	; ... the size of the Sega PCM (little endian)
-		binclude	"sound/z80_3.bin"
-		even
-	endif
 
 Music81:	binclude	"sound/music/Mus81 - GHZ.bin"
 		even
