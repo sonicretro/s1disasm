@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 
 import os
 import platform
@@ -9,40 +10,48 @@ import subprocess
 if platform.system() == "Windows":
 	asBinary = "AS/Win32/asw.exe";
 	s1p2binBinary = "AS/Win32/s1p2bin.exe";
-	fixheaderBinary = "fixheader.exe";
-	
+
 elif platform.system() == "Darwin": # Osx
 	asBinary = "AS/Osx/asl";
 	s1p2binBinary = "AS/Osx/p2bin";
-	print("Checksum calculation unavailable on your platform")
-	
+
 elif platform.system() == "Linux":
-	# You'll need to find a linux version of the tools and set their file paths here
-	# ...
-	print("Linux not configured")
-	
+	asBinary = "AS/Linux/asl"
+	s1p2binBinary = "AS/Linux/s1p2bin"
+
 else:
 	print("Unknown platform")
-
 
 def delete(path):
 	if os.path.isfile(path):
 		os.remove(path);
-	
 
 def move(path1, path2):
 	if os.path.isfile(path1):
 		os.rename(path1, path2);
-	
+
+def update_checksum(path):
+	with open(path, "r+b") as file:
+		# Read the whole file in memory
+		bytes = file.read();
+
+		# Calculate the checksum
+		checksum = 0;
+		for i in range(0x200, len(bytes), 2):
+			checksum += (bytes[i + 0] << 8) + (bytes[i + 1] << 0);
+			checksum &= 0xFFFF;
+
+		# Write the checksum to the header
+		file.seek(0x18E);
+		file.write(bytearray([(checksum >> 8) & 0xFF, (checksum >> 0) & 0xFF]));
 
 def run():
-
 	if platform.system() == "Windows":
 		os.environ["AS_MSGPATH"] = "AS/Win32";
 		os.environ["USEANSI"] = "n";
-	
+
 	# Build ROM
-		print("Building s1built");
+	print("Building s1built");
 
 	# Create full paths for all files
 	romPath = "s1built.bin";	
@@ -50,7 +59,7 @@ def run():
 	errorsPath = "sonic.log";
 	outputPath = "_Output.txt";
 	binaryOutputPath = "_BinaryOutput.txt";
-	
+
 	print("  Cleaning previous build");
 	# Remove old output
 	delete(romPathPrev);
@@ -59,49 +68,45 @@ def run():
 	delete(outputPath);
 	delete(binaryOutputPath);
 	delete("sonic.p");
-	
+
 	assembleCommand = [asBinary, "-xx", "-n", "-q", "-A", "-L"];
-	
+
 	# Input asm file
 	assembleCommand.append("sonic.asm");
-	
+
 	print("  Assembling .p file");
-	
+
 	assembleProcess = subprocess.Popen(assembleCommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 	output, errors = assembleProcess.communicate()
-	errorsFile = open(errorsPath, "w")
+	errorsFile = open(errorsPath, "wb")
 	errorsFile.write(errors)
 	errorsFile.close()
-	outputFile = open(outputPath, "w")
+	outputFile = open(outputPath, "wb")
 	outputFile.write(output)
 	outputFile.close()
-	
+
 	# Create binary
-	
+
 	binaryCommand = [s1p2binBinary, "sonic.p", romPath];
-	
+
 	# Output file
-	
+
 	print("  Converting .p to .bin");
-	
+
 	binaryProcess = subprocess.Popen(binaryCommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 	output, errors = binaryProcess.communicate()
-	outputFile = open(binaryOutputPath, "w")
+	outputFile = open(binaryOutputPath, "wb")
 	outputFile.write(output)
 	outputFile.close()
-	
+
 	# Fixing checksum
 
-	if platform.system() == "Windows":
-		print("  Calculating checksum");
-		binaryCommand = [fixheaderBinary, "s1built.bin"];
-		binaryProcess = subprocess.Popen(binaryCommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-	
+	print("  Calculating checksum");
+	update_checksum(romPath);
+
 	print("  Removing temporary files");
-	
+
 	# delete working files
 	delete("sonic.p");
 
-	
 	print("Finished!");
-	
