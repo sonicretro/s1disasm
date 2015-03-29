@@ -1133,8 +1133,8 @@ Sound_PlaySpecial:
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-; Snd_FadeOut1: Snd_FadeOutSFX:
-FadeOutSFX:
+; Snd_FadeOut1: Snd_FadeOutSFX: FadeOutSFX:
+StopSFX:
 		clr.b	v_sndprio(a6)		; Clear priority
 		lea	v_sfx_track_ram(a6),a5
 		moveq	#(v_sfx_psg3_track-v_sfx_fm3_track)/zTrackSz,d7	; 3 FM + 3 PSG tracks (SFX)
@@ -1199,13 +1199,13 @@ FadeOutSFX:
 		dbf	d7,@trackloop
 
 		rts	
-; End of function FadeOutSFX
+; End of function StopSFX
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-; Snd_FadeOut2: FadeOutSFX2:
-FadeOutSpecialSFX:
+; Snd_FadeOut2: FadeOutSFX2: FadeOutSpecialSFX:
+StopSpecialSFX:
 		lea	v_sfx2_fm4_track(a6),a5
 		tst.b	(a5)			; Is track playing? (zTrackPlaybackControl)
 		bpl.s	@fadedfm		; Branch if not
@@ -1241,7 +1241,7 @@ FadeOutSpecialSFX:
 ; locret_724E4:
 @fadedpsg:
 		rts	
-; End of function FadeOutSpecialSFX
+; End of function StopSpecialSFX
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -1249,8 +1249,8 @@ FadeOutSpecialSFX:
 ; ---------------------------------------------------------------------------
 ; Sound_E0:
 FadeOutMusic:
-		jsr	FadeOutSFX(pc)
-		jsr	FadeOutSpecialSFX(pc)
+		jsr	StopSFX(pc)
+		jsr	StopSpecialSFX(pc)
 		move.b	#3,v_fadeout_delay(a6)		; Set fadeout delay to 3
 		move.b	#$28,v_fadeout_counter(a6)	; Set fadeout counter
 		clr.b	v_dac_playback_control(a6)	; Stop DAC track
