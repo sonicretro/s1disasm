@@ -27,7 +27,7 @@ ZoneCount	  = 7	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, SBZ and Ending
 
 OptimiseSound	  = 0	; change to 1 to optimise sound queuing
 
-AssembleDACDriver = 0	; does not produce bit-perfect results, hence the inclusion of a pre-assembled/compressed option
+AssembleDACDriver = 1
 
 ; ===========================================================================
 

@@ -116,7 +116,7 @@ write:
 		DS+=1;
 	}
 
-	else if ( (ICount==2) & (BPointer-IOffset>256) )
+	else if ( (ICount==2) & (BPointer-IOffset>=256) )
 	{
 		BITFIELD|=1<<BFP; // 2^BFP
 		if (++BFP==16) { fwrite(&BITFIELD,2,1,Dst); fwrite(&Data,DS,1,Dst); dstBytesWritten += 2+DS; BITFIELD=BFP=DS=0; }
@@ -127,7 +127,7 @@ write:
 		--ICount;
 	}
 
-	else if ( (ICount < 6) & (BPointer-IOffset<=256) )
+	else if ( (ICount < 6) & (BPointer-IOffset<256) )
 	{
 		if (++BFP==16) { fwrite(&BITFIELD,2,1,Dst); fwrite(&Data,DS,1,Dst); dstBytesWritten += 2+DS; BITFIELD=BFP=DS=0; }
 

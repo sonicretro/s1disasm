@@ -3,7 +3,7 @@
 ; ---------------------------------------------------------------------------
 
 Size_of_SegaPCM:		equ $6978
-Size_of_DAC_driver_guess:	equ $1756
+Size_of_DAC_driver_guess:	equ $1760
 
 ; VDP addressses
 vdp_data_port:		equ $C00000

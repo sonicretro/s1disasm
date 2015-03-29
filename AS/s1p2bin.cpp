@@ -162,10 +162,6 @@ bool buildRom(FILE* from, FILE* to)
 			}
 		}
 
-		lastStart = start;
-		lastLength = length;
-		lastSegmentCompressed = false;
-
 		// hack to make padding directives use 0xFF without breaking backwards orgs
 		if (start < cur || start < maxpos)
 			fseek(to, start, SEEK_SET);
@@ -175,7 +171,7 @@ bool buildRom(FILE* from, FILE* to)
 				int dif = start - cur;
 				if (dif > scratchSize)
 					dif = scratchSize;
-				memset(scratch, -1, dif);
+				memset(scratch, lastSegmentCompressed ? 0 : -1, dif);
 				fwrite(scratch, dif, 1, to);
 				cur += dif;
 			}
@@ -190,9 +186,14 @@ bool buildRom(FILE* from, FILE* to)
 			fwrite(scratch, copy, 1, to);
 			length -= copy;
 		}
+
 		cur = ftell(to);
 		if (cur > maxpos)
 			maxpos = cur;
+
+		lastStart = start;
+		lastLength = length;
+		lastSegmentCompressed = false;
 	}
 
 	return true;
