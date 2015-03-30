@@ -19,7 +19,9 @@ cls
 REM // run the assembler
 REM // -xx shows the most detailed error output
 REM // -q makes AS shut up
+REM // -E outputs error messages to file
 REM // -A gives us a small speedup
+REM // -L generates a listing file
 set AS_MSGPATH=AS/Win32
 set USEANSI=n
 
