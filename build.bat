@@ -31,7 +31,7 @@ IF "%1"=="-logerrors" ( "AS/Win32/asw.exe" -xx -q -A -L sonic.asm ) ELSE "AS/Win
 REM // if there were errors, a log file is produced
 IF EXIST sonic.log goto LABLERROR3
 
-REM // combine the assembler output into a rom
+REM // combine the assembler output into a ROM
 IF EXIST sonic.p "AS/Win32/s1p2bin" sonic.p s1built.bin
 
 REM // done -- pause if we seem to have failed, then exit

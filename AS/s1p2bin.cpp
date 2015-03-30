@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 				}
 				else
 				{
-					unlink(romFileName); // error; delete the rom because it's probably hosed
+					unlink(romFileName); // error; delete the ROM because it's probably hosed
 				}
 			}
 			else

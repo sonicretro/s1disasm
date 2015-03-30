@@ -82,7 +82,7 @@ tracenum := (tracenum+1)
 tracenum := 0
 
     if zeroOffsetOptimization=0
-    ; disable a space optimization in AS so we can build a bit-perfect rom
+    ; disable a space optimization in AS so we can build a bit-perfect ROM
     ; (the hard way, but it requires no modification of AS itself)
 
 
