@@ -8335,7 +8335,7 @@ Art_LivesNums:	binclude	"artunc/Lives Counter Numbers.bin" ; 8x8 pixel numbers o
 		include	"_inc/LevelHeaders.asm"
 		include	"_inc/Pattern Load Cues.asm"
 
-		align	$100,$FF
+		align	$100
 		if Revision=0
 Nem_SegaLogo:	binclude	"artnem/Sega Logo.bin"	; large Sega logo
 		even
@@ -8950,7 +8950,7 @@ byte_6A320:	dc.b 0,	0, 0, 0
 Art_BigRing:	binclude	"artunc/Giant Ring.bin"
 		even
 
-		align	$100,$FF
+		align	$100
 
 ; ---------------------------------------------------------------------------
 ; Sprite locations index
