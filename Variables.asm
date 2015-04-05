@@ -18,7 +18,7 @@ v_objspace:	= $FFFFD000	; object variable space ($40 bytes per object) ($2000 by
 v_player:	= v_objspace	; object variable space for Sonic ($40 bytes)
 v_lvlobjspace:	= $FFFFD800	; level object variable space ($1800 bytes)
 
-v_snddriver_ram:  = $FFFFF000 ; start of RAM for the sound driver data
+v_snddriver_ram:  = $FFFFF000 ; start of RAM for the sound driver data ($5C0 bytes)
 
 ; =================================================================================
 ; From here on, until otherwise stated, all offsets are relative to v_snddriver_ram
