@@ -833,7 +833,7 @@ Sound_PlayBGM:
 		tst.b	(a1)		; Is SFX playing? (zTrackPlaybackControl)
 		bpl.w	@sfxnext	; Branch if not
 		moveq	#0,d0
-		move.b	zTrackVoiceControl(a1),d0 ; Get playback control bits
+		move.b	zTrackVoiceControl(a1),d0 ; Get voice control bits
 		bmi.s	@sfxpsgchannel		; Branch if this is a PSG channel
 		subq.b	#2,d0			; SFX can't have FM1 or FM2
 		lsl.b	#2,d0			; Convert to index
