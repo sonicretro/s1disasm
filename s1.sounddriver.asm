@@ -708,7 +708,7 @@ Sound_PlayBGM:
 		clr.b	v_sndprio(a6)		; Clear priority
 		movea.l	a6,a0
 		lea	v_1up_ram_copy(a6),a1
-		move.w	#(((v_psg3_track+zTrackSz)-v_startofvariables)/4)-1,d0	; Backup $220 bytes: all variables and music track data
+		move.w	#((v_track_ram_end-v_startofvariables)/4)-1,d0	; Backup $220 bytes: all variables and music track data
 ; loc_72012:
 @backupramloop:
 		move.l	(a0)+,(a1)+
@@ -852,14 +852,14 @@ Sound_PlayBGM:
 		adda.w	d6,a1
 		dbf	d7,@sfxstoploop
 
-		tst.w	v_sfx2_fm4_playback_control(a6)	; Is special SFX being played?
-		bpl.s	@checkspecialpsg		; Branch if not
-		bset	#2,v_fm4_playback_control(a6)	; Set 'SFX is overriding' bit
+		tst.w	v_sfx2_fm4_track+zTrackPlaybackControl(a6)	; Is special SFX being played?
+		bpl.s	@checkspecialpsg				; Branch if not
+		bset	#2,v_fm4_track+zTrackPlaybackControl(a6)	; Set 'SFX is overriding' bit
 ; loc_7218E:
 @checkspecialpsg:
-		tst.w	v_sfx2_psg3_playback_control(a6) ; Is special SFX being played?
-		bpl.s	@sendfmnoteoff			; Branch if not
-		bset	#2,v_psg3_playback_control(a6)	; Set 'SFX is overriding' bit
+		tst.w	v_sfx2_psg3_track+zTrackPlaybackControl(a6)	; Is special SFX being played?
+		bpl.s	@sendfmnoteoff					; Branch if not
+		bset	#2,v_psg3_track+zTrackPlaybackControl(a6)	; Set 'SFX is overriding' bit
 ; loc_7219A:
 @sendfmnoteoff:
 		lea	v_fm1_track(a6),a5
@@ -983,14 +983,14 @@ Sound_PlaySFX:
 @sfxpsginitdone:
 		dbf	d7,@sfx_loadloop
 
-		tst.b	v_sfx_fm4_playback_control(a6)		; Is special SFX being played?
-		bpl.s	@doneoverride				; Branch if not
-		bset	#2,v_sfx2_fm4_playback_control(a6)	; Set SFX is overriding bit
+		tst.b	v_sfx_fm4_track+zTrackPlaybackControl(a6)	; Is special SFX being played?
+		bpl.s	@doneoverride					; Branch if not
+		bset	#2,v_sfx2_fm4_track+zTrackPlaybackControl(a6)	; Set SFX is overriding bit
 ; loc_722B8:
 @doneoverride:
-		tst.b	v_sfx_psg3_track(a6)			; Is special SFX being played?
-		bpl.s	@locret					; Branch if not
-		bset	#2,v_sfx2_psg3_playback_control(a6)	; Set SFX is overriding bit
+		tst.b	v_sfx_psg3_track(a6)				; Is special SFX being played?
+		bpl.s	@locret						; Branch if not
+		bset	#2,v_sfx2_psg3_track+zTrackPlaybackControl(a6)	; Set SFX is overriding bit
 ; locret_722C4:
 @locret:
 		rts	
@@ -1052,15 +1052,15 @@ Sound_PlaySpecial:
 		moveq	#zTrackSz,d6
 ; loc_72348:
 @sfxloadloop:
-		move.b	1(a1),d4			; Voice control bits
-		bmi.s	@sfxoverridepsg			; Branch if PSG
-		bset	#2,v_fm4_playback_control(a6)	; Set SFX is overriding bit
+		move.b	1(a1),d4					; Voice control bits
+		bmi.s	@sfxoverridepsg					; Branch if PSG
+		bset	#2,v_fm4_track+zTrackPlaybackControl(a6)	; Set SFX is overriding bit
 		lea	v_sfx2_fm4_track(a6),a5
 		bra.s	@sfxinitpsg
 ; ===========================================================================
 ; loc_7235A:
 @sfxoverridepsg:
-		bset	#2,v_psg3_playback_control(a6)	; Set SFX is overriding bit
+		bset	#2,v_psg3_track+zTrackPlaybackControl(a6)	; Set SFX is overriding bit
 		lea	v_sfx2_psg3_track(a6),a5
 ; loc_72364:
 @sfxinitpsg:
@@ -1087,15 +1087,15 @@ Sound_PlaySpecial:
 @sfxpsginitdone:
 		dbf	d7,@sfxloadloop
 
-		tst.b	v_sfx_fm4_playback_control(a6)		; Is track playing?
-		bpl.s	@doneoverride				; Branch if not
-		bset	#2,v_sfx2_fm4_playback_control(a6)	; Set SFX is overriding track
+		tst.b	v_sfx_fm4_track+zTrackPlaybackControl(a6)	; Is track playing?
+		bpl.s	@doneoverride					; Branch if not
+		bset	#2,v_sfx2_fm4_track+zTrackPlaybackControl(a6)	; Set SFX is overriding track
 ; loc_723A6:
 @doneoverride:
-		tst.b	v_sfx_psg3_playback_control(a6)		; Is track playing?
-		bpl.s	@locret					; Branch if not
-		bset	#2,v_sfx2_psg3_playback_control(a6)	; Set SFX is overriding track
-		ori.b	#$1F,d4					; Command to silence channel
+		tst.b	v_sfx_psg3_track+zTrackPlaybackControl(a6)	; Is track playing?
+		bpl.s	@locret						; Branch if not
+		bset	#2,v_sfx2_psg3_track+zTrackPlaybackControl(a6)	; Set SFX is overriding track
+		ori.b	#$1F,d4						; Command to silence channel
 		move.b	d4,(psg_input).l
 		bchg	#5,d4			; Command to silence noise channel
 		move.b	d4,(psg_input).l
@@ -1147,10 +1147,10 @@ StopSFX:
 		move.b	zTrackVoiceControl(a5),d3	; Get voice control bits
 		bmi.s	@trackpsg			; Branch if PSG
 		jsr	FMNoteOff(pc)
-		cmpi.b	#4,d3				; Is this FM4?
-		bne.s	@getfmpointer			; Branch if not
-		tst.b	v_sfx2_fm4_playback_control(a6)	; Is special SFX playing?
-		bpl.s	@getfmpointer			; Branch if not
+		cmpi.b	#4,d3						; Is this FM4?
+		bne.s	@getfmpointer					; Branch if not
+		tst.b	v_sfx2_fm4_track+zTrackPlaybackControl(a6)	; Is special SFX playing?
+		bpl.s	@getfmpointer					; Branch if not
 		; DANGER! there is a missing 'movea.l	a5,a3' here, without which the
 		; code is broken. It is dangerous to do a fade out when a GHZ waterfall
 		; is playing its sound!
@@ -1251,10 +1251,10 @@ StopSpecialSFX:
 FadeOutMusic:
 		jsr	StopSFX(pc)
 		jsr	StopSpecialSFX(pc)
-		move.b	#3,v_fadeout_delay(a6)		; Set fadeout delay to 3
-		move.b	#$28,v_fadeout_counter(a6)	; Set fadeout counter
-		clr.b	v_dac_playback_control(a6)	; Stop DAC track
-		clr.b	f_speedup(a6)			; Disable speed shoes tempo
+		move.b	#3,v_fadeout_delay(a6)			; Set fadeout delay to 3
+		move.b	#$28,v_fadeout_counter(a6)		; Set fadeout counter
+		clr.b	v_dac_track+zTrackPlaybackControl(a6)	; Stop DAC track
+		clr.b	f_speedup(a6)				; Disable speed shoes tempo
 		rts	
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -1362,7 +1362,7 @@ StopSoundAndMusic:
 		movea.l	a6,a0
 		; DANGER! This should be clearing all variables and track data, but misses the last $10 bytes of v_sfx2_psg3_track.
 		; Remove the '-$10' to fix this.
-		move.w	#(((v_sfx2_psg3_track+zTrackSz-$10)-v_startofvariables)/4)-1,d0	; Clear $390 bytes: all variables and most track data
+		move.w	#((v_sfx2_track_ram_end-v_startofvariables-$10)/4)-1,d0	; Clear $390 bytes: all variables and most track data
 ; loc_725B6:
 @clearramloop:
 		clr.l	(a0)+
@@ -1383,7 +1383,7 @@ InitMusicPlayback:
 		move.b	f_speedup(a6),d3
 		move.b	v_fadein_counter(a6),d4
 		move.w	v_playsnd1(a6),d5
-		move.w	#(((v_psg3_track+zTrackSz)-v_startofvariables)/4)-1,d0	; Clear $220 bytes: all variables and music track data
+		move.w	#((v_track_ram_end-v_startofvariables)/4)-1,d0	; Clear $220 bytes: all variables and music track data
 ; loc_725E4:
 @clearramloop:
 		clr.l	(a0)+
@@ -1505,8 +1505,8 @@ DoFadeIn:
 ; ===========================================================================
 ; loc_726D6:
 @fadedone:
-		bclr	#2,v_dac_playback_control(a6)	; Clear SFX overriding bit
-		clr.b	f_fadein_flag(a6)		; Stop fadein
+		bclr	#2,v_dac_track+zTrackPlaybackControl(a6)	; Clear SFX overriding bit
+		clr.b	f_fadein_flag(a6)				; Stop fadein
 		rts	
 ; End of function DoFadeIn
 
@@ -1963,13 +1963,13 @@ cfJumpReturn:
 cfFadeInToPrevious:
 		movea.l	a6,a0
 		lea	v_1up_ram_copy(a6),a1
-		move.w	#(((v_psg3_track+zTrackSz)-v_startofvariables)/4)-1,d0	; $220 bytes to restore: all variables and music track data
+		move.w	#((v_track_ram_end-v_startofvariables)/4)-1,d0	; $220 bytes to restore: all variables and music track data
 ; loc_72B1E:
 @restoreramloop:
 		move.l	(a1)+,(a0)+
 		dbf	d0,@restoreramloop
 
-		bset	#2,v_dac_playback_control(a6)	; Set SFX overriding bit
+		bset	#2,v_dac_track+zTrackPlaybackControl(a6)	; Set SFX overriding bit
 		movea.l	a5,a3
 		move.b	#$28,d6
 		sub.b	v_fadein_counter(a6),d6			; If fade already in progress, this adjusts track volume accordingly
@@ -2289,7 +2289,7 @@ cfStopTrack:
 		movea.l	a5,a3
 		cmpi.b	#4,d0			; Is this FM4?
 		bne.s	@getpointer		; Branch if not
-		tst.b	v_sfx2_fm4_playback_control(a6)	; Is special SFX playing?
+		tst.b	v_sfx2_fm4_track+zTrackPlaybackControl(a6)	; Is special SFX playing?
 		bpl.s	@getpointer		; Branch if not
 		lea	v_sfx2_fm4_track(a6),a5
 		movea.l	v_special_voice_ptr(a6),a1	; Get voice pointer
