@@ -988,7 +988,7 @@ Sound_PlaySFX:
 		bset	#2,v_sfx2_fm4_track+zTrackPlaybackControl(a6)	; Set SFX is overriding bit
 ; loc_722B8:
 @doneoverride:
-		tst.b	v_sfx_psg3_track(a6)				; Is special SFX being played?
+		tst.b	v_sfx_psg3_track+zTrackPlaybackControl(a6)	; Is SFX being played?
 		bpl.s	@locret						; Branch if not
 		bset	#2,v_sfx2_psg3_track+zTrackPlaybackControl(a6)	; Set SFX is overriding bit
 ; locret_722C4:
