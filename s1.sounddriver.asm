@@ -371,7 +371,7 @@ FinishTrackUpdate:
 		btst	#4,(a5)				; Is track set to not attack note? (zTrackPlaybackControl)
 		bne.s	@locret				; If so, branch
 		move.b	zTrackNoteFillMaster(a5),zTrackNoteFillTimeout(a5)	; Reset note fill timeout
-		clr.b	zTrackVolFlutter(a5)		; Reset PSG flutter index
+		clr.b	zTrackVolFlutter(a5)		; Reset PSG flutter index (even on FM tracks...)
 		btst	#3,(a5)				; Is modulation on?
 		beq.s	@locret				; If not, return (zTrackPlaybackControl)
 		movea.l	zTrackModulationPtr(a5),a0	; Modulation data pointer
