@@ -1882,7 +1882,7 @@ coordflagLookup:
 ; ===========================================================================
 		bra.w	cfSetTempoDivider	; $E5
 ; ===========================================================================
-		bra.w	cfSetVolume		; $E6
+		bra.w	cfChangeFMVolume	; $E6
 ; ===========================================================================
 		bra.w	cfPreventAttack		; $E7
 ; ===========================================================================
@@ -1894,7 +1894,7 @@ coordflagLookup:
 ; ===========================================================================
 		bra.w	cfSetTempoMod		; $EB
 ; ===========================================================================
-		bra.w	cfChangeVolume		; $EC
+		bra.w	cfChangePSGVolume	; $EC
 ; ===========================================================================
 		bra.w	cfClearPush		; $ED
 ; ===========================================================================
@@ -2018,8 +2018,8 @@ cfSetTempoDivider:
 		move.b	(a4)+,zTrackTempoDivider(a5)	; Set tempo divider on current track
 		rts	
 ; ===========================================================================
-; loc_72BA4:
-cfSetVolume:
+; loc_72BA4: cfSetVolume:
+cfChangeFMVolume:
 		move.b	(a4)+,d0		; Get parameter
 		add.b	d0,zTrackVolume(a5)	; Add to current volume
 		bra.w	SendVoiceTL
@@ -2061,8 +2061,8 @@ cfSetTempoMod:
 
 		rts	
 ; ===========================================================================
-; loc_72BE6:
-cfChangeVolume:
+; loc_72BE6: cfChangeVolume:
+cfChangePSGVolume:
 		move.b	(a4)+,d0		; Get volume change
 		add.b	d0,zTrackVolume(a5)	; Apply it
 		rts	
