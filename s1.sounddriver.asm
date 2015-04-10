@@ -1168,7 +1168,7 @@ StopSFX:
 		movea.l	v_voice_ptr(a6),a1	; Get music voice pointer
 ; loc_72428:
 @gotfmpointer:
-		bclr	#2,(a5)			; Clear SFX is overriding bit (zTrackPlaybackControl)
+		bclr	#2,(a5)			; Clear 'SFX is overriding' bit (zTrackPlaybackControl)
 		bset	#1,(a5)			; Set 'track at rest' bit (zTrackPlaybackControl)
 		move.b	zTrackVoiceIndex(a5),d0	; Current voice
 		jsr	SetVoice(pc)
