@@ -5,6 +5,7 @@
 notZ80 function cpu,(cpu<>128)&&(cpu<>32988)
 
 ; make org safer (impossible to overwrite previously assembled bytes)
+; and also make it work in Z80 code without creating a new segment
 org macro address
 	if notZ80(MOMCPU)
 		if address < *
@@ -64,8 +65,27 @@ align0 macro alignment
 
 ; define the even pseudo-instruction
 even macro
-	align0 2
+	if notZ80(MOMCPU)
+		if (*)&1
+			dc.b 0 ;ds.b 1 
+		endif
+	else
+		if ($)&1
+			db 0
+		endif
+	endif
     endm
+
+; make ds work in Z80 code without creating a new segment
+ds macro
+	if notZ80(MOMCPU)
+		!ds.ATTRIBUTE ALLARGS
+	else
+		rept ALLARGS
+			db 0
+		endm
+	endif
+   endm
 
 ; define a trace macro
 ; lets you easily check what address a location in this disassembly assembles to
