@@ -18,13 +18,13 @@
     <Subtype id="00" name="Shadow" image="img1"/>
     <Subtype id="01" name="Light" image="img2"/>
     <Subtype id="02" name="Dark" image="img3"/>
-    <Subtype id="10" name="Shadow (Solid)" image="img1"/>
-    <Subtype id="11" name="Light (Solid)" image="img2"/>
-    <Subtype id="12" name="Dark (Solid)" image="img3"/>
+    <Subtype id="10" name="Shadow (Not Solid)" image="img1"/>
+    <Subtype id="11" name="Light (Not Solid)" image="img2"/>
+    <Subtype id="12" name="Dark (Not Solid)" image="img3"/>
   </Subtypes>
   <Properties>
     <BitsProperty name="Art" type="EdgeType" startbit="0" length="4"/>
-    <BitsProperty name="Solid" type="bool" startbit="4" length="1"/>
+    <BitsProperty name="Not Solid" type="bool" startbit="4" length="1"/>
   </Properties>
   <Enums>
     <Enum name="EdgeType">
