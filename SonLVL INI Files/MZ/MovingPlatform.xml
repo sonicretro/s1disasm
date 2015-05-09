@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ObjDef xmlns="http://www.sonicretro.org" Name="Grass Platform" Image="img1" RememberState="false">
+<ObjDef xmlns="http://www.sonicretro.org" Name="Grass Platform" Image="img1">
   <Images>
     <ImageFromMappings id="img1">
       <ArtFile filename="LevelArt"/>
