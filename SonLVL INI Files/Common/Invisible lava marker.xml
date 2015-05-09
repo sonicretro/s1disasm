@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ObjDef xmlns="http://www.sonicretro.org" Name="Invisible lava marker" Image="img1">
+<ObjDef xmlns="http://www.sonicretro.org" Name="Invisible lava marker" Image="img1" Debug="true">
   <Images>
     <ImageFromMappings id="img1">
       <ArtFile filename=".../artnem/Monitors.bin" />
