@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ObjDef xmlns="http://www.sonicretro.org" Name="Monitor" Image="img" Debug="false">
+<ObjDef xmlns="http://www.sonicretro.org" Name="Monitor" Image="img" RememberState="true" Debug="false">
   <Images>
     <ImageFromMappings id="img">
       <ArtFile filename="../artnem/Monitors.bin" />
