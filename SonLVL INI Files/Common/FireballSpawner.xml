@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Fireball Spawner" Image="fireball" Debug="true">
+  <Images>
+    <ImageFromMappings id="fireball">
+      <ArtFile filename="../artnem/Fireballs.bin" />
+      <MapFile type="ASM" filename="../_maps/Fireballs.asm" frame="1" startpal="0" />
+    </ImageFromMappings>
+  </Images>
+  <Properties>
+    <BitsProperty name="Delay" displayname="Delay" type="FireballDelay" startbit="4" length="4" />
+    <BitsProperty name="SpeedDirection" displayname="Fireball Speed/Direction" type="FireballSpeedDirection" startbit="0" length="4" />
+  </Properties>
+  <Enums>
+    <Enum name="FireballDelay">
+      <EnumMember name="30 frames" />
+      <EnumMember name="60 frames" />
+      <EnumMember name="90 frames" />
+      <EnumMember name="120 frames" />
+      <EnumMember name="150 frames" />
+      <EnumMember name="180 frames" />
+    </Enum>
+    <Enum name="FireballSpeedDirection">
+      <EnumMember name="Up (400)" />
+      <EnumMember name="Up (500)" />
+      <EnumMember name="Up (600)" />
+      <EnumMember name="Up (700)" />
+      <EnumMember name="Up (200)" />
+      <EnumMember name="Down (200)" />
+      <EnumMember name="Left (200)" />
+      <EnumMember name="Right (200)" />
+    </Enum>
+  </Enums>
+  <Display>
+    <DisplayOption>
+      <ImageRef image="fireball" />
+    </DisplayOption>
+  </Display>
+</ObjDef>

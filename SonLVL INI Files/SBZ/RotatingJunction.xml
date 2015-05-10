@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Rotating Junction">
+  <Images>
+    <ImageFromMappings id="gap">
+      <ArtFile filename="../artnem/SBZ Junction Wheel.bin"/>
+      <MapFile type="ASM" filename="../_maps/Rotating Junction.asm" frame="0" startpal="2" />
+    </ImageFromMappings>
+    <ImageFromMappings id="circle">
+      <ArtFile filename="../artnem/SBZ Junction Wheel.bin"/>
+      <MapFile type="ASM" filename="../_maps/Rotating Junction.asm" frame="16" startpal="2" />
+    </ImageFromMappings>
+  </Images>
+  <DefaultImage>
+    <ImageRef image="gap"/>
+    <ImageRef image="circle"/>
+  </DefaultImage>
+  <Display>
+    <DisplayOption>
+      <ImageRef image="gap"/>
+      <ImageRef image="circle"/>
+    </DisplayOption>
+  </Display>
+</ObjDef>
