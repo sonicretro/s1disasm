@@ -1089,12 +1089,12 @@ Sound_PlaySpecial:
 
 		tst.b	v_sfx_fm4_track+zTrackPlaybackControl(a6)	; Is track playing?
 		bpl.s	@doneoverride					; Branch if not
-		bset	#2,v_sfx2_fm4_track+zTrackPlaybackControl(a6)	; Set 'SFX is overriding' track
+		bset	#2,v_sfx2_fm4_track+zTrackPlaybackControl(a6)	; Set 'SFX is overriding' bit
 ; loc_723A6:
 @doneoverride:
 		tst.b	v_sfx_psg3_track+zTrackPlaybackControl(a6)	; Is track playing?
 		bpl.s	@locret						; Branch if not
-		bset	#2,v_sfx2_psg3_track+zTrackPlaybackControl(a6)	; Set 'SFX is overriding' track
+		bset	#2,v_sfx2_psg3_track+zTrackPlaybackControl(a6)	; Set 'SFX is overriding' bit
 		ori.b	#$1F,d4						; Command to silence channel
 		move.b	d4,(psg_input).l
 		bchg	#5,d4			; Command to silence noise channel
@@ -1636,7 +1636,7 @@ FM_Notes:
 PSGUpdateTrack:
 		subq.b	#1,zTrackDurationTimeout(a5)	; Update note timeout
 		bne.s	@notegoing
-		bclr	#4,(a5)				; Clear 'do not attack note' flag (zTrackPlaybackControl)
+		bclr	#4,(a5)				; Clear 'do not attack note' bit (zTrackPlaybackControl)
 		jsr	PSGDoNext(pc)
 		jsr	PSGDoNoteOn(pc)
 		bra.w	PSGDoVolFX

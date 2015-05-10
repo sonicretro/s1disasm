@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Trapdoor/Spinning Platform" Image="spin">
+  <Images>
+    <ImageFromMappings id="spin">
+      <ArtFile filename="../artnem/SBZ Spinning Platform.bin"/>
+      <MapFile type="ASM" filename="../_maps/SBZ Spinning Platforms.asm" frame="0" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="trapdoor">
+      <ArtFile filename="../artnem/SBZ Trapdoor.bin"/>
+      <MapFile type="ASM" filename="../_maps/Trapdoor.asm" frame="0" startpal="2" />
+    </ImageFromMappings>
+  </Images>
+  <Properties>
+    <BitsProperty name="Type" displayname="Type" type="PlatformType" startbit="7" length="1" />
+  </Properties>
+  <Enums>
+    <Enum name="PlatformType">
+      <EnumMember name="Trapdoor" />
+      <EnumMember name="Spinning Platform" />
+    </Enum>
+  </Enums>
+  <Display>
+    <DisplayOption>
+      <Condition property="Type" value="Trapdoor" />
+      <ImageRef image="trapdoor"/>
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Type" value="Spinning Platform" />
+      <ImageRef image="spin"/>
+    </DisplayOption>
+  </Display>
+</ObjDef>

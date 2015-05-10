@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Switch" Image="switch">
+  <Images>
+    <ImageFromMappings id="switch">
+      <ArtFile filename="../artnem/Switch.bin" offset="-128" />
+      <MapFile type="ASM" filename="../_maps/Button.asm" frame="0" startpal="0"/>
+    </ImageFromMappings>
+  </Images>
+  <Display>
+    <DisplayOption>
+    <ImageRef image="switch">
+      <Offset Y="3" />
+    </ImageRef>
+    </DisplayOption>
+  </Display>
+</ObjDef>

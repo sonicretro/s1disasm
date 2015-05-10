@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ObjDef xmlns="http://www.sonicretro.org" Name="Spikes" Image="img1" RememberState="false" Debug="false">
+<ObjDef xmlns="http://www.sonicretro.org" Name="Spikes" Image="img1">
   <Images>
     <ImageFromMappings id="img1">
       <ArtFile filename="../artnem/Spikes.bin" />
