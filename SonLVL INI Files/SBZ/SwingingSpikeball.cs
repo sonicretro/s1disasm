@@ -52,7 +52,7 @@ namespace S1ObjectDefinitions.SBZ
 
         public override Rectangle GetBounds(ObjectEntry obj, Point camera)
         {
-            return new Rectangle(obj.X + img.Offset.X - camera.X, obj.Y + img.Offset.Y - camera.Y, img.Image.Width, img.Image.Height + (imgs[1].Image.Height * (obj.SubType & 15)) + imgs[2].Image.Height - 24);
+            return new Rectangle(obj.X + imgs[0].Offset.X - camera.X, obj.Y + imgs[2].Offset.Y - camera.Y, imgs[0].Image.Width, imgs[2].Image.Height + (imgs[1].Image.Height * (obj.SubType & 15)) + imgs[0].Image.Height - (imgs[0].Image.Height / 2));
         }
 
         public override Sprite GetSprite(ObjectEntry obj)
