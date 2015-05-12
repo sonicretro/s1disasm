@@ -17,7 +17,7 @@ namespace S1ObjectDefinitions.GHZ
             byte[] artfile = ObjectHelper.OpenArtFile("../artnem/GHZ Swinging Platform.bin", CompressionType.Nemesis);
             img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Swinging Platforms (GHZ).asm", 0, 2);
             for (int i = 0; i < labels.Length; i++)
-                imgs.Add(ObjectHelper.MapASMToBmp(artfile, "../_maps/Swinging Platforms (GHZ).asm", labels[i], i == 1 ? 1 : 2));
+                imgs.Add(ObjectHelper.MapASMToBmp(artfile, "../_maps/Swinging Platforms (GHZ).asm", labels[i], i == 1 ? 0 : 2));
         }
 
         public override ReadOnlyCollection<byte> Subtypes
