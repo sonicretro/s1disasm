@@ -63,7 +63,7 @@ namespace S1ObjectDefinitions.SLZ
             if ((obj.SubType & 16) !=0)
                 return new Rectangle(obj.X + imgwreckingball.Offset.X - camera.X, obj.Y + imgs[2].Offset.Y - camera.Y, imgwreckingball.Image.Width, imgs[2].Image.Height + (imgs[1].Image.Height * (obj.SubType & 15)) + imgwreckingball.Image.Height - (imgwreckingball.Image.Height / 2));
             else
-                return new Rectangle(obj.X + imgs[0].Offset.X - camera.X, obj.Y + imgs[2].Offset.Y - camera.Y, imgs[0].Image.Width, imgs[2].Image.Height + (imgs[1].Image.Height * (obj.SubType & 15)) + imgs[0].Image.Height - ((imgs[0].Image.Height + imgs[0].Offset.Y) / 2));
+                return new Rectangle(obj.X + imgs[0].Offset.X - camera.X, obj.Y + imgs[2].Offset.Y - camera.Y, imgs[0].Image.Width, imgs[2].Image.Height + (imgs[1].Image.Height * (obj.SubType & 15)) + ((imgs[0].Image.Height + (imgs[0].Bottom + imgs[0].Top)) / 2));
         }
 
         public override Sprite GetSprite(ObjectEntry obj)
