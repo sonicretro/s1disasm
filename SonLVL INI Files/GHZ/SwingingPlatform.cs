@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using SonicRetro.SonLVL.API;
-using System;
 
 namespace S1ObjectDefinitions.GHZ
 {
