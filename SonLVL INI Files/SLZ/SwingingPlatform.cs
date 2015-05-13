@@ -16,7 +16,7 @@ namespace S1ObjectDefinitions.SLZ
         public override void Init(ObjectData data)
         {
             byte[] artfile = ObjectHelper.OpenArtFile("../artnem/GHZ Giant Ball.bin", CompressionType.Nemesis);
-	    imgwreckingball = ObjectHelper.MapASMToBmp(artfile, "../_maps/GHZ Ball.asm", 1, 2);
+            imgwreckingball = ObjectHelper.MapASMToBmp(artfile, "../_maps/GHZ Ball.asm", 1, 2);
             artfile = ObjectHelper.OpenArtFile("../artnem/SLZ Swinging Platform.bin", CompressionType.Nemesis);
             img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Swinging Platforms (SLZ).asm", 0, 2);
             for (int i = 0; i < labels.Length; i++)
@@ -41,8 +41,8 @@ namespace S1ObjectDefinitions.SLZ
         public override string SubtypeName(byte subtype)
         {
             if ((subtype & 16) != 0)
-	        return (subtype & 15) + " links + wrecking ball";
-	    else
+                return (subtype & 15) + " links + wrecking ball";
+            else
                 return (subtype & 15) + " links";
         }
 
@@ -54,16 +54,16 @@ namespace S1ObjectDefinitions.SLZ
         public override Sprite SubtypeImage(byte subtype)
         {
             if ((subtype & 16) != 0)
-	        return imgwreckingball;
-	    else
+                return imgwreckingball;
+            else
                 return img;
         }
 
         public override Rectangle GetBounds(ObjectEntry obj, Point camera)
         {
-	    if ((obj.SubType & 16) !=0)
+            if ((obj.SubType & 16) !=0)
                 return new Rectangle(obj.X + imgwreckingball.Offset.X - camera.X, obj.Y + imgs[2].Offset.Y - camera.Y, imgwreckingball.Image.Width, imgs[2].Image.Height + (imgs[1].Image.Height * (obj.SubType & 15)) + imgwreckingball.Image.Height - (imgwreckingball.Image.Height / 2));
-	    else
+            else
                 return new Rectangle(obj.X + imgs[0].Offset.X - camera.X, obj.Y + imgs[2].Offset.Y - camera.Y, imgs[0].Image.Width, imgs[2].Image.Height + (imgs[1].Image.Height * (obj.SubType & 15)) + imgs[0].Image.Height - (imgs[0].Image.Height / 3));
         }
 
@@ -79,10 +79,10 @@ namespace S1ObjectDefinitions.SLZ
                 yoff += 16;
             }
             yoff -= 8;
-	    if ((obj.SubType & 16) !=0)
-	        sprs.Add(new Sprite(imgwreckingball.Image, new Point(imgwreckingball.X, yoff + imgwreckingball.Y)));
+            if ((obj.SubType & 16) !=0)
+                sprs.Add(new Sprite(imgwreckingball.Image, new Point(imgwreckingball.X, yoff + imgwreckingball.Y)));
             else
-	        sprs.Add(new Sprite(imgs[0].Image, new Point(imgs[0].X, yoff + imgs[0].Y)));
+                sprs.Add(new Sprite(imgs[0].Image, new Point(imgs[0].X, yoff + imgs[0].Y)));
             Sprite spr = new Sprite(sprs.ToArray());
             spr.Offset = new Point(spr.X + obj.X, spr.Y + obj.Y);
             return spr;
