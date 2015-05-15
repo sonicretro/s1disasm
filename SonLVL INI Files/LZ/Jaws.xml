@@ -6,6 +6,9 @@
       <MapFile type="ASM" filename="../_maps/Jaws.asm" frame="0" startpal="1"/>
     </ImageFromMappings>
   </Images>
+  <Properties>
+    <BitsProperty name="Delay" displayname="Time Until Turn (x40 Frames)" type="int" startbit="0" length="8" />
+  </Properties>
   <Display>
     <DisplayOption>
       <ImageRef image="jaws" />
