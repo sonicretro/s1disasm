@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Collapsing Cliff" Image="img">
+  <Images>
+    <ImageFromMappings id="img">
+      <ArtFile filename="LevelArt"/>
+      <MapFile type="ASM" filename="../_maps/Collapsing Ledge.asm" frame="0" startpal="2"/>
+    </ImageFromMappings>
+  </Images>
+  <Display>
+    <DisplayOption>
+      <ImageRef image="img" />
+    </DisplayOption>
+  </Display>
+</ObjDef>
