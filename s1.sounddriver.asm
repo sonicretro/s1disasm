@@ -2405,17 +2405,17 @@ cfOpF9:
 ; ===========================================================================
 
 Kos_Z80:
-		incbin	sound\z80_1.bin			; z80 Start-up code
+		incbin	"sound\z80_1.bin"		; z80 Start-up code
 		dc.b ((SegaPCM&$3F8000)/$8000)&1						; Least bit of bank ID (bit 15 of address), being loaded into register a
 		dc.b $32,$00,$60			; ld	(zBankRegister),a		; Latch it to bank register, initializing bank switch
 		dc.b $06,$08				; ld	b,8				; Number of bits remaining to complete bank switch
 		dc.b $3E				; ld	a,X				; Load into register a...
 		dc.b ((SegaPCM&$3F8000)/$8000)>>1						; ... the remaining bits of bank ID (bits 16-23)
-		incbin	sound\z80_2.bin								; Finishes bank switch, Jman2050 table, DAC sample loop
+		incbin	"sound\z80_2.bin"							; Finishes bank switch, Jman2050 table, DAC sample loop
 		dc.w ((SegaPCM&$FF)<<8)+((SegaPCM&$7F00)>>8)|$80				; Pointer to Sega PCM, relative to start of ROM bank (i.e., little_endian($8000 + SegaPCM&$7FFF), loaded into de
 		dc.b $21				; ld	hl,XX				; Load into register hl...
 		dc.w (((SegaPCM_End-SegaPCM)&$FF)<<8)+(((SegaPCM_End-SegaPCM)&$FF00)>>8)	; ... the size of the Sega PCM (little endian)
-		incbin	sound\z80_3.bin
+		incbin	"sound\z80_3.bin"
 		even
 
 Music81:	incbin	"sound/music/Mus81 - GHZ.bin"

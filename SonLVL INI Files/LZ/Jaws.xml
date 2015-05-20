@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Jaws" Image="jaws" RememberState="true">
+  <Images>
+    <ImageFromMappings id="jaws">
+      <ArtFile filename="../artnem/Enemy Jaws.bin"/>
+      <MapFile type="ASM" filename="../_maps/Jaws.asm" frame="0" startpal="1"/>
+    </ImageFromMappings>
+  </Images>
+  <Properties>
+    <BitsProperty name="Delay" displayname="Time Until Turn (x40 Frames)" type="int" startbit="0" length="8" />
+  </Properties>
+  <Display>
+    <DisplayOption>
+      <ImageRef image="jaws" />
+    </DisplayOption>
+  </Display>
+</ObjDef>

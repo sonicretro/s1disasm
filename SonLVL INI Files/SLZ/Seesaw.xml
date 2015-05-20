@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Seesaw" Image="seesaw">
+  <Images>
+    <ImageFromMappings id="seesaw">
+      <ArtFile filename="../artnem/SLZ Seesaw.bin" />
+      <MapFile type="ASM" filename="../_maps/Seesaw.asm" frame="0" startpal="0" />
+    </ImageFromMappings>
+  </Images>
+  <Subtypes>
+    <Subtype id="00" name="Seesaw w/ ball" image="seesaw" />
+    <Subtype id="FF" name="Seesaw w/out ball" image="seesaw" />
+  </Subtypes>
+</ObjDef>
