@@ -8847,53 +8847,53 @@ Level_Index:	dc.l Level_GHZ1	; MJ: unused data and BG data have been stripped ou
 
 Level_Null:
 
-Level_GHZ1:	incbin	levels\ghz1.bin
+Level_GHZ1:	incbin	"levels\ghz1.bin"
 		even
-Level_GHZ2:	incbin	levels\ghz2.bin
+Level_GHZ2:	incbin	"levels\ghz2.bin"
 		even
-Level_GHZ3:	incbin	levels\ghz3.bin
-		even
-
-Level_LZ1:	incbin	levels\lz1.bin
-		even
-Level_LZ2:	incbin	levels\lz2.bin
-		even
-Level_LZ3:	incbin	levels\lz3.bin
-		even
-Level_LZ3NoWall: incbin	levels\lz3_nowall.bin
-		even
-Level_SBZ3:	incbin	levels\sbz3.bin
+Level_GHZ3:	incbin	"levels\ghz3.bin"
 		even
 
-Level_MZ1:	incbin	levels\mz1.bin
+Level_LZ1:	incbin	"levels\lz1.bin"
 		even
-Level_MZ2:	incbin	levels\mz2.bin
+Level_LZ2:	incbin	"levels\lz2.bin"
 		even
-Level_MZ3:	incbin	levels\mz3.bin
+Level_LZ3:	incbin	"levels\lz3.bin"
 		even
-
-Level_SLZ1:	incbin	levels\slz1.bin
+Level_LZ3NoWall: incbin	"levels\lz3_nowall.bin"
 		even
-Level_SLZ2:	incbin	levels\slz2.bin
-		even
-Level_SLZ3:	incbin	levels\slz3.bin
+Level_SBZ3:	incbin	"levels\sbz3.bin"
 		even
 
-Level_SYZ1:	incbin	levels\syz1.bin
+Level_MZ1:	incbin	"levels\mz1.bin"
 		even
-Level_SYZ2:	incbin	levels\syz2.bin
+Level_MZ2:	incbin	"levels\mz2.bin"
 		even
-Level_SYZ3:	incbin	levels\syz3.bin
-		even
-
-Level_SBZ1:	incbin	levels\sbz1.bin
-		even
-Level_SBZ2:	incbin	levels\sbz2.bin
+Level_MZ3:	incbin	"levels\mz3.bin"
 		even
 
-Level_End:	incbin	levels\ending.bin
+Level_SLZ1:	incbin	"levels\slz1.bin"
 		even
-Level_EndGood:	incbin	levels\ending_good.bin
+Level_SLZ2:	incbin	"levels\slz2.bin"
+		even
+Level_SLZ3:	incbin	"levels\slz3.bin"
+		even
+
+Level_SYZ1:	incbin	"levels\syz1.bin"
+		even
+Level_SYZ2:	incbin	"levels\syz2.bin"
+		even
+Level_SYZ3:	incbin	"levels\syz3.bin"
+		even
+
+Level_SBZ1:	incbin	"levels\sbz1.bin"
+		even
+Level_SBZ2:	incbin	"levels\sbz2.bin"
+		even
+
+Level_End:	incbin	"levels\ending.bin"
+		even
+Level_EndGood:	incbin	"levels\ending_good.bin"
 		even
 
 Art_BigRing:	incbin	"artunc\Giant Ring.bin"
@@ -8944,93 +8944,93 @@ ObjPos_Index:	dc.w ObjPos_GHZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_SBZ1pf5-ObjPos_Index, ObjPos_SBZ1pf6-ObjPos_Index
 		dc.w ObjPos_SBZ1pf1-ObjPos_Index, ObjPos_SBZ1pf2-ObjPos_Index
 		dc.b $FF, $FF, 0, 0, 0,	0
-ObjPos_GHZ1:	incbin	objpos\ghz1.bin
+ObjPos_GHZ1:	incbin	"objpos\ghz1.bin"
 		even
-ObjPos_GHZ2:	incbin	objpos\ghz2.bin
+ObjPos_GHZ2:	incbin	"objpos\ghz2.bin"
 		even
 ObjPos_GHZ3:	if Revision=0
-		incbin	objpos\ghz3.bin
+		incbin	"objpos\ghz3.bin"
 		else
 		incbin	"objpos\ghz3 (JP1).bin"
 		endc
 		even
 ObjPos_LZ1:	if Revision=0
-		incbin	objpos\lz1.bin
+		incbin	"objpos\lz1.bin"
 		else
 		incbin	"objpos\lz1 (JP1).bin"
 		endc
 		even
-ObjPos_LZ2:	incbin	objpos\lz2.bin
+ObjPos_LZ2:	incbin	"objpos\lz2.bin"
 		even
 ObjPos_LZ3:	if Revision=0
-		incbin	objpos\lz3.bin
+		incbin	"objpos\lz3.bin"
 		else
 		incbin	"objpos\lz3 (JP1).bin"
 		endc
 		even
-ObjPos_SBZ3:	incbin	objpos\sbz3.bin
+ObjPos_SBZ3:	incbin	"objpos\sbz3.bin"
 		even
-ObjPos_LZ1pf1:	incbin	objpos\lz1pf1.bin
+ObjPos_LZ1pf1:	incbin	"objpos\lz1pf1.bin"
 		even
-ObjPos_LZ1pf2:	incbin	objpos\lz1pf2.bin
+ObjPos_LZ1pf2:	incbin	"objpos\lz1pf2.bin"
 		even
-ObjPos_LZ2pf1:	incbin	objpos\lz2pf1.bin
+ObjPos_LZ2pf1:	incbin	"objpos\lz2pf1.bin"
 		even
-ObjPos_LZ2pf2:	incbin	objpos\lz2pf2.bin
+ObjPos_LZ2pf2:	incbin	"objpos\lz2pf2.bin"
 		even
-ObjPos_LZ3pf1:	incbin	objpos\lz3pf1.bin
+ObjPos_LZ3pf1:	incbin	"objpos\lz3pf1.bin"
 		even
-ObjPos_LZ3pf2:	incbin	objpos\lz3pf2.bin
+ObjPos_LZ3pf2:	incbin	"objpos\lz3pf2.bin"
 		even
 ObjPos_MZ1:	if Revision=0
-		incbin	objpos\mz1.bin
+		incbin	"objpos\mz1.bin"
 		else
 		incbin	"objpos\mz1 (JP1).bin"
 		endc
 		even
-ObjPos_MZ2:	incbin	objpos\mz2.bin
+ObjPos_MZ2:	incbin	"objpos\mz2.bin"
 		even
-ObjPos_MZ3:	incbin	objpos\mz3.bin
+ObjPos_MZ3:	incbin	"objpos\mz3.bin"
 		even
-ObjPos_SLZ1:	incbin	objpos\slz1.bin
+ObjPos_SLZ1:	incbin	"objpos\slz1.bin"
 		even
-ObjPos_SLZ2:	incbin	objpos\slz2.bin
+ObjPos_SLZ2:	incbin	"objpos\slz2.bin"
 		even
-ObjPos_SLZ3:	incbin	objpos\slz3.bin
+ObjPos_SLZ3:	incbin	"objpos\slz3.bin"
 		even
-ObjPos_SYZ1:	incbin	objpos\syz1.bin
+ObjPos_SYZ1:	incbin	"objpos\syz1.bin"
 		even
-ObjPos_SYZ2:	incbin	objpos\syz2.bin
+ObjPos_SYZ2:	incbin	"objpos\syz2.bin"
 		even
 ObjPos_SYZ3:	if Revision=0
-		incbin	objpos\syz3.bin
+		incbin	"objpos\syz3.bin"
 		else
 		incbin	"objpos\syz3 (JP1).bin"
 		endc
 		even
 ObjPos_SBZ1:	if Revision=0
-		incbin	objpos\sbz1.bin
+		incbin	"objpos\sbz1.bin"
 		else
 		incbin	"objpos\sbz1 (JP1).bin"
 		endc
 		even
-ObjPos_SBZ2:	incbin	objpos\sbz2.bin
+ObjPos_SBZ2:	incbin	"objpos\sbz2.bin"
 		even
-ObjPos_FZ:	incbin	objpos\fz.bin
+ObjPos_FZ:	incbin	"objpos\fz.bin"
 		even
-ObjPos_SBZ1pf1:	incbin	objpos\sbz1pf1.bin
+ObjPos_SBZ1pf1:	incbin	"objpos\sbz1pf1.bin"
 		even
-ObjPos_SBZ1pf2:	incbin	objpos\sbz1pf2.bin
+ObjPos_SBZ1pf2:	incbin	"objpos\sbz1pf2.bin"
 		even
-ObjPos_SBZ1pf3:	incbin	objpos\sbz1pf3.bin
+ObjPos_SBZ1pf3:	incbin	"objpos\sbz1pf3.bin"
 		even
-ObjPos_SBZ1pf4:	incbin	objpos\sbz1pf4.bin
+ObjPos_SBZ1pf4:	incbin	"objpos\sbz1pf4.bin"
 		even
-ObjPos_SBZ1pf5:	incbin	objpos\sbz1pf5.bin
+ObjPos_SBZ1pf5:	incbin	"objpos\sbz1pf5.bin"
 		even
-ObjPos_SBZ1pf6:	incbin	objpos\sbz1pf6.bin
+ObjPos_SBZ1pf6:	incbin	"objpos\sbz1pf6.bin"
 		even
-ObjPos_End:	incbin	objpos\ending.bin
+ObjPos_End:	incbin	"objpos\ending.bin"
 		even
 ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
 
@@ -9044,6 +9044,7 @@ ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
 SoundDriver:	include "s1.sounddriver.asm"
 
 ; end of 'ROM'
+		even
 EndOfRom:
 
 

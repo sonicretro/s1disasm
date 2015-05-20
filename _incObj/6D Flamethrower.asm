@@ -18,7 +18,7 @@ Flame_Main:	; Routine 0
 		move.w	#$83D9,obGfx(a0)
 		ori.b	#4,obRender(a0)
 		move.b	#1,obPriority(a0)
-		move.w	obY(a0),$30(a0)
+		move.w	obY(a0),$30(a0)	; store obY (gets overwritten later though)
 		move.b	#$C,obActWid(a0)
 		move.b	obSubtype(a0),d0
 		andi.w	#$F0,d0		; read 1st digit of object type
