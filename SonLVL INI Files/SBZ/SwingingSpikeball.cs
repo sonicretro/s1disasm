@@ -3,9 +3,9 @@ using System.Collections.ObjectModel;
 using System.Drawing;
 using SonicRetro.SonLVL.API;
 
-namespace S1ObjectDefinitions.GHZ
+namespace S1ObjectDefinitions.SBZ
 {
-    class SwingingPlatform : ObjectDefinition
+    class SwingingSpikeball : ObjectDefinition
     {
         private int[] labels = { 0, 1, 2 };
         private Sprite img;
@@ -16,10 +16,10 @@ namespace S1ObjectDefinitions.GHZ
         {
             byte[] artfile = ObjectHelper.OpenArtFile("../artnem/GHZ Giant Ball.bin", CompressionType.Nemesis);
             imgwreckingball = ObjectHelper.MapASMToBmp(artfile, "../_maps/GHZ Ball.asm", 1, 2);
-            artfile = ObjectHelper.OpenArtFile("../artnem/GHZ Swinging Platform.bin", CompressionType.Nemesis);
-            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Swinging Platforms (GHZ).asm", 0, 2);
+            artfile = ObjectHelper.OpenArtFile("../artnem/SYZ Large Spikeball.bin", CompressionType.Nemesis);
+            img = ObjectHelper.MapASMToBmp(artfile, "../_maps/Big Spiked Ball.asm", 0, 0);
             for (int i = 0; i < labels.Length; i++)
-                imgs.Add(ObjectHelper.MapASMToBmp(artfile, "../_maps/Swinging Platforms (GHZ).asm", labels[i], i == 1 ? 0 : 2));
+                imgs.Add(ObjectHelper.MapASMToBmp(artfile, "../_maps/Big Spiked Ball.asm", labels[i], i == 2 ? 2 : 0));
         }
 
         public override ReadOnlyCollection<byte> Subtypes
@@ -29,7 +29,7 @@ namespace S1ObjectDefinitions.GHZ
 
         public override string Name
         {
-            get { return "Swinging Platform"; }
+            get { return "Swinging Spikeball"; }
         }
 
         public override bool RememberState

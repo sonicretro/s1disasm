@@ -103,15 +103,15 @@ Swing_Main:	; Routine 0
 		move.w	#$4080,obAngle(a0)
 		move.w	#-$200,$3E(a0)
 		move.w	(sp)+,d1
-		btst	#4,d1		; is object type $8X ?
-		beq.s	.not8X	; if not, branch
+		btst	#4,d1		; is object type $1X ?
+		beq.s	.not1X	; if not, branch
 		move.l	#Map_GBall,obMap(a0) ; use GHZ ball mappings
 		move.w	#$43AA,obGfx(a0)
 		move.b	#1,obFrame(a0)
 		move.b	#2,obPriority(a0)
 		move.b	#$81,obColType(a0) ; make object hurt when touched
 
-.not8X:
+.not1X:
 		cmpi.b	#id_SBZ,(v_zone).w ; is zone SBZ?
 		beq.s	Swing_Action	; if yes, branch
 

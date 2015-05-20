@@ -8861,88 +8861,88 @@ Level_Index:	dc.w Level_GHZ1-Level_Index, Level_GHZbg-Level_Index, byte_68D70-Le
 		dc.w byte_6A320-Level_Index, byte_6A320-Level_Index, byte_6A320-Level_Index
 		zonewarning Level_Index,24
 
-Level_GHZ1:	binclude	levels/ghz1.bin
+Level_GHZ1:	binclude	"levels/ghz1.bin"
 		even
 byte_68D70:	dc.b 0,	0, 0, 0
-Level_GHZ2:	binclude	levels/ghz2.bin
+Level_GHZ2:	binclude	"levels/ghz2.bin"
 		even
 byte_68E3C:	dc.b 0,	0, 0, 0
-Level_GHZ3:	binclude	levels/ghz3.bin
+Level_GHZ3:	binclude	"levels/ghz3.bin"
 		even
-Level_GHZbg:	binclude	levels/ghzbg.bin
+Level_GHZbg:	binclude	"levels/ghzbg.bin"
 		even
 byte_68F84:	dc.b 0,	0, 0, 0
 byte_68F88:	dc.b 0,	0, 0, 0
 
-Level_LZ1:	binclude	levels/lz1.bin
+Level_LZ1:	binclude	"levels/lz1.bin"
 		even
-Level_LZbg:	binclude	levels/lzbg.bin
+Level_LZbg:	binclude	"levels/lzbg.bin"
 		even
 byte_69190:	dc.b 0,	0, 0, 0
-Level_LZ2:	binclude	levels/lz2.bin
+Level_LZ2:	binclude	"levels/lz2.bin"
 		even
 byte_6922E:	dc.b 0,	0, 0, 0
-Level_LZ3:	binclude	levels/lz3.bin
+Level_LZ3:	binclude	"levels/lz3.bin"
 		even
 byte_6934C:	dc.b 0,	0, 0, 0
-Level_SBZ3:	binclude	levels/sbz3.bin
+Level_SBZ3:	binclude	"levels/sbz3.bin"
 		even
 byte_6940A:	dc.b 0,	0, 0, 0
 
-Level_MZ1:	binclude	levels/mz1.bin
+Level_MZ1:	binclude	"levels/mz1.bin"
 		even
-Level_MZ1bg:	binclude	levels/mz1bg.bin
+Level_MZ1bg:	binclude	"levels/mz1bg.bin"
 		even
-Level_MZ2:	binclude	levels/mz2.bin
+Level_MZ2:	binclude	"levels/mz2.bin"
 		even
-Level_MZ2bg:	binclude	levels/mz2bg.bin
+Level_MZ2bg:	binclude	"levels/mz2bg.bin"
 		even
 byte_6965C:	dc.b 0,	0, 0, 0
-Level_MZ3:	binclude	levels/mz3.bin
+Level_MZ3:	binclude	"levels/mz3.bin"
 		even
-Level_MZ3bg:	binclude	levels/mz3bg.bin
+Level_MZ3bg:	binclude	"levels/mz3bg.bin"
 		even
 byte_697E6:	dc.b 0,	0, 0, 0
 byte_697EA:	dc.b 0,	0, 0, 0
 
-Level_SLZ1:	binclude	levels/slz1.bin
+Level_SLZ1:	binclude	"levels/slz1.bin"
 		even
-Level_SLZbg:	binclude	levels/slzbg.bin
+Level_SLZbg:	binclude	"levels/slzbg.bin"
 		even
-Level_SLZ2:	binclude	levels/slz2.bin
+Level_SLZ2:	binclude	"levels/slz2.bin"
 		even
-Level_SLZ3:	binclude	levels/slz3.bin
+Level_SLZ3:	binclude	"levels/slz3.bin"
 		even
 byte_69B84:	dc.b 0,	0, 0, 0
 
-Level_SYZ1:	binclude	levels/syz1.bin
+Level_SYZ1:	binclude	"levels/syz1.bin"
 		even
 Level_SYZbg:	if Revision=0
-		binclude	levels/syzbg.bin
+		binclude	"levels/syzbg.bin"
 		else
 		binclude	"levels/syzbg (JP1).bin"
 		endif
 		even
 byte_69C7E:	dc.b 0,	0, 0, 0
-Level_SYZ2:	binclude	levels/syz2.bin
+Level_SYZ2:	binclude	"levels/syz2.bin"
 		even
 byte_69D86:	dc.b 0,	0, 0, 0
-Level_SYZ3:	binclude	levels/syz3.bin
+Level_SYZ3:	binclude	"levels/syz3.bin"
 		even
 byte_69EE4:	dc.b 0,	0, 0, 0
 byte_69EE8:	dc.b 0,	0, 0, 0
 
-Level_SBZ1:	binclude	levels/sbz1.bin
+Level_SBZ1:	binclude	"levels/sbz1.bin"
 		even
-Level_SBZ1bg:	binclude	levels/sbz1bg.bin
+Level_SBZ1bg:	binclude	"levels/sbz1bg.bin"
 		even
-Level_SBZ2:	binclude	levels/sbz2.bin
+Level_SBZ2:	binclude	"levels/sbz2.bin"
 		even
-Level_SBZ2bg:	binclude	levels/sbz2bg.bin
+Level_SBZ2bg:	binclude	"levels/sbz2bg.bin"
 		even
 byte_6A2F8:	dc.b 0,	0, 0, 0
 byte_6A2FC:	dc.b 0,	0, 0, 0
-Level_End:	binclude	levels/ending.bin
+Level_End:	binclude	"levels/ending.bin"
 		even
 byte_6A320:	dc.b 0,	0, 0, 0
 
@@ -8995,93 +8995,93 @@ ObjPos_Index:	dc.w ObjPos_GHZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_SBZ1pf5-ObjPos_Index, ObjPos_SBZ1pf6-ObjPos_Index
 		dc.w ObjPos_SBZ1pf1-ObjPos_Index, ObjPos_SBZ1pf2-ObjPos_Index
 		dc.b $FF, $FF, 0, 0, 0,	0
-ObjPos_GHZ1:	binclude	objpos/ghz1.bin
+ObjPos_GHZ1:	binclude	"objpos/ghz1.bin"
 		even
-ObjPos_GHZ2:	binclude	objpos/ghz2.bin
+ObjPos_GHZ2:	binclude	"objpos/ghz2.bin"
 		even
 ObjPos_GHZ3:	if Revision=0
-		binclude	objpos/ghz3.bin
+		binclude	"objpos/ghz3.bin"
 		else
 		binclude	"objpos/ghz3 (JP1).bin"
 		endif
 		even
 ObjPos_LZ1:	if Revision=0
-		binclude	objpos/lz1.bin
+		binclude	"objpos/lz1.bin"
 		else
 		binclude	"objpos/lz1 (JP1).bin"
 		endif
 		even
-ObjPos_LZ2:	binclude	objpos/lz2.bin
+ObjPos_LZ2:	binclude	"objpos/lz2.bin"
 		even
 ObjPos_LZ3:	if Revision=0
-		binclude	objpos/lz3.bin
+		binclude	"objpos/lz3.bin"
 		else
 		binclude	"objpos/lz3 (JP1).bin"
 		endif
 		even
-ObjPos_SBZ3:	binclude	objpos/sbz3.bin
+ObjPos_SBZ3:	binclude	"objpos/sbz3.bin"
 		even
-ObjPos_LZ1pf1:	binclude	objpos/lz1pf1.bin
+ObjPos_LZ1pf1:	binclude	"objpos/lz1pf1.bin"
 		even
-ObjPos_LZ1pf2:	binclude	objpos/lz1pf2.bin
+ObjPos_LZ1pf2:	binclude	"objpos/lz1pf2.bin"
 		even
-ObjPos_LZ2pf1:	binclude	objpos/lz2pf1.bin
+ObjPos_LZ2pf1:	binclude	"objpos/lz2pf1.bin"
 		even
-ObjPos_LZ2pf2:	binclude	objpos/lz2pf2.bin
+ObjPos_LZ2pf2:	binclude	"objpos/lz2pf2.bin"
 		even
-ObjPos_LZ3pf1:	binclude	objpos/lz3pf1.bin
+ObjPos_LZ3pf1:	binclude	"objpos/lz3pf1.bin"
 		even
-ObjPos_LZ3pf2:	binclude	objpos/lz3pf2.bin
+ObjPos_LZ3pf2:	binclude	"objpos/lz3pf2.bin"
 		even
 ObjPos_MZ1:	if Revision=0
-		binclude	objpos/mz1.bin
+		binclude	"objpos/mz1.bin"
 		else
 		binclude	"objpos/mz1 (JP1).bin"
 		endif
 		even
-ObjPos_MZ2:	binclude	objpos/mz2.bin
+ObjPos_MZ2:	binclude	"objpos/mz2.bin"
 		even
-ObjPos_MZ3:	binclude	objpos/mz3.bin
+ObjPos_MZ3:	binclude	"objpos/mz3.bin"
 		even
-ObjPos_SLZ1:	binclude	objpos/slz1.bin
+ObjPos_SLZ1:	binclude	"objpos/slz1.bin"
 		even
-ObjPos_SLZ2:	binclude	objpos/slz2.bin
+ObjPos_SLZ2:	binclude	"objpos/slz2.bin"
 		even
-ObjPos_SLZ3:	binclude	objpos/slz3.bin
+ObjPos_SLZ3:	binclude	"objpos/slz3.bin"
 		even
-ObjPos_SYZ1:	binclude	objpos/syz1.bin
+ObjPos_SYZ1:	binclude	"objpos/syz1.bin"
 		even
-ObjPos_SYZ2:	binclude	objpos/syz2.bin
+ObjPos_SYZ2:	binclude	"objpos/syz2.bin"
 		even
 ObjPos_SYZ3:	if Revision=0
-		binclude	objpos/syz3.bin
+		binclude	"objpos/syz3.bin"
 		else
 		binclude	"objpos/syz3 (JP1).bin"
 		endif
 		even
 ObjPos_SBZ1:	if Revision=0
-		binclude	objpos/sbz1.bin
+		binclude	"objpos/sbz1.bin"
 		else
 		binclude	"objpos/sbz1 (JP1).bin"
 		endif
 		even
-ObjPos_SBZ2:	binclude	objpos/sbz2.bin
+ObjPos_SBZ2:	binclude	"objpos/sbz2.bin"
 		even
-ObjPos_FZ:	binclude	objpos/fz.bin
+ObjPos_FZ:	binclude	"objpos/fz.bin"
 		even
-ObjPos_SBZ1pf1:	binclude	objpos/sbz1pf1.bin
+ObjPos_SBZ1pf1:	binclude	"objpos/sbz1pf1.bin"
 		even
-ObjPos_SBZ1pf2:	binclude	objpos/sbz1pf2.bin
+ObjPos_SBZ1pf2:	binclude	"objpos/sbz1pf2.bin"
 		even
-ObjPos_SBZ1pf3:	binclude	objpos/sbz1pf3.bin
+ObjPos_SBZ1pf3:	binclude	"objpos/sbz1pf3.bin"
 		even
-ObjPos_SBZ1pf4:	binclude	objpos/sbz1pf4.bin
+ObjPos_SBZ1pf4:	binclude	"objpos/sbz1pf4.bin"
 		even
-ObjPos_SBZ1pf5:	binclude	objpos/sbz1pf5.bin
+ObjPos_SBZ1pf5:	binclude	"objpos/sbz1pf5.bin"
 		even
-ObjPos_SBZ1pf6:	binclude	objpos/sbz1pf6.bin
+ObjPos_SBZ1pf6:	binclude	"objpos/sbz1pf6.bin"
 		even
-ObjPos_End:	binclude	objpos/ending.bin
+ObjPos_End:	binclude	"objpos/ending.bin"
 		even
 ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
 
@@ -9098,7 +9098,7 @@ ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
 SoundDriver:	include "s1.sounddriver.asm"
 
 ; end of 'ROM'
-	
+		even
 EndOfRom:
 
 		END
