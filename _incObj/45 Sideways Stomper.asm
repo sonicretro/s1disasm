@@ -15,11 +15,11 @@ SStom_Index:	dc.w SStom_Main-SStom_Index
 		dc.w SStom_Pole-SStom_Index
 
 		;	routine		frame
-		;		xpos
-SStom_Var:	dc.b	2,  	4,	0	; main block
-		dc.b	4,	$E4,	1	; spikes
-		dc.b	8,	$34,	3	; pole
-		dc.b	6,	$28,	2	; wall bracket
+		;		 xpos
+SStom_Var:	dc.b	2,  	 4,	0	; main block
+		dc.b	4,	-$1C,	1	; spikes
+		dc.b	8,	 $34,	3	; pole
+		dc.b	6,	 $28,	2	; wall bracket
 
 ;word_B9BE:	; Note that this indicates three subtypes
 SStom_Len:	dc.w $3800	; short
