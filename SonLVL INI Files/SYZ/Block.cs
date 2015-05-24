@@ -45,7 +45,7 @@ namespace S1ObjectDefinitions.SYZ
 
         public override Sprite SubtypeImage(byte subtype)
         {
-            return imgs[(subtype & 0xE) >> 1];
+            return imgs[(subtype & 0x70) >> 4];
         }
 
         public override Rectangle GetBounds(ObjectEntry obj, Point camera)
@@ -62,7 +62,8 @@ namespace S1ObjectDefinitions.SYZ
 
         private static readonly PropertySpec[] customProperties = new PropertySpec[] {
             new PropertySpec("Movement", typeof(PlatformMovement), "Extended", null, null, GetMovement, SetMovement),
-            new PropertySpec("Switch ID", typeof(int), "Extended", null, null, GetSwitchID, SetSwitchID)
+            new PropertySpec("Switch ID", typeof(int), "Extended", null, null, GetSwitchID, SetSwitchID),
+            new PropertySpec("Switch-Controlled", typeof(bool), "Extended", null, null, GetSwitchControl, SetSwitchControl)
         };
 
         public override PropertySpec[] CustomProperties
@@ -72,22 +73,32 @@ namespace S1ObjectDefinitions.SYZ
 
         public static object GetMovement(ObjectEntry obj)
         {
-            return (PlatformMovement)(obj.SubType & 0xF);
+            return (PlatformMovement)(obj.SubType & 0x0F);
         }
 
         public static void SetMovement(ObjectEntry obj, object value)
         {
-            obj.SubType = (byte)((obj.SubType & ~0xF) | (int)value);
+            obj.SubType = (byte)((obj.SubType & ~0x0F) | (int)value);
         }
 
         public static object GetSwitchID(ObjectEntry obj)
         {
-            return (byte)(obj.SubType >> 4);
+            return (byte)(obj.SubType & 0x0F);
         }
 
         public static void SetSwitchID(ObjectEntry obj, object value)
         {
-            obj.SubType = (byte)((obj.SubType & ~0xF0) | ((byte)value << 4));
+            obj.SubType = (byte)((obj.SubType & ~0x0F) | ((byte)value & 0x0F));
+        }
+
+        public static object GetSwitchControl(ObjectEntry obj)
+        {
+            return (obj.SubType & 0x80) != 0 ? true : false;
+        }
+
+        public static void SetSwitchControl(ObjectEntry obj, object value)
+        {
+            obj.SubType = (byte)((obj.SubType & ~0x80) | ((bool)value == true ? 0x80 : 0));
         }
     }
 
