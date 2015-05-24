@@ -85,6 +85,7 @@ namespace S1ObjectDefinitions.SLZ
         }
 
         private PropertySpec[] customProperties = new PropertySpec[] {
+            new PropertySpec("Chainlinks", typeof(int), "Extended", null, null, GetChainlinks, SetChainlinks),
             new PropertySpec("Wrecking Ball", typeof(bool), "Extended", null, null, GetWreckingBall, SetWreckingBall)
         };
 
@@ -94,6 +95,17 @@ namespace S1ObjectDefinitions.SLZ
             {
                 return customProperties;
             }
+        }
+
+        private static object GetChainlinks(ObjectEntry obj)
+        {
+            return obj.SubType & 0x0F;
+        }
+
+        private static void SetChainlinks(ObjectEntry obj, object value)
+        {
+            value = Math.Max(0, (Math.Min(0x0D, (int)value)));
+            obj.SubType = (byte)((obj.SubType & ~0x0F) | (int)value);
         }
 
         private static object GetWreckingBall(ObjectEntry obj)
