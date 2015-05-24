@@ -31,7 +31,7 @@ namespace S1ObjectDefinitions.GHZ
             get { return false; }
         }
 
-		public override byte DefaultSubtype { get { return 8; } }
+        public override byte DefaultSubtype { get { return 8; } }
 
         public override string SubtypeName(byte subtype)
         {
