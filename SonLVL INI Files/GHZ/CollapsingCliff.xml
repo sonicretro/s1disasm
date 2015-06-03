@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Collapsing Cliff" Image="light">
+  <Images>
+    <ImageFromMappings id="light">
+      <ArtFile filename="LevelArt"/>
+      <MapFile type="ASM" filename="../_maps/Collapsing Ledge.asm" frame="0" startpal="2"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="shadow">
+      <ArtFile filename="LevelArt"/>
+      <MapFile type="ASM" filename="../_maps/Collapsing Ledge.asm" frame="1" startpal="2"/>
+    </ImageFromMappings>
+  </Images>
+  <Subtypes>
+    <Subtype id="00" name="Light (Facing Left)" image="light"/>
+    <Subtype id="01" name="Shadow (Facing Right)" image="shadow"/>
+  </Subtypes>
+</ObjDef>
