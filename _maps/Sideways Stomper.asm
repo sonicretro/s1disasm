@@ -44,7 +44,7 @@ Map_SStom:	dc.w .block-Map_SStom
 		dc.b $F8, 5, 0,	$41, $30
 		dc.b $F8, 5, 0,	$41, $40
 		dc.b $F8, 5, 0,	$41, $50
-.pole5:		dc.b 8
+.pole5:		dc.b 8		; Incorrect: this should be $A
 		dc.b $F8, 5, 0,	$41, $E0
 		dc.b $F8, 5, 0,	$41, $F0
 		dc.b $F8, 5, 0,	$41, 0
@@ -55,4 +55,5 @@ Map_SStom:	dc.w .block-Map_SStom
 		dc.b $F8, 5, 0,	$41, $50
 		dc.b $F8, 5, 0,	$41, $60
 		dc.b $F8, 5, 0,	$41, $70
+		; .pole6 should be here, but it isn't...
 		even

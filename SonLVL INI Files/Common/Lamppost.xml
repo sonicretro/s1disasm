@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Lamppost" Image="img" RememberState="true">
+  <Images>
+    <ImageFromMappings id="img">
+      <ArtFile filename="../artnem/Lamppost.bin"/>
+      <MapFile type="ASM" filename="../_maps/Lamppost.asm" frame="0" startpal="0"/>
+    </ImageFromMappings>
+  </Images>
+  <Properties>
+    <BitsProperty name="LamppostOrder" displayname="Lamppost Order" type="int" startbit="0" length="7" />
+  </Properties>
+  <Display>
+    <DisplayOption>
+      <ImageRef image="img" />
+    </DisplayOption>
+  </Display>
+</ObjDef>
