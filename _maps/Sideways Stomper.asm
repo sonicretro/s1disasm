@@ -69,8 +69,10 @@ Map_SStom:	mappingsTable
 	spritePiece	$30, -8, 2, 2, $41, 0, 0, 0, 0
 	spritePiece	$40, -8, 2, 2, $41, 0, 0, 0, 0
 	spritePiece	$50, -8, 2, 2, $41, 0, 0, 0, 0
-@pole5_End
+@pole5_End		; Incorrect: this should be after the next two spritePieces
 	spritePiece	$60, -8, 2, 2, $41, 0, 0, 0, 0
 	spritePiece	$70, -8, 2, 2, $41, 0, 0, 0, 0
+
+; @pole6 should be here, but it isn't...
 
 	even
