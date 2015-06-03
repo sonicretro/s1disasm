@@ -21,13 +21,6 @@
 
 #include <stdio.h>
 
-extern unsigned long GetFileSize(FILE *File);
-
-#define SUCCESS										0x00
-#define ERROR_UNKNOWN								0x01
-#define ERROR_SOURCE_FILE_DOES_NOT_EXIST			0x02
-#define ERROR_MODULED_GREATHER_THAN_65535			0x03
-
 //-----------------------------------------------------------------------------------------------
 // Name: KComp(char *SrcFile, char *DstFile, int SlideWin, int RecLen, bool Moduled)
 // Desc: Compresses the data using the Kosinski compression format
@@ -80,7 +73,7 @@ long KComp3(FILE *Src, FILE *Dst, int SlideWin, int RecLen, int srcStart, int sr
 
 	if (Moduled)
 	{
-		if (BSize>65535) { fclose(Dst); return ERROR_MODULED_GREATHER_THAN_65535; }
+		if (BSize>65535) { fclose(Dst); return 0; }
 		FullSize=BSize;
 		if (BSize>0x1000) BSize=0x1000;
 		High = (unsigned char)(FullSize >> 8);
