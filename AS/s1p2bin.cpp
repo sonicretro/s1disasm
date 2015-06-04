@@ -140,7 +140,7 @@ bool buildRom(FILE* from, FILE* to)
 			// Kosinski-compressed Z80 segment
 			start = lastStart + lastLength;
 			int srcStart = ftell(from);
-			compressedLength += KComp3(from, to, 8192, 256, srcStart, length, false);
+			compressedLength = KComp3(from, to, 8192, 256, srcStart, length, false);
 			fseek(from, srcStart + length, SEEK_SET);
 			lastSegmentCompressed = true;
 			continue;
