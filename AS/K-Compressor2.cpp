@@ -1,3 +1,12 @@
+
+// Modified for Sonic 1 DAC driver/Sonic & Knuckles sound driver compression.
+// Such compression was already supported and correct, but did not exactly invert
+// the decompression of the original data. Also, the function signature
+// has been changed (and the function renamed to KComp3).
+//
+// Additionally, ALL of the library except this one C++ function has been deleted.
+// The result should still qualify as a "library" as described in section 0 of the LGPL.
+
 /*-----------------------------------------------------------------------------*\
 |																				|
 |	Kosinski.dll: Compression / Decompression of data in Kosinski format		|
@@ -22,7 +31,7 @@
 #include <stdio.h>
 
 //-----------------------------------------------------------------------------------------------
-// Name: KComp(char *SrcFile, char *DstFile, int SlideWin, int RecLen, bool Moduled)
+// Name: KComp3(char *SrcFile, char *DstFile, int SlideWin, int RecLen, bool Moduled)
 // Desc: Compresses the data using the Kosinski compression format
 //-----------------------------------------------------------------------------------------------
 long KComp3(FILE *Src, FILE *Dst, int SlideWin, int RecLen, int srcStart, int srcLen, bool Moduled)
