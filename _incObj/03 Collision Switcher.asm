@@ -7,8 +7,10 @@ PathSwapper:
 		move.b	obRoutine(a0),d0
 		move.w	PSwapper_Index(pc,d0.w),d1
 		jsr	PSwapper_Index(pc,d1.w)
+	if DebugPathSwappers
 		tst.w	(f_debugcheat).w
 		bne.w	RememberState
+	endif
 		; like RememberState, but doesn't display (Sonic 2's MarkObjGone3)
 		out_of_range	@offscreen
 		rts
@@ -114,10 +116,11 @@ PSwapper_MainX:
 		beq.s	@jump3
 		ori.w	#(1<<15),obGfx(a1)
 @jump3:
+	if DebugPathSwappers
 		tst.b	(f_debugcheat).w
 		beq.s	@locret
 		sfx	sfx_Lamppost,0,0,1
-
+	endif
 @locret:
 		rts
 ; ===========================================================================
@@ -155,10 +158,11 @@ PSwapper_MainX_Alt:
 		beq.s	@jump3
 		ori.w	#(1<<15),obGfx(a1)
 @jump3:
+	if DebugPathSwappers
 		tst.b	(f_debugcheat).w
 		beq.s	@locret
 		sfx	sfx_Lamppost,0,0,1
-
+	endif
 @locret:
 		rts
 ; ===========================================================================
@@ -203,10 +207,11 @@ PSwapper_MainY:
 		beq.s	@jump3
 		ori.w	#(1<<15),obGfx(a1)
 @jump3:
+	if DebugPathSwappers
 		tst.b	(f_debugcheat).w
 		beq.s	@locret
 		sfx	sfx_Lamppost,0,0,1
-
+	endif
 @locret:
 		rts
 ; ===========================================================================
@@ -244,10 +249,11 @@ PSwapper_MainY_Alt:
 		beq.s	@jump3
 		ori.w	#(1<<15),obGfx(a1)
 @jump3:
+	if DebugPathSwappers
 		tst.b	(f_debugcheat).w
 		beq.s	@locret
 		sfx	sfx_Lamppost,0,0,1
-
+	endif
 @locret:
 		rts
 ; ===========================================================================

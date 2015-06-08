@@ -21,6 +21,8 @@ ZoneCount:	= 7	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, SBZ and Ending
 
 OptimiseSound:	= 0	; change to 1 to optimise sound queuing
 
+DebugPathSwappers: = 1
+
 ; ===========================================================================
 
 StartOfRom:
