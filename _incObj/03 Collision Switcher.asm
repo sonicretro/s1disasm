@@ -200,8 +200,13 @@ PSwapper_MainY:
 @jump2:
 		andi.w	#$7FFF,obGfx(a1)
 		btst	#5,d0
-		beq.s	return_1FFB6
+		beq.s	@jump3
 		ori.w	#(1<<15),obGfx(a1)
+@jump3:
+		tst.b	(f_debugcheat).w
+		beq.s	return_1FFB6
+		sfx	sfx_Lamppost,0,0,1
+
 		bra.s	return_1FFB6
 ; ===========================================================================
 ; loc_1FF42:
@@ -235,8 +240,12 @@ PSwapper_MainY_Alt:
 @jump2:
 		andi.w	#$7FFF,obGfx(a1)
 		btst	#6,d0
-		beq.s	return_1FFB6
+		beq.s	@jump3
 		ori.w	#(1<<15),obGfx(a1)
+@jump3:
+		tst.b	(f_debugcheat).w
+		beq.s	return_1FFB6
+		sfx	sfx_Lamppost,0,0,1
 
 return_1FFB6:
 		rts
