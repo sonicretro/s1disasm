@@ -119,7 +119,7 @@ PSwapper_MainX:
 	if DebugPathSwappers
 		tst.b	(f_debugcheat).w
 		beq.s	@locret
-		sfx	sfx_Lamppost,0,0,1
+		sfx	sfx_Lamppost,1,0,1
 	endif
 @locret:
 		rts
@@ -161,7 +161,7 @@ PSwapper_MainX_Alt:
 	if DebugPathSwappers
 		tst.b	(f_debugcheat).w
 		beq.s	@locret
-		sfx	sfx_Lamppost,0,0,1
+		sfx	sfx_Lamppost,1,0,1
 	endif
 @locret:
 		rts
@@ -210,7 +210,7 @@ PSwapper_MainY:
 	if DebugPathSwappers
 		tst.b	(f_debugcheat).w
 		beq.s	@locret
-		sfx	sfx_Lamppost,0,0,1
+		sfx	sfx_Lamppost,1,0,1
 	endif
 @locret:
 		rts
@@ -252,7 +252,7 @@ PSwapper_MainY_Alt:
 	if DebugPathSwappers
 		tst.b	(f_debugcheat).w
 		beq.s	@locret
-		sfx	sfx_Lamppost,0,0,1
+		sfx	sfx_Lamppost,1,0,1
 	endif
 @locret:
 		rts
