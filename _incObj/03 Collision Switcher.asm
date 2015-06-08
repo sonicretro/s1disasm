@@ -76,14 +76,14 @@ PSwapper_Init_CheckX:
 ; loc_1FDA4:
 PSwapper_MainX:
 		tst.w	(v_debuguse).w
-		bne.w	return_1FEAC
+		bne.w	PSwapper_locret
 		move.w	obX(a0),d1
 		lea	$34(a0),a2
 		lea	(v_player).w,a1 ; a1=character
 		tst.b	(a2)+
 		bne.w	PSwapper_MainX_Alt
 		cmp.w	obX(a1),d1
-		bhi.w	return_1FEAC
+		bhi.s	PSwapper_locret
 		move.b	#1,-1(a2)
 		move.w	obY(a0),d2
 		move.w	d2,d3
@@ -92,13 +92,13 @@ PSwapper_MainX:
 		add.w	d4,d3
 		move.w	obY(a1),d4
 		cmp.w	d2,d4
-		blt.w	return_1FEAC
+		blt.s	PSwapper_locret
 		cmp.w	d3,d4
-		bge.w	return_1FEAC
+		bge.s	PSwapper_locret
 		move.b	obSubtype(a0),d0
 		bpl.s	@jump
 		btst	#1,obStatus(a1)
-		bne.w	return_1FEAC
+		bne.s	PSwapper_locret
 @jump:
 		btst	#0,obRender(a0)
 		bne.s	@jump2
@@ -115,14 +115,16 @@ PSwapper_MainX:
 		ori.w	#(1<<15),obGfx(a1)
 @jump3:
 		tst.b	(f_debugcheat).w
-		beq.w	return_1FEAC
+		beq.s	PSwapper_locret
 		sfx	sfx_Lamppost,0,0,1
-		bra.w	return_1FEAC
+
+PSwapper_locret:
+		rts
 ; ===========================================================================
 ; loc_1FE38:
 PSwapper_MainX_Alt:
 		cmp.w	obX(a1),d1
-		bls.w	return_1FEAC
+		bls.s	PSwapper_locret
 		move.b	#0,-1(a2)
 		move.w	obY(a0),d2
 		move.w	d2,d3
@@ -131,13 +133,13 @@ PSwapper_MainX_Alt:
 		add.w	d4,d3
 		move.w	obY(a1),d4
 		cmp.w	d2,d4
-		blt.w	return_1FEAC
+		blt.s	PSwapper_locret
 		cmp.w	d3,d4
-		bge.w	return_1FEAC
+		bge.s	PSwapper_locret
 		move.b	obSubtype(a0),d0
 		bpl.s	@jump
 		btst	#1,obStatus(a1)
-		bne.w	return_1FEAC
+		bne.s	PSwapper_locret
 @jump:
 		btst	#0,obRender(a0)
 		bne.s	@jump2
@@ -163,14 +165,14 @@ return_1FEAC:
 
 PSwapper_MainY:
 		tst.w	(v_debuguse).w
-		bne.w	return_1FFB6
+		bne.s	return_1FEAC
 		move.w	obY(a0),d1
 		lea	$34(a0),a2
 		lea	(v_player).w,a1 ; a1=character
 		tst.b	(a2)+
 		bne.s	PSwapper_MainY_Alt
 		cmp.w	obY(a1),d1
-		bhi.w	return_1FFB6
+		bhi.s	return_1FEAC
 		move.b	#1,-1(a2)
 		move.w	obX(a0),d2
 		move.w	d2,d3
@@ -179,13 +181,13 @@ PSwapper_MainY:
 		add.w	d4,d3
 		move.w	obX(a1),d4
 		cmp.w	d2,d4
-		blt.w	return_1FFB6
+		blt.s	return_1FEAC
 		cmp.w	d3,d4
-		bge.w	return_1FFB6
+		bge.s	return_1FEAC
 		move.b	obSubtype(a0),d0
 		bpl.s	@jump
 		btst	#1,obStatus(a1)
-		bne.w	return_1FFB6
+		bne.s	return_1FEAC
 @jump:
 		btst	#0,obRender(a0)
 		bne.s	@jump2
@@ -205,7 +207,7 @@ PSwapper_MainY:
 ; loc_1FF42:
 PSwapper_MainY_Alt:
 		cmp.w	obY(a1),d1
-		bls.w	return_1FFB6
+		bls.s	return_1FFB6
 		move.b	#0,-1(a2)
 		move.w	obX(a0),d2
 		move.w	d2,d3
@@ -214,13 +216,13 @@ PSwapper_MainY_Alt:
 		add.w	d4,d3
 		move.w	obX(a1),d4
 		cmp.w	d2,d4
-		blt.w	return_1FFB6
+		blt.s	return_1FFB6
 		cmp.w	d3,d4
-		bge.w	return_1FFB6
+		bge.s	return_1FFB6
 		move.b	obSubtype(a0),d0
 		bpl.s	@jump
 		btst	#1,obStatus(a1)
-		bne.w	return_1FFB6
+		bne.s	return_1FFB6
 @jump:
 		btst	#0,obRender(a0)
 		bne.s	@jump2
