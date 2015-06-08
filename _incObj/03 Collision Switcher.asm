@@ -109,14 +109,14 @@ PSwapper_MainX:
 		move.b	#$E,(v_top_solid_bit).w	; MJ: set collision to 2nd
 		move.b	#$F,(v_lrb_solid_bit).w	; MJ: set collision to 2nd
 @jump2:
-		tst.b	(f_debugcheat).w
-		beq.s	@jump3
-		sfx	sfx_Lamppost,0,0,1
-@jump3:
 		andi.w	#$7FFF,obGfx(a1)
 		btst	#5,d0
-		beq.w	return_1FEAC
+		beq.s	@jump3
 		ori.w	#(1<<15),obGfx(a1)
+@jump3:
+		tst.b	(f_debugcheat).w
+		beq.w	return_1FEAC
+		sfx	sfx_Lamppost,0,0,1
 		bra.w	return_1FEAC
 ; ===========================================================================
 ; loc_1FE38:
@@ -148,14 +148,14 @@ PSwapper_MainX_Alt:
 		move.b	#$E,(v_top_solid_bit).w	; MJ: set collision to 2nd
 		move.b	#$F,(v_lrb_solid_bit).w	; MJ: set collision to 2nd
 @jump2:
-		tst.b	(f_debugcheat).w
-		beq.s	@jump3
-		sfx	sfx_Lamppost,0,0,1
-@jump3:
 		andi.w	#$7FFF,obGfx(a1)
 		btst	#6,d0
-		beq.s	return_1FEAC
+		beq.s	@jump3
 		ori.w	#(1<<15),obGfx(a1)
+@jump3:
+		tst.b	(f_debugcheat).w
+		beq.s	return_1FEAC
+		sfx	sfx_Lamppost,0,0,1
 
 return_1FEAC:
 		rts
