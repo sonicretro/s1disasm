@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using SonicRetro.SonLVL.API;
 
-namespace S1GitObjectDefinitions.Common
+namespace S1ObjectDefinitions.Common
 {
 	class PathSwapper : ObjectDefinition
 	{
