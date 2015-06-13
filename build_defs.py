@@ -10,14 +10,17 @@ import subprocess
 if platform.system() == "Windows":
 	asBinary = "AS/Win32/asw.exe";
 	s1p2binBinary = "AS/Win32/s1p2bin.exe";
+	s1p2binplusBinary = "AS/Win32/s1p2bin_plus.exe";
 
 elif platform.system() == "Darwin": # Osx
 	asBinary = "AS/Osx/asl";
-	s1p2binBinary = "AS/Osx/p2bin";
+	s1p2binBinary = "AS/Osx/s1p2bin";
+	s1p2binplusBinary = "AS/Osx/s1p2bin_plus";
 
 elif platform.system() == "Linux":
 	asBinary = "AS/Linux/asl"
 	s1p2binBinary = "AS/Linux/s1p2bin"
+	s1p2binplusBinary = "AS/Linux/s1p2bin_plus";
 
 else:
 	print("Unknown platform")
@@ -45,7 +48,7 @@ def update_checksum(path):
 		file.seek(0x18E);
 		file.write(bytearray([(checksum >> 8) & 0xFF, (checksum >> 0) & 0xFF]));
 
-def run():
+def run(altcomp):
 	if platform.system() == "Windows":
 		os.environ["AS_MSGPATH"] = "AS/Win32";
 		os.environ["USEANSI"] = "n";
@@ -87,7 +90,10 @@ def run():
 
 	# Create binary
 
-	binaryCommand = [s1p2binBinary, "sonic.p", romPath];
+	if altcomp:
+		binaryCommand = [s1p2binplusBinary, "sonic.p", romPath];
+	else:
+		binaryCommand = [s1p2binBinary, "sonic.p", romPath];
 
 	# Output file
 

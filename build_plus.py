@@ -5,4 +5,4 @@ sys.dont_write_bytecode = True
 
 import build_defs
 
-build_defs.run(False)
+build_defs.run(True)
