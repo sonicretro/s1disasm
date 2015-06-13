@@ -2,5 +2,5 @@ CXXFLAGS := -O3
 
 all: s1p2bin
 
-s1p2bin: ../s1p2bin.cpp ../K-Compressor2.cpp
+s1p2bin: ../s1p2bin.cpp ../KENSKosComp/K-Compressor2.cpp
 	$(CXX) $(CXXFLAGS) -o $@ $^
