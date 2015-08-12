@@ -7481,6 +7481,10 @@ loc_1504A:
 ObjHitWallLeft:
 		add.w	obX(a0),d3
 		move.w	obY(a0),d2
+		; Engine bug: colliding with left walls is erratic with this function.
+		; The cause is this: a missing instruction to flip collision on the found
+		; 16x16 block; this one:
+		;eori.w	#$F,d3
 		lea	(v_anglebuffer).w,a4
 		move.b	#0,(a4)
 		movea.w	#-$10,a3
