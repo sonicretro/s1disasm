@@ -1818,7 +1818,7 @@ PalLoad1:
 		adda.w	d0,a1
 		movea.l	(a1)+,a2	; get palette data address
 		movea.w	(a1)+,a3	; get target RAM address
-		adda.w	#$80,a3		; skip to "main" RAM address
+		adda.w	#v_pal_dry_dup-v_pal_dry,a3		; skip to "main" RAM address
 		move.w	(a1)+,d7	; get length of palette data
 
 .loop:
@@ -1858,7 +1858,7 @@ PalLoad3_Water:
 		adda.w	d0,a1
 		movea.l	(a1)+,a2	; get palette data address
 		movea.w	(a1)+,a3	; get target RAM address
-		suba.w	#$80,a3		; skip to "main" RAM address
+		suba.w	#v_pal_dry-v_pal_water,a3		; skip to "main" RAM address
 		move.w	(a1)+,d7	; get length of palette data
 
 .loop:
@@ -1877,7 +1877,7 @@ PalLoad4_Water:
 		adda.w	d0,a1
 		movea.l	(a1)+,a2	; get palette data address
 		movea.w	(a1)+,a3	; get target RAM address
-		suba.w	#$100,a3
+		suba.w	#v_pal_dry-v_pal_water_dup,a3
 		move.w	(a1)+,d7	; get length of palette data
 
 .loop:
