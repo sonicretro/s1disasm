@@ -1,5 +1,6 @@
 	padding off	; we don't want AS padding out dc.b instructions
 	listing purecode	; Want listing file, but only the final code in expanded macros
+	page	0	; Don't want form feeds
 	supmode on	; we don't need warnings about privileged instructions
 
 notZ80 function cpu,(cpu<>128)&&(cpu<>32988)
