@@ -8335,14 +8335,14 @@ Art_LivesNums:	incbin	"artunc\Lives Counter Numbers.bin" ; 8x8 pixel numbers on 
 		include	"_inc\LevelHeaders.asm"
 		include	"_inc\Pattern Load Cues.asm"
 
-		align	$100,$FF
+		align	$200,$FF
 		if Revision=0
 Nem_SegaLogo:	incbin	"artnem\Sega Logo.bin"	; large Sega logo
 		even
 Eni_SegaLogo:	incbin	"tilemaps\Sega Logo.bin" ; large Sega logo (mappings)
 		even
 		else
-			dcb.b	$400,$FF
+			dcb.b	$300,$FF
 	Nem_SegaLogo:	incbin	"artnem\Sega Logo (JP1).bin" ; large Sega logo
 			even
 	Eni_SegaLogo:	incbin	"tilemaps\Sega Logo (JP1).bin" ; large Sega logo (mappings)
