@@ -2,7 +2,7 @@
 ; Object 16 - harpoon (LZ)
 ; ---------------------------------------------------------------------------
 
-Harpoon:				; XREF: Obj_Index
+Harpoon:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Harp_Index(pc,d0.w),d1

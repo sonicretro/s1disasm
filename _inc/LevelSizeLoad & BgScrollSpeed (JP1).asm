@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-LevelSizeLoad:				; XREF: GM_Title; GM_Level; GM_Ending
+LevelSizeLoad:
 		moveq	#0,d0
 		move.b	d0,($FFFFF740).w
 		move.b	d0,($FFFFF741).w
@@ -50,7 +50,7 @@ EndingStLocArray:
 
 ; ===========================================================================
 
-LevSz_ChkLamp:				; XREF: LevelSizeLoad
+LevSz_ChkLamp:
 		tst.b	(v_lastlamp).w	; have any lampposts been hit?
 		beq.s	LevSz_StartLoc	; if not, branch
 
@@ -145,7 +145,7 @@ LoopTileNums:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-BgScrollSpeed:				; XREF: LevelSizeLoad
+BgScrollSpeed:
 		tst.b	(v_lastlamp).w
 		bne.s	loc_6206
 		move.w	d0,($FFFFF70C).w
@@ -170,7 +170,7 @@ BgScroll_Index:	dc.w BgScroll_GHZ-BgScroll_Index, BgScroll_LZ-BgScroll_Index
 		zonewarning BgScroll_Index,2
 ; ===========================================================================
 
-BgScroll_GHZ:				; XREF: BgScroll_Index
+BgScroll_GHZ:
 		clr.l	($FFFFF708).w
 		clr.l	($FFFFF70C).w
 		clr.l	($FFFFF714).w
@@ -182,17 +182,17 @@ BgScroll_GHZ:				; XREF: BgScroll_Index
 		rts
 ; ===========================================================================
 
-BgScroll_LZ:				; XREF: BgScroll_Index
+BgScroll_LZ:
 		asr.l	#1,d0
 		move.w	d0,($FFFFF70C).w
 		rts	
 ; ===========================================================================
 
-BgScroll_MZ:				; XREF: BgScroll_Index
+BgScroll_MZ:
 		rts	
 ; ===========================================================================
 
-BgScroll_SLZ:				; XREF: BgScroll_Index
+BgScroll_SLZ:
 		asr.l	#1,d0
 		addi.w	#$C0,d0
 		move.w	d0,($FFFFF70C).w
@@ -200,7 +200,7 @@ BgScroll_SLZ:				; XREF: BgScroll_Index
 		rts	
 ; ===========================================================================
 
-BgScroll_SYZ:				; XREF: BgScroll_Index
+BgScroll_SYZ:
 		asl.l	#4,d0
 		move.l	d0,d2
 		asl.l	#1,d0
@@ -212,7 +212,7 @@ BgScroll_SYZ:				; XREF: BgScroll_Index
 		rts	
 ; ===========================================================================
 
-BgScroll_SBZ:				; XREF: BgScroll_Index
+BgScroll_SBZ:
 		andi.w	#$7F8,d0
 		asr.w	#3,d0
 		addq.w	#1,d0
@@ -220,7 +220,7 @@ BgScroll_SBZ:				; XREF: BgScroll_Index
 		rts	
 ; ===========================================================================
 
-BgScroll_End:				; XREF: BgScroll_Index
+BgScroll_End:
 		move.w	(v_screenposx).w,d0
 		asr.w	#1,d0
 		move.w	d0,($FFFFF708).w

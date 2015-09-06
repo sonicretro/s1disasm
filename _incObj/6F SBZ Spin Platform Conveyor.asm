@@ -2,7 +2,7 @@
 ; Object 6F - spinning platforms that move around a conveyor belt (SBZ)
 ; ---------------------------------------------------------------------------
 
-SpinConvey:				; XREF: Obj_Index
+SpinConvey:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	SpinC_Index(pc,d0.w),d1
@@ -92,7 +92,7 @@ loc_16378:
 		bra.w	loc_163D8
 ; ===========================================================================
 
-loc_16380:				; XREF: SpinC_Main
+loc_16380:
 		move.b	d0,$2F(a0)
 		andi.w	#$7F,d0
 		lea	(v_obj63).w,a2
@@ -116,7 +116,7 @@ SpinC_Loop:
 		jsr	FindFreeObj
 		bne.s	loc_163D0
 
-SpinC_LoadPform:			; XREF: loc_1639A
+SpinC_LoadPform:
 		move.b	#id_SpinConvey,0(a1)
 		move.w	(a2)+,obX(a1)
 		move.w	(a2)+,obY(a1)

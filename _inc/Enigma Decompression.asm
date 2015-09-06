@@ -58,20 +58,20 @@ Eni_Loop:
 
 ; ===========================================================================
 ; loc_1768:
-EniDec_00:				; XREF: EniDec_Index
+EniDec_00:
 @loop:		move.w	a2,(a1)+	; copy incremental copy word
 		addq.w	#1,a2		; increment it
 		dbf	d2,@loop	; repeat
 		bra.s	Eni_Loop
 ; ===========================================================================
 ; loc_1772:
-EniDec_01:				; XREF: EniDec_Index
+EniDec_01:
 @loop:		move.w	a4,(a1)+	; copy literal copy word
 		dbf	d2,@loop	; repeat
 		bra.s	Eni_Loop
 ; ===========================================================================
 ; loc_177A:
-EniDec_100:				; XREF: EniDec_Index
+EniDec_100:
 		bsr.w	EniDec_FetchInlineValue
 ; loc_177E:
 @loop:		move.w	d1,(a1)+	; copy inline value
@@ -80,7 +80,7 @@ EniDec_100:				; XREF: EniDec_Index
 		bra.s	Eni_Loop
 ; ===========================================================================
 ; loc_1786:
-EniDec_101:				; XREF: EniDec_Index
+EniDec_101:
 		bsr.w	EniDec_FetchInlineValue
 ; loc_178A:
 @loop:		move.w	d1,(a1)+	; copy inline value
@@ -90,7 +90,7 @@ EniDec_101:				; XREF: EniDec_Index
 		bra.s	Eni_Loop
 ; ===========================================================================
 ; loc_1794:
-EniDec_110:				; XREF: EniDec_Index
+EniDec_110:
 		bsr.w	EniDec_FetchInlineValue
 ; loc_1798:
 @loop:		move.w	d1,(a1)+	; copy inline value
@@ -100,7 +100,7 @@ EniDec_110:				; XREF: EniDec_Index
 		bra.s	Eni_Loop
 ; ===========================================================================
 ; loc_17A2:
-EniDec_111:				; XREF: EniDec_Index
+EniDec_111:
 		cmpi.w	#$F,d2
 		beq.s	EniDec_Done
 ; loc_17A8:
@@ -111,7 +111,7 @@ EniDec_111:				; XREF: EniDec_Index
 		bra.s	Eni_Loop
 ; ===========================================================================
 ; loc_17B4:
-EniDec_Index:				; XREF: EniDec
+EniDec_Index:
 		bra.s	EniDec_00
 		bra.s	EniDec_00
 		bra.s	EniDec_01
@@ -122,7 +122,7 @@ EniDec_Index:				; XREF: EniDec
 		bra.s	EniDec_111
 ; ===========================================================================
 ; loc_17C4:
-EniDec_Done:				; XREF: EniDec_111
+EniDec_Done:
 		subq.w	#1,a0		; go back by one byte
 		cmpi.w	#16,d6		; were we going to start on a completely new byte?
 		bne.s	@notnewbyte	; if not, branch
@@ -146,7 +146,7 @@ EniDec_Done:				; XREF: EniDec_111
 ; =============== S U B R O U T I N E =======================================
 
 ; loc_17DC:
-EniDec_FetchInlineValue:				; XREF: EniDec_111
+EniDec_FetchInlineValue:
 		move.w	a3,d3		; copy starting art tile
 		move.b	d4,d1		; copy PCCVH bitfield
 		add.b	d1,d1		; is the priority bit set?
@@ -203,7 +203,7 @@ EniDec_FetchInlineValue:				; XREF: EniDec_111
 		and.w	EniDec_Masks-2(pc,d7.w),d5
 		add.w	d5,d1		; combine upper bits with lower bits
 ; loc_1844:
-@maskvalue:				; XREF: @justenough
+@maskvalue:
 		move.w	a5,d0		; get length in bits of inline copy value
 		add.w	d0,d0
 		and.w	EniDec_Masks-2(pc,d0.w),d1	; mask value appropriately
@@ -214,7 +214,7 @@ EniDec_FetchInlineValue:				; XREF: EniDec_111
 		rts	
 ; ===========================================================================
 ; loc_1856:
-@enoughbits:				; XREF: @skipxflip
+@enoughbits:
 		beq.s	@justenough	; if the word has been exactly exhausted, branch
 		lsr.w	d7,d1	; get inline copy value
 		move.w	a5,d0
@@ -225,13 +225,13 @@ EniDec_FetchInlineValue:				; XREF: EniDec_111
 		bra.s	EniDec_FetchByte
 ; ===========================================================================
 ; loc_1868:
-@justenough:				; XREF: @enoughbits
+@justenough:
 		moveq	#16,d6	; reset shift value
 		bra.s	@maskvalue
 ; ===========================================================================
 ; word_186C:
 EniDec_Masks:
-		dc.w	 1,    3,    7,   $F	; XREF: @enoughbits
+		dc.w	 1,    3,    7,   $F
 		dc.w   $1F,  $3F,  $7F,  $FF
 		dc.w  $1FF, $3FF, $7FF, $FFF
 		dc.w $1FFF,$3FFF,$7FFF,$FFFF
@@ -239,7 +239,7 @@ EniDec_Masks:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 ; sub_188C:
-EniDec_FetchByte:				; XREF: EniDec
+EniDec_FetchByte:
 		sub.w	d0,d6	; subtract length of current entry from shift value so that next entry is read next time around
 		cmpi.w	#9,d6	; does a new byte need to be read?
 		bhs.s	@locret	; if not, branch

@@ -2,7 +2,7 @@
 ; Object 14 - lava balls (MZ, SLZ)
 ; ---------------------------------------------------------------------------
 
-LavaBall:				; XREF: Obj_Index
+LavaBall:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	LBall_Index(pc,d0.w),d1
@@ -63,7 +63,7 @@ LBall_Action:	; Routine 2
 		lea	(Ani_Fire).l,a1
 		bsr.w	AnimateSprite
 
-LBall_ChkDel:				; XREF: LavaMaker
+LBall_ChkDel:
 		out_of_range	DeleteObject
 		rts	
 ; ===========================================================================
@@ -75,7 +75,7 @@ LBall_TypeIndex:dc.w LBall_Type00-LBall_TypeIndex, LBall_Type00-LBall_TypeIndex
 ; ===========================================================================
 ; lavaball types 00-03 fly up and fall back down
 
-LBall_Type00:				; XREF: LBall_TypeIndex
+LBall_Type00:
 		addi.w	#$18,obVelY(a0)	; increase object's downward speed
 		move.w	$30(a0),d0
 		cmp.w	obY(a0),d0	; has object fallen back to its	original position?
@@ -93,7 +93,7 @@ locret_E430:
 ; ===========================================================================
 ; lavaball type	04 flies up until it hits the ceiling
 
-LBall_Type04:				; XREF: LBall_TypeIndex
+LBall_Type04:
 		bset	#1,obStatus(a0)
 		bsr.w	ObjHitCeiling
 		tst.w	d1
@@ -107,7 +107,7 @@ locret_E452:
 ; ===========================================================================
 ; lavaball type	05 falls down until it hits the	floor
 
-LBall_Type05:				; XREF: LBall_TypeIndex
+LBall_Type05:
 		bclr	#1,obStatus(a0)
 		bsr.w	ObjFloorDist
 		tst.w	d1
@@ -121,7 +121,7 @@ locret_E474:
 ; ===========================================================================
 ; lavaball types 06-07 move sideways
 
-LBall_Type06:				; XREF: LBall_TypeIndex
+LBall_Type06:
 		bset	#0,obStatus(a0)
 		moveq	#-8,d3
 		bsr.w	ObjHitWallLeft
@@ -135,7 +135,7 @@ locret_E498:
 		rts	
 ; ===========================================================================
 
-LBall_Type07:				; XREF: LBall_TypeIndex
+LBall_Type07:
 		bclr	#0,obStatus(a0)
 		moveq	#8,d3
 		bsr.w	ObjHitWallRight
@@ -149,9 +149,9 @@ locret_E4BC:
 		rts	
 ; ===========================================================================
 
-LBall_Type08:				; XREF: LBall_TypeIndex
+LBall_Type08:
 		rts	
 ; ===========================================================================
 
-LBall_Delete:				; XREF: LBall_Index
+LBall_Delete:
 		bra.w	DeleteObject

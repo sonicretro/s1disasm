@@ -3,7 +3,7 @@
 ; (appears when	you walk on sinking platforms)
 ; ---------------------------------------------------------------------------
 
-GrassFire:				; XREF: Obj_Index
+GrassFire:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	GFire_Index(pc,d0.w),d1
@@ -73,7 +73,7 @@ GFire_Move:	; Routine 4
 		add.w	$3C(a0),d0
 		move.w	d0,obY(a0)
 
-GFire_Animate:				; XREF: loc_B238
+GFire_Animate:
 		lea	(Ani_GFire).l,a1
 		bsr.w	AnimateSprite
 		bra.w	DisplaySprite

@@ -2,7 +2,7 @@
 ; Object 1F - Crabmeat enemy (GHZ, SYZ)
 ; ---------------------------------------------------------------------------
 
-Crabmeat:				; XREF: Obj_Index
+Crabmeat:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Crab_Index(pc,d0.w),d1
@@ -60,7 +60,7 @@ Crab_Action:	; Routine 2
 		dc.w @walkonfloor-@index
 ; ===========================================================================
 
-@waittofire:				; XREF: @index
+@waittofire:
 		subq.w	#1,timedelay(a0) ; subtract 1 from time delay
 		bpl.s	@dontmove
 		tst.b	obRender(a0)
@@ -110,7 +110,7 @@ Crab_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@walkonfloor:				; XREF: @index
+@walkonfloor:
 		subq.w	#1,timedelay(a0)
 		bmi.s	loc_966E
 		bsr.w	SpeedToPos
@@ -155,7 +155,7 @@ loc_966E:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Crab_SetAni:				; XREF: loc_966E
+Crab_SetAni:
 		moveq	#0,d0
 		move.b	obAngle(a0),d3
 		bmi.s	loc_96A4

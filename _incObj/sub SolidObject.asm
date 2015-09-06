@@ -40,7 +40,7 @@ SolidObject:
 		rts	
 ; ===========================================================================
 
-SolidObject71:				; XREF: Obj71_Solid
+SolidObject71:
 		tst.b	obSolid(a0)
 		beq.w	loc_FAD0
 		move.w	d1,d2
@@ -69,7 +69,7 @@ SolidObject71:				; XREF: Obj71_Solid
 		rts	
 ; ===========================================================================
 
-SolidObject2F:				; XREF: Obj2F_Solid
+SolidObject2F:
 		lea	(v_player).w,a1
 		tst.b	obRender(a0)
 		bpl.w	Solid_Ignore

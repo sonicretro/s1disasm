@@ -2,7 +2,7 @@
 ; Object 75 - Eggman (SYZ)
 ; ---------------------------------------------------------------------------
 
-BossSpringYard:				; XREF: Obj_Index
+BossSpringYard:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Obj75_Index(pc,d0.w),d1
@@ -40,7 +40,7 @@ Obj75_Loop:
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 
-Obj75_LoadBoss:				; XREF: Obj75_Main
+Obj75_LoadBoss:
 		bclr	#0,obStatus(a0)
 		clr.b	ob2ndRout(a1)
 		move.b	(a2)+,obRoutine(a1)
@@ -71,7 +71,7 @@ Obj75_ShipIndex:dc.w loc_191CC-Obj75_ShipIndex,	loc_19270-Obj75_ShipIndex
 		dc.w loc_194AC-Obj75_ShipIndex,	loc_194F2-Obj75_ShipIndex
 ; ===========================================================================
 
-loc_191CC:				; XREF: Obj75_ShipIndex
+loc_191CC:
 		move.w	#-$100,obVelX(a0)
 		cmpi.w	#$2D38,$30(a0)
 		bcc.s	loc_191DE
@@ -122,7 +122,7 @@ locret_19256:
 		rts	
 ; ===========================================================================
 
-loc_19258:				; XREF: loc_19202
+loc_19258:
 		moveq	#100,d0
 		bsr.w	AddPoints
 		move.b	#6,ob2ndRout(a0)
@@ -131,7 +131,7 @@ loc_19258:				; XREF: loc_19202
 		rts	
 ; ===========================================================================
 
-loc_19270:				; XREF: Obj75_ShipIndex
+loc_19270:
 		move.w	$30(a0),d0
 		move.w	#$140,obVelX(a0)
 		btst	#0,obStatus(a0)
@@ -181,7 +181,7 @@ loc_192E8:
 		bra.w	loc_191DE
 ; ===========================================================================
 
-loc_192EC:				; XREF: Obj75_ShipIndex
+loc_192EC:
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0
 		move.w	off_192FA(pc,d0.w),d0
@@ -193,7 +193,7 @@ off_192FA:	dc.w loc_19302-off_192FA
 		dc.w loc_193D0-off_192FA
 ; ===========================================================================
 
-loc_19302:				; XREF: off_192FA
+loc_19302:
 		move.w	#$180,obVelY(a0)
 		move.w	$38(a0),d0
 		cmpi.w	#$556,d0
@@ -217,7 +217,7 @@ loc_19344:
 		bra.w	loc_191F2
 ; ===========================================================================
 
-loc_19348:				; XREF: off_192FA
+loc_19348:
 		subq.w	#1,$3C(a0)
 		bpl.s	loc_19366
 		addq.b	#2,obSubtype(a0)
@@ -247,7 +247,7 @@ loc_1937C:
 		bra.w	loc_19202
 ; ===========================================================================
 
-loc_1938E:				; XREF: off_192FA
+loc_1938E:
 		move.w	#$4DA,d0
 		tst.w	$36(a0)
 		beq.s	loc_1939C
@@ -276,7 +276,7 @@ loc_193CC:
 		bra.w	loc_191F2
 ; ===========================================================================
 
-loc_193D0:				; XREF: off_192FA
+loc_193D0:
 		subq.w	#1,$3C(a0)
 		bgt.s	loc_19406
 		bmi.s	loc_193EE
@@ -336,7 +336,7 @@ loc_19446:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Obj75_FindBlocks:			; XREF: loc_192AE
+Obj75_FindBlocks:
 		clr.w	$36(a0)
 		lea	(v_objspace+$40).w,a1
 		moveq	#$3E,d0
@@ -362,7 +362,7 @@ locret_19472:
 
 ; ===========================================================================
 
-loc_19474:				; XREF: Obj75_ShipIndex
+loc_19474:
 		subq.w	#1,$3C(a0)
 		bmi.s	loc_1947E
 		bra.w	BossDefeated
@@ -383,7 +383,7 @@ loc_194A8:
 		bra.w	loc_19202
 ; ===========================================================================
 
-loc_194AC:				; XREF: Obj75_ShipIndex
+loc_194AC:
 		addq.w	#1,$3C(a0)
 		beq.s	loc_194BC
 		bpl.s	loc_194C2
@@ -419,7 +419,7 @@ loc_194EE:
 		bra.w	loc_191F2
 ; ===========================================================================
 
-loc_194F2:				; XREF: Obj75_ShipIndex
+loc_194F2:
 		move.w	#$400,obVelX(a0)
 		move.w	#-$40,obVelY(a0)
 		cmpi.w	#$2D40,(v_limitright2).w
@@ -463,17 +463,17 @@ off_19546:	dc.w loc_19574-off_19546, loc_19574-off_19546
 		dc.w loc_19552-off_19546, loc_19556-off_19546
 ; ===========================================================================
 
-loc_19552:				; XREF: off_19546
+loc_19552:
 		moveq	#$A,d1
 		rts	
 ; ===========================================================================
 
-loc_19556:				; XREF: off_19546
+loc_19556:
 		moveq	#6,d1
 		rts	
 ; ===========================================================================
 
-loc_1955A:				; XREF: off_19546
+loc_1955A:
 		moveq	#0,d0
 		move.b	obSubtype(a1),d0
 		move.w	off_19568(pc,d0.w),d0
@@ -483,14 +483,14 @@ off_19568:	dc.w loc_19570-off_19568, loc_19572-off_19568
 		dc.w loc_19570-off_19568, loc_19570-off_19568
 ; ===========================================================================
 
-loc_19570:				; XREF: off_19568
+loc_19570:
 		bra.s	loc_19574
 ; ===========================================================================
 
-loc_19572:				; XREF: off_19568
+loc_19572:
 		moveq	#6,d1
 
-loc_19574:				; XREF: off_19546
+loc_19574:
 		tst.b	obColType(a1)
 		bne.s	loc_1957E
 		moveq	#5,d1

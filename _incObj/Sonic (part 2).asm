@@ -24,7 +24,7 @@ loc_1380C:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_HurtStop:				; XREF: Sonic_Hurt
+Sonic_HurtStop:
 		move.w	(v_limitbtm2).w,d0
 		addi.w	#$E0,d0
 		cmp.w	obY(a0),d0
@@ -59,7 +59,7 @@ Sonic_Death:	; Routine 6
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-GameOver:				; XREF: Sonic_Death
+GameOver:
 		move.w	(v_limitbtm2).w,d0
 		addi.w	#$100,d0
 		cmp.w	obY(a0),d0

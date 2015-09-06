@@ -41,7 +41,7 @@ loc_146A:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-NemDec2:				; XREF: NemDec
+NemDec2:
 		move.w	d6,d7
 		subq.w	#8,d7
 		move.w	d5,d1
@@ -65,10 +65,10 @@ loc_14B2:
 		andi.w	#$F,d1
 		andi.w	#$F0,d0
 
-loc_14C0:				; XREF: NemDec3
+loc_14C0:
 		lsr.w	#4,d0
 
-loc_14C2:				; XREF: NemDec3
+loc_14C2:
 		lsl.l	#4,d4
 		or.b	d1,d4
 		subq.w	#1,d3
@@ -80,16 +80,16 @@ loc_14C2:				; XREF: NemDec3
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-NemDec3:				; XREF: loc_1502
+NemDec3:
 		moveq	#0,d4
 		moveq	#8,d3
 
-loc_14D0:				; XREF: NemDec2
+loc_14D0:
 		dbf	d0,loc_14C2
 		bra.s	NemDec2
 ; ===========================================================================
 
-loc_14D6:				; XREF: NemDec2
+loc_14D6:
 		subq.w	#6,d6
 		cmpi.w	#9,d6
 		bcc.s	loc_14E4
@@ -97,7 +97,7 @@ loc_14D6:				; XREF: NemDec2
 		asl.w	#8,d5
 		move.b	(a0)+,d5
 
-loc_14E4:				; XREF: NemDec3
+loc_14E4:
 		subq.w	#7,d6
 		move.w	d5,d1
 		lsr.w	d6,d1
@@ -114,7 +114,7 @@ loc_14E4:				; XREF: NemDec3
 
 ; ===========================================================================
 
-loc_1502:				; XREF: NemDec
+loc_1502:
 		move.l	d4,(a4)
 		subq.w	#1,a5
 		move.w	a5,d4
@@ -129,7 +129,7 @@ loc_1502:				; XREF: NemDec
 		rts	
 ; ===========================================================================
 
-loc_1518:				; XREF: NemDec
+loc_1518:
 		move.l	d4,(a4)+
 		subq.w	#1,a5
 		move.w	a5,d4
@@ -146,7 +146,7 @@ loc_1518:				; XREF: NemDec
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-NemDec4:				; XREF: NemDec
+NemDec4:
 		move.b	(a0)+,d0
 
 loc_1530:
@@ -155,7 +155,7 @@ loc_1530:
 		rts	
 ; ===========================================================================
 
-loc_1538:				; XREF: NemDec4
+loc_1538:
 		move.w	d0,d7
 
 loc_153A:
@@ -179,7 +179,7 @@ loc_153A:
 		bra.s	loc_153A
 ; ===========================================================================
 
-loc_1568:				; XREF: NemDec4
+loc_1568:
 		move.b	(a0)+,d0
 		lsl.w	d1,d0
 		add.w	d0,d0

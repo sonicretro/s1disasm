@@ -2,7 +2,7 @@
 ; Object 0D - signpost at the end of a level
 ; ---------------------------------------------------------------------------
 
-Signpost:				; XREF: Obj_Index
+Signpost:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Sign_Index(pc,d0.w),d1
@@ -124,7 +124,7 @@ Sign_SonicRun:	; Routine 6
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-GotThroughAct:				; XREF: Obj3E_EndAct
+GotThroughAct:
 		tst.b	(v_objspace+$5C0).w
 		bne.s	locret_ECEE
 		move.w	(v_limitright2).w,(v_limitleft2).w

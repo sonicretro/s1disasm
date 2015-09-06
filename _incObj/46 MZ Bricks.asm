@@ -2,7 +2,7 @@
 ; Object 46 - solid blocks and blocks that fall	from the ceiling (MZ)
 ; ---------------------------------------------------------------------------
 
-MarbleBrick:				; XREF: Obj_Index
+MarbleBrick:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Brick_Index(pc,d0.w),d1
@@ -58,11 +58,11 @@ Brick_TypeIndex:dc.w Brick_Type00-Brick_TypeIndex
 		dc.w Brick_Type04-Brick_TypeIndex
 ; ===========================================================================
 
-Brick_Type00:				; XREF: Brick_TypeIndex
+Brick_Type00:
 		rts	
 ; ===========================================================================
 
-Brick_Type02:				; XREF: Brick_TypeIndex
+Brick_Type02:
 		move.w	(v_player+obX).w,d0
 		sub.w	obX(a0),d0
 		bcc.s	loc_E888
@@ -73,7 +73,7 @@ loc_E888:
 		bcc.s	Brick_Type01	; if not, resume wobbling
 		move.b	#3,obSubtype(a0)	; if yes, make the block fall
 
-Brick_Type01:				; XREF: Brick_TypeIndex
+Brick_Type01:
 		moveq	#0,d0
 		move.b	(v_oscillate+$16).w,d0
 		btst	#3,obSubtype(a0)
@@ -88,7 +88,7 @@ loc_E8A8:
 		rts	
 ; ===========================================================================
 
-Brick_Type03:				; XREF: Brick_TypeIndex
+Brick_Type03:
 		bsr.w	SpeedToPos
 		addi.w	#$18,obVelY(a0)	; increase falling speed
 		bsr.w	ObjFloorDist
@@ -112,7 +112,7 @@ locret_E8EE:
 		rts	
 ; ===========================================================================
 
-Brick_Type04:				; XREF: Brick_TypeIndex
+Brick_Type04:
 		moveq	#0,d0
 		move.b	(v_oscillate+$12).w,d0
 		lsr.w	#3,d0

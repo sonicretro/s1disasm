@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_ResetOnFloor:			; XREF: PlatformObject; et al
+Sonic_ResetOnFloor:
 		btst	#4,obStatus(a0)
 		beq.s	loc_137AE
 		nop	

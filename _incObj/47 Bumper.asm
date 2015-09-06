@@ -2,7 +2,7 @@
 ; Object 47 - pinball bumper (SYZ)
 ; ---------------------------------------------------------------------------
 
-Bumper:					; XREF: Obj_Index
+Bumper:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Bump_Index(pc,d0.w),d1

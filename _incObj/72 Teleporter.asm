@@ -2,7 +2,7 @@
 ; Object 72 - teleporter (SBZ)
 ; ---------------------------------------------------------------------------
 
-Teleport:				; XREF: Obj_Index
+Teleport:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Tele_Index(pc,d0.w),d1

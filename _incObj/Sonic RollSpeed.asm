@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_RollSpeed:			; XREF: Obj01_MdRoll
+Sonic_RollSpeed:
 		move.w	(v_sonspeedmax).w,d6
 		asl.w	#1,d6
 		move.w	(v_sonspeedacc).w,d5
@@ -38,7 +38,7 @@ loc_13198:
 		bra.s	loc_131AA
 ; ===========================================================================
 
-loc_1319E:				; XREF: Sonic_RollSpeed
+loc_1319E:
 		add.w	d5,d0
 		bcc.s	loc_131A6
 		move.w	#0,d0
@@ -81,7 +81,7 @@ loc_131FA:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_RollLeft:				; XREF: Sonic_RollSpeed
+Sonic_RollLeft:
 		move.w	obInertia(a0),d0
 		beq.s	loc_1320A
 		bpl.s	loc_13218
@@ -106,7 +106,7 @@ loc_13220:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_RollRight:			; XREF: Sonic_RollSpeed
+Sonic_RollRight:
 		move.w	obInertia(a0),d0
 		bmi.s	loc_1323A
 		bclr	#0,obStatus(a0)

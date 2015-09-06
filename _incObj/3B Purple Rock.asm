@@ -2,7 +2,7 @@
 ; Object 3B - purple rock (GHZ)
 ; ---------------------------------------------------------------------------
 
-PurpleRock:				; XREF: Obj_Index
+PurpleRock:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Rock_Index(pc,d0.w),d1

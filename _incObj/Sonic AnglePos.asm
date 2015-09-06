@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_AnglePos:				; XREF: Obj01_MdNormal; Obj01_MdRoll
+Sonic_AnglePos:
 		btst	#3,obStatus(a0)
 		beq.s	loc_14602
 		moveq	#0,d0
@@ -161,7 +161,7 @@ locret_1470A:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_Angle:				; XREF: Sonic_AnglePos; et al
+Sonic_Angle:
 		move.b	($FFFFF76A).w,d2
 		cmp.w	d0,d1
 		ble.s	loc_1475E
@@ -190,7 +190,7 @@ loc_1476A:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_WalkVertR:			; XREF: Sonic_AnglePos
+Sonic_WalkVertR:
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 		moveq	#0,d0
@@ -259,7 +259,7 @@ loc_147FE:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_WalkCeiling:			; XREF: Sonic_AnglePos
+Sonic_WalkCeiling:
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 		moveq	#0,d0
@@ -329,7 +329,7 @@ loc_148A0:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_WalkVertL:			; XREF: Sonic_AnglePos
+Sonic_WalkVertL:
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 		moveq	#0,d0

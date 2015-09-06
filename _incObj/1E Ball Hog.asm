@@ -2,7 +2,7 @@
 ; Object 1E - Ball Hog enemy (SBZ)
 ; ---------------------------------------------------------------------------
 
-BallHog:				; XREF: Obj_Index
+BallHog:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Hog_Index(pc,d0.w),d1

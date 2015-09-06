@@ -2,7 +2,7 @@
 ; Object 57 - spiked balls (SYZ, LZ)
 ; ---------------------------------------------------------------------------
 
-SpikeBall:				; XREF: Obj_Index
+SpikeBall:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	SBall_Index(pc,d0.w),d1

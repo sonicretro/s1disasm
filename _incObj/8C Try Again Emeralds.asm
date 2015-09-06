@@ -2,7 +2,7 @@
 ; Object 8C - chaos emeralds on	the "TRY AGAIN"	screen
 ; ---------------------------------------------------------------------------
 
-TryChaos:				; XREF: Obj_Index
+TryChaos:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	TCha_Index(pc,d0.w),d1
@@ -20,7 +20,7 @@ TCha_Main:	; Routine 0
 		moveq	#5,d1
 		sub.b	(v_emeralds).w,d1
 
-@makeemerald:				; XREF: loc_5B42
+@makeemerald:
 		move.b	#id_TryChaos,(a1) ; load emerald object
 		addq.b	#2,obRoutine(a1)
 		move.l	#Map_ECha,obMap(a1)

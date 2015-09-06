@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-PaletteCycle:				; XREF: GotoDemo; Level_MainLoop; End_MainLoop
+PaletteCycle:
 		moveq	#0,d2
 		moveq	#0,d0
 		move.b	(v_zone).w,d0	; get level number
@@ -31,12 +31,12 @@ PCycle_Index:	dc.w PCycle_GHZ-PCycle_Index
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-PCycle_Title:				; XREF: GM_TitleScr
+PCycle_Title:
 		lea	(Pal_TitleCyc).l,a0
 		bra.s	PCycGHZ_Go
 ; ===========================================================================
 
-PCycle_GHZ:				; XREF: PCycle_Index
+PCycle_GHZ:
 		lea	(Pal_GHZCyc).l,a0
 
 PCycGHZ_Go:
@@ -60,7 +60,7 @@ PCycGHZ_Skip:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-PCycle_LZ:				; XREF: PCycle_Index
+PCycle_LZ:
 ; Waterfalls
 		subq.w	#1,(v_pcyc_time).w ; decrement timer
 		bpl.s	PCycLZ_Skip1	; if time remains, branch
@@ -129,13 +129,13 @@ PCycLZ_Skip2:
 PCycLZ_Seq:	dc.b 1,	0, 0, 1, 0, 0, 1, 0
 ; ===========================================================================
 
-PCycle_MZ:				; XREF: PCycle_Index
+PCycle_MZ:
 		rts	
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-PalCycle_SLZ:				; XREF: PCycle_Index
+PalCycle_SLZ:
 		subq.w	#1,(v_pcyc_time).w
 		bpl.s	locret_1A80
 		move.w	#7,(v_pcyc_time).w
@@ -164,7 +164,7 @@ locret_1A80:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-PalCycle_SYZ:				; XREF: PCycle_Index
+PalCycle_SYZ:
 		subq.w	#1,(v_pcyc_time).w
 		bpl.s	locret_1AC6
 		move.w	#5,(v_pcyc_time).w
@@ -191,7 +191,7 @@ locret_1AC6:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-PalCycle_SBZ:				; XREF: PCycle_Index
+PalCycle_SBZ:
 		lea	(Pal_SBZCycList1).l,a2
 		tst.b	(v_act).w
 		beq.s	loc_1ADA
@@ -209,7 +209,7 @@ loc_1AE0:
 		bra.s	loc_1B06
 ; ===========================================================================
 
-loc_1AEA:				; XREF: PalCycle_SBZ
+loc_1AEA:
 		move.b	(a2)+,(a1)+
 		move.b	(a1),d0
 		addq.b	#1,d0
@@ -225,7 +225,7 @@ loc_1AF6:
 		movea.w	(a2)+,a3
 		move.w	(a0,d0.w),(a3)
 
-loc_1B06:				; XREF: PalCycle_SBZ
+loc_1B06:
 		dbf	d1,loc_1AE0
 		subq.w	#1,(v_pcyc_time).w
 		bpl.s	locret_1B64

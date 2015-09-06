@@ -2,7 +2,7 @@
 ; Object 54 - invisible	lava tag (MZ)
 ; ---------------------------------------------------------------------------
 
-LavaTag:				; XREF: Obj_Index
+LavaTag:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	LTag_Index(pc,d0.w),d1

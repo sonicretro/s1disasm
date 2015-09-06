@@ -2,7 +2,7 @@
 ; Object 6B - stomper and sliding door (SBZ)
 ; ---------------------------------------------------------------------------
 
-ScrapStomp:				; XREF: Obj_Index
+ScrapStomp:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Sto_Index(pc,d0.w),d1
@@ -133,11 +133,11 @@ Sto_Action:	; Routine 2
 		dc.w @type04-@index, @type05-@index
 ; ===========================================================================
 
-@type00:				; XREF: @index
+@type00:
 		rts
 ; ===========================================================================
 
-@type01:				; XREF: @index
+@type01:
 		tst.b	sto_active(a0)
 		bne.s	@isactive01
 		lea	(f_switch).w,a2
@@ -179,7 +179,7 @@ Sto_Action:	; Routine 2
 		bra.s	@loc_15DC2
 ; ===========================================================================
 
-@type02:				; XREF: @index
+@type02:
 		tst.b	sto_active(a0)
 		bne.s	@isactive02
 		subq.w	#1,$36(a0)
@@ -216,7 +216,7 @@ Sto_Action:	; Routine 2
 		bra.s	@loc_15E1E
 ; ===========================================================================
 
-@type03:				; XREF: @index
+@type03:
 		tst.b	sto_active(a0)
 		bne.s	@isactive03
 		tst.w	$3A(a0)
@@ -252,7 +252,7 @@ Sto_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@type04:				; XREF: @index
+@type04:
 		tst.b	sto_active(a0)
 		bne.s	@isactive04
 		tst.w	$3A(a0)
@@ -295,7 +295,7 @@ Sto_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@type05:				; XREF: @index
+@type05:
 		tst.b	sto_active(a0)
 		bne.s	@loc_15F3E
 		lea	(f_switch).w,a2

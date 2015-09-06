@@ -2,7 +2,7 @@
 ; Object 1A - GHZ collapsing ledge
 ; ---------------------------------------------------------------------------
 
-CollapseLedge:				; XREF: Obj_Index
+CollapseLedge:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Ledge_Index(pc,d0.w),d1

@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_JumpHeight:			; XREF: Obj01_MdJump; Obj01_MdJump2
+Sonic_JumpHeight:
 		tst.b	$3C(a0)
 		beq.s	loc_134C4
 		move.w	#-$400,d1

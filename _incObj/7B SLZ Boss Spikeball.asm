@@ -2,7 +2,7 @@
 ; Object 7B - exploding	spikeys	that Eggman drops (SLZ)
 ; ---------------------------------------------------------------------------
 
-BossSpikeball:				; XREF: Obj_Index
+BossSpikeball:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Obj7B_Index(pc,d0.w),d0
@@ -117,7 +117,7 @@ loc_18E16:
 		bra.w	loc_18EAA
 ; ===========================================================================
 
-loc_18E2A:				; XREF: loc_18DC6
+loc_18E2A:
 		lea	(word_19018).l,a2
 		moveq	#0,d0
 		move.b	obFrame(a1),d0

@@ -2,7 +2,7 @@
 ; Object 52 - moving platform blocks (MZ, LZ, SBZ)
 ; ---------------------------------------------------------------------------
 
-MovingBlock:				; XREF: Obj_Index
+MovingBlock:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	MBlock_Index(pc,d0.w),d1
@@ -71,12 +71,12 @@ MBlock_StandOn:	; Routine 4
 		move.w	(sp)+,d2
 		jsr	(MvSonicOnPtfm2).l
 
-MBlock_ChkDel:				; XREF: MBlock_Platform
+MBlock_ChkDel:
 		out_of_range	DeleteObject,origX(a0)
 		bra.w	DisplaySprite
 ; ===========================================================================
 
-MBlock_Move:				; XREF: MBlock_Platform; MBlock_StandOn
+MBlock_Move:
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0
 		andi.w	#$F,d0
@@ -92,11 +92,11 @@ MBlock_TypeIndex:dc.w MBlock_Type00-MBlock_TypeIndex, MBlock_Type01-MBlock_TypeI
 		dc.w MBlock_Type0A-MBlock_TypeIndex
 ; ===========================================================================
 
-MBlock_Type00:				; XREF: MBlock_TypeIndex
+MBlock_Type00:
 		rts	
 ; ===========================================================================
 
-MBlock_Type01:				; XREF: MBlock_TypeIndex
+MBlock_Type01:
 		move.b	(v_oscillate+$E).w,d0
 		move.w	#$60,d1
 		btst	#0,obStatus(a0)
@@ -111,7 +111,7 @@ loc_FF26:
 		rts	
 ; ===========================================================================
 
-MBlock_Type02:				; XREF: MBlock_TypeIndex
+MBlock_Type02:
 		cmpi.b	#4,obRoutine(a0) ; is Sonic standing on the platform?
 		bne.s	MBlock_02_Wait
 		addq.b	#1,obSubtype(a0) ; if yes, add 1 to type
@@ -120,7 +120,7 @@ MBlock_02_Wait:
 		rts	
 ; ===========================================================================
 
-MBlock_Type03:				; XREF: MBlock_TypeIndex
+MBlock_Type03:
 		moveq	#0,d3
 		move.b	obActWid(a0),d3
 		bsr.w	ObjHitWallRight
@@ -136,7 +136,7 @@ MBlock_03_End:
 		rts	
 ; ===========================================================================
 
-MBlock_Type05:				; XREF: MBlock_TypeIndex
+MBlock_Type05:
 		moveq	#0,d3
 		move.b	obActWid(a0),d3
 		bsr.w	ObjHitWallRight
@@ -152,7 +152,7 @@ MBlock_05_End:
 		rts	
 ; ===========================================================================
 
-MBlock_Type06:				; XREF: MBlock_TypeIndex
+MBlock_Type06:
 		bsr.w	SpeedToPos
 		addi.w	#$18,obVelY(a0)	; make the platform fall
 		bsr.w	ObjFloorDist
@@ -166,7 +166,7 @@ locret_FFA0:
 		rts	
 ; ===========================================================================
 
-MBlock_Type07:				; XREF: MBlock_TypeIndex
+MBlock_Type07:
 		tst.b	(f_switch+2).w	; has switch number 02 been pressed?
 		beq.s	MBlock_07_ChkDel
 		subq.b	#3,obSubtype(a0) ; if yes, change object type to 04
@@ -177,7 +177,7 @@ MBlock_07_ChkDel:
 		rts	
 ; ===========================================================================
 
-MBlock_Type08:				; XREF: MBlock_TypeIndex
+MBlock_Type08:
 		move.b	(v_oscillate+$1E).w,d0
 		move.w	#$80,d1
 		btst	#0,obStatus(a0)
@@ -192,7 +192,7 @@ loc_FFE2:
 		rts	
 ; ===========================================================================
 
-MBlock_Type0A:				; XREF: MBlock_TypeIndex
+MBlock_Type0A:
 		moveq	#0,d3
 		move.b	obActWid(a0),d3
 		add.w	d3,d3

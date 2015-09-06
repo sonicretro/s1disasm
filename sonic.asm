@@ -463,7 +463,7 @@ ShowErrorValue:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-ErrorWaitForC:				; XREF: loc_478
+ErrorWaitForC:
 		bsr.w	ReadJoypads
 		cmpi.b	#btnC,(v_jpadpress1).w ; is button C pressed?
 		bne.w	ErrorWaitForC	; if not, branch
@@ -480,7 +480,7 @@ Art_Text:	incbin	"artunc\menutext.bin" ; text used in level select and debug mod
 ; Vertical interrupt
 ; ---------------------------------------------------------------------------
 
-VBlank:					; XREF: Vectors
+VBlank:
 		movem.l	d0-a6,-(sp)
 		tst.b	(v_vbla_routine).w
 		beq.s	VBla_00
@@ -502,10 +502,10 @@ VBlank:					; XREF: Vectors
 		move.w	VBla_Index(pc,d0.w),d0
 		jsr	VBla_Index(pc,d0.w)
 
-VBla_Music:				; XREF: VBla_00
+VBla_Music:
 		jsr	UpdateMusic
 
-VBla_Exit:				; XREF: VBla_08
+VBla_Exit:
 		addq.l	#1,(v_vbla_count).w
 		movem.l	(sp)+,d0-a6
 		rte	
@@ -519,7 +519,7 @@ VBla_Index:	dc.w VBla_00-VBla_Index, VBla_02-VBla_Index
 		dc.w VBla_0C-VBla_Index
 ; ===========================================================================
 
-VBla_00:				; XREF: VBlank; VBla_Index
+VBla_00:
 		cmpi.b	#$80+id_Level,(v_gamemode).w
 		beq.s	@islevel
 		cmpi.b	#id_Level,(v_gamemode).w ; is game on a level?
@@ -556,10 +556,10 @@ VBla_00:				; XREF: VBlank; VBla_Index
 		bra.w	VBla_Music
 ; ===========================================================================
 
-VBla_02:				; XREF: VBla_Index
+VBla_02:
 		bsr.w	sub_106E
 
-VBla_14:				; XREF: VBla_Index
+VBla_14:
 		tst.w	(v_demolength).w
 		beq.w	@end
 		subq.w	#1,(v_demolength).w
@@ -568,7 +568,7 @@ VBla_14:				; XREF: VBla_Index
 		rts	
 ; ===========================================================================
 
-VBla_04:				; XREF: VBla_Index
+VBla_04:
 		bsr.w	sub_106E
 		bsr.w	sub_6886
 		bsr.w	sub_1642
@@ -580,16 +580,16 @@ VBla_04:				; XREF: VBla_Index
 		rts	
 ; ===========================================================================
 
-VBla_06:				; XREF: VBla_Index
+VBla_06:
 		bsr.w	sub_106E
 		rts	
 ; ===========================================================================
 
-VBla_10:				; XREF: VBla_Index
+VBla_10:
 		cmpi.b	#id_Special,(v_gamemode).w ; is game on special stage?
 		beq.w	VBla_0A		; if yes, branch
 
-VBla_08:				; XREF: VBla_Index
+VBla_08:
 		stopZ80
 		waitZ80
 		bsr.w	ReadJoypads
@@ -632,7 +632,7 @@ VBla_08:				; XREF: VBla_Index
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Demo_Time:				; XREF: VBlank; HBlank
+Demo_Time:
 		bsr.w	LoadTilesAsYouMove
 		jsr	AnimateLevelGfx
 		jsr	HUD_Update
@@ -647,7 +647,7 @@ Demo_Time:				; XREF: VBlank; HBlank
 
 ; ===========================================================================
 
-VBla_0A:				; XREF: VBla_Index
+VBla_0A:
 		stopZ80
 		waitZ80
 		bsr.w	ReadJoypads
@@ -671,7 +671,7 @@ VBla_0A:				; XREF: VBla_Index
 		rts	
 ; ===========================================================================
 
-VBla_0C:				; XREF: VBla_Index
+VBla_0C:
 		stopZ80
 		waitZ80
 		bsr.w	ReadJoypads
@@ -706,20 +706,20 @@ VBla_0C:				; XREF: VBla_Index
 		rts	
 ; ===========================================================================
 
-VBla_0E:				; XREF: VBla_Index
+VBla_0E:
 		bsr.w	sub_106E
 		addq.b	#1,($FFFFF628).w
 		move.b	#$E,(v_vbla_routine).w
 		rts	
 ; ===========================================================================
 
-VBla_12:				; XREF: VBla_Index
+VBla_12:
 		bsr.w	sub_106E
 		move.w	(v_hbla_hreg).w,(a5)
 		bra.w	sub_1642
 ; ===========================================================================
 
-VBla_16:				; XREF: VBla_Index
+VBla_16:
 		stopZ80
 		waitZ80
 		bsr.w	ReadJoypads
@@ -743,7 +743,7 @@ VBla_16:				; XREF: VBla_Index
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-sub_106E:				; XREF: VBla_02; et al
+sub_106E:
 		stopZ80
 		waitZ80
 		bsr.w	ReadJoypads
@@ -835,7 +835,7 @@ loc_119E:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-JoypadInit:				; XREF: GameClrRAM
+JoypadInit:
 		stopZ80
 		waitZ80
 		moveq	#$40,d0
@@ -853,7 +853,7 @@ JoypadInit:				; XREF: GameClrRAM
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-ReadJoypads:				; XREF: VBlank, HBlank
+ReadJoypads:
 		lea	(v_jpadhold1).w,a0 ; address where joypad states are written
 		lea	($A10003).l,a1	; first	joypad port
 		bsr.s	@read		; do the first joypad
@@ -885,7 +885,7 @@ ReadJoypads:				; XREF: VBlank, HBlank
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-VDPSetupGame:				; XREF: GameClrRAM; ChecksumError
+VDPSetupGame:
 		lea	(vdp_control_port).l,a0
 		lea	(vdp_data_port).l,a1
 		lea	(VDPSetupArray).l,a2
@@ -999,7 +999,7 @@ ClearScreen:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-SoundDriverLoad:			; XREF: GameClrRAM; GM_Title
+SoundDriverLoad:
 		nop	
 		stopZ80
 		resetZ80
@@ -1032,7 +1032,7 @@ SoundDriverLoad:			; XREF: GameClrRAM; GM_Title
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-TilemapToVRAM:				; XREF: GM_Sega; GM_Title; SS_BGLoad
+TilemapToVRAM:
 		lea	(vdp_data_port).l,a6
 		move.l	#$800000,d4
 
@@ -1121,7 +1121,7 @@ NewPLC:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-ClearPLC:				; XREF: NewPLC
+ClearPLC:
 		lea	(v_plc_buffer).w,a2 ; PLC buffer space in RAM
 		moveq	#$1F,d0
 
@@ -1138,7 +1138,7 @@ ClearPLC:				; XREF: NewPLC
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-RunPLC:					; XREF: GM_Level; et al
+RunPLC:
 		tst.l	(v_plc_buffer).w
 		beq.s	Rplc_Exit
 		tst.w	(f_plc_execute).w
@@ -1175,7 +1175,7 @@ Rplc_Exit:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-sub_1642:				; XREF: VBla_04; VBla_12
+sub_1642:
 		tst.w	(f_plc_execute).w
 		beq.w	locret_16DA
 		move.w	#9,($FFFFF6FA).w
@@ -1189,7 +1189,7 @@ sub_1642:				; XREF: VBla_04; VBla_12
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-sub_165E:				; XREF: Demo_Time
+sub_165E:
 		tst.w	(f_plc_execute).w
 		beq.s	locret_16DA
 		move.w	#3,($FFFFF6FA).w
@@ -1197,7 +1197,7 @@ sub_165E:				; XREF: Demo_Time
 		move.w	($FFFFF684).w,d0
 		addi.w	#$60,($FFFFF684).w
 
-loc_1676:				; XREF: sub_1642
+loc_1676:
 		lea	(vdp_control_port).l,a4
 		lsl.l	#2,d0
 		lsr.w	#2,d0
@@ -1214,7 +1214,7 @@ loc_1676:				; XREF: sub_1642
 		move.l	($FFFFF6F4).w,d6
 		lea	(v_ngfx_buffer).w,a1
 
-loc_16AA:				; XREF: sub_165E
+loc_16AA:
 		movea.w	#8,a5
 		bsr.w	NemDec3
 		subq.w	#1,(f_plc_execute).w
@@ -1229,15 +1229,15 @@ loc_16AA:				; XREF: sub_165E
 		move.l	d5,($FFFFF6F0).w
 		move.l	d6,($FFFFF6F4).w
 
-locret_16DA:				; XREF: sub_1642
+locret_16DA:
 		rts	
 ; ===========================================================================
 
-loc_16DC:				; XREF: sub_165E
+loc_16DC:
 		lea	(v_plc_buffer).w,a0
 		moveq	#$15,d0
 
-loc_16E2:				; XREF: sub_165E
+loc_16E2:
 		move.l	6(a0),(a0)+
 		dbf	d0,loc_16E2
 		rts	
@@ -1335,7 +1335,7 @@ PalFadeIn_Alt:				; start position and size are already set
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-FadeIn_FromBlack:			; XREF: PaletteFadeIn
+FadeIn_FromBlack:
 		moveq	#0,d0
 		lea	(v_pal_dry).w,a0
 		lea	(v_pal_dry_dup).w,a1
@@ -1371,7 +1371,7 @@ FadeIn_FromBlack:			; XREF: PaletteFadeIn
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-FadeIn_AddColour:			; XREF: FadeIn_FromBlack
+FadeIn_AddColour:
 @addblue:
 		move.w	(a1)+,d2
 		move.w	(a0),d3
@@ -1430,7 +1430,7 @@ PaletteFadeOut:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-FadeOut_ToBlack:			; XREF: PaletteFadeOut
+FadeOut_ToBlack:
 		moveq	#0,d0
 		lea	(v_pal_dry).w,a0
 		move.b	(v_pfade_start).w,d0
@@ -1457,7 +1457,7 @@ FadeOut_ToBlack:			; XREF: PaletteFadeOut
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-FadeOut_DecColour:			; XREF: FadeOut_ToBlack
+FadeOut_DecColour:
 @dered:
 		move.w	(a0),d2
 		beq.s	@next
@@ -1496,7 +1496,7 @@ FadeOut_DecColour:			; XREF: FadeOut_ToBlack
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-PaletteWhiteIn:				; XREF: GM_Special
+PaletteWhiteIn:
 		move.w	#$003F,(v_pfade_start).w ; start position = 0; size = $40
 		moveq	#0,d0
 		lea	(v_pal_dry).w,a0
@@ -1524,7 +1524,7 @@ PaletteWhiteIn:				; XREF: GM_Special
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-WhiteIn_FromWhite:			; XREF: PaletteWhiteIn
+WhiteIn_FromWhite:
 		moveq	#0,d0
 		lea	(v_pal_dry).w,a0
 		lea	(v_pal_dry_dup).w,a1
@@ -1559,7 +1559,7 @@ WhiteIn_FromWhite:			; XREF: PaletteWhiteIn
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-WhiteIn_DecColour:			; XREF: WhiteIn_FromWhite
+WhiteIn_DecColour:
 @deblue:
 		move.w	(a1)+,d2
 		move.w	(a0),d3
@@ -1601,7 +1601,7 @@ WhiteIn_DecColour:			; XREF: WhiteIn_FromWhite
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-PaletteWhiteOut:			; XREF: GM_Special
+PaletteWhiteOut:
 		move.w	#$003F,(v_pfade_start).w ; start position = 0; size = $40
 		move.w	#$15,d4
 
@@ -1618,7 +1618,7 @@ PaletteWhiteOut:			; XREF: GM_Special
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-WhiteOut_ToWhite:			; XREF: PaletteWhiteOut
+WhiteOut_ToWhite:
 		moveq	#0,d0
 		lea	(v_pal_dry).w,a0
 		move.b	(v_pfade_start).w,d0
@@ -1645,7 +1645,7 @@ WhiteOut_ToWhite:			; XREF: PaletteWhiteOut
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-WhiteOut_AddColour:			; XREF: WhiteOut_ToWhite
+WhiteOut_AddColour:
 @addred:
 		move.w	(a0),d2
 		cmpi.w	#cWhite,d2
@@ -1688,7 +1688,7 @@ WhiteOut_AddColour:			; XREF: WhiteOut_ToWhite
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-PalCycle_Sega:				; XREF: GM_Sega
+PalCycle_Sega:
 		tst.b	(v_pcyc_time+1).w
 		bne.s	loc_206A
 		lea	(v_pal_dry+$20).w,a1
@@ -1704,7 +1704,7 @@ loc_2020:
 		bra.s	loc_2020
 ; ===========================================================================
 
-loc_202A:				; XREF: PalCycle_Sega
+loc_202A:
 		move.w	d0,d2
 		andi.w	#$1E,d2
 		bne.s	loc_2034
@@ -1738,7 +1738,7 @@ loc_2062:
 		rts	
 ; ===========================================================================
 
-loc_206A:				; XREF: loc_202A
+loc_206A:
 		subq.b	#1,(v_pcyc_time).w
 		bpl.s	loc_20BC
 		move.b	#4,(v_pcyc_time).w
@@ -1750,7 +1750,7 @@ loc_206A:				; XREF: loc_202A
 		rts	
 ; ===========================================================================
 
-loc_2088:				; XREF: loc_206A
+loc_2088:
 		move.w	d0,(v_pcyc_num).w
 		lea	(Pal_Sega2).l,a0
 		lea	(a0,d0.w),a0
@@ -1902,7 +1902,7 @@ Pal_Ending:	incbin	"palette\Ending.bin"
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-WaitForVBla:				; XREF: PauseGame
+WaitForVBla:
 		enable_ints
 
 	@wait:
@@ -1919,7 +1919,7 @@ WaitForVBla:				; XREF: PauseGame
 ; Sega screen
 ; ---------------------------------------------------------------------------
 
-GM_Sega:				; XREF: GameModeArray
+GM_Sega:
 		sfx	bgm_Stop,0,1,1 ; stop music
 		bsr.w	ClearPLC
 		bsr.w	PaletteFadeOut
@@ -1992,7 +1992,7 @@ Sega_GotoTitle:
 ; Title	screen
 ; ---------------------------------------------------------------------------
 
-GM_Title:				; XREF: GameModeArray
+GM_Title:
 		sfx	bgm_Stop,0,1,1 ; stop music
 		bsr.w	ClearPLC
 		bsr.w	PaletteFadeOut
@@ -2191,7 +2191,7 @@ Tit_EnterCheat:
 		bra.s	Tit_CountC
 ; ===========================================================================
 
-Tit_ResetCheat:				; XREF: Title_EnterCheat
+Tit_ResetCheat:
 		tst.b	d0
 		beq.s	Tit_CountC
 		cmpi.w	#9,(v_title_dcount).w
@@ -2276,20 +2276,20 @@ LevSel_PlaySnd:
 		bra.s	LevelSelect
 ; ===========================================================================
 
-LevSel_Ending:				; XREF: LevelSelect
+LevSel_Ending:
 		move.b	#id_Ending,(v_gamemode).w ; set screen mode to $18 (Ending)
 		move.w	#(id_EndZ<<8),(v_zone).w ; set level to 0600 (Ending)
 		rts	
 ; ===========================================================================
 
-LevSel_Credits:				; XREF: LevelSelect
+LevSel_Credits:
 		move.b	#id_Credits,(v_gamemode).w ; set screen mode to $1C (Credits)
 		sfx	bgm_Credits,0,1,1 ; play credits music
 		move.w	#0,(v_creditsnum).w
 		rts	
 ; ===========================================================================
 
-LevSel_Level_SS:			; XREF: LevelSelect
+LevSel_Level_SS:
 		add.w	d0,d0
 		move.w	LevSel_Ptrs(pc,d0.w),d0 ; load level number
 		bmi.w	LevelSelect
@@ -2309,7 +2309,7 @@ LevSel_Level_SS:			; XREF: LevelSelect
 		rts	
 ; ===========================================================================
 
-LevSel_Level:				; XREF: LevSel_Level_SS
+LevSel_Level:
 		andi.w	#$3FFF,d0
 		move.w	d0,(v_zone).w	; set level number
 
@@ -2399,10 +2399,10 @@ LevSelCode_US:	dc.b btnUp,btnDn,btnL,btnR,0,$FF
 ; Demo mode
 ; ---------------------------------------------------------------------------
 
-GotoDemo:				; XREF: GM_Title
+GotoDemo:
 		move.w	#$1E,(v_demolength).w
 
-loc_33B6:				; XREF: loc_33E4
+loc_33B6:
 		move.b	#4,(v_vbla_routine).w
 		bsr.w	WaitForVBla
 		bsr.w	DeformLayers
@@ -2467,7 +2467,7 @@ Demo_Levels:	incbin	"misc\Demo Level Order - Intro.bin"
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-LevSelControls:				; XREF: LevelSelect
+LevSelControls:
 		move.b	(v_jpadpress1).w,d1
 		andi.b	#btnUp+btnDn,d1	; is up/down pressed and held?
 		bne.s	LevSel_UpDown	; if yes, branch
@@ -2500,7 +2500,7 @@ LevSel_Refresh:
 		rts	
 ; ===========================================================================
 
-LevSel_SndTest:				; XREF: LevSelControls
+LevSel_SndTest:
 		cmpi.w	#$14,(v_levselitem).w ; is item $14 selected?
 		bne.s	LevSel_NoMove	; if not, branch
 		move.b	(v_jpadpress1).w,d1
@@ -2536,7 +2536,7 @@ LevSel_NoMove:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-LevSelTextLoad:				; XREF: GM_Title
+LevSelTextLoad:
 
 	textpos:	= ($40000000+(($E210&$3FFF)<<16)+(($E210&$C000)>>14))
 					; $E210 is a VRAM address
@@ -2590,7 +2590,7 @@ LevSel_DrawSnd:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-LevSel_ChgSnd:				; XREF: LevSelTextLoad
+LevSel_ChgSnd:
 		andi.w	#$F,d0
 		cmpi.b	#$A,d0		; is digit $A-$F?
 		blo.s	LevSel_Numb	; if not, branch
@@ -2606,7 +2606,7 @@ LevSel_ChgSnd:				; XREF: LevSelTextLoad
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-LevSel_ChgLine:				; XREF: LevSelTextLoad
+LevSel_ChgLine:
 		moveq	#$17,d2		; number of characters per line
 
 	LevSel_LineLoop:
@@ -2647,7 +2647,7 @@ MusicList:	dc.b bgm_GHZ, bgm_LZ, bgm_MZ, bgm_SLZ, bgm_SYZ, bgm_SBZ, bgm_FZ
 ; Level
 ; ---------------------------------------------------------------------------
 
-GM_Level:				; XREF: GameModeArray
+GM_Level:
 		bset	#7,(v_gamemode).w ; add $80 to screen mode (for pre level sequence)
 		tst.w	(f_demo).w
 		bmi.s	Level_NoMusicFade
@@ -3011,7 +3011,7 @@ loc_3BC8:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-ColIndexLoad:				; XREF: GM_Level
+ColIndexLoad:
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
 		lsl.w	#2,d0
@@ -3041,7 +3041,7 @@ ColPointers:	dc.l Col_GHZ
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-SynchroAnimate:				; XREF: GM_Level
+SynchroAnimate:
 
 ; Used for GHZ spiked log
 Sync1:
@@ -3093,7 +3093,7 @@ SyncEnd:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-SignpostArtLoad:			; XREF: GM_Level
+SignpostArtLoad:
 		tst.w	(v_debuguse).w	; is debug mode	being used?
 		bne.w	@exit		; if yes, branch
 		cmpi.b	#2,(v_act).w	; is act number 02 (act 3)?
@@ -3127,7 +3127,7 @@ Demo_SS:	incbin	"demodata\Intro - Special Stage.bin"
 ; Special Stage
 ; ---------------------------------------------------------------------------
 
-GM_Special:				; XREF: GameModeArray
+GM_Special:
 		sfx	sfx_EnterSS,0,1,0 ; play special stage entry sound
 		bsr.w	PaletteWhiteOut
 		disable_ints
@@ -3339,7 +3339,7 @@ SS_ToLevel:	cmpi.b	#id_Level,(v_gamemode).w
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-SS_BGLoad:				; XREF: GM_Special
+SS_BGLoad:
 		lea	($FF0000).l,a1
 		lea	(Eni_SSBg1).l,a0 ; load	mappings for the birds and fish
 		move.w	#$4051,d0
@@ -3413,7 +3413,7 @@ loc_491C:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-PalCycle_SS:				; XREF: VBla_0A; GM_Special
+PalCycle_SS:
 		tst.w	(f_pause).w
 		bne.s	locret_49E6
 		subq.w	#1,(v_palss_time).w
@@ -3459,7 +3459,7 @@ locret_49E6:
 		rts	
 ; ===========================================================================
 
-loc_49E8:				; XREF: PalCycle_SS
+loc_49E8:
 		move.w	($FFFFF79E).w,d1
 		cmpi.w	#$8A,d0
 		blo.s	loc_49F4
@@ -3497,7 +3497,7 @@ loc_4A2E:
 
 ; ===========================================================================
 byte_4A3C:	dc.b 3,	0, 7, $92, 3, 0, 7, $90, 3, 0, 7, $8E, 3, 0, 7,	$8C
-					; XREF: PalCycle_SS
+
 		dc.b 3,	0, 7, $8B, 3, 0, 7, $80, 3, 0, 7, $82, 3, 0, 7,	$84
 		dc.b 3,	0, 7, $86, 3, 0, 7, $88, 7, 8, 7, 0, 7,	$A, 7, $C
 		dc.b $FF, $C, 7, $18, $FF, $C, 7, $18, 7, $A, 7, $C, 7,	8, 7, 0
@@ -3521,7 +3521,7 @@ Pal_SSCyc2:	incbin	"palette\Cycle - Special Stage 2.bin"
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-SS_BGAnimate:				; XREF: GM_Special
+SS_BGAnimate:
 		move.w	($FFFFF7A0).w,d0
 		bne.s	loc_4BF6
 		move.w	#0,($FFFFF70C).w
@@ -3562,7 +3562,7 @@ loc_4C26:
 		bra.s	loc_4C7E
 ; ===========================================================================
 
-loc_4C4E:				; XREF: SS_BGAnimate
+loc_4C4E:
 		cmpi.w	#$C,d0
 		bne.s	loc_4C74
 		subq.w	#1,($FFFFF718).w
@@ -3616,14 +3616,14 @@ byte_4CC4:	dc.b 6,	$30, $30, $30, $28, $18, $18, $18
 		even
 byte_4CCC:	dc.b 8,	2, 4, $FF, 2, 3, 8, $FF, 4, 2, 2, 3, 8,	$FD, 4,	2, 2, 3, 2, $FF
 		even
-					; XREF: SS_BGAnimate
+
 ; ===========================================================================
 
 ; ---------------------------------------------------------------------------
 ; Continue screen
 ; ---------------------------------------------------------------------------
 
-GM_Continue:				; XREF: GameModeArray
+GM_Continue:
 		bsr.w	PaletteFadeOut
 		disable_ints
 		move.w	(v_vdp_buffer1).w,d0
@@ -3723,7 +3723,7 @@ Cont_GotoLevel:
 ; Ending sequence in Green Hill	Zone
 ; ---------------------------------------------------------------------------
 
-GM_Ending:				; XREF: GameModeArray
+GM_Ending:
 		sfx	bgm_Stop,0,1,1 ; stop music
 		bsr.w	PaletteFadeOut
 
@@ -3905,7 +3905,7 @@ End_ChkEmerald:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-End_MoveSonic:				; XREF: End_MainLoop
+End_MoveSonic:
 		move.b	(v_sonicend).w,d0
 		bne.s	End_MoveSon2
 		cmpi.w	#$90,(v_player+obX).w ; has Sonic passed $90 on x-axis?
@@ -3962,7 +3962,7 @@ End_MoveSonExit:
 ; Credits ending sequence
 ; ---------------------------------------------------------------------------
 
-GM_Credits:				; XREF: GameModeArray
+GM_Credits:
 		bsr.w	ClearPLC
 		bsr.w	PaletteFadeOut
 		lea	(vdp_control_port).l,a6
@@ -4035,7 +4035,7 @@ Cred_WaitLoop:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-EndingDemoLoad:				; XREF: GM_Credits
+EndingDemoLoad:
 		move.w	(v_creditsnum).w,d0
 		andi.w	#$F,d0
 		add.w	d0,d0
@@ -4091,7 +4091,7 @@ EndDemo_LampVar:
 ; "TRY AGAIN" and "END"	screens
 ; ---------------------------------------------------------------------------
 
-TryAgainEnd:				; XREF: GM_Credits
+TryAgainEnd:
 		bsr.w	ClearPLC
 		bsr.w	PaletteFadeOut
 		lea	(vdp_control_port).l,a6
@@ -4190,7 +4190,7 @@ Demo_EndGHZ2:	incbin	"demodata\Ending - GHZ2.bin"
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-sub_6886:				; XREF: VBla_04
+sub_6886:
 		lea	(vdp_control_port).l,a5
 		lea	(vdp_data_port).l,a6
 		lea	(v_bgscroll2).w,a2
@@ -4210,7 +4210,7 @@ sub_6886:				; XREF: VBla_04
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-LoadTilesAsYouMove:			; XREF: Demo_Time
+LoadTilesAsYouMove:
 		lea	(vdp_control_port).l,a5
 		lea	(vdp_data_port).l,a6
 		lea	($FFFFFF32).w,a2
@@ -4280,7 +4280,7 @@ locret_6952:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-sub_6954:				; XREF: sub_6886; LoadTilesAsYouMove
+sub_6954:
 		tst.b	(a2)
 		beq.w	locret_69F2
 		bclr	#0,(a2)
@@ -4407,7 +4407,7 @@ locret_69F2:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-sub_69F4:				; XREF: sub_6886; LoadTilesAsYouMove
+sub_69F4:
 		if Revision=0
 
 		tst.b	(a2)
@@ -4705,10 +4705,10 @@ locret_6AD6:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-DrawTiles_LR:				; XREF: LoadTilesAsYouMove
+DrawTiles_LR:
 		moveq	#$15,d6
 
-DrawTiles_LR_2:				; XREF: sub_6954; DrawChunks
+DrawTiles_LR_2:
 		move.l	#$800000,d7
 		move.l	d0,d1
 
@@ -4749,10 +4749,10 @@ DrawTiles_LR_3:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-DrawTiles_TB:				; XREF: LoadTilesAsYouMove
+DrawTiles_TB:
 		moveq	#$F,d6
 
-DrawTiles_TB_2:				; XREF: sub_6954
+DrawTiles_TB_2:
 		move.l	#$800000,d7
 		move.l	d0,d1
 
@@ -4773,7 +4773,7 @@ DrawTiles_TB_2:				; XREF: sub_6954
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-DrawTiles:				; XREF: DrawTiles_LR_2; DrawTiles_TB_2
+DrawTiles:
 		or.w	d2,d0
 		swap	d0
 		btst	#4,(a0)
@@ -4860,7 +4860,7 @@ DrawFlipXY:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-DrawBlocks:				; XREF: DrawTiles_LR_2; DrawTiles_TB_2
+DrawBlocks:
 		if Revision=0
 		lea	(v_16x16).w,a1
 		add.w	4(a3),d4
@@ -4904,7 +4904,7 @@ locret_6C1E:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Calc_VRAM_Pos:				; XREF: LoadTilesAsYouMove; et al
+Calc_VRAM_Pos:
 		if Revision=0
 		add.w	4(a3),d4
 		add.w	(a3),d5
@@ -4950,7 +4950,7 @@ sub_6C3C:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-LoadTilesFromStart:			; XREF: GM_Level; GM_Ending
+LoadTilesFromStart:
 		lea	(vdp_control_port).l,a5
 		lea	(vdp_data_port).l,a6
 		lea	(v_screenposx).w,a3
@@ -4977,7 +4977,7 @@ LoadTilesFromStart:			; XREF: GM_Level; GM_Ending
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-DrawChunks:				; XREF: LoadTilesFromStart
+DrawChunks:
 		moveq	#-$10,d4
 		moveq	#$F,d6
 
@@ -5078,7 +5078,7 @@ DrawChunks:				; XREF: LoadTilesFromStart
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-LevelDataLoad:				; XREF: GM_Level; GM_Ending
+LevelDataLoad:
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
 		lsl.w	#4,d0
@@ -5130,7 +5130,7 @@ LevelDataLoad:				; XREF: GM_Level; GM_Ending
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-LevelLayoutLoad:			; XREF: GM_Title; LevelDataLoad
+LevelLayoutLoad:
 		lea	(v_lvllayout).w,a3
 		move.w	#$1FF,d1
 		moveq	#0,d0
@@ -5151,7 +5151,7 @@ LevLoad_ClrRam:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-LevelLayoutLoad2:			; XREF: LevelLayoutLoad
+LevelLayoutLoad2:
 		move.w	(v_zone).w,d0
 		lsl.b	#6,d0
 		lsr.w	#5,d0
@@ -5273,7 +5273,7 @@ Plat_Exit:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-SlopeObject:				; XREF: Obj1A_Slope; Obj5E_Slope
+SlopeObject:
 		lea	(v_player).w,a1
 		tst.w	obVelY(a1)
 		bmi.w	Plat_Exit
@@ -5302,7 +5302,7 @@ loc_754A:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Swing_Solid:				; XREF: Obj15_SetSolid
+Swing_Solid:
 		lea	(v_player).w,a1
 		tst.w	obVelY(a1)
 		bmi.w	Plat_Exit
@@ -5419,15 +5419,15 @@ locret_7B62:
 
 ; ===========================================================================
 
-Ledge_Fragment:				; XREF: Obj1A_ChkTouch
+Ledge_Fragment:
 		move.b	#0,collapse(a0)
 
-loc_847A:				; XREF: Obj1A_Touch
+loc_847A:
 		lea	(CFlo_Data1).l,a4
 		moveq	#$18,d1
 		addq.b	#2,obFrame(a0)
 
-loc_8486:				; XREF: CFlo_Fragment
+loc_8486:
 		moveq	#0,d0
 		move.b	obFrame(a0),d0
 		add.w	d0,d0
@@ -5483,7 +5483,7 @@ CFlo_Data3:	dc.b $16, $1E, $1A, $12, 6, $E,	$A, 2
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-SlopeObject2:				; XREF: Obj1A_WalkOff; et al
+SlopeObject2:
 		lea	(v_player).w,a1
 		btst	#3,obStatus(a1)
 		beq.s	locret_856E
@@ -5536,7 +5536,7 @@ Ledge_SlopeData:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Obj44_SolidWall:			; XREF: Obj44_Solid
+Obj44_SolidWall:
 		bsr.w	Obj44_SolidWall2
 		beq.s	loc_8AA8
 		bmi.w	loc_8AC4
@@ -5594,7 +5594,7 @@ locret_8AD8:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Obj44_SolidWall2:			; XREF: Obj44_SolidWall
+Obj44_SolidWall2:
 		lea	(v_player).w,a1
 		move.w	obX(a1),d0
 		sub.w	obX(a0),d0
@@ -6043,7 +6043,7 @@ Smash_FragSpd2:	dc.w -$600, -$600
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-ExecuteObjects:				; XREF: GM_Title; et al
+ExecuteObjects:
 		lea	(v_objspace).w,a0 ; set address for object RAM
 		moveq	#$7F,d7
 		moveq	#0,d0
@@ -6110,7 +6110,7 @@ BldSpr_ScrPos:	dc.l 0			; blank
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-BuildSprites:				; XREF: GM_Title; et al
+BuildSprites:
 		lea	(v_spritetablebuffer).w,a2 ; set address for sprite table
 		moveq	#0,d5
 		lea	(v_spritequeue).w,a4
@@ -6217,7 +6217,7 @@ loc_D748:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-sub_D750:				; XREF: BuildSprites
+sub_D750:
 		movea.w	obGfx(a0),a3
 		btst	#0,d4
 		bne.s	loc_D796
@@ -6229,7 +6229,7 @@ sub_D750:				; XREF: BuildSprites
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-sub_D762:				; XREF: sub_D762; SS_ShowLayout
+sub_D762:
 		cmpi.b	#$50,d5
 		beq.s	locret_D794
 		move.b	(a1)+,d0
@@ -6302,7 +6302,7 @@ locret_D7E2:
 		rts	
 ; ===========================================================================
 
-loc_D7E4:				; XREF: sub_D750
+loc_D7E4:
 		cmpi.b	#$50,d5
 		beq.s	locret_D828
 		move.b	(a1)+,d0
@@ -6390,7 +6390,7 @@ locret_D87C:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-ObjPosLoad:				; XREF: GM_Level; et al
+ObjPosLoad:
 		moveq	#0,d0
 		move.b	(v_opl_routine).w,d0
 		move.w	OPL_Index(pc,d0.w),d0
@@ -6402,7 +6402,7 @@ OPL_Index:	dc.w OPL_Main-OPL_Index
 		dc.w OPL_Next-OPL_Index
 ; ===========================================================================
 
-OPL_Main:				; XREF: OPL_Index
+OPL_Main:
 		addq.b	#2,(v_opl_routine).w
 		move.w	(v_zone).w,d0
 		lsl.b	#6,d0
@@ -6469,7 +6469,7 @@ loc_D976:
 		move.l	a0,(v_opl_data+4).w
 		move.w	#-1,(v_opl_screen).w
 
-OPL_Next:				; XREF: OPL_Index
+OPL_Next:
 		lea	(v_objstate).w,a2
 		moveq	#0,d2
 		move.w	(v_screenposx).w,d6
@@ -6734,7 +6734,7 @@ locret_DA8A:
 ; Object 01 - Sonic
 ; ---------------------------------------------------------------------------
 
-SonicPlayer:				; XREF: Obj_Index
+SonicPlayer:
 		tst.w	(v_debuguse).w	; is debug mode	being used?
 		beq.s	Sonic_Normal	; if not, branch
 		jmp	DebugMode
@@ -6833,7 +6833,7 @@ MusicList2:	dc.b bgm_GHZ, bgm_LZ, bgm_MZ, bgm_SLZ, bgm_SYZ, bgm_SBZ
 ; Modes	for controlling	Sonic
 ; ---------------------------------------------------------------------------
 
-Sonic_MdNormal:				; XREF: Sonic_Modes
+Sonic_MdNormal:
 		bsr.w	Sonic_Jump
 		bsr.w	Sonic_SlopeResist
 		bsr.w	Sonic_Move
@@ -6845,7 +6845,7 @@ Sonic_MdNormal:				; XREF: Sonic_Modes
 		rts	
 ; ===========================================================================
 
-Sonic_MdJump:				; XREF: Sonic_Modes
+Sonic_MdJump:
 		bsr.w	Sonic_JumpHeight
 		bsr.w	Sonic_JumpDirection
 		bsr.w	Sonic_LevelBound
@@ -6860,7 +6860,7 @@ loc_12E5C:
 		rts	
 ; ===========================================================================
 
-Sonic_MdRoll:				; XREF: Sonic_Modes
+Sonic_MdRoll:
 		bsr.w	Sonic_Jump
 		bsr.w	Sonic_RollRepel
 		bsr.w	Sonic_RollSpeed
@@ -6871,7 +6871,7 @@ Sonic_MdRoll:				; XREF: Sonic_Modes
 		rts	
 ; ===========================================================================
 
-Sonic_MdJump2:				; XREF: Sonic_Modes
+Sonic_MdJump2:
 		bsr.w	Sonic_JumpHeight
 		bsr.w	Sonic_JumpDirection
 		bsr.w	Sonic_LevelBound
@@ -6934,7 +6934,7 @@ locret_13302:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-ResumeMusic:				; XREF: Obj64_Wobble; Sonic_Water; Obj0A_ReduceAir
+ResumeMusic:
 		cmpi.w	#12,(v_air).w	; more than 12 seconds of air left?
 		bhi.s	@over12		; if yes, branch
 		move.w	#bgm_LZ,d0	; play LZ music
@@ -6991,7 +6991,7 @@ ResumeMusic:				; XREF: Obj64_Wobble; Sonic_Water; Obj0A_ReduceAir
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-FloorLog_Unk:				; XREF: GM_Level
+FloorLog_Unk:
 		rts	
 
 		lea	(CollArray1).l,a1
@@ -7031,7 +7031,7 @@ loc_14C6A:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-FloorLog_Unk2:				; XREF: FloorLog_Unk
+FloorLog_Unk2:
 		move.w	#$FFF,d3
 
 loc_14CA6:
@@ -7085,7 +7085,7 @@ loc_14CD6:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_WalkSpeed:			; XREF: Sonic_Move
+Sonic_WalkSpeed:
 		move.l	obX(a0),d3
 		move.l	obY(a0),d2
 		move.w	obVelX(a0),d1
@@ -7140,7 +7140,7 @@ loc_14D3C:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-sub_14D48:				; XREF: Sonic_Jump
+sub_14D48:
 		move.b	d0,(v_anglebuffer).w
 		move.b	d0,($FFFFF76A).w
 		addi.b	#$20,d0
@@ -7161,7 +7161,7 @@ sub_14D48:				; XREF: Sonic_Jump
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_HitFloor:				; XREF: Sonic_Floor
+Sonic_HitFloor:
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 		moveq	#0,d0
@@ -7215,7 +7215,7 @@ locret_14DE6:
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 
-loc_14DF0:				; XREF: Sonic_WalkSpeed
+loc_14DF0:
 		addi.w	#$A,d2
 		lea	(v_anglebuffer).w,a4
 		movea.w	#$10,a3
@@ -7224,7 +7224,7 @@ loc_14DF0:				; XREF: Sonic_WalkSpeed
 		bsr.w	FindFloor
 		move.b	#0,d2
 
-loc_14E0A:				; XREF: sub_14EB4
+loc_14E0A:
 		move.b	(v_anglebuffer).w,d3
 		btst	#0,d3
 		beq.s	locret_14E16
@@ -7239,7 +7239,7 @@ locret_14E16:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-sub_14E50:				; XREF: sub_14D48
+sub_14E50:
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 		moveq	#0,d0
@@ -7279,7 +7279,7 @@ sub_14E50:				; XREF: sub_14D48
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-sub_14EB4:				; XREF: Sonic_Floor
+sub_14EB4:
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 
@@ -7329,7 +7329,7 @@ locret_14F06:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_DontRunOnWalls:			; XREF: Sonic_Floor; et al
+Sonic_DontRunOnWalls:
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 		moveq	#0,d0
@@ -7408,7 +7408,7 @@ locret_14FD4:
 
 ; ===========================================================================
 
-loc_14FD6:				; XREF: sub_14D48
+loc_14FD6:
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 		moveq	#0,d0
@@ -7451,7 +7451,7 @@ loc_14FD6:				; XREF: sub_14D48
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_HitWall:				; XREF: Sonic_Floor
+Sonic_HitWall:
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 
@@ -7623,7 +7623,7 @@ BossMove:
 		include	"_incObj\76 SYZ Boss Blocks.asm"
 		include	"_maps\SYZ Boss Blocks.asm"
 
-loc_1982C:				; XREF: loc_19C62; loc_19C80
+loc_1982C:
 		jmp	DeleteObject
 
 		include	"_incObj\82 Eggman - Scrap Brain 2.asm"
@@ -7656,7 +7656,7 @@ loc_1982C:				; XREF: loc_19C62; loc_19C80
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-SS_ShowLayout:				; XREF: GM_Special
+SS_ShowLayout:
 		bsr.w	SS_AniWallsRings
 		bsr.w	SS_AniItems
 		move.w	d5,-(sp)
@@ -7787,7 +7787,7 @@ loc_1B288:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-SS_AniWallsRings:			; XREF: SS_ShowLayout
+SS_AniWallsRings:
 		lea	($FF400C).l,a1
 		moveq	#0,d0
 		move.b	(v_ssangle).w,d0
@@ -7911,7 +7911,7 @@ SS_WaRiVramSet:	dc.w $142, $6142, $142,	$142, $142, $142, $142,	$6142
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-SS_RemoveCollectedItem:			; XREF: Obj09_ChkItems
+SS_RemoveCollectedItem:
 		lea	($FF4400).l,a2
 		move.w	#$1F,d0
 
@@ -7932,7 +7932,7 @@ locret_1B4CE:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-SS_AniItems:				; XREF: SS_ShowLayout
+SS_AniItems:
 		lea	($FF4400).l,a0
 		move.w	#$1F,d7
 
@@ -7962,7 +7962,7 @@ SS_AniIndex:	dc.l SS_AniRingSparks
 		dc.l SS_AniGlassBlock
 ; ===========================================================================
 
-SS_AniRingSparks:			; XREF: SS_AniIndex
+SS_AniRingSparks:
 		subq.b	#1,2(a0)
 		bpl.s	locret_1B530
 		move.b	#5,2(a0)
@@ -7982,7 +7982,7 @@ locret_1B530:
 SS_AniRingData:	dc.b $42, $43, $44, $45, 0, 0
 ; ===========================================================================
 
-SS_AniBumper:				; XREF: SS_AniIndex
+SS_AniBumper:
 		subq.b	#1,2(a0)
 		bpl.s	locret_1B566
 		move.b	#7,2(a0)
@@ -8007,7 +8007,7 @@ locret_1B566:
 SS_AniBumpData:	dc.b $32, $33, $32, $33, 0, 0
 ; ===========================================================================
 
-SS_Ani1Up:				; XREF: SS_AniIndex
+SS_Ani1Up:
 		subq.b	#1,2(a0)
 		bpl.s	locret_1B596
 		move.b	#5,2(a0)
@@ -8027,7 +8027,7 @@ locret_1B596:
 SS_Ani1UpData:	dc.b $46, $47, $48, $49, 0, 0
 ; ===========================================================================
 
-SS_AniReverse:				; XREF: SS_AniIndex
+SS_AniReverse:
 		subq.b	#1,2(a0)
 		bpl.s	locret_1B5CC
 		move.b	#7,2(a0)
@@ -8052,7 +8052,7 @@ locret_1B5CC:
 SS_AniRevData:	dc.b $2B, $31, $2B, $31, 0, 0
 ; ===========================================================================
 
-SS_AniEmeraldSparks:			; XREF: SS_AniIndex
+SS_AniEmeraldSparks:
 		subq.b	#1,2(a0)
 		bpl.s	locret_1B60C
 		move.b	#5,2(a0)
@@ -8074,7 +8074,7 @@ locret_1B60C:
 SS_AniEmerData:	dc.b $46, $47, $48, $49, 0, 0
 ; ===========================================================================
 
-SS_AniGlassBlock:			; XREF: SS_AniIndex
+SS_AniGlassBlock:
 		subq.b	#1,2(a0)
 		bpl.s	locret_1B640
 		move.b	#1,2(a0)
@@ -8118,7 +8118,7 @@ SS_StartLoc:	include	"_inc\Start Location Array - Special Stages.asm"
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-SS_Load:				; XREF: GM_Special
+SS_Load:
 		moveq	#0,d0
 		move.b	(v_lastspecial).w,d0 ; load number of last special stage entered
 		addq.b	#1,(v_lastspecial).w
@@ -8277,7 +8277,7 @@ AddPoints:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-ContScrCounter:				; XREF: GM_Continue
+ContScrCounter:
 		locVRAM	$DF80
 		lea	(vdp_data_port).l,a6
 		lea	(Hud_10).l,a2
