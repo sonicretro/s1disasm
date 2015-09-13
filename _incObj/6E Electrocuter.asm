@@ -2,7 +2,7 @@
 ; Object 6E - electrocution orbs (SBZ)
 ; ---------------------------------------------------------------------------
 
-Electro:				; XREF: Obj_Index
+Electro:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Elec_Index(pc,d0.w),d1

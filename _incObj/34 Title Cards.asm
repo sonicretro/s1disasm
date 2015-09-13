@@ -2,7 +2,7 @@
 ; Object 34 - zone title cards
 ; ---------------------------------------------------------------------------
 
-TitleCard:					; XREF: Obj_Index
+TitleCard:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Card_Index(pc,d0.w),d1
@@ -99,7 +99,7 @@ Card_Wait:	; Routine 4/6
 		bra.w	DisplaySprite
 ; ===========================================================================
 
-Card_ChkPos2:				; XREF: Card_Wait
+Card_ChkPos2:
 		tst.b	obRender(a0)
 		bpl.s	Card_ChangeArt
 		moveq	#$20,d1
@@ -122,7 +122,7 @@ locret_C412:
 		rts	
 ; ===========================================================================
 
-Card_ChangeArt:			; XREF: Card_ChkPos2
+Card_ChangeArt:
 		cmpi.b	#4,obRoutine(a0)
 		bne.s	Card_Delete
 		moveq	#plcid_Explode,d0

@@ -16,7 +16,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-FindFloor:				; XREF: Sonic_AnglePos; et al
+FindFloor:
 		bsr.s	FindNearestTile
 		move.w	(a1),d0		; get value for solidness, orientation and 16x16 tile number
 		move.w	d0,d4
@@ -97,7 +97,7 @@ FindFloor:				; XREF: Sonic_AnglePos; et al
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-FindFloor2:				; XREF: FindFloor
+FindFloor2:
 		bsr.w	FindNearestTile
 		move.w	(a1),d0
 		move.w	d0,d4

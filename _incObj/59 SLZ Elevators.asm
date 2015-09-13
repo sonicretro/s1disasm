@@ -6,7 +6,7 @@ elev_origX := $32		; original x-axis position
 elev_origY := $30		; original y-axis position
 elev_dist := $3C		; distance to move (2 bytes)
 
-Elevator:				; XREF: Obj_Index
+Elevator:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Elev_Index(pc,d0.w),d1
@@ -111,11 +111,11 @@ Elev_Types:
 		dc.w .type08-.index, .type09-.index
 ; ===========================================================================
 
-.type00:				; XREF: .index
+.type00:
 		rts	
 ; ===========================================================================
 
-.type01:				; XREF: .index
+.type01:
 		cmpi.b	#4,obRoutine(a0) ; check if Sonic is standing on the object
 		bne.s	.notstanding
 		addq.b	#1,obSubtype(a0) ; if yes, add 1 to type
@@ -124,7 +124,7 @@ Elev_Types:
 		rts	
 ; ===========================================================================
 
-.type02:				; XREF: .index
+.type02:
 		bsr.w	Elev_Move
 		move.w	$34(a0),d0
 		neg.w	d0
@@ -133,7 +133,7 @@ Elev_Types:
 		rts	
 ; ===========================================================================
 
-.type04:				; XREF: .index
+.type04:
 		bsr.w	Elev_Move
 		move.w	$34(a0),d0
 		add.w	elev_origY(a0),d0
@@ -141,7 +141,7 @@ Elev_Types:
 		rts	
 ; ===========================================================================
 
-.type06:				; XREF: .index
+.type06:
 		bsr.w	Elev_Move
 		move.w	$34(a0),d0
 		asr.w	#1,d0
@@ -154,7 +154,7 @@ Elev_Types:
 		rts	
 ; ===========================================================================
 
-.type08:				; XREF: .index
+.type08:
 		bsr.w	Elev_Move
 		move.w	$34(a0),d0
 		asr.w	#1,d0
@@ -167,7 +167,7 @@ Elev_Types:
 		rts	
 ; ===========================================================================
 
-.type09:				; XREF: .index
+.type09:
 		bsr.w	Elev_Move
 		move.w	$34(a0),d0
 		neg.w	d0
@@ -191,7 +191,7 @@ Elev_Types:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Elev_Move:				; XREF: .type02; et al
+Elev_Move:
 		move.w	$38(a0),d0
 		tst.b	$3A(a0)
 		bne.s	loc_10CC8

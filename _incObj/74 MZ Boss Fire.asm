@@ -2,7 +2,7 @@
 ; Object 74 - lava that	Eggman drops (MZ)
 ; ---------------------------------------------------------------------------
 
-BossFire:				; XREF: Obj_Index
+BossFire:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Obj74_Index(pc,d0.w),d0
@@ -58,7 +58,7 @@ Obj74_Index2:	dc.w Obj74_Drop-Obj74_Index2
 		dc.w Obj74_FallEdge-Obj74_Index2
 ; ===========================================================================
 
-Obj74_Drop:				; XREF: Obj74_Index2
+Obj74_Drop:
 		bset	#1,obStatus(a0)
 		subq.b	#1,$29(a0)
 		bpl.s	locret_18780
@@ -75,7 +75,7 @@ locret_18780:
 		rts	
 ; ===========================================================================
 
-Obj74_MakeFlame:			; XREF: Obj74_Index2
+Obj74_MakeFlame:
 		subq.w	#2,obY(a0)
 		bset	#7,obGfx(a0)
 		move.w	#$A0,obVelX(a0)
@@ -106,7 +106,7 @@ loc_187CA:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Obj74_Duplicate2:			; XREF: Obj74_Duplicate
+Obj74_Duplicate2:
 		jsr	(FindNextFreeObj).l
 		bne.s	locret_187EE
 		move.w	obX(a0),obX(a1)
@@ -120,7 +120,7 @@ locret_187EE:
 
 ; ===========================================================================
 
-Obj74_Duplicate:			; XREF: Obj74_Index2
+Obj74_Duplicate:
 		bsr.w	ObjFloorDist
 		tst.w	d1
 		bpl.s	loc_18826
@@ -152,7 +152,7 @@ loc_1882C:
 		rts	
 ; ===========================================================================
 
-Obj74_FallEdge:				; XREF: Obj74_Index2
+Obj74_FallEdge:
 		bclr	#1,obStatus(a0)
 		addi.w	#$24,obVelY(a0)	; make flame fall
 		move.w	obX(a0),d0

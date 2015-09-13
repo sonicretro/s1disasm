@@ -2,7 +2,7 @@
 ; Object 0E - Sonic on the title screen
 ; ---------------------------------------------------------------------------
 
-TitleSonic:				; XREF: Obj_Index
+TitleSonic:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	TSon_Index(pc,d0.w),d1

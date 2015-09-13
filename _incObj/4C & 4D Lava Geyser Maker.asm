@@ -2,7 +2,7 @@
 ; Object 4C - lava geyser / lavafall producer (MZ)
 ; ---------------------------------------------------------------------------
 
-GeyserMaker:				; XREF: Obj_Index
+GeyserMaker:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	GMake_Index(pc,d0.w),d1
@@ -99,7 +99,7 @@ GMake_Delete:	; Routine $A
 ; Object 4D - lava geyser / lavafall (MZ)
 ; ---------------------------------------------------------------------------
 
-LavaGeyser:				; XREF: Obj_Index
+LavaGeyser:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Geyser_Index(pc,d0.w),d1
@@ -136,7 +136,7 @@ Geyser_Main:	; Routine 0
 		bsr.w	FindNextFreeObj
 		bne.s	.fail
 
-.makelava:				; XREF: Geyser_Main
+.makelava:
 		_move.b	#id_LavaGeyser,0(a1)
 		move.l	#Map_Geyser,obMap(a1)
 		move.w	#$63A8,obGfx(a1)
@@ -156,7 +156,7 @@ Geyser_Main:	; Routine 0
 		rts	
 ; ===========================================================================
 
-.activate:				; XREF: Geyser_Main
+.activate:
 		addi.w	#$60,obY(a1)
 		move.w	$30(a0),$30(a1)
 		addi.w	#$60,$30(a1)
@@ -190,7 +190,7 @@ Geyser_Action:	; Routine 2
 		lea	(Ani_Geyser).l,a1
 		bsr.w	AnimateSprite
 
-Geyser_ChkDel:				; XREF: GeyserMaker
+Geyser_ChkDel:
 		out_of_range.w	DeleteObject
 		rts	
 ; ===========================================================================
@@ -198,7 +198,7 @@ Geyser_Types:	dc.w Geyser_Type00-Geyser_Types
 		dc.w Geyser_Type01-Geyser_Types
 ; ===========================================================================
 
-Geyser_Type00:				; XREF: Geyser_Types
+Geyser_Type00:
 		addi.w	#$18,obVelY(a0)	; increase object's falling speed
 		move.w	$30(a0),d0
 		cmp.w	obY(a0),d0
@@ -211,7 +211,7 @@ locret_EFDA:
 		rts	
 ; ===========================================================================
 
-Geyser_Type01:				; XREF: Geyser_Types
+Geyser_Type01:
 		addi.w	#$18,obVelY(a0)	; increase object's falling speed
 		move.w	$30(a0),d0
 		cmp.w	obY(a0),d0

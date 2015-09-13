@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_LoadGfx:				; XREF: Obj01_Control; et al
+Sonic_LoadGfx:
 		moveq	#0,d0
 		move.b	obFrame(a0),d0	; load frame number
 		cmp.b	(v_sonframenum).w,d0 ; has frame changed?

@@ -2,7 +2,7 @@
 ; Object 8B - Eggman on "TRY AGAIN" and "END"	screens
 ; ---------------------------------------------------------------------------
 
-EndEggman:				; XREF: Obj_Index
+EndEggman:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	EEgg_Index(pc,d0.w),d1

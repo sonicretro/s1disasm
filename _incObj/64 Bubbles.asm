@@ -2,7 +2,7 @@
 ; Object 64 - bubbles (LZ)
 ; ---------------------------------------------------------------------------
 
-Bubble:					; XREF: Obj_Index
+Bubble:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Bub_Index(pc,d0.w),d1
@@ -222,7 +222,7 @@ Bub_BblTypes:	dc.b 0,	1, 0, 0, 0, 0, 1, 0, 0,	0, 0, 1, 0, 1, 0, 0, 1,	0
 
 ; ===========================================================================
 
-Bub_ChkSonic:				; XREF: .wobble
+Bub_ChkSonic:
 		tst.b	(f_lockmulti).w
 		bmi.s	.loc_12998
 		lea	(v_player).w,a1

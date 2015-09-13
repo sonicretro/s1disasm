@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_Roll:				; XREF: Obj01_MdNormal
+Sonic_Roll:
 		tst.b	(f_jumponly).w
 		bne.s	.noroll
 		move.w	obInertia(a0),d0

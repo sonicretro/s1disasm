@@ -2,7 +2,7 @@
 ; Object 62 - gargoyle head (LZ)
 ; ---------------------------------------------------------------------------
 
-Gargoyle:				; XREF: Obj_Index
+Gargoyle:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Gar_Index(pc,d0.w),d1

@@ -2,7 +2,7 @@
 ; Object 78 - Caterkiller enemy	(MZ, SBZ)
 ; ---------------------------------------------------------------------------
 
-Caterkiller:				; XREF: Obj_Index
+Caterkiller:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Cat_Index(pc,d0.w),d1
@@ -156,7 +156,7 @@ Cat_Index2:	dc.w .wait-Cat_Index2
 loc_16AFC:
 		bset	#7,$2B(a0)
 
-loc_16B02:				; XREF: Cat_Index2
+loc_16B02:
 		subq.b	#1,$2A(a0)
 		bmi.s	.loc_16B5E
 		if Revision=0

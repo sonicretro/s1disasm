@@ -2,7 +2,7 @@
 ; Object 31 - stomping metal blocks on chains (MZ)
 ; ---------------------------------------------------------------------------
 
-ChainStomp:				; XREF: Obj_Index
+ChainStomp:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	CStom_Index(pc,d0.w),d1
@@ -152,12 +152,12 @@ loc_B7FE:	; Routine 4
 CStom_Display2:	; Routine 6
 		bsr.w	DisplaySprite
 
-CStom_ChkDel:				; XREF: CStom_Display
+CStom_ChkDel:
 		out_of_range.w	DeleteObject
 		rts	
 ; ===========================================================================
 
-CStom_Types:				; XREF: loc_B798
+CStom_Types:
 		move.b	obSubtype(a0),d0
 		andi.w	#$F,d0
 		add.w	d0,d0
@@ -173,7 +173,7 @@ CStom_TypeIndex:dc.w CStom_Type00-CStom_TypeIndex
 		dc.w CStom_Type01-CStom_TypeIndex
 ; ===========================================================================
 
-CStom_Type00:				; XREF: CStom_TypeIndex
+CStom_Type00:
 		lea	(f_switch).w,a2	; load switch statuses
 		moveq	#0,d0
 		move.b	CStom_switch(a0),d0 ; move number 0 or 1 to d0
@@ -204,7 +204,7 @@ loc_B8A0:
 		bra.s	CStom_Restart
 ; ===========================================================================
 
-loc_B8A8:				; XREF: CStom_Type00
+loc_B8A8:
 		move.w	$34(a0),d1
 		cmp.w	$32(a0),d1
 		beq.s	CStom_Restart
@@ -227,7 +227,7 @@ CStom_Restart:
 		rts	
 ; ===========================================================================
 
-CStom_Type01:				; XREF: CStom_TypeIndex
+CStom_Type01:
 		tst.w	$36(a0)
 		beq.s	loc_B938
 		tst.w	$38(a0)
@@ -253,7 +253,7 @@ loc_B91C:
 		bra.s	loc_B97C
 ; ===========================================================================
 
-loc_B938:				; XREF: CStom_Type01
+loc_B938:
 		move.w	$34(a0),d1
 		cmp.w	$32(a0),d1
 		beq.s	loc_B97C
@@ -274,7 +274,7 @@ loc_B97C:
 		bra.w	CStom_Restart
 ; ===========================================================================
 
-CStom_Type03:				; XREF: CStom_TypeIndex
+CStom_Type03:
 		move.w	(v_player+obX).w,d0
 		sub.w	obX(a0),d0
 		bcc.s	loc_B98C

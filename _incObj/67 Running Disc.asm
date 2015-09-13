@@ -2,7 +2,7 @@
 ; Object 67 - disc that	you run	around (SBZ)
 ; ---------------------------------------------------------------------------
 
-RunningDisc:				; XREF: Obj_Index
+RunningDisc:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Disc_Index(pc,d0.w),d1
@@ -129,7 +129,7 @@ locret_15622:
 		rts	
 ; ===========================================================================
 
-Disc_MoveSpot:				; XREF: Disc_Action
+Disc_MoveSpot:
 		move.w	$36(a0),d0
 		add.w	d0,obAngle(a0)
 		move.b	obAngle(a0),d0
@@ -151,7 +151,7 @@ Disc_MoveSpot:				; XREF: Disc_Action
 		rts	
 ; ===========================================================================
 
-Disc_ChkDel:				; XREF: Disc_Action
+Disc_ChkDel:
 		out_of_range.s	.delete,disc_origX(a0)
 		jmp	(DisplaySprite).l
 

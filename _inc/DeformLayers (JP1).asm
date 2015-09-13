@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-DeformLayers:				; XREF: GM_TitleScr; GM_Level; GM_Ending
+DeformLayers:
 		tst.b	(f_nobgscroll).w
 		beq.s	loc_628E
 		rts	
@@ -44,7 +44,7 @@ Deform_Index:	dc.w Deform_GHZ-Deform_Index, Deform_LZ-Deform_Index
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Deform_GHZ:				; XREF: Deform_Index
+Deform_GHZ:
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#5,d4
@@ -146,7 +146,7 @@ loc_63A4:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Deform_LZ:				; XREF: Deform_Index
+Deform_LZ:
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#7,d4
@@ -223,7 +223,7 @@ Lz_Scroll_Data:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Deform_MZ:				; XREF: Deform_Index
+Deform_MZ:
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#6,d4
@@ -322,7 +322,7 @@ loc_6632:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Deform_SLZ:				; XREF: Deform_Index
+Deform_SLZ:
 		move.w	($FFFFF73C).w,d5
 		ext.l	d5
 		asl.l	#7,d5
@@ -418,7 +418,7 @@ loc_66EA:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Deform_SYZ:				; XREF: Deform_Index
+Deform_SYZ:
 		move.w	($FFFFF73C).w,d5
 		ext.l	d5
 		asl.l	#4,d5
@@ -497,7 +497,7 @@ loc_6798:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Deform_SBZ:				; XREF: Deform_Index
+Deform_SBZ:
 		tst.b	(v_act).w
 		bne.w	Bg_Scroll_SBz_2
 		move.w	(v_scrshiftx).w,d4
@@ -609,7 +609,7 @@ loc_68D2:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-ScrollHoriz:				; XREF: DeformLayers
+ScrollHoriz:
 		move.w	(v_screenposx).w,d4 ; save old screen position
 		bsr.s	MoveScreenHoriz
 		move.w	(v_screenposx).w,d0
@@ -636,7 +636,7 @@ locret_65B0:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-MoveScreenHoriz:			; XREF: ScrollHoriz
+MoveScreenHoriz:
 		move.w	(v_player+obX).w,d0
 		sub.w	(v_screenposx).w,d0 ; Sonic's distance from left edge of screen
 		subi.w	#144,d0		; is distance less than 144px?
@@ -692,7 +692,7 @@ loc_6610:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-ScrollVertical:				; XREF: DeformLayers
+ScrollVertical:
 		moveq	#0,d1
 		move.w	(v_player+obY).w,d0
 		sub.w	(v_screenposy).w,d0 ; Sonic's distance from top of screen
@@ -850,7 +850,7 @@ locret_6766:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-ScrollBlock1:				; XREF: Deform_GHZ; et al
+ScrollBlock1:
 		move.l	($FFFFF708).w,d2
 		move.l	d2,d0
 		add.l	d4,d0
@@ -915,7 +915,7 @@ Exit_Bg_Scroll_Y:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-ScrollBlock2:				; XREF: Deform_SLZ
+ScrollBlock2:
 		move.w	($FFFFF70C).w,d3
 		move.w	d0,($FFFFF70C).w
 		move.w	d0,d1
@@ -938,7 +938,7 @@ Exit_Scroll_Block2:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-ScrollBlock3:				; XREF: Deform_GHZ; et al
+ScrollBlock3:
 		move.l	($FFFFF708).w,d2
 		move.l	d2,d0
 		add.l	d4,d0
@@ -965,7 +965,7 @@ Exit_Scroll_Block3:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-ScrollBlock4:				; XREF: Deform_GHZ
+ScrollBlock4:
 		move.l	($FFFFF710).w,d2
 		move.l	d2,d0
 		add.l	d4,d0

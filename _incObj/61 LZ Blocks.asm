@@ -2,7 +2,7 @@
 ; Object 61 - blocks (LZ)
 ; ---------------------------------------------------------------------------
 
-LabyrinthBlock:				; XREF: Obj_Index
+LabyrinthBlock:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	LBlk_Index(pc,d0.w),d1
@@ -180,7 +180,7 @@ LBlk_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-loc_12180:				; XREF: LBlk_Action
+loc_12180:
 		tst.b	lblk_untouched(a0) ; has block been stood on or touched?
 		beq.s	locret_121C0	; if yes, branch
 		btst	#3,obStatus(a0)	; is Sonic standing on it now?

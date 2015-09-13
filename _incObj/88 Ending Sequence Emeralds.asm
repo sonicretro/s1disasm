@@ -2,7 +2,7 @@
 ; Object 88 - chaos emeralds on	the ending sequence
 ; ---------------------------------------------------------------------------
 
-EndChaos:				; XREF: Obj_Index
+EndChaos:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	ECha_Index(pc,d0.w),d1

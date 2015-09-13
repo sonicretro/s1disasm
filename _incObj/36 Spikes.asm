@@ -2,7 +2,7 @@
 ; Object 36 - spikes
 ; ---------------------------------------------------------------------------
 
-Spikes:					; XREF: Obj_Index
+Spikes:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Spik_Index(pc,d0.w),d1
@@ -50,7 +50,7 @@ Spik_Solid:	; Routine 2
 
 ; Spikes types $1x and $5x face	sideways
 
-Spik_SideWays:				; XREF: Spik_Solid
+Spik_SideWays:
 		move.w	#$1B,d1
 		move.w	d2,d3
 		addq.w	#1,d3
@@ -65,7 +65,7 @@ Spik_SideWays:				; XREF: Spik_Solid
 
 ; Spikes types $0x, $2x, $3x and $4x face up or	down
 
-Spik_Upright:				; XREF: Spik_Solid
+Spik_Upright:
 		moveq	#0,d1
 		move.b	obActWid(a0),d1
 		addi.w	#$B,d1
@@ -78,7 +78,7 @@ Spik_Upright:				; XREF: Spik_Solid
 		tst.w	d4
 		bpl.s	Spik_Display
 
-Spik_Hurt:				; XREF: Spik_SideWays; Spik_Upright
+Spik_Hurt:
 		tst.b	(v_invinc).w	; is Sonic invincible?
 		bne.s	Spik_Display	; if yes, branch
 		move.l	a0,-(sp)
@@ -103,7 +103,7 @@ Spik_Display:
 		rts	
 ; ===========================================================================
 
-Spik_Type0x:				; XREF: Spik_Solid
+Spik_Type0x:
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0
 		add.w	d0,d0
@@ -115,11 +115,11 @@ Spik_TypeIndex:	dc.w Spik_Type00-Spik_TypeIndex
 		dc.w Spik_Type02-Spik_TypeIndex
 ; ===========================================================================
 
-Spik_Type00:				; XREF: Spik_TypeIndex
+Spik_Type00:
 		rts			; don't move the object
 ; ===========================================================================
 
-Spik_Type01:				; XREF: Spik_TypeIndex
+Spik_Type01:
 		bsr.w	Spik_Wait
 		moveq	#0,d0
 		move.b	$34(a0),d0
@@ -128,7 +128,7 @@ Spik_Type01:				; XREF: Spik_TypeIndex
 		rts	
 ; ===========================================================================
 
-Spik_Type02:				; XREF: Spik_TypeIndex
+Spik_Type02:
 		bsr.w	Spik_Wait
 		moveq	#0,d0
 		move.b	$34(a0),d0

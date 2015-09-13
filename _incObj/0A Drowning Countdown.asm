@@ -3,7 +3,7 @@
 ; Sonic's mouth (LZ)
 ; ---------------------------------------------------------------------------
 
-DrownCount:				; XREF: Obj_Index
+DrownCount:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Drown_Index(pc,d0.w),d1
@@ -127,7 +127,7 @@ Drown_AirLeft_Delete:
 		jmp	(DeleteObject).l
 ; ===========================================================================
 
-Drown_ShowNumber:			; XREF: .wobble; Drown_Display
+Drown_ShowNumber:
 		tst.w	time(a0)
 		beq.s	.nonumber
 		subq.w	#1,time(a0)	; decrement timer

@@ -1,5 +1,5 @@
 
-BGHZ_MakeBall:				; XREF: BGHZ_ShipIndex
+BGHZ_MakeBall:
 		move.w	#-$100,obVelX(a0)
 		move.w	#-$40,obVelY(a0)
 		bsr.w	BossMove
@@ -22,7 +22,7 @@ loc_17916:
 		bra.w	loc_177E6
 ; ===========================================================================
 
-BGHZ_ShipMove:				; XREF: BGHZ_ShipIndex
+BGHZ_ShipMove:
 		subq.w	#1,$3C(a0)
 		bpl.s	BGHZ_Reverse
 		addq.b	#2,ob2ndRout(a0)
@@ -42,7 +42,7 @@ loc_17950:
 		bra.w	loc_177E6
 ; ===========================================================================
 
-loc_17954:				; XREF: BGHZ_ShipIndex
+loc_17954:
 		subq.w	#1,$3C(a0)
 		bmi.s	loc_17960
 		bsr.w	BossMove
@@ -59,7 +59,7 @@ loc_17976:
 		bra.w	loc_177E6
 ; ===========================================================================
 
-loc_1797A:				; XREF: BGHZ_ShipIndex
+loc_1797A:
 		subq.w	#1,$3C(a0)
 		bmi.s	loc_17984
 		bra.w	BossDefeated
@@ -79,7 +79,7 @@ locret_179AA:
 		rts	
 ; ===========================================================================
 
-loc_179AC:				; XREF: BGHZ_ShipIndex
+loc_179AC:
 		addq.w	#1,$3C(a0)
 		beq.s	loc_179BC
 		bpl.s	loc_179C2
@@ -116,7 +116,7 @@ loc_179EE:
 		bra.w	loc_177E6
 ; ===========================================================================
 
-loc_179F6:				; XREF: BGHZ_ShipIndex
+loc_179F6:
 		move.w	#$400,obVelX(a0)
 		move.w	#-$40,obVelY(a0)
 		cmpi.w	#$2AC0,(v_limitright2).w
@@ -208,7 +208,7 @@ BGHZ_FlameDel:
 		jmp	(DeleteObject).l
 ; ===========================================================================
 
-BGHZ_Display:				; XREF: BGHZ_FaceDisp; BGHZ_FlameDisp
+BGHZ_Display:
 		movea.l	$34(a0),a1
 		move.w	obX(a1),obX(a0)
 		move.w	obY(a1),obY(a0)

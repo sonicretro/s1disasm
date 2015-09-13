@@ -2,7 +2,7 @@
 ; Object 11 - GHZ bridge
 ; ---------------------------------------------------------------------------
 
-Bridge:					; XREF: Obj_Index
+Bridge:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Bri_Index(pc,d0.w),d1

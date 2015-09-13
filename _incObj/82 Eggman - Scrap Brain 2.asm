@@ -2,7 +2,7 @@
 ; Object 82 - Eggman (SBZ2)
 ; ---------------------------------------------------------------------------
 
-ScrapEggman:				; XREF: Obj_Index
+ScrapEggman:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	SEgg_Index(pc,d0.w),d1
@@ -64,7 +64,7 @@ SEgg_EggIndex:	dc.w SEgg_ChkSonic-SEgg_EggIndex
 		dc.w loc_19934-SEgg_EggIndex
 ; ===========================================================================
 
-SEgg_ChkSonic:				; XREF: SEgg_EggIndex
+SEgg_ChkSonic:
 		move.w	obX(a0),d0
 		sub.w	(v_player+obX).w,d0
 		cmpi.w	#128,d0		; is Sonic within 128 pixels of	Eggman?
@@ -73,11 +73,11 @@ SEgg_ChkSonic:				; XREF: SEgg_EggIndex
 		move.w	#180,$3C(a0)	; set delay to 3 seconds
 		move.b	#1,obAnim(a0)
 
-loc_19934:				; XREF: SEgg_EggIndex
+loc_19934:
 		jmp	(SpeedToPos).l
 ; ===========================================================================
 
-SEgg_PreLeap:				; XREF: SEgg_EggIndex
+SEgg_PreLeap:
 		subq.w	#1,$3C(a0)	; subtract 1 from time delay
 		bne.s	loc_19954	; if time remains, branch
 		addq.b	#2,ob2ndRout(a0)
@@ -89,7 +89,7 @@ loc_19954:
 		bra.s	loc_19934
 ; ===========================================================================
 
-SEgg_Leap:				; XREF: SEgg_EggIndex
+SEgg_Leap:
 		subq.w	#1,$3C(a0)
 		bgt.s	loc_199D0
 		bne.s	loc_1996A
@@ -145,12 +145,12 @@ SEgg_SwIndex:	dc.w loc_199E6-SEgg_SwIndex
 		dc.w SEgg_SwDisplay-SEgg_SwIndex
 ; ===========================================================================
 
-loc_199E6:				; XREF: SEgg_SwIndex
+loc_199E6:
 		movea.l	$34(a0),a1
 		cmpi.w	#$5357,obSubtype(a1)
 		bne.s	SEgg_SwDisplay
 		move.b	#1,obFrame(a0)
 		addq.b	#2,ob2ndRout(a0)
 
-SEgg_SwDisplay:			; XREF: SEgg_SwIndex
+SEgg_SwDisplay:
 		jmp	(DisplaySprite).l

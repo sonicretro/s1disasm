@@ -2,7 +2,7 @@
 ; Object 24 - buzz bomber missile vanishing (unused?)
 ; ---------------------------------------------------------------------------
 
-MissileDissolve:				; XREF: Obj_Index
+MissileDissolve:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	MDis_Index(pc,d0.w),d1
@@ -40,7 +40,7 @@ MDis_Animate:	; Routine 2
 ; Object 27 - explosion	from a destroyed enemy or monitor
 ; ---------------------------------------------------------------------------
 
-ExplosionItem:				; XREF: Obj_Index
+ExplosionItem:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	ExItem_Index(pc,d0.w),d1
@@ -87,7 +87,7 @@ ExItem_Animate:	; Routine 4 (2 for ExplosionBomb)
 ; Object 3F - explosion	from a destroyed boss, bomb or cannonball
 ; ---------------------------------------------------------------------------
 
-ExplosionBomb:				; XREF: Obj_Index
+ExplosionBomb:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	ExBom_Index(pc,d0.w),d1

@@ -2,7 +2,7 @@
 ; Object 28 - animals
 ; ---------------------------------------------------------------------------
 
-Animals:				; XREF: Obj_Index
+Animals:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Anml_Index(pc,d0.w),d1
@@ -74,7 +74,7 @@ Anml_Ending:	; Routine 0
 		bra.w	DisplaySprite
 ; ===========================================================================
 
-Anml_FromEnemy:			; XREF: Anml_Ending
+Anml_FromEnemy:
 		addq.b	#2,obRoutine(a0)
 		bsr.w	RandomNumber
 		andi.w	#1,d0
@@ -126,7 +126,7 @@ loc_911C:
 		bra.w	DisplaySprite
 ; ===========================================================================
 
-loc_912A:				; XREF: Anml_Index
+loc_912A:
 		tst.b	obRender(a0)
 		bpl.w	DeleteObject
 		bsr.w	ObjectFall
@@ -154,7 +154,7 @@ loc_9180:
 		bra.w	DisplaySprite
 ; ===========================================================================
 
-loc_9184:				; XREF: Anml_Index
+loc_9184:
 		bsr.w	ObjectFall
 		move.b	#1,obFrame(a0)
 		tst.w	obVelY(a0)
@@ -174,7 +174,7 @@ loc_91AE:
 		bra.w	DisplaySprite
 ; ===========================================================================
 
-loc_91C0:				; XREF: Anml_Index
+loc_91C0:
 		bsr.w	SpeedToPos
 		addi.w	#$18,obVelY(a0)
 		tst.w	obVelY(a0)
@@ -206,7 +206,7 @@ loc_9212:
 		bra.w	DisplaySprite
 ; ===========================================================================
 
-loc_9224:				; XREF: Anml_Index
+loc_9224:
 		move.w	obX(a0),d0
 		sub.w	(v_player+obX).w,d0
 		bcs.s	loc_923C
@@ -219,7 +219,7 @@ loc_923C:
 		bra.w	DisplaySprite
 ; ===========================================================================
 
-loc_9240:				; XREF: Anml_Index
+loc_9240:
 		tst.b	obRender(a0)
 		bpl.w	DeleteObject
 		subq.w	#1,$36(a0)
@@ -231,7 +231,7 @@ loc_925C:
 		bra.w	DisplaySprite
 ; ===========================================================================
 
-loc_9260:				; XREF: Anml_Index
+loc_9260:
 		bsr.w	sub_9404
 		bcc.s	loc_927C
 		move.w	$32(a0),obVelX(a0)
@@ -244,7 +244,7 @@ loc_927C:
 		bra.w	loc_9224
 ; ===========================================================================
 
-loc_9280:				; XREF: Anml_Index
+loc_9280:
 		bsr.w	sub_9404
 		bpl.s	loc_92B6
 		clr.w	obVelX(a0)
@@ -263,7 +263,7 @@ loc_92B6:
 		bra.w	loc_9224
 ; ===========================================================================
 
-loc_92BA:				; XREF: Anml_Index
+loc_92BA:
 		bsr.w	sub_9404
 		bpl.s	loc_9310
 		move.w	$32(a0),obVelX(a0)
@@ -272,7 +272,7 @@ loc_92BA:				; XREF: Anml_Index
 		bra.w	loc_9184
 ; ===========================================================================
 
-loc_92D6:				; XREF: Anml_Index
+loc_92D6:
 		bsr.w	ObjectFall
 		move.b	#1,obFrame(a0)
 		tst.w	obVelY(a0)
@@ -294,7 +294,7 @@ loc_9310:
 		bra.w	loc_9224
 ; ===========================================================================
 
-loc_9314:				; XREF: Anml_Index
+loc_9314:
 		bsr.w	sub_9404
 		bpl.s	loc_932E
 		clr.w	obVelX(a0)
@@ -307,7 +307,7 @@ loc_932E:
 		bra.w	loc_9224
 ; ===========================================================================
 
-loc_9332:				; XREF: Anml_Index
+loc_9332:
 		bsr.w	sub_9404
 		bpl.s	loc_936C
 		bsr.w	ObjectFall
@@ -327,7 +327,7 @@ loc_936C:
 		bra.w	loc_9224
 ; ===========================================================================
 
-loc_9370:				; XREF: Anml_Index
+loc_9370:
 		bsr.w	sub_9404
 		bpl.s	loc_93C0
 		bsr.w	SpeedToPos

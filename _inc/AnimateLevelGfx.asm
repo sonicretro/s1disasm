@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-AnimateLevelGfx:			; XREF: Demo_Time; VBla_0C_NoChg
+AnimateLevelGfx:
 		tst.w	(f_pause).w	; is the game paused?
 		bne.s	.ispaused	; if yes, branch
 		lea	(vdp_data_port).l,a6
@@ -30,7 +30,7 @@ AniArt_Index:	dc.w AniArt_GHZ-AniArt_Index, AniArt_none-AniArt_Index
 ; Animated pattern routine - Green Hill
 ; ---------------------------------------------------------------------------
 
-AniArt_GHZ:				; XREF: AniArt_Index
+AniArt_GHZ:
 
 AniArt_GHZ_Waterfall:
 
@@ -107,7 +107,7 @@ AniArt_GHZ_Smallflower:
 ; Animated pattern routine - Marble
 ; ---------------------------------------------------------------------------
 
-AniArt_MZ:				; XREF: AniArt_Index
+AniArt_MZ:
 
 AniArt_MZ_Lava:
 
@@ -191,7 +191,7 @@ AniArt_MZ_Torch:
 ; Animated pattern routine - Scrap Brain
 ; ---------------------------------------------------------------------------
 
-AniArt_SBZ:				; XREF: AniArt_Index
+AniArt_SBZ:
 
 .size:		= 12	; number of tiles per frame
 
@@ -269,7 +269,7 @@ AniArt_SBZ:				; XREF: AniArt_Index
 ; Animated pattern routine - ending sequence
 ; ---------------------------------------------------------------------------
 
-AniArt_Ending:				; XREF: AniArt_Index
+AniArt_Ending:
 
 AniArt_Ending_BigFlower:
 
@@ -371,7 +371,7 @@ AniArt_Ending_Flower4:
 		rts	
 ; ===========================================================================
 
-AniArt_none:				; XREF: AniArt_Index
+AniArt_none:
 		rts	
 
 ; ---------------------------------------------------------------------------
@@ -413,14 +413,14 @@ AniArt_MZextra:	dc.w loc_1C3EE-AniArt_MZextra, loc_1C3FA-AniArt_MZextra
 		dc.w loc_1C4E8-AniArt_MZextra, loc_1C4FA-AniArt_MZextra
 ; ===========================================================================
 
-loc_1C3EE:				; XREF: AniArt_MZextra
+loc_1C3EE:
 		move.l	(a1),(a6)
 		lea	$10(a1),a1
 		dbf	d1,loc_1C3EE
 		rts	
 ; ===========================================================================
 
-loc_1C3FA:				; XREF: AniArt_MZextra
+loc_1C3FA:
 		move.l	2(a1),d0
 		move.b	1(a1),d0
 		ror.l	#8,d0
@@ -430,14 +430,14 @@ loc_1C3FA:				; XREF: AniArt_MZextra
 		rts	
 ; ===========================================================================
 
-loc_1C410:				; XREF: AniArt_MZextra
+loc_1C410:
 		move.l	2(a1),(a6)
 		lea	$10(a1),a1
 		dbf	d1,loc_1C410
 		rts	
 ; ===========================================================================
 
-loc_1C41E:				; XREF: AniArt_MZextra
+loc_1C41E:
 		move.l	4(a1),d0
 		move.b	3(a1),d0
 		ror.l	#8,d0
@@ -447,14 +447,14 @@ loc_1C41E:				; XREF: AniArt_MZextra
 		rts	
 ; ===========================================================================
 
-loc_1C434:				; XREF: AniArt_MZextra
+loc_1C434:
 		move.l	4(a1),(a6)
 		lea	$10(a1),a1
 		dbf	d1,loc_1C434
 		rts	
 ; ===========================================================================
 
-loc_1C442:				; XREF: AniArt_MZextra
+loc_1C442:
 		move.l	6(a1),d0
 		move.b	5(a1),d0
 		ror.l	#8,d0
@@ -464,14 +464,14 @@ loc_1C442:				; XREF: AniArt_MZextra
 		rts	
 ; ===========================================================================
 
-loc_1C458:				; XREF: AniArt_MZextra
+loc_1C458:
 		move.l	6(a1),(a6)
 		lea	$10(a1),a1
 		dbf	d1,loc_1C458
 		rts	
 ; ===========================================================================
 
-loc_1C466:				; XREF: AniArt_MZextra
+loc_1C466:
 		move.l	8(a1),d0
 		move.b	7(a1),d0
 		ror.l	#8,d0
@@ -481,14 +481,14 @@ loc_1C466:				; XREF: AniArt_MZextra
 		rts	
 ; ===========================================================================
 
-loc_1C47C:				; XREF: AniArt_MZextra
+loc_1C47C:
 		move.l	8(a1),(a6)
 		lea	$10(a1),a1
 		dbf	d1,loc_1C47C
 		rts	
 ; ===========================================================================
 
-loc_1C48A:				; XREF: AniArt_MZextra
+loc_1C48A:
 		move.l	$A(a1),d0
 		move.b	9(a1),d0
 		ror.l	#8,d0
@@ -498,14 +498,14 @@ loc_1C48A:				; XREF: AniArt_MZextra
 		rts	
 ; ===========================================================================
 
-loc_1C4A0:				; XREF: AniArt_MZextra
+loc_1C4A0:
 		move.l	$A(a1),(a6)
 		lea	$10(a1),a1
 		dbf	d1,loc_1C4A0
 		rts	
 ; ===========================================================================
 
-loc_1C4AE:				; XREF: AniArt_MZextra
+loc_1C4AE:
 		move.l	$C(a1),d0
 		move.b	$B(a1),d0
 		ror.l	#8,d0
@@ -515,14 +515,14 @@ loc_1C4AE:				; XREF: AniArt_MZextra
 		rts	
 ; ===========================================================================
 
-loc_1C4C4:				; XREF: AniArt_MZextra
+loc_1C4C4:
 		move.l	$C(a1),(a6)
 		lea	$10(a1),a1
 		dbf	d1,loc_1C4C4
 		rts	
 ; ===========================================================================
 
-loc_1C4D2:				; XREF: AniArt_MZextra
+loc_1C4D2:
 		move.l	$C(a1),d0
 		rol.l	#8,d0
 		_move.b	0(a1),d0
@@ -532,7 +532,7 @@ loc_1C4D2:				; XREF: AniArt_MZextra
 		rts	
 ; ===========================================================================
 
-loc_1C4E8:				; XREF: AniArt_MZextra
+loc_1C4E8:
 		move.w	$E(a1),(a6)
 		_move.w	0(a1),(a6)
 		lea	$10(a1),a1
@@ -540,7 +540,7 @@ loc_1C4E8:				; XREF: AniArt_MZextra
 		rts	
 ; ===========================================================================
 
-loc_1C4FA:				; XREF: AniArt_MZextra
+loc_1C4FA:
 		_move.l	0(a1),d0
 		move.b	$F(a1),d0
 		ror.l	#8,d0
@@ -556,7 +556,7 @@ loc_1C4FA:				; XREF: AniArt_MZextra
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-AniArt_GiantRing:			; XREF: AnimateLevelGfx
+AniArt_GiantRing:
 		tst.w	(v_gfxbigring).w
 		bne.s	loc_1C518
 		rts	

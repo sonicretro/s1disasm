@@ -2,7 +2,7 @@
 ; Object 29 - points that appear when you destroy something
 ; ---------------------------------------------------------------------------
 
-Points:					; XREF: Obj_Index
+Points:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Poi_Index(pc,d0.w),d1

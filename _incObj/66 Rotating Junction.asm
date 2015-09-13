@@ -2,7 +2,7 @@
 ; Object 66 - rotating disc junction that grabs Sonic (SBZ)
 ; ---------------------------------------------------------------------------
 
-Junction:				; XREF: Obj_Index
+Junction:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Jun_Index(pc,d0.w),d1

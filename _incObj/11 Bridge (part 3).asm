@@ -1,7 +1,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Bri_MoveSonic:				; XREF: Bri_WalkOff
+Bri_MoveSonic:
 		moveq	#0,d0
 		move.b	$3F(a0),d0
 		move.b	$29(a0,d0.w),d0
@@ -22,7 +22,7 @@ Bri_MoveSonic:				; XREF: Bri_WalkOff
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Bri_Bend:				; XREF: Bri_Action; Bri_WalkOff
+Bri_Bend:
 		move.b	$3E(a0),d0
 		bsr.w	CalcSine
 		move.w	d0,d4
@@ -104,7 +104,7 @@ Obj11_BendData2:binclude	"misc/ghzbend2.bin"
 
 ; ===========================================================================
 
-Bri_ChkDel:				; XREF: Bri_Display; Bri_Platform
+Bri_ChkDel:
 		out_of_range.w	.deletebridge
 		rts	
 ; ===========================================================================

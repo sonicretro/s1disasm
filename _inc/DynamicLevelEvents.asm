@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-DynamicLevelEvents:			; XREF: DeformLayers
+DynamicLevelEvents:
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
 		add.w	d0,d0
@@ -62,7 +62,7 @@ DLE_Index:	dc.w DLE_GHZ-DLE_Index, DLE_LZ-DLE_Index
 ; Green	Hill Zone dynamic level events
 ; ---------------------------------------------------------------------------
 
-DLE_GHZ:				; XREF: DLE_Index
+DLE_GHZ:
 		moveq	#0,d0
 		move.b	(v_act).w,d0
 		add.w	d0,d0
@@ -174,7 +174,7 @@ DLE_GHZ3end:
 ; Labyrinth Zone dynamic level events
 ; ---------------------------------------------------------------------------
 
-DLE_LZ:				; XREF: DLE_Index
+DLE_LZ:
 		moveq	#0,d0
 		move.b	(v_act).w,d0
 		add.w	d0,d0
@@ -244,7 +244,7 @@ locret_6F8C:
 ; Marble Zone dynamic level events
 ; ---------------------------------------------------------------------------
 
-DLE_MZ:				; XREF: DLE_Index
+DLE_MZ:
 		moveq	#0,d0
 		move.b	(v_act).w,d0
 		add.w	d0,d0
@@ -411,7 +411,7 @@ DLE_MZ3end:
 ; Star Light Zone dynamic level events
 ; ---------------------------------------------------------------------------
 
-DLE_SLZ:				; XREF: DLE_Index
+DLE_SLZ:
 		moveq	#0,d0
 		move.b	(v_act).w,d0
 		add.w	d0,d0
@@ -476,7 +476,7 @@ DLE_SLZ3end:
 ; Spring Yard Zone dynamic level events
 ; ---------------------------------------------------------------------------
 
-DLE_SYZ:				; XREF: DLE_Index
+DLE_SYZ:
 		moveq	#0,d0
 		move.b	(v_act).w,d0
 		add.w	d0,d0
@@ -556,7 +556,7 @@ DLE_SYZ3end:
 ; Scrap	Brain Zone dynamic level events
 ; ---------------------------------------------------------------------------
 
-DLE_SBZ:				; XREF: DLE_Index
+DLE_SBZ:
 		moveq	#0,d0
 		move.b	(v_act).w,d0
 		add.w	d0,d0
@@ -702,5 +702,5 @@ DLE_FZend2:
 ; Ending sequence dynamic level events (empty)
 ; ---------------------------------------------------------------------------
 
-DLE_Ending:				; XREF: DLE_Index
+DLE_Ending:
 		rts	

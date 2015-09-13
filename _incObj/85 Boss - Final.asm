@@ -6,7 +6,7 @@ Obj85_Delete:
 		jmp	(DeleteObject).l
 ; ===========================================================================
 
-BossFinal:				; XREF: Obj_Index
+BossFinal:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Obj85_Index(pc,d0.w),d0
@@ -53,7 +53,7 @@ Obj85_Loop:
 		jsr	(FindNextFreeObj).l
 		bne.s	loc_19E20
 
-Obj85_LoadBoss:				; XREF: Obj85_Main
+Obj85_LoadBoss:
 		move.b	#id_BossFinal,(a1)
 		move.w	(a2)+,obX(a1)
 		move.w	(a2)+,obY(a1)
@@ -112,7 +112,7 @@ off_19E80:	dc.w loc_19E90-off_19E80, loc_19EA8-off_19E80
 		dc.w loc_1A192-off_19E80, loc_1A1D4-off_19E80
 ; ===========================================================================
 
-loc_19E90:				; XREF: off_19E80
+loc_19E90:
 		tst.l	(v_plc_buffer).w
 		bne.s	loc_19EA2
 		cmpi.w	#$2450,(v_screenposx).w
@@ -124,7 +124,7 @@ loc_19EA2:
 		rts	
 ; ===========================================================================
 
-loc_19EA8:				; XREF: off_19E80
+loc_19EA8:
 		tst.w	$30(a0)
 		bpl.s	loc_19F10
 		clr.w	$30(a0)
@@ -233,7 +233,7 @@ loc_19FBC:
 word_19FD6:	dc.w 0,	2, 2, 4, 4, 6, 6, 0
 ; ===========================================================================
 
-loc_19FE6:				; XREF: off_19E80
+loc_19FE6:
 		moveq	#-1,d0
 		move.w	$36(a0),d0
 		movea.l	d0,a1
@@ -264,7 +264,7 @@ loc_1A020:
 		sfx	sfx_Electric,1,0,0	; play electricity sound
 ; ===========================================================================
 
-loc_1A02A:				; XREF: off_19E80
+loc_1A02A:
 		if Revision=0
 		move.b	#$30,obWidth(a0)
 		else
@@ -291,7 +291,7 @@ loc_1A070:
 		bra.w	loc_1A166
 ; ===========================================================================
 
-loc_1A074:				; XREF: off_19E80
+loc_1A074:
 		bset	#0,obStatus(a0)
 		move.b	#4,obAnim(a0)
 		jsr	(SpeedToPos).l
@@ -341,7 +341,7 @@ loc_1A110:
 		bra.s	loc_1A15C
 ; ===========================================================================
 
-loc_1A112:				; XREF: off_19E80
+loc_1A112:
 		jsr	(SpeedToPos).l
 		cmpi.w	#$26E0,obX(a0)
 		bcs.s	loc_1A124
@@ -387,7 +387,7 @@ locret_1A190:
 		rts	
 ; ===========================================================================
 
-loc_1A192:				; XREF: off_19E80
+loc_1A192:
 		move.l	#Map_Eggman,obMap(a0)
 		move.w	#$400,obGfx(a0)
 		move.b	#0,obAnim(a0)
@@ -404,7 +404,7 @@ loc_1A1D0:
 		bra.w	loc_1A15C
 ; ===========================================================================
 
-loc_1A1D4:				; XREF: off_19E80
+loc_1A1D4:
 		bset	#0,obStatus(a0)
 		jsr	(SpeedToPos).l
 		tst.w	$30(a0)

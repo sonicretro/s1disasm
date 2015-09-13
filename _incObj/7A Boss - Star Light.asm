@@ -2,7 +2,7 @@
 ; Object 7A - Eggman (SLZ)
 ; ---------------------------------------------------------------------------
 
-BossStarLight:				; XREF: Obj_Index
+BossStarLight:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Obj7A_Index(pc,d0.w),d1
@@ -20,7 +20,7 @@ Obj7A_ObjData:	dc.b 2,	0, 4		; routine number, animation, priority
 		dc.b 8,	0, 3
 ; ===========================================================================
 
-Obj7A_Main:				; XREF: Obj7A_Index
+Obj7A_Main:
 		move.w	#$2188,obX(a0)
 		move.w	#$228,obY(a0)
 		move.w	obX(a0),$30(a0)
@@ -40,7 +40,7 @@ Obj7A_Loop:
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 
-Obj7A_LoadBoss:				; XREF: Obj7A_Main
+Obj7A_LoadBoss:
 		bclr	#0,obStatus(a0)
 		clr.b	ob2ndRout(a1)
 		move.b	(a2)+,obRoutine(a1)
@@ -91,7 +91,7 @@ Obj7A_ShipIndex:dc.w loc_189B8-Obj7A_ShipIndex
 		dc.w loc_18BC6-Obj7A_ShipIndex
 ; ===========================================================================
 
-loc_189B8:				; XREF: Obj7A_ShipIndex
+loc_189B8:
 		move.w	#-$100,obVelX(a0)
 		cmpi.w	#$2120,$30(a0)
 		bcc.s	loc_189CA
@@ -152,7 +152,7 @@ loc_18A46:
 		rts	
 ; ===========================================================================
 
-loc_18A5E:				; XREF: Obj7A_ShipIndex
+loc_18A5E:
 		move.w	$30(a0),d0
 		move.w	#$200,obVelX(a0)
 		btst	#0,obStatus(a0)
@@ -204,7 +204,7 @@ loc_18AC0:
 		bra.w	loc_189CA
 ; ===========================================================================
 
-Obj7A_MakeBall:				; XREF: Obj7A_ShipIndex
+Obj7A_MakeBall:
 		cmpi.b	#$28,$3C(a0)
 		bne.s	loc_18B36
 		moveq	#-1,d0
@@ -249,7 +249,7 @@ loc_18B40:
 		bra.w	loc_189CA
 ; ===========================================================================
 
-loc_18B48:				; XREF: Obj7A_ShipIndex
+loc_18B48:
 		subq.b	#1,$3C(a0)
 		bmi.s	loc_18B52
 		bra.w	BossDefeated
@@ -270,7 +270,7 @@ loc_18B7C:
 		bra.w	loc_189FE
 ; ===========================================================================
 
-loc_18B80:				; XREF: Obj7A_ShipIndex
+loc_18B80:
 		addq.b	#1,$3C(a0)
 		beq.s	loc_18B90
 		bpl.s	loc_18B96
@@ -306,7 +306,7 @@ loc_18BC2:
 		bra.w	loc_189EE
 ; ===========================================================================
 
-loc_18BC6:				; XREF: Obj7A_ShipIndex
+loc_18BC6:
 		move.w	#$400,obVelX(a0)
 		move.w	#-$40,obVelY(a0)
 		cmpi.w	#$2160,(v_limitright2).w

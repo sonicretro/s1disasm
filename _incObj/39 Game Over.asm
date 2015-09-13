@@ -2,7 +2,7 @@
 ; Object 39 - "GAME OVER" and "TIME OVER"
 ; ---------------------------------------------------------------------------
 
-GameOverCard:				; XREF: Obj_Index
+GameOverCard:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Over_Index(pc,d0.w),d1
@@ -63,7 +63,7 @@ Over_Wait:	; Routine 4
 		bra.w	DisplaySprite
 ; ===========================================================================
 
-Over_ChgMode:				; XREF: Over_Wait
+Over_ChgMode:
 		tst.b	(f_timeover).w	; is time over flag set?
 		bne.s	Over_ResetLvl	; if yes, branch
 		move.b	#id_Continue,(v_gamemode).w ; set mode to $14 (continue screen)
@@ -73,11 +73,11 @@ Over_ChgMode:				; XREF: Over_Wait
 		bra.s	Over_Display
 ; ===========================================================================
 
-Over_ResetLvl:				; XREF: Over_ChgMode
+Over_ResetLvl:
 		if Revision<>0
 			clr.l	(v_lamp_time).w
 		endif
 		move.w	#1,(f_restart).w ; restart level
 
-Over_Display:				; XREF: Over_ChgMode
+Over_Display:
 		bra.w	DisplaySprite

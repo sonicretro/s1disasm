@@ -87,7 +87,7 @@ HUD_Update:
 		rts	
 ; ===========================================================================
 
-TimeOver:				; XREF: .chktime
+TimeOver:
 		clr.b	(f_timecount).w
 		lea	(v_player).w,a0
 		movea.l	a0,a2
@@ -96,7 +96,7 @@ TimeOver:				; XREF: .chktime
 		rts	
 ; ===========================================================================
 
-HudDebug:				; XREF: HUD_Update
+HudDebug:
 		bsr.w	HudDb_XY
 		tst.b	(f_ringcount).w	; does the ring	counter	need updating?
 		beq.s	.objcounter	; if not, branch
@@ -143,7 +143,7 @@ HudDebug:				; XREF: HUD_Update
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Hud_LoadZero:				; XREF: HUD_Update
+Hud_LoadZero:
 		locVRAM	$DF40
 		lea	Hud_TilesZero(pc),a2
 		move.w	#2,d2
@@ -157,14 +157,14 @@ Hud_LoadZero:				; XREF: HUD_Update
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Hud_Base:				; XREF: GM_Level; SS_EndLoop; GM_Ending
+Hud_Base:
 		lea	($C00000).l,a6
 		bsr.w	Hud_Lives
 		locVRAM	$DC40
 		lea	Hud_TilesBase(pc),a2
 		move.w	#$E,d2
 
-loc_1C83E:				; XREF: Hud_LoadZero
+loc_1C83E:
 		lea	Art_Hud(pc),a1
 
 loc_1C842:
@@ -202,7 +202,7 @@ Hud_TilesZero:	dc.b $FF, $FF, 0, 0
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-HudDb_XY:				; XREF: HudDebug
+HudDb_XY:
 		locVRAM	$DC40		; set VRAM address
 		move.w	(v_screenposx).w,d1 ; load camera x-position
 		swap	d1
@@ -253,7 +253,7 @@ loc_1C8B2:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Hud_Rings:				; XREF: HUD_Update
+Hud_Rings:
 		lea	(Hud_100).l,a2
 		moveq	#2,d6
 		bra.s	Hud_LoadArt
@@ -266,7 +266,7 @@ Hud_Rings:				; XREF: HUD_Update
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Hud_Score:				; XREF: HUD_Update
+Hud_Score:
 		lea	(Hud_100000).l,a2
 		moveq	#5,d6
 

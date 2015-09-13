@@ -2,7 +2,7 @@
 ; Object 4B - giant ring for entry to special stage
 ; ---------------------------------------------------------------------------
 
-GiantRing:				; XREF: Obj_Index
+GiantRing:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	GRing_Index(pc,d0.w),d1

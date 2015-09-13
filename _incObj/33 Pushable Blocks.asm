@@ -2,7 +2,7 @@
 ; Object 33 - pushable blocks (MZ, LZ)
 ; ---------------------------------------------------------------------------
 
-PushBlock:				; XREF: Obj_Index
+PushBlock:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	PushB_Index(pc,d0.w),d1
@@ -111,7 +111,7 @@ locret_C044:
 		rts	
 ; ===========================================================================
 
-loc_C046:				; XREF: loc_BF6E
+loc_C046:
 		move.w	obX(a0),-(sp)
 		cmpi.b	#4,ob2ndRout(a0)
 		bcc.s	loc_C056
@@ -233,7 +233,7 @@ locret_C184:
 		rts	
 ; ===========================================================================
 
-loc_C186:				; XREF: loc_BF6E
+loc_C186:
 		move.b	ob2ndRout(a0),d0
 		beq.w	loc_C218
 		subq.b	#2,d0

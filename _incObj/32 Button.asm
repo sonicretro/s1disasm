@@ -2,7 +2,7 @@
 ; Object 32 - buttons (MZ, SYZ, LZ, SBZ)
 ; ---------------------------------------------------------------------------
 
-Button:					; XREF: Obj_Index
+Button:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	But_Index(pc,d0.w),d1
@@ -88,7 +88,7 @@ But_Delete:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-But_MZBlock:				; XREF: But_Pressed
+But_MZBlock:
 		move.w	d3,-(sp)
 		move.w	obX(a0),d2
 		move.w	obY(a0),d3
@@ -118,7 +118,7 @@ locret_BE5A:
 But_MZData:	dc.b $10, $10
 ; ===========================================================================
 
-loc_BE5E:				; XREF: But_MZBlock
+loc_BE5E:
 		moveq	#1,d0
 		andi.w	#$3F,d0
 		add.w	d0,d0

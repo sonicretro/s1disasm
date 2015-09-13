@@ -2,7 +2,7 @@
 ; Object 09 - Sonic (special stage)
 ; ---------------------------------------------------------------------------
 
-SonicSpecial:				; XREF: Obj_Index
+SonicSpecial:
 		tst.w	(v_debuguse).w	; is debug mode	being used?
 		beq.s	Obj09_Normal	; if not, branch
 		bsr.w	SS_FixCamera
@@ -54,19 +54,19 @@ Obj09_Modes:	dc.w Obj09_OnWall-Obj09_Modes
 		dc.w Obj09_InAir-Obj09_Modes
 ; ===========================================================================
 
-Obj09_OnWall:				; XREF: Obj09_Modes
+Obj09_OnWall:
 		bsr.w	Obj09_Jump
 		bsr.w	Obj09_Move
 		bsr.w	Obj09_Fall
 		bra.s	Obj09_Display
 ; ===========================================================================
 
-Obj09_InAir:				; XREF: Obj09_Modes
+Obj09_InAir:
 		bsr.w	nullsub_2
 		bsr.w	Obj09_Move
 		bsr.w	Obj09_Fall
 
-Obj09_Display:				; XREF: Obj09_OnWall
+Obj09_Display:
 		bsr.w	Obj09_ChkItems
 		bsr.w	Obj09_ChkItems2
 		jsr	(SpeedToPos).l
@@ -80,7 +80,7 @@ Obj09_Display:				; XREF: Obj09_OnWall
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Obj09_Move:				; XREF: Obj09_OnWall; Obj09_InAir
+Obj09_Move:
 		btst	#bitL,(v_jpadhold2).w ; is left being pressed?
 		beq.s	Obj09_ChkRight	; if not, branch
 		bsr.w	Obj09_MoveLeft
@@ -145,7 +145,7 @@ loc_1BAF2:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Obj09_MoveLeft:				; XREF: Obj09_Move
+Obj09_MoveLeft:
 		bset	#0,obStatus(a0)
 		move.w	obInertia(a0),d0
 		beq.s	loc_1BB06
@@ -176,7 +176,7 @@ loc_1BB22:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Obj09_MoveRight:			; XREF: Obj09_Move
+Obj09_MoveRight:
 		bclr	#0,obStatus(a0)
 		move.w	obInertia(a0),d0
 		bmi.s	loc_1BB48
@@ -206,7 +206,7 @@ locret_1BB54:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Obj09_Jump:				; XREF: Obj09_OnWall
+Obj09_Jump:
 		move.b	(v_jpadpress2).w,d0
 		andi.b	#btnABC,d0	; is A,	B or C pressed?
 		beq.s	Obj09_NoJump	; if not, branch
@@ -232,7 +232,7 @@ Obj09_NoJump:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-nullsub_2:				; XREF: Obj09_InAir
+nullsub_2:
 		rts	
 ; End of function nullsub_2
 
@@ -257,7 +257,7 @@ locret_1BBB4:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-SS_FixCamera:				; XREF: Obj09
+SS_FixCamera:
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 		move.w	(v_screenposx).w,d0
@@ -279,7 +279,7 @@ locret_1BBDE:
 
 ; ===========================================================================
 
-Obj09_ExitStage:			; XREF: Obj09_Index
+Obj09_ExitStage:
 		addi.w	#$40,(v_ssrotate).w
 		cmpi.w	#$1800,(v_ssrotate).w
 		bne.s	loc_1BBF4
@@ -303,7 +303,7 @@ loc_1BC12:
 		jmp	(DisplaySprite).l
 ; ===========================================================================
 
-Obj09_Exit2:				; XREF: Obj09_Index
+Obj09_Exit2:
 		subq.w	#1,$38(a0)
 		bne.s	loc_1BC40
 		move.b	#id_Level,(v_gamemode).w
@@ -317,7 +317,7 @@ loc_1BC40:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Obj09_Fall:				; XREF: Obj09_OnWall; Obj09_InAir
+Obj09_Fall:
 		move.l	obY(a0),d2
 		move.l	obX(a0),d3
 		move.b	(v_ssangle).w,d0
@@ -379,7 +379,7 @@ loc_1BCD4:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-sub_1BCE8:				; XREF: Obj09_Move; Obj09_Fall
+sub_1BCE8:
 		lea	($FF0000).l,a1
 		moveq	#0,d4
 		swap	d2
@@ -414,7 +414,7 @@ sub_1BCE8:				; XREF: Obj09_Move; Obj09_Fall
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-sub_1BD30:				; XREF: sub_1BCE8
+sub_1BD30:
 		beq.s	locret_1BD44
 		cmpi.b	#$28,d4
 		beq.s	locret_1BD44
@@ -438,7 +438,7 @@ loc_1BD46:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Obj09_ChkItems:				; XREF: Obj09_Display
+Obj09_ChkItems:
 		lea	($FF0000).l,a1
 		moveq	#0,d4
 		move.w	obY(a0),d4
@@ -570,7 +570,7 @@ Obj09_GhostNotSolid:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Obj09_ChkItems2:			; XREF: Obj09_Display
+Obj09_ChkItems2:
 		move.b	$30(a0),d0
 		bne.s	Obj09_ChkBumper
 		subq.b	#1,$36(a0)

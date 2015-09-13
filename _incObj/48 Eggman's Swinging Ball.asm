@@ -2,7 +2,7 @@
 ; Object 48 - ball on a	chain that Eggman swings (GHZ)
 ; ---------------------------------------------------------------------------
 
-BossBall:				; XREF: Obj_Index
+BossBall:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	GBall_Index(pc,d0.w),d1
@@ -40,7 +40,7 @@ GBall_MakeLinks:
 		move.b	#1,obFrame(a1)
 		addq.b	#1,obSubtype(a0)
 
-loc_17B60:				; XREF: GBall_Main
+loc_17B60:
 		move.w	a1,d5
 		subi.w	#$D000,d5
 		lsr.w	#6,d5
@@ -113,7 +113,7 @@ GBall_Display2:	; Routine 4
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-sub_17C2A:				; XREF: GBall_Display; GBall_Display2
+sub_17C2A:
 		movea.l	$34(a0),a1
 		addi.b	#$20,obAniFrame(a0)
 		bcc.s	loc_17C3C

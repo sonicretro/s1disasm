@@ -2,7 +2,7 @@
 ; Object 76 - blocks that Eggman picks up (SYZ)
 ; ---------------------------------------------------------------------------
 
-BossBlock:					; XREF: Obj_Index
+BossBlock:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Obj76_Index(pc,d0.w),d1
@@ -25,7 +25,7 @@ Obj76_Loop:
 		jsr	(FindFreeObj).l
 		bne.s	Obj76_ExitLoop
 
-Obj76_MakeBlock:			; XREF: Obj76_Main
+Obj76_MakeBlock:
 		move.b	#id_BossBlock,(a1)
 		move.l	#Map_BossBlock,obMap(a1)
 		move.w	#$4000,obGfx(a1)
@@ -73,14 +73,14 @@ loc_19718:
 		bra.s	Obj76_Display
 ; ===========================================================================
 
-Obj76_Solid:				; XREF: Obj76_Action
+Obj76_Solid:
 		move.w	#$1B,d1
 		move.w	#$10,d2
 		move.w	#$11,d3
 		move.w	obX(a0),d4
 		jsr	(SolidObject).l
 
-Obj76_Display:				; XREF: Obj76_Action
+Obj76_Display:
 		jmp	(DisplaySprite).l
 ; ===========================================================================
 
@@ -97,7 +97,7 @@ Obj76_Delete:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Obj76_Break:				; XREF: Obj76_Action
+Obj76_Break:
 		lea	Obj76_FragSpeed(pc),a4
 		lea	Obj76_FragPos(pc),a5
 		moveq	#1,d4

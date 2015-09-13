@@ -2,7 +2,7 @@
 ; Object 83 - blocks that disintegrate Eggman	presses	a switch (SBZ2)
 ; ---------------------------------------------------------------------------
 
-FalseFloor:				; XREF: Obj_Index
+FalseFloor:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	FFloor_Index(pc,d0.w),d1
@@ -111,7 +111,7 @@ loc_19C80:	; Routine $A
 		jmp	(DisplaySprite).l
 ; ===========================================================================
 
-FFloor_Break:				; XREF: loc_19C72
+FFloor_Break:
 		lea	FFloor_FragSpeed(pc),a4
 		lea	FFloor_FragPos(pc),a5
 		moveq	#1,d4
@@ -128,7 +128,7 @@ FFloor_LoopFrag:
 		jsr	(FindNextFreeObj).l
 		bne.s	FFloor_BreakSnd
 
-FFloor_MakeFrag:				; XREF: FFloor_Break
+FFloor_MakeFrag:
 		lea	(a0),a2
 		lea	(a1),a3
 		moveq	#3,d3

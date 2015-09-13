@@ -2,7 +2,7 @@
 ; Object 4A - special stage entry from beta
 ; ---------------------------------------------------------------------------
 
-VanishSonic:				; XREF: Obj_Index
+VanishSonic:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Van_Index(pc,d0.w),d1

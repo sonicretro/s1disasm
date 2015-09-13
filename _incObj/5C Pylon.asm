@@ -2,7 +2,7 @@
 ; Object 5C - metal pylons in foreground (SLZ)
 ; ---------------------------------------------------------------------------
 
-Pylon:					; XREF: Obj_Index
+Pylon:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Pyl_Index(pc,d0.w),d1

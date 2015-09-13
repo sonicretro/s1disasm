@@ -2,7 +2,7 @@
 ; Object 20 - cannonball that Ball Hog throws (SBZ)
 ; ---------------------------------------------------------------------------
 
-Cannonball:				; XREF: Obj_Index
+Cannonball:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Cbal_Index(pc,d0.w),d1
@@ -53,7 +53,7 @@ loc_8CA4:
 		bmi.s	Cbal_ChkExplode
 		neg.w	obVelX(a0)
 
-Cbal_ChkExplode:			; XREF: Cbal_Bounce
+Cbal_ChkExplode:
 		subq.w	#1,cbal_time(a0) ; subtract 1 from explosion time
 		bpl.s	Cbal_Animate	; if time is > 0, branch
 

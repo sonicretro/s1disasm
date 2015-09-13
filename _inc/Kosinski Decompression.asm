@@ -39,7 +39,7 @@ Kos_Loop:
 		bra.s	Kos_Loop
 ; ===========================================================================
 
-Kos_RLE:				; XREF: KosDec
+Kos_RLE:
 		moveq	#0,d3
 		lsr.w	#1,d5	; get next bit
 		move	sr,d6
@@ -77,7 +77,7 @@ Kos_RLE:				; XREF: KosDec
 		bra.s	Kos_RLELoop
 ; ===========================================================================
 
-Kos_SeparateRLE:			; XREF: Kos_RLE
+Kos_SeparateRLE:
 		move.b	(a0)+,d0 ; get first byte
 		move.b	(a0)+,d1 ; get second byte
 		moveq	#-1,d2
@@ -96,7 +96,7 @@ Kos_RLELoop:
 		bra.s	Kos_Loop
 ; ===========================================================================
 
-Kos_SeparateRLE2:			; XREF: Kos_SeparateRLE
+Kos_SeparateRLE2:
 		move.b	(a0)+,d1
 		beq.s	Kos_Done ; 0 indicates end of compressed data
 		cmpi.b	#1,d1
@@ -105,7 +105,7 @@ Kos_SeparateRLE2:			; XREF: Kos_SeparateRLE
 		bra.s	Kos_RLELoop
 ; ===========================================================================
 
-Kos_Done:				; XREF: Kos_SeparateRLE2
+Kos_Done:
 		addq.l	#2,sp	; restore stack pointer
 		rts	
 ; End of function KosDec

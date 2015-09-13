@@ -2,7 +2,7 @@
 ; Object 18 - platforms	(GHZ, SYZ, SLZ)
 ; ---------------------------------------------------------------------------
 
-BasicPlatform:				; XREF: Obj_Index
+BasicPlatform:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Plat_Index(pc,d0.w),d1
@@ -94,7 +94,7 @@ loc_7F06:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Plat_Nudge:				; XREF: Plat_Action; Plat_Action2
+Plat_Nudge:
 		move.b	$38(a0),d0
 		bsr.w	CalcSine
 		move.w	#$400,d1
@@ -112,7 +112,7 @@ Plat_Nudge:				; XREF: Plat_Action; Plat_Action2
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Plat_Move:				; XREF: Plat_Action; Plat_Action2
+Plat_Move:
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0
 		andi.w	#$F,d0
@@ -290,7 +290,7 @@ Plat_Move:				; XREF: Plat_Action; Plat_Action2
 		rts	
 ; ===========================================================================
 
-Plat_ChkDel:				; XREF: Plat_Action; Plat_Action2
+Plat_ChkDel:
 		out_of_range.s	Plat_Delete,$32(a0)
 		rts	
 ; ===========================================================================

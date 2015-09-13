@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_Move:				; XREF: Obj01_MdNormal
+Sonic_Move:
 		move.w	(v_sonspeedmax).w,d6
 		move.w	(v_sonspeedacc).w,d5
 		move.w	(v_sonspeeddec).w,d4
@@ -196,7 +196,7 @@ locret_1307C:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_MoveLeft:				; XREF: Sonic_Move
+Sonic_MoveLeft:
 		move.w	obInertia(a0),d0
 		beq.s	loc_13086
 		bpl.s	loc_130B2
@@ -221,7 +221,7 @@ loc_130A6:
 		rts	
 ; ===========================================================================
 
-loc_130B2:				; XREF: Sonic_MoveLeft
+loc_130B2:
 		sub.w	d4,d0
 		bcc.s	loc_130BA
 		move.w	#-$80,d0
@@ -246,7 +246,7 @@ locret_130E8:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_MoveRight:			; XREF: Sonic_Move
+Sonic_MoveRight:
 		move.w	obInertia(a0),d0
 		bmi.s	loc_13118
 		bclr	#0,obStatus(a0)
@@ -266,7 +266,7 @@ loc_1310C:
 		rts	
 ; ===========================================================================
 
-loc_13118:				; XREF: Sonic_MoveRight
+loc_13118:
 		add.w	d4,d0
 		bcc.s	loc_13120
 		move.w	#$80,d0

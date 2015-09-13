@@ -3,7 +3,7 @@
 ; Object 22 - Buzz Bomber enemy	(GHZ, MZ, SYZ)
 ; ---------------------------------------------------------------------------
 
-BuzzBomber:				; XREF: Obj_Index
+BuzzBomber:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Buzz_Index(pc,d0.w),d1
@@ -40,7 +40,7 @@ Buzz_Action:	; Routine 2
 		dc.w .chknearsonic-.index
 ; ===========================================================================
 
-.move:					; XREF: .index
+.move:
 		subq.w	#1,timedelay(a0) ; subtract 1 from time delay
 		bpl.s	.noflip		; if time remains, branch
 		btst	#1,buzzstatus(a0) ; is Buzz Bomber near Sonic?
@@ -85,7 +85,7 @@ Buzz_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-.chknearsonic:				; XREF: .index
+.chknearsonic:
 		subq.w	#1,timedelay(a0) ; subtract 1 from time delay
 		bmi.s	.chgdirection
 		bsr.w	SpeedToPos

@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_Loops:				; XREF: Obj01_Control
+Sonic_Loops:
 		cmpi.b	#id_SLZ,(v_zone).w ; is level SLZ ?
 		beq.s	.isstarlight	; if yes, branch
 		tst.b	(v_zone).w	; is level GHZ ?

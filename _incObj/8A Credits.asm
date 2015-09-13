@@ -2,7 +2,7 @@
 ; Object 8A - "SONIC TEAM PRESENTS" and	credits
 ; ---------------------------------------------------------------------------
 
-CreditsText:				; XREF: Obj_Index
+CreditsText:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Cred_Index(pc,d0.w),d1

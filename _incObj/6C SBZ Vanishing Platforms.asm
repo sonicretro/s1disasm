@@ -2,7 +2,7 @@
 ; Object 6C - vanishing	platforms (SBZ)
 ; ---------------------------------------------------------------------------
 
-VanishPlatform:				; XREF: Obj_Index
+VanishPlatform:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	VanP_Index(pc,d0.w),d1

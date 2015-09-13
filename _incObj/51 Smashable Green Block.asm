@@ -2,7 +2,7 @@
 ; Object 51 - smashable	green block (MZ)
 ; ---------------------------------------------------------------------------
 
-SmashBlock:				; XREF: Obj_Index
+SmashBlock:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Smab_Index(pc,d0.w),d1

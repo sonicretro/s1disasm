@@ -2,7 +2,7 @@
 ; Object 17 - helix of spikes on a pole	(GHZ)
 ; ---------------------------------------------------------------------------
 
-Helix:				; XREF: Obj_Index
+Helix:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Hel_Index(pc,d0.w),d1
@@ -84,7 +84,7 @@ Hel_Action:	; Routine 2, 4
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Hel_RotateSpikes:			; XREF: Hel_Action; Hel_Display
+Hel_RotateSpikes:
 		move.b	(v_ani0_frame).w,d0
 		move.b	#0,obColType(a0) ; make object harmless
 		add.b	hel_frame(a0),d0
@@ -99,12 +99,12 @@ locret_7DA6:
 
 ; ===========================================================================
 
-Hel_ChkDel:				; XREF: Hel_Action
+Hel_ChkDel:
 		out_of_range.w	Hel_DelAll
 		rts	
 ; ===========================================================================
 
-Hel_DelAll:				; XREF: Hel_ChkDel
+Hel_DelAll:
 		moveq	#0,d2
 		lea	obSubtype(a0),a2 ; move helix length to a2
 		move.b	(a2)+,d2	; move helix length to d2

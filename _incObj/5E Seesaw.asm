@@ -8,7 +8,7 @@ see_speed := $38		; speed of collision
 see_frame := $3A		; 
 see_parent := $3C		; RAM address of parent object
 
-Seesaw:					; XREF: Obj_Index
+Seesaw:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	See_Index(pc,d0.w),d1
@@ -178,7 +178,7 @@ loc_11838:
 		bra.s	See_SpikeFall
 ; ===========================================================================
 
-loc_1183E:				; XREF: See_MoveSpike
+loc_1183E:
 		lea	(See_Speeds).l,a2
 		moveq	#0,d0
 		move.b	obFrame(a1),d0
@@ -215,7 +215,7 @@ locret_11898:
 		rts	
 ; ===========================================================================
 
-loc_1189A:				; XREF: See_SpikeFall
+loc_1189A:
 		bsr.w	ObjectFall
 		movea.l	see_parent(a0),a1
 		lea	(See_Speeds).l,a2

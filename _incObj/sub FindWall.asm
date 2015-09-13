@@ -1,7 +1,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-FindWall:				; XREF: Sonic_WalkVertR; et al
+FindWall:
 		bsr.w	FindNearestTile
 		move.w	(a1),d0
 		move.w	d0,d4
@@ -82,7 +82,7 @@ loc_14BA6:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-FindWall2:				; XREF: FindWall
+FindWall2:
 		bsr.w	FindNearestTile
 		move.w	(a1),d0
 		move.w	d0,d4

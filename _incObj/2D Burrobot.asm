@@ -2,7 +2,7 @@
 ; Object 2D - Burrobot enemy (LZ)
 ; ---------------------------------------------------------------------------
 
-Burrobot:				; XREF: Obj_Index
+Burrobot:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Burro_Index(pc,d0.w),d1
@@ -42,7 +42,7 @@ Burro_Action:	; Routine 2
 		dc.w Burro_ChkSonic-.index
 ; ===========================================================================
 
-.changedir:				; XREF: .index
+.changedir:
 		subq.w	#1,timedelay(a0)
 		bpl.s	.nochg
 		addq.b	#2,ob2ndRout(a0)
@@ -57,7 +57,7 @@ Burro_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-Burro_Move:				; XREF: .index
+Burro_Move:
 		subq.w	#1,timedelay(a0)
 		bmi.s	loc_AD84
 		bsr.w	SpeedToPos
@@ -76,13 +76,13 @@ loc_AD6A:
 		rts	
 ; ===========================================================================
 
-loc_AD78:				; XREF: Burro_Move
+loc_AD78:
 		jsr	(ObjFloorDist).l
 		add.w	d1,obY(a0)
 		rts	
 ; ===========================================================================
 
-loc_AD84:				; XREF: Burro_Move
+loc_AD84:
 		btst	#2,(v_vbla_byte).w
 		beq.s	loc_ADA4
 		subq.b	#2,ob2ndRout(a0)
@@ -99,7 +99,7 @@ loc_ADA4:
 		rts	
 ; ===========================================================================
 
-Burro_Jump:				; XREF: .index
+Burro_Jump:
 		bsr.w	SpeedToPos
 		addi.w	#$18,obVelY(a0)
 		bmi.s	locret_ADF0
@@ -118,7 +118,7 @@ locret_ADF0:
 		rts	
 ; ===========================================================================
 
-Burro_ChkSonic:				; XREF: .index
+Burro_ChkSonic:
 		move.w	#$60,d2
 		bsr.w	Burro_ChkSonic2
 		bcc.s	locret_AE20
@@ -139,7 +139,7 @@ locret_AE20:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Burro_ChkSonic2:			; XREF: Burro_ChkSonic
+Burro_ChkSonic2:
 		move.w	#$80,d1
 		bset	#0,obStatus(a0)
 		move.w	(v_player+obX).w,d0

@@ -2,7 +2,7 @@
 ; Object 2F - large grass-covered platforms (MZ)
 ; ---------------------------------------------------------------------------
 
-LargeGrass:				; XREF: Obj_Index
+LargeGrass:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	LGrass_Index(pc,d0.w),d1
@@ -58,7 +58,7 @@ LGrass_Action:	; Routine 2
 		bra.s	LGrass_Display
 ; ===========================================================================
 
-LGrass_Slope:				; XREF: LGrass_Action
+LGrass_Slope:
 		moveq	#0,d1
 		move.b	obActWid(a0),d1
 		addi.w	#$B,d1
@@ -68,7 +68,7 @@ LGrass_Slope:				; XREF: LGrass_Action
 		bra.s	LGrass_Display
 ; ===========================================================================
 
-LGrass_Solid:				; XREF: LGrass_Action
+LGrass_Solid:
 		moveq	#0,d1
 		move.b	obActWid(a0),d1
 		addi.w	#$B,d1
@@ -81,14 +81,14 @@ loc_AF8E:
 		movea.l	$30(a0),a2
 		bsr.w	SolidObject2F
 
-LGrass_Display:				; XREF: LGrass_Action
+LGrass_Display:
 		bsr.w	DisplaySprite
 		bra.w	LGrass_ChkDel
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-LGrass_Types:				; XREF: LGrass_Action
+LGrass_Types:
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0
 		andi.w	#7,d0
@@ -106,29 +106,29 @@ LGrass_TypeIndex:dc.w LGrass_Type00-LGrass_TypeIndex
 		dc.w LGrass_Type05-LGrass_TypeIndex
 ; ===========================================================================
 
-LGrass_Type00:				; XREF: LGrass_TypeIndex
+LGrass_Type00:
 		rts			; type 00 platform doesn't move
 ; ===========================================================================
 
-LGrass_Type01:				; XREF: LGrass_TypeIndex
+LGrass_Type01:
 		move.b	(v_oscillate+2).w,d0
 		move.w	#$20,d1
 		bra.s	LGrass_Move
 ; ===========================================================================
 
-LGrass_Type02:				; XREF: LGrass_TypeIndex
+LGrass_Type02:
 		move.b	(v_oscillate+6).w,d0
 		move.w	#$30,d1
 		bra.s	LGrass_Move
 ; ===========================================================================
 
-LGrass_Type03:				; XREF: LGrass_TypeIndex
+LGrass_Type03:
 		move.b	(v_oscillate+$A).w,d0
 		move.w	#$40,d1
 		bra.s	LGrass_Move
 ; ===========================================================================
 
-LGrass_Type04:				; XREF: LGrass_TypeIndex
+LGrass_Type04:
 		move.b	(v_oscillate+$E).w,d0
 		move.w	#$60,d1
 
@@ -145,7 +145,7 @@ loc_AFF2:
 		rts	
 ; ===========================================================================
 
-LGrass_Type05:				; XREF: LGrass_TypeIndex
+LGrass_Type05:
 		move.b	$34(a0),d0
 		tst.b	ob2ndRout(a0)
 		bne.s	loc_B010
@@ -224,7 +224,7 @@ sub_B09C:
 
 ; ===========================================================================
 
-LGrass_ChkDel:				; XREF: LGrass_Display
+LGrass_ChkDel:
 		tst.b	$35(a0)
 		beq.s	loc_B0C6
 		tst.b	obRender(a0)
@@ -235,7 +235,7 @@ loc_B0C6:
 		rts	
 ; ===========================================================================
 
-LGrass_DelFlames:			; XREF: LGrass_ChkDel
+LGrass_DelFlames:
 		moveq	#0,d2
 
 loc_B0E8:

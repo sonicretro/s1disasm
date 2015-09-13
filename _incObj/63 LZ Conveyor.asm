@@ -2,18 +2,18 @@
 ; Object 63 - platforms	on a conveyor belt (LZ)
 ; ---------------------------------------------------------------------------
 
-LabyrinthConvey:				; XREF: Obj_Index
+LabyrinthConvey:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	LCon_Index(pc,d0.w),d1
 		jsr	LCon_Index(pc,d1.w)
 		out_of_range.s	loc_1236A,$30(a0)
 
-LCon_Display:				; XREF: loc_1236A
+LCon_Display:
 		bra.w	DisplaySprite
 ; ===========================================================================
 
-loc_1236A:				; XREF: Obj63
+loc_1236A:
 		cmpi.b	#2,(v_act).w
 		bne.s	loc_12378
 		cmpi.w	#-$80,d0
@@ -92,7 +92,7 @@ loc_1244C:
 		bra.w	loc_124B2
 ; ===========================================================================
 
-loc_12460:				; XREF: LCon_Main
+loc_12460:
 		move.b	d0,$2F(a0)
 		andi.w	#$7F,d0
 		lea	(v_obj63).w,a2
@@ -112,7 +112,7 @@ LCon_Loop:
 		bsr.w	FindFreeObj
 		bne.s	loc_124AA
 
-LCon_MakePtfms:			; XREF: loc_12460
+LCon_MakePtfms:
 		_move.b	#id_LabyrinthConvey,0(a1)
 		move.w	(a2)+,obX(a1)
 		move.w	(a2)+,obY(a1)
@@ -163,7 +163,7 @@ loc_124FC:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-sub_12502:				; XREF: loc_124B2; loc_124C2
+sub_12502:
 		tst.b	(f_switch+$E).w
 		beq.s	loc_12520
 		tst.b	$3B(a0)
@@ -211,7 +211,7 @@ loc_1256A:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-LCon_ChangeDir:			; XREF: loc_123E2; sub_12502
+LCon_ChangeDir:
 		moveq	#0,d0
 		move.w	#-$100,d2
 		move.w	obX(a0),d0
@@ -249,7 +249,7 @@ loc_125AE:
 		rts	
 ; ===========================================================================
 
-loc_125C2:				; XREF: LCon_ChangeDir
+loc_125C2:
 		move.w	obY(a0),d1
 		sub.w	$36(a0),d1
 		beq.s	loc_125D4

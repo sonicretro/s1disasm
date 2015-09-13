@@ -2,7 +2,7 @@
 ; Object 3E - prison capsule
 ; ---------------------------------------------------------------------------
 
-Prison:					; XREF: Obj_Index
+Prison:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Pri_Index(pc,d0.w),d1

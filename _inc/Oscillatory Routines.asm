@@ -6,7 +6,7 @@
 
 ; Initialise the values
 
-OscillateNumInit:			; XREF: GM_Level
+OscillateNumInit:
 		lea	(v_oscillate).w,a1
 		lea	(.baselines).l,a2
 		moveq	#$20,d1
@@ -41,7 +41,7 @@ OscillateNumInit:			; XREF: GM_Level
 
 ; Oscillate values
 
-OscillateNumDo:				; XREF: GM_Level
+OscillateNumDo:
 		cmpi.b	#6,(v_player+obRoutine).w ; has Sonic just died?
 		bcc.s	.end		; if yes, branch
 		lea	(v_oscillate).w,a1

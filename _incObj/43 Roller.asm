@@ -2,7 +2,7 @@
 ; Object 43 - Roller enemy (SYZ)
 ; ---------------------------------------------------------------------------
 
-Roller:					; XREF: Obj_Index
+Roller:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Roll_Index(pc,d0.w),d1
@@ -66,7 +66,7 @@ Roll_Index2:	dc.w Roll_RollChk-Roll_Index2
 		dc.w Roll_MatchFloor-Roll_Index2
 ; ===========================================================================
 
-Roll_RollChk:				; XREF: Roll_Index2
+Roll_RollChk:
 		move.w	(v_player+obX).w,d0
 		subi.w	#$100,d0
 		bcs.s	loc_E0D2
@@ -82,7 +82,7 @@ loc_E0D2:
 		rts	
 ; ===========================================================================
 
-Roll_RollNoChk:			; XREF: Roll_Index2
+Roll_RollNoChk:
 		cmpi.b	#2,obAnim(a0)
 		beq.s	loc_E0F8
 		subq.w	#1,$30(a0)
@@ -100,7 +100,7 @@ loc_E0F8:
 		rts	
 ; ===========================================================================
 
-Roll_ChkJump:				; XREF: Roll_Index2
+Roll_ChkJump:
 		bsr.w	Roll_Stop
 		bsr.w	SpeedToPos
 		bsr.w	ObjFloorDist
@@ -122,7 +122,7 @@ locret_E12E:
 		rts	
 ; ===========================================================================
 
-Roll_MatchFloor:			; XREF: Roll_Index2
+Roll_MatchFloor:
 		bsr.w	ObjectFall
 		tst.w	obVelY(a0)
 		bmi.s	locret_E150
@@ -139,7 +139,7 @@ locret_E150:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Roll_Stop:				; XREF: Roll_ChkJump
+Roll_Stop:
 		tst.b	$32(a0)
 		bmi.s	locret_E188
 		move.w	(v_player+obX).w,d0

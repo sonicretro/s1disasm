@@ -2,7 +2,7 @@
 ; Subroutine to	do special water effects in Labyrinth Zone
 ; ---------------------------------------------------------------------------
 
-LZWaterFeatures:			; XREF: GM_Level
+LZWaterFeatures:
 		cmpi.b	#id_LZ,(v_zone).w ; check if level is LZ
 		bne.s	.notlabyrinth	; if not, branch
 		if Revision<>0
@@ -57,7 +57,7 @@ WaterHeight:	dc.w $B8	; Labyrinth 1
 ; Labyrinth dynamic water routines
 ; ---------------------------------------------------------------------------
 
-LZDynamicWater:				; XREF: LZWaterFeatures
+LZDynamicWater:
 		moveq	#0,d0
 		move.b	(v_act).w,d0
 		add.w	d0,d0
@@ -83,7 +83,7 @@ DynWater_Index:	dc.w DynWater_LZ1-DynWater_Index
 		dc.w DynWater_SBZ3-DynWater_Index
 ; ===========================================================================
 
-DynWater_LZ1:				; XREF: DynWater_Index
+DynWater_LZ1:
 		move.w	(v_screenposx).w,d0
 		move.b	(v_wtr_routine).w,d2
 		bne.s	.routine2
@@ -140,7 +140,7 @@ DynWater_LZ1:				; XREF: DynWater_Index
 		rts	
 ; ===========================================================================
 
-DynWater_LZ2:				; XREF: DynWater_Index
+DynWater_LZ2:
 		move.w	(v_screenposx).w,d0
 		move.w	#$328,d1
 		cmpi.w	#$500,d0
@@ -155,7 +155,7 @@ DynWater_LZ2:				; XREF: DynWater_Index
 		rts	
 ; ===========================================================================
 
-DynWater_LZ3:				; XREF: DynWater_Index
+DynWater_LZ3:
 		move.w	(v_screenposx).w,d0
 		move.b	(v_wtr_routine).w,d2
 		bne.s	.routine2
@@ -258,7 +258,7 @@ DynWater_LZ3:				; XREF: DynWater_Index
 		rts	
 ; ===========================================================================
 
-DynWater_SBZ3:				; XREF: DynWater_Index
+DynWater_SBZ3:
 		move.w	#$228,d1
 		cmpi.w	#$F00,(v_screenposx).w
 		bcs.s	.setwater
@@ -275,7 +275,7 @@ DynWater_SBZ3:				; XREF: DynWater_Index
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-LZWindTunnels:				; XREF: LZWaterFeatures
+LZWindTunnels:
 		tst.w	(v_debuguse).w	; is debug mode	being used?
 		bne.w	.quit	; if yes, branch
 		lea	(LZWind_Data+8).l,a2
@@ -375,7 +375,7 @@ LZWind_Data:	dc.w $A80, $300, $C10,  $380 ; act 1 values (set 1)
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-LZWaterSlides:				; XREF: LZWaterFeatures
+LZWaterSlides:
 		lea	(v_player).w,a1
 		btst	#1,obStatus(a1)	; is Sonic jumping?
 		bne.s	loc_3F6A	; if not, branch
@@ -438,6 +438,6 @@ Slide_Speeds:
 
 Slide_Chunks:
 		dc.b 2, 7, 3, $4C, $4B, 8, 4
-; byte_3FCF		; XREF: LZWaterSlides
+; byte_3FCF
 Slide_Chunks_End
 		even

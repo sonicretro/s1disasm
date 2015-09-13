@@ -2,7 +2,7 @@
 ; Object 25 - rings
 ; ---------------------------------------------------------------------------
 
-Rings:					; XREF: Obj_Index
+Rings:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Ring_Index(pc,d0.w),d1
@@ -80,7 +80,7 @@ Ring_MakeRings:
 		bsr.w	FindFreeObj
 		bne.s	loc_9C0E
 
-loc_9BBA:				; XREF: Ring_Main
+loc_9BBA:
 		_move.b	#id_Rings,0(a1)	; load ring object
 		addq.b	#2,obRoutine(a1)
 		move.w	d2,obX(a1)	; set x-axis position based on d2
@@ -136,7 +136,7 @@ Ring_Delete:	; Routine 8
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-CollectRing:				; XREF: Ring_Collect
+CollectRing:
 		addq.w	#1,(v_rings).w	; add 1 to rings
 		ori.b	#1,(f_ringcount).w ; update the rings counter
 		move.w	#sfx_Ring,d0	; play ring sound
@@ -163,7 +163,7 @@ CollectRing:				; XREF: Ring_Collect
 ; Object 37 - rings flying out of Sonic	when he's hit
 ; ---------------------------------------------------------------------------
 
-RingLoss:				; XREF: Obj_Index
+RingLoss:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	RLoss_Index(pc,d0.w),d1

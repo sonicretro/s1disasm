@@ -2,7 +2,7 @@
 ; Object 41 - springs
 ; ---------------------------------------------------------------------------
 
-Springs:				; XREF: Obj_Index
+Springs:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Spring_Index(pc,d0.w),d1
@@ -166,7 +166,7 @@ locret_DCAE:
 		rts	
 ; ===========================================================================
 
-Spring_BounceDwn:			; XREF: Spring_Dwn
+Spring_BounceDwn:
 		addq.b	#2,obRoutine(a0)
 		subq.w	#8,obY(a1)
 		move.w	spring_pow(a0),obVelY(a1)

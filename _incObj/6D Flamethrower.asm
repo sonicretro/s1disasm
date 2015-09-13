@@ -2,7 +2,7 @@
 ; Object 6D - flame thrower (SBZ)
 ; ---------------------------------------------------------------------------
 
-Flamethrower:				; XREF: Obj_Index
+Flamethrower:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Flame_Index(pc,d0.w),d1

@@ -2,7 +2,7 @@
 ; Object 5F - walking bomb enemy (SLZ, SBZ)
 ; ---------------------------------------------------------------------------
 
-Bomb:					; XREF: Obj_Index
+Bomb:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Bom_Index(pc,d0.w),d1
@@ -49,7 +49,7 @@ Bom_Action:	; Routine 2
 		dc.w .explode-.index
 ; ===========================================================================
 
-.walk:					; XREF: .index
+.walk:
 		bsr.w	.chksonic
 		subq.w	#1,bom_time(a0)	; subtract 1 from time delay
 		bpl.s	.noflip		; if time remains, branch
@@ -65,7 +65,7 @@ Bom_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-.wait:					; XREF: .index
+.wait:
 		bsr.w	.chksonic
 		subq.w	#1,bom_time(a0)	; subtract 1 from time delay
 		bmi.s	.stopwalking	; if time expires, branch
@@ -81,7 +81,7 @@ Bom_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-.explode:				; XREF: .index
+.explode:
 		subq.w	#1,bom_time(a0)	; subtract 1 from time delay
 		bpl.s	.noexplode	; if time remains, branch
 		_move.b	#id_ExplosionBomb,0(a0) ; change bomb into an explosion
@@ -91,7 +91,7 @@ Bom_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-.chksonic:				; XREF: .walk; .wait
+.chksonic:
 		move.w	(v_player+obX).w,d0
 		sub.w	obX(a0),d0
 		bcc.s	.isleft
@@ -165,7 +165,7 @@ loc_11B7C:
 		bsr.w	FindNextFreeObj
 		bne.s	.fail
 
-.makeshrapnel:			; XREF: loc_11B7C
+.makeshrapnel:
 		_move.b	#id_Bomb,0(a1)	; load shrapnel	object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)

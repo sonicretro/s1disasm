@@ -1,7 +1,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Swing_Move:				; XREF: Swing_Action; Swing_Action2
+Swing_Move:
 		move.b	(v_oscillate+$1A).w,d0
 		move.w	#$80,d1
 		btst	#0,obStatus(a0)
@@ -17,7 +17,7 @@ loc_7B78:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Obj48_Move:				; XREF: Obj48_Display2
+Obj48_Move:
 		tst.b	$3D(a0)
 		bne.s	loc_7B9C
 		move.w	$3E(a0),d0
@@ -47,7 +47,7 @@ loc_7BB6:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Swing_Move2:				; XREF: Swing_Move; Obj48_Display
+Swing_Move2:
 		bsr.w	CalcSine
 		move.w	$38(a0),d2
 		move.w	$3A(a0),d3
@@ -78,12 +78,12 @@ loc_7BCE:
 
 ; ===========================================================================
 
-Swing_ChkDel:				; XREF: Swing_Action; Swing_Action2
+Swing_ChkDel:
 		out_of_range.w	Swing_DelAll,$3A(a0)
 		rts	
 ; ===========================================================================
 
-Swing_DelAll:				; XREF: Swing_ChkDel
+Swing_DelAll:
 		moveq	#0,d2
 		lea	obSubtype(a0),a2
 		move.b	(a2)+,d2

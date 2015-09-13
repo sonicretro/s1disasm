@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_JumpAngle:			; XREF: Obj01_MdJump; Obj01_MdJump2
+Sonic_JumpAngle:
 		move.b	obAngle(a0),d0	; get Sonic's angle
 		beq.s	locret_135A2	; if already 0,	branch
 		bpl.s	loc_13598	; if higher than 0, branch

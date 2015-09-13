@@ -2,7 +2,7 @@
 ; Object 69 - spinning platforms and trapdoors (SBZ)
 ; ---------------------------------------------------------------------------
 
-SpinPlatform:				; XREF: Obj_Index
+SpinPlatform:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Spin_Index(pc,d0.w),d1

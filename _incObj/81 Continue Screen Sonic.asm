@@ -2,7 +2,7 @@
 ; Object 81 - Sonic on the continue screen
 ; ---------------------------------------------------------------------------
 
-ContSonic:				; XREF: Obj_Index
+ContSonic:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	CSon_Index(pc,d0.w),d1
