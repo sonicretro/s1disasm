@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-PauseGame:				; XREF: Level_MainLoop; et al
+PauseGame:
 		nop	
 		tst.b	(v_lives).w	; do you have any lives	left?
 		beq.s	Unpause		; if not, branch

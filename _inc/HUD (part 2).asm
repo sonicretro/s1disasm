@@ -1,12 +1,12 @@
 ; ---------------------------------------------------------------------------
 ; HUD counter sizes
 ; ---------------------------------------------------------------------------
-Hud_100000:	dc.l 100000		; XREF: Hud_Score
+Hud_100000:	dc.l 100000
 Hud_10000:	dc.l 10000
-Hud_1000:	dc.l 1000		; XREF: Hud_TimeRingBonus
-Hud_100:	dc.l 100		; XREF: Hud_Rings
-Hud_10:		dc.l 10			; XREF: ContScrCounter; Hud_Secs; Hud_Lives
-Hud_1:		dc.l 1			; XREF: Hud_Mins
+Hud_1000:	dc.l 1000
+Hud_100:	dc.l 100
+Hud_10:		dc.l 10
+Hud_1:		dc.l 1
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	load time numbers patterns
@@ -15,7 +15,7 @@ Hud_1:		dc.l 1			; XREF: Hud_Mins
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Hud_Mins:				; XREF: Hud_ChkTime
+Hud_Mins:
 		lea	(Hud_1).l,a2
 		moveq	#0,d6
 		bra.s	loc_1C9BA
@@ -25,7 +25,7 @@ Hud_Mins:				; XREF: Hud_ChkTime
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Hud_Secs:				; XREF: Hud_ChkTime
+Hud_Secs:
 		lea	(Hud_10).l,a2
 		moveq	#1,d6
 
@@ -83,7 +83,7 @@ loc_1C9D6:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Hud_TimeRingBonus:			; XREF: Hud_ChkBonus
+Hud_TimeRingBonus:
 		lea	(Hud_1000).l,a2
 		moveq	#3,d6
 		moveq	#0,d4
@@ -151,7 +151,7 @@ Hud_ClrBonusLoop:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Hud_Lives:				; XREF: Hud_ChkLives
+Hud_Lives:
 		hudVRAM	$FBA0		; set VRAM address
 		moveq	#0,d1
 		move.b	(v_lives).w,d1	; load number of lives

@@ -2,7 +2,7 @@
 ; Object 3A - "SONIC GOT THROUGH" title	card
 ; ---------------------------------------------------------------------------
 
-GotThroughCard:					; XREF: Obj_Index
+GotThroughCard:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Got_Index(pc,d0.w),d1
@@ -64,7 +64,7 @@ Got_Move:	; Routine 2
 	Got_ChgPos:
 		add.w	d1,obX(a0)	; change item's position
 
-	loc_C5FE:			; XREF: loc_C61A
+	loc_C5FE:
 		move.w	obX(a0),d0
 		bmi.s	locret_C60E
 		cmpi.w	#$200,d0	; has item moved beyond	$200 on	x-axis?
@@ -76,12 +76,12 @@ locret_C60E:
 		rts	
 ; ===========================================================================
 
-loc_C610:				; XREF: loc_C61A
+loc_C610:
 		move.b	#$E,obRoutine(a0)
 		bra.w	Got_Move2
 ; ===========================================================================
 
-loc_C61A:				; XREF: Got_Move
+loc_C61A:
 		cmpi.b	#$E,($FFFFD724).w
 		beq.s	loc_C610
 		cmpi.b	#4,obFrame(a0)
@@ -129,7 +129,7 @@ locret_C692:
 		rts	
 ; ===========================================================================
 
-Got_AddBonus:				; XREF: Got_ChkBonus
+Got_AddBonus:
 		jsr	AddPoints
 		move.b	(v_vbla_byte).w,d0
 		andi.b	#3,d0
@@ -153,7 +153,7 @@ Got_NextLevel:	; Routine $A
 		bra.s	Got_Display2
 ; ===========================================================================
 
-Got_ChkSS:				; XREF: Got_NextLevel
+Got_ChkSS:
 		clr.b	(v_lastlamp).w	; clear	lamppost counter
 		tst.b	(f_bigring).w	; has Sonic jumped into	a giant	ring?
 		beq.s	VBla_08A	; if not, branch
@@ -161,10 +161,10 @@ Got_ChkSS:				; XREF: Got_NextLevel
 		bra.s	Got_Display2
 ; ===========================================================================
 
-VBla_08A:				; XREF: Got_ChkSS
+VBla_08A:
 		move.w	#1,(f_restart).w ; restart level
 
-Got_Display2:				; XREF: Got_NextLevel, Got_ChkSS
+Got_Display2:
 		bra.w	DisplaySprite
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -196,7 +196,7 @@ locret_C748:
 		rts	
 ; ===========================================================================
 
-Got_SBZ2:				; XREF: Got_Move2
+Got_SBZ2:
 		cmpi.b	#4,obFrame(a0)
 		bne.w	DeleteObject
 		addq.b	#2,obRoutine(a0)

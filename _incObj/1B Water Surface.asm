@@ -2,7 +2,7 @@
 ; Object 1B - water surface (LZ)
 ; ---------------------------------------------------------------------------
 
-WaterSurface:				; XREF: Obj_Index
+WaterSurface:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Surf_Index(pc,d0.w),d1

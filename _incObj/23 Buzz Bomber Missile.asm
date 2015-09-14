@@ -2,7 +2,7 @@
 ; Object 23 - missile that Buzz	Bomber throws
 ; ---------------------------------------------------------------------------
 
-Missile:				; XREF: Obj_Index
+Missile:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Msl_Index(pc,d0.w),d1
@@ -49,7 +49,7 @@ Msl_Animate:	; Routine 2
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Msl_ChkCancel:				; XREF: Msl_Main
+Msl_ChkCancel:
 		movea.l	parent(a0),a1
 		cmpi.b	#id_ExplosionItem,0(a1) ; has Buzz Bomber been destroyed?
 		beq.s	Msl_Delete	; if yes, branch
@@ -90,7 +90,7 @@ Msl_FromNewt:	; Routine 8
 		bpl.s	Msl_Delete
 		bsr.w	SpeedToPos
 
-Msl_Animate2:				; XREF: Msl_Main
+Msl_Animate2:
 		lea	(Ani_Missile).l,a1
 		bsr.w	AnimateSprite
 		bsr.w	DisplaySprite

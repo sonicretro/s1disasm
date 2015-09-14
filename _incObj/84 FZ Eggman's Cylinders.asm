@@ -6,7 +6,7 @@ Obj84_Delete:
 		jmp	DeleteObject
 ; ===========================================================================
 
-EggmanCylinder:				; XREF: Obj_Index
+EggmanCylinder:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Obj84_Index(pc,d0.w),d0
@@ -127,7 +127,7 @@ off_1A590:	dc.w loc_1A598-off_1A590
 		dc.w loc_1A604-off_1A590
 ; ===========================================================================
 
-loc_1A598:				; XREF: off_1A590
+loc_1A598:
 		tst.b	$29(a0)
 		bne.s	loc_1A5D4
 		movea.l	$34(a0),a1
@@ -164,7 +164,7 @@ locret_1A602:
 		rts	
 ; ===========================================================================
 
-loc_1A604:				; XREF: off_1A590
+loc_1A604:
 		bset	#1,obRender(a0)
 		tst.b	$29(a0)
 		bne.s	loc_1A646

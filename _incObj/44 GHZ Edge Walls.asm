@@ -2,7 +2,7 @@
 ; Object 44 - edge walls (GHZ)
 ; ---------------------------------------------------------------------------
 
-EdgeWalls:				; XREF: Obj_Index
+EdgeWalls:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Edge_Index(pc,d0.w),d1

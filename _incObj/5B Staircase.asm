@@ -2,7 +2,7 @@
 ; Object 5B - blocks that form a staircase (SLZ)
 ; ---------------------------------------------------------------------------
 
-Staircase:				; XREF: Obj_Index
+Staircase:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Stair_Index(pc,d0.w),d1
@@ -101,7 +101,7 @@ Stair_TypeIndex:dc.w Stair_Type00-Stair_TypeIndex
 		dc.w Stair_Type01-Stair_TypeIndex
 ; ===========================================================================
 
-Stair_Type00:				; XREF: Stair_TypeIndex
+Stair_Type00:
 		tst.w	$34(a0)
 		bne.s	loc_10FC0
 		cmpi.b	#1,$36(a0)
@@ -119,7 +119,7 @@ loc_10FC0:
 		rts	
 ; ===========================================================================
 
-Stair_Type02:				; XREF: Stair_TypeIndex
+Stair_Type02:
 		tst.w	$34(a0)
 		bne.s	loc_10FE0
 		tst.b	$36(a0)
@@ -152,7 +152,7 @@ loc_10FEC:
 		rts	
 ; ===========================================================================
 
-Stair_Type01:				; XREF: Stair_TypeIndex
+Stair_Type01:
 		lea	$38(a0),a1
 		cmpi.b	#$80,(a1)
 		beq.s	locret_11038

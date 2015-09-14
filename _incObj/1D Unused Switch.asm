@@ -3,7 +3,7 @@
 ; (this	is not used anywhere in	the game)
 ; ---------------------------------------------------------------------------
 
-MagicSwitch:					; XREF: Obj_Index
+MagicSwitch:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Swi_Index(pc,d0.w),d1
@@ -52,7 +52,7 @@ Swi_Delete:	; Routine 4
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Swi_ChkTouch:				; XREF: Swi_Action
+Swi_ChkTouch:
 		lea	(v_player).w,a1
 		move.w	obX(a1),d0
 		sub.w	obX(a0),d0

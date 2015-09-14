@@ -2,7 +2,7 @@
 ; Object 58 - giant spiked balls (SYZ)
 ; ---------------------------------------------------------------------------
 
-BigSpikeBall:				; XREF: Obj_Index
+BigSpikeBall:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	BBall_Index(pc,d0.w),d1
@@ -54,11 +54,11 @@ BBall_Move:	; Routine 2
 		dc.w @type03-@index
 ; ===========================================================================
 
-@type00:				; XREF: @index
+@type00:
 		rts	
 ; ===========================================================================
 
-@type01:				; XREF: @index
+@type01:
 		move.w	#$60,d1
 		moveq	#0,d0
 		move.b	(v_oscillate+$E).w,d0
@@ -74,7 +74,7 @@ BBall_Move:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@type02:				; XREF: @index
+@type02:
 		move.w	#$60,d1
 		moveq	#0,d0
 		move.b	(v_oscillate+$E).w,d0
@@ -90,7 +90,7 @@ BBall_Move:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@type03:				; XREF: @index
+@type03:
 		move.w	bball_speed(a0),d0
 		add.w	d0,obAngle(a0)
 		move.b	obAngle(a0),d0

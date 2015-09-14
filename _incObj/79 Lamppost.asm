@@ -2,7 +2,7 @@
 ; Object 79 - lamppost
 ; ---------------------------------------------------------------------------
 
-Lamppost:				; XREF: Obj_Index
+Lamppost:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Lamp_Index(pc,d0.w),d1
@@ -165,7 +165,7 @@ Lamp_StoreInfo:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Lamp_LoadInfo:				; XREF: LevelSizeLoad
+Lamp_LoadInfo:
 		move.b	($FFFFFE31).w,(v_lastlamp).w
 		move.w	($FFFFFE32).w,(v_player+obX).w
 		move.w	($FFFFFE34).w,(v_player+obY).w

@@ -2,7 +2,7 @@
 ; Object 2E - contents of monitors
 ; ---------------------------------------------------------------------------
 
-PowerUp:				; XREF: Obj_Index
+PowerUp:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Pow_Index(pc,d0.w),d1

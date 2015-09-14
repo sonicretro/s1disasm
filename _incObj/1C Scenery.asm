@@ -2,7 +2,7 @@
 ; Object 1C - scenery (GHZ bridge stump, SLZ lava thrower)
 ; ---------------------------------------------------------------------------
 
-Scenery:				; XREF: Obj_Index
+Scenery:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Scen_Index(pc,d0.w),d1

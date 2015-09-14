@@ -2,7 +2,7 @@
 ; Object 70 - large girder block (SBZ)
 ; ---------------------------------------------------------------------------
 
-Girder:					; XREF: Obj_Index
+Girder:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Gird_Index(pc,d0.w),d1

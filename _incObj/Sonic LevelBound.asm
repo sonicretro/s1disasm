@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_LevelBound:			; XREF: Obj01_MdNormal; et al
+Sonic_LevelBound:
 		move.l	obX(a0),d1
 		move.w	obVelX(a0),d0
 		ext.l	d0

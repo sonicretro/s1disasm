@@ -11,7 +11,7 @@ Bri_Platform:	; Routine 4
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Bri_WalkOff:				; XREF: Bri_Platform
+Bri_WalkOff:
 		moveq	#0,d1
 		move.b	obSubtype(a0),d1
 		lsl.w	#3,d1

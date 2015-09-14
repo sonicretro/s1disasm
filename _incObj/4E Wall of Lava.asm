@@ -2,7 +2,7 @@
 ; Object 4E - advancing	wall of	lava (MZ)
 ; ---------------------------------------------------------------------------
 
-LavaWall:				; XREF: Obj_Index
+LavaWall:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	LWall_Index(pc,d0.w),d1

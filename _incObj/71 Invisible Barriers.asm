@@ -2,7 +2,7 @@
 ; Object 71 - invisible	solid barriers
 ; ---------------------------------------------------------------------------
 
-Invisibarrier:				; XREF: Obj_Index
+Invisibarrier:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Invis_Index(pc,d0.w),d1

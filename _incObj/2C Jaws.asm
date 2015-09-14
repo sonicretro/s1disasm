@@ -2,7 +2,7 @@
 ; Object 2C - Jaws enemy (LZ)
 ; ---------------------------------------------------------------------------
 
-Jaws:					; XREF: Obj_Index
+Jaws:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Jaws_Index(pc,d0.w),d1

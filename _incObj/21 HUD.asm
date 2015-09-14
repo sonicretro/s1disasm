@@ -2,7 +2,7 @@
 ; Object 21 - SCORE, TIME, RINGS
 ; ---------------------------------------------------------------------------
 
-HUD:					; XREF: Obj_Index
+HUD:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	HUD_Index(pc,d0.w),d1

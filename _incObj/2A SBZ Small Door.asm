@@ -2,7 +2,7 @@
 ; Object 2A - small vertical door (SBZ)
 ; ---------------------------------------------------------------------------
 
-AutoDoor:				; XREF: Obj_Index
+AutoDoor:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	ADoor_Index(pc,d0.w),d1

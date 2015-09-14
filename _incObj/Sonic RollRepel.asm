@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_RollRepel:			; XREF: Obj01_MdRoll
+Sonic_RollRepel:
 		move.b	obAngle(a0),d0
 		addi.b	#$60,d0
 		cmpi.b	#-$40,d0

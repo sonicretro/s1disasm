@@ -2,7 +2,7 @@
 ; Object 42 - Newtron enemy (GHZ)
 ; ---------------------------------------------------------------------------
 
-Newtron:				; XREF: Obj_Index
+Newtron:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Newt_Index(pc,d0.w),d1
@@ -39,7 +39,7 @@ Newt_Action:	; Routine 2
 		dc.w @type01-@index
 ; ===========================================================================
 
-@chkdistance:				; XREF: @index
+@chkdistance:
 		bset	#0,obStatus(a0)
 		move.w	(v_player+obX).w,d0
 		sub.w	obX(a0),d0
@@ -64,7 +64,7 @@ Newt_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@type00:				; XREF: @index
+@type00:
 		cmpi.b	#4,obFrame(a0)	; has "appearing" animation finished?
 		bcc.s	@fall		; is yes, branch
 		bset	#0,obStatus(a0)
@@ -107,7 +107,7 @@ Newt_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@matchfloor:				; XREF: @index
+@matchfloor:
 		bsr.w	SpeedToPos
 		bsr.w	ObjFloorDist
 		cmpi.w	#-8,d1
@@ -123,12 +123,12 @@ Newt_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@speed:					; XREF: @index
+@speed:
 		bsr.w	SpeedToPos
 		rts	
 ; ===========================================================================
 
-@type01:				; XREF: @index
+@type01:
 		cmpi.b	#1,obFrame(a0)
 		bne.s	@firemissile
 		move.b	#$C,obColType(a0)

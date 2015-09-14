@@ -12,7 +12,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-CalcSine:				; XREF: SS_BGAnimate; et al
+CalcSine:
 		andi.w	#$FF,d0
 		add.w	d0,d0
 		addi.w	#$80,d0

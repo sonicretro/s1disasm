@@ -2,7 +2,7 @@
 ; Object 56 - floating blocks (SYZ/SLZ), large doors (LZ)
 ; ---------------------------------------------------------------------------
 
-FloatingBlock:				; XREF: Obj_Index
+FloatingBlock:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	FBlock_Index(pc,d0.w),d1
@@ -151,12 +151,12 @@ FBlock_Action:	; Routine 2
 		dc.w @type0C-@index, @type0D-@index
 ; ===========================================================================
 
-@type00:				; XREF: @index
+@type00:
 ; doesn't move
 		rts	
 ; ===========================================================================
 
-@type01:				; XREF: @index
+@type01:
 ; moves side-to-side
 		move.w	#$40,d1		; set move distance
 		moveq	#0,d0
@@ -164,7 +164,7 @@ FBlock_Action:	; Routine 2
 		bra.s	@moveLR
 ; ===========================================================================
 
-@type02:				; XREF: @index
+@type02:
 ; moves side-to-side
 		move.w	#$80,d1		; set move distance
 		moveq	#0,d0
@@ -183,7 +183,7 @@ FBlock_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@type03:				; XREF: @index
+@type03:
 ; moves up/down
 		move.w	#$40,d1		; set move distance
 		moveq	#0,d0
@@ -191,7 +191,7 @@ FBlock_Action:	; Routine 2
 		bra.s	@moveUD
 ; ===========================================================================
 
-@type04:				; XREF: @index
+@type04:
 ; moves up/down
 		move.w	#$80,d1		; set move distance
 		moveq	#0,d0
@@ -210,7 +210,7 @@ FBlock_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@type05:				; XREF: @index
+@type05:
 ; moves up when a switch is pressed
 		tst.b	$38(a0)
 		bne.s	@loc_104A4
@@ -268,7 +268,7 @@ FBlock_Action:	; Routine 2
 		bra.s	@loc_104AE
 ; ===========================================================================
 
-@type06:				; XREF: @index
+@type06:
 		tst.b	$38(a0)
 		bne.s	@loc_10500
 		lea	(f_switch).w,a2
@@ -310,7 +310,7 @@ FBlock_Action:	; Routine 2
 		bra.s	@loc_10512
 ; ===========================================================================
 
-@type07:				; XREF: @index
+@type07:
 		tst.b	$38(a0)
 		bne.s	@loc_1055E
 		tst.b	(f_switch+$F).w	; has switch number $F been pressed?
@@ -335,7 +335,7 @@ FBlock_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@type0C:				; XREF: @index
+@type0C:
 		tst.b	$38(a0)
 		bne.s	@loc_10598
 		lea	(f_switch).w,a2
@@ -375,7 +375,7 @@ FBlock_Action:	; Routine 2
 		bra.s	@loc_105A2
 ; ===========================================================================
 
-@type0D:				; XREF: @index
+@type0D:
 		tst.b	$38(a0)
 		bne.s	@loc_105F8
 		lea	(f_switch).w,a2
@@ -416,7 +416,7 @@ FBlock_Action:	; Routine 2
 		bra.s	@wtf
 ; ===========================================================================
 
-@type08:				; XREF: @index
+@type08:
 		move.w	#$10,d1
 		moveq	#0,d0
 		move.b	(v_oscillate+$2A).w,d0
@@ -425,7 +425,7 @@ FBlock_Action:	; Routine 2
 		bra.s	@square
 ; ===========================================================================
 
-@type09:				; XREF: @index
+@type09:
 		move.w	#$30,d1
 		moveq	#0,d0
 		move.b	(v_oscillate+$2E).w,d0
@@ -433,7 +433,7 @@ FBlock_Action:	; Routine 2
 		bra.s	@square
 ; ===========================================================================
 
-@type0A:				; XREF: @index
+@type0A:
 		move.w	#$50,d1
 		moveq	#0,d0
 		move.b	(v_oscillate+$32).w,d0
@@ -441,7 +441,7 @@ FBlock_Action:	; Routine 2
 		bra.s	@square
 ; ===========================================================================
 
-@type0B:				; XREF: @index
+@type0B:
 		move.w	#$70,d1
 		moveq	#0,d0
 		move.b	(v_oscillate+$36).w,d0

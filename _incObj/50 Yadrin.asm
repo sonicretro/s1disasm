@@ -1,7 +1,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Yad_ChkWall:				; XREF: Yad_FixToFloor
+Yad_ChkWall:
 		move.w	(v_framecount).w,d0
 		add.w	d7,d0
 		andi.w	#3,d0
@@ -35,7 +35,7 @@ loc_F836:
 ; Object 50 - Yadrin enemy (SYZ)
 ; ---------------------------------------------------------------------------
 
-Yadrin:					; XREF: Obj_Index
+Yadrin:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Yad_Index(pc,d0.w),d1
@@ -82,7 +82,7 @@ Yad_Index2:	dc.w Yad_Move-Yad_Index2
 		dc.w Yad_FixToFloor-Yad_Index2
 ; ===========================================================================
 
-Yad_Move:				; XREF: Yad_Index2
+Yad_Move:
 		subq.w	#1,timedelay(a0) ; subtract 1 from pause time
 		bpl.s	locret_F8E2	; if time remains, branch
 		addq.b	#2,ob2ndRout(a0)
@@ -96,7 +96,7 @@ Yad_Move:				; XREF: Yad_Index2
 		rts	
 ; ===========================================================================
 
-Yad_FixToFloor:			; XREF: Yad_Index2
+Yad_FixToFloor:
 		bsr.w	SpeedToPos
 		bsr.w	ObjFloorDist
 		cmpi.w	#-8,d1

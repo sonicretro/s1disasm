@@ -2,7 +2,7 @@
 ; Object 5A - platforms	moving in circles (SLZ)
 ; ---------------------------------------------------------------------------
 
-CirclingPlatform:			; XREF: Obj_Index
+CirclingPlatform:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Circ_Index(pc,d0.w),d1
@@ -57,7 +57,7 @@ Circ_Types:
 		dc.w @type04-@index
 ; ===========================================================================
 
-@type00:				; XREF: @index
+@type00:
 		move.b	(v_oscillate+$22).w,d1 ; get rotating value
 		subi.b	#$50,d1		; set radius of circle
 		ext.w	d1
@@ -83,7 +83,7 @@ Circ_Types:
 		rts	
 ; ===========================================================================
 
-@type04:				; XREF: @index
+@type04:
 		move.b	(v_oscillate+$22).w,d1
 		subi.b	#$50,d1
 		ext.w	d1

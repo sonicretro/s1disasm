@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_Floor:				; XREF: Obj01_MdJump; Obj01_MdJump2
+Sonic_Floor:
 		move.w	obVelX(a0),d1
 		move.w	obVelY(a0),d2
 		jsr	(CalcAngle).l

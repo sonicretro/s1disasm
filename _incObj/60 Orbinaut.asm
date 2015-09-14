@@ -2,7 +2,7 @@
 ; Object 60 - Orbinaut enemy (LZ, SLZ, SBZ)
 ; ---------------------------------------------------------------------------
 
-Orbinaut:				; XREF: Obj_Index
+Orbinaut:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Orb_Index(pc,d0.w),d1

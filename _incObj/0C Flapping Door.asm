@@ -2,7 +2,7 @@
 ; Object 0C - flapping door (LZ)
 ; ---------------------------------------------------------------------------
 
-FlapDoor:				; XREF: Obj_Index
+FlapDoor:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Flap_Index(pc,d0.w),d1

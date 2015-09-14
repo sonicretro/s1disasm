@@ -2,7 +2,7 @@
 ; Object 86 - energy balls (FZ)
 ; ---------------------------------------------------------------------------
 
-BossPlasma:				; XREF: Obj_Index
+BossPlasma:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Obj86_Index(pc,d0.w),d0
@@ -140,7 +140,7 @@ Obj86_Index2:	dc.w loc_1A9A6-Obj86_Index2
 		dc.w loc_1AA1E-Obj86_Index2
 ; ===========================================================================
 
-loc_1A9A6:				; XREF: Obj86_Index2
+loc_1A9A6:
 		move.w	$30(a0),d0
 		sub.w	obX(a0),d0
 		asl.w	#4,d0
@@ -150,7 +150,7 @@ loc_1A9A6:				; XREF: Obj86_Index2
 		rts	
 ; ===========================================================================
 
-loc_1A9C0:				; XREF: Obj86_Index2
+loc_1A9C0:
 		tst.w	obVelX(a0)
 		beq.s	loc_1A9E6
 		jsr	SpeedToPos
@@ -180,7 +180,7 @@ locret_1AA1C:
 		rts	
 ; ===========================================================================
 
-loc_1AA1E:				; XREF: Obj86_Index2
+loc_1AA1E:
 		jsr	SpeedToPos
 		cmpi.w	#$5E0,obY(a0)
 		bcc.s	loc_1AA34

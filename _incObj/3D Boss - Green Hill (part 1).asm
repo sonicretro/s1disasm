@@ -2,7 +2,7 @@
 ; Object 3D - Eggman (GHZ)
 ; ---------------------------------------------------------------------------
 
-BossGreenHill:				; XREF: Obj_Index
+BossGreenHill:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	BGHZ_Index(pc,d0.w),d1
@@ -29,7 +29,7 @@ BGHZ_Loop:
 		jsr	FindNextFreeObj
 		bne.s	loc_17772
 
-BGHZ_LoadBoss:				; XREF: BGHZ_Main
+BGHZ_LoadBoss:
 		move.b	(a2)+,obRoutine(a1)
 		move.b	#id_BossGreenHill,0(a1)
 		move.w	obX(a0),obX(a1)
@@ -71,7 +71,7 @@ BGHZ_ShipIndex:	dc.w BGHZ_ShipStart-BGHZ_ShipIndex
 		dc.w loc_179F6-BGHZ_ShipIndex
 ; ===========================================================================
 
-BGHZ_ShipStart:			; XREF: BGHZ_ShipIndex
+BGHZ_ShipStart:
 		move.w	#$100,obVelY(a0) ; move ship down
 		bsr.w	BossMove
 		cmpi.w	#$338,$38(a0)
@@ -115,7 +115,7 @@ locret_1784A:
 		rts	
 ; ===========================================================================
 
-loc_1784C:				; XREF: loc_177E6
+loc_1784C:
 		moveq	#100,d0
 		bsr.w	AddPoints
 		move.b	#8,ob2ndRout(a0)

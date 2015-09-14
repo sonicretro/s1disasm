@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_Water:				; XREF: loc_12C7E
+Sonic_Water:
 		cmpi.b	#1,(v_zone).w	; is level LZ?
 		beq.s	@islabyrinth	; if yes, branch
 

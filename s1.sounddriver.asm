@@ -82,7 +82,7 @@ SoundPriorities:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 ; sub_71B4C:
-UpdateMusic:				; XREF: VBlank; HBlank
+UpdateMusic:
 		stopZ80
 		nop	
 		nop	
@@ -573,7 +573,7 @@ PauseMusic:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sound_Play:				; XREF: UpdateMusic
+Sound_Play:
 		movea.l	(Go_SoundPriorities).l,a0
 		lea	v_playsnd1(a6),a1	; load music track number
 		move.b	v_sndprio(a6),d3	; Get priority of currently playing SFX
@@ -645,7 +645,7 @@ Sound_ChkValue:
 		rts	
 ; ===========================================================================
 
-Sound_E0toE4:				; XREF: Sound_ChkValue
+Sound_E0toE4:
 		subi.b	#flg__First,d7
 		lsl.w	#2,d7
 		jmp	Sound_ExIndex(pc,d7.w)

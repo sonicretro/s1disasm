@@ -2,7 +2,7 @@
 ; Object 45 - spiked metal block from beta version (MZ)
 ; ---------------------------------------------------------------------------
 
-SideStomp:				; XREF: Obj_Index
+SideStomp:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	SStom_Index(pc,d0.w),d1
@@ -110,7 +110,7 @@ SStom_ChkDel:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-SStom_Move:				; XREF: SStom_Solid
+SStom_Move:
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0
 		add.w	d0,d0
@@ -125,7 +125,7 @@ off_BAD6:	dc.w loc_BADA-off_BAD6
 		dc.w loc_BADA-off_BAD6
 ; ===========================================================================
 
-loc_BADA:				; XREF: off_BAD6
+loc_BADA:
 		tst.w	$36(a0)
 		beq.s	loc_BB08
 		tst.w	$38(a0)
@@ -143,7 +143,7 @@ loc_BAEC:
 		bra.s	loc_BB3C
 ; ===========================================================================
 
-loc_BB08:				; XREF: loc_BADA
+loc_BB08:
 		move.w	$34(a0),d1
 		cmp.w	$32(a0),d1
 		beq.s	loc_BB3C

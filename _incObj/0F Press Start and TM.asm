@@ -2,7 +2,7 @@
 ; Object 0F - "PRESS START BUTTON" and "TM" from title screen
 ; ---------------------------------------------------------------------------
 
-PSBTM:					; XREF: Obj_Index
+PSBTM:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	PSB_Index(pc,d0.w),d1
