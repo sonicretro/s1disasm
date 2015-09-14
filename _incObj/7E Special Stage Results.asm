@@ -2,7 +2,7 @@
 ; Object 7E - special stage results screen
 ; ---------------------------------------------------------------------------
 
-SSResult:				; XREF: Obj_Index
+SSResult:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	SSR_Index(pc,d0.w),d1
@@ -74,7 +74,7 @@ SSR_Move:	; Routine 2
 SSR_ChgPos:
 		add.w	d1,obX(a0)	; change item's position
 
-loc_C85A:				; XREF: loc_C86C
+loc_C85A:
 		move.w	obX(a0),d0
 		bmi.s	locret_C86A
 		cmpi.w	#$200,d0	; has item moved beyond	$200 on	x-axis?
@@ -86,7 +86,7 @@ locret_C86A:
 		rts	
 ; ===========================================================================
 
-loc_C86C:				; XREF: SSR_Move
+loc_C86C:
 		cmpi.b	#2,obFrame(a0)
 		bne.s	loc_C85A
 		addq.b	#2,obRoutine(a0)

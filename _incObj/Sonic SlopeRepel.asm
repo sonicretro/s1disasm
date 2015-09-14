@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_SlopeRepel:			; XREF: Obj01_MdNormal; Obj01_MdRoll
+Sonic_SlopeRepel:
 		nop	
 		tst.b	$38(a0)
 		bne.s	locret_13580

@@ -2,7 +2,7 @@
 ; Object 73 - Eggman (MZ)
 ; ---------------------------------------------------------------------------
 
-BossMarble:				; XREF: Obj_Index
+BossMarble:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Obj73_Index(pc,d0.w),d1
@@ -38,7 +38,7 @@ Obj73_Loop:
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 
-Obj73_LoadBoss:				; XREF: Obj73_Main
+Obj73_LoadBoss:
 		bclr	#0,obStatus(a0)
 		clr.b	ob2ndRout(a1)
 		move.b	(a2)+,obRoutine(a1)
@@ -71,7 +71,7 @@ Obj73_ShipIndex:dc.w loc_18302-Obj73_ShipIndex
 		dc.w loc_18582-Obj73_ShipIndex
 ; ===========================================================================
 
-loc_18302:				; XREF: Obj73_ShipIndex
+loc_18302:
 		move.b	$3F(a0),d0
 		addq.b	#2,$3F(a0)
 		jsr	(CalcSine).l
@@ -120,7 +120,7 @@ locret_18390:
 		rts	
 ; ===========================================================================
 
-loc_18392:				; XREF: loc_1833E
+loc_18392:
 		moveq	#100,d0
 		bsr.w	AddPoints
 		move.b	#4,ob2ndRout(a0)
@@ -129,7 +129,7 @@ loc_18392:				; XREF: loc_1833E
 		rts	
 ; ===========================================================================
 
-loc_183AA:				; XREF: Obj73_ShipIndex
+loc_183AA:
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0
 		move.w	off_183C2(pc,d0.w),d0
@@ -143,7 +143,7 @@ off_183C2:	dc.w loc_183CA-off_183C2
 		dc.w Obj73_MakeLava2-off_183C2
 ; ===========================================================================
 
-loc_183CA:				; XREF: off_183C2
+loc_183CA:
 		tst.w	obVelX(a0)
 		bne.s	loc_183FE
 		moveq	#$40,d0
@@ -220,7 +220,7 @@ locret_1849C:
 		rts	
 ; ===========================================================================
 
-Obj73_MakeLava2:			; XREF: off_183C2
+Obj73_MakeLava2:
 		bsr.w	BossMove
 		move.w	$38(a0),d0
 		subi.w	#$22C,d0
@@ -248,7 +248,7 @@ locret_184F4:
 		rts	
 ; ===========================================================================
 
-loc_184F6:				; XREF: Obj73_ShipIndex
+loc_184F6:
 		subq.w	#1,$3C(a0)
 		bmi.s	loc_18500
 		bra.w	BossDefeated
@@ -269,7 +269,7 @@ locret_1852A:
 		rts	
 ; ===========================================================================
 
-loc_1852C:				; XREF: Obj73_ShipIndex
+loc_1852C:
 		addq.w	#1,$3C(a0)
 		beq.s	loc_18544
 		bpl.s	loc_1854E
@@ -309,7 +309,7 @@ loc_1857A:
 		bra.w	loc_1833E
 ; ===========================================================================
 
-loc_18582:				; XREF: Obj73_ShipIndex
+loc_18582:
 		move.w	#$500,obVelX(a0)
 		move.w	#-$40,obVelY(a0)
 		cmpi.w	#$1960,(v_limitright2).w
@@ -401,7 +401,7 @@ loc_18636:
 		bra.s	Obj73_Display
 ; ===========================================================================
 
-Obj73_FlameDel:				; XREF: Obj73_FlameMain
+Obj73_FlameDel:
 		jmp	DeleteObject
 ; ===========================================================================
 

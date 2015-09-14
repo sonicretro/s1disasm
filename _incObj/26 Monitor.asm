@@ -2,7 +2,7 @@
 ; Object 26 - monitors
 ; ---------------------------------------------------------------------------
 
-Monitor:				; XREF: Obj_Index
+Monitor:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Mon_Index(pc,d0.w),d1

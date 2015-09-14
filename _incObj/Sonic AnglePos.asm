@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_AnglePos:				; XREF: Obj01_MdNormal; Obj01_MdRoll
+Sonic_AnglePos:
 		move.l	(v_colladdr1).w,(v_collindex).w		; MJ: load first collision data location
 		cmpi.b	#$C,(v_top_solid_bit).w			; MJ: is second collision set to be used?
 		beq.s	@first					; MJ: if not, branch
@@ -165,7 +165,7 @@ locret_1470A:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_Angle:				; XREF: Sonic_AnglePos; et al
+Sonic_Angle:
 		move.b	($FFFFF76A).w,d2
 		cmp.w	d0,d1
 		ble.s	loc_1475E
@@ -194,7 +194,7 @@ loc_1476A:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_WalkVertR:			; XREF: Sonic_AnglePos
+Sonic_WalkVertR:
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 		moveq	#0,d0
@@ -261,7 +261,7 @@ loc_147FE:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_WalkCeiling:			; XREF: Sonic_AnglePos
+Sonic_WalkCeiling:
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 		moveq	#0,d0
@@ -329,7 +329,7 @@ loc_148A0:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_WalkVertL:			; XREF: Sonic_AnglePos
+Sonic_WalkVertL:
 		move.w	obY(a0),d2		; MJ: Load Y position
 		move.w	obX(a0),d3		; MJ: Load X position
 		moveq	#0,d0			; MJ: clear d0

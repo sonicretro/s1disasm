@@ -2,7 +2,7 @@
 ; Object 53 - collapsing floors	(MZ, SLZ, SBZ)
 ; ---------------------------------------------------------------------------
 
-CollapseFloor:				; XREF: Obj_Index
+CollapseFloor:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	CFlo_Index(pc,d0.w),d1
@@ -122,10 +122,10 @@ CFlo_Delete:	; Routine 8
 		rts	
 ; ===========================================================================
 
-CFlo_Fragment:				; XREF: CFlo_Touch
+CFlo_Fragment:
 		move.b	#0,collapse(a0)
 
-loc_8458:				; XREF: CFlo_Collapse
+loc_8458:
 		lea	(CFlo_Data2).l,a4
 		btst	#0,obSubtype(a0)
 		beq.s	loc_846C

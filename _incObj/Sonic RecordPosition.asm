@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_RecordPosition:			; XREF: loc_12C7E; Obj01_Hurt; Obj01_Death
+Sonic_RecordPosition:
 		move.w	(v_trackpos).w,d0
 		lea	(v_tracksonic).w,a1
 		lea	(a1,d0.w),a1

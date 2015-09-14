@@ -2,7 +2,7 @@
 ; Object 89 - "SONIC THE HEDGEHOG" text	on the ending sequence
 ; ---------------------------------------------------------------------------
 
-EndSTH:					; XREF: Obj_Index
+EndSTH:
 		moveq	#0,d0
 		move.b	$24(a0),d0
 		move.w	ESth_Index(pc,d0.w),d1

@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_Loops:				; XREF: Obj01_Control
+Sonic_Loops:
 	; The name's a misnomer: loops are no longer handled here, only the windtunnels. Loops are dealt with by pathswappers
 	;	cmpi.b	#id_SLZ,(v_zone).w ; is level SLZ ?	; MJ: Commented out, we don't want SLZ having any rolling chunks =P
 	;	beq.s	@isstarlight	; if yes, branch

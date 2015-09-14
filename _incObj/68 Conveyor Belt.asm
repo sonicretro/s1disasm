@@ -2,7 +2,7 @@
 ; Object 68 - conveyor belts (SBZ)
 ; ---------------------------------------------------------------------------
 
-Conveyor:				; XREF: Obj_Index
+Conveyor:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Conv_Index(pc,d0.w),d1

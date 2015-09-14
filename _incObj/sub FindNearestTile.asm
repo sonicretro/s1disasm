@@ -13,7 +13,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-FindNearestTile:			; XREF: FindFloor; et al
+FindNearestTile:
 		move.w	d2,d0			; MJ: load Y position
 		andi.w	#$780,d0		; MJ: get within 780 (E00 pixels) in multiples of 80
 		add.w	d0,d0			; MJ: multiply by 2

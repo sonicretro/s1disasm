@@ -2,7 +2,7 @@
 ; Object 7D - hidden points at the end of a level
 ; ---------------------------------------------------------------------------
 
-HiddenBonus:				; XREF: Obj_Index
+HiddenBonus:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Bonus_Index(pc,d0.w),d1

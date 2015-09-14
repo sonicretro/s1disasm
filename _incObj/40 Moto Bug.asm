@@ -2,7 +2,7 @@
 ; Object 40 - Moto Bug enemy (GHZ)
 ; ---------------------------------------------------------------------------
 
-MotoBug:				; XREF: Obj_Index
+MotoBug:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Moto_Index(pc,d0.w),d1

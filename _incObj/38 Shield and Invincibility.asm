@@ -2,7 +2,7 @@
 ; Object 38 - shield and invincibility stars
 ; ---------------------------------------------------------------------------
 
-ShieldItem:				; XREF: Obj_Index
+ShieldItem:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Shi_Index(pc,d0.w),d1

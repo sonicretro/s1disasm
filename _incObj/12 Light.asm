@@ -2,7 +2,7 @@
 ; Object 12 - lamp (SYZ)
 ; ---------------------------------------------------------------------------
 
-SpinningLight:				; XREF: Obj_Index
+SpinningLight:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Light_Index(pc,d0.w),d1

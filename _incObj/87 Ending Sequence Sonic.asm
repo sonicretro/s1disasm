@@ -2,7 +2,7 @@
 ; Object 87 - Sonic on ending sequence
 ; ---------------------------------------------------------------------------
 
-EndSonic:				; XREF: Obj_Index
+EndSonic:
 		moveq	#0,d0
 		move.b	ob2ndRout(a0),d0
 		move.w	ESon_Index(pc,d0.w),d1
@@ -110,5 +110,5 @@ Obj87_Leap:	; Routine $10
 		bra.s	Obj87_Animate
 ; ===========================================================================
 
-ESon_Wait4:				; XREF: Obj87_Leap
+ESon_Wait4:
 		rts	

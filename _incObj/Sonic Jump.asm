@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_Jump:				; XREF: Obj01_MdNormal; Obj01_MdRoll
+Sonic_Jump:
 		move.b	(v_jpadpress2).w,d0
 		andi.b	#btnABC,d0	; is A, B or C pressed?
 		beq.w	locret_1348E	; if not, branch

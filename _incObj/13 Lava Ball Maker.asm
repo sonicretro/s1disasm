@@ -2,7 +2,7 @@
 ; Object 13 - lava ball	maker (MZ, SLZ)
 ; ---------------------------------------------------------------------------
 
-LavaMaker:				; XREF: Obj_Index
+LavaMaker:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	LavaM_Index(pc,d0.w),d1

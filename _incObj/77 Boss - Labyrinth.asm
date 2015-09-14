@@ -2,7 +2,7 @@
 ; Object 77 - Eggman (LZ)
 ; ---------------------------------------------------------------------------
 
-BossLabyrinth:				; XREF: Obj_Index
+BossLabyrinth:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Obj77_Index(pc,d0.w),d1
@@ -39,7 +39,7 @@ Obj77_Loop:
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 
-Obj77_LoadBoss:				; XREF: Obj77_Main
+Obj77_LoadBoss:
 		bclr	#0,obStatus(a0)
 		clr.b	ob2ndRout(a1)
 		move.b	(a2)+,obRoutine(a1)
@@ -72,7 +72,7 @@ Obj77_ShipIndex:dc.w loc_17F1E-Obj77_ShipIndex,	loc_17FA0-Obj77_ShipIndex
 		dc.w loc_1812A-Obj77_ShipIndex,	loc_18152-Obj77_ShipIndex
 ; ===========================================================================
 
-loc_17F1E:				; XREF: Obj77_ShipIndex
+loc_17F1E:
 		move.w	obX(a1),d0
 		cmpi.w	#$1DA0,d0
 		bcs.s	loc_17F38
@@ -114,18 +114,18 @@ locret_17F8C:
 		rts	
 ; ===========================================================================
 
-loc_17F8E:				; XREF: loc_17F48
+loc_17F8E:
 		bra.w	BossDefeated
 ; ===========================================================================
 
-loc_17F92:				; XREF: loc_17F48
+loc_17F92:
 		moveq	#100,d0
 		bsr.w	AddPoints
 		move.b	#-1,$3D(a0)
 		rts	
 ; ===========================================================================
 
-loc_17FA0:				; XREF: Obj77_ShipIndex
+loc_17FA0:
 		moveq	#-2,d0
 		cmpi.w	#$1E48,$30(a0)
 		bcs.s	loc_17FB6
@@ -150,7 +150,7 @@ loc_17FDC:
 		bra.w	loc_17F38
 ; ===========================================================================
 
-loc_17FE0:				; XREF: Obj77_ShipIndex
+loc_17FE0:
 		moveq	#-2,d0
 		cmpi.w	#$1E70,$30(a0)
 		bcs.s	loc_17FF6
@@ -175,7 +175,7 @@ loc_1801A:
 		bra.w	loc_17F38
 ; ===========================================================================
 
-loc_1801E:				; XREF: Obj77_ShipIndex
+loc_1801E:
 		cmpi.w	#$100,$38(a0)
 		bgt.s	loc_1804E
 		move.w	#$100,$38(a0)
@@ -234,7 +234,7 @@ loc_180AE:
 		bra.w	loc_17F48
 ; ===========================================================================
 
-loc_180BC:				; XREF: Obj77_ShipIndex
+loc_180BC:
 		moveq	#-2,d0
 		cmpi.w	#$1F4C,$30(a0)
 		bcs.s	loc_180D2
@@ -258,7 +258,7 @@ loc_180F2:
 		bra.w	loc_17F38
 ; ===========================================================================
 
-loc_180F6:				; XREF: Obj77_ShipIndex
+loc_180F6:
 		tst.b	$3D(a0)
 		bne.s	loc_18112
 		cmpi.w	#$1EC8,obX(a1)
@@ -280,7 +280,7 @@ loc_18126:
 		bra.w	loc_17F38
 ; ===========================================================================
 
-loc_1812A:				; XREF: Obj77_ShipIndex
+loc_1812A:
 		tst.b	$3D(a0)
 		bne.s	loc_18136
 		subq.b	#1,$3C(a0)
@@ -297,7 +297,7 @@ loc_1814E:
 		bra.w	loc_17F38
 ; ===========================================================================
 
-loc_18152:				; XREF: Obj77_ShipIndex
+loc_18152:
 		cmpi.w	#$2030,(v_limitright2).w
 		bcc.s	loc_18160
 		addq.w	#2,(v_limitright2).w
@@ -379,7 +379,7 @@ loc_181F0:
 		bra.s	Obj77_Display
 ; ===========================================================================
 
-Obj77_FlameDel:				; XREF: Obj77_FlameMain
+Obj77_FlameDel:
 		jmp	DeleteObject
 ; ===========================================================================
 

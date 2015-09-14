@@ -2,7 +2,7 @@
 ; Object 30 - large green glass blocks (MZ)
 ; ---------------------------------------------------------------------------
 
-GlassBlock:				; XREF: Obj_Index
+GlassBlock:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Glass_Index(pc,d0.w),d1
@@ -112,7 +112,7 @@ Glass_Reflect34:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Glass_Types:				; XREF: Glass_Block012; et al
+Glass_Types:
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0
 		andi.w	#7,d0
@@ -129,23 +129,23 @@ Glass_TypeIndex:dc.w Glass_Type00-Glass_TypeIndex
 		dc.w Glass_Type04-Glass_TypeIndex
 ; ===========================================================================
 
-Glass_Type00:				; XREF: Glass_TypeIndex
+Glass_Type00:
 		rts	
 ; ===========================================================================
 
-Glass_Type01:				; XREF: Glass_TypeIndex
+Glass_Type01:
 		move.b	(v_oscillate+$12).w,d0
 		move.w	#$40,d1
 		bra.s	loc_B514
 ; ===========================================================================
 
-Glass_Type02:				; XREF: Glass_TypeIndex
+Glass_Type02:
 		move.b	(v_oscillate+$12).w,d0
 		move.w	#$40,d1
 		neg.w	d0
 		add.w	d1,d0
 
-loc_B514:				; XREF: Glass_Type01
+loc_B514:
 		btst	#3,obSubtype(a0)
 		beq.s	loc_B526
 		neg.w	d0
@@ -157,7 +157,7 @@ loc_B526:
 		bra.w	loc_B5EE
 ; ===========================================================================
 
-Glass_Type03:				; XREF: Glass_TypeIndex
+Glass_Type03:
 		btst	#3,obSubtype(a0)
 		beq.s	loc_B53E
 		move.b	(v_oscillate+$12).w,d0
@@ -208,7 +208,7 @@ loc_B5AA:
 		bra.s	loc_B5EE
 ; ===========================================================================
 
-Glass_Type04:				; XREF: Glass_TypeIndex
+Glass_Type04:
 		btst	#3,obSubtype(a0)
 		beq.s	Glass_ChkSwitch
 		move.b	(v_oscillate+$12).w,d0
@@ -216,7 +216,7 @@ Glass_Type04:				; XREF: Glass_TypeIndex
 		bra.s	loc_B5EE
 ; ===========================================================================
 
-Glass_ChkSwitch:			; XREF: Glass_Type04
+Glass_ChkSwitch:
 		tst.b	$34(a0)
 		bne.s	loc_B5E0
 		lea	(f_switch).w,a2

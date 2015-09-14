@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Sonic_Floor:				; XREF: Obj01_MdJump; Obj01_MdJump2
+Sonic_Floor:
 		move.l	(v_colladdr1).w,(v_collindex).w		; MJ: load first collision data location
 		cmpi.b	#$C,(v_top_solid_bit).w			; MJ: is second collision set to be used?
 		beq.s	@first					; MJ: if not, branch

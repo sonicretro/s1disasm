@@ -2,7 +2,7 @@
 ; Object 7F - chaos emeralds from the special stage results screen
 ; ---------------------------------------------------------------------------
 
-SSRChaos:				; XREF: Obj_Index
+SSRChaos:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	SSRC_Index(pc,d0.w),d1

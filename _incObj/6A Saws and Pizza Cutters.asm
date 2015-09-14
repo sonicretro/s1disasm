@@ -2,7 +2,7 @@
 ; Object 6A - ground saws and pizza cutters (SBZ)
 ; ---------------------------------------------------------------------------
 
-Saws:					; XREF: Obj_Index
+Saws:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Saw_Index(pc,d0.w),d1
@@ -46,11 +46,11 @@ Saw_Action:	; Routine 2
 		dc.w @type03-@index, @type04-@index ; ground saws
 ; ===========================================================================
 
-@type00:				; XREF: @index
+@type00:
 		rts			; doesn't move
 ; ===========================================================================
 
-@type01:				; XREF: @index
+@type01:
 		move.w	#$60,d1
 		moveq	#0,d0
 		move.b	(v_oscillate+$E).w,d0
@@ -81,7 +81,7 @@ Saw_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@type02:				; XREF: @index
+@type02:
 		move.w	#$30,d1
 		moveq	#0,d0
 		move.b	(v_oscillate+6).w,d0
@@ -111,7 +111,7 @@ Saw_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@type03:				; XREF: @index
+@type03:
 		tst.b	saw_here(a0)	; has the saw appeared already?
 		bne.s	@here03		; if yes, branch
 
@@ -152,7 +152,7 @@ Saw_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@type04:				; XREF: @index
+@type04:
 		tst.b	saw_here(a0)
 		bne.s	@here04
 		move.w	(v_player+obX).w,d0

@@ -2,7 +2,7 @@
 ; Object 55 - Basaran enemy (MZ)
 ; ---------------------------------------------------------------------------
 
-Basaran:				; XREF: Obj_Index
+Basaran:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Bas_Index(pc,d0.w),d1
@@ -37,7 +37,7 @@ Bas_Action:	; Routine 2
 		dc.w @flyup-@index
 ; ===========================================================================
 
-@dropcheck:				; XREF: @index
+@dropcheck:
 		move.w	#$80,d2
 		bsr.w	@chkdistance	; is Sonic < $80 pixels from basaran?
 		bcc.s	@nodrop		; if not, branch
@@ -61,7 +61,7 @@ Bas_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@dropfly:				; XREF: @index
+@dropfly:
 		bsr.w	SpeedToPos
 		addi.w	#$18,obVelY(a0)	; make basaran fall
 		move.w	#$80,d2
@@ -85,7 +85,7 @@ Bas_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@flapsound:				; XREF: @index
+@flapsound:
 		move.b	(v_vbla_byte).w,d0
 		andi.b	#$F,d0
 		bne.s	@nosound
@@ -111,7 +111,7 @@ Bas_Action:	; Routine 2
 		rts	
 ; ===========================================================================
 
-@flyup:					; XREF: @index
+@flyup:
 		bsr.w	SpeedToPos
 		subi.w	#$18,obVelY(a0)	; make basaran fly upwards
 		bsr.w	ObjHitCeiling

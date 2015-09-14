@@ -2,7 +2,7 @@
 ; Object 08 - water splash (LZ)
 ; ---------------------------------------------------------------------------
 
-Splash:					; XREF: Obj_Index
+Splash:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Spla_Index(pc,d0.w),d1

@@ -2,7 +2,7 @@
 ; Object 0B - pole that	breaks (LZ)
 ; ---------------------------------------------------------------------------
 
-Pole:					; XREF: Obj_Index
+Pole:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Pole_Index(pc,d0.w),d1

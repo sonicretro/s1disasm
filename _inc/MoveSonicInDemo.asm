@@ -5,7 +5,7 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-MoveSonicInDemo:			; XREF: Level_MainLoop; et al
+MoveSonicInDemo:
 		tst.w	(f_demo).w	; is demo mode on?
 		bne.s	MDemo_On	; if yes, branch
 		rts	
@@ -33,7 +33,7 @@ DemoRecorder:
 		rts	
 ; ===========================================================================
 
-MDemo_On:				; XREF: MoveSonicInDemo
+MDemo_On:
 		tst.b	(v_jpadhold1).w	; is start button pressed?
 		bpl.s	@dontquit	; if not, branch
 		tst.w	(f_demo).w	; is this an ending sequence demo?

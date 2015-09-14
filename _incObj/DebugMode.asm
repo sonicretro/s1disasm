@@ -2,7 +2,7 @@
 ; When debug mode is currently in use
 ; ---------------------------------------------------------------------------
 
-DebugMode:				; XREF: SonicPlayer; SpecialPlayer
+DebugMode:
 		moveq	#0,d0
 		move.b	(v_debuguse).w,d0
 		move.w	Debug_Index(pc,d0.w),d1
