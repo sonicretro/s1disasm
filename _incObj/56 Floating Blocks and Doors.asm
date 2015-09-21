@@ -131,7 +131,7 @@ FBlock_Action:	; Routine 2
 		bra.w	DisplaySprite
 		else
 			out_of_range.s	@chkdel2,fb_origX(a0)
-		@display:                
+		@display:
 			bra.w	DisplaySprite
 		@chkdel2:
 			cmpi.b	#$37,obSubtype(a0)
@@ -139,7 +139,7 @@ FBlock_Action:	; Routine 2
 			tst.b	$38(a0)
 			bne.s	@display
 		@delete:
-			jmp     DeleteObject
+			jmp	DeleteObject
 		endc
 ; ===========================================================================
 @index:		dc.w @type00-@index, @type01-@index
