@@ -7,7 +7,7 @@ BossFire:
 		move.b	obRoutine(a0),d0
 		move.w	Obj74_Index(pc,d0.w),d0
 		jsr	Obj74_Index(pc,d0.w)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 Obj74_Index:	dc.w Obj74_Main-Obj74_Index
 		dc.w Obj74_Action-Obj74_Index
@@ -41,16 +41,16 @@ Obj74_Action:	; Routine 2
 		move.b	ob2ndRout(a0),d0
 		move.w	Obj74_Index2(pc,d0.w),d0
 		jsr	Obj74_Index2(pc,d0.w)
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		lea	(Ani_Fire).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		cmpi.w	#$2E8,obY(a0)
 		bhi.s	Obj74_Delete
 		rts	
 ; ===========================================================================
 
 Obj74_Delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 Obj74_Index2:	dc.w Obj74_Drop-Obj74_Index2
 		dc.w Obj74_MakeFlame-Obj74_Index2
@@ -83,7 +83,7 @@ Obj74_MakeFlame:
 		move.w	obX(a0),$30(a0)
 		move.w	obY(a0),$38(a0)
 		move.b	#3,$29(a0)
-		jsr	FindNextFreeObj
+		jsr	(FindNextFreeObj).l
 		bne.s	loc_187CA
 		lea	(a1),a3
 		lea	(a0),a2
@@ -107,7 +107,7 @@ loc_187CA:
 
 
 Obj74_Duplicate2:
-		jsr	FindNextFreeObj
+		jsr	(FindNextFreeObj).l
 		bne.s	locret_187EE
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
@@ -182,7 +182,7 @@ locret_1887E:
 ; ===========================================================================
 
 Obj74_Delete2:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 loc_18886:	; Routine 4
@@ -195,8 +195,8 @@ loc_18886:	; Routine 4
 
 Obj74_Animate:
 		lea	(Ani_Fire).l,a1
-		jmp	AnimateSprite
+		jmp	(AnimateSprite).l
 ; ===========================================================================
 
 Obj74_Delete3:	; Routine 6
-		jmp	DeleteObject
+		jmp	(DeleteObject).l

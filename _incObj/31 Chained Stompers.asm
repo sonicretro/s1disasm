@@ -125,7 +125,7 @@ loc_B798:	; Routine 2
 		bcc.s	CStom_Display
 		movea.l	a0,a2
 		lea	(v_player).w,a0
-		jsr	KillSonic
+		jsr	(KillSonic).l
 		movea.l	a2,a0
 
 CStom_Display:

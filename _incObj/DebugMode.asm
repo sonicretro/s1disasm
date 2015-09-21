@@ -64,7 +64,7 @@ Debug_Action:	; Routine 2
 		adda.w	(a2,d0.w),a2
 		move.w	(a2)+,d6
 		bsr.w	Debug_Control
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
@@ -160,7 +160,7 @@ Debug_ChgItem:
 @createitem:
 		btst	#bitC,(v_jpadpress1).w ; is button C pressed?
 		beq.s	@backtonormal	; if not, branch
-		jsr	FindFreeObj
+		jsr	(FindFreeObj).l
 		bne.s	@backtonormal
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)

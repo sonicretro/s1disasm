@@ -39,7 +39,7 @@ Gird_Action:	; Routine 2
 		bne.s	@solid
 
 	@beginmove:
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		subq.w	#1,gird_time(a0) ; decrement movement duration
 		bne.s	@solid		; if time remains, branch
 		bsr.w	Gird_ChgMove	; if time is zero, branch
@@ -59,10 +59,10 @@ Gird_Action:	; Routine 2
 
 	@chkdel:
 		out_of_range.s	@delete,gird_origX(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 	@delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 Gird_ChgMove:

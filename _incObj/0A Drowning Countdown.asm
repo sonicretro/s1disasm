@@ -57,7 +57,7 @@ Drown_Main:	; Routine 0
 
 Drown_Animate:	; Routine 2
 		lea	(Ani_Drown).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 
 Drown_ChkWater:	; Routine 4
 		move.w	(v_waterpos1).w,d0
@@ -86,24 +86,24 @@ Drown_ChkWater:	; Routine 4
 		add.w	origX(a0),d0
 		move.w	d0,obX(a0)
 		bsr.s	Drown_ShowNumber
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		tst.b	obRender(a0)
 		bpl.s	@delete
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 	@delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 Drown_Display:	; Routine 6, Routine $E
 		bsr.s	Drown_ShowNumber
 		lea	(Ani_Drown).l,a1
-		jsr	AnimateSprite
-		jmp	DisplaySprite
+		jsr	(AnimateSprite).l
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 Drown_Delete:	; Routine 8, Routine $10
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 Drown_AirLeft:	; Routine $C
@@ -118,13 +118,13 @@ Drown_AirLeft:	; Routine $C
 
 	@display:
 		lea	(Ani_Drown).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		tst.b	obRender(a0)
 		bpl.s	Drown_AirLeft_Delete
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 Drown_AirLeft_Delete:	
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 Drown_ShowNumber:
@@ -255,7 +255,7 @@ Drown_Countdown:; Routine $A
 	@loc_13F94:
 		move.l	a0,-(sp)
 		lea	(v_player).w,a0
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		addi.w	#$10,obVelY(a0)
 		movea.l	(sp)+,a0
 		bra.s	@nochange
@@ -275,7 +275,7 @@ Drown_Countdown:; Routine $A
 		jsr	(RandomNumber).l
 		andi.w	#$F,d0
 		move.w	d0,$3A(a0)
-		jsr	FindFreeObj
+		jsr	(FindFreeObj).l
 		bne.w	@nocountdown
 		move.b	#id_DrownCount,0(a1) ; load object
 		move.w	(v_player+obX).w,obX(a1) ; match X position to Sonic

@@ -37,10 +37,10 @@ Saw_Action:	; Routine 2
 		move.w	@index(pc,d0.w),d1
 		jsr	@index(pc,d1.w)
 		out_of_range.s	@delete,saw_origX(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 	@delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 @index:		dc.w @type00-@index, @type01-@index, @type02-@index ; pizza cutters
 		dc.w @type03-@index, @type04-@index ; ground saws
@@ -141,7 +141,7 @@ Saw_Action:	; Routine 2
 ; ===========================================================================
 
 @here03:
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		move.w	obX(a0),saw_origX(a0)
 		subq.b	#1,obTimeFrame(a0)
 		bpl.s	@sameframe03
@@ -180,7 +180,7 @@ Saw_Action:	; Routine 2
 ; ===========================================================================
 
 @here04:
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		move.w	obX(a0),saw_origX(a0)
 		subq.b	#1,obTimeFrame(a0)
 		bpl.s	@sameframe04

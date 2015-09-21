@@ -25,9 +25,9 @@ Spla_Main:	; Routine 0
 Spla_Display:	; Routine 2
 		move.w	(v_waterpos1).w,obY(a0) ; copy y-position from water height
 		lea	(Ani_Splash).l,a1
-		jsr	AnimateSprite
-		jmp	DisplaySprite
+		jsr	(AnimateSprite).l
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 Spla_Delete:	; Routine 4
-		jmp	DeleteObject	; delete when animation	is complete
+		jmp	(DeleteObject).l	; delete when animation	is complete

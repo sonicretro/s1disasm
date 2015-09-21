@@ -38,7 +38,7 @@ Elec_Shock:	; Routine 2
 
 	@animate:
 		lea	(Ani_Elec).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		move.b	#0,obColType(a0)
 		cmpi.b	#4,obFrame(a0)	; is 4th frame displayed?
 		bne.s	@display	; if not, branch

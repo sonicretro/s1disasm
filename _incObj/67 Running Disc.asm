@@ -153,7 +153,7 @@ Disc_MoveSpot:
 
 Disc_ChkDel:
 		out_of_range.s	@delete,disc_origX(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 	@delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l

@@ -49,7 +49,7 @@ Sto_Main:	; Routine 0
 		bclr	#7,2(a2,d0.w)
 
 	@delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 @isSBZ3:
@@ -113,7 +113,7 @@ Sto_Action:	; Routine 2
 
 	@chkdel:
 		out_of_range.s	@chkgone,sto_origX(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 	@chkgone:
 		cmpi.b	#id_LZ,(v_zone).w
@@ -126,7 +126,7 @@ Sto_Action:	; Routine 2
 		bclr	#7,2(a2,d0.w)
 
 	@delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 @index:		dc.w @type00-@index, @type01-@index
 		dc.w @type02-@index, @type03-@index
