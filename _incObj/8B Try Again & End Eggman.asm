@@ -7,7 +7,7 @@ EndEggman:
 		move.b	obRoutine(a0),d0
 		move.w	EEgg_Index(pc,d0.w),d1
 		jsr	EEgg_Index(pc,d1.w)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 EEgg_Index:	dc.w EEgg_Main-EEgg_Index
 		dc.w EEgg_Animate-EEgg_Index
@@ -36,7 +36,7 @@ EEgg_Main:	; Routine 0
 
 EEgg_Animate:	; Routine 2
 		lea	(Ani_EEgg).l,a1
-		jmp	AnimateSprite
+		jmp	(AnimateSprite).l
 ; ===========================================================================
 
 EEgg_Juggle:	; Routine 4

@@ -10,7 +10,7 @@ EndSTH:
 		jmp	ESth_Index(pc,d1.w)
 		else
 		jsr	ESth_Index(pc,d1.w)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 		endc
 ; ===========================================================================
 ESth_Index:	dc.w ESth_Main-ESth_Index

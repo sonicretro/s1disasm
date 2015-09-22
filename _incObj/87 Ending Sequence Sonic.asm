@@ -7,7 +7,7 @@ EndSonic:
 		move.b	ob2ndRout(a0),d0
 		move.w	ESon_Index(pc,d0.w),d1
 		jsr	ESon_Index(pc,d1.w)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 ESon_Index:	dc.w ESon_Main-ESon_Index, ESon_MakeEmeralds-ESon_Index
 		dc.w Obj87_Animate-ESon_Index,	Obj87_LookUp-ESon_Index
@@ -92,7 +92,7 @@ ESon_Wait3:
 
 Obj87_Animate:	; Rountine 4, $A, $E, $12
 		lea	(AniScript_ESon).l,a1
-		jmp	AnimateSprite
+		jmp	(AnimateSprite).l
 ; ===========================================================================
 
 Obj87_Leap:	; Routine $10

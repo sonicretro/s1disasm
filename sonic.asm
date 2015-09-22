@@ -503,7 +503,7 @@ VBlank:
 		jsr	VBla_Index(pc,d0.w)
 
 VBla_Music:
-		jsr	UpdateMusic
+		jsr	(UpdateMusic).l
 
 VBla_Exit:
 		addq.l	#1,(v_vbla_count).w
@@ -634,8 +634,8 @@ VBla_08:
 
 Demo_Time:
 		bsr.w	LoadTilesAsYouMove
-		jsr	AnimateLevelGfx
-		jsr	HUD_Update
+		jsr	(AnimateLevelGfx).l
+		jsr	(HUD_Update).l
 		bsr.w	sub_165E
 		tst.w	(v_demolength).w ; is there time left on the demo?
 		beq.w	@end		; if not, branch
@@ -700,8 +700,8 @@ VBla_0C:
 		movem.l	(v_bgscroll1).w,d0-d1
 		movem.l	d0-d1,($FFFFFF30).w
 		bsr.w	LoadTilesAsYouMove
-		jsr	AnimateLevelGfx
-		jsr	HUD_Update
+		jsr	(AnimateLevelGfx).l
+		jsr	(HUD_Update).l
 		bsr.w	sub_1642
 		rts	
 ; ===========================================================================
@@ -823,7 +823,7 @@ loc_119E:
 		clr.b	($FFFFF64F).w
 		movem.l	d0-a6,-(sp)
 		bsr.w	Demo_Time
-		jsr	UpdateMusic
+		jsr	(UpdateMusic).l
 		movem.l	(sp)+,d0-a6
 		rte	
 ; End of function HBlank
@@ -2041,8 +2041,8 @@ GM_Title:
 		moveq	#palid_Sonic,d0	; load Sonic's palette
 		bsr.w	PalLoad1
 		move.b	#id_CreditsText,(v_objspace+$80).w ; load "SONIC TEAM PRESENTS" object
-		jsr	ExecuteObjects
-		jsr	BuildSprites
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
 		bsr.w	PaletteFadeIn
 		disable_ints
 		locVRAM	$4000
@@ -2125,9 +2125,9 @@ GM_Title:
 	@isjap:
 		move.b	#id_PSBTM,(v_objspace+$100).w ; load object which hides part of Sonic
 		move.b	#2,(v_objspace+$100+obFrame).w
-		jsr	ExecuteObjects
+		jsr	(ExecuteObjects).l
 		bsr.w	DeformLayers
-		jsr	BuildSprites
+		jsr	(BuildSprites).l
 		moveq	#plcid_Main,d0
 		bsr.w	NewPLC
 		move.w	#0,(v_title_dcount).w
@@ -3997,8 +3997,8 @@ GM_Credits:
 		moveq	#palid_Sonic,d0
 		bsr.w	PalLoad1	; load Sonic's palette
 		move.b	#id_CreditsText,(v_objspace+$80).w ; load credits object
-		jsr	ExecuteObjects
-		jsr	BuildSprites
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
 		bsr.w	EndingDemoLoad
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
@@ -4126,8 +4126,8 @@ TryAgainEnd:
 		bsr.w	PalLoad1	; load ending palette
 		clr.w	(v_pal_dry_dup+$40).w
 		move.b	#id_EndEggman,(v_objspace+$80).w ; load Eggman object
-		jsr	ExecuteObjects
-		jsr	BuildSprites
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
 		move.w	#1800,(v_demolength).w ; show screen for 30 seconds
 		bsr.w	PaletteFadeIn
 
@@ -4138,8 +4138,8 @@ TryAg_MainLoop:
 		bsr.w	PauseGame
 		move.b	#4,(v_vbla_routine).w
 		bsr.w	WaitForVBla
-		jsr	ExecuteObjects
-		jsr	BuildSprites
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
 		andi.b	#btnStart,(v_jpadpress1).w ; is Start button pressed?
 		bne.s	TryAg_Exit	; if yes, branch
 		tst.w	(v_demolength).w ; has 30 seconds elapsed?
@@ -5255,7 +5255,7 @@ loc_74DC:
 		beq.s	loc_7512
 		move.l	a0,-(sp)
 		movea.l	a1,a0
-		jsr	Sonic_ResetOnFloor
+		jsr	(Sonic_ResetOnFloor).l
 		movea.l	(sp)+,a0
 
 loc_7512:
