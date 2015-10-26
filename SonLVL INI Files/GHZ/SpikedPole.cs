@@ -22,7 +22,7 @@ namespace S1ObjectDefinitions.GHZ
 
 		public override ReadOnlyCollection<byte> Subtypes
 		{
-			get { return new ReadOnlyCollection<byte>(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23 }); }
+			get { return new ReadOnlyCollection<byte>(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22 }); }
 		}
 
 		public override string Name
@@ -39,7 +39,7 @@ namespace S1ObjectDefinitions.GHZ
 
 		public override string SubtypeName(byte subtype)
 		{
-			return Math.Min(0x18, (int)subtype) + " spikes";
+			return Math.Min(0x16, (int)subtype) + " spikes";
 		}
 
 		public override Sprite Image
@@ -54,15 +54,15 @@ namespace S1ObjectDefinitions.GHZ
 
 		public override Rectangle GetBounds(ObjectEntry obj, Point camera)
 		{
-			int spikeoffset = Math.Min(0x18, (int)obj.SubType)<<3;
+			int spikeoffset = Math.Min(0x16, (int)obj.SubType)<<3;
 			return new Rectangle(obj.X - (spikeoffset + 4) + imgs[0].X - camera.X, obj.Y + imgs[0].Y - camera.Y, spikeoffset*2, imgs[0].Height*2);
 		}
 
 		public override Sprite GetSprite(ObjectEntry obj)
 		{
 			List<Sprite> sprs = new List<Sprite>();
-			int spikeoffset = Math.Min(0x18, (int)obj.SubType)<<3;
-			for (int i = 0; i < Math.Min(0x18, (int)obj.SubType); i++)
+			int spikeoffset = Math.Min(0x16, (int)obj.SubType)<<3;
+			for (int i = 0; i < Math.Min(0x16, (int)obj.SubType); i++)
 			{
 				sprs.Add(new Sprite(imgs[i&7].Image, new Point(imgs[i&7].X - spikeoffset, imgs[i&7].Y)));
 				spikeoffset -= 0x10;
@@ -86,12 +86,12 @@ namespace S1ObjectDefinitions.GHZ
 
 		private static object GetSpikes(ObjectEntry obj)
 		{
-			return Math.Min(0x18, (int)obj.SubType);
+			return Math.Min(0x16, (int)obj.SubType);
 		}
 
 		private static void SetSpikes(ObjectEntry obj, object value)
 		{
-			obj.SubType = (byte)(Math.Max(1, (Math.Min(0x18, (int)value))));
+			obj.SubType = (byte)(Math.Max(1, (Math.Min(0x16, (int)value))));
 		}
 	}
 }
