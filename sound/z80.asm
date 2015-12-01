@@ -228,7 +228,7 @@ zPCM_Table:
 	dw	0000h
 	
 	dw	zDAC_Sample3	; Timpani sample
-	dw	(zDac_Sample3_End-zDAC_Sample3)
+	dw	(zDAC_Sample3_End-zDAC_Sample3)
 zSample3_Pitch:
 	dw	001Bh			; Pitch = 1Bh
 	dw	0000h
