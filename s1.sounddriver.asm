@@ -1396,6 +1396,10 @@ InitMusicPlayback:
 		move.b	d4,v_fadein_counter(a6)
 		move.w	d5,v_playsnd1(a6)
 		move.b	#$80,v_playsnd0(a6)	; set music to $80 (silence)
+		; DANGER! This silences ALL channels, even the ones being used
+		; by SFX, and not music! @sendfmnoteoff does this already, and
+		; doesn't affect SFX channels, either.
+		; This should be replaced with an 'rts'.
 		jsr	FMSilenceAll(pc)
 		bra.w	PSGSilenceAll
 ; End of function InitMusicPlayback
