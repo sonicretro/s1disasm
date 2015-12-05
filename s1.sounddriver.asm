@@ -326,7 +326,7 @@ FMDoNext:
 FMSetFreq:
 		subi.b	#$80,d5			; Make it a zero-based index
 		beq.s	TrackSetRest
-		add.b	zTrackKeyOffset(a5),d5	; Add track key displacement
+		add.b	zTrackTranspose(a5),d5	; Add track transposition
 		andi.w	#$7F,d5			; Clear high byte and sign bit
 		lsl.w	#1,d5
 		lea	FM_Notes(pc),a0
@@ -466,7 +466,7 @@ FMPrepareNote:
 		beq.s	FMSetRest		; Branch if zero
 ; loc_71E24:
 FMUpdateFreq:
-		move.b	zTrackFreqDisplacement(a5),d0 ; Get frequency adjustment
+		move.b	zTrackDetune(a5),d0 	; Get detune value
 		ext.w	d0
 		add.w	d0,d6			; Add note frequency
 		btst	#2,(a5)			; Is track being overridden? (zTrackPlaybackControl)
@@ -769,7 +769,7 @@ Sound_PlayBGM:
 		move.w	(a4)+,d0			; load DAC/FM pointer
 		add.l	a3,d0				; Relative pointer
 		move.l	d0,zTrackDataPointer(a1)	; Store track pointer
-		move.w	(a4)+,zTrackKeyOffset(a1)	; load FM channel modifier
+		move.w	(a4)+,zTrackTranspose(a1)	; load FM channel modifier
 		adda.w	d6,a1
 		dbf	d7,@bmg_fmloadloop
 		
@@ -819,7 +819,7 @@ Sound_PlayBGM:
 		move.w	(a4)+,d0			; load PSG channel pointer
 		add.l	a3,d0				; Relative pointer
 		move.l	d0,zTrackDataPointer(a1)	; Store track pointer
-		move.w	(a4)+,zTrackKeyOffset(a1)	; load PSG modifier
+		move.w	(a4)+,zTrackTranspose(a1)	; load PSG modifier
 		move.b	(a4)+,d0			; load redundant byte
 		move.b	(a4)+,zTrackVoiceIndex(a1)	; Initial PSG tone
 		adda.w	d6,a1
@@ -972,7 +972,7 @@ Sound_PlaySFX:
 		move.w	(a1)+,d0			; Track data pointer
 		add.l	a3,d0				; Relative pointer
 		move.l	d0,zTrackDataPointer(a5)	; Store track pointer
-		move.w	(a1)+,zTrackKeyOffset(a5)	; load FM/PSG channel modifier
+		move.w	(a1)+,zTrackTranspose(a5)	; load FM/PSG channel modifier
 		move.b	#1,zTrackDurationTimeout(a5)	; Set duration of first "note"
 		move.b	d6,zTrackStackPointer(a5)	; set "gosub" (coord flag F8h) stack init value
 		tst.b	d4				; Is this a PSG channel?
@@ -1077,7 +1077,7 @@ Sound_PlaySpecial:
 		move.w	(a1)+,d0			; Track data pointer
 		add.l	a3,d0				; Relative pointer
 		move.l	d0,zTrackDataPointer(a5)	; Store track pointer
-		move.w	(a1)+,zTrackKeyOffset(a5)	; load FM/PSG channel modifier
+		move.w	(a1)+,zTrackTranspose(a5)	; load FM/PSG channel modifier
 		move.b	#1,zTrackDurationTimeout(a5)	; Set duration of first "note"
 		move.b	d6,zTrackStackPointer(a5)	; set "gosub" (coord flag F8h) stack init value
 		tst.b	d4				; Is this a PSG channel?
@@ -1690,7 +1690,7 @@ PSGDoNext:
 PSGSetFreq:
 		subi.b	#$81,d5		; Convert to 0-based index
 		blo.s	@restpsg	; If $80, put track at rest
-		add.b	zTrackKeyOffset(a5),d5 ; Add in channel key displacement
+		add.b	zTrackTranspose(a5),d5 ; Add in channel transposition
 		andi.w	#$7F,d5		; Clear high byte and sign bit
 		lsl.w	#1,d5
 		lea	PSGFrequencies(pc),a0
@@ -1719,7 +1719,7 @@ PSGDoNoteOn:
 
 ; sub_728E2:
 PSGUpdateFreq:
-		move.b	zTrackFreqDisplacement(a5),d0		; Get frequency note adjustment
+		move.b	zTrackDetune(a5),d0	; Get detune value
 		ext.w	d0
 		add.w	d0,d6		; Add to frequency
 		btst	#2,(a5)		; Is track being overridden? (zTrackPlaybackControl)
@@ -1872,7 +1872,7 @@ CoordFlag:
 coordflagLookup:
 		bra.w	cfPanningAMSFMS		; $E0
 ; ===========================================================================
-		bra.w	cfAlterNotes		; $E1
+		bra.w	cfDetune		; $E1
 ; ===========================================================================
 		bra.w	cfSetCommunication	; $E2
 ; ===========================================================================
@@ -1888,7 +1888,7 @@ coordflagLookup:
 ; ===========================================================================
 		bra.w	cfNoteFill		; $E8
 ; ===========================================================================
-		bra.w	cfAddKey		; $E9
+		bra.w	cfChangeTransposition	; $E9
 ; ===========================================================================
 		bra.w	cfSetTempo		; $EA
 ; ===========================================================================
@@ -1938,9 +1938,9 @@ cfPanningAMSFMS:
 locret_72AEA:
 		rts	
 ; ===========================================================================
-; loc_72AEC:
-cfAlterNotes:
-		move.b	(a4)+,zTrackFreqDisplacement(a5)	; Set frequency adjustment
+; loc_72AEC: cfAlterNotes:
+cfDetune:
+		move.b	(a4)+,zTrackDetune(a5)	; Set detune value
 		rts	
 ; ===========================================================================
 ; loc_72AF2: cfUnknown1:
@@ -2035,10 +2035,10 @@ cfNoteFill:
 		move.b	(a4)+,zTrackNoteFillMaster(a5)	; Note fill master
 		rts	
 ; ===========================================================================
-; loc_72BBE:
-cfAddKey:
+; loc_72BBE: cfAddKey:
+cfChangeTransposition:
 		move.b	(a4)+,d0		; Get parameter
-		add.b	d0,zTrackKeyOffset(a5)	; Add to track key displacement
+		add.b	d0,zTrackTranspose(a5)	; Add to transpose value
 		rts	
 ; ===========================================================================
 ; loc_72BC6:
