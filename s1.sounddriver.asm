@@ -1402,6 +1402,28 @@ InitMusicPlayback:
 		; This should be replaced with an 'rts'.
 		jsr	FMSilenceAll(pc)
 		bra.w	PSGSilenceAll
+		; DANGER! InitMusicPlayback, and Sound_PlayBGM for that matter,
+		; don't do a very good job of setting up the music tracks.
+		; Tracks that aren't defined in a music file's header don't have
+		; their channels defined, meaning @sendfmnoteoff won't silence
+		; hardware properly. In combination with removing the above
+		; calls to FMSilenceAll/PSGSilenceAll, this will cause hanging
+		; notes.
+		; To fix this, I suggest using this code, instead of an 'rts':
+		;lea	v_track_ram+zTrackVoiceControl(a6),a1
+		;lea	FMDACInitBytes(pc),a2
+		;moveq	#(v_fm6_track-v_dac_track)/zTrackSz,d1		; 7 DAC/FM tracks
+		;bsr.s	@writeloop
+		;lea	PSGInitBytes(pc),a2
+		;moveq	#(v_psg3_track-v_psg1_track)/zTrackSz,d1	; 3 PSG tracks
+
+;@writeloop:
+		;move.b	(a2)+,(a1)		; Write track's channel byte
+		;lea	zTrackSz(a1),a1		; Next track
+		;dbf	d1,@writeloop		; Loop for all DAC/FM/PSG tracks
+
+		;rts
+	
 ; End of function InitMusicPlayback
 
 
@@ -1831,6 +1853,13 @@ SendPSGNoteOff:
 		move.b	zTrackVoiceControl(a5),d0	; PSG channel to change
 		ori.b	#$1F,d0				; Maximum volume attenuation
 		move.b	d0,(psg_input).l
+		; DANGER! If InitMusicPlayback doesn't silence all channels, there's the
+		; risk of music accidentally playing noise because it can't detect if
+		; the PSG4/noise channel needs muting on track initialisation.
+		; S&K's driver fixes it by doing this:
+		;cmpi.b	#$DF,d0				; Are stopping PSG3?
+		;bne.s	locret_729B4
+		;move.b	#$FF,(psg_input).l		; If so, stop noise channel while we're at it
 
 locret_729B4:
 		rts	
