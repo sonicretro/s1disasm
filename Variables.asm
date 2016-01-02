@@ -56,27 +56,37 @@ f_push_playing:		= $02C	; if set, prevents further push sounds from playing
 
 v_track_ram:		= $040	; Start of music RAM
 
-v_dac_track:		= v_track_ram+zTrackSz*0
-v_fm1_track:		= v_track_ram+zTrackSz*1
-v_fm2_track:		= v_track_ram+zTrackSz*2
-v_fm3_track:		= v_track_ram+zTrackSz*3
-v_fm4_track:		= v_track_ram+zTrackSz*4
-v_fm5_track:		= v_track_ram+zTrackSz*5
-v_fm6_track:		= v_track_ram+zTrackSz*6
-v_psg1_track:		= v_track_ram+zTrackSz*7
-v_psg2_track:		= v_track_ram+zTrackSz*8
-v_psg3_track:		= v_track_ram+zTrackSz*9
-v_track_ram_end:	= v_track_ram+zTrackSz*10
+v_fmdac_tracks:		= v_track_ram+zTrackSz*0
+v_dac_track:		= v_fmdac_tracks+zTrackSz*0
+v_fm_tracks:		= v_fmdac_tracks+zTrackSz*1
+v_fm1_track:		= v_fm_tracks+zTrackSz*0
+v_fm2_track:		= v_fm_tracks+zTrackSz*1
+v_fm3_track:		= v_fm_tracks+zTrackSz*2
+v_fm4_track:		= v_fm_tracks+zTrackSz*3
+v_fm5_track:		= v_fm_tracks+zTrackSz*4
+v_fm6_track:		= v_fm_tracks+zTrackSz*5
+v_fm_tracks_end:	= v_fm_tracks+zTrackSz*6
+v_fmdac_tracks_end:	= v_fm_tracks_end
+v_psg_tracks:		= v_fmdac_tracks_end
+v_psg1_track:		= v_psg_tracks+zTrackSz*0
+v_psg2_track:		= v_psg_tracks+zTrackSz*1
+v_psg3_track:		= v_psg_tracks+zTrackSz*2
+v_psg_tracks_end:	= v_psg_tracks+zTrackSz*3
+v_track_ram_end:	= v_psg_tracks_end
 
 v_sfx_track_ram:	= v_track_ram_end	; Start of sfx RAM, straight after the end of music RAM
 
-v_sfx_fm3_track:	= v_sfx_track_ram+zTrackSz*0
-v_sfx_fm4_track:	= v_sfx_track_ram+zTrackSz*1
-v_sfx_fm5_track:	= v_sfx_track_ram+zTrackSz*2
-v_sfx_psg1_track:	= v_sfx_track_ram+zTrackSz*3
-v_sfx_psg2_track:	= v_sfx_track_ram+zTrackSz*4
-v_sfx_psg3_track:	= v_sfx_track_ram+zTrackSz*5
-v_sfx_track_ram_end:	= v_sfx_track_ram+zTrackSz*6
+v_sfx_fm_tracks:	= v_sfx_track_ram+zTrackSz*0
+v_sfx_fm3_track:	= v_sfx_fm_tracks+zTrackSz*0
+v_sfx_fm4_track:	= v_sfx_fm_tracks+zTrackSz*1
+v_sfx_fm5_track:	= v_sfx_fm_tracks+zTrackSz*2
+v_sfx_fm_tracks_end:	= v_sfx_fm_tracks+zTrackSz*3
+v_sfx_psg_tracks:	= v_sfx_fm_tracks_end
+v_sfx_psg1_track:	= v_sfx_psg_tracks+zTrackSz*0
+v_sfx_psg2_track:	= v_sfx_psg_tracks+zTrackSz*1
+v_sfx_psg3_track:	= v_sfx_psg_tracks+zTrackSz*2
+v_sfx_psg_tracks_end:	= v_sfx_psg_tracks+zTrackSz*3
+v_sfx_track_ram_end:	= v_sfx_psg_tracks_end
 
 v_sfx2_track_ram:	= v_sfx_track_ram_end	; Start of special sfx RAM, straight after the end of sfx RAM
 

@@ -141,7 +141,7 @@ UpdateMusic:
 ; loc_71BD4:
 @dacdone:
 		clr.b	f_updating_dac(a6)
-		moveq	#(v_fm6_track-v_fm1_track)/zTrackSz,d7	; 6 FM tracks
+		moveq	#((v_fm_tracks_end-v_fm_tracks)/zTrackSz)-1,d7	; 6 FM tracks
 ; loc_71BDA:
 @bgmfmloop:
 		adda.w	#zTrackSz,a5
@@ -152,7 +152,7 @@ UpdateMusic:
 @bgmfmnext:
 		dbf	d7,@bgmfmloop
 
-		moveq	#(v_psg3_track-v_psg1_track)/zTrackSz,d7 ; 3 PSG tracks
+		moveq	#((v_psg_tracks_end-v_psg_tracks)/zTrackSz)-1,d7 ; 3 PSG tracks
 ; loc_71BEC:
 @bgmpsgloop:
 		adda.w	#zTrackSz,a5
@@ -164,7 +164,7 @@ UpdateMusic:
 		dbf	d7,@bgmpsgloop
 
 		move.b	#$80,f_voice_selector(a6)			; Now at SFX tracks
-		moveq	#(v_sfx_fm5_track-v_sfx_fm3_track)/zTrackSz,d7	; 3 FM tracks (SFX)
+		moveq	#((v_sfx_fm_tracks_end-v_sfx_fm_tracks)/zTrackSz)-1,d7	; 3 FM tracks (SFX)
 ; loc_71C04:
 @sfxfmloop:
 		adda.w	#zTrackSz,a5
@@ -175,7 +175,7 @@ UpdateMusic:
 @sfxfmnext:
 		dbf	d7,@sfxfmloop
 
-		moveq	#(v_sfx_psg3_track-v_sfx_psg1_track)/zTrackSz,d7 ; 3 PSG tracks (SFX)
+		moveq	#((v_sfx_psg_tracks_end-v_sfx_psg_tracks)/zTrackSz)-1,d7 ; 3 PSG tracks (SFX)
 ; loc_71C16:
 @sfxpsgloop:
 		adda.w	#zTrackSz,a5
@@ -522,8 +522,8 @@ PauseMusic:
 @unpausemusic:
 		clr.b	f_stopmusic(a6)
 		moveq	#zTrackSz,d3
-		lea	v_track_ram(a6),a5
-		moveq	#(v_fm6_track-v_dac_track)/zTrackSz,d4	; 6 FM + 1 DAC tracks
+		lea	v_fmdac_tracks(a6),a5
+		moveq	#((v_fmdac_tracks_end-v_fmdac_tracks)/zTrackSz)-1,d4	; 6 FM + 1 DAC tracks
 ; loc_71EA0:
 @bgmfmloop:
 		btst	#7,(a5)			; Is track playing? (zTrackPlaybackControl)
@@ -538,8 +538,8 @@ PauseMusic:
 		adda.w	d3,a5
 		dbf	d4,@bgmfmloop
 
-		lea	v_sfx_track_ram(a6),a5
-		moveq	#(v_sfx_fm5_track-v_sfx_fm3_track)/zTrackSz,d4	; 3 FM tracks (SFX)
+		lea	v_sfx_fm_tracks(a6),a5
+		moveq	#((v_sfx_fm_tracks_end-v_sfx_fm_tracks)/zTrackSz)-1,d4	; 3 FM tracks (SFX)
 ; loc_71EC4:
 @sfxfmloop:
 		btst	#7,(a5)			; Is track playing? (zTrackPlaybackControl)
@@ -690,7 +690,7 @@ Sound_PlayBGM:
 		tst.b	f_1up_playing(a6)	; Is a 1-up music playing?
 		bne.w	@locdblret		; if yes, branch
 		lea	v_track_ram(a6),a5
-		moveq	#(v_psg3_track-v_dac_track)/zTrackSz,d0	; 1 DAC + 6 FM + 3 PSG tracks
+		moveq	#((v_track_ram_end-v_track_ram)/zTrackSz)-1,d0	; 1 DAC + 6 FM + 3 PSG tracks
 ; loc_71FE6:
 @clearsfxloop:
 		bclr	#2,(a5)			; Clear 'SFX is overriding' bit (zTrackPlaybackControl)
@@ -698,7 +698,7 @@ Sound_PlayBGM:
 		dbf	d0,@clearsfxloop
 
 		lea	v_sfx_track_ram(a6),a5
-		moveq	#(v_sfx_psg3_track-v_sfx_fm3_track)/zTrackSz,d0	; 3 FM + 3 PSG tracks (SFX)
+		moveq	#((v_sfx_track_ram_end-v_sfx_track_ram)/zTrackSz)-1,d0	; 3 FM + 3 PSG tracks (SFX)
 ; loc_71FF8:
 @cleartrackplayloop:
 		bclr	#7,(a5)			; Clear 'track is playing' bit (zTrackPlaybackControl)
@@ -755,7 +755,7 @@ Sound_PlayBGM:
 		move.b	4(a3),d4		; load tempo dividing timing
 		moveq	#zTrackSz,d6
 		move.b	#1,d5			; Note duration for first "note"
-		lea	v_track_ram(a6),a1
+		lea	v_fmdac_tracks(a6),a1
 		lea	FMDACInitBytes(pc),a2
 ; loc_72098:
 @bmg_fmloadloop:
@@ -806,7 +806,7 @@ Sound_PlayBGM:
 		move.b	3(a3),d7	; Load number of PSG tracks
 		beq.s	@bgm_psgdone	; branch if zero
 		subq.b	#1,d7
-		lea	v_psg1_track(a6),a1
+		lea	v_psg_tracks(a6),a1
 		lea	PSGInitBytes(pc),a2
 ; loc_72126:
 @bgm_psgloadloop:
@@ -826,8 +826,8 @@ Sound_PlayBGM:
 		dbf	d7,@bgm_psgloadloop
 ; loc_72154:
 @bgm_psgdone:
-		lea	v_sfx_fm3_track(a6),a1
-		moveq	#(v_sfx_psg3_track-v_sfx_fm3_track)/zTrackSz,d7	; 6 SFX tracks
+		lea	v_sfx_track_ram(a6),a1
+		moveq	#((v_sfx_track_ram_end-v_sfx_track_ram)/zTrackSz)-1,d7	; 6 SFX tracks
 ; loc_7215A:
 @sfxstoploop:
 		tst.b	(a1)		; Is SFX playing? (zTrackPlaybackControl)
@@ -862,14 +862,14 @@ Sound_PlayBGM:
 		bset	#2,v_psg3_track+zTrackPlaybackControl(a6)	; Set 'SFX is overriding' bit
 ; loc_7219A:
 @sendfmnoteoff:
-		lea	v_fm1_track(a6),a5
-		moveq	#(v_fm6_track-v_fm1_track)/zTrackSz,d4	; 6 FM tracks
+		lea	v_fm_tracks(a6),a5
+		moveq	#((v_fm_tracks_end-v_fm_tracks)/zTrackSz)-1,d4	; 6 FM tracks
 ; loc_721A0:
 @fmnoteoffloop:
 		jsr	FMNoteOff(pc)
 		adda.w	d6,a5
 		dbf	d4,@fmnoteoffloop		; run all FM tracks
-		moveq	#(v_psg3_track-v_psg1_track)/zTrackSz,d4 ; 3 PSG tracks
+		moveq	#((v_psg_tracks_end-v_psg_tracks)/zTrackSz)-1,d4 ; 3 PSG tracks
 ; loc_721AC:
 @psgnoteoffloop:
 		jsr	PSGNoteOff(pc)
@@ -1137,7 +1137,7 @@ Sound_PlaySpecial:
 StopSFX:
 		clr.b	v_sndprio(a6)		; Clear priority
 		lea	v_sfx_track_ram(a6),a5
-		moveq	#(v_sfx_psg3_track-v_sfx_fm3_track)/zTrackSz,d7	; 3 FM + 3 PSG tracks (SFX)
+		moveq	#((v_sfx_track_ram_end-v_sfx_track_ram)/zTrackSz)-1,d7	; 3 FM + 3 PSG tracks (SFX)
 ; loc_723EA:
 @trackloop:
 		tst.b	(a5)		; Is track playing? (zTrackPlaybackControl)
@@ -1271,8 +1271,8 @@ DoFadeOut:
 		subq.b	#1,v_fadeout_counter(a6)	; Update fade counter
 		beq.w	StopSoundAndMusic		; Branch if fade is done
 		move.b	#3,v_fadeout_delay(a6)		; Reset fade delay
-		lea	v_fm1_track(a6),a5
-		moveq	#(v_fm6_track-v_fm1_track)/zTrackSz,d7	; 6 FM tracks
+		lea	v_fm_tracks(a6),a5
+		moveq	#((v_fm_tracks_end-v_fm_tracks)/zTrackSz)-1,d7	; 6 FM tracks
 ; loc_72524:
 @fmloop:
 		tst.b	(a5)			; Is track playing? (zTrackPlaybackControl)
@@ -1290,7 +1290,7 @@ DoFadeOut:
 		adda.w	#zTrackSz,a5
 		dbf	d7,@fmloop
 
-		moveq	#(v_psg3_track-v_psg1_track)/zTrackSz,d7	; 3 PSG tracks
+		moveq	#((v_psg_tracks_end-v_psg_tracks)/zTrackSz)-1,d7	; 3 PSG tracks
 ; loc_72542:
 @psgloop:
 		tst.b	(a5)			; Is track playing? (zTrackPlaybackControl)
@@ -1412,10 +1412,10 @@ InitMusicPlayback:
 		; To fix this, I suggest using this code, instead of an 'rts':
 		;lea	v_track_ram+zTrackVoiceControl(a6),a1
 		;lea	FMDACInitBytes(pc),a2
-		;moveq	#(v_fm6_track-v_dac_track)/zTrackSz,d1		; 7 DAC/FM tracks
+		;moveq	#((v_fmdac_tracks_end-v_fmdac_tracks)/zTrackSz)-1,d1		; 7 DAC/FM tracks
 		;bsr.s	@writeloop
 		;lea	PSGInitBytes(pc),a2
-		;moveq	#(v_psg3_track-v_psg1_track)/zTrackSz,d1	; 3 PSG tracks
+		;moveq	#((v_psg_tracks_end-v_psg_tracks)/zTrackSz)-1,d1	; 3 PSG tracks
 
 ;@writeloop:
 		;move.b	(a2)+,(a1)		; Write track's channel byte
@@ -1434,7 +1434,7 @@ TempoWait:
 		move.b	v_main_tempo(a6),v_main_tempo_timeout(a6)	; Reset main tempo timeout
 		lea	v_track_ram+zTrackDurationTimeout(a6),a0	; note timeout
 		moveq	#zTrackSz,d0
-		moveq	#(v_psg3_track-v_dac_track)/zTrackSz,d1		; 1 DAC + 6 FM + 3 PSG tracks
+		moveq	#((v_track_ram_end-v_track_ram)/zTrackSz)-1,d1		; 1 DAC + 6 FM + 3 PSG tracks
 ; loc_7261A:
 @tempoloop:
 		addq.b	#1,(a0)	; Delay note by 1 frame
@@ -1498,8 +1498,8 @@ DoFadeIn:
 		beq.s	@fadedone		; Branch if yes
 		subq.b	#1,v_fadein_counter(a6)	; Update fade counter
 		move.b	#2,v_fadein_delay(a6)	; Reset fade delay
-		lea	v_fm1_track(a6),a5
-		moveq	#(v_fm6_track-v_fm1_track)/zTrackSz,d7	; 6 FM tracks
+		lea	v_fm_tracks(a6),a5
+		moveq	#((v_fm_tracks_end-v_fm_tracks)/zTrackSz)-1,d7	; 6 FM tracks
 ; loc_7269E:
 @fmloop:
 		tst.b	(a5)			; Is track playing? (zTrackPlaybackControl)
@@ -1510,7 +1510,7 @@ DoFadeIn:
 @nextfm:
 		adda.w	#zTrackSz,a5
 		dbf	d7,@fmloop
-		moveq	#(v_psg3_track-v_psg1_track)/zTrackSz,d7		; 3 PSG tracks
+		moveq	#((v_psg_tracks_end-v_psg_tracks)/zTrackSz)-1,d7		; 3 PSG tracks
 ; loc_726B4:
 @psgloop:
 		tst.b	(a5)			; Is track playing? (zTrackPlaybackControl)
@@ -2006,8 +2006,8 @@ cfFadeInToPrevious:
 		movea.l	a5,a3
 		move.b	#$28,d6
 		sub.b	v_fadein_counter(a6),d6			; If fade already in progress, this adjusts track volume accordingly
-		moveq	#(v_fm6_track-v_fm1_track)/zTrackSz,d7	; 6 FM tracks
-		lea	v_fm1_track(a6),a5
+		moveq	#((v_fm_tracks_end-v_fm_tracks)/zTrackSz)-1,d7	; 6 FM tracks
+		lea	v_fm_tracks(a6),a5
 ; loc_72B3A:
 @fmloop:
 		btst	#7,(a5)		; Is track playing? (zTrackPlaybackControl)
@@ -2025,7 +2025,7 @@ cfFadeInToPrevious:
 		adda.w	#zTrackSz,a5
 		dbf	d7,@fmloop
 
-		moveq	#(v_psg3_track-v_psg1_track)/zTrackSz,d7	; 3 PSG tracks
+		moveq	#((v_psg_tracks_end-v_psg_tracks)/zTrackSz)-1,d7	; 3 PSG tracks
 ; loc_72B66:
 @psgloop:
 		btst	#7,(a5)		; Is track playing? (zTrackPlaybackControl)
@@ -2085,7 +2085,7 @@ cfSetTempoMod:
 		lea	v_track_ram(a6),a0
 		move.b	(a4)+,d0			; Get new tempo divider
 		moveq	#zTrackSz,d1
-		moveq	#(v_psg3_track-v_dac_track)/zTrackSz,d2	; 1 DAC + 6 FM + 3 PSG tracks
+		moveq	#((v_track_ram_end-v_track_ram)/zTrackSz)-1,d2	; 1 DAC + 6 FM + 3 PSG tracks
 ; loc_72BDA:
 @trackloop:
 		move.b	d0,zTrackTempoDivider(a0)	; Set track's tempo divider
