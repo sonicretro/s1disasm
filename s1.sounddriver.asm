@@ -2159,7 +2159,7 @@ SetVoice:
 		move.b	#$B0,d0			; Command to write feedback/algorithm
 		jsr	WriteFMIorII(pc)
 		lea	FMInstrumentOperatorTable(pc),a2
-		moveq	#$13,d3		; Don't want to send TL yet
+		moveq	#(FMInstrumentOperatorTable_End-FMInstrumentOperatorTable)-1,d3		; Don't want to send TL yet
 ; loc_72C72:
 @sendvoiceloop:
 		move.b	(a2)+,d0
@@ -2230,7 +2230,7 @@ SendVoiceTL:
 		move.b	FMSlotMask(pc,d0.w),d4		; Get slot mask
 		move.b	zTrackVolume(a5),d3		; Get track volume attenuation
 		bmi.s	@locret				; If negative, stop
-		moveq	#3,d5
+		moveq	#(FMInstrumentTLTable_End-FMInstrumentTLTable)-1,d5
 ; loc_72D02:
 @sendtlloop:
 		move.b	(a2)+,d0
@@ -2271,12 +2271,14 @@ FMInstrumentOperatorTable:
 		dc.b  $88		; Secondary amplitude/release rate operator 3
 		dc.b  $84		; Secondary amplitude/release rate operator 2
 		dc.b  $8C		; Secondary amplitude/release rate operator 4
+FMInstrumentOperatorTable_End
 ; byte_72D2C:
 FMInstrumentTLTable:
 		dc.b  $40		; Total level operator 1
 		dc.b  $48		; Total level operator 3
 		dc.b  $44		; Total level operator 2
 		dc.b  $4C		; Total level operator 4
+FMInstrumentTLTable_End
 ; ===========================================================================
 ; loc_72D30:
 cfModulation:
