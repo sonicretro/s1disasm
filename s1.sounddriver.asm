@@ -36,7 +36,7 @@ SpeedUpIndex:
 		dc.b $72	; LZ
 		dc.b $73	; MZ
 		dc.b $26	; SLZ
-		dc.b $15	; SYY
+		dc.b $15	; SYZ
 		dc.b 8		; SBZ
 		dc.b $FF	; Invincibility
 		dc.b 5		; Extra Life
