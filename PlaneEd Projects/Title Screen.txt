@@ -1,0 +1,10 @@
+Palette File: ../palette/Title Screen.bin
+Mapping File: ../tilemaps/Title Screen.bin
+Art File: ../artnem/Title Screen Foreground.bin
+Mapping Compression: Enigma
+Art Compression: Nemesis
+x-Size: 0x22
+y-Size: 0x16
+Palette Offset: 0x00
+Palette Length: 0x20
+Tile Offset: 0x200
