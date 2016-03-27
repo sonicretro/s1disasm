@@ -31,7 +31,27 @@ PSG9:		incbin	"sound/psg/psg9.bin"
 ; tempos while speed shoes are active. If you don't want that, you should add
 ; their "correct" sped-up main tempos to the list.
 ; byte_71A94:
-SpeedUpIndex:	dc.b 7,	$72, $73, $26, $15, 8, $FF, 5
+SpeedUpIndex:
+		dc.b 7		; GHZ
+		dc.b $72	; LZ
+		dc.b $73	; MZ
+		dc.b $26	; SLZ
+		dc.b $15	; SYY
+		dc.b 8		; SBZ
+		dc.b $FF	; Invincibility
+		dc.b 5		; Extra Life
+		;dc.b ?		; Special Stage
+		;dc.b ?		; Title Screen
+		;dc.b ?		; Ending
+		;dc.b ?		; Boss
+		;dc.b ?		; FZ
+		;dc.b ?		; Sonic Got Through
+		;dc.b ?		; Game Over
+		;dc.b ?		; Continue Screen
+		;dc.b ?		; Credits
+		;dc.b ?		; Drowning
+		;dc.b ?		; Get Emerald
+
 ; ---------------------------------------------------------------------------
 ; Music	Pointers
 ; ---------------------------------------------------------------------------
