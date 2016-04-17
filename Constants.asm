@@ -37,7 +37,7 @@ zTrackPlaybackControl:	equ 0		; All tracks
 zTrackVoiceControl:	equ 1		; All tracks
 zTrackTempoDivider:	equ 2		; All tracks
 zTrackDataPointer:	equ 4		; All tracks (4 bytes)
-zTrackKeyOffset:	equ 8		; FM/PSG only (sometimes written to as a word, to include zTrackVolume)
+zTrackTranspose:	equ 8		; FM/PSG only (sometimes written to as a word, to include zTrackVolume)
 zTrackVolume:		equ 9		; FM/PSG only
 zTrackAMSFMSPan:	equ $A		; FM/DAC only
 zTrackVoiceIndex:	equ $B		; FM/PSG only
@@ -55,7 +55,7 @@ zTrackModulationSpeed:	equ $19		; FM/PSG only
 zTrackModulationDelta:	equ $1A		; FM/PSG only
 zTrackModulationSteps:	equ $1B		; FM/PSG only
 zTrackModulationVal:	equ $1C		; FM/PSG only (2 bytes)
-zTrackFreqDisplacement:	equ $1E		; FM/PSG only
+zTrackDetune:		equ $1E		; FM/PSG only
 zTrackPSGNoise:		equ $1F		; PSG only
 zTrackFeedbackAlgo:	equ $1F		; FM only
 zTrackVoicePtr:		equ $20		; FM SFX only (4 bytes)

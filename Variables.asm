@@ -58,37 +58,47 @@ f_speedup:		= $02A	; flag indicating whether speed shoes tempo is on ($80) or of
 v_ring_speaker:		= $02B	; which speaker the "ring" sound is played in (00 = right; 01 = left)
 f_push_playing:		= $02C	; if set, prevents further push sounds from playing
 
-v_track_ram:		= $040	; Start of music RAM
+v_music_track_ram:		= $040	; Start of music RAM
 
-v_dac_track:		= v_track_ram+zTrackSz*0
-v_fm1_track:		= v_track_ram+zTrackSz*1
-v_fm2_track:		= v_track_ram+zTrackSz*2
-v_fm3_track:		= v_track_ram+zTrackSz*3
-v_fm4_track:		= v_track_ram+zTrackSz*4
-v_fm5_track:		= v_track_ram+zTrackSz*5
-v_fm6_track:		= v_track_ram+zTrackSz*6
-v_psg1_track:		= v_track_ram+zTrackSz*7
-v_psg2_track:		= v_track_ram+zTrackSz*8
-v_psg3_track:		= v_track_ram+zTrackSz*9
-v_track_ram_end:	= v_track_ram+zTrackSz*10
+v_music_fmdac_tracks:		= v_music_track_ram+zTrackSz*0
+v_music_dac_track:		= v_music_fmdac_tracks+zTrackSz*0
+v_music_fm_tracks:		= v_music_fmdac_tracks+zTrackSz*1
+v_music_fm1_track:		= v_music_fm_tracks+zTrackSz*0
+v_music_fm2_track:		= v_music_fm_tracks+zTrackSz*1
+v_music_fm3_track:		= v_music_fm_tracks+zTrackSz*2
+v_music_fm4_track:		= v_music_fm_tracks+zTrackSz*3
+v_music_fm5_track:		= v_music_fm_tracks+zTrackSz*4
+v_music_fm6_track:		= v_music_fm_tracks+zTrackSz*5
+v_music_fm_tracks_end:		= v_music_fm_tracks+zTrackSz*6
+v_music_fmdac_tracks_end:	= v_music_fm_tracks_end
+v_music_psg_tracks:		= v_music_fmdac_tracks_end
+v_music_psg1_track:		= v_music_psg_tracks+zTrackSz*0
+v_music_psg2_track:		= v_music_psg_tracks+zTrackSz*1
+v_music_psg3_track:		= v_music_psg_tracks+zTrackSz*2
+v_music_psg_tracks_end:		= v_music_psg_tracks+zTrackSz*3
+v_music_track_ram_end:		= v_music_psg_tracks_end
 
-v_sfx_track_ram:	= v_track_ram_end	; Start of sfx RAM, straight after the end of music RAM
+v_sfx_track_ram:		= v_music_track_ram_end	; Start of SFX RAM, straight after the end of music RAM
 
-v_sfx_fm3_track:	= v_sfx_track_ram+zTrackSz*0
-v_sfx_fm4_track:	= v_sfx_track_ram+zTrackSz*1
-v_sfx_fm5_track:	= v_sfx_track_ram+zTrackSz*2
-v_sfx_psg1_track:	= v_sfx_track_ram+zTrackSz*3
-v_sfx_psg2_track:	= v_sfx_track_ram+zTrackSz*4
-v_sfx_psg3_track:	= v_sfx_track_ram+zTrackSz*5
-v_sfx_track_ram_end:	= v_sfx_track_ram+zTrackSz*6
+v_sfx_fm_tracks:		= v_sfx_track_ram+zTrackSz*0
+v_sfx_fm3_track:		= v_sfx_fm_tracks+zTrackSz*0
+v_sfx_fm4_track:		= v_sfx_fm_tracks+zTrackSz*1
+v_sfx_fm5_track:		= v_sfx_fm_tracks+zTrackSz*2
+v_sfx_fm_tracks_end:		= v_sfx_fm_tracks+zTrackSz*3
+v_sfx_psg_tracks:		= v_sfx_fm_tracks_end
+v_sfx_psg1_track:		= v_sfx_psg_tracks+zTrackSz*0
+v_sfx_psg2_track:		= v_sfx_psg_tracks+zTrackSz*1
+v_sfx_psg3_track:		= v_sfx_psg_tracks+zTrackSz*2
+v_sfx_psg_tracks_end:		= v_sfx_psg_tracks+zTrackSz*3
+v_sfx_track_ram_end:		= v_sfx_psg_tracks_end
 
-v_sfx2_track_ram:	= v_sfx_track_ram_end	; Start of special sfx RAM, straight after the end of sfx RAM
+v_spcsfx_track_ram:		= v_sfx_track_ram_end	; Start of special SFX RAM, straight after the end of SFX RAM
 
-v_sfx2_fm4_track:	= v_sfx2_track_ram+zTrackSz*0
-v_sfx2_psg3_track:	= v_sfx2_track_ram+zTrackSz*1
-v_sfx2_track_ram_end:	= v_sfx2_track_ram+zTrackSz*2
+v_spcsfx_fm4_track:		= v_spcsfx_track_ram+zTrackSz*0
+v_spcsfx_psg3_track:		= v_spcsfx_track_ram+zTrackSz*1
+v_spcsfx_track_ram_end:		= v_spcsfx_track_ram+zTrackSz*2
 
-v_1up_ram_copy:		= v_sfx2_track_ram_end
+v_1up_ram_copy:			= v_spcsfx_track_ram_end
 
 ; =================================================================================
 ; From here on, no longer relative to sound driver RAM

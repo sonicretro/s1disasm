@@ -1,0 +1,9 @@
+Palette File: ../palette/Special Stage.bin
+Mapping File: ../tilemaps/SS Background 2.bin
+Art File: ../artnem/Special Clouds.bin
+Mapping Compression: Enigma
+Art Compression: Nemesis
+x-Size: 0x40
+y-Size: 0x40
+Palette Offset: 0x40
+Palette Length: 0x20
