@@ -11,7 +11,7 @@ BallHog:
 Hog_Index:	dc.w Hog_Main-Hog_Index
 		dc.w Hog_Action-Hog_Index
 
-launchflag:	= $32		; 0 to launch a cannonball
+hog_launchflag:	equ $32		; 0 to launch a cannonball
 ; ===========================================================================
 
 Hog_Main:	; Routine 0
@@ -40,20 +40,20 @@ Hog_Action:	; Routine 2
 		bsr.w	AnimateSprite
 		cmpi.b	#1,obFrame(a0)	; is final frame (01) displayed?
 		bne.s	@setlaunchflag	; if not, branch
-		tst.b	launchflag(a0)	; is it	set to launch cannonball?
+		tst.b	hog_launchflag(a0)	; is it	set to launch cannonball?
 		beq.s	@makeball	; if yes, branch
 		bra.s	@remember
 ; ===========================================================================
 
 @setlaunchflag:
-		clr.b	launchflag(a0)	; set to launch	cannonball
+		clr.b	hog_launchflag(a0)	; set to launch	cannonball
 
 @remember:
 		bra.w	RememberState
 ; ===========================================================================
 
 @makeball:
-		move.b	#1,launchflag(a0)
+		move.b	#1,hog_launchflag(a0)
 		bsr.w	FindFreeObj
 		bne.s	@fail
 		move.b	#id_Cannonball,0(a1) ; load cannonball object ($20)

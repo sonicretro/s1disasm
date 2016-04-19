@@ -14,7 +14,7 @@ Hel_Index:	dc.w Hel_Main-Hel_Index
 		dc.w Hel_Delete-Hel_Index
 		dc.w Hel_Display-Hel_Index
 
-hel_frame:	= $3E		; start frame (different for each spike)
+hel_frame:	equ $3E		; start frame (different for each spike)
 
 ;		$29-38 are used for child object addresses
 ; ===========================================================================

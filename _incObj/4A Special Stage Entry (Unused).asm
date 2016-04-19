@@ -12,7 +12,7 @@ Van_Index:	dc.w Van_Main-Van_Index
 		dc.w Van_RmvSonic-Van_Index
 		dc.w Van_LoadSonic-Van_Index
 
-van_time:	= $30		; time for Sonic to disappear
+van_time:	equ $30		; time for Sonic to disappear
 ; ===========================================================================
 
 Van_Main:	; Routine 0

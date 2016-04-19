@@ -19,9 +19,9 @@ Sign_Index:	dc.w Sign_Main-Sign_Index
 		dc.w Sign_SonicRun-Sign_Index
 		dc.w Sign_Exit-Sign_Index
 
-spintime:	= $30		; time for signpost to spin
-sparkletime:	= $32		; time between sparkles
-sparkle_id:	= $34		; counter to keep track of sparkles
+spintime:	equ $30		; time for signpost to spin
+sparkletime:	equ $32		; time between sparkles
+sparkle_id:	equ $34		; counter to keep track of sparkles
 ; ===========================================================================
 
 Sign_Main:	; Routine 0

@@ -14,7 +14,7 @@ Orb_Index:	dc.w Orb_Main-Orb_Index
 		dc.w Orb_MoveOrb-Orb_Index
 		dc.w Orb_ChkDel2-Orb_Index
 
-orb_parent:	= $3C		; address of parent object
+orb_parent:	equ $3C		; address of parent object
 ; ===========================================================================
 
 Orb_Main:	; Routine 0

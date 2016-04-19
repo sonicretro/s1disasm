@@ -13,9 +13,9 @@ Buzz_Index:	dc.w Buzz_Main-Buzz_Index
 		dc.w Buzz_Action-Buzz_Index
 		dc.w Buzz_Delete-Buzz_Index
 
-timedelay:	= $32
-buzzstatus:	= $34
-parent:		= $3C
+buzz_timedelay:	equ $32
+buzz_buzzstatus:	equ $34
+buzz_parent:	equ $3C
 ; ===========================================================================
 
 Buzz_Main:	; Routine 0
@@ -41,12 +41,12 @@ Buzz_Action:	; Routine 2
 ; ===========================================================================
 
 @move:
-		subq.w	#1,timedelay(a0) ; subtract 1 from time delay
+		subq.w	#1,buzz_timedelay(a0) ; subtract 1 from time delay
 		bpl.s	@noflip		; if time remains, branch
-		btst	#1,buzzstatus(a0) ; is Buzz Bomber near Sonic?
+		btst	#1,buzz_buzzstatus(a0) ; is Buzz Bomber near Sonic?
 		bne.s	@fire		; if yes, branch
 		addq.b	#2,ob2ndRout(a0)
-		move.w	#127,timedelay(a0) ; set time delay to just over 2 seconds
+		move.w	#127,buzz_timedelay(a0) ; set time delay to just over 2 seconds
 		move.w	#$400,obVelX(a0) ; move Buzz Bomber to the right
 		move.b	#1,obAnim(a0)	; use "flying" animation
 		btst	#0,obStatus(a0)	; is Buzz Bomber facing	left?
@@ -75,10 +75,10 @@ Buzz_Action:	; Routine 2
 	@noflip2:
 		add.w	d0,obX(a1)
 		move.b	obStatus(a0),obStatus(a1)
-		move.w	#$E,timedelay(a1)
-		move.l	a0,parent(a1)
-		move.b	#1,buzzstatus(a0) ; set to "already fired" to prevent refiring
-		move.w	#$3B,timedelay(a0)
+		move.w	#$E,buzz_timedelay(a1)
+		move.l	a0,buzz_parent(a1)
+		move.b	#1,buzz_buzzstatus(a0) ; set to "already fired" to prevent refiring
+		move.w	#$3B,buzz_timedelay(a0)
 		move.b	#2,obAnim(a0)	; use "firing" animation
 
 	@fail:
@@ -86,10 +86,10 @@ Buzz_Action:	; Routine 2
 ; ===========================================================================
 
 @chknearsonic:
-		subq.w	#1,timedelay(a0) ; subtract 1 from time delay
+		subq.w	#1,buzz_timedelay(a0) ; subtract 1 from time delay
 		bmi.s	@chgdirection
 		bsr.w	SpeedToPos
-		tst.b	buzzstatus(a0)
+		tst.b	buzz_buzzstatus(a0)
 		bne.s	@keepgoing
 		move.w	(v_player+obX).w,d0
 		sub.w	obX(a0),d0
@@ -101,15 +101,15 @@ Buzz_Action:	; Routine 2
 		bcc.s	@keepgoing	; if not, branch
 		tst.b	obRender(a0)
 		bpl.s	@keepgoing
-		move.b	#2,buzzstatus(a0) ; set Buzz Bomber to "near Sonic"
-		move.w	#29,timedelay(a0) ; set time delay to half a second
+		move.b	#2,buzz_buzzstatus(a0) ; set Buzz Bomber to "near Sonic"
+		move.w	#29,buzz_timedelay(a0) ; set time delay to half a second
 		bra.s	@stop
 ; ===========================================================================
 
 	@chgdirection:
-		move.b	#0,buzzstatus(a0) ; set Buzz Bomber to "normal"
+		move.b	#0,buzz_buzzstatus(a0) ; set Buzz Bomber to "normal"
 		bchg	#0,obStatus(a0)	; change direction
-		move.w	#59,timedelay(a0)
+		move.w	#59,buzz_timedelay(a0)
 
 	@stop:
 		subq.b	#2,ob2ndRout(a0)

@@ -13,7 +13,7 @@ Swi_Index:	dc.w Swi_Main-Swi_Index
 		dc.w Swi_Action-Swi_Index
 		dc.w Swi_Delete-Swi_Index
 
-origY:		= $30		; original y-axis position
+swi_origY:	equ $30		; original y-axis position
 ; ===========================================================================
 
 Swi_Main:	; Routine 0
@@ -21,12 +21,12 @@ Swi_Main:	; Routine 0
 		move.l	#Map_Swi,obMap(a0)
 		move.w	#$4000,obGfx(a0)
 		move.b	#4,obRender(a0)
-		move.w	obY(a0),origY(a0) ; save position on y-axis
+		move.w	obY(a0),swi_origY(a0) ; save position on y-axis
 		move.b	#$10,obActWid(a0)
 		move.b	#5,obPriority(a0)
 
 Swi_Action:	; Routine 2
-		move.w	origY(a0),obY(a0) ; restore position on y-axis
+		move.w	swi_origY(a0),obY(a0) ; restore position on y-axis
 		move.w	#$10,d1
 		bsr.w	Swi_ChkTouch	; check if Sonic touches the switch
 		beq.s	Swi_ChkDel	; if not, branch

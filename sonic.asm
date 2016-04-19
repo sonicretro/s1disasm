@@ -11,15 +11,15 @@
 	include	"Variables.asm"
 	include	"Macros.asm"
 
-EnableSRAM:	= 0	; change to 1 to enable SRAM
-BackupSRAM:	= 1
-AddressSRAM:	= 3	; 0 = odd+even; 2 = even only; 3 = odd only
+EnableSRAM:	equ 0	; change to 1 to enable SRAM
+BackupSRAM:	equ 1
+AddressSRAM:	equ 3	; 0 = odd+even; 2 = even only; 3 = odd only
 
-Revision:	= 0	; change to 1 for JP1 revision
+Revision:	equ 0	; change to 1 for JP1 revision
 
-ZoneCount:	= 7	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, SBZ and Ending
+ZoneCount:	equ 7	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, SBZ and Ending
 
-OptimiseSound:	= 0	; change to 1 to optimise sound queuing
+OptimiseSound:	equ 0	; change to 1 to optimise sound queuing
 
 ; ===========================================================================
 
@@ -5420,7 +5420,7 @@ locret_7B62:
 ; ===========================================================================
 
 Ledge_Fragment:
-		move.b	#0,collapse(a0)
+		move.b	#0,ledge_collapse_flag(a0)
 
 loc_847A:
 		lea	(CFlo_Data1).l,a4
@@ -5456,7 +5456,7 @@ loc_84B2:
 		move.w	obGfx(a0),obGfx(a1)
 		move.b	obPriority(a0),obPriority(a1)
 		move.b	obActWid(a0),obActWid(a1)
-		move.b	(a4)+,timedelay(a1)
+		move.b	(a4)+,ledge_timedelay(a1)
 		cmpa.l	a0,a1
 		bhs.s	loc_84EE
 		bsr.w	DisplaySprite1

@@ -57,8 +57,8 @@ Moto_Action:	; Routine 2
 Moto_ActIndex:	dc.w @move-Moto_ActIndex
 		dc.w @findfloor-Moto_ActIndex
 
-@time:		= $30
-@smokedelay:	= $33
+@time:		equ $30
+@smokedelay:	equ $33
 ; ===========================================================================
 
 @move:

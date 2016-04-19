@@ -14,7 +14,7 @@ CStom_Index:	dc.w CStom_Main-CStom_Index
 		dc.w CStom_Display2-CStom_Index
 		dc.w loc_B7E2-CStom_Index
 
-CStom_switch:	= $3A			; switch number for the current stomper
+CStom_switch:	equ $3A			; switch number for the current stomper
 
 CStom_SwchNums:	dc.b 0,	0		; switch number, obj number
 		dc.b 1,	0

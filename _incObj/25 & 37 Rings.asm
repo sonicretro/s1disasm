@@ -15,11 +15,11 @@ ptr_Ring_Collect:	dc.w Ring_Collect-Ring_Index
 ptr_Ring_Sparkle:	dc.w Ring_Sparkle-Ring_Index
 ptr_Ring_Delete:	dc.w Ring_Delete-Ring_Index
 
-id_Ring_Main:		= ptr_Ring_Main-Ring_Index	; 0
-id_Ring_Animate:	= ptr_Ring_Animate-Ring_Index	; 2
-id_Ring_Collect:	= ptr_Ring_Collect-Ring_Index	; 4
-id_Ring_Sparkle:	= ptr_Ring_Sparkle-Ring_Index	; 6
-id_Ring_Delete:		= ptr_Ring_Delete-Ring_Index	; 8
+id_Ring_Main:		equ ptr_Ring_Main-Ring_Index	; 0
+id_Ring_Animate:		equ ptr_Ring_Animate-Ring_Index	; 2
+id_Ring_Collect:		equ ptr_Ring_Collect-Ring_Index	; 4
+id_Ring_Sparkle:		equ ptr_Ring_Sparkle-Ring_Index	; 6
+id_Ring_Delete:		equ ptr_Ring_Delete-Ring_Index	; 8
 ; ---------------------------------------------------------------------------
 ; Distances between rings (format: horizontal, vertical)
 ; ---------------------------------------------------------------------------

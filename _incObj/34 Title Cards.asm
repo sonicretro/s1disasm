@@ -13,8 +13,8 @@ Card_Index:	dc.w Card_CheckSBZ3-Card_Index
 		dc.w Card_Wait-Card_Index
 		dc.w Card_Wait-Card_Index
 
-card_mainX:	= $30		; position for card to display on
-card_finalX:	= $32		; position for card to finish on
+card_mainX:	equ $30		; position for card to display on
+card_finalX:	equ $32		; position for card to finish on
 ; ===========================================================================
 
 Card_CheckSBZ3:	; Routine 0

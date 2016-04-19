@@ -14,9 +14,9 @@ Lamp_Index:	dc.w Lamp_Main-Lamp_Index
 		dc.w Lamp_Finish-Lamp_Index
 		dc.w Lamp_Twirl-Lamp_Index
 
-lamp_origX:	= $30		; original x-axis position
-lamp_origY:	= $32		; original y-axis position
-lamp_time:	= $36		; length of time to twirl the lamp
+lamp_origX:	equ $30		; original x-axis position
+lamp_origY:	equ $32		; original y-axis position
+lamp_time:	equ $36		; length of time to twirl the lamp
 ; ===========================================================================
 
 Lamp_Main:	; Routine 0

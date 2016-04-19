@@ -14,7 +14,7 @@ LWall_Index:	dc.w LWall_Main-LWall_Index
 		dc.w LWall_Move-LWall_Index
 		dc.w LWall_Delete-LWall_Index
 
-lwall_flag:	= $36		; flag to start wall moving
+lwall_flag:	equ $36		; flag to start wall moving
 ; ===========================================================================
 
 LWall_Main:	; Routine 0
