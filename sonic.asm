@@ -4637,7 +4637,7 @@ locret_6AD6:
 			andi.w	#$7F0,d0
 			lsr.w	#4,d0
 			move.b	(a0,d0),d0
-			move.w	locj_6FE4(pc,d0),a3
+			move.w	locj_6FE4(pc,d0.w),a3
 			beq.s	locj_6F9A
 			moveq	#-$10,d5
 			movem.l	d4/d5,-(sp)
@@ -4686,7 +4686,7 @@ locret_6AD6:
 			move.b	(a0)+,d0
 			btst	d0,(a2)
 			beq.s	locj_701C
-			move.w	locj_6FE4(pc,d0),a3
+			move.w	locj_6FE4(pc,d0.w),a3
 			movem.l	d4/d5/a0,-(sp)
 			movem.l	d4/d5,-(sp)
 			bsr.w	DrawBlocks
@@ -4696,7 +4696,7 @@ locret_6AD6:
 			movem.l	(sp)+,d4/d5/a0
 	locj_701C:
 			addi.w	#$10,d4
-			dbra	d6,locj_6FF4
+			dbf	d6,locj_6FF4
 			clr.b	(a2)
 			rts			
 
@@ -5011,7 +5011,7 @@ DrawChunks:
 			bsr.w	locj_72Ba
 			movem.l	(sp)+,d4-d6
 			addi.w	#$10,d4
-			dbra	d6,locj_7224
+			dbf	d6,locj_7224
 			rts
 	locj_724a:
 			dc.b $00,$00,$00,$00,$06,$06,$06,$04,$04,$04,$00,$00,$00,$00,$00,$00
@@ -5029,7 +5029,7 @@ DrawChunks:
 			bsr.w	locj_72Ba
 			movem.l	(sp)+,d4-d6
 			addi.w	#$10,d4
-			dbra	d6,locj_725E
+			dbf	d6,locj_725E
 			rts
 ;-------------------------------------------------------------------------------
 	Draw_SBz_Bg:;locj_7288:
@@ -5044,7 +5044,7 @@ DrawChunks:
 			bsr.w	locj_72Ba
 			movem.l	(sp)+,d4-d6
 			addi.w	#$10,d4
-			dbra	d6,locj_728C
+			dbf	d6,locj_728C
 			rts
 ;-------------------------------------------------------------------------------
 	locj_72B2:
@@ -5052,7 +5052,7 @@ DrawChunks:
 	locj_72Ba:
 			lsr.w	#4,d0
 			move.b	(a0,d0),d0
-			move.w	locj_72B2(pc,d0),a3
+			move.w	locj_72B2(pc,d0.w),a3
 			beq.s	locj_72da
 			moveq	#-$10,d5
 			movem.l	d4/d5,-(sp)

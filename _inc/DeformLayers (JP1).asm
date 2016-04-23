@@ -88,7 +88,7 @@ loc_630A:
 		bcs.s	loc_633C
 loc_6336:		
 		move.l	d0,(a1)+
-		dbra	d1,loc_6336
+		dbf	d1,loc_6336
 loc_633C:
 		move.w	($FFFFA804).w,d0
 		add.w	($FFFFF718).w,d0
@@ -96,26 +96,26 @@ loc_633C:
 		move.w	#$F,d1
 loc_634A:		
 		move.l	d0,(a1)+
-		dbra	d1,loc_634A
+		dbf	d1,loc_634A
 		move.w	($FFFFA808).w,d0
 		add.w	($FFFFF718).w,d0
 		neg.w	d0
 		move.w	#$F,d1
 loc_635E:		
 		move.l	d0,(a1)+
-		dbra	d1,loc_635E
+		dbf	d1,loc_635E
 		move.w	#$2F,d1
 		move.w	($FFFFF718).w,d0
 		neg.w	d0
 loc_636E:		
 		move.l	d0,(a1)+
-		dbra	d1,loc_636E
+		dbf	d1,loc_636E
 		move.w	#$27,d1
 		move.w	($FFFFF710).w,d0
 		neg.w	d0
 loc_637E:		
 		move.l	d0,(a1)+
-		dbra	d1,loc_637E
+		dbf	d1,loc_637E
 		move.w	($FFFFF710).w,d0
 		move.w	(v_screenposx).w,d2
 		sub.w	d0,d2
@@ -135,7 +135,7 @@ loc_63A4:
 		swap.w	d3
 		add.l	d2,d3
 		swap.w	d3
-		dbra	d1,loc_63A4
+		dbf	d1,loc_63A4
 		rts
 ; End of function Deform_GHZ
 
@@ -181,7 +181,7 @@ loc_6418:
 		addq.w	#1,d5
 		addq.b	#1,d2
 		addq.b	#1,d3
-		dbra	d1,loc_6418
+		dbf	d1,loc_6418
 		rts
 loc_642A:
 		move.b	(a3,d3),d4
@@ -194,7 +194,7 @@ loc_642A:
 		move.w	d4,(a1)+
 		addq.b	#1,d2
 		addq.b	#1,d3
-		dbra	d1,loc_642A
+		dbf	d1,loc_642A
 		rts
 
 Lz_Scroll_Data:
@@ -282,25 +282,25 @@ loc_65DE:
 		swap.w	d3
 		add.l	d0,d3
 		swap.w	d3
-		dbra	d1,loc_65DE
+		dbf	d1,loc_65DE
 		move.w	($FFFFF718).w,d0
 		neg.w	d0
 		move.w	#1,d1
 loc_65F4:		
 		move.w	d0,(a1)+
-		dbra	d1,loc_65F4
+		dbf	d1,loc_65F4
 		move.w	($FFFFF710).w,d0
 		neg.w	d0
 		move.w	#8,d1
 loc_6604:		
 		move.w	d0,(a1)+
-		dbra	d1,loc_6604
+		dbf	d1,loc_6604
 		move.w	($FFFFF708).w,d0
 		neg.w	d0
 		move.w	#$F,d1
 loc_6614:		
 		move.w	d0,(a1)+
-		dbra	d1,loc_6614
+		dbf	d1,loc_6614
 		lea	($FFFFA800).w,a2
 		move.w	($FFFFF70C).w,d0
 		subi.w	#$200,d0
@@ -348,7 +348,7 @@ loc_6678:
 		swap.w	d3
 		add.l	d0,d3
 		swap.w	d3
-		dbra	d1,loc_6678
+		dbf	d1,loc_6678
 		move.w	d2,d0
 		asr.w	#3,d0
 		move.w	d0,d1
@@ -357,19 +357,19 @@ loc_6678:
 		move.w	#4,d1
 loc_6692:		
 		move.w	d0,(a1)+
-		dbra	d1,loc_6692
+		dbf	d1,loc_6692
 		move.w	d2,d0
 		asr.w	#2,d0
 		move.w	#4,d1
 loc_66A0:		
 		move.w	d0,(a1)+
-		dbra	d1,loc_66A0
+		dbf	d1,loc_66A0
 		move.w	d2,d0
 		asr.w	#1,d0
 		move.w	#$1D,d1
 loc_66AE:		
 		move.w	d0,(a1)+
-		dbra	d1,loc_66AE
+		dbf	d1,loc_66AE
 		lea	($FFFFA800).w,a2
 		move.w	($FFFFF70C).w,d0
 		move.w	d0,d2
@@ -388,7 +388,7 @@ Bg_Scroll_X:
 		andi.w	#$F,d2
 		add.w	d2,d2
 		move.w	(a2)+,d0
-		jmp	loc_66EA(pc,d2)
+		jmp	loc_66EA(pc,d2.w)
 Loop_Bg_Scroll_X:
 		move.w	(a2)+,d0
 loc_66EA:		
@@ -408,7 +408,7 @@ loc_66EA:
 		move.l	d0,(a1)+
 		move.l	d0,(a1)+
 		move.l	d0,(a1)+
-		dbra	d1,Loop_Bg_Scroll_X
+		dbf	d1,Loop_Bg_Scroll_X
 		rts
 
 ; ---------------------------------------------------------------------------
@@ -448,19 +448,19 @@ loc_6750:
 		swap.w	d3
 		add.l	d0,d3
 		swap.w	d3
-		dbra	d1,loc_6750
+		dbf	d1,loc_6750
 		move.w	d2,d0
 		asr.w	#3,d0
 		move.w	#4,d1
 loc_6764:		
 		move.w	d0,(a1)+
-		dbra	d1,loc_6764
+		dbf	d1,loc_6764
 		move.w	d2,d0
 		asr.w	#2,d0
 		move.w	#5,d1
 loc_6772:		
 		move.w	d0,(a1)+
-		dbra	d1,loc_6772
+		dbf	d1,loc_6772
 		move.w	d2,d0
 		move.w	d2,d1
 		asr.w	#1,d1
@@ -480,7 +480,7 @@ loc_6798:
 		swap.w	d3
 		add.l	d0,d3
 		swap.w	d3
-		dbra	d1,loc_6798
+		dbf	d1,loc_6798
 		lea	($FFFFA800).w,a2
 		move.w	($FFFFF70C).w,d0
 		move.w	d0,d2
@@ -553,25 +553,25 @@ loc_684E:
 		swap.w	d3
 		add.l	d0,d3
 		swap.w	d3
-		dbra	d1,loc_684E
+		dbf	d1,loc_684E
 		move.w	($FFFFF718).w,d0
 		neg.w	d0
 		move.w	#9,d1
 loc_6864:		
 		move.w	d0,(a1)+
-		dbra	d1,loc_6864
+		dbf	d1,loc_6864
 		move.w	($FFFFF710).w,d0
 		neg.w	d0
 		move.w	#6,d1
 loc_6874:		
 		move.w	d0,(a1)+
-		dbra	d1,loc_6874
+		dbf	d1,loc_6874
 		move.w	($FFFFF708).w,d0
 		neg.w	d0
 		move.w	#$A,d1
 loc_6884:		
 		move.w	d0,(a1)+
-		dbra	d1,loc_6884
+		dbf	d1,loc_6884
 		lea	($FFFFA800).w,a2
 		move.w	($FFFFF70C).w,d0
 		move.w	d0,d2
@@ -598,7 +598,7 @@ Bg_Scroll_SBz_2:;loc_68A2:
 		neg.w	d0
 loc_68D2:		
 		move.l	d0,(a1)+
-		dbra	d1,loc_68D2
+		dbf	d1,loc_68D2
 		rts
 ; End of function Deform_SBZ
 
