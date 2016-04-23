@@ -13,7 +13,7 @@ v_16x16:		equ $FFFFB000	; 16x16 tile mappings
 
 v_sgfx_buffer:	equ $FFFFC800	; buffered Sonic graphics ($18 cells) ($300 bytes)
 v_tracksonic:	equ $FFFFCB00	; position tracking data for Sonic ($100 bytes)
-v_hscrolltablebuffer:	equ $FFFFCC00 ; scrolling table data ($400 bytes)
+v_hscrolltablebuffer:	equ $FFFFCC00 ; scrolling table data (actually $380 bytes, but $400 is reserved for it)
 v_objspace:	equ $FFFFD000	; object variable space ($40 bytes per object) ($2000 bytes)
 v_player:	equ v_objspace	; object variable space for Sonic ($40 bytes)
 v_lvlobjspace:	equ $FFFFD800	; level object variable space ($1800 bytes)
@@ -221,7 +221,7 @@ f_endactbonus:	equ $FFFFF7D6	; time/ring bonus update flag at the end of an act
 v_sonicend:	equ $FFFFF7D7	; routine counter for Sonic in the ending sequence
 f_switch:	equ $FFFFF7E0	; flags set when Sonic stands on a switch ($10 bytes)
 
-v_spritetablebuffer:	equ $FFFFF800 ; sprite table ($200 bytes)
+v_spritetablebuffer:	equ $FFFFF800 ; sprite table ($280 bytes, last $80 bytes are overwritten by v_pal_water_dup)
 v_pal_water_dup:	equ $FFFFFA00 ; duplicate underwater palette, used for transitions ($80 bytes)
 v_pal_water:	equ $FFFFFA80	; main underwater palette ($80 bytes)
 v_pal_dry:	equ $FFFFFB00	; main palette ($80 bytes)
