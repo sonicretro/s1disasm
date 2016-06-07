@@ -20,7 +20,7 @@ Debug_Main:	; Routine 0
 		move.w	#$720,(v_limitbtm1).w
 		andi.w	#$7FF,(v_player+obY).w
 		andi.w	#$7FF,(v_screenposy).w
-		andi.w	#$3FF,($FFFFF70C).w
+		andi.w	#$3FF,(v_bgscreenposy).w
 		move.b	#0,obFrame(a0)
 		move.b	#id_Walk,obAnim(a0)
 		cmpi.b	#id_Special,(v_gamemode).w ; is game mode $10 (special stage)?

@@ -139,8 +139,13 @@ v_ptrnemcode:	equ $FFFFF6E0	; pointer for nemesis decompression code ($1502 or $
 f_plc_execute:	equ $FFFFF6F8	; flag set for pattern load cue execution (2 bytes)
 
 v_screenposx:	equ $FFFFF700	; screen position x (2 bytes)
-
 v_screenposy:	equ $FFFFF704	; screen position y (2 bytes)
+v_bgscreenposx:	equ $FFFFF708	; background screen position x (2 bytes)
+v_bgscreenposy:	equ $FFFFF70C	; background screen position y (2 bytes)
+v_bg2screenposx:	equ $FFFFF710	; 2 bytes
+v_bg2screenposy:	equ $FFFFF714	; 2 bytes
+v_bg3screenposx:	equ $FFFFF718	; 2 bytes
+v_bg3screenposy:	equ $FFFFF71C	; 2 bytes
 
 v_limitleft1:	equ $FFFFF720	; left level boundary (2 bytes)
 v_limitright1:	equ $FFFFF722	; right level boundary (2 bytes)
