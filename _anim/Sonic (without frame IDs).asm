@@ -116,7 +116,7 @@ id_Stop:	equ (ptr_Stop-Ani_Sonic)/2	; $D
 id_Float1:	equ (ptr_Float1-Ani_Sonic)/2	; $E
 id_Float2:	equ (ptr_Float2-Ani_Sonic)/2	; $F
 id_Spring:	equ (ptr_Spring-Ani_Sonic)/2	; $10
-id_LZHang:	equ (ptr_LZHang-Ani_Sonic)/2	; $11
+id_Hang:	equ (ptr_LZHang-Ani_Sonic)/2	; $11
 id_Leap1:	equ (ptr_Leap1-Ani_Sonic)/2	; $12
 id_Leap2:	equ (ptr_Leap2-Ani_Sonic)/2	; $13
 id_Surf:	equ (ptr_Surf-Ani_Sonic)/2	; $14
