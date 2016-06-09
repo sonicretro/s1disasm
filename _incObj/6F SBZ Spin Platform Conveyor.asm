@@ -10,7 +10,7 @@ SpinConvey:
 		out_of_range.s	loc_1629A,$30(a0)
 
 SpinC_Display:
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 loc_1629A:
@@ -27,7 +27,7 @@ SpinC_Act1or2:
 		bclr	#0,(a2,d0.w)
 
 SpinC_Delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 SpinC_Index:	dc.w SpinC_Main-SpinC_Index
 		dc.w loc_163D8-SpinC_Index
@@ -98,7 +98,7 @@ loc_16380:
 		lea	(v_obj63).w,a2
 		bset	#0,(a2,d0.w)
 		beq.s	loc_1639A
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 loc_1639A:
@@ -113,7 +113,7 @@ loc_1639A:
 ; ===========================================================================
 
 SpinC_Loop:
-		jsr	FindFreeObj
+		jsr	(FindFreeObj).l
 		bne.s	loc_163D0
 
 SpinC_LoadPform:
@@ -132,7 +132,7 @@ loc_163D0:
 
 loc_163D8:	; Routine 2
 		lea	(Ani_SpinConvey).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		tst.b	obFrame(a0)
 		bne.s	loc_16404
 		move.w	obX(a0),-(sp)
@@ -193,4 +193,4 @@ loc_16480:
 		bsr.w	LCon_ChangeDir
 
 loc_16484:
-		jmp	SpeedToPos
+		jmp	(SpeedToPos).l

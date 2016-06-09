@@ -11,12 +11,12 @@ Girder:
 Gird_Index:	dc.w Gird_Main-Gird_Index
 		dc.w Gird_Action-Gird_Index
 
-gird_height:	= $16
-gird_origX:	= $32		; original x-axis position
-gird_origY:	= $30		; original y-axis position
-gird_time:	= $34		; duration for movement in a direction
-gird_set:	= $38		; which movement settings to use (0/8/16/24)
-gird_delay:	= $3A		; delay for movement
+gird_height:	equ $16
+gird_origX:	equ $32		; original x-axis position
+gird_origY:	equ $30		; original y-axis position
+gird_time:	equ $34		; duration for movement in a direction
+gird_set:	equ $38		; which movement settings to use (0/8/16/24)
+gird_delay:	equ $3A		; delay for movement
 ; ===========================================================================
 
 Gird_Main:	; Routine 0
@@ -39,7 +39,7 @@ Gird_Action:	; Routine 2
 		bne.s	@solid
 
 	@beginmove:
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		subq.w	#1,gird_time(a0) ; decrement movement duration
 		bne.s	@solid		; if time remains, branch
 		bsr.w	Gird_ChgMove	; if time is zero, branch
@@ -59,10 +59,10 @@ Gird_Action:	; Routine 2
 
 	@chkdel:
 		out_of_range.s	@delete,gird_origX(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 	@delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 Gird_ChgMove:

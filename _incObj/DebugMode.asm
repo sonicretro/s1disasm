@@ -20,7 +20,7 @@ Debug_Main:	; Routine 0
 		move.w	#$720,(v_limitbtm1).w
 		andi.w	#$7FF,(v_player+obY).w
 		andi.w	#$7FF,(v_screenposy).w
-		andi.w	#$3FF,($FFFFF70C).w
+		andi.w	#$3FF,(v_bgscreenposy).w
 		move.b	#0,obFrame(a0)
 		move.b	#id_Walk,obAnim(a0)
 		cmpi.b	#id_Special,(v_gamemode).w ; is game mode $10 (special stage)?
@@ -64,7 +64,7 @@ Debug_Action:	; Routine 2
 		adda.w	(a2,d0.w),a2
 		move.w	(a2)+,d6
 		bsr.w	Debug_Control
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
@@ -160,7 +160,7 @@ Debug_ChgItem:
 @createitem:
 		btst	#bitC,(v_jpadpress1).w ; is button C pressed?
 		beq.s	@backtonormal	; if not, branch
-		jsr	FindFreeObj
+		jsr	(FindFreeObj).l
 		bne.s	@backtonormal
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)

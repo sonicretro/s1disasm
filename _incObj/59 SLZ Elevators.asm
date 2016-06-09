@@ -15,9 +15,9 @@ Elev_Index:	dc.w Elev_Main-Elev_Index
 		dc.w Elev_Action-Elev_Index
 		dc.w Elev_MakeMulti-Elev_Index
 
-elev_origX:	= $32		; original x-axis position
-elev_origY:	= $30		; original y-axis position
-elev_dist:	= $3C		; distance to move (2 bytes)
+elev_origX:	equ $32		; original x-axis position
+elev_origY:	equ $30		; original y-axis position
+elev_dist:	equ $3C		; distance to move (2 bytes)
 
 Elev_Var1:	dc.b $28, 0		; width, frame number
 

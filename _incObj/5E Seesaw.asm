@@ -25,11 +25,11 @@ See_Index:	dc.w See_Main-See_Index
 		dc.w See_MoveSpike-See_Index
 		dc.w See_SpikeFall-See_Index
 
-see_origX:	= $30		; original x-axis position
-see_origY:	= $34		; original y-axis position
-see_speed:	= $38		; speed of collision
-see_frame:	= $3A		; 
-see_parent:	= $3C		; RAM address of parent object
+see_origX:	equ $30		; original x-axis position
+see_origY:	equ $34		; original y-axis position
+see_speed:	equ $38		; speed of collision
+see_frame:	equ $3A		; 
+see_parent:	equ $3C		; RAM address of parent object
 ; ===========================================================================
 
 See_Main:	; Routine 0
@@ -72,7 +72,7 @@ See_Slope:	; Routine 2
 		lea	(v_player).w,a1
 		move.w	obVelY(a1),see_speed(a0)
 		move.w	#$30,d1
-		jsr	SlopeObject.L
+		jsr	(SlopeObject).l
 		rts	
 ; ===========================================================================
 
@@ -88,7 +88,7 @@ See_Slope2:	; Routine 4
 		jsr	(ExitPlatform).l
 		move.w	#$30,d1
 		move.w	obX(a0),d2
-		jsr	SlopeObject2
+		jsr	(SlopeObject2).l
 		rts	
 ; ===========================================================================
 

@@ -13,8 +13,8 @@ VanP_Index:	dc.w VanP_Main-VanP_Index
 		dc.w VanP_Appear-VanP_Index
 		dc.w loc_16068-VanP_Index
 
-vanp_timer:	= $30		; counter for time until event
-vanp_timelen:	= $32		; time between events (general)
+vanp_timer:	equ $30		; counter for time until event
+vanp_timelen:	equ $32		; time between events (general)
 ; ===========================================================================
 
 VanP_Main:	; Routine 0
@@ -54,7 +54,7 @@ loc_16068:	; Routine 6
 
 @animate:
 		lea	(Ani_Van).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		bra.w	RememberState
 ; ===========================================================================
 
@@ -72,7 +72,7 @@ VanP_Appear:	; Routine 4
 
 	@wait:
 		lea	(Ani_Van).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		btst	#1,obFrame(a0)	; has platform vanished?
 		bne.s	@notsolid	; if yes, branch
 		cmpi.b	#2,obRoutine(a0)

@@ -11,15 +11,15 @@
 	include	"Variables.asm"
 	include	"Macros.asm"
 
-EnableSRAM:	= 0	; change to 1 to enable SRAM
-BackupSRAM:	= 1
-AddressSRAM:	= 3	; 0 = odd+even; 2 = even only; 3 = odd only
+EnableSRAM:	equ 0	; change to 1 to enable SRAM
+BackupSRAM:	equ 1
+AddressSRAM:	equ 3	; 0 = odd+even; 2 = even only; 3 = odd only
 
-Revision:	= 0	; change to 1 for JP1 revision
+Revision:	equ 0	; change to 1 for JP1 revision
 
-ZoneCount:	= 7	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, SBZ and Ending
+ZoneCount:	equ 7	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, SBZ and Ending
 
-OptimiseSound:	= 0	; change to 1 to optimise sound queuing
+OptimiseSound:	equ 0	; change to 1 to optimise sound queuing
 
 ; ===========================================================================
 
@@ -503,7 +503,7 @@ VBlank:
 		jsr	VBla_Index(pc,d0.w)
 
 VBla_Music:
-		jsr	UpdateMusic
+		jsr	(UpdateMusic).l
 
 VBla_Exit:
 		addq.l	#1,(v_vbla_count).w
@@ -634,8 +634,8 @@ VBla_08:
 
 Demo_Time:
 		bsr.w	LoadTilesAsYouMove
-		jsr	AnimateLevelGfx
-		jsr	HUD_Update
+		jsr	(AnimateLevelGfx).l
+		jsr	(HUD_Update).l
 		bsr.w	sub_165E
 		tst.w	(v_demolength).w ; is there time left on the demo?
 		beq.w	@end		; if not, branch
@@ -700,8 +700,8 @@ VBla_0C:
 		movem.l	(v_bgscroll1).w,d0-d1
 		movem.l	d0-d1,($FFFFFF30).w
 		bsr.w	LoadTilesAsYouMove
-		jsr	AnimateLevelGfx
-		jsr	HUD_Update
+		jsr	(AnimateLevelGfx).l
+		jsr	(HUD_Update).l
 		bsr.w	sub_1642
 		rts	
 ; ===========================================================================
@@ -823,7 +823,7 @@ loc_119E:
 		clr.b	($FFFFF64F).w
 		movem.l	d0-a6,-(sp)
 		bsr.w	Demo_Time
-		jsr	UpdateMusic
+		jsr	(UpdateMusic).l
 		movem.l	(sp)+,d0-a6
 		rte	
 ; End of function HBlank
@@ -976,7 +976,7 @@ ClearScreen:
 
 		lea	(v_spritetablebuffer).w,a1
 		moveq	#0,d0
-		move.w	#$A0,d1
+		move.w	#($280/4),d1	; This should be ($280/4)-1, leading to a slight bug (first bit of v_pal_water is cleared)
 
 	@clearsprites:
 		move.l	d0,(a1)+
@@ -984,7 +984,7 @@ ClearScreen:
 
 		lea	(v_hscrolltablebuffer).w,a1
 		moveq	#0,d0
-		move.w	#$100,d1
+		move.w	#($400/4),d1	; This should be ($400/4)-1, leading to a slight bug (first bit of the Sonic object's RAM is cleared)
 
 	@clearhscroll:
 		move.l	d0,(a1)+
@@ -2041,8 +2041,8 @@ GM_Title:
 		moveq	#palid_Sonic,d0	; load Sonic's palette
 		bsr.w	PalLoad1
 		move.b	#id_CreditsText,(v_objspace+$80).w ; load "SONIC TEAM PRESENTS" object
-		jsr	ExecuteObjects
-		jsr	BuildSprites
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
 		bsr.w	PaletteFadeIn
 		disable_ints
 		locVRAM	$4000
@@ -2084,7 +2084,7 @@ GM_Title:
 		bsr.w	ClearScreen
 		lea	(vdp_control_port).l,a5
 		lea	(vdp_data_port).l,a6
-		lea	($FFFFF708).w,a3
+		lea	(v_bgscreenposx).w,a3
 		lea	(v_lvllayout+$40).w,a4
 		move.w	#$6000,d2
 		bsr.w	DrawChunks
@@ -2125,9 +2125,9 @@ GM_Title:
 	@isjap:
 		move.b	#id_PSBTM,(v_objspace+$100).w ; load object which hides part of Sonic
 		move.b	#2,(v_objspace+$100+obFrame).w
-		jsr	ExecuteObjects
+		jsr	(ExecuteObjects).l
 		bsr.w	DeformLayers
-		jsr	BuildSprites
+		jsr	(BuildSprites).l
 		moveq	#plcid_Main,d0
 		bsr.w	NewPLC
 		move.w	#0,(v_title_dcount).w
@@ -2140,9 +2140,9 @@ GM_Title:
 Tit_MainLoop:
 		move.b	#4,(v_vbla_routine).w
 		bsr.w	WaitForVBla
-		jsr	ExecuteObjects
+		jsr	(ExecuteObjects).l
 		bsr.w	DeformLayers
-		jsr	BuildSprites
+		jsr	(BuildSprites).l
 		bsr.w	PCycle_Title
 		bsr.w	RunPLC
 		move.w	(v_objspace+obX).w,d0
@@ -2780,15 +2780,15 @@ Level_GetBgm:
 Level_TtlCardLoop:
 		move.b	#$C,(v_vbla_routine).w
 		bsr.w	WaitForVBla
-		jsr	ExecuteObjects
-		jsr	BuildSprites
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
 		bsr.w	RunPLC
 		move.w	(v_objspace+$108).w,d0
 		cmp.w	(v_objspace+$130).w,d0 ; has title card sequence finished?
 		bne.s	Level_TtlCardLoop ; if not, branch
 		tst.l	(v_plc_buffer).w ; are there any items in the pattern load cue?
 		bne.s	Level_TtlCardLoop ; if yes, branch
-		jsr	Hud_Base	; load basic HUD gfx
+		jsr	(Hud_Base).l	; load basic HUD gfx
 
 	Level_SkipTtlCard:
 		moveq	#palid_Sonic,d0
@@ -2798,7 +2798,7 @@ Level_TtlCardLoop:
 		bset	#2,(v_bgscroll1).w
 		bsr.w	LevelDataLoad ; load block mappings and palettes
 		bsr.w	LoadTilesFromStart
-		jsr	FloorLog_Unk
+		jsr	(FloorLog_Unk).l
 		bsr.w	ColIndexLoad
 		bsr.w	LZWaterFeatures
 		move.b	#id_SonicPlayer,(v_player).w ; load Sonic object
@@ -2824,9 +2824,9 @@ Level_ChkWater:
 		move.w	#$120,(v_objspace+$7C0+obX).w
 
 Level_LoadObj:
-		jsr	ObjPosLoad
-		jsr	ExecuteObjects
-		jsr	BuildSprites
+		jsr	(ObjPosLoad).l
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
 		moveq	#0,d0
 		tst.b	(v_lastlamp).w	; are you starting from	a lamppost?
 		bne.s	Level_SkipClr	; if yes, branch
@@ -2924,7 +2924,7 @@ Level_MainLoop:
 		addq.w	#1,(v_framecount).w ; add 1 to level timer
 		bsr.w	MoveSonicInDemo
 		bsr.w	LZWaterFeatures
-		jsr	ExecuteObjects
+		jsr	(ExecuteObjects).l
 		if Revision=0
 		else
 			tst.w   (f_restart).w
@@ -2939,8 +2939,8 @@ Level_MainLoop:
 		bsr.w	DeformLayers
 
 	Level_SkipScroll:
-		jsr	BuildSprites
-		jsr	ObjPosLoad
+		jsr	(BuildSprites).l
+		jsr	(ObjPosLoad).l
 		bsr.w	PaletteCycle
 		bsr.w	RunPLC
 		bsr.w	OscillateNumDo
@@ -2987,9 +2987,9 @@ Level_FadeDemo:
 		move.b	#8,(v_vbla_routine).w
 		bsr.w	WaitForVBla
 		bsr.w	MoveSonicInDemo
-		jsr	ExecuteObjects
-		jsr	BuildSprites
-		jsr	ObjPosLoad
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
+		jsr	(ObjPosLoad).l
 		subq.w	#1,(v_palchgspeed).w
 		bpl.s	loc_3BC8
 		move.w	#2,(v_palchgspeed).w
@@ -3184,7 +3184,7 @@ GM_Special:
 		clr.w	(f_restart).w
 		moveq	#palid_Special,d0
 		bsr.w	PalLoad1	; load special stage palette
-		jsr	SS_Load		; load SS layout data
+		jsr	(SS_Load).l		; load SS layout data
 		move.l	#0,(v_screenposx).w
 		move.l	#0,(v_screenposy).w
 		move.b	#id_SonicSpecial,(v_player).w ; load special stage Sonic object
@@ -3225,9 +3225,9 @@ SS_MainLoop:
 		bsr.w	WaitForVBla
 		bsr.w	MoveSonicInDemo
 		move.w	(v_jpadhold1).w,(v_jpadhold2).w
-		jsr	ExecuteObjects
-		jsr	BuildSprites
-		jsr	SS_ShowLayout
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
+		jsr	(SS_ShowLayout).l
 		bsr.w	SS_BGAnimate
 		tst.w	(f_demo).w	; is demo mode on?
 		beq.s	SS_ChkEnd	; if not, branch
@@ -3259,9 +3259,9 @@ SS_Finish:
 		bsr.w	WaitForVBla
 		bsr.w	MoveSonicInDemo
 		move.w	(v_jpadhold1).w,(v_jpadhold2).w
-		jsr	ExecuteObjects
-		jsr	BuildSprites
-		jsr	SS_ShowLayout
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
+		jsr	(SS_ShowLayout).l
 		bsr.w	SS_BGAnimate
 		subq.w	#1,(v_palchgspeed).w
 		bpl.s	loc_47D4
@@ -3281,7 +3281,7 @@ loc_47D4:
 		locVRAM	$B000
 		lea	(Nem_TitleCard).l,a0 ; load title card patterns
 		bsr.w	NemDec
-		jsr	Hud_Base
+		jsr	(Hud_Base).l
 		enable_ints
 		moveq	#palid_SSResult,d0
 		bsr.w	PalLoad2	; load results screen palette
@@ -3309,8 +3309,8 @@ SS_NormalExit:
 		bsr.w	PauseGame
 		move.b	#$C,(v_vbla_routine).w
 		bsr.w	WaitForVBla
-		jsr	ExecuteObjects
-		jsr	BuildSprites
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
 		bsr.w	RunPLC
 		tst.w	(f_restart).w
 		beq.s	SS_NormalExit
@@ -3524,21 +3524,21 @@ Pal_SSCyc2:	incbin	"palette\Cycle - Special Stage 2.bin"
 SS_BGAnimate:
 		move.w	($FFFFF7A0).w,d0
 		bne.s	loc_4BF6
-		move.w	#0,($FFFFF70C).w
-		move.w	($FFFFF70C).w,($FFFFF618).w
+		move.w	#0,(v_bgscreenposy).w
+		move.w	(v_bgscreenposy).w,($FFFFF618).w
 
 loc_4BF6:
 		cmpi.w	#8,d0
 		bhs.s	loc_4C4E
 		cmpi.w	#6,d0
 		bne.s	loc_4C10
-		addq.w	#1,($FFFFF718).w
-		addq.w	#1,($FFFFF70C).w
-		move.w	($FFFFF70C).w,($FFFFF618).w
+		addq.w	#1,(v_bg3screenposx).w
+		addq.w	#1,(v_bgscreenposy).w
+		move.w	(v_bgscreenposy).w,($FFFFF618).w
 
 loc_4C10:
 		moveq	#0,d0
-		move.w	($FFFFF708).w,d0
+		move.w	(v_bgscreenposx).w,d0
 		neg.w	d0
 		swap	d0
 		lea	(byte_4CCC).l,a1
@@ -3565,7 +3565,7 @@ loc_4C26:
 loc_4C4E:
 		cmpi.w	#$C,d0
 		bne.s	loc_4C74
-		subq.w	#1,($FFFFF718).w
+		subq.w	#1,(v_bg3screenposx).w
 		lea	($FFFFAB00).w,a3
 		move.l	#$18000,d2
 		moveq	#6,d1
@@ -3583,12 +3583,12 @@ loc_4C74:
 
 loc_4C7E:
 		lea	(v_hscrolltablebuffer).w,a1
-		move.w	($FFFFF718).w,d0
+		move.w	(v_bg3screenposx).w,d0
 		neg.w	d0
 		swap	d0
 		moveq	#0,d3
 		move.b	(a2)+,d3
-		move.w	($FFFFF70C).w,d2
+		move.w	(v_bgscreenposy).w,d2
 		neg.w	d2
 		andi.w	#$FF,d2
 		lsl.w	#2,d2
@@ -3651,7 +3651,7 @@ GM_Continue:
 		lea	(Nem_MiniSonic).l,a0 ; load continue screen patterns
 		bsr.w	NemDec
 		moveq	#10,d1
-		jsr	ContScrCounter	; run countdown	(start from 10)
+		jsr	(ContScrCounter).l	; run countdown	(start from 10)
 		moveq	#palid_Continue,d0
 		bsr.w	PalLoad1	; load continue	screen palette
 		music	bgm_Continue,0,1,1	; play continue	music
@@ -3665,8 +3665,8 @@ GM_Continue:
 		move.b	#4,(v_objspace+$80+obFrame).w
 		move.b	#id_ContScrItem,(v_objspace+$C0).w
 		move.b	#4,(v_objspace+$C0+obRoutine).w
-		jsr	ExecuteObjects
-		jsr	BuildSprites
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
 		move.w	(v_vdp_buffer1).w,d0
 		ori.b	#$40,d0
 		move.w	d0,(vdp_control_port).l
@@ -3685,12 +3685,12 @@ Cont_MainLoop:
 		move.w	(v_demolength).w,d1
 		divu.w	#$3C,d1
 		andi.l	#$F,d1
-		jsr	ContScrCounter
+		jsr	(ContScrCounter).l
 		enable_ints
 
 loc_4DF2:
-		jsr	ExecuteObjects
-		jsr	BuildSprites
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
 		cmpi.w	#$180,(v_player+obX).w ; has Sonic run off screen?
 		bhs.s	Cont_GotoLevel	; if yes, branch
 		cmpi.b	#6,(v_player+obRoutine).w
@@ -3779,7 +3779,7 @@ GM_Ending:
 End_LoadData:
 		moveq	#plcid_Ending,d0
 		bsr.w	QuickPLC	; load ending sequence patterns
-		jsr	Hud_Base
+		jsr	(Hud_Base).l
 		bsr.w	LevelSizeLoad
 		bsr.w	DeformLayers
 		bset	#2,(v_bgscroll1).w
@@ -3804,9 +3804,9 @@ End_LoadSonic:
 		move.w	#(btnL<<8),(v_jpadhold2).w ; move Sonic to the left
 		move.w	#$F800,(v_player+obInertia).w ; set Sonic's speed
 		move.b	#id_HUD,(v_objspace+$40).w ; load HUD object
-		jsr	ObjPosLoad
-		jsr	ExecuteObjects
-		jsr	BuildSprites
+		jsr	(ObjPosLoad).l
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
 		moveq	#0,d0
 		move.w	d0,(v_rings).w
 		move.l	d0,(v_time).w
@@ -3841,10 +3841,10 @@ End_MainLoop:
 		bsr.w	WaitForVBla
 		addq.w	#1,(v_framecount).w
 		bsr.w	End_MoveSonic
-		jsr	ExecuteObjects
+		jsr	(ExecuteObjects).l
 		bsr.w	DeformLayers
-		jsr	BuildSprites
-		jsr	ObjPosLoad
+		jsr	(BuildSprites).l
+		jsr	(ObjPosLoad).l
 		bsr.w	PaletteCycle
 		bsr.w	OscillateNumDo
 		bsr.w	SynchroAnimate
@@ -3871,10 +3871,10 @@ End_ChkEmerald:
 		bsr.w	WaitForVBla
 		addq.w	#1,(v_framecount).w
 		bsr.w	End_MoveSonic
-		jsr	ExecuteObjects
+		jsr	(ExecuteObjects).l
 		bsr.w	DeformLayers
-		jsr	BuildSprites
-		jsr	ObjPosLoad
+		jsr	(BuildSprites).l
+		jsr	(ObjPosLoad).l
 		bsr.w	OscillateNumDo
 		bsr.w	SynchroAnimate
 		subq.w	#1,(v_palchgspeed).w
@@ -3997,8 +3997,8 @@ GM_Credits:
 		moveq	#palid_Sonic,d0
 		bsr.w	PalLoad1	; load Sonic's palette
 		move.b	#id_CreditsText,(v_objspace+$80).w ; load credits object
-		jsr	ExecuteObjects
-		jsr	BuildSprites
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
 		bsr.w	EndingDemoLoad
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
@@ -4126,8 +4126,8 @@ TryAgainEnd:
 		bsr.w	PalLoad1	; load ending palette
 		clr.w	(v_pal_dry_dup+$40).w
 		move.b	#id_EndEggman,(v_objspace+$80).w ; load Eggman object
-		jsr	ExecuteObjects
-		jsr	BuildSprites
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
 		move.w	#1800,(v_demolength).w ; show screen for 30 seconds
 		bsr.w	PaletteFadeIn
 
@@ -4138,8 +4138,8 @@ TryAg_MainLoop:
 		bsr.w	PauseGame
 		move.b	#4,(v_vbla_routine).w
 		bsr.w	WaitForVBla
-		jsr	ExecuteObjects
-		jsr	BuildSprites
+		jsr	(ExecuteObjects).l
+		jsr	(BuildSprites).l
 		andi.b	#btnStart,(v_jpadpress1).w ; is Start button pressed?
 		bne.s	TryAg_Exit	; if yes, branch
 		tst.w	(v_demolength).w ; has 30 seconds elapsed?
@@ -4194,12 +4194,12 @@ sub_6886:
 		lea	(vdp_control_port).l,a5
 		lea	(vdp_data_port).l,a6
 		lea	(v_bgscroll2).w,a2
-		lea	($FFFFF708).w,a3
+		lea	(v_bgscreenposx).w,a3
 		lea	(v_lvllayout+$40).w,a4
 		move.w	#$6000,d2
 		bsr.w	sub_6954
 		lea	(v_bgscroll3).w,a2
-		lea	($FFFFF710).w,a3
+		lea	(v_bg2screenposx).w,a3
 		bra.w	sub_69F4
 ; End of function sub_6886
 
@@ -4540,7 +4540,7 @@ locret_6AD6:
 			move.w	#$E0,d4
 	locj_6E28:
 			lea	(locj_6DF4+1),A0
-			move.w	($FFFFF70C).w,d0
+			move.w	(v_bgscreenposy).w,d0
 			add.w	d4,d0
 			andi.w	#$1F0,d0
 			lsr.w	#4,d0
@@ -4578,7 +4578,7 @@ locret_6AD6:
 			move.w	#$140,d5
 	locj_6E8C:
 			lea	(locj_6DF4),a0
-			move.w	($FFFFF70C).w,d0
+			move.w	(v_bgscreenposy).w,d0
 			andi.w	#$1F0,d0
 			lsr.w	#4,d0
 			lea	(a0,d0),a0
@@ -4631,13 +4631,13 @@ locret_6AD6:
 			move.w	#$E0,d4
 	locj_6F66:
 			lea	(locj_6EF2+1),a0
-			move.w	($FFFFF70C).w,d0
+			move.w	(v_bgscreenposy).w,d0
 			subi.w	#$200,d0
 			add.w	d4,d0
 			andi.w	#$7F0,d0
 			lsr.w	#4,d0
 			move.b	(a0,d0),d0
-			move.w	locj_6FE4(pc,d0),a3
+			move.w	locj_6FE4(pc,d0.w),a3
 			beq.s	locj_6F9A
 			moveq	#-$10,d5
 			movem.l	d4/d5,-(sp)
@@ -4669,7 +4669,7 @@ locret_6AD6:
 			move.w	#$140,d5
 	locj_6FC8:
 			lea	(locj_6EF2),a0
-			move.w	($FFFFF70C).w,d0
+			move.w	(v_bgscreenposy).w,d0
 			subi.w	#$200,d0
 			andi.w	#$7F0,d0
 			lsr.w	#4,d0
@@ -4686,7 +4686,7 @@ locret_6AD6:
 			move.b	(a0)+,d0
 			btst	d0,(a2)
 			beq.s	locj_701C
-			move.w	locj_6FE4(pc,d0),a3
+			move.w	locj_6FE4(pc,d0.w),a3
 			movem.l	d4/d5/a0,-(sp)
 			movem.l	d4/d5,-(sp)
 			bsr.w	DrawBlocks
@@ -4696,7 +4696,7 @@ locret_6AD6:
 			movem.l	(sp)+,d4/d5/a0
 	locj_701C:
 			addi.w	#$10,d4
-			dbra	d6,locj_6FF4
+			dbf	d6,locj_6FF4
 			clr.b	(a2)
 			rts			
 
@@ -4957,7 +4957,7 @@ LoadTilesFromStart:
 		lea	(v_lvllayout).w,a4
 		move.w	#$4000,d2
 		bsr.s	DrawChunks
-		lea	($FFFFF708).w,a3
+		lea	(v_bgscreenposx).w,a3
 		lea	(v_lvllayout+$40).w,a4
 		move.w	#$6000,d2
 		if Revision=0
@@ -5005,13 +5005,13 @@ DrawChunks:
 	locj_7224:			
 			movem.l	d4-d6,-(sp)
 			lea	(locj_724a),a0
-			move.w	($FFFFF70C).w,d0
+			move.w	(v_bgscreenposy).w,d0
 			add.w	d4,d0
 			andi.w	#$F0,d0
 			bsr.w	locj_72Ba
 			movem.l	(sp)+,d4-d6
 			addi.w	#$10,d4
-			dbra	d6,locj_7224
+			dbf	d6,locj_7224
 			rts
 	locj_724a:
 			dc.b $00,$00,$00,$00,$06,$06,$06,$04,$04,$04,$00,$00,$00,$00,$00,$00
@@ -5022,14 +5022,14 @@ DrawChunks:
 	locj_725E:			
 			movem.l	d4-d6,-(sp)
 			lea	(locj_6EF2+$01),a0
-			move.w	($FFFFF70C).w,d0
+			move.w	(v_bgscreenposy).w,d0
 			subi.w	#$200,d0
 			add.w	d4,d0
 			andi.w	#$7F0,d0
 			bsr.w	locj_72Ba
 			movem.l	(sp)+,d4-d6
 			addi.w	#$10,d4
-			dbra	d6,locj_725E
+			dbf	d6,locj_725E
 			rts
 ;-------------------------------------------------------------------------------
 	Draw_SBz_Bg:;locj_7288:
@@ -5038,13 +5038,13 @@ DrawChunks:
 	locj_728C:			
 			movem.l	d4-d6,-(sp)
 			lea	(locj_6DF4+$01),a0
-			move.w	($FFFFF70C).w,d0
+			move.w	(v_bgscreenposy).w,d0
 			add.w	d4,d0
 			andi.w	#$1F0,d0
 			bsr.w	locj_72Ba
 			movem.l	(sp)+,d4-d6
 			addi.w	#$10,d4
-			dbra	d6,locj_728C
+			dbf	d6,locj_728C
 			rts
 ;-------------------------------------------------------------------------------
 	locj_72B2:
@@ -5052,7 +5052,7 @@ DrawChunks:
 	locj_72Ba:
 			lsr.w	#4,d0
 			move.b	(a0,d0),d0
-			move.w	locj_72B2(pc,d0),a3
+			move.w	locj_72B2(pc,d0.w),a3
 			beq.s	locj_72da
 			moveq	#-$10,d5
 			movem.l	d4/d5,-(sp)
@@ -5255,7 +5255,7 @@ loc_74DC:
 		beq.s	loc_7512
 		move.l	a0,-(sp)
 		movea.l	a1,a0
-		jsr	Sonic_ResetOnFloor
+		jsr	(Sonic_ResetOnFloor).l
 		movea.l	(sp)+,a0
 
 loc_7512:
@@ -5420,7 +5420,7 @@ locret_7B62:
 ; ===========================================================================
 
 Ledge_Fragment:
-		move.b	#0,collapse(a0)
+		move.b	#0,ledge_collapse_flag(a0)
 
 loc_847A:
 		lea	(CFlo_Data1).l,a4
@@ -5456,7 +5456,7 @@ loc_84B2:
 		move.w	obGfx(a0),obGfx(a1)
 		move.b	obPriority(a0),obPriority(a1)
 		move.b	obActWid(a0),obActWid(a1)
-		move.b	(a4)+,timedelay(a1)
+		move.b	(a4)+,ledge_timedelay(a1)
 		cmpa.l	a0,a1
 		bhs.s	loc_84EE
 		bsr.w	DisplaySprite1
@@ -6099,10 +6099,10 @@ Obj_Index:
 		include	"_incObj\sub DeleteObject.asm"
 
 ; ===========================================================================
-BldSpr_ScrPos:	dc.l 0			; blank
-		dc.l $FFF700		; main screen x-position
-		dc.l $FFF708		; background x-position	1
-		dc.l $FFF718		; background x-position	2
+BldSpr_ScrPos:	dc.l 0				; blank
+		dc.l v_screenposx&$FFFFFF	; main screen x-position
+		dc.l v_bgscreenposx&$FFFFFF	; background x-position	1
+		dc.l v_bg3screenposx&$FFFFFF	; background x-position	2
 ; ---------------------------------------------------------------------------
 ; Subroutine to	convert	mappings (etc) to proper Megadrive sprites
 ; ---------------------------------------------------------------------------
@@ -6737,7 +6737,7 @@ locret_DA8A:
 SonicPlayer:
 		tst.w	(v_debuguse).w	; is debug mode	being used?
 		beq.s	Sonic_Normal	; if not, branch
-		jmp	DebugMode
+		jmp	(DebugMode).l
 ; ===========================================================================
 
 Sonic_Normal:
@@ -6806,7 +6806,7 @@ loc_12CA6:
 		bsr.w	Sonic_Animate
 		tst.b	(f_lockmulti).w
 		bmi.s	loc_12CB6
-		jsr	ReactToItem
+		jsr	(ReactToItem).l
 
 loc_12CB6:
 		bsr.w	Sonic_Loops
@@ -6839,7 +6839,7 @@ Sonic_MdNormal:
 		bsr.w	Sonic_Move
 		bsr.w	Sonic_Roll
 		bsr.w	Sonic_LevelBound
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		bsr.w	Sonic_AnglePos
 		bsr.w	Sonic_SlopeRepel
 		rts	
@@ -6849,7 +6849,7 @@ Sonic_MdJump:
 		bsr.w	Sonic_JumpHeight
 		bsr.w	Sonic_JumpDirection
 		bsr.w	Sonic_LevelBound
-		jsr	ObjectFall
+		jsr	(ObjectFall).l
 		btst	#6,obStatus(a0)
 		beq.s	loc_12E5C
 		subi.w	#$28,obVelY(a0)
@@ -6865,7 +6865,7 @@ Sonic_MdRoll:
 		bsr.w	Sonic_RollRepel
 		bsr.w	Sonic_RollSpeed
 		bsr.w	Sonic_LevelBound
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		bsr.w	Sonic_AnglePos
 		bsr.w	Sonic_SlopeRepel
 		rts	
@@ -6875,7 +6875,7 @@ Sonic_MdJump2:
 		bsr.w	Sonic_JumpHeight
 		bsr.w	Sonic_JumpDirection
 		bsr.w	Sonic_LevelBound
-		jsr	ObjectFall
+		jsr	(ObjectFall).l
 		btst	#6,obStatus(a0)
 		beq.s	loc_12EA6
 		subi.w	#$28,obVelY(a0)
@@ -7559,7 +7559,7 @@ BossDefeated:
 		move.b	(v_vbla_byte).w,d0
 		andi.b	#7,d0
 		bne.s	locret_178A2
-		jsr	FindFreeObj
+		jsr	(FindFreeObj).l
 		bne.s	locret_178A2
 		move.b	#id_ExplosionBomb,0(a1)	; load explosion object
 		move.w	obX(a0),obX(a1)
@@ -7614,7 +7614,7 @@ BossMove:
 		include	"_incObj\74 MZ Boss Fire.asm"
 
 	Obj7A_Delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 
 		include	"_incObj\7A Boss - Star Light.asm"
 		include	"_incObj\7B SLZ Boss Spikeball.asm"
@@ -7624,7 +7624,7 @@ BossMove:
 		include	"_maps\SYZ Boss Blocks.asm"
 
 loc_1982C:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 
 		include	"_incObj\82 Eggman - Scrap Brain 2.asm"
 		include	"_anim\Eggman - Scrap Brain 2 & Final.asm"
@@ -7759,7 +7759,7 @@ loc_1B210:
 		move.b	(a1)+,d1
 		subq.b	#1,d1
 		bmi.s	loc_1B268
-		jsr	sub_D762
+		jsr	(sub_D762).l
 
 loc_1B268:
 		addq.w	#4,a4

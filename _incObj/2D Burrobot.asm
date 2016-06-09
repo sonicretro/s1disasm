@@ -11,7 +11,7 @@ Burrobot:
 Burro_Index:	dc.w Burro_Main-Burro_Index
 		dc.w Burro_Action-Burro_Index
 
-timedelay:	= $30		; time between direction changes
+burro_timedelay:	equ $30		; time between direction changes
 ; ===========================================================================
 
 Burro_Main:	; Routine 0
@@ -43,10 +43,10 @@ Burro_Action:	; Routine 2
 ; ===========================================================================
 
 @changedir:
-		subq.w	#1,timedelay(a0)
+		subq.w	#1,burro_timedelay(a0)
 		bpl.s	@nochg
 		addq.b	#2,ob2ndRout(a0)
-		move.w	#255,timedelay(a0)
+		move.w	#255,burro_timedelay(a0)
 		move.w	#$80,obVelX(a0)
 		move.b	#1,obAnim(a0)
 		bchg	#0,obStatus(a0)	; change direction the Burrobot	is facing
@@ -58,7 +58,7 @@ Burro_Action:	; Routine 2
 ; ===========================================================================
 
 Burro_Move:
-		subq.w	#1,timedelay(a0)
+		subq.w	#1,burro_timedelay(a0)
 		bmi.s	loc_AD84
 		bsr.w	SpeedToPos
 		bchg	#0,$32(a0)
@@ -70,14 +70,14 @@ Burro_Move:
 		subi.w	#$18,d3
 
 loc_AD6A:
-		jsr	ObjFloorDist2
+		jsr	(ObjFloorDist2).l
 		cmpi.w	#$C,d1
 		bge.s	loc_AD84
 		rts	
 ; ===========================================================================
 
 loc_AD78:
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		add.w	d1,obY(a0)
 		rts	
 ; ===========================================================================
@@ -86,7 +86,7 @@ loc_AD84:
 		btst	#2,(v_vbla_byte).w
 		beq.s	loc_ADA4
 		subq.b	#2,ob2ndRout(a0)
-		move.w	#59,timedelay(a0)
+		move.w	#59,burro_timedelay(a0)
 		move.w	#0,obVelX(a0)
 		move.b	#0,obAnim(a0)
 		rts	
@@ -104,13 +104,13 @@ Burro_Jump:
 		addi.w	#$18,obVelY(a0)
 		bmi.s	locret_ADF0
 		move.b	#3,obAnim(a0)
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.s	locret_ADF0
 		add.w	d1,obY(a0)
 		move.w	#0,obVelY(a0)
 		move.b	#1,obAnim(a0)
-		move.w	#255,timedelay(a0)
+		move.w	#255,burro_timedelay(a0)
 		subq.b	#2,ob2ndRout(a0)
 		bsr.w	Burro_ChkSonic2
 

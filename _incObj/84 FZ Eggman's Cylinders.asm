@@ -3,7 +3,7 @@
 ; ---------------------------------------------------------------------------
 
 Obj84_Delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 EggmanCylinder:
@@ -80,7 +80,7 @@ loc_1A524:
 		move.w	#$60,d2
 		move.w	#$61,d3
 		move.w	obX(a0),d4
-		jsr	SolidObject
+		jsr	(SolidObject).l
 		moveq	#0,d0
 		move.w	$3C(a0),d1
 		bpl.s	loc_1A550
@@ -111,7 +111,7 @@ loc_1A55C:
 		bpl.w	Obj84_Delete
 
 loc_1A578:
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 loc_1A57E:	; Routine 4

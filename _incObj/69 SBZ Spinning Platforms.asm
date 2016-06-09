@@ -12,8 +12,8 @@ Spin_Index:	dc.w Spin_Main-Spin_Index
 		dc.w Spin_Trapdoor-Spin_Index
 		dc.w Spin_Spinner-Spin_Index
 
-spin_timer:	= $30		; time counter until change
-spin_timelen:	= $32		; time between changes (general)
+spin_timer:	equ $30		; time counter until change
+spin_timelen:	equ $32		; time between changes (general)
 ; ===========================================================================
 
 Spin_Main:	; Routine 0
@@ -62,7 +62,7 @@ Spin_Trapdoor:	; Routine 2
 
 	@animate:
 		lea	(Ani_Spin).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		tst.b	obFrame(a0)	; is frame number 0 displayed?
 		bne.s	@notsolid	; if not, branch
 		move.w	#$4B,d1
@@ -103,7 +103,7 @@ Spin_Spinner:	; Routine 4
 
 	@animate:
 		lea	(Ani_Spin).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		tst.b	obFrame(a0)	; check	if frame number	0 is displayed
 		bne.s	@notsolid2	; if not, branch
 		move.w	#$1B,d1

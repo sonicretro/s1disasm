@@ -7,15 +7,15 @@ EndChaos:
 		move.b	obRoutine(a0),d0
 		move.w	ECha_Index(pc,d0.w),d1
 		jsr	ECha_Index(pc,d1.w)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 ECha_Index:	dc.w ECha_Main-ECha_Index
 		dc.w ECha_Move-ECha_Index
 
-echa_origX:	= $38	; x-axis centre of emerald circle (2 bytes)
-echa_origY:	= $3A	; y-axis centre of emerald circle (2 bytes)
-echa_radius:	= $3C	; radius (2 bytes)
-echa_angle:	= $3E	; angle for rotation (2 bytes)
+echa_origX:	equ $38	; x-axis centre of emerald circle (2 bytes)
+echa_origY:	equ $3A	; y-axis centre of emerald circle (2 bytes)
+echa_radius:	equ $3C	; radius (2 bytes)
+echa_angle:	equ $3E	; angle for rotation (2 bytes)
 ; ===========================================================================
 
 ECha_Main:	; Routine 0

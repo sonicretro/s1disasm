@@ -3,7 +3,7 @@
 ; ---------------------------------------------------------------------------
 
 Obj85_Delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 BossFinal:
@@ -50,7 +50,7 @@ Obj85_Main:	; Routine 0
 ; ===========================================================================
 
 Obj85_Loop:
-		jsr	FindNextFreeObj
+		jsr	(FindNextFreeObj).l
 		bne.s	loc_19E20
 
 Obj85_LoadBoss:
@@ -75,7 +75,7 @@ Obj85_LoadBoss:
 
 loc_19E20:
 		lea	$36(a0),a2
-		jsr	FindFreeObj
+		jsr	(FindFreeObj).l
 		bne.s	loc_19E5A
 		move.b	#id_BossPlasma,(a1) ; load energy ball object
 		move.w	a1,(a2)
@@ -85,7 +85,7 @@ loc_19E20:
 		moveq	#3,d1
 
 loc_19E3E:
-		jsr	FindNextFreeObj
+		jsr	(FindNextFreeObj).l
 		bne.s	loc_19E5A
 		move.w	a1,(a2)+
 		move.b	#id_EggmanCylinder,(a1) ; load crushing	cylinder object
@@ -104,7 +104,7 @@ Obj85_Eggman:	; Routine 2
 		move.b	$34(a0),d0
 		move.w	off_19E80(pc,d0.w),d0
 		jsr	off_19E80(pc,d0.w)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 off_19E80:	dc.w loc_19E90-off_19E80, loc_19EA8-off_19E80
 		dc.w loc_19FE6-off_19E80, loc_1A02A-off_19E80
@@ -168,7 +168,7 @@ loc_19F2E:
 		move.w	#$14,d2
 		move.w	#$14,d3
 		move.w	obX(a0),d4
-		jsr	SolidObject
+		jsr	(SolidObject).l
 		tst.w	d4
 		bgt.s	loc_19F50
 
@@ -207,7 +207,7 @@ loc_19F96:
 
 loc_19F9C:
 		lea	Ani_SEgg(pc),a1
-		jmp	AnimateSprite
+		jmp	(AnimateSprite).l
 ; ===========================================================================
 
 loc_19FA6:
@@ -272,7 +272,7 @@ loc_1A02A:
 			move.b	#$30,obActWid(a0)
 		endc
 		bset	#0,obStatus(a0)
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		move.b	#6,obFrame(a0)
 		addi.w	#$10,obVelY(a0)
 		cmpi.w	#$59C,obY(a0)
@@ -295,7 +295,7 @@ loc_1A070:
 loc_1A074:
 		bset	#0,obStatus(a0)
 		move.b	#4,obAnim(a0)
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		addi.w	#$10,obVelY(a0)
 		cmpi.w	#$5A3,obY(a0)
 		bcs.s	loc_1A09A
@@ -343,7 +343,7 @@ loc_1A110:
 ; ===========================================================================
 
 loc_1A112:
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		cmpi.w	#$26E0,obX(a0)
 		bcs.s	loc_1A124
 		clr.w	obVelX(a0)
@@ -367,7 +367,7 @@ loc_1A142:
 
 loc_1A15C:
 		lea	Ani_SEgg(pc),a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 
 loc_1A166:
 		cmpi.w	#$2700,(v_limitright2).w
@@ -381,7 +381,7 @@ loc_1A172:
 		move.w	#$70,d2
 		move.w	#$71,d3
 		move.w	obX(a0),d4
-		jmp	SolidObject
+		jmp	(SolidObject).l
 ; ===========================================================================
 
 locret_1A190:
@@ -393,7 +393,7 @@ loc_1A192:
 		move.w	#$400,obGfx(a0)
 		move.b	#0,obAnim(a0)
 		bset	#0,obStatus(a0)
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		cmpi.w	#$544,obY(a0)
 		bcc.s	loc_1A1D0
 		move.w	#$180,obVelX(a0)
@@ -407,7 +407,7 @@ loc_1A1D0:
 
 loc_1A1D4:
 		bset	#0,obStatus(a0)
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		tst.w	$30(a0)
 		bne.s	loc_1A1FC
 		tst.b	obColType(a0)
@@ -473,7 +473,7 @@ loc_1A280:
 
 loc_1A28C:
 		lea	Ani_Eggman(pc),a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 
 loc_1A296:
 		movea.l	$34(a0),a1
@@ -487,7 +487,7 @@ loc_1A2A6:
 		and.b	obStatus(a0),d0
 		andi.b	#$FC,obRender(a0)
 		or.b	d0,obRender(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 loc_1A2C6:	; Routine 6
@@ -509,7 +509,7 @@ loc_1A2E4:
 		move.l	#Map_Eggman,obMap(a0)
 		move.w	#$400,obGfx(a0)
 		lea	Ani_Eggman(pc),a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		bra.w	loc_1A296
 ; ===========================================================================
 
@@ -522,7 +522,7 @@ loc_1A312:
 		move.l	#Map_FZDamaged,obMap(a0)
 		move.w	#$3A0,obGfx(a0)
 		lea	Ani_FZEgg(pc),a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		bra.w	loc_1A296
 ; ===========================================================================
 
@@ -561,7 +561,7 @@ loc_1A38E:	; Routine $A
 		bpl.w	Obj85_Delete
 
 loc_1A3A6:
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 loc_1A3AC:	; Routine $C

@@ -46,7 +46,7 @@ WFall_Main:	; Routine 0
 
 WFall_Animate:	; Routine 2
 		lea	(Ani_WFall).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 
 WFall_ChkDel:	; Routine 4
 		bra.w	RememberState

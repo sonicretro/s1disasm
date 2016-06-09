@@ -16,7 +16,7 @@ Cat_Index:	dc.w Cat_Main-Cat_Index
 		dc.w Cat_Delete-Cat_Index
 		dc.w loc_16CC0-Cat_Index
 
-cat_parent:	= $3C		; address of parent object
+cat_parent:	equ $3C		; address of parent object
 ; ===========================================================================
 
 locret_16950:
@@ -26,8 +26,8 @@ locret_16950:
 Cat_Main:	; Routine 0
 		move.b	#7,obHeight(a0)
 		move.b	#8,obWidth(a0)
-		jsr	ObjectFall
-		jsr	ObjFloorDist
+		jsr	(ObjectFall).l
+		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.s	locret_16950
 		add.w	d1,obY(a0)
@@ -60,7 +60,7 @@ Cat_Main:	; Routine 0
 		moveq	#2,d1
 
 Cat_Loop:
-		jsr	FindNextFreeObj
+		jsr	(FindNextFreeObj).l
 		if Revision=0
 		bne.s	@fail
 		else
@@ -116,7 +116,7 @@ Cat_Head:	; Routine 2
 
 	@display:
 		out_of_range	Cat_ChkGone
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 	Cat_ChkGone:
 		lea	(v_objstate).w,a2
@@ -131,7 +131,7 @@ Cat_Head:	; Routine 2
 ; ===========================================================================
 
 Cat_Delete:	; Routine $A
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 Cat_Index2:	dc.w @wait-Cat_Index2
 		dc.w loc_16B02-Cat_Index2
@@ -179,7 +179,7 @@ loc_16B02:
 		add.l	d0,d2
 		move.l	d2,obX(a0)
 		if Revision=0
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		move.l	(sp)+,d2
 		cmpi.w	#-8,d1
 		blt.s	@loc_16B70
@@ -193,7 +193,7 @@ loc_16B02:
 			swap.w	d3
 			cmp.w	obX(a0),d3
 			beq.s	@notmoving
-			jsr	ObjFloorDist
+			jsr	(ObjFloorDist).l
 			cmpi.w	#$FFF8,d1
 			blt.s	@loc_16B70
 			cmpi.w	#$C,d1
@@ -349,7 +349,7 @@ loc_16C7C:
 		move.b	#$A,obRoutine(a0)
 
 loc_16C82:
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 ; ===========================================================================
 Cat_FragSpeed:	dc.w -$200, -$180, $180, $200
@@ -373,10 +373,10 @@ loc_16CAA:
 		andi.b	#$F8,obFrame(a0)
 
 loc_16CC0:	; Routine $C
-		jsr	ObjectFall
+		jsr	(ObjectFall).l
 		tst.w	obVelY(a0)
 		bmi.s	loc_16CE0
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.s	loc_16CE0
 		add.w	d1,obY(a0)
@@ -385,4 +385,4 @@ loc_16CC0:	; Routine $C
 loc_16CE0:
 		tst.b	obRender(a0)
 		bpl.w	Cat_ChkGone
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l

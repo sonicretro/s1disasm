@@ -54,7 +54,7 @@ LevSz_ChkLamp:
 		tst.b	(v_lastlamp).w	; have any lampposts been hit?
 		beq.s	LevSz_StartLoc	; if not, branch
 
-		jsr	Lamp_LoadInfo
+		jsr	(Lamp_LoadInfo).l
 		move.w	(v_player+obX).w,d1
 		move.w	(v_player+obY).w,d0
 		bra.s	LevSz_SkipStartPos
@@ -171,11 +171,11 @@ dword_61B4:	dc.l $700100, $1000100
 BgScrollSpeed:
 		tst.b	(v_lastlamp).w
 		bne.s	loc_6206
-		move.w	d0,($FFFFF70C).w
-		move.w	d0,($FFFFF714).w
-		move.w	d1,($FFFFF708).w
-		move.w	d1,($FFFFF710).w
-		move.w	d1,($FFFFF718).w
+		move.w	d0,(v_bgscreenposy).w
+		move.w	d0,(v_bg2screenposy).w
+		move.w	d1,(v_bgscreenposx).w
+		move.w	d1,(v_bg2screenposx).w
+		move.w	d1,(v_bg3screenposx).w
 
 loc_6206:
 		moveq	#0,d2
@@ -199,7 +199,7 @@ BgScroll_GHZ:
 
 BgScroll_LZ:
 		asr.l	#1,d0
-		move.w	d0,($FFFFF70C).w
+		move.w	d0,(v_bgscreenposy).w
 		rts	
 ; ===========================================================================
 
@@ -210,7 +210,7 @@ BgScroll_MZ:
 BgScroll_SLZ:
 		asr.l	#1,d0
 		addi.w	#$C0,d0
-		move.w	d0,($FFFFF70C).w
+		move.w	d0,(v_bgscreenposy).w
 		rts	
 ; ===========================================================================
 
@@ -220,8 +220,8 @@ BgScroll_SYZ:
 		asl.l	#1,d0
 		add.l	d2,d0
 		asr.l	#8,d0
-		move.w	d0,($FFFFF70C).w
-		move.w	d0,($FFFFF714).w
+		move.w	d0,(v_bgscreenposy).w
+		move.w	d0,(v_bg2screenposy).w
 		rts	
 ; ===========================================================================
 
@@ -229,17 +229,17 @@ BgScroll_SBZ:
 		asl.l	#4,d0
 		asl.l	#1,d0
 		asr.l	#8,d0
-		move.w	d0,($FFFFF70C).w
+		move.w	d0,(v_bgscreenposy).w
 		rts	
 ; ===========================================================================
 
 BgScroll_End:
-		move.w	#$1E,($FFFFF70C).w
-		move.w	#$1E,($FFFFF714).w
+		move.w	#$1E,(v_bgscreenposy).w
+		move.w	#$1E,(v_bg2screenposy).w
 		rts	
 ; ===========================================================================
-		move.w	#$A8,($FFFFF708).w
-		move.w	#$1E,($FFFFF70C).w
-		move.w	#-$40,($FFFFF710).w
-		move.w	#$1E,($FFFFF714).w
+		move.w	#$A8,(v_bgscreenposx).w
+		move.w	#$1E,(v_bgscreenposy).w
+		move.w	#-$40,(v_bg2screenposx).w
+		move.w	#$1E,(v_bg2screenposy).w
 		rts

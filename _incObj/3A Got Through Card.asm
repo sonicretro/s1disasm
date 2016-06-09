@@ -18,8 +18,8 @@ Got_Index:	dc.w Got_ChkPLC-Got_Index
 		dc.w Got_Move2-Got_Index
 		dc.w loc_C766-Got_Index
 
-got_mainX:	= $30		; position for card to display on
-got_finalX:	= $32		; position for card to finish on
+got_mainX:	equ $30		; position for card to display on
+got_finalX:	equ $32		; position for card to finish on
 ; ===========================================================================
 
 Got_ChkPLC:	; Routine 0
@@ -130,7 +130,7 @@ locret_C692:
 ; ===========================================================================
 
 Got_AddBonus:
-		jsr	AddPoints
+		jsr	(AddPoints).l
 		move.b	(v_vbla_byte).w,d0
 		andi.b	#3,d0
 		bne.s	locret_C692

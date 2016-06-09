@@ -11,7 +11,7 @@ HiddenBonus:
 Bonus_Index:	dc.w Bonus_Main-Bonus_Index
 		dc.w Bonus_Display-Bonus_Index
 
-bonus_timelen:	= $30		; length of time to display bonus sprites
+bonus_timelen:	equ $30		; length of time to display bonus sprites
 ; ===========================================================================
 
 Bonus_Main:	; Routine 0
@@ -46,14 +46,14 @@ Bonus_Main:	; Routine 0
 		move.b	obSubtype(a0),d0
 		add.w	d0,d0
 		move.w	@points(pc,d0.w),d0 ; load bonus points array
-		jsr	AddPoints
+		jsr	(AddPoints).l
 
 	@chkdel:
 		out_of_range.s	@delete
 		rts	
 
 	@delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 
 ; ===========================================================================
 @points:	dc.w 0			; Bonus	points array
@@ -66,7 +66,7 @@ Bonus_Display:	; Routine 2
 		subq.w	#1,bonus_timelen(a0) ; decrement display time
 		bmi.s	Bonus_Display_Delete		; if time is zero, branch
 		out_of_range.s	Bonus_Display_Delete
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 Bonus_Display_Delete:	
-		jmp	DeleteObject
+		jmp	(DeleteObject).l

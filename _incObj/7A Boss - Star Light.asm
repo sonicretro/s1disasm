@@ -34,7 +34,7 @@ Obj7A_Main:
 ; ===========================================================================
 
 Obj7A_Loop:
-		jsr	FindNextFreeObj
+		jsr	(FindNextFreeObj).l
 		bne.s	loc_1895C
 		move.b	#id_BossStarLight,0(a1)
 		move.w	obX(a0),obX(a1)
@@ -76,12 +76,12 @@ Obj7A_ShipMain:	; Routine 2
 		move.w	Obj7A_ShipIndex(pc,d0.w),d0
 		jsr	Obj7A_ShipIndex(pc,d0.w)
 		lea	(Ani_Eggman).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		moveq	#3,d0
 		and.b	obStatus(a0),d0
 		andi.b	#$FC,obRender(a0)
 		or.b	d0,obRender(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 Obj7A_ShipIndex:dc.w loc_189B8-Obj7A_ShipIndex
 		dc.w loc_18A5E-Obj7A_ShipIndex
@@ -228,7 +228,7 @@ loc_18AFA:
 
 		move.l	a0,-(sp)
 		lea	(a2),a0
-		jsr	FindNextFreeObj
+		jsr	(FindNextFreeObj).l
 		movea.l	(sp)+,a0
 		bne.s	loc_18B40
 		move.b	#id_BossSpikeball,(a1) ; load spiked ball object
@@ -379,7 +379,7 @@ loc_18C56:
 
 loc_18C6C:
 		lea	(Ani_Eggman).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 
 loc_18C78:
 		movea.l	$34(a0),a1
@@ -390,7 +390,7 @@ loc_18C78:
 		and.b	obStatus(a0),d0
 		andi.b	#$FC,obRender(a0)
 		or.b	d0,obRender(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 Obj7A_TubeMain:	; Routine 8

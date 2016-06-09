@@ -12,7 +12,7 @@ Van_Index:	dc.w Van_Main-Van_Index
 		dc.w Van_RmvSonic-Van_Index
 		dc.w Van_LoadSonic-Van_Index
 
-van_time:	= $30		; time for Sonic to disappear
+van_time:	equ $30		; time for Sonic to disappear
 ; ===========================================================================
 
 Van_Main:	; Routine 0
@@ -34,7 +34,7 @@ Van_RmvSonic:	; Routine 2
 		move.w	(v_player+obY).w,obY(a0)
 		move.b	(v_player+obStatus).w,obStatus(a0)
 		lea	(Ani_Vanish).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		cmpi.b	#2,obFrame(a0)
 		bne.s	@display
 		tst.b	(v_player).w
@@ -43,14 +43,14 @@ Van_RmvSonic:	; Routine 2
 		sfx	sfx_SSGoal,0,0,0	; play Special Stage "GOAL" sound
 
 	@display:
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 Van_LoadSonic:	; Routine 4
 		subq.w	#1,van_time(a0)	; subtract 1 from time
 		bne.s	@wait		; if time remains, branch
 		move.b	#id_SonicPlayer,(v_player).w ; load Sonic object
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 
 	@wait:
 		rts	

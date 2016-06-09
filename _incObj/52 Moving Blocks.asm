@@ -12,8 +12,8 @@ MBlock_Index:	dc.w MBlock_Main-MBlock_Index
 		dc.w MBlock_Platform-MBlock_Index
 		dc.w MBlock_StandOn-MBlock_Index
 
-origX:		= $30
-origY:		= $32
+mblock_origX:	equ $30
+mblock_origY:	equ $32
 
 MBlock_Var:	dc.b $10, 0		; object width,	frame number
 		dc.b $20, 1
@@ -50,8 +50,8 @@ loc_FE60:
 		move.b	(a2)+,obActWid(a0)
 		move.b	(a2)+,obFrame(a0)
 		move.b	#4,obPriority(a0)
-		move.w	obX(a0),origX(a0)
-		move.w	obY(a0),origY(a0)
+		move.w	obX(a0),mblock_origX(a0)
+		move.w	obY(a0),mblock_origY(a0)
 		andi.b	#$F,obSubtype(a0)
 
 MBlock_Platform: ; Routine 2
@@ -72,7 +72,7 @@ MBlock_StandOn:	; Routine 4
 		jsr	(MvSonicOnPtfm2).l
 
 MBlock_ChkDel:
-		out_of_range	DeleteObject,origX(a0)
+		out_of_range	DeleteObject,mblock_origX(a0)
 		bra.w	DisplaySprite
 ; ===========================================================================
 
@@ -105,7 +105,7 @@ MBlock_Type01:
 		add.w	d1,d0
 
 loc_FF26:
-		move.w	origX(a0),d1
+		move.w	mblock_origX(a0),d1
 		sub.w	d0,d1
 		move.w	d1,obX(a0)
 		rts	
@@ -127,7 +127,7 @@ MBlock_Type03:
 		tst.w	d1		; has the platform hit a wall?
 		bmi.s	MBlock_03_End	; if yes, branch
 		addq.w	#1,obX(a0)	; move platform	to the right
-		move.w	obX(a0),origX(a0)
+		move.w	obX(a0),mblock_origX(a0)
 		rts	
 ; ===========================================================================
 
@@ -143,7 +143,7 @@ MBlock_Type05:
 		tst.w	d1		; has the platform hit a wall?
 		bmi.s	MBlock_05_End	; if yes, branch
 		addq.w	#1,obX(a0)	; move platform	to the right
-		move.w	obX(a0),origX(a0)
+		move.w	obX(a0),mblock_origX(a0)
 		rts	
 ; ===========================================================================
 
@@ -173,7 +173,7 @@ MBlock_Type07:
 
 MBlock_07_ChkDel:
 		addq.l	#4,sp
-		out_of_range	DeleteObject,origX(a0)
+		out_of_range	DeleteObject,mblock_origX(a0)
 		rts	
 ; ===========================================================================
 
@@ -186,7 +186,7 @@ MBlock_Type08:
 		add.w	d1,d0
 
 loc_FFE2:
-		move.w	origY(a0),d1
+		move.w	mblock_origY(a0),d1
 		sub.w	d0,d1
 		move.w	d1,obY(a0)
 		rts	
@@ -206,7 +206,7 @@ loc_10004:
 		tst.w	$36(a0)		; is platform set to move back?
 		bne.s	MBlock_0A_Back	; if yes, branch
 		move.w	obX(a0),d0
-		sub.w	origX(a0),d0
+		sub.w	mblock_origX(a0),d0
 		cmp.w	d3,d0
 		beq.s	MBlock_0A_Wait
 		add.w	d1,obX(a0)	; move platform
@@ -225,7 +225,7 @@ locret_1002E:
 
 MBlock_0A_Back:
 		move.w	obX(a0),d0
-		sub.w	origX(a0),d0
+		sub.w	mblock_origX(a0),d0
 		beq.s	MBlock_0A_Reset
 		sub.w	d1,obX(a0)	; return platform to its original position
 		rts	
