@@ -8,7 +8,7 @@ BGHZ_MakeBall:
 		move.w	#0,obVelX(a0)
 		move.w	#0,obVelY(a0)
 		addq.b	#2,ob2ndRout(a0)
-		jsr	FindNextFreeObj
+		jsr	(FindNextFreeObj).l
 		bne.s	loc_17910
 		move.b	#id_BossBall,0(a1) ; load swinging ball object
 		move.w	$30(a0),obX(a1)
@@ -135,7 +135,7 @@ loc_17A16:
 ; ===========================================================================
 
 BGHZ_ShipDel:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 BGHZ_FaceMain:	; Routine 4
@@ -181,7 +181,7 @@ BGHZ_FaceDisp:
 ; ===========================================================================
 
 BGHZ_FaceDel:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 BGHZ_FlameMain:	; Routine 6
@@ -205,7 +205,7 @@ BGHZ_FlameDisp:
 ; ===========================================================================
 
 BGHZ_FlameDel:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 BGHZ_Display:
@@ -214,9 +214,9 @@ BGHZ_Display:
 		move.w	obY(a1),obY(a0)
 		move.b	obStatus(a1),obStatus(a0)
 		lea	(Ani_Eggman).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		move.b	obStatus(a0),d0
 		andi.b	#3,d0
 		andi.b	#$FC,obRender(a0)
 		or.b	d0,obRender(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l

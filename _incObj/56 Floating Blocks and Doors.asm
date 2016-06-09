@@ -11,10 +11,10 @@ FloatingBlock:
 FBlock_Index:	dc.w FBlock_Main-FBlock_Index
 		dc.w FBlock_Action-FBlock_Index
 
-fb_origX:	= $34		; original x-axis position
-fb_origY:	= $30		; original y-axis position
-fb_height:	= $3A		; total object height
-fb_type:	= $3C		; subtype (2nd digit only)
+fb_origX:	equ $34		; original x-axis position
+fb_origY:	equ $30		; original y-axis position
+fb_height:	equ $3A		; total object height
+fb_type:		equ $3C		; subtype (2nd digit only)
 
 FBlock_Var:	; width/2, height/2
 		dc.b  $10, $10	; subtype 0x/8x
@@ -61,12 +61,12 @@ FBlock_Main:	; Routine 0
 			bne.s	@notatpos
 			tst.b	($FFFFF7CE).w
 			beq.s	@dontdelete
-			jmp	DeleteObject
+			jmp	(DeleteObject).l
 	@notatpos:
 			clr.b	obSubtype(a0)
 			tst.b	($FFFFF7CE).w
 			bne.s	@dontdelete
-			jmp	DeleteObject
+			jmp	(DeleteObject).l
 	@dontdelete:
 		endc
 		moveq	#0,d0
@@ -131,7 +131,7 @@ FBlock_Action:	; Routine 2
 		bra.w	DisplaySprite
 		else
 			out_of_range.s	@chkdel2,fb_origX(a0)
-		@display:                
+		@display:
 			bra.w	DisplaySprite
 		@chkdel2:
 			cmpi.b	#$37,obSubtype(a0)
@@ -139,7 +139,7 @@ FBlock_Action:	; Routine 2
 			tst.b	$38(a0)
 			bne.s	@display
 		@delete:
-			jmp     DeleteObject
+			jmp	(DeleteObject).l
 		endc
 ; ===========================================================================
 @index:		dc.w @type00-@index, @type01-@index

@@ -12,7 +12,7 @@ Harp_Index:	dc.w Harp_Main-Harp_Index
 		dc.w Harp_Move-Harp_Index
 		dc.w Harp_Wait-Harp_Index
 
-harp_time:	= $30		; time between stabbing/retracting
+harp_time:	equ $30		; time between stabbing/retracting
 ; ===========================================================================
 
 Harp_Main:	; Routine 0

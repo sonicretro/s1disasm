@@ -10,14 +10,14 @@ EndSTH:
 		jmp	ESth_Index(pc,d1.w)
 		else
 		jsr	ESth_Index(pc,d1.w)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 		endc
 ; ===========================================================================
 ESth_Index:	dc.w ESth_Main-ESth_Index
 		dc.w ESth_Move-ESth_Index
 		dc.w ESth_GotoCredits-ESth_Index
 
-esth_time:	= $30		; time until exit
+esth_time:	equ $30		; time until exit
 ; ===========================================================================
 
 ESth_Main:	; Routine 0

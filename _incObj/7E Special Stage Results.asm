@@ -20,7 +20,7 @@ SSR_Index:	dc.w SSR_ChkPLC-SSR_Index
 		dc.w SSR_Exit-SSR_Index
 		dc.w loc_C91A-SSR_Index
 
-ssr_mainX:	= $30		; position for card to display on
+ssr_mainX:	equ $30		; position for card to display on
 ; ===========================================================================
 
 SSR_ChkPLC:	; Routine 0
@@ -109,7 +109,7 @@ SSR_RingBonus:	; Routine 6
 		beq.s	loc_C8C4	; if yes, branch
 		subi.w	#10,(v_ringbonus).w ; subtract 10 from ring bonus
 		moveq	#10,d0		; add 10 to score
-		jsr	AddPoints
+		jsr	(AddPoints).l
 		move.b	(v_vbla_byte).w,d0
 		andi.b	#3,d0
 		bne.s	locret_C8EA

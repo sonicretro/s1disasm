@@ -16,7 +16,7 @@ BossSpikeball:
 		bmi.w	Obj7A_Delete
 		cmpi.w	#$280,d0
 		bhi.w	Obj7A_Delete
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 Obj7B_Index:	dc.w Obj7B_Main-Obj7B_Index
 		dc.w Obj7B_Fall-Obj7B_Index
@@ -48,7 +48,7 @@ loc_18D68:
 		addq.b	#2,obRoutine(a0)
 
 Obj7B_Fall:	; Routine 2
-		jsr	ObjectFall
+		jsr	(ObjectFall).l
 		movea.l	$3C(a0),a1
 		lea	(word_19018).l,a2
 		moveq	#0,d0
@@ -230,19 +230,19 @@ loc_18EC0:
 loc_18F38:
 		tst.w	obVelY(a0)
 		bpl.s	loc_18F5C
-		jsr	ObjectFall
+		jsr	(ObjectFall).l
 		move.w	$34(a0),d0
 		subi.w	#$2F,d0
 		cmp.w	obY(a0),d0
 		bgt.s	loc_18F58
-		jsr	ObjectFall
+		jsr	(ObjectFall).l
 
 loc_18F58:
 		bra.w	loc_18E7A
 ; ===========================================================================
 
 loc_18F5C:
-		jsr	ObjectFall
+		jsr	(ObjectFall).l
 		movea.l	$3C(a0),a1
 		lea	(word_19018).l,a2
 		moveq	#0,d0
@@ -289,7 +289,7 @@ loc_18FDC:
 		clr.b	$3C(a2)
 		move.l	a0,-(sp)
 		lea	(a2),a0
-		jsr	Sonic_ChkRoll
+		jsr	(Sonic_ChkRoll).l
 		movea.l	(sp)+,a0
 		move.b	#2,obRoutine(a2)
 		sfx	sfx_Spring,0,0,0	; play "spring" sound
@@ -322,7 +322,7 @@ Obj7B_MakeFrag:
 		lea	Obj7B_FragSpeed(pc),a2
 
 Obj7B_Loop:
-		jsr	FindFreeObj
+		jsr	(FindFreeObj).l
 		bne.s	loc_1909A
 		move.b	#id_BossSpikeball,(a1) ; load shrapnel object
 		move.b	#$A,obRoutine(a1)
@@ -350,7 +350,7 @@ Obj7B_FragSpeed:dc.w -$100, -$340	; horizontal, vertical
 ; ===========================================================================
 
 Obj7B_MoveFrag:	; Routine $A
-		jsr	SpeedToPos
+		jsr	(SpeedToPos).l
 		move.w	obX(a0),$30(a0)
 		move.w	obY(a0),$34(a0)
 		addi.w	#$18,obVelY(a0)

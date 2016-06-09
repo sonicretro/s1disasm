@@ -11,7 +11,7 @@ Invisibarrier:
 Invis_Index:	dc.w Invis_Main-Invis_Index
 		dc.w Invis_Solid-Invis_Index
 
-invis_height:	= $16		; height in pixels
+invis_height:	equ $16		; height in pixels
 ; ===========================================================================
 
 Invis_Main:	; Routine 0
@@ -47,10 +47,10 @@ Invis_Solid:	; Routine 2
 		out_of_range.s	@delete
 		tst.w	(v_debuguse).w	; are you using	debug mode?
 		beq.s	@nodisplay	; if not, branch
-		jmp	DisplaySprite	; if yes, display the object
+		jmp	(DisplaySprite).l	; if yes, display the object
 
 	@nodisplay:
 		rts	
 
 	@delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l

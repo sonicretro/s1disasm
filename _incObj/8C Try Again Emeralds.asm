@@ -7,7 +7,7 @@ TryChaos:
 		move.b	obRoutine(a0),d0
 		move.w	TCha_Index(pc,d0.w),d1
 		jsr	TCha_Index(pc,d1.w)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 TCha_Index:	dc.w TCha_Main-TCha_Index
 		dc.w TCha_Move-TCha_Index

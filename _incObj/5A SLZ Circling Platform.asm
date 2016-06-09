@@ -14,8 +14,8 @@ Circ_Index:	dc.w Circ_Main-Circ_Index
 		dc.w Circ_Platform-Circ_Index
 		dc.w Circ_Action-Circ_Index
 
-circ_origX:	= $32		; original x-axis position
-circ_origY:	= $30		; original y-axis position
+circ_origX:	equ $32		; original x-axis position
+circ_origY:	equ $30		; original y-axis position
 ; ===========================================================================
 
 Circ_Main:	; Routine 0

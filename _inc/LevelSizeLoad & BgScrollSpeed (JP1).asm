@@ -54,7 +54,7 @@ LevSz_ChkLamp:
 		tst.b	(v_lastlamp).w	; have any lampposts been hit?
 		beq.s	LevSz_StartLoc	; if not, branch
 
-		jsr	Lamp_LoadInfo
+		jsr	(Lamp_LoadInfo).l
 		move.w	(v_player+obX).w,d1
 		move.w	(v_player+obY).w,d0
 		bra.s	LevSz_SkipStartPos
@@ -133,11 +133,11 @@ StartLocArray:	include	"_inc\Start Location Array - Levels.asm"
 BgScrollSpeed:
 		tst.b	(v_lastlamp).w
 		bne.s	loc_6206
-		move.w	d0,($FFFFF70C).w
-		move.w	d0,($FFFFF714).w
-		move.w	d1,($FFFFF708).w
-		move.w	d1,($FFFFF710).w
-		move.w	d1,($FFFFF718).w
+		move.w	d0,(v_bgscreenposy).w
+		move.w	d0,(v_bg2screenposy).w
+		move.w	d1,(v_bgscreenposx).w
+		move.w	d1,(v_bg2screenposx).w
+		move.w	d1,(v_bg3screenposx).w
 
 loc_6206:
 		moveq	#0,d2
@@ -156,10 +156,10 @@ BgScroll_Index:	dc.w BgScroll_GHZ-BgScroll_Index, BgScroll_LZ-BgScroll_Index
 ; ===========================================================================
 
 BgScroll_GHZ:
-		clr.l	($FFFFF708).w
-		clr.l	($FFFFF70C).w
-		clr.l	($FFFFF714).w
-		clr.l	($FFFFF71C).w
+		clr.l	(v_bgscreenposx).w
+		clr.l	(v_bgscreenposy).w
+		clr.l	(v_bg2screenposy).w
+		clr.l	(v_bg3screenposy).w
 		lea	($FFFFA800).w,a2
 		clr.l	(a2)+
 		clr.l	(a2)+
@@ -169,7 +169,7 @@ BgScroll_GHZ:
 
 BgScroll_LZ:
 		asr.l	#1,d0
-		move.w	d0,($FFFFF70C).w
+		move.w	d0,(v_bgscreenposy).w
 		rts	
 ; ===========================================================================
 
@@ -180,8 +180,8 @@ BgScroll_MZ:
 BgScroll_SLZ:
 		asr.l	#1,d0
 		addi.w	#$C0,d0
-		move.w	d0,($FFFFF70C).w
-		clr.l	($FFFFF708).w
+		move.w	d0,(v_bgscreenposy).w
+		clr.l	(v_bgscreenposx).w
 		rts	
 ; ===========================================================================
 
@@ -192,8 +192,8 @@ BgScroll_SYZ:
 		add.l	d2,d0
 		asr.l	#8,d0
 		addq.w	#1,d0
-		move.w	d0,($FFFFF70C).w
-		clr.l	($FFFFF708).w
+		move.w	d0,(v_bgscreenposy).w
+		clr.l	(v_bgscreenposx).w
 		rts	
 ; ===========================================================================
 
@@ -201,23 +201,23 @@ BgScroll_SBZ:
 		andi.w	#$7F8,d0
 		asr.w	#3,d0
 		addq.w	#1,d0
-		move.w	d0,($FFFFF70C).w
+		move.w	d0,(v_bgscreenposy).w
 		rts	
 ; ===========================================================================
 
 BgScroll_End:
 		move.w	(v_screenposx).w,d0
 		asr.w	#1,d0
-		move.w	d0,($FFFFF708).w
-		move.w	d0,($FFFFF710).w
+		move.w	d0,(v_bgscreenposx).w
+		move.w	d0,(v_bg2screenposx).w
 		asr.w	#2,d0
 		move.w	d0,d1
 		add.w	d0,d0
 		add.w	d1,d0
-		move.w	d0,($FFFFF718).w
-		clr.l	($FFFFF70C).w
-		clr.l	($FFFFF714).w
-		clr.l	($FFFFF71C).w
+		move.w	d0,(v_bg3screenposx).w
+		clr.l	(v_bgscreenposy).w
+		clr.l	(v_bg2screenposy).w
+		clr.l	(v_bg3screenposy).w
 		lea	($FFFFA800).w,a2
 		clr.l	(a2)+
 		clr.l	(a2)+

@@ -132,7 +132,7 @@ loc_912A:
 		bsr.w	ObjectFall
 		tst.w	obVelY(a0)
 		bmi.s	loc_9180
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.s	loc_9180
 		add.w	d1,obY(a0)
@@ -160,7 +160,7 @@ loc_9184:
 		tst.w	obVelY(a0)
 		bmi.s	loc_91AE
 		move.b	#0,obFrame(a0)
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.s	loc_91AE
 		add.w	d1,obY(a0)
@@ -179,7 +179,7 @@ loc_91C0:
 		addi.w	#$18,obVelY(a0)
 		tst.w	obVelY(a0)
 		bmi.s	loc_91FC
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.s	loc_91FC
 		add.w	d1,obY(a0)
@@ -278,7 +278,7 @@ loc_92D6:
 		tst.w	obVelY(a0)
 		bmi.s	loc_9310
 		move.b	#0,obFrame(a0)
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.s	loc_9310
 		not.b	$29(a0)
@@ -315,7 +315,7 @@ loc_9332:
 		tst.w	obVelY(a0)
 		bmi.s	loc_936C
 		move.b	#0,obFrame(a0)
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.s	loc_936C
 		neg.w	obVelX(a0)
@@ -334,7 +334,7 @@ loc_9370:
 		addi.w	#$18,obVelY(a0)
 		tst.w	obVelY(a0)
 		bmi.s	loc_93AA
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.s	loc_93AA
 		not.b	$29(a0)
@@ -362,7 +362,7 @@ loc_93C4:
 		tst.w	obVelY(a0)
 		bmi.s	locret_93EA
 		move.b	#0,obFrame(a0)
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.s	locret_93EA
 		add.w	d1,obY(a0)

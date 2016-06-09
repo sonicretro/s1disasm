@@ -7,7 +7,7 @@ ContSonic:
 		move.b	obRoutine(a0),d0
 		move.w	CSon_Index(pc,d0.w),d1
 		jsr	CSon_Index(pc,d1.w)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 CSon_Index:	dc.w CSon_Main-CSon_Index
 		dc.w CSon_ChkLand-CSon_Index
@@ -38,16 +38,16 @@ CSon_ChkLand:	; Routine 2
 		bra.s	CSon_Animate
 
 CSon_ShowFall:
-		jsr	SpeedToPos
-		jsr	Sonic_Animate
-		jmp	Sonic_LoadGfx
+		jsr	(SpeedToPos).l
+		jsr	(Sonic_Animate).l
+		jmp	(Sonic_LoadGfx).l
 ; ===========================================================================
 
 CSon_Animate:	; Routine 4
 		tst.b	(v_jpadpress1).w ; is Start button pressed?
 		bmi.s	CSon_GetUp	; if yes, branch
 		lea	(AniScript_CSon).l,a1
-		jmp	AnimateSprite
+		jmp	(AnimateSprite).l
 
 CSon_GetUp:
 		addq.b	#2,obRoutine(a0)
@@ -68,6 +68,6 @@ CSon_AddInertia:
 		addi.w	#$20,obInertia(a0) ; increase inertia
 
 CSon_ShowRun:
-		jsr	SpeedToPos
-		jsr	Sonic_Animate
-		jmp	Sonic_LoadGfx
+		jsr	(SpeedToPos).l
+		jsr	(Sonic_Animate).l
+		jmp	(Sonic_LoadGfx).l

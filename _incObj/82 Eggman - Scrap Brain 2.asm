@@ -32,7 +32,7 @@ SEgg_Main:	; Routine 0
 		move.b	#4,obRender(a0)
 		bset	#7,obRender(a0)
 		move.b	#$20,obActWid(a0)
-		jsr	FindNextFreeObj
+		jsr	(FindNextFreeObj).l
 		bne.s	SEgg_Eggman
 		move.l	a0,$34(a1)
 		move.b	#id_ScrapEggman,(a1) ; load switch object
@@ -55,8 +55,8 @@ SEgg_Eggman:	; Routine 2
 		move.w	SEgg_EggIndex(pc,d0.w),d1
 		jsr	SEgg_EggIndex(pc,d1.w)
 		lea	Ani_SEgg(pc),a1
-		jsr	AnimateSprite
-		jmp	DisplaySprite
+		jsr	(AnimateSprite).l
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 SEgg_EggIndex:	dc.w SEgg_ChkSonic-SEgg_EggIndex
 		dc.w SEgg_PreLeap-SEgg_EggIndex
@@ -74,7 +74,7 @@ SEgg_ChkSonic:
 		move.b	#1,obAnim(a0)
 
 loc_19934:
-		jmp	SpeedToPos
+		jmp	(SpeedToPos).l
 ; ===========================================================================
 
 SEgg_PreLeap:
@@ -153,4 +153,4 @@ loc_199E6:
 		addq.b	#2,ob2ndRout(a0)
 
 SEgg_SwDisplay:
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l

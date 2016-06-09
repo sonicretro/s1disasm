@@ -32,7 +32,7 @@ Obj73_Main:	; Routine 0
 ; ===========================================================================
 
 Obj73_Loop:
-		jsr	FindNextFreeObj
+		jsr	(FindNextFreeObj).l
 		bne.s	Obj73_ShipMain
 		move.b	#id_BossMarble,0(a1)
 		move.w	obX(a0),obX(a1)
@@ -57,12 +57,12 @@ Obj73_ShipMain:	; Routine 2
 		move.w	Obj73_ShipIndex(pc,d0.w),d1
 		jsr	Obj73_ShipIndex(pc,d1.w)
 		lea	(Ani_Eggman).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 		moveq	#3,d0
 		and.b	obStatus(a0),d0
 		andi.b	#$FC,obRender(a0)
 		or.b	d0,obRender(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 Obj73_ShipIndex:dc.w loc_18302-Obj73_ShipIndex
 		dc.w loc_183AA-Obj73_ShipIndex
@@ -173,7 +173,7 @@ loc_183FE:
 Obj73_MakeLava:
 		subq.b	#1,$34(a0)
 		bcc.s	loc_1845C
-		jsr	FindFreeObj
+		jsr	(FindFreeObj).l
 		bne.s	loc_1844A
 		move.b	#id_LavaBall,0(a1) ; load lava ball object
 		move.w	#$2E8,obY(a1)	; set Y	position
@@ -231,7 +231,7 @@ Obj73_MakeLava2:
 		clr.w	obVelY(a0)
 		move.w	#$50,$3C(a0)
 		bchg	#0,obStatus(a0)
-		jsr	FindFreeObj
+		jsr	(FindFreeObj).l
 		bne.s	loc_184EA
 		move.w	$30(a0),obX(a1)
 		move.w	$38(a0),obY(a1)
@@ -328,7 +328,7 @@ loc_185A2:
 ; ===========================================================================
 
 Obj73_ShipDel:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 Obj73_FaceMain:	; Routine 4
@@ -378,7 +378,7 @@ loc_18602:
 ; ===========================================================================
 
 Obj73_FaceDel:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 Obj73_FlameMain:; Routine 6
@@ -402,12 +402,12 @@ loc_18636:
 ; ===========================================================================
 
 Obj73_FlameDel:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 Obj73_Display:
 		lea	(Ani_Eggman).l,a1
-		jsr	AnimateSprite
+		jsr	(AnimateSprite).l
 
 loc_1864A:
 		movea.l	$34(a0),a1
@@ -418,7 +418,7 @@ loc_1864A:
 		and.b	obStatus(a0),d0
 		andi.b	#$FC,obRender(a0)
 		or.b	d0,obRender(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 Obj73_TubeMain:	; Routine 8
@@ -436,4 +436,4 @@ loc_18688:
 ; ===========================================================================
 
 Obj73_TubeDel:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l

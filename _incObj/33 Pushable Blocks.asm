@@ -121,7 +121,7 @@ loc_C056:
 		btst	#1,obStatus(a0)
 		beq.s	loc_C0A0
 		addi.w	#$18,obVelY(a0)
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.w	loc_C09E
 		add.w	d1,obY(a0)
@@ -147,7 +147,7 @@ loc_C0A0:
 		bmi.s	loc_C0BC
 		moveq	#0,d3
 		move.b	obActWid(a0),d3
-		jsr	ObjHitWallRight
+		jsr	(ObjHitWallRight).l
 		tst.w	d1		; has block touched a wall?
 		bmi.s	PushB_StopPush	; if yes, branch
 		bra.s	loc_C0E6
@@ -157,7 +157,7 @@ loc_C0BC:
 		moveq	#0,d3
 		move.b	obActWid(a0),d3
 		not.w	d3
-		jsr	ObjHitWallLeft
+		jsr	(ObjHitWallLeft).l
 		tst.w	d1		; has block touched a wall?
 		bmi.s	PushB_StopPush	; if yes, branch
 		bra.s	loc_C0E6
@@ -255,7 +255,7 @@ loc_C1AA:
 		bne.s	loc_C1F2
 		bsr.w	SpeedToPos
 		addi.w	#$18,obVelY(a0)
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.w	locret_C1F0
 		add.w	d1,obY(a0)
@@ -306,7 +306,7 @@ loc_C230:
 		move.w	d0,-(sp)
 		moveq	#0,d3
 		move.b	obActWid(a0),d3
-		jsr	ObjHitWallRight
+		jsr	(ObjHitWallRight).l
 		move.w	(sp)+,d0
 		tst.w	d1
 		bmi.w	locret_C2E4
@@ -323,7 +323,7 @@ loc_C268:
 		moveq	#0,d3
 		move.b	obActWid(a0),d3
 		not.w	d3
-		jsr	ObjHitWallLeft
+		jsr	(ObjHitWallLeft).l
 		move.w	(sp)+,d0
 		tst.w	d1
 		bmi.s	locret_C2E4
@@ -342,7 +342,7 @@ loc_C294:
 		tst.b	obSubtype(a0)
 		bmi.s	locret_C2E4
 		move.w	d0,-(sp)
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		move.w	(sp)+,d0
 		cmpi.w	#4,d1
 		ble.s	loc_C2E0

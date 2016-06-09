@@ -11,7 +11,7 @@ Cannonball:
 Cbal_Index:	dc.w Cbal_Main-Cbal_Index
 		dc.w Cbal_Bounce-Cbal_Index
 
-cbal_time:	= $30		; time until the cannonball explodes (2 bytes)
+cbal_time:	equ $30		; time until the cannonball explodes (2 bytes)
 ; ===========================================================================
 
 Cbal_Main:	; Routine 0
@@ -30,10 +30,10 @@ Cbal_Main:	; Routine 0
 		move.b	#4,obFrame(a0)
 
 Cbal_Bounce:	; Routine 2
-		jsr	ObjectFall
+		jsr	(ObjectFall).l
 		tst.w	obVelY(a0)
 		bmi.s	Cbal_ChkExplode
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		tst.w	d1		; has ball hit the floor?
 		bpl.s	Cbal_ChkExplode	; if not, branch
 

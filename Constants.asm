@@ -24,10 +24,10 @@ z80_port_2_control:	equ $A1000A
 z80_expansion_control:	equ $A1000C
 z80_bus_request:	equ $A11100
 z80_reset:		equ $A11200
-ym2612_a0: 		equ $A04000
-ym2612_d0: 		equ $A04001
-ym2612_a1: 		equ $A04002
-ym2612_d1: 		equ $A04003
+ym2612_a0:		equ $A04000
+ym2612_d0:		equ $A04001
+ym2612_a1:		equ $A04002
+ym2612_d1:		equ $A04003
 
 security_addr:		equ $A14000
 
@@ -36,7 +36,7 @@ zTrackPlaybackControl:	equ 0		; All tracks
 zTrackVoiceControl:	equ 1		; All tracks
 zTrackTempoDivider:	equ 2		; All tracks
 zTrackDataPointer:	equ 4		; All tracks (4 bytes)
-zTrackKeyOffset:	equ 8		; FM/PSG only (sometimes written to as a word, to include zTrackVolume)
+zTrackTranspose:	equ 8		; FM/PSG only (sometimes written to as a word, to include zTrackVolume)
 zTrackVolume:		equ 9		; FM/PSG only
 zTrackAMSFMSPan:	equ $A		; FM/DAC only
 zTrackVoiceIndex:	equ $B		; FM/PSG only
@@ -54,7 +54,7 @@ zTrackModulationSpeed:	equ $19		; FM/PSG only
 zTrackModulationDelta:	equ $1A		; FM/PSG only
 zTrackModulationSteps:	equ $1B		; FM/PSG only
 zTrackModulationVal:	equ $1C		; FM/PSG only (2 bytes)
-zTrackFreqDisplacement:	equ $1E		; FM/PSG only
+zTrackDetune:		equ $1E		; FM/PSG only
 zTrackPSGNoise:		equ $1F		; PSG only
 zTrackFeedbackAlgo:	equ $1F		; FM only
 zTrackVoicePtr:		equ $20		; FM SFX only (4 bytes)
@@ -185,7 +185,7 @@ afReset:	equ $FB	; reset animation and 2nd object routine counter
 af2ndRoutine:	equ $FA	; increment 2nd routine counter
 
 ; Background music
-bgm__First	equ $81
+bgm__First:	equ $81
 bgm_GHZ:	equ ((ptr_mus81-MusicIndex)/4)+bgm__First
 bgm_LZ:		equ ((ptr_mus82-MusicIndex)/4)+bgm__First
 bgm_MZ:		equ ((ptr_mus83-MusicIndex)/4)+bgm__First
@@ -208,7 +208,7 @@ bgm_Emerald:	equ ((ptr_mus93-MusicIndex)/4)+bgm__First
 bgm__Last:	equ ((ptr_musend-MusicIndex-4)/4)+bgm__First
 
 ; Sound effects
-sfx__First	equ $A0
+sfx__First:	equ $A0
 sfx_Jump:	equ ((ptr_sndA0-SoundIndex)/4)+sfx__First
 sfx_Lamppost:	equ ((ptr_sndA1-SoundIndex)/4)+sfx__First
 sfx_A2:		equ ((ptr_sndA2-SoundIndex)/4)+sfx__First
@@ -260,11 +260,11 @@ sfx_Signpost:	equ ((ptr_sndCF-SoundIndex)/4)+sfx__First
 sfx__Last:	equ ((ptr_sndend-SoundIndex-4)/4)+sfx__First
 
 ; Special sound effects
-spec__First	equ $D0
+spec__First:	equ $D0
 sfx_Waterfall:	equ ((ptr_sndD0-SpecSoundIndex)/4)+spec__First
 spec__Last:	equ ((ptr_specend-SpecSoundIndex-4)/4)+spec__First
 
-flg__First	equ $E0
+flg__First:	equ $E0
 bgm_Fade:	equ ((ptr_flgE0-Sound_ExIndex)/4)+flg__First
 sfx_Sega:	equ ((ptr_flgE1-Sound_ExIndex)/4)+flg__First
 bgm_Speedup:	equ ((ptr_flgE2-Sound_ExIndex)/4)+flg__First

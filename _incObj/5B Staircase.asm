@@ -14,10 +14,10 @@ Stair_Index:	dc.w Stair_Main-Stair_Index
 		dc.w Stair_Move-Stair_Index
 		dc.w Stair_Solid-Stair_Index
 
-stair_origX:	= $30		; original x-axis position
-stair_origY:	= $32		; original y-axis position
+stair_origX:	equ $30		; original x-axis position
+stair_origY:	equ $32		; original y-axis position
 
-stair_parent:	= $3C		; address of parent object (4 bytes)
+stair_parent:	equ $3C		; address of parent object (4 bytes)
 ; ===========================================================================
 
 Stair_Main:	; Routine 0

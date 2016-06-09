@@ -11,10 +11,10 @@ ScrapStomp:
 Sto_Index:	dc.w Sto_Main-Sto_Index
 		dc.w Sto_Action-Sto_Index
 
-sto_height:	= $16
-sto_origX:	= $34		; original x-axis position
-sto_origY:	= $30		; original y-axis position
-sto_active:	= $38		; flag set when a switch is pressed
+sto_height:	equ $16
+sto_origX:	equ $34		; original x-axis position
+sto_origY:	equ $30		; original y-axis position
+sto_active:	equ $38		; flag set when a switch is pressed
 
 Sto_Var:	dc.b  $40,  $C,	$80,   1 ; width, height, ????,	type number
 		dc.b  $1C, $20,	$38,   3
@@ -49,7 +49,7 @@ Sto_Main:	; Routine 0
 		bclr	#7,2(a2,d0.w)
 
 	@delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 
 @isSBZ3:
@@ -113,7 +113,7 @@ Sto_Action:	; Routine 2
 
 	@chkdel:
 		out_of_range.s	@chkgone,sto_origX(a0)
-		jmp	DisplaySprite
+		jmp	(DisplaySprite).l
 
 	@chkgone:
 		cmpi.b	#id_LZ,(v_zone).w
@@ -126,7 +126,7 @@ Sto_Action:	; Routine 2
 		bclr	#7,2(a2,d0.w)
 
 	@delete:
-		jmp	DeleteObject
+		jmp	(DeleteObject).l
 ; ===========================================================================
 @index:		dc.w @type00-@index, @type01-@index
 		dc.w @type02-@index, @type03-@index

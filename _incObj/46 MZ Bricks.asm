@@ -11,7 +11,7 @@ MarbleBrick:
 Brick_Index:	dc.w Brick_Main-Brick_Index
 		dc.w Brick_Action-Brick_Index
 
-origY:		= $30
+brick_origY:	equ $30
 ; ===========================================================================
 
 Brick_Main:	; Routine 0
@@ -23,7 +23,7 @@ Brick_Main:	; Routine 0
 		move.b	#4,obRender(a0)
 		move.b	#3,obPriority(a0)
 		move.b	#$10,obActWid(a0)
-		move.w	obY(a0),origY(a0)
+		move.w	obY(a0),brick_origY(a0)
 		move.w	#$5C0,$32(a0)
 
 Brick_Action:	; Routine 2
@@ -82,7 +82,7 @@ Brick_Type01:
 		addi.w	#$10,d0
 
 loc_E8A8:
-		move.w	origY(a0),d1
+		move.w	brick_origY(a0),d1
 		sub.w	d0,d1
 		move.w	d1,obY(a0)	; update the block's position to make it wobble
 		rts	
@@ -96,7 +96,7 @@ Brick_Type03:
 		bpl.w	locret_E8EE	; if not, branch
 		add.w	d1,obY(a0)
 		clr.w	obVelY(a0)	; stop the block falling
-		move.w	obY(a0),origY(a0)
+		move.w	obY(a0),brick_origY(a0)
 		move.b	#4,obSubtype(a0)
 		move.w	(a1),d0
 		andi.w	#$3FF,d0
@@ -116,7 +116,7 @@ Brick_Type04:
 		moveq	#0,d0
 		move.b	(v_oscillate+$12).w,d0
 		lsr.w	#3,d0
-		move.w	origY(a0),d1
+		move.w	brick_origY(a0),d1
 		sub.w	d0,d1
 		move.w	d1,obY(a0)	; make the block wobble
 		rts	

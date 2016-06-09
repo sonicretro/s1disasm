@@ -15,14 +15,14 @@ ptr_Crab_Delete:	dc.w Crab_Delete-Crab_Index
 ptr_Crab_BallMain:	dc.w Crab_BallMain-Crab_Index
 ptr_Crab_BallMove:	dc.w Crab_BallMove-Crab_Index
 
-id_Crab_Main:		= ptr_Crab_Main-Crab_Index	; 0
-id_Crab_Action:		= ptr_Crab_Action-Crab_Index	; 2
-id_Crab_Delete:		= ptr_Crab_Delete-Crab_Index	; 4
-id_Crab_BallMain:	= ptr_Crab_BallMain-Crab_Index	; 6
-id_Crab_BallMove:	= ptr_Crab_BallMove-Crab_Index	; 8
+id_Crab_Main:		equ ptr_Crab_Main-Crab_Index	; 0
+id_Crab_Action:		equ ptr_Crab_Action-Crab_Index	; 2
+id_Crab_Delete:		equ ptr_Crab_Delete-Crab_Index	; 4
+id_Crab_BallMain:	equ ptr_Crab_BallMain-Crab_Index	; 6
+id_Crab_BallMove:	equ ptr_Crab_BallMove-Crab_Index	; 8
 
-timedelay:	= $30
-crabmode:	= $32
+crab_timedelay:	equ $30
+crab_mode:	equ $32
 ; ===========================================================================
 
 Crab_Main:	; Routine 0
@@ -35,7 +35,7 @@ Crab_Main:	; Routine 0
 		move.b	#6,obColType(a0)
 		move.b	#$15,obActWid(a0)
 		bsr.w	ObjectFall
-		jsr	ObjFloorDist	; find floor
+		jsr	(ObjFloorDist).l	; find floor
 		tst.w	d1
 		bpl.s	@floornotfound
 		add.w	d1,obY(a0)
@@ -61,16 +61,16 @@ Crab_Action:	; Routine 2
 ; ===========================================================================
 
 @waittofire:
-		subq.w	#1,timedelay(a0) ; subtract 1 from time delay
+		subq.w	#1,crab_timedelay(a0) ; subtract 1 from time delay
 		bpl.s	@dontmove
 		tst.b	obRender(a0)
 		bpl.s	@movecrab
-		bchg	#1,crabmode(a0)
+		bchg	#1,crab_mode(a0)
 		bne.s	@fire
 
 	@movecrab:
 		addq.b	#2,ob2ndRout(a0)
-		move.w	#127,timedelay(a0) ; set time delay to approx 2 seconds
+		move.w	#127,crab_timedelay(a0) ; set time delay to approx 2 seconds
 		move.w	#$80,obVelX(a0)	; move Crabmeat	to the right
 		bsr.w	Crab_SetAni
 		addq.b	#3,d0
@@ -85,7 +85,7 @@ Crab_Action:	; Routine 2
 ; ===========================================================================
 
 @fire:
-		move.w	#59,timedelay(a0)
+		move.w	#59,crab_timedelay(a0)
 		move.b	#6,obAnim(a0)	; use firing animation
 		bsr.w	FindFreeObj
 		bne.s	@failleft
@@ -111,10 +111,10 @@ Crab_Action:	; Routine 2
 ; ===========================================================================
 
 @walkonfloor:
-		subq.w	#1,timedelay(a0)
+		subq.w	#1,crab_timedelay(a0)
 		bmi.s	loc_966E
 		bsr.w	SpeedToPos
-		bchg	#0,crabmode(a0)
+		bchg	#0,crab_mode(a0)
 		bne.s	loc_9654
 		move.w	obX(a0),d3
 		addi.w	#$10,d3
@@ -123,7 +123,7 @@ Crab_Action:	; Routine 2
 		subi.w	#$20,d3
 
 loc_9640:
-		jsr	ObjFloorDist2
+		jsr	(ObjFloorDist2).l
 		cmpi.w	#-8,d1
 		blt.s	loc_966E
 		cmpi.w	#$C,d1
@@ -132,7 +132,7 @@ loc_9640:
 ; ===========================================================================
 
 loc_9654:
-		jsr	ObjFloorDist
+		jsr	(ObjFloorDist).l
 		add.w	d1,obY(a0)
 		move.b	d3,obAngle(a0)
 		bsr.w	Crab_SetAni
@@ -143,7 +143,7 @@ loc_9654:
 
 loc_966E:
 		subq.b	#2,ob2ndRout(a0)
-		move.w	#59,timedelay(a0)
+		move.w	#59,crab_timedelay(a0)
 		move.w	#0,obVelX(a0)
 		bsr.w	Crab_SetAni
 		move.b	d0,obAnim(a0)
