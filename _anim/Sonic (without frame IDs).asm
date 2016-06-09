@@ -20,7 +20,7 @@ ptr_Stop:	dc.w SonAni_Stop-Ani_Sonic
 ptr_Float1:	dc.w SonAni_Float1-Ani_Sonic
 ptr_Float2:	dc.w SonAni_Float2-Ani_Sonic
 ptr_Spring:	dc.w SonAni_Spring-Ani_Sonic
-ptr_LZHang:	dc.w SonAni_LZHang-Ani_Sonic
+ptr_Hang:	dc.w SonAni_Hang-Ani_Sonic
 ptr_Leap1:	dc.w SonAni_Leap1-Ani_Sonic
 ptr_Leap2:	dc.w SonAni_Leap2-Ani_Sonic
 ptr_Surf:	dc.w SonAni_Surf-Ani_Sonic
@@ -69,7 +69,7 @@ SonAni_Float2:	dc.b 7,	$3C, $3D, $53, $3E, $54, afEnd
 		even
 SonAni_Spring:	dc.b $2F, $40, afChange, id_Walk
 		even
-SonAni_LZHang:	dc.b 4,	$41, $42, afEnd
+SonAni_Hang:	dc.b 4,	$41, $42, afEnd
 		even
 SonAni_Leap1:	dc.b $F, $43, $43, $43,	afBack, 1
 		even
@@ -116,7 +116,7 @@ id_Stop:	equ (ptr_Stop-Ani_Sonic)/2	; $D
 id_Float1:	equ (ptr_Float1-Ani_Sonic)/2	; $E
 id_Float2:	equ (ptr_Float2-Ani_Sonic)/2	; $F
 id_Spring:	equ (ptr_Spring-Ani_Sonic)/2	; $10
-id_Hang:	equ (ptr_LZHang-Ani_Sonic)/2	; $11
+id_Hang:	equ (ptr_Hang-Ani_Sonic)/2	; $11
 id_Leap1:	equ (ptr_Leap1-Ani_Sonic)/2	; $12
 id_Leap2:	equ (ptr_Leap2-Ani_Sonic)/2	; $13
 id_Surf:	equ (ptr_Surf-Ani_Sonic)/2	; $14
