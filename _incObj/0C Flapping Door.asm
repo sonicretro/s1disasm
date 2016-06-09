@@ -11,8 +11,8 @@ FlapDoor:
 Flap_Index:	dc.w Flap_Main-Flap_Index
 		dc.w Flap_OpenClose-Flap_Index
 
-flap_time := $32		; time between opening/closing
-flap_wait := $30		; time until change
+flap_time = $32		; time between opening/closing
+flap_wait = $30		; time until change
 ; ===========================================================================
 
 Flap_Main:	; Routine 0

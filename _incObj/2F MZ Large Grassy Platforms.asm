@@ -11,8 +11,8 @@ LargeGrass:
 LGrass_Index:	dc.w LGrass_Main-LGrass_Index
 		dc.w LGrass_Action-LGrass_Index
 
-origX := $2A
-origY := $2C
+lgrass_origX = $2A
+lgrass_origY = $2C
 
 LGrass_Data:	dc.w LGrass_Data1-LGrass_Data 	; collision angle data
 		dc.b 0,	$40			; frame	number,	platform width
@@ -28,8 +28,8 @@ LGrass_Main:	; Routine 0
 		move.w	#$C000,obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#5,obPriority(a0)
-		move.w	obY(a0),origY(a0)
-		move.w	obX(a0),origX(a0)
+		move.w	obY(a0),lgrass_origY(a0)
+		move.w	obX(a0),lgrass_origX(a0)
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0
 		lsr.w	#2,d0
@@ -139,7 +139,7 @@ LGrass_Move:
 		add.w	d1,d0
 
 loc_AFF2:
-		move.w	origY(a0),d1
+		move.w	lgrass_origY(a0),d1
 		sub.w	d0,d1
 		move.w	d1,obY(a0)	; update position on y-axis
 		rts	
@@ -166,7 +166,7 @@ loc_B01C:
 		jsr	(CalcSine).l
 		lsr.w	#4,d0
 		move.w	d0,d1
-		add.w	origY(a0),d0
+		add.w	lgrass_origY(a0),d0
 		move.w	d0,obY(a0)
 		cmpi.b	#$20,$34(a0)
 		bne.s	loc_B07A
@@ -177,9 +177,9 @@ loc_B01C:
 		bne.s	loc_B07A
 		_move.b	#id_GrassFire,0(a1) ; load sitting flame object
 		move.w	obX(a0),obX(a1)
-		move.w	origY(a0),origY(a1)
-		addq.w	#8,origY(a1)
-		subq.w	#3,origY(a1)
+		move.w	lgrass_origY(a0),lgrass_origY(a1)
+		addq.w	#8,lgrass_origY(a1)
+		subq.w	#3,lgrass_origY(a1)
 		subi.w	#$40,obX(a1)
 		move.l	$30(a0),$30(a1)
 		move.l	a0,$38(a1)
@@ -231,7 +231,7 @@ LGrass_ChkDel:
 		bpl.s	LGrass_DelFlames
 
 loc_B0C6:
-		out_of_range.w	DeleteObject,origX(a0)
+		out_of_range.w	DeleteObject,lgrass_origX(a0)
 		rts	
 ; ===========================================================================
 

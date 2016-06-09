@@ -11,10 +11,10 @@ FloatingBlock:
 FBlock_Index:	dc.w FBlock_Main-FBlock_Index
 		dc.w FBlock_Action-FBlock_Index
 
-fb_origX := $34		; original x-axis position
-fb_origY := $30		; original y-axis position
-fb_height := $3A		; total object height
-fb_type := $3C		; subtype (2nd digit only)
+fb_origX = $34		; original x-axis position
+fb_origY = $30		; original y-axis position
+fb_height = $3A		; total object height
+fb_type = $3C		; subtype (2nd digit only)
 
 FBlock_Var:	; width/2, height/2
 		dc.b  $10, $10	; subtype 0x/8x

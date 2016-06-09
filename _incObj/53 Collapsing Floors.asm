@@ -12,8 +12,8 @@ CFlo_Index:	dc.w CFlo_Main-CFlo_Index, CFlo_Touch-CFlo_Index
 		dc.w CFlo_Collapse-CFlo_Index, CFlo_Display-CFlo_Index
 		dc.w CFlo_Delete-CFlo_Index, CFlo_WalkOff-CFlo_Index
 
-timedelay := $38
-collapse := $3A
+cflo_timedelay = $38
+cflo_collapse_flag = $3A
 ; ===========================================================================
 
 CFlo_Main:	; Routine 0
@@ -34,15 +34,15 @@ CFlo_Main:	; Routine 0
 .notSBZ:
 		ori.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
-		move.b	#7,timedelay(a0)
+		move.b	#7,cflo_timedelay(a0)
 		move.b	#$44,obActWid(a0)
 
 CFlo_Touch:	; Routine 2
-		tst.b	collapse(a0)	; has Sonic touched the	object?
+		tst.b	cflo_collapse_flag(a0)	; has Sonic touched the	object?
 		beq.s	.solid		; if not, branch
-		tst.b	timedelay(a0)	; has time delay reached zero?
+		tst.b	cflo_timedelay(a0)	; has time delay reached zero?
 		beq.w	CFlo_Fragment	; if yes, branch
-		subq.b	#1,timedelay(a0) ; subtract 1 from time
+		subq.b	#1,cflo_timedelay(a0) ; subtract 1 from time
 
 .solid:
 		move.w	#$20,d1
@@ -62,10 +62,10 @@ CFlo_Touch:	; Routine 2
 ; ===========================================================================
 
 CFlo_Collapse:	; Routine 4
-		tst.b	timedelay(a0)
+		tst.b	cflo_timedelay(a0)
 		beq.w	loc_8458
-		move.b	#1,collapse(a0)	; set object as	"touched"
-		subq.b	#1,timedelay(a0)
+		move.b	#1,cflo_collapse_flag(a0)	; set object as	"touched"
+		subq.b	#1,cflo_timedelay(a0)
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
@@ -81,28 +81,28 @@ CFlo_WalkOff:	; Routine $A
 ; ===========================================================================
 
 CFlo_Display:	; Routine 6
-		tst.b	timedelay(a0)	; has time delay reached zero?
+		tst.b	cflo_timedelay(a0)	; has time delay reached zero?
 		beq.s	CFlo_TimeZero	; if yes, branch
-		tst.b	collapse(a0)	; has Sonic touched the	object?
+		tst.b	cflo_collapse_flag(a0)	; has Sonic touched the	object?
 		bne.w	loc_8402	; if yes, branch
-		subq.b	#1,timedelay(a0); subtract 1 from time
+		subq.b	#1,cflo_timedelay(a0); subtract 1 from time
 		bra.w	DisplaySprite
 ; ===========================================================================
 
 loc_8402:
-		subq.b	#1,timedelay(a0)
+		subq.b	#1,cflo_timedelay(a0)
 		bsr.w	CFlo_WalkOff
 		lea	(v_player).w,a1
 		btst	#3,obStatus(a1)
 		beq.s	loc_842E
-		tst.b	timedelay(a0)
+		tst.b	cflo_timedelay(a0)
 		bne.s	locret_843A
 		bclr	#3,obStatus(a1)
 		bclr	#5,obStatus(a1)
 		move.b	#1,obNextAni(a1)
 
 loc_842E:
-		move.b	#0,collapse(a0)
+		move.b	#0,cflo_collapse_flag(a0)
 		move.b	#6,obRoutine(a0) ; run "CFlo_Display" routine
 
 locret_843A:
@@ -123,7 +123,7 @@ CFlo_Delete:	; Routine 8
 ; ===========================================================================
 
 CFlo_Fragment:
-		move.b	#0,collapse(a0)
+		move.b	#0,cflo_collapse_flag(a0)
 
 loc_8458:
 		lea	(CFlo_Data2).l,a4

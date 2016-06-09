@@ -12,12 +12,12 @@ SBall_Index:	dc.w SBall_Main-SBall_Index
 		dc.w SBall_Move-SBall_Index
 		dc.w SBall_Display-SBall_Index
 
-sball_childs := $29		; number of child objects (1 byte)
+sball_childs = $29		; number of child objects (1 byte)
 		; $30-$37	; object RAM numbers of childs (1 byte each)
-sball_origX := $3A		; centre x-axis position (2 bytes)
-sball_origY := $38		; centre y-axis position (2 bytes)
-sball_radius := $3C		; radius (1 byte)
-sball_speed := $3E		; rate of spin (2 bytes)
+sball_origX = $3A		; centre x-axis position (2 bytes)
+sball_origY = $38		; centre y-axis position (2 bytes)
+sball_radius = $3C		; radius (1 byte)
+sball_speed = $3E		; rate of spin (2 bytes)
 ; ===========================================================================
 
 SBall_Main:	; Routine 0

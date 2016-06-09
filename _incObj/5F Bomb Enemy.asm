@@ -13,9 +13,9 @@ Bom_Index:	dc.w Bom_Main-Bom_Index
 		dc.w Bom_Display-Bom_Index
 		dc.w Bom_End-Bom_Index
 
-bom_time := $30		; time of fuse
-bom_origY := $34		; original y-axis position
-bom_parent := $3C		; address of parent object
+bom_time = $30		; time of fuse
+bom_origY = $34		; original y-axis position
+bom_parent = $3C		; address of parent object
 ; ===========================================================================
 
 Bom_Main:	; Routine 0

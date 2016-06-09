@@ -11,8 +11,8 @@ Fan:
 Fan_Index:	dc.w Fan_Main-Fan_Index
 		dc.w Fan_Delay-Fan_Index
 
-fan_time := $30		; time between switching on/off
-fan_switch := $32		; on/off switch
+fan_time = $30		; time between switching on/off
+fan_switch = $32		; on/off switch
 ; ===========================================================================
 
 Fan_Main:	; Routine 0

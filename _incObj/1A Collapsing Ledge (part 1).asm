@@ -12,8 +12,8 @@ Ledge_Index:	dc.w Ledge_Main-Ledge_Index, Ledge_Touch-Ledge_Index
 		dc.w Ledge_Collapse-Ledge_Index, Ledge_Display-Ledge_Index
 		dc.w Ledge_Delete-Ledge_Index, Ledge_WalkOff-Ledge_Index
 
-timedelay := $38		; time between touching the ledge and it collapsing
-collapse := $3A		; collapse flag
+ledge_timedelay = $38		; time between touching the ledge and it collapsing
+ledge_collapse_flag = $3A		; collapse flag
 ; ===========================================================================
 
 Ledge_Main:	; Routine 0
@@ -22,18 +22,18 @@ Ledge_Main:	; Routine 0
 		move.w	#$4000,obGfx(a0)
 		ori.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
-		move.b	#7,timedelay(a0) ; set time delay for collapse
+		move.b	#7,ledge_timedelay(a0) ; set time delay for collapse
 		move.b	#$64,obActWid(a0)
 		move.b	obSubtype(a0),obFrame(a0)
 		move.b	#$38,obHeight(a0)
 		bset	#4,obRender(a0)
 
 Ledge_Touch:	; Routine 2
-		tst.b	collapse(a0)	; is ledge collapsing?
+		tst.b	ledge_collapse_flag(a0)	; is ledge collapsing?
 		beq.s	.slope		; if not, branch
-		tst.b	timedelay(a0)	; has time reached zero?
+		tst.b	ledge_timedelay(a0)	; has time reached zero?
 		beq.w	Ledge_Fragment	; if yes, branch
-		subq.b	#1,timedelay(a0) ; subtract 1 from time
+		subq.b	#1,ledge_timedelay(a0) ; subtract 1 from time
 
 .slope:
 		move.w	#$30,d1
@@ -43,10 +43,10 @@ Ledge_Touch:	; Routine 2
 ; ===========================================================================
 
 Ledge_Collapse:	; Routine 4
-		tst.b	timedelay(a0)
+		tst.b	ledge_timedelay(a0)
 		beq.w	loc_847A
-		move.b	#1,collapse(a0)	; set collapse flag
-		subq.b	#1,timedelay(a0)
+		move.b	#1,ledge_collapse_flag(a0)	; set collapse flag
+		subq.b	#1,ledge_timedelay(a0)
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
@@ -64,28 +64,28 @@ Ledge_WalkOff:	; Routine $A
 ; ===========================================================================
 
 Ledge_Display:	; Routine 6
-		tst.b	timedelay(a0)	; has time delay reached zero?
+		tst.b	ledge_timedelay(a0)	; has time delay reached zero?
 		beq.s	Ledge_TimeZero	; if yes, branch
-		tst.b	collapse(a0)	; is ledge collapsing?
+		tst.b	ledge_collapse_flag(a0)	; is ledge collapsing?
 		bne.w	loc_82D0	; if yes, branch
-		subq.b	#1,timedelay(a0) ; subtract 1 from time
+		subq.b	#1,ledge_timedelay(a0) ; subtract 1 from time
 		bra.w	DisplaySprite
 ; ===========================================================================
 
 loc_82D0:
-		subq.b	#1,timedelay(a0)
+		subq.b	#1,ledge_timedelay(a0)
 		bsr.w	Ledge_WalkOff
 		lea	(v_player).w,a1
 		btst	#3,obStatus(a1)
 		beq.s	loc_82FC
-		tst.b	timedelay(a0)
+		tst.b	ledge_timedelay(a0)
 		bne.s	locret_8308
 		bclr	#3,obStatus(a1)
 		bclr	#5,obStatus(a1)
 		move.b	#1,obNextAni(a1)
 
 loc_82FC:
-		move.b	#0,collapse(a0)
+		move.b	#0,ledge_collapse_flag(a0)
 		move.b	#6,obRoutine(a0) ; run "Ledge_Display" routine
 
 locret_8308:

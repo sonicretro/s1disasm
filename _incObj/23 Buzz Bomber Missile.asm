@@ -14,7 +14,7 @@ Msl_Index:	dc.w Msl_Main-Msl_Index
 		dc.w Msl_Delete-Msl_Index
 		dc.w Msl_FromNewt-Msl_Index
 
-parent := $3C
+msl_parent = $3C
 ; ===========================================================================
 
 Msl_Main:	; Routine 0
@@ -50,7 +50,7 @@ Msl_Animate:	; Routine 2
 
 
 Msl_ChkCancel:
-		movea.l	parent(a0),a1
+		movea.l	msl_parent(a0),a1
 		_cmpi.b	#id_ExplosionItem,0(a1) ; has Buzz Bomber been destroyed?
 		beq.s	Msl_Delete	; if yes, branch
 		rts	

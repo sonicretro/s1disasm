@@ -12,8 +12,8 @@ Pole_Index:	dc.w Pole_Main-Pole_Index
 		dc.w Pole_Action-Pole_Index
 		dc.w Pole_Display-Pole_Index
 
-pole_time := $30		; time between grabbing the pole & breaking
-pole_grabbed := $32		; flag set when Sonic grabs the pole
+pole_time = $30		; time between grabbing the pole & breaking
+pole_grabbed = $32		; flag set when Sonic grabs the pole
 ; ===========================================================================
 
 Pole_Main:	; Routine 0

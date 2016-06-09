@@ -2,10 +2,10 @@
 ; Object 5B - blocks that form a staircase (SLZ)
 ; ---------------------------------------------------------------------------
 
-stair_origX := $30		; original x-axis position
-stair_origY := $32		; original y-axis position
+stair_origX = $30		; original x-axis position
+stair_origY = $32		; original y-axis position
 
-stair_parent := $3C		; address of parent object (4 bytes)
+stair_parent = $3C		; address of parent object (4 bytes)
 
 Staircase:
 		moveq	#0,d0

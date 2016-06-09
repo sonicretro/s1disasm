@@ -13,14 +13,14 @@ GFire_Index:	dc.w GFire_Main-GFire_Index
 		dc.w loc_B238-GFire_Index
 		dc.w GFire_Move-GFire_Index
 
-origX := $2A
+gfire_origX = $2A
 ; ===========================================================================
 
 GFire_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Fire,obMap(a0)
 		move.w	#$345,obGfx(a0)
-		move.w	obX(a0),origX(a0)
+		move.w	obX(a0),gfire_origX(a0)
 		move.b	#4,obRender(a0)
 		move.b	#1,obPriority(a0)
 		move.b	#$8B,obColType(a0)
@@ -35,7 +35,7 @@ GFire_Main:	; Routine 0
 loc_B238:	; Routine 2
 		movea.l	$30(a0),a1
 		move.w	obX(a0),d1
-		sub.w	origX(a0),d1
+		sub.w	gfire_origX(a0),d1
 		addi.w	#$C,d1
 		move.w	d1,d0
 		lsr.w	#1,d0

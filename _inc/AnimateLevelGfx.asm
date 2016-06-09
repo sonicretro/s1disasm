@@ -34,7 +34,7 @@ AniArt_GHZ:
 
 AniArt_GHZ_Waterfall:
 
-.size:		= 8	; number of tiles per frame
+.size		= 8	; number of tiles per frame
 
 		subq.b	#1,(v_lani0_time).w ; decrement timer
 		bpl.s	AniArt_GHZ_Bigflower ; branch if not 0
@@ -55,7 +55,7 @@ AniArt_GHZ_Waterfall:
 
 AniArt_GHZ_Bigflower:
 
-.size:		= 16	; number of tiles per frame
+.size		= 16	; number of tiles per frame
 
 		subq.b	#1,(v_lani1_time).w
 		bpl.s	AniArt_GHZ_Smallflower
@@ -111,7 +111,7 @@ AniArt_MZ:
 
 AniArt_MZ_Lava:
 
-.size:		= 8	; number of tiles per frame
+.size		= 8	; number of tiles per frame
 
 		subq.b	#1,(v_lani0_time).w ; decrement timer
 		bpl.s	AniArt_MZ_Magma	; branch if not 0
@@ -167,7 +167,7 @@ AniArt_MZ_Magma:
 
 AniArt_MZ_Torch:
 
-.size:		= 6	; number of tiles per frame
+.size		= 6	; number of tiles per frame
 
 		subq.b	#1,(v_lani2_time).w ; decrement timer
 		bpl.w	.end		; branch if not 0
@@ -193,7 +193,7 @@ AniArt_MZ_Torch:
 
 AniArt_SBZ:
 
-.size:		= 12	; number of tiles per frame
+.size		= 12	; number of tiles per frame
 
 		tst.b	(v_lani2_frame).w
 		beq.s	.smokepuff	; branch if counter hits 0
@@ -273,7 +273,7 @@ AniArt_Ending:
 
 AniArt_Ending_BigFlower:
 
-.size:		= 16	; number of tiles per frame
+.size		= 16	; number of tiles per frame
 
 		subq.b	#1,(v_lani1_time).w ; decrement timer
 		bpl.s	AniArt_Ending_SmallFlower ; branch if not 0
@@ -325,7 +325,7 @@ AniArt_Ending_SmallFlower:
 
 AniArt_Ending_Flower3:
 
-.size:		= 16	; number of tiles per frame
+.size		= 16	; number of tiles per frame
 
 		subq.b	#1,(v_lani4_time).w ; decrement timer
 		bpl.s	AniArt_Ending_Flower4 ; branch if not 0
@@ -348,7 +348,7 @@ AniArt_Ending_Flower3_sequence:	dc.b 0,	1, 2, 1
 
 AniArt_Ending_Flower4:
 
-.size:		= 16	; number of tiles per frame
+.size		= 16	; number of tiles per frame
 
 		subq.b	#1,(v_lani5_time).w ; decrement timer
 		bpl.s	.end		; branch if not 0

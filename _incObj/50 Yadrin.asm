@@ -44,7 +44,7 @@ Yadrin:
 Yad_Index:	dc.w Yad_Main-Yad_Index
 		dc.w Yad_Action-Yad_Index
 
-timedelay := $30
+yad_timedelay = $30
 ; ===========================================================================
 
 Yad_Main:	; Routine 0
@@ -83,7 +83,7 @@ Yad_Index2:	dc.w Yad_Move-Yad_Index2
 ; ===========================================================================
 
 Yad_Move:
-		subq.w	#1,timedelay(a0) ; subtract 1 from pause time
+		subq.w	#1,yad_timedelay(a0) ; subtract 1 from pause time
 		bpl.s	locret_F8E2	; if time remains, branch
 		addq.b	#2,ob2ndRout(a0)
 		move.w	#-$100,obVelX(a0) ; move object
@@ -111,7 +111,7 @@ Yad_FixToFloor:
 
 Yad_Pause:
 		subq.b	#2,ob2ndRout(a0)
-		move.w	#59,timedelay(a0) ; set pause time to 1 second
+		move.w	#59,yad_timedelay(a0) ; set pause time to 1 second
 		move.w	#0,obVelX(a0)
 		move.b	#0,obAnim(a0)
 		rts	

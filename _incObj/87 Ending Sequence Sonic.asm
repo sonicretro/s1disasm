@@ -15,7 +15,7 @@ ESon_Index:	dc.w ESon_Main-ESon_Index, ESon_MakeEmeralds-ESon_Index
 		dc.w Obj87_MakeLogo-ESon_Index, Obj87_Animate-ESon_Index
 		dc.w Obj87_Leap-ESon_Index, Obj87_Animate-ESon_Index
 
-eson_time := $30	; time to wait between events
+eson_time = $30	; time to wait between events
 ; ===========================================================================
 
 ESon_Main:	; Routine 0

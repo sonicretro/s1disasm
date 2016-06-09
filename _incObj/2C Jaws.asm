@@ -11,8 +11,8 @@ Jaws:
 Jaws_Index:	dc.w Jaws_Main-Jaws_Index
 		dc.w Jaws_Turn-Jaws_Index
 
-timecount := $30
-timedelay := $32
+jaws_timecount = $30
+jaws_timedelay = $32
 ; ===========================================================================
 
 Jaws_Main:	; Routine 0
@@ -27,17 +27,17 @@ Jaws_Main:	; Routine 0
 		move.b	obSubtype(a0),d0 ; load object subtype number
 		lsl.w	#6,d0		; multiply d0 by 64
 		subq.w	#1,d0
-		move.w	d0,timecount(a0) ; set turn delay time
-		move.w	d0,timedelay(a0)
+		move.w	d0,jaws_timecount(a0) ; set turn delay time
+		move.w	d0,jaws_timedelay(a0)
 		move.w	#-$40,obVelX(a0) ; move Jaws to the left
 		btst	#0,obStatus(a0)	; is Jaws facing left?
 		beq.s	Jaws_Turn	; if yes, branch
 		neg.w	obVelX(a0)	; move Jaws to the right
 
 Jaws_Turn:	; Routine 2
-		subq.w	#1,timecount(a0) ; subtract 1 from turn delay time
+		subq.w	#1,jaws_timecount(a0) ; subtract 1 from turn delay time
 		bpl.s	.animate	; if time remains, branch
-		move.w	timedelay(a0),timecount(a0) ; reset turn delay time
+		move.w	jaws_timedelay(a0),jaws_timecount(a0) ; reset turn delay time
 		neg.w	obVelX(a0)	; change speed direction
 		bchg	#0,obStatus(a0)	; change Jaws facing direction
 		move.b	#1,obNextAni(a0) ; reset animation

@@ -12,7 +12,7 @@ Chopper:
 Chop_Index:	dc.w Chop_Main-Chop_Index
 		dc.w Chop_ChgSpeed-Chop_Index
 
-origY := $30
+chop_origY = $30
 ; ===========================================================================
 
 Chop_Main:	; Routine 0
@@ -24,14 +24,14 @@ Chop_Main:	; Routine 0
 		move.b	#9,obColType(a0)
 		move.b	#$10,obActWid(a0)
 		move.w	#-$700,obVelY(a0) ; set vertical speed
-		move.w	obY(a0),origY(a0) ; save original position
+		move.w	obY(a0),chop_origY(a0) ; save original position
 
 Chop_ChgSpeed:	; Routine 2
 		lea	(Ani_Chop).l,a1
 		bsr.w	AnimateSprite
 		bsr.w	SpeedToPos
 		addi.w	#$18,obVelY(a0)	; reduce speed
-		move.w	origY(a0),d0
+		move.w	chop_origY(a0),d0
 		cmp.w	obY(a0),d0	; has Chopper returned to its original position?
 		bcc.s	.chganimation	; if not, branch
 		move.w	d0,obY(a0)

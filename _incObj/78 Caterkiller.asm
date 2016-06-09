@@ -16,7 +16,7 @@ Cat_Index:	dc.w Cat_Main-Cat_Index
 		dc.w Cat_Delete-Cat_Index
 		dc.w loc_16CC0-Cat_Index
 
-cat_parent := $3C		; address of parent object
+cat_parent = $3C		; address of parent object
 ; ===========================================================================
 
 locret_16950:

@@ -2,9 +2,9 @@
 ; Object 59 - platforms	that move when you stand on them (SLZ)
 ; ---------------------------------------------------------------------------
 
-elev_origX := $32		; original x-axis position
-elev_origY := $30		; original y-axis position
-elev_dist := $3C		; distance to move (2 bytes)
+elev_origX = $32		; original x-axis position
+elev_origY = $30		; original y-axis position
+elev_dist = $3C		; distance to move (2 bytes)
 
 Elevator:
 		moveq	#0,d0

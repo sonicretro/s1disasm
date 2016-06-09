@@ -2,8 +2,8 @@
 ; Object 5A - platforms	moving in circles (SLZ)
 ; ---------------------------------------------------------------------------
 
-circ_origX := $32		; original x-axis position
-circ_origY := $30		; original y-axis position
+circ_origX = $32		; original x-axis position
+circ_origY = $30		; original y-axis position
 
 CirclingPlatform:
 		moveq	#0,d0

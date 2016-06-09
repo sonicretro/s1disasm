@@ -11,7 +11,7 @@ Invisibarrier:
 Invis_Index:	dc.w Invis_Main-Invis_Index
 		dc.w Invis_Solid-Invis_Index
 
-invis_height := $16		; height in pixels
+invis_height = $16		; height in pixels
 ; ===========================================================================
 
 Invis_Main:	; Routine 0

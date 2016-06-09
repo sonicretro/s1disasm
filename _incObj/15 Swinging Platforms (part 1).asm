@@ -14,8 +14,8 @@ Swing_Index:	dc.w Swing_Main-Swing_Index, Swing_SetSolid-Swing_Index
 		dc.w Swing_Delete-Swing_Index, Swing_Display-Swing_Index
 		dc.w Swing_Action-Swing_Index
 
-origX := $3A		; original x-axis position
-origY := $38		; original y-axis position
+swing_origX = $3A		; original x-axis position
+swing_origY = $38		; original y-axis position
 ; ===========================================================================
 
 Swing_Main:	; Routine 0
@@ -26,8 +26,8 @@ Swing_Main:	; Routine 0
 		move.b	#3,obPriority(a0)
 		move.b	#$18,obActWid(a0)
 		move.b	#8,obHeight(a0)
-		move.w	obY(a0),origY(a0)
-		move.w	obX(a0),origX(a0)
+		move.w	obY(a0),swing_origY(a0)
+		move.w	obX(a0),swing_origX(a0)
 		cmpi.b	#id_SLZ,(v_zone).w ; check if level is SLZ
 		bne.s	.notSLZ
 

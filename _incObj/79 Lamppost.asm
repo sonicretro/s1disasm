@@ -14,9 +14,9 @@ Lamp_Index:	dc.w Lamp_Main-Lamp_Index
 		dc.w Lamp_Finish-Lamp_Index
 		dc.w Lamp_Twirl-Lamp_Index
 
-lamp_origX := $30		; original x-axis position
-lamp_origY := $32		; original y-axis position
-lamp_time := $36		; length of time to twirl the lamp
+lamp_origX = $30		; original x-axis position
+lamp_origY = $32		; original y-axis position
+lamp_time = $36		; length of time to twirl the lamp
 ; ===========================================================================
 
 Lamp_Main:	; Routine 0
@@ -147,12 +147,12 @@ Lamp_StoreInfo:
 		move.w	(v_limitbtm2).w,($FFFFFE3E).w 	; lower y-boundary of level
 		move.w	(v_screenposx).w,($FFFFFE40).w 	; screen x-position
 		move.w	(v_screenposy).w,($FFFFFE42).w 	; screen y-position
-		move.w	($FFFFF708).w,($FFFFFE44).w 	; bg position
-		move.w	($FFFFF70C).w,($FFFFFE46).w 	; bg position
-		move.w	($FFFFF710).w,($FFFFFE48).w 	; bg position
-		move.w	($FFFFF714).w,($FFFFFE4A).w 	; bg position
-		move.w	($FFFFF718).w,($FFFFFE4C).w 	; bg position
-		move.w	($FFFFF71C).w,($FFFFFE4E).w 	; bg position
+		move.w	(v_bgscreenposx).w,($FFFFFE44).w ; bg position
+		move.w	(v_bgscreenposy).w,($FFFFFE46).w 	; bg position
+		move.w	(v_bg2screenposx).w,($FFFFFE48).w 	; bg position
+		move.w	(v_bg2screenposy).w,($FFFFFE4A).w 	; bg position
+		move.w	(v_bg3screenposx).w,($FFFFFE4C).w 	; bg position
+		move.w	(v_bg3screenposy).w,($FFFFFE4E).w 	; bg position
 		move.w	(v_waterpos2).w,($FFFFFE50).w 	; water height
 		move.b	(v_wtr_routine).w,($FFFFFE52).w ; rountine counter for water
 		move.b	(f_wtr_state).w,($FFFFFE53).w 	; water direction
@@ -182,12 +182,12 @@ Lamp_LoadInfo:
 		move.w	($FFFFFE3E).w,(v_limitbtm1).w
 		move.w	($FFFFFE40).w,(v_screenposx).w
 		move.w	($FFFFFE42).w,(v_screenposy).w
-		move.w	($FFFFFE44).w,($FFFFF708).w
-		move.w	($FFFFFE46).w,($FFFFF70C).w
-		move.w	($FFFFFE48).w,($FFFFF710).w
-		move.w	($FFFFFE4A).w,($FFFFF714).w
-		move.w	($FFFFFE4C).w,($FFFFF718).w
-		move.w	($FFFFFE4E).w,($FFFFF71C).w
+		move.w	($FFFFFE44).w,(v_bgscreenposx).w
+		move.w	($FFFFFE46).w,(v_bgscreenposy).w
+		move.w	($FFFFFE48).w,(v_bg2screenposx).w
+		move.w	($FFFFFE4A).w,(v_bg2screenposy).w
+		move.w	($FFFFFE4C).w,(v_bg3screenposx).w
+		move.w	($FFFFFE4E).w,(v_bg3screenposy).w
 		cmpi.b	#1,(v_zone).w	; is this Labyrinth Zone?
 		bne.s	.notlabyrinth	; if not, branch
 

@@ -22,7 +22,7 @@ Spring_Index:	dc.w Spring_Main-Spring_Index
 		dc.w Spring_AniDwn-Spring_Index
 		dc.w Spring_ResetDwn-Spring_Index
 
-spring_pow := $30			; power of current spring
+spring_pow = $30			; power of current spring
 
 Spring_Powers:	dc.w -$1000		; power	of red spring
 		dc.w -$A00		; power	of yellow spring

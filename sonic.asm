@@ -995,7 +995,7 @@ ClearScreen:
 
 		lea	(v_spritetablebuffer).w,a1
 		moveq	#0,d0
-		move.w	#$A0,d1
+		move.w	#($280/4),d1	; This should be ($280/4)-1, leading to a slight bug (first bit of v_pal_water is cleared)
 
 .clearsprites:
 		move.l	d0,(a1)+
@@ -1003,7 +1003,7 @@ ClearScreen:
 
 		lea	(v_hscrolltablebuffer).w,a1
 		moveq	#0,d0
-		move.w	#$100,d1
+		move.w	#($400/4),d1	; This should be ($400/4)-1, leading to a slight bug (first bit of the Sonic object's RAM is cleared)
 
 .clearhscroll:
 		move.l	d0,(a1)+
@@ -2102,7 +2102,7 @@ Tit_LoadText:
 		bsr.w	ClearScreen
 		lea	(vdp_control_port).l,a5
 		lea	(vdp_data_port).l,a6
-		lea	($FFFFF708).w,a3
+		lea	(v_bgscreenposx).w,a3
 		lea	(v_lvllayout+$40).w,a4
 		move.w	#$6000,d2
 		bsr.w	DrawChunks
@@ -3535,21 +3535,21 @@ Pal_SSCyc2:	binclude	"palette/Cycle - Special Stage 2.bin"
 SS_BGAnimate:
 		move.w	($FFFFF7A0).w,d0
 		bne.s	loc_4BF6
-		move.w	#0,($FFFFF70C).w
-		move.w	($FFFFF70C).w,($FFFFF618).w
+		move.w	#0,(v_bgscreenposy).w
+		move.w	(v_bgscreenposy).w,($FFFFF618).w
 
 loc_4BF6:
 		cmpi.w	#8,d0
 		bhs.s	loc_4C4E
 		cmpi.w	#6,d0
 		bne.s	loc_4C10
-		addq.w	#1,($FFFFF718).w
-		addq.w	#1,($FFFFF70C).w
-		move.w	($FFFFF70C).w,($FFFFF618).w
+		addq.w	#1,(v_bg3screenposx).w
+		addq.w	#1,(v_bgscreenposy).w
+		move.w	(v_bgscreenposy).w,($FFFFF618).w
 
 loc_4C10:
 		moveq	#0,d0
-		move.w	($FFFFF708).w,d0
+		move.w	(v_bgscreenposx).w,d0
 		neg.w	d0
 		swap	d0
 		lea	(byte_4CCC).l,a1
@@ -3576,7 +3576,7 @@ loc_4C26:
 loc_4C4E:
 		cmpi.w	#$C,d0
 		bne.s	loc_4C74
-		subq.w	#1,($FFFFF718).w
+		subq.w	#1,(v_bg3screenposx).w
 		lea	($FFFFAB00).w,a3
 		move.l	#$18000,d2
 		moveq	#6,d1
@@ -3594,12 +3594,12 @@ loc_4C74:
 
 loc_4C7E:
 		lea	(v_hscrolltablebuffer).w,a1
-		move.w	($FFFFF718).w,d0
+		move.w	(v_bg3screenposx).w,d0
 		neg.w	d0
 		swap	d0
 		moveq	#0,d3
 		move.b	(a2)+,d3
-		move.w	($FFFFF70C).w,d2
+		move.w	(v_bgscreenposy).w,d2
 		neg.w	d2
 		andi.w	#$FF,d2
 		lsl.w	#2,d2
@@ -4205,12 +4205,12 @@ sub_6886:
 		lea	(vdp_control_port).l,a5
 		lea	(vdp_data_port).l,a6
 		lea	(v_bgscroll2).w,a2
-		lea	($FFFFF708).w,a3
+		lea	(v_bgscreenposx).w,a3
 		lea	(v_lvllayout+$40).w,a4
 		move.w	#$6000,d2
 		bsr.w	sub_6954
 		lea	(v_bgscroll3).w,a2
-		lea	($FFFFF710).w,a3
+		lea	(v_bg2screenposx).w,a3
 		bra.w	sub_69F4
 ; End of function sub_6886
 
@@ -4550,7 +4550,7 @@ Draw_SBz:
 			move.w	#$E0,d4
 locj_6E28:
 			lea	(locj_6DF4+1).l,A0
-			move.w	($FFFFF70C).w,d0
+			move.w	(v_bgscreenposy).w,d0
 			add.w	d4,d0
 			andi.w	#$1F0,d0
 			lsr.w	#4,d0
@@ -4588,7 +4588,7 @@ locj_6E78:
 			move.w	#$140,d5
 locj_6E8C:
 			lea	(locj_6DF4).l,a0
-			move.w	($FFFFF70C).w,d0
+			move.w	(v_bgscreenposy).w,d0
 			andi.w	#$1F0,d0
 			lsr.w	#4,d0
 			lea	(a0,d0),a0
@@ -4641,13 +4641,13 @@ Draw_Mz:
 			move.w	#$E0,d4
 locj_6F66:
 			lea	(locj_6EF2+1).l,a0
-			move.w	($FFFFF70C).w,d0
+			move.w	(v_bgscreenposy).w,d0
 			subi.w	#$200,d0
 			add.w	d4,d0
 			andi.w	#$7F0,d0
 			lsr.w	#4,d0
 			move.b	(a0,d0),d0
-			move.w	locj_6FE4(pc,d0),a3
+			move.w	locj_6FE4(pc,d0.w),a3
 			beq.s	locj_6F9A
 			moveq	#-$10,d5
 			movem.l	d4/d5,-(sp)
@@ -4679,7 +4679,7 @@ locj_6FB4:
 			move.w	#$140,d5
 locj_6FC8:
 			lea	(locj_6EF2).l,a0
-			move.w	($FFFFF70C).w,d0
+			move.w	(v_bgscreenposy).w,d0
 			subi.w	#$200,d0
 			andi.w	#$7F0,d0
 			lsr.w	#4,d0
@@ -4696,7 +4696,7 @@ locj_6FF4:
 			move.b	(a0)+,d0
 			btst	d0,(a2)
 			beq.s	locj_701C
-			move.w	locj_6FE4(pc,d0),a3
+			move.w	locj_6FE4(pc,d0.w),a3
 			movem.l	d4/d5/a0,-(sp)
 			movem.l	d4/d5,-(sp)
 			bsr.w	DrawBlocks
@@ -4706,7 +4706,7 @@ locj_6FF4:
 			movem.l	(sp)+,d4/d5/a0
 locj_701C:
 			addi.w	#$10,d4
-			dbra	d6,locj_6FF4
+			dbf	d6,locj_6FF4
 			clr.b	(a2)
 			rts			
 
@@ -4965,7 +4965,7 @@ LoadTilesFromStart:
 		lea	(v_lvllayout).w,a4
 		move.w	#$4000,d2
 		bsr.s	DrawChunks
-		lea	($FFFFF708).w,a3
+		lea	(v_bgscreenposx).w,a3
 		lea	(v_lvllayout+$40).w,a4
 		move.w	#$6000,d2
 		if Revision<>0
@@ -5010,13 +5010,13 @@ Draw_GHz_Bg:
 locj_7224:			
 			movem.l	d4-d6,-(sp)
 			lea	(locj_724a).l,a0
-			move.w	($FFFFF70C).w,d0
+			move.w	(v_bgscreenposy).w,d0
 			add.w	d4,d0
 			andi.w	#$F0,d0
 			bsr.w	locj_72Ba
 			movem.l	(sp)+,d4-d6
 			addi.w	#$10,d4
-			dbra	d6,locj_7224
+			dbf	d6,locj_7224
 			rts
 locj_724a:
 			dc.b $00,$00,$00,$00,$06,$06,$06,$04,$04,$04,$00,$00,$00,$00,$00,$00
@@ -5027,14 +5027,14 @@ Draw_Mz_Bg:;locj_725a:
 locj_725E:			
 			movem.l	d4-d6,-(sp)
 			lea	(locj_6EF2+$01).l,a0
-			move.w	($FFFFF70C).w,d0
+			move.w	(v_bgscreenposy).w,d0
 			subi.w	#$200,d0
 			add.w	d4,d0
 			andi.w	#$7F0,d0
 			bsr.w	locj_72Ba
 			movem.l	(sp)+,d4-d6
 			addi.w	#$10,d4
-			dbra	d6,locj_725E
+			dbf	d6,locj_725E
 			rts
 ;-------------------------------------------------------------------------------
 Draw_SBz_Bg:;locj_7288:
@@ -5043,13 +5043,13 @@ Draw_SBz_Bg:;locj_7288:
 locj_728C:			
 			movem.l	d4-d6,-(sp)
 			lea	(locj_6DF4+$01).l,a0
-			move.w	($FFFFF70C).w,d0
+			move.w	(v_bgscreenposy).w,d0
 			add.w	d4,d0
 			andi.w	#$1F0,d0
 			bsr.w	locj_72Ba
 			movem.l	(sp)+,d4-d6
 			addi.w	#$10,d4
-			dbra	d6,locj_728C
+			dbf	d6,locj_728C
 			rts
 ;-------------------------------------------------------------------------------
 locj_72B2:
@@ -5057,7 +5057,7 @@ locj_72B2:
 locj_72Ba:
 			lsr.w	#4,d0
 			move.b	(a0,d0),d0
-			move.w	locj_72B2(pc,d0),a3
+			move.w	locj_72B2(pc,d0.w),a3
 			beq.s	locj_72da
 			moveq	#-$10,d5
 			movem.l	d4/d5,-(sp)
@@ -5425,7 +5425,7 @@ locret_7B62:
 ; ===========================================================================
 
 Ledge_Fragment:
-		move.b	#0,collapse(a0)
+		move.b	#0,ledge_collapse_flag(a0)
 
 loc_847A:
 		lea	(CFlo_Data1).l,a4
@@ -5461,7 +5461,7 @@ loc_84B2:
 		move.w	obGfx(a0),obGfx(a1)
 		move.b	obPriority(a0),obPriority(a1)
 		move.b	obActWid(a0),obActWid(a1)
-		move.b	(a4)+,timedelay(a1)
+		move.b	(a4)+,ledge_timedelay(a1)
 		cmpa.l	a0,a1
 		bhs.s	loc_84EE
 		bsr.w	DisplaySprite1
@@ -6104,10 +6104,10 @@ Obj_Index:
 		include	"_incObj/sub DeleteObject.asm"
 
 ; ===========================================================================
-BldSpr_ScrPos:	dc.l 0			; blank
-		dc.l $FFF700		; main screen x-position
-		dc.l $FFF708		; background x-position	1
-		dc.l $FFF718		; background x-position	2
+BldSpr_ScrPos:	dc.l 0				; blank
+		dc.l v_screenposx&$FFFFFF	; main screen x-position
+		dc.l v_bgscreenposx&$FFFFFF	; background x-position	1
+		dc.l v_bg3screenposx&$FFFFFF	; background x-position	2
 ; ---------------------------------------------------------------------------
 ; Subroutine to	convert	mappings (etc) to proper Megadrive sprites
 ; ---------------------------------------------------------------------------

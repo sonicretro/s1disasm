@@ -11,10 +11,10 @@ BigSpikeBall:
 BBall_Index:	dc.w BBall_Main-BBall_Index
 		dc.w BBall_Move-BBall_Index
 
-bball_origX := $3A		; original x-axis position
-bball_origY := $38		; original y-axis position
-bball_radius := $3C		; radius of circle
-bball_speed := $3E		; speed
+bball_origX = $3A		; original x-axis position
+bball_origY = $38		; original y-axis position
+bball_radius = $3C		; radius of circle
+bball_speed = $3E		; speed
 ; ===========================================================================
 
 BBall_Main:	; Routine 0
