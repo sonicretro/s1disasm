@@ -22,7 +22,7 @@ zBankRegister:	equ 6000h
 zROMWindow:		equ 8000h
 
 zmake68kPtr  function addr,zROMWindow+(addr&7FFFh)
-zmake68kBank function addr,(((addr&3F8000h)/zROMWindow))
+zmake68kBank function addr,(((addr&0FF8000h)/zROMWindow))
 
 ; function to decide whether an offset's full range won't fit in one byte
 offsetover1byte function from,maxsize, ((from&0FFh)>(100h-maxsize))
