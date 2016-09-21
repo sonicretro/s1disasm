@@ -1367,7 +1367,7 @@ FadeIn_FromBlack:
 		bsr.s	FadeIn_AddColour ; increase colour
 		dbf	d0,.addcolour	; repeat for size of palette
 
-		cmpi.b	#1,(v_zone).w	; is level Labyrinth?
+		cmpi.b	#id_LZ,(v_zone).w	; is level Labyrinth?
 		bne.s	.exit		; if not, branch
 
 		moveq	#0,d0
@@ -1556,7 +1556,7 @@ WhiteIn_FromWhite:
 		bsr.s	WhiteIn_DecColour ; decrease colour
 		dbf	d0,.decolour	; repeat for size of palette
 
-		cmpi.b	#1,(v_zone).w	; is level Labyrinth?
+		cmpi.b	#id_LZ,(v_zone).w	; is level Labyrinth?
 		bne.s	.exit		; if not, branch
 		moveq	#0,d0
 		lea	(v_pal_water).w,a0
@@ -2085,7 +2085,7 @@ Tit_LoadText:
 		move.w	#0,(v_debuguse).w ; disable debug item placement mode
 		move.w	#0,(f_demo).w	; disable debug mode
 		move.w	#0,($FFFFFFEA).w ; unused variable
-		move.w	#0,(v_zone).w	; set level to GHZ (00)
+		move.w	#(id_GHZ<<8),(v_zone).w	; set level to GHZ (00)
 		move.w	#0,(v_pcyc_time).w ; disable palette cycling
 		bsr.w	LevelSizeLoad
 		bsr.w	DeformLayers

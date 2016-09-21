@@ -27,7 +27,7 @@ namespace S1ObjectDefinitions.Common
 
 		public override bool RememberState
 		{
-			get { return true; }
+			get { return false; }
 		}
 
 		public override string SubtypeName(byte subtype)
