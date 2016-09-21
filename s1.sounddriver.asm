@@ -1,4 +1,6 @@
 ; ---------------------------------------------------------------------------
+; Modified (early?) SMPS 68k Type 1b
+; ---------------------------------------------------------------------------
 ; Go_SoundTypes:
 Go_SoundPriorities:	dc.l SoundPriorities
 ; Go_SoundD0:
@@ -1613,6 +1615,11 @@ WriteFMIorII:
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
+
+; The reason I think this is an *early* SMPS 68k Type 1b
+; is because this subroutine is the one from Type 1a:
+; other Type 1b drivers have a newer, optimised version.
+; The driver itself is Type 1b, with this odd exception.
 
 ; sub_7272E:
 WriteFMI:
