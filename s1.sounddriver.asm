@@ -148,18 +148,18 @@ UpdateMusic:
 		; DANGER! The following line only checks v_playsnd1 and v_playsnd2, breaking v_playnull.
 		tst.w	v_playsnd1(a6)		; is a music or sound queued for played?
 		beq.s	@nosndinput		; if not, branch
-		jsr	Sound_Play(pc)
+		jsr	CycleSoundQueue(pc)
 ; loc_71BBC:
 @nosndinput:
 		cmpi.b	#$80,v_playsnd0(a6)	; is song queue set for silence (empty)?
 		beq.s	@nonewsound		; If yes, branch
-		jsr	Sound_ChkValue(pc)
+		jsr	PlaySoundID(pc)
 ; loc_71BC8:
 @nonewsound:
 		lea	v_music_dac_track(a6),a5
 		tst.b	(a5)			; Is DAC track playing? (zTrackPlaybackControl)
 		bpl.s	@dacdone		; Branch if not
-		jsr	UpdateDAC(pc)
+		jsr	DACUpdateTrack(pc)
 ; loc_71BD4:
 @dacdone:
 		clr.b	f_updating_dac(a6)
@@ -228,8 +228,8 @@ DoStartZ80:
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-; sub_71C4E:
-UpdateDAC:
+; sub_71C4E: UpdateDAC:
+DACUpdateTrack:
 		subq.b	#1,zTrackDurationTimeout(a5)	; Has DAC sample timeout expired?
 		bne.s	@locret				; Return if not
 		move.b	#$80,f_updating_dac(a6)		; Set flag to indicate this is the DAC
@@ -282,7 +282,7 @@ UpdateDAC:
 		move.b	d0,(z80_dac3_pitch).l
 		move.b	#$83,(z80_dac_sample).l	; Use timpani
 		rts	
-; End of function UpdateDAC
+; End of function DACUpdateTrack
 
 ; ===========================================================================
 ; Note: this only defines rates for samples $88-$8D, meaning $8E-$8F are invalid.
@@ -351,7 +351,7 @@ FMSetFreq:
 		add.b	zTrackTranspose(a5),d5	; Add track transposition
 		andi.w	#$7F,d5			; Clear high byte and sign bit
 		lsl.w	#1,d5
-		lea	FM_Notes(pc),a0
+		lea	FMFrequencies(pc),a0
 		move.w	(a0,d5.w),d6
 		move.w	d6,zTrackFreq(a5)	; Store new frequency
 		rts	
@@ -393,7 +393,7 @@ FinishTrackUpdate:
 		btst	#4,(a5)				; Is track set to not attack note? (zTrackPlaybackControl)
 		bne.s	@locret				; If so, branch
 		move.b	zTrackNoteFillMaster(a5),zTrackNoteFillTimeout(a5)	; Reset note fill timeout
-		clr.b	zTrackVolFlutter(a5)		; Reset PSG flutter index (even on FM tracks...)
+		clr.b	zTrackVolEnvIndex(a5)		; Reset PSG volume envelope index (even on FM tracks...)
 		btst	#3,(a5)				; Is modulation on?
 		beq.s	@locret				; If not, return (zTrackPlaybackControl)
 		movea.l	zTrackModulationPtr(a5),a0	; Modulation data pointer
@@ -594,8 +594,8 @@ PauseMusic:
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-
-Sound_Play:
+; Sound_Play:
+CycleSoundQueue:
 		movea.l	(Go_SoundPriorities).l,a0
 		lea	v_playsnd1(a6),a1	; load music track number
 		move.b	v_sndprio(a6),d3	; Get priority of currently playing SFX
@@ -630,16 +630,16 @@ Sound_Play:
 ; locret_71F4A:
 @locret:
 		rts	
-; End of function Sound_Play
+; End of function CycleSoundQueue
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-
-Sound_ChkValue:
+; Sound_ChkValue:
+PlaySoundID:
 		moveq	#0,d7
 		move.b	v_playsnd0(a6),d7
-		beq.w	StopSoundAndMusic
+		beq.w	StopAllSound
 		bpl.s	@locret			; If >= 0, return (not a valid sound, bgm or command)
 		move.b	#$80,v_playsnd0(a6)	; reset	music flag
 		; DANGER! Music ends at $93, yet this checks until $9F; attempting to
@@ -675,17 +675,17 @@ Sound_E0toE4:
 
 Sound_ExIndex:
 ptr_flgE0:	bra.w	FadeOutMusic		; $E0
-ptr_flgE1:	bra.w	PlaySega		; $E1
+ptr_flgE1:	bra.w	PlaySegaSound		; $E1
 ptr_flgE2:	bra.w	SpeedUpMusic		; $E2
 ptr_flgE3:	bra.w	SlowDownMusic		; $E3
-ptr_flgE4:	bra.w	StopSoundAndMusic	; $E4
+ptr_flgE4:	bra.w	StopAllSound		; $E4
 ptr_flgend
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Play "Say-gaa" PCM sound
 ; ---------------------------------------------------------------------------
-; Sound_E1:
-PlaySega:
+; Sound_E1: PlaySega:
+PlaySegaSound:
 		move.b	#$88,(z80_dac_sample).l	; Queue Sega PCM
 		startZ80
 		move.w	#$11,d1
@@ -1124,7 +1124,7 @@ Sound_PlaySpecial:
 ; locret_723C6:
 @locret:
 		rts	
-; End of function Sound_ChkValue
+; End of function PlaySoundID
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -1291,7 +1291,7 @@ DoFadeOut:
 ; loc_72510:
 @continuefade:
 		subq.b	#1,v_fadeout_counter(a6)	; Update fade counter
-		beq.w	StopSoundAndMusic		; Branch if fade is done
+		beq.w	StopAllSound			; Branch if fade is done
 		move.b	#3,v_fadeout_delay(a6)		; Reset fade delay
 		lea	v_music_fm_tracks(a6),a5
 		moveq	#((v_music_fm_tracks_end-v_music_fm_tracks)/zTrackSz)-1,d7	; 6 FM tracks
@@ -1373,8 +1373,8 @@ FMSilenceAll:
 ; ---------------------------------------------------------------------------
 ; Stop music
 ; ---------------------------------------------------------------------------
-; Sound_E4:
-StopSoundAndMusic:
+; Sound_E4: StopSoundAndMusic:
+StopAllSound:
 		moveq	#$2B,d0		; Enable/disable DAC
 		move.b	#$80,d1		; Enable DAC
 		jsr	WriteFMI(pc)
@@ -1672,8 +1672,8 @@ WriteFMII:
 ; ---------------------------------------------------------------------------
 ; FM Note Values: b-0 to a#8
 ; ---------------------------------------------------------------------------
-; word_72790:
-FM_Notes:
+; word_72790: FM_Notes:
+FMFrequencies:
 	dc.w $025E,$0284,$02AB,$02D3,$02FE,$032D,$035C,$038F,$03C5,$03FF,$043C,$047C
 	dc.w $0A5E,$0A84,$0AAB,$0AD3,$0AFE,$0B2D,$0B5C,$0B8F,$0BC5,$0BFF,$0C3C,$0C7C
 	dc.w $125E,$1284,$12AB,$12D3,$12FE,$132D,$135C,$138F,$13C5,$13FF,$143C,$147C
@@ -1819,16 +1819,16 @@ PSGDoVolFX:	; This can actually be made a bit more efficient, see the comments f
 		subq.w	#1,d0
 		lsl.w	#2,d0
 		movea.l	(a0,d0.w),a0
-		move.b	zTrackVolFlutter(a5),d0	; Get flutter index		; move.b	zTrackVolFlutter(a5),d0
-		move.b	(a0,d0.w),d0		; Flutter value			; addq.b	#1,zTrackVolFlutter(a5)
-		addq.b	#1,zTrackVolFlutter(a5)	; Increment flutter index	; move.b	(a0,d0.w),d0
-		btst	#7,d0			; Is flutter value negative?	; <-- makes this line redundant
-		beq.s	@gotflutter		; Branch if not			; but you gotta make this one a bpl
-		cmpi.b	#$80,d0			; Is it the terminator?		; Since this is the only check, you can take the optimisation a step further:
-		beq.s	FlutterDone		; If so, branch			; Change the previous beq (bpl) to a bmi and make it branch to FlutterDone to make these last two lines redundant
+		move.b	zTrackVolEnvIndex(a5),d0	; Get volume envelope index		; move.b	zTrackVolEnvIndex(a5),d0
+		move.b	(a0,d0.w),d0			; Volume envelope value			; addq.b	#1,zTrackVolEnvIndex(a5)
+		addq.b	#1,zTrackVolEnvIndex(a5)	; Increment volume envelope index	; move.b	(a0,d0.w),d0
+		btst	#7,d0				; Is volume envelope value negative?	; <-- makes this line redundant
+		beq.s	@gotflutter			; Branch if not				; but you gotta make this one a bpl
+		cmpi.b	#$80,d0				; Is it the terminator?			; Since this is the only check, you can take the optimisation a step further:
+		beq.s	VolEnvHold			; If so, branch				; Change the previous beq (bpl) to a bmi and make it branch to VolEnvHold to make these last two lines redundant
 ; loc_72960:
 @gotflutter:
-		add.w	d0,d6		; Add flutter to volume
+		add.w	d0,d6		; Add volume envelope value to volume
 		cmpi.b	#$10,d6		; Is volume $10 or higher?
 		blo.s	SetPSGVolume	; Branch if not
 		moveq	#$F,d6		; Limit to silence and fall through
@@ -1864,9 +1864,9 @@ PSGCheckNoteFill:
 ; End of function SetPSGVolume
 
 ; ===========================================================================
-; loc_7299A:
-FlutterDone:
-		subq.b	#1,zTrackVolFlutter(a5)	; Decrement flutter index
+; loc_7299A: VolEnvHold:
+VolEnvHold:
+		subq.b	#1,zTrackVolEnvIndex(a5)	; Decrement volume envelope index
 		rts	
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -1944,7 +1944,7 @@ coordflagLookup:
 ; ===========================================================================
 		bra.w	cfChangeFMVolume	; $E6
 ; ===========================================================================
-		bra.w	cfPreventAttack		; $E7
+		bra.w	cfHoldNote		; $E7
 ; ===========================================================================
 		bra.w	cfNoteFill		; $E8
 ; ===========================================================================
@@ -2084,8 +2084,8 @@ cfChangeFMVolume:
 		add.b	d0,zTrackVolume(a5)	; Add to current volume
 		bra.w	SendVoiceTL
 ; ===========================================================================
-; loc_72BAE:
-cfPreventAttack:
+; loc_72BAE: cfPreventAttack:
+cfHoldNote:
 		bset	#4,(a5)		; Set 'do not attack next note' bit (zTrackPlaybackControl)
 		rts	
 ; ===========================================================================

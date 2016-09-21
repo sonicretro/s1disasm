@@ -40,7 +40,7 @@ zTrackTranspose:	equ 8		; FM/PSG only (sometimes written to as a word, to includ
 zTrackVolume:		equ 9		; FM/PSG only
 zTrackAMSFMSPan:	equ $A		; FM/DAC only
 zTrackVoiceIndex:	equ $B		; FM/PSG only
-zTrackVolFlutter:	equ $C		; PSG only
+zTrackVolEnvIndex:	equ $C		; PSG only
 zTrackStackPointer:	equ $D		; All tracks
 zTrackDurationTimeout:	equ $E		; All tracks
 zTrackSavedDuration:	equ $F		; All tracks
