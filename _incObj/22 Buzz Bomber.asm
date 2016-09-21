@@ -78,7 +78,7 @@ Buzz_Action:	; Routine 2
 		move.w	#$E,buzz_timedelay(a1)
 		move.l	a0,buzz_parent(a1)
 		move.b	#1,buzz_buzzstatus(a0) ; set to "already fired" to prevent refiring
-		move.w	#$3B,buzz_timedelay(a0)
+		move.w	#59,buzz_timedelay(a0)
 		move.b	#2,obAnim(a0)	; use "firing" animation
 
 	@fail:

@@ -11,7 +11,7 @@ v_ngfx_buffer:	equ $FFFFAA00	; Nemesis graphics decompression buffer ($200 bytes
 v_spritequeue:	equ $FFFFAC00	; sprite display queue, in order of priority ($400 bytes)
 v_16x16:		equ $FFFFB000	; 16x16 tile mappings
 
-v_sgfx_buffer:	equ $FFFFC800	; buffered Sonic graphics ($18 cells) ($300 bytes)
+v_sgfx_buffer:	equ $FFFFC800	; buffered Sonic graphics ($17 cells) ($2E0 bytes)
 v_tracksonic:	equ $FFFFCB00	; position tracking data for Sonic ($100 bytes)
 v_hscrolltablebuffer:	equ $FFFFCC00 ; scrolling table data (actually $380 bytes, but $400 is reserved for it)
 v_objspace:	equ $FFFFD000	; object variable space ($40 bytes per object) ($2000 bytes)
