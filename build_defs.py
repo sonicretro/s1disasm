@@ -94,6 +94,11 @@ def run(altcomp):
 	outputFile.write(output)
 	outputFile.close()
 
+	# Detect if there was an error
+	if os.path.isfile("sonic.p") == False:
+		print("There was a fatal error during assembly: see sonic.log for details");
+		exit();
+
 	# Create binary
 
 	if altcomp:
