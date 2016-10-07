@@ -2,6 +2,7 @@
 
 import os
 import platform
+import sys
 from subprocess import call
 import subprocess
 
@@ -18,9 +19,14 @@ elif platform.system() == "Darwin": # Osx
 	s1p2binplusBinary = "AS/Osx/s1p2bin_plus";
 
 elif platform.system() == "Linux":
-	asBinary = "AS/Linux/asl"
-	s1p2binBinary = "AS/Linux/s1p2bin"
-	s1p2binplusBinary = "AS/Linux/s1p2bin_plus";
+	if sys.maxsize > 2**32:	# detect if running in 64-bit environment
+		asBinary = "AS/Linux/asl"
+		s1p2binBinary = "AS/Linux/s1p2bin"
+		s1p2binplusBinary = "AS/Linux/s1p2bin_plus";
+	else:
+		asBinary = "AS/Linux32/asl"
+		s1p2binBinary = "AS/Linux32/s1p2bin"
+		s1p2binplusBinary = "AS/Linux32/s1p2bin_plus";
 
 else:
 	print("Unknown platform")
