@@ -2137,8 +2137,8 @@ cfStopSpecialFM4:
 		bclr	#7,(a5)		; Stop track (zTrackPlaybackControl)
 		bclr	#4,(a5)		; Clear 'do not attack next note' bit (zTrackPlaybackControl)
 		jsr	FMNoteOff(pc)
-		tst.b	v_sfx_fm4_track(a6)	; Is SFX using FM4?
-		bmi.s	@locexit		; Branch if yes
+		tst.b	v_sfx_fm4_track+zTrackPlaybackControl(a6)	; Is SFX using FM4?
+		bmi.s	@locexit					; Branch if yes
 		movea.l	a5,a3
 		lea	v_music_fm4_track(a6),a5
 		movea.l	v_voice_ptr(a6),a1	; Voice pointer
