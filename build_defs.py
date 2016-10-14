@@ -21,16 +21,16 @@ elif platform.system() == "Darwin": # Osx
 
 elif platform.system() == "Linux":
 	if sys.maxsize > 2**32:	# detect if running in 64-bit environment
-		asBinary = "AS/Linux/asl"
-		s1p2binBinary = "AS/Linux/s1p2bin"
+		asBinary = "AS/Linux/asl";
+		s1p2binBinary = "AS/Linux/s1p2bin";
 		s1p2binplusBinary = "AS/Linux/s1p2bin_plus";
 	else:
-		asBinary = "AS/Linux32/asl"
-		s1p2binBinary = "AS/Linux32/s1p2bin"
+		asBinary = "AS/Linux32/asl";
+		s1p2binBinary = "AS/Linux32/s1p2bin";
 		s1p2binplusBinary = "AS/Linux32/s1p2bin_plus";
 
 else:
-	print("Unknown platform")
+	print("Unknown platform");
 	sys.exit();
 
 def delete(path):
@@ -50,7 +50,6 @@ def update_checksum(path):
 		checksum = 0;
 		for i in range(0x200, len(bytes), 2):
 			checksum += (bytes[i + 0] << 8) + (bytes[i + 1] << 0);
-			checksum &= 0xFFFF;
 
 		# Write the checksum to the header
 		file.seek(0x18E);
@@ -102,19 +101,17 @@ def run(altcomp):
 
 	print("  Assembling .p file");
 
-	assembleProcess = subprocess.Popen(assembleCommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-	output, errors = assembleProcess.communicate()
-	errorsFile = open(errorsPath, "wb")
-	errorsFile.write(errors)
-	errorsFile.close()
-	outputFile = open(outputPath, "wb")
-	outputFile.write(output)
-	outputFile.close()
+	assembleProcess = subprocess.Popen(assembleCommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE);
+	output, errors = assembleProcess.communicate();
+	with open(errorsPath, "wb") as errorsFile:
+		errorsFile.write(errors);
+	with open(outputPath, "wb") as outputFile:
+		outputFile.write(output);
 
 	# Detect if there was an error
 	if os.path.isfile("sonic.p") == False:
 		print("There was a fatal error during assembly: see sonic.log for details");
-		exit();
+		sys.exit();
 
 	# Create binary
 
