@@ -31,6 +31,7 @@ elif platform.system() == "Linux":
 
 else:
 	print("Unknown platform")
+	sys.exit();
 
 def delete(path):
 	if os.path.isfile(path):
