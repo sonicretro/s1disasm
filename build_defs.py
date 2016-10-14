@@ -5,6 +5,7 @@ import platform
 import sys
 from subprocess import call
 import subprocess
+import hashlib
 
 # Paths to build tools, depending on OS
 
@@ -53,6 +54,21 @@ def update_checksum(path):
 		# Write the checksum to the header
 		file.seek(0x18E);
 		file.write(bytearray([(checksum >> 8) & 0xFF, (checksum >> 0) & 0xFF]));
+
+def check_bitperfect(path):
+	hashobj = hashlib.sha256();
+
+	with open(path, "rb") as file:
+		hashobj.update(file.read());
+
+	if hashobj.hexdigest() == "46160baa06362c711c9f1a5017cb7371026444936c8af5e93a78996cf32ff2a6":
+		print("  New build is bit-perfect with REV00");
+	elif hashobj.hexdigest() == "1b7f6635bd713f37f3c2f44f302b872c2e3c5f56e63637918dad4637146900fd":
+		print("  New build is bit-perfect with REV01");
+	elif hashobj.hexdigest() == "94a5379fa0bd6760cb0606b77f705a85b6af1724da99e8c765b34ba2ab825e1a":
+		print("  New build is bit-perfect with REVXB");
+	else:
+		print("  New build is not bit-perfect with REV00, REV01, or REVXB");
 
 def run(altcomp):
 	if platform.system() == "Windows":
@@ -125,5 +141,9 @@ def run(altcomp):
 
 	# delete working files
 	delete("sonic.p");
+
+	# Ensure bit-perfection
+	if not altcomp:
+		check_bitperfect(romPath);
 
 	print("Finished!");
