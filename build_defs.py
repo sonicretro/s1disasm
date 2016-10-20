@@ -94,7 +94,7 @@ def run(altcomp):
 	delete(binaryOutputPath);
 	delete("sonic.p");
 
-	assembleCommand = [asBinary, "-xx", "-n", "-q", "-A", "-L"];
+	assembleCommand = [asBinary, "-xx", "-n", "-q", "-A", "-L", "-U"];
 
 	# Input asm file
 	assembleCommand.append("sonic.asm");
