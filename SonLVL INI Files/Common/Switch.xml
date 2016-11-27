@@ -8,6 +8,7 @@
   </Images>
   <Properties>
     <BitsProperty name="SwitchID" displayname="Switch ID" type="SwitchID" startbit="0" length="4" />
+    <BitsProperty name="Flash" displayname="Flash Red" type="bool" startbit="5" length="1" />
     <BitsProperty name="AlternateFlag" displayname="Set Alternate Flag" type="bool" startbit="6" length="1" />
     <BitsProperty name="BlockPressable" displayname="Can Be Pressed By MZ Green Block" type="bool" startbit="7" length="1" />
   </Properties>
