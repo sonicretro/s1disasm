@@ -75,6 +75,9 @@ AniArt_GHZ_Bigflower:
 ; ===========================================================================
 
 AniArt_GHZ_Smallflower:
+
+@size:		equ 12	; number of tiles per frame
+
 		subq.b	#1,(v_lani2_time).w
 		bpl.s	@end
 
@@ -95,7 +98,7 @@ AniArt_GHZ_Smallflower:
 		locVRAM	$6D80
 		lea	(Art_GhzFlower2).l,a1 ;	load small flower patterns
 		lea	(a1,d0.w),a1	; jump to appropriate tile
-		move.w	#11,d1
+		move.w	#@size-1,d1
 		bsr.w	LoadTiles
 
 @end:
@@ -557,24 +560,30 @@ loc_1C4FA:
 
 
 AniArt_GiantRing:
-		tst.w	(v_gfxbigring).w
-		bne.s	loc_1C518
+
+@size:		equ 14
+
+		tst.w	(v_gfxbigring).w	; Is there any of the art left to load?
+		bne.s	@loadTiles		; If so, get to work
 		rts	
 ; ===========================================================================
-
-loc_1C518:
-		subi.w	#$1C0,(v_gfxbigring).w
+; loc_1C518:
+@loadTiles:
+		subi.w	#@size*$20,(v_gfxbigring).w	; Count-down the 14 tiles we're going to load now
 		lea	(Art_BigRing).l,a1 ; load giant	ring patterns
 		moveq	#0,d0
 		move.w	(v_gfxbigring).w,d0
 		lea	(a1,d0.w),a1
+		; Turn VRAM address into VDP command
 		addi.w	#$8000,d0
 		lsl.l	#2,d0
 		lsr.w	#2,d0
 		ori.w	#$4000,d0
 		swap	d0
+		; Send VDP command (write to VRAM at address contained in v_gfxbigring)
 		move.l	d0,4(a6)
-		move.w	#$D,d1
+
+		move.w	#@size-1,d1
 		bra.w	LoadTiles
 
 ; End of function AniArt_GiantRing
