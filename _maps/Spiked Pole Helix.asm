@@ -8,7 +8,7 @@ Map_Hel_internal:
 		dc.w byte_7E1A-Map_Hel_internal
 		dc.w byte_7E20-Map_Hel_internal
 		dc.w byte_7E26-Map_Hel_internal
-		dc.w byte_7E2D+2-Map_Hel_internal
+		dc.w byte_7E2E-Map_Hel_internal
 		dc.w byte_7E2C-Map_Hel_internal
 byte_7E08:	dc.b 1
 		dc.b $F0, 1, 0,	0, $FC	; points straight up (harmful)
@@ -22,7 +22,8 @@ byte_7E20:	dc.b 1
 		dc.b 0,	1, 0, $E, $FC	; straight down
 byte_7E26:	dc.b 1
 		dc.b 4,	0, 0, $10, $FD	; 45 degree
-byte_7E2D:	; reads the 0 below	; not visible
 byte_7E2C:	dc.b 1
-		dc.b $F4, 0, 0,	$11, $FD ; 45 degree
+		dc.b $F4
+byte_7E2E:	; reads the 0 below	; not visible
+		dc.b 0, 0,	$11, $FD ; 45 degree
 		even
