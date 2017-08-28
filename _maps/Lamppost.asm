@@ -1,8 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - lamppost
 ; ---------------------------------------------------------------------------
-Map_Lamp:	dc.w @blue-Map_Lamp, @poleonly-Map_Lamp
-		dc.w @redballonly-Map_Lamp, @red-Map_Lamp
+Map_Lamp_internal:
+		dc.w @blue-Map_Lamp_internal
+		dc.w @poleonly-Map_Lamp_internal
+		dc.w @redballonly-Map_Lamp_internal
+		dc.w @red-Map_Lamp_internal
 @blue:		dc.b 6
 		dc.b $E4, 1, 0,	0, $F8
 		dc.b $E4, 1, 8,	0, 0

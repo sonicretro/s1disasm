@@ -1,8 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - giant ring
 ; ---------------------------------------------------------------------------
-Map_GRing:	dc.w byte_9FDA-Map_GRing, byte_A00D-Map_GRing
-		dc.w byte_A036-Map_GRing, byte_A04B-Map_GRing
+Map_GRing_internal:
+		dc.w byte_9FDA-Map_GRing_internal
+		dc.w byte_A00D-Map_GRing_internal
+		dc.w byte_A036-Map_GRing_internal
+		dc.w byte_A04B-Map_GRing_internal
 byte_9FDA:	dc.b $A
 		dc.b $E0, 8, 0,	0, $E8	; ring front
 		dc.b $E0, 8, 0,	3, 0

@@ -1,9 +1,10 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - GHZ	bridge
 ; ---------------------------------------------------------------------------
-Map_Bri:	dc.w M_Bri_Log-Map_Bri
-		dc.w M_Bri_Stump-Map_Bri
-		dc.w M_Bri_Rope-Map_Bri
+Map_Bri_internal:
+		dc.w M_Bri_Log-Map_Bri_internal
+		dc.w M_Bri_Stump-Map_Bri_internal
+		dc.w M_Bri_Rope-Map_Bri_internal
 M_Bri_Log:	dc.b 1
 		dc.b $F8, 5, 0,	0, $F8	; log
 M_Bri_Stump:	dc.b 2

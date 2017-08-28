@@ -1,10 +1,14 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - prison capsule
 ; ---------------------------------------------------------------------------
-Map_Pri:	dc.w @capsule-Map_Pri, @switch1-Map_Pri
-		dc.w @broken-Map_Pri, @switch2-Map_Pri
-		dc.w @unusedthing1-Map_Pri, @unusedthing2-Map_Pri
-		dc.w @blank-Map_Pri
+Map_Pri_internal:
+		dc.w @capsule-Map_Pri_internal
+		dc.w @switch1-Map_Pri_internal
+		dc.w @broken-Map_Pri_internal
+		dc.w @switch2-Map_Pri_internal
+		dc.w @unusedthing1-Map_Pri_internal
+		dc.w @unusedthing2-Map_Pri_internal
+		dc.w @blank-Map_Pri_internal
 @capsule:	dc.b 7
 		dc.b $E0, $C, $20, 0, $F0
 		dc.b $E8, $D, $20, 4, $E0

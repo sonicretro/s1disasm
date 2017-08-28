@@ -1,10 +1,15 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - flash effect when you collect the giant ring
 ; ---------------------------------------------------------------------------
-Map_Flash:	dc.w byte_A084-Map_Flash, byte_A08F-Map_Flash
-		dc.w byte_A0A4-Map_Flash, byte_A0B9-Map_Flash
-		dc.w byte_A0CE-Map_Flash, byte_A0E3-Map_Flash
-		dc.w byte_A0F8-Map_Flash, byte_A103-Map_Flash
+Map_Flash_internal:
+		dc.w byte_A084-Map_Flash_internal
+		dc.w byte_A08F-Map_Flash_internal
+		dc.w byte_A0A4-Map_Flash_internal
+		dc.w byte_A0B9-Map_Flash_internal
+		dc.w byte_A0CE-Map_Flash_internal
+		dc.w byte_A0E3-Map_Flash_internal
+		dc.w byte_A0F8-Map_Flash_internal
+		dc.w byte_A103-Map_Flash_internal
 byte_A084:	dc.b 2
 		dc.b $E0, $F, 0, 0, 0
 		dc.b 0,	$F, $10, 0, 0

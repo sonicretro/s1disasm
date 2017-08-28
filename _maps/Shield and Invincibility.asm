@@ -1,10 +1,15 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - shield and invincibility stars
 ; ---------------------------------------------------------------------------
-Map_Shield:	dc.w @shield1-Map_Shield, @shield2-Map_Shield
-		dc.w @shield3-Map_Shield, @shield4-Map_Shield
-		dc.w @stars1-Map_Shield, @stars2-Map_Shield
-		dc.w @stars3-Map_Shield, @stars4-Map_Shield
+Map_Shield_internal:
+		dc.w @shield1-Map_Shield_internal
+		dc.w @shield2-Map_Shield_internal
+		dc.w @shield3-Map_Shield_internal
+		dc.w @shield4-Map_Shield_internal
+		dc.w @stars1-Map_Shield_internal
+		dc.w @stars2-Map_Shield_internal
+		dc.w @stars3-Map_Shield_internal
+		dc.w @stars4-Map_Shield_internal
 @shield2:	dc.b 4
 		dc.b $E8, $A, 0, 0, $E8
 		dc.b $E8, $A, 0, 9, 0

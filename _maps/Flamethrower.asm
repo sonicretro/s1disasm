@@ -1,17 +1,29 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - flame thrower (SBZ)
 ; ---------------------------------------------------------------------------
-Map_Flame:	dc.w @pipe1-Map_Flame, @pipe2-Map_Flame
-		dc.w @pipe3-Map_Flame, @pipe4-Map_Flame
-		dc.w @pipe5-Map_Flame, @pipe6-Map_Flame
-		dc.w @pipe7-Map_Flame, @pipe8-Map_Flame
-		dc.w @pipe9-Map_Flame, @pipe10-Map_Flame
-		dc.w @pipe11-Map_Flame, @valve1-Map_Flame
-		dc.w @valve2-Map_Flame, @valve3-Map_Flame
-		dc.w @valve4-Map_Flame, @valve5-Map_Flame
-		dc.w @valve6-Map_Flame, @valve7-Map_Flame
-		dc.w @valve8-Map_Flame, @valve9-Map_Flame
-		dc.w @valve10-Map_Flame, @valve11-Map_Flame
+Map_Flame_internal:
+		dc.w @pipe1-Map_Flame_internal
+		dc.w @pipe2-Map_Flame_internal
+		dc.w @pipe3-Map_Flame_internal
+		dc.w @pipe4-Map_Flame_internal
+		dc.w @pipe5-Map_Flame_internal
+		dc.w @pipe6-Map_Flame_internal
+		dc.w @pipe7-Map_Flame_internal
+		dc.w @pipe8-Map_Flame_internal
+		dc.w @pipe9-Map_Flame_internal
+		dc.w @pipe10-Map_Flame_internal
+		dc.w @pipe11-Map_Flame_internal
+		dc.w @valve1-Map_Flame_internal
+		dc.w @valve2-Map_Flame_internal
+		dc.w @valve3-Map_Flame_internal
+		dc.w @valve4-Map_Flame_internal
+		dc.w @valve5-Map_Flame_internal
+		dc.w @valve6-Map_Flame_internal
+		dc.w @valve7-Map_Flame_internal
+		dc.w @valve8-Map_Flame_internal
+		dc.w @valve9-Map_Flame_internal
+		dc.w @valve10-Map_Flame_internal
+		dc.w @valve11-Map_Flame_internal
 @pipe1:		dc.b 1
 		dc.b $28, 5, $40, $14, $FB ; broken pipe style flamethrower
 @pipe2:		dc.b 2

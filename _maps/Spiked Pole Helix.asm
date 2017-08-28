@@ -1,10 +1,15 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - helix of spikes on a pole (GHZ)
 ; ---------------------------------------------------------------------------
-Map_Hel:	dc.w byte_7E08-Map_Hel, byte_7E0E-Map_Hel
-		dc.w byte_7E14-Map_Hel, byte_7E1A-Map_Hel
-		dc.w byte_7E20-Map_Hel, byte_7E26-Map_Hel
-		dc.w byte_7E2D+2-Map_Hel, byte_7E2C-Map_Hel
+Map_Hel_internal:
+		dc.w byte_7E08-Map_Hel_internal
+		dc.w byte_7E0E-Map_Hel_internal
+		dc.w byte_7E14-Map_Hel_internal
+		dc.w byte_7E1A-Map_Hel_internal
+		dc.w byte_7E20-Map_Hel_internal
+		dc.w byte_7E26-Map_Hel_internal
+		dc.w byte_7E2D+2-Map_Hel_internal
+		dc.w byte_7E2C-Map_Hel_internal
 byte_7E08:	dc.b 1
 		dc.b $F0, 1, 0,	0, $FC	; points straight up (harmful)
 byte_7E0E:	dc.b 1

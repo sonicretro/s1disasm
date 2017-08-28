@@ -1,10 +1,14 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - points that	appear when you	destroy	something
 ; ---------------------------------------------------------------------------
-Map_Poi:	dc.w byte_94BC-Map_Poi, byte_94C2-Map_Poi
-		dc.w byte_94C8-Map_Poi, byte_94CE-Map_Poi
-		dc.w byte_94D4-Map_Poi, byte_94DA-Map_Poi
-		dc.w byte_94E5-Map_Poi
+Map_Poi_internal:
+		dc.w byte_94BC-Map_Poi_internal
+		dc.w byte_94C2-Map_Poi_internal
+		dc.w byte_94C8-Map_Poi_internal
+		dc.w byte_94CE-Map_Poi_internal
+		dc.w byte_94D4-Map_Poi_internal
+		dc.w byte_94DA-Map_Poi_internal
+		dc.w byte_94E5-Map_Poi_internal
 byte_94BC:	dc.b 1
 		dc.b $FC, 4, 0,	0, $F8	; 100 points
 byte_94C2:	dc.b 1

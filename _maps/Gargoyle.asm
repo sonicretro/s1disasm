@@ -1,10 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - gargoyle head (LZ)
 ; ---------------------------------------------------------------------------
-Map_Gar:	dc.w @head-Map_Gar
-		dc.w @head-Map_Gar
-		dc.w @fireball1-Map_Gar
-		dc.w @fireball2-Map_Gar
+Map_Gar_internal:
+		dc.w @head-Map_Gar_internal
+		dc.w @head-Map_Gar_internal
+		dc.w @fireball1-Map_Gar_internal
+		dc.w @fireball2-Map_Gar_internal
 @head:		dc.b 3
 		dc.b $F0, 4, 0,	0, 0
 		dc.b $F8, $D, 0, 2, $F0

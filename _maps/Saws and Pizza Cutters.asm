@@ -1,8 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - ground saws	and pizza cutters (SBZ)
 ; ---------------------------------------------------------------------------
-Map_Saw:	dc.w @pizzacutter1-Map_Saw, @pizzacutter2-Map_Saw
-		dc.w @groundsaw1-Map_Saw, @groundsaw2-Map_Saw
+Map_Saw_internal:
+		dc.w @pizzacutter1-Map_Saw_internal
+		dc.w @pizzacutter2-Map_Saw_internal
+		dc.w @groundsaw1-Map_Saw_internal
+		dc.w @groundsaw2-Map_Saw_internal
 @pizzacutter1:	dc.b 7
 		dc.b $C4, 1, 0,	$20, $FC
 		dc.b $D4, 1, 0,	$20, $FC

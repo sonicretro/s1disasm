@@ -1,14 +1,23 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - walls of the special stage
 ; ---------------------------------------------------------------------------
-Map_SSWalls:	dc.w byte_2C584-Map_SSWalls, byte_2C58A-Map_SSWalls
-		dc.w byte_2C590-Map_SSWalls, byte_2C596-Map_SSWalls
-		dc.w byte_2C59C-Map_SSWalls, byte_2C5A2-Map_SSWalls
-		dc.w byte_2C5A8-Map_SSWalls, byte_2C5AE-Map_SSWalls
-		dc.w byte_2C5B4-Map_SSWalls, byte_2C5BA-Map_SSWalls
-		dc.w byte_2C5C0-Map_SSWalls, byte_2C5C6-Map_SSWalls
-		dc.w byte_2C5CC-Map_SSWalls, byte_2C5D2-Map_SSWalls
-		dc.w byte_2C5D8-Map_SSWalls, byte_2C5DE-Map_SSWalls
+Map_SSWalls_internal:
+		dc.w byte_2C584-Map_SSWalls_internal
+		dc.w byte_2C58A-Map_SSWalls_internal
+		dc.w byte_2C590-Map_SSWalls_internal
+		dc.w byte_2C596-Map_SSWalls_internal
+		dc.w byte_2C59C-Map_SSWalls_internal
+		dc.w byte_2C5A2-Map_SSWalls_internal
+		dc.w byte_2C5A8-Map_SSWalls_internal
+		dc.w byte_2C5AE-Map_SSWalls_internal
+		dc.w byte_2C5B4-Map_SSWalls_internal
+		dc.w byte_2C5BA-Map_SSWalls_internal
+		dc.w byte_2C5C0-Map_SSWalls_internal
+		dc.w byte_2C5C6-Map_SSWalls_internal
+		dc.w byte_2C5CC-Map_SSWalls_internal
+		dc.w byte_2C5D2-Map_SSWalls_internal
+		dc.w byte_2C5D8-Map_SSWalls_internal
+		dc.w byte_2C5DE-Map_SSWalls_internal
 byte_2C584:	dc.b 1
 		dc.b $F4, $A, 0, 0, $F4
 byte_2C58A:	dc.b 1

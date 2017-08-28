@@ -1,8 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - swinging ball on a chain from GHZ boss
 ; ---------------------------------------------------------------------------
-Map_GBall:	dc.w @shiny-Map_GBall, @check1-Map_GBall
-		dc.w @check2-Map_GBall, @check3-Map_GBall
+Map_GBall_internal:
+		dc.w @shiny-Map_GBall_internal
+		dc.w @check1-Map_GBall_internal
+		dc.w @check2-Map_GBall_internal
+		dc.w @check3-Map_GBall_internal
 @shiny:		dc.b 6
 		dc.b $F0, 4, 0,	$24, $F0
 		dc.b $F8, 4, $10, $24, $F0

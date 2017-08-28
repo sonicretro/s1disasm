@@ -1,9 +1,10 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - smashable walls (GHZ, SLZ)
 ; ---------------------------------------------------------------------------
-Map_Smash:	dc.w @left-Map_Smash
-		dc.w @middle-Map_Smash
-		dc.w @right-Map_Smash
+Map_Smash_internal:
+		dc.w @left-Map_Smash_internal
+		dc.w @middle-Map_Smash_internal
+		dc.w @right-Map_Smash_internal
 @left:		dc.b 8
 		dc.b $E0, 5, 0,	0, $F0
 		dc.b $F0, 5, 0,	0, $F0

@@ -1,9 +1,10 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - animals
 ; ---------------------------------------------------------------------------
-Map_Animal2:	dc.w byte_948A-Map_Animal2
-		dc.w byte_9490-Map_Animal2
-		dc.w byte_9484-Map_Animal2
+Map_Animal2_internal:
+		dc.w byte_948A-Map_Animal2_internal
+		dc.w byte_9490-Map_Animal2_internal
+		dc.w byte_9484-Map_Animal2_internal
 byte_9484:	dc.b 1
 		dc.b $F4, 6, 0,	0, $F8
 byte_948A:	dc.b 1

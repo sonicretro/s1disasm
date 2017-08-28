@@ -1,12 +1,18 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Newtron enemy (GHZ)
 ; ---------------------------------------------------------------------------
-Map_Newt:	dc.w M_Newt_Trans-Map_Newt, M_Newt_Norm-Map_Newt
-		dc.w M_Newt_Fires-Map_Newt, M_Newt_Drop1-Map_Newt
-		dc.w M_Newt_Drop2-Map_Newt, M_Newt_Drop3-Map_Newt
-		dc.w M_Newt_Fly1a-Map_Newt, M_Newt_Fly1b-Map_Newt
-		dc.w M_Newt_Fly2a-Map_Newt, M_Newt_Fly2b-Map_Newt
-		dc.w M_Newt_Blank-Map_Newt
+Map_Newt_internal:
+		dc.w M_Newt_Trans-Map_Newt_internal
+		dc.w M_Newt_Norm-Map_Newt_internal
+		dc.w M_Newt_Fires-Map_Newt_internal
+		dc.w M_Newt_Drop1-Map_Newt_internal
+		dc.w M_Newt_Drop2-Map_Newt_internal
+		dc.w M_Newt_Drop3-Map_Newt_internal
+		dc.w M_Newt_Fly1a-Map_Newt_internal
+		dc.w M_Newt_Fly1b-Map_Newt_internal
+		dc.w M_Newt_Fly2a-Map_Newt_internal
+		dc.w M_Newt_Fly2b-Map_Newt_internal
+		dc.w M_Newt_Blank-Map_Newt_internal
 M_Newt_Trans:	dc.b 3
 		dc.b $EC, $D, 0, 0, $EC	; partially visible
 		dc.b $F4, 0, 0,	8, $C

@@ -1,9 +1,13 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Yadrin enemy (SYZ)
 ; ---------------------------------------------------------------------------
-Map_Yad:	dc.w @walk0-Map_Yad, @walk1-Map_Yad
-		dc.w @walk2-Map_Yad, @walk3-Map_Yad
-		dc.w @walk4-Map_Yad, @walk5-Map_Yad
+Map_Yad_internal:
+		dc.w @walk0-Map_Yad_internal
+		dc.w @walk1-Map_Yad_internal
+		dc.w @walk2-Map_Yad_internal
+		dc.w @walk3-Map_Yad_internal
+		dc.w @walk4-Map_Yad_internal
+		dc.w @walk5-Map_Yad_internal
 @walk0:		dc.b 5
 		dc.b $F4, 8, 0,	0, $F4
 		dc.b $FC, $E, 0, 3, $EC

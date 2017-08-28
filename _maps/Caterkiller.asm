@@ -1,18 +1,31 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Caterkiller	enemy (MZ, SBZ)
 ; ---------------------------------------------------------------------------
-Map_Cat:	dc.w byte_16D9E-Map_Cat, byte_16DA4-Map_Cat
-		dc.w byte_16DAA-Map_Cat, byte_16DB0-Map_Cat
-		dc.w byte_16DB6-Map_Cat, byte_16DBC-Map_Cat
-		dc.w byte_16DC2-Map_Cat, byte_16DC8-Map_Cat
-		dc.w byte_16DCE-Map_Cat, byte_16DD4-Map_Cat
-		dc.w byte_16DDA-Map_Cat, byte_16DE0-Map_Cat
-		dc.w byte_16DE6-Map_Cat, byte_16DEC-Map_Cat
-		dc.w byte_16DF2-Map_Cat, byte_16DF8-Map_Cat
-		dc.w byte_16DFE-Map_Cat, byte_16E04-Map_Cat
-		dc.w byte_16E0A-Map_Cat, byte_16E10-Map_Cat
-		dc.w byte_16E16-Map_Cat, byte_16E1C-Map_Cat
-		dc.w byte_16E22-Map_Cat, byte_16E28-Map_Cat
+Map_Cat_internal:
+		dc.w byte_16D9E-Map_Cat_internal
+		dc.w byte_16DA4-Map_Cat_internal
+		dc.w byte_16DAA-Map_Cat_internal
+		dc.w byte_16DB0-Map_Cat_internal
+		dc.w byte_16DB6-Map_Cat_internal
+		dc.w byte_16DBC-Map_Cat_internal
+		dc.w byte_16DC2-Map_Cat_internal
+		dc.w byte_16DC8-Map_Cat_internal
+		dc.w byte_16DCE-Map_Cat_internal
+		dc.w byte_16DD4-Map_Cat_internal
+		dc.w byte_16DDA-Map_Cat_internal
+		dc.w byte_16DE0-Map_Cat_internal
+		dc.w byte_16DE6-Map_Cat_internal
+		dc.w byte_16DEC-Map_Cat_internal
+		dc.w byte_16DF2-Map_Cat_internal
+		dc.w byte_16DF8-Map_Cat_internal
+		dc.w byte_16DFE-Map_Cat_internal
+		dc.w byte_16E04-Map_Cat_internal
+		dc.w byte_16E0A-Map_Cat_internal
+		dc.w byte_16E10-Map_Cat_internal
+		dc.w byte_16E16-Map_Cat_internal
+		dc.w byte_16E1C-Map_Cat_internal
+		dc.w byte_16E22-Map_Cat_internal
+		dc.w byte_16E28-Map_Cat_internal
 byte_16D9E:	dc.b 1
 		dc.b $F2, 6, 0,	0, $F8
 byte_16DA4:	dc.b 1

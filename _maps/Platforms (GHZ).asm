@@ -1,8 +1,9 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - GHZ	platforms
 ; ---------------------------------------------------------------------------
-Map_Plat_GHZ:	dc.w @small-Map_Plat_GHZ
-		dc.w @large-Map_Plat_GHZ
+Map_Plat_GHZ_internal:
+		dc.w @small-Map_Plat_GHZ_internal
+		dc.w @large-Map_Plat_GHZ_internal
 @small:		dc.b 4
 		dc.b $F4, $B, 0, $3B, $E0 ; small platform
 		dc.b $F4, 7, 0,	$3F, $F8

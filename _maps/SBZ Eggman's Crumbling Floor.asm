@@ -1,9 +1,12 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - blocks that	disintegrate when Eggman presses a switch
 ; ---------------------------------------------------------------------------
-Map_FFloor:	dc.w @wholeblock-Map_FFloor, @topleft-Map_FFloor
-		dc.w @topright-Map_FFloor, @bottomleft-Map_FFloor
-		dc.w @bottomright-Map_FFloor
+Map_FFloor_internal:
+		dc.w @wholeblock-Map_FFloor_internal
+		dc.w @topleft-Map_FFloor_internal
+		dc.w @topright-Map_FFloor_internal
+		dc.w @bottomleft-Map_FFloor_internal
+		dc.w @bottomright-Map_FFloor_internal
 @wholeblock:	dc.b 1
 		dc.b $F0, $F, 0, 0, $F0
 @topleft:	dc.b 2
