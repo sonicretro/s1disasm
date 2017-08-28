@@ -1,12 +1,19 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - walking bomb enemy (SLZ, SBZ)
 ; ---------------------------------------------------------------------------
-Map_Bomb:	dc.w .stand1-Map_Bomb, .stand2-Map_Bomb
-		dc.w .walk1-Map_Bomb, .walk2-Map_Bomb
-		dc.w .walk3-Map_Bomb, .walk4-Map_Bomb
-		dc.w .activate1-Map_Bomb, .activate2-Map_Bomb
-		dc.w .fuse1-Map_Bomb, .fuse2-Map_Bomb
-		dc.w .shrapnel1-Map_Bomb, .shrapnel2-Map_Bomb
+Map_Bomb_internal:
+		dc.w .stand1-Map_Bomb_internal
+		dc.w .stand2-Map_Bomb_internal
+		dc.w .walk1-Map_Bomb_internal
+		dc.w .walk2-Map_Bomb_internal
+		dc.w .walk3-Map_Bomb_internal
+		dc.w .walk4-Map_Bomb_internal
+		dc.w .activate1-Map_Bomb_internal
+		dc.w .activate2-Map_Bomb_internal
+		dc.w .fuse1-Map_Bomb_internal
+		dc.w .fuse2-Map_Bomb_internal
+		dc.w .shrapnel1-Map_Bomb_internal
+		dc.w .shrapnel2-Map_Bomb_internal
 .stand1:	dc.b 3
 		dc.b $F1, $A, 0, 0, $F4	; bomb standing still
 		dc.b 9,	8, 0, $12, $F4

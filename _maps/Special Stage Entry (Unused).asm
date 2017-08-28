@@ -1,10 +1,15 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - special stage entry	from beta
 ; ---------------------------------------------------------------------------
-Map_Vanish:	dc.w .flash1-Map_Vanish, .flash2-Map_Vanish
-		dc.w .flash3-Map_Vanish, .sparkle1-Map_Vanish
-		dc.w .sparkle2-Map_Vanish, .sparkle3-Map_Vanish
-		dc.w .sparkle4-Map_Vanish, .blank-Map_Vanish
+Map_Vanish_internal:
+		dc.w .flash1-Map_Vanish_internal
+		dc.w .flash2-Map_Vanish_internal
+		dc.w .flash3-Map_Vanish_internal
+		dc.w .sparkle1-Map_Vanish_internal
+		dc.w .sparkle2-Map_Vanish_internal
+		dc.w .sparkle3-Map_Vanish_internal
+		dc.w .sparkle4-Map_Vanish_internal
+		dc.w .blank-Map_Vanish_internal
 .flash1:	dc.b 3
 		dc.b $F8, 0, 0,	0, 8
 		dc.b 0,	4, 0, 1, 0

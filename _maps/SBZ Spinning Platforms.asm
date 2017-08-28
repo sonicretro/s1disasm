@@ -1,9 +1,12 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - spinning platforms (SBZ)
 ; ---------------------------------------------------------------------------
-Map_Spin:	dc.w .flat-Map_Spin, .spin1-Map_Spin
-		dc.w .spin2-Map_Spin, .spin3-Map_Spin
-		dc.w .spin4-Map_Spin
+Map_Spin_internal:
+		dc.w .flat-Map_Spin_internal
+		dc.w .spin1-Map_Spin_internal
+		dc.w .spin2-Map_Spin_internal
+		dc.w .spin3-Map_Spin_internal
+		dc.w .spin4-Map_Spin_internal
 .flat:		dc.b 2
 		dc.b $F8, 5, 0,	0, $F0
 		dc.b $F8, 5, 8,	0, 0

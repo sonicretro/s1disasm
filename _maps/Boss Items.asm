@@ -1,10 +1,15 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - extra boss items (e.g. swinging ball on a chain in GHZ)
 ; ---------------------------------------------------------------------------
-Map_BossItems:	dc.w .chainanchor1-Map_BossItems, .chainanchor2-Map_BossItems
-		dc.w .cross-Map_BossItems, .widepipe-Map_BossItems
-		dc.w .pipe-Map_BossItems, .spike-Map_BossItems
-		dc.w .legmask-Map_BossItems, .legs-Map_BossItems
+Map_BossItems_internal:
+		dc.w .chainanchor1-Map_BossItems_internal
+		dc.w .chainanchor2-Map_BossItems_internal
+		dc.w .cross-Map_BossItems_internal
+		dc.w .widepipe-Map_BossItems_internal
+		dc.w .pipe-Map_BossItems_internal
+		dc.w .spike-Map_BossItems_internal
+		dc.w .legmask-Map_BossItems_internal
+		dc.w .legs-Map_BossItems_internal
 .chainanchor1:	dc.b 1
 		dc.b $F8, 5, 0,	0, $F8	; GHZ boss
 .chainanchor2:	dc.b 2

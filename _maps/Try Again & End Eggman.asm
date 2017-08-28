@@ -1,10 +1,15 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Robotnik on	the "TRY AGAIN"	and "END" screens
 ; ---------------------------------------------------------------------------
-Map_EEgg:	dc.w M_EEgg_Try1-Map_EEgg, M_EEgg_Try2-Map_EEgg
-		dc.w M_EEgg_Try3-Map_EEgg, M_EEgg_Try4-Map_EEgg
-		dc.w M_EEgg_End1-Map_EEgg, M_EEgg_End2-Map_EEgg
-		dc.w M_EEgg_End3-Map_EEgg, M_EEgg_End4-Map_EEgg
+Map_EEgg_internal:
+		dc.w M_EEgg_Try1-Map_EEgg_internal
+		dc.w M_EEgg_Try2-Map_EEgg_internal
+		dc.w M_EEgg_Try3-Map_EEgg_internal
+		dc.w M_EEgg_Try4-Map_EEgg_internal
+		dc.w M_EEgg_End1-Map_EEgg_internal
+		dc.w M_EEgg_End2-Map_EEgg_internal
+		dc.w M_EEgg_End3-Map_EEgg_internal
+		dc.w M_EEgg_End4-Map_EEgg_internal
 M_EEgg_Try1:	dc.b 8
 		dc.b $E9, 5, 0,	0, $F0
 		dc.b $F9, $C, 0, 4, $E0

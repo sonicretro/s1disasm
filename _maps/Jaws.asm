@@ -1,10 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Jaws enemy (LZ)
 ; ---------------------------------------------------------------------------
-Map_Jaws:	dc.w .open1-Map_Jaws
-		dc.w .shut1-Map_Jaws
-		dc.w .open2-Map_Jaws
-		dc.w .shut2-Map_Jaws
+Map_Jaws_internal:
+		dc.w .open1-Map_Jaws_internal
+		dc.w .shut1-Map_Jaws_internal
+		dc.w .open2-Map_Jaws_internal
+		dc.w .shut2-Map_Jaws_internal
 .open1:		dc.b 2
 		dc.b $F4, $E, 0, 0, $F0	; mouth open
 		dc.b $F5, 5, 0,	$18, $10

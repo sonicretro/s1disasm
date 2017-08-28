@@ -1,12 +1,18 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - "SONIC TEAM	PRESENTS" and credits
 ; ---------------------------------------------------------------------------
-Map_Cred:	dc.w .staff-Map_Cred, .gameplan-Map_Cred
-		dc.w .program-Map_Cred, .character-Map_Cred
-		dc.w .design-Map_Cred, .soundproduce-Map_Cred
-		dc.w .soundprogram-Map_Cred, .thanks-Map_Cred
-		dc.w .presentedby-Map_Cred, .tryagain-Map_Cred
-		dc.w .sonicteam-Map_Cred
+Map_Cred_internal:
+		dc.w .staff-Map_Cred_internal
+		dc.w .gameplan-Map_Cred_internal
+		dc.w .program-Map_Cred_internal
+		dc.w .character-Map_Cred_internal
+		dc.w .design-Map_Cred_internal
+		dc.w .soundproduce-Map_Cred_internal
+		dc.w .soundprogram-Map_Cred_internal
+		dc.w .thanks-Map_Cred_internal
+		dc.w .presentedby-Map_Cred_internal
+		dc.w .tryagain-Map_Cred_internal
+		dc.w .sonicteam-Map_Cred_internal
 .staff:		dc.b $E			 ; SONIC TEAM STAFF
 		dc.b $F8, 5, 0,	$2E, $88
 		dc.b $F8, 5, 0,	$26, $98

@@ -1,11 +1,16 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - doors (SBZ)
 ; ---------------------------------------------------------------------------
-Map_ADoor:	dc.w .closed-Map_ADoor, .f01-Map_ADoor
-		dc.w .f02-Map_ADoor, .f03-Map_ADoor
-		dc.w .f04-Map_ADoor, .f05-Map_ADoor
-		dc.w .f06-Map_ADoor, .f07-Map_ADoor
-		dc.w .open-Map_ADoor
+Map_ADoor_internal:
+		dc.w .closed-Map_ADoor_internal
+		dc.w .f01-Map_ADoor_internal
+		dc.w .f02-Map_ADoor_internal
+		dc.w .f03-Map_ADoor_internal
+		dc.w .f04-Map_ADoor_internal
+		dc.w .f05-Map_ADoor_internal
+		dc.w .f06-Map_ADoor_internal
+		dc.w .f07-Map_ADoor_internal
+		dc.w .open-Map_ADoor_internal
 .closed:	dc.b 2
 		dc.b $E0, 7, 8,	0, $F8	; door closed
 		dc.b 0,	7, 8, 0, $F8

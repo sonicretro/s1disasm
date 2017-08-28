@@ -1,8 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - SCORE, TIME, RINGS
 ; ---------------------------------------------------------------------------
-Map_HUD:	dc.w .allyellow-Map_HUD, .ringred-Map_HUD
-		dc.w .timered-Map_HUD, .allred-Map_HUD
+Map_HUD_internal:
+		dc.w .allyellow-Map_HUD_internal
+		dc.w .ringred-Map_HUD_internal
+		dc.w .timered-Map_HUD_internal
+		dc.w .allred-Map_HUD_internal
 .allyellow:	dc.b $A
 		dc.b $80, $D, $80, 0, 0
 		dc.b $80, $D, $80, $18,	$20

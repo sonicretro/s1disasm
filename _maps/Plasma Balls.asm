@@ -1,12 +1,18 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - energy balls (FZ)
 ; ---------------------------------------------------------------------------
-Map_Plasma:	dc.w .fuzzy1-Map_Plasma, .fuzzy2-Map_Plasma
-		dc.w .white1-Map_Plasma, .white2-Map_Plasma
-		dc.w .white3-Map_Plasma, .white4-Map_Plasma
-		dc.w .fuzzy3-Map_Plasma, .fuzzy4-Map_Plasma
-		dc.w .fuzzy5-Map_Plasma, .fuzzy6-Map_Plasma
-		dc.w .blank-Map_Plasma
+Map_Plasma_internal:
+		dc.w .fuzzy1-Map_Plasma_internal
+		dc.w .fuzzy2-Map_Plasma_internal
+		dc.w .white1-Map_Plasma_internal
+		dc.w .white2-Map_Plasma_internal
+		dc.w .white3-Map_Plasma_internal
+		dc.w .white4-Map_Plasma_internal
+		dc.w .fuzzy3-Map_Plasma_internal
+		dc.w .fuzzy4-Map_Plasma_internal
+		dc.w .fuzzy5-Map_Plasma_internal
+		dc.w .fuzzy6-Map_Plasma_internal
+		dc.w .blank-Map_Plasma_internal
 .fuzzy1:	dc.b 2
 		dc.b $F0, $D, 0, $7A, $F0
 		dc.b 0,	$D, $18, $7A, $F0

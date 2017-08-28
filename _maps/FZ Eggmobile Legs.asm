@@ -1,9 +1,10 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - legs on Eggman's escape ship (FZ)
 ; ---------------------------------------------------------------------------
-Map_FZLegs:	dc.w .extended-Map_FZLegs
-		dc.w .halfway-Map_FZLegs
-		dc.w .retracted-Map_FZLegs
+Map_FZLegs_internal:
+		dc.w .extended-Map_FZLegs_internal
+		dc.w .halfway-Map_FZLegs_internal
+		dc.w .retracted-Map_FZLegs_internal
 .extended:	dc.b 2
 		dc.b $14, $E, $28, 0, $F4
 		dc.b $24, 0, $28, $C, $EC

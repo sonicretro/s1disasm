@@ -1,12 +1,13 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - fire balls (MZ, SLZ)
 ; ---------------------------------------------------------------------------
-Map_Fire:	dc.w .vertical1-Map_Fire
-		dc.w .vertical2-Map_Fire
-		dc.w .vertcollide-Map_Fire
-		dc.w .horizontal1-Map_Fire
-		dc.w .horizontal2-Map_Fire
-		dc.w .horicollide-Map_Fire
+Map_Fire_internal:
+		dc.w .vertical1-Map_Fire_internal
+		dc.w .vertical2-Map_Fire_internal
+		dc.w .vertcollide-Map_Fire_internal
+		dc.w .horizontal1-Map_Fire_internal
+		dc.w .horizontal2-Map_Fire_internal
+		dc.w .horicollide-Map_Fire_internal
 .vertical1:	dc.b 1
 		dc.b $E8, 7, 0,	0, $F8
 .vertical2:	dc.b 1

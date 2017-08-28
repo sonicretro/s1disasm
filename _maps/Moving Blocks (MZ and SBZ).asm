@@ -1,9 +1,12 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - moving blocks (MZ, SBZ)
 ; ---------------------------------------------------------------------------
-Map_MBlock:	dc.w .mz1-Map_MBlock, .mz2-Map_MBlock
-		dc.w .sbz-Map_MBlock, .sbzwide-Map_MBlock
-		dc.w .mz3-Map_MBlock
+Map_MBlock_internal:
+		dc.w .mz1-Map_MBlock_internal
+		dc.w .mz2-Map_MBlock_internal
+		dc.w .sbz-Map_MBlock_internal
+		dc.w .sbzwide-Map_MBlock_internal
+		dc.w .mz3-Map_MBlock_internal
 .mz1:		dc.b 1
 		dc.b $F8, $F, 0, 8, $F0
 .mz2:		dc.b 2

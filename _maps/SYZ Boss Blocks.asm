@@ -1,9 +1,12 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - blocks that	Robotnik picks up (SYZ)
 ; ---------------------------------------------------------------------------
-Map_BossBlock:	dc.w .wholeblock-Map_BossBlock, .topleft-Map_BossBlock
-		dc.w .topright-Map_BossBlock, .bottomleft-Map_BossBlock
-		dc.w .bottomright-Map_BossBlock
+Map_BossBlock_internal:
+		dc.w .wholeblock-Map_BossBlock_internal
+		dc.w .topleft-Map_BossBlock_internal
+		dc.w .topright-Map_BossBlock_internal
+		dc.w .bottomleft-Map_BossBlock_internal
+		dc.w .bottomright-Map_BossBlock_internal
 .wholeblock:	dc.b 2
 		dc.b $F0, $D, 0, $71, $F0
 		dc.b 0,	$D, 0, $79, $F0

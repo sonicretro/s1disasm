@@ -1,10 +1,15 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - rings
 ; ---------------------------------------------------------------------------
-Map_Ring:	dc.w .front-Map_Ring, .angle1-Map_Ring
-		dc.w .edge-Map_Ring, .angle2-Map_Ring
-		dc.w .sparkle1-Map_Ring, .sparkle2-Map_Ring
-		dc.w .sparkle3-Map_Ring, .sparkle4-Map_Ring
+Map_Ring_internal:
+		dc.w .front-Map_Ring_internal
+		dc.w .angle1-Map_Ring_internal
+		dc.w .edge-Map_Ring_internal
+		dc.w .angle2-Map_Ring_internal
+		dc.w .sparkle1-Map_Ring_internal
+		dc.w .sparkle2-Map_Ring_internal
+		dc.w .sparkle3-Map_Ring_internal
+		dc.w .sparkle4-Map_Ring_internal
 .front:		dc.b 1
 		dc.b $F8, 5, 0,	0, $F8	; ring front
 .angle1:	dc.b 1

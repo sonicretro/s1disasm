@@ -1,8 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - GHZ	collapsing ledge
 ; ---------------------------------------------------------------------------
-Map_Ledge:	dc.w .left-Map_Ledge, .right-Map_Ledge
-		dc.w .leftsmash-Map_Ledge, .rightsmash-Map_Ledge
+Map_Ledge_internal:
+		dc.w .left-Map_Ledge_internal
+		dc.w .right-Map_Ledge_internal
+		dc.w .leftsmash-Map_Ledge_internal
+		dc.w .rightsmash-Map_Ledge_internal
 .left:		dc.b $10
 		dc.b $C8, $E, 0, $57, $10 ; ledge facing left
 		dc.b $D0, $D, 0, $63, $F0

@@ -1,12 +1,19 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - cylinders Eggman hides in (FZ)
 ; ---------------------------------------------------------------------------
-Map_EggCyl:	dc.w .flat-Map_EggCyl, .extending1-Map_EggCyl
-		dc.w .extending2-Map_EggCyl, .extending3-Map_EggCyl
-		dc.w .extending4-Map_EggCyl, .extendedfully-Map_EggCyl
-		dc.w .extendedfully-Map_EggCyl, .extendedfully-Map_EggCyl
-		dc.w .extendedfully-Map_EggCyl, .extendedfully-Map_EggCyl
-		dc.w .extendedfully-Map_EggCyl, .controlpanel-Map_EggCyl
+Map_EggCyl_internal:
+		dc.w .flat-Map_EggCyl_internal
+		dc.w .extending1-Map_EggCyl_internal
+		dc.w .extending2-Map_EggCyl_internal
+		dc.w .extending3-Map_EggCyl_internal
+		dc.w .extending4-Map_EggCyl_internal
+		dc.w .extendedfully-Map_EggCyl_internal
+		dc.w .extendedfully-Map_EggCyl_internal
+		dc.w .extendedfully-Map_EggCyl_internal
+		dc.w .extendedfully-Map_EggCyl_internal
+		dc.w .extendedfully-Map_EggCyl_internal
+		dc.w .extendedfully-Map_EggCyl_internal
+		dc.w .controlpanel-Map_EggCyl_internal
 .flat:		dc.b 6
 		dc.b $A0, $D, $40, 0, $E0
 		dc.b $A0, $D, $48, 0, 0

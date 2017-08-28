@@ -1,12 +1,13 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - springs
 ; ---------------------------------------------------------------------------
-Map_Spring:	dc.w M_Spg_Up-Map_Spring
-		dc.w M_Spg_UpFlat-Map_Spring
-		dc.w M_Spg_UpExt-Map_Spring
-		dc.w M_Spg_Left-Map_Spring
-		dc.w M_Spg_LeftFlat-Map_Spring
-		dc.w M_Spg_LeftExt-Map_Spring
+Map_Spring_internal:
+		dc.w M_Spg_Up-Map_Spring_internal
+		dc.w M_Spg_UpFlat-Map_Spring_internal
+		dc.w M_Spg_UpExt-Map_Spring_internal
+		dc.w M_Spg_Left-Map_Spring_internal
+		dc.w M_Spg_LeftFlat-Map_Spring_internal
+		dc.w M_Spg_LeftExt-Map_Spring_internal
 M_Spg_Up:	dc.b 2			; facing up
 		dc.b $F8, $C, 0, 0, $F0
 		dc.b 0,	$C, 0, 4, $F0

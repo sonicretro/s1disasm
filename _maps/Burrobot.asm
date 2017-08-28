@@ -1,13 +1,14 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Burrobot enemy (LZ)
 ; ---------------------------------------------------------------------------
-Map_Burro:	dc.w .walk1-Map_Burro
-		dc.w .walk2-Map_Burro
-		dc.w .digging1-Map_Burro
-		dc.w .digging2-Map_Burro
-		dc.w .fall-Map_Burro
-		dc.w .facedown-Map_Burro
-		dc.w .walk3-Map_Burro
+Map_Burro_internal:
+		dc.w .walk1-Map_Burro_internal
+		dc.w .walk2-Map_Burro_internal
+		dc.w .digging1-Map_Burro_internal
+		dc.w .digging2-Map_Burro_internal
+		dc.w .fall-Map_Burro_internal
+		dc.w .facedown-Map_Burro_internal
+		dc.w .walk3-Map_Burro_internal
 .walk1:		dc.b 2
 		dc.b $EC, $A, 0, 0, $F0	; walking
 		dc.b 4,	9, 0, 9, $F4

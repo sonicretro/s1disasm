@@ -1,8 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - collapsing floors (MZ, SLZ,	SBZ)
 ; ---------------------------------------------------------------------------
-Map_CFlo:	dc.w byte_874E-Map_CFlo, byte_8763-Map_CFlo
-		dc.w byte_878C-Map_CFlo, byte_87A1-Map_CFlo
+Map_CFlo_internal:
+		dc.w byte_874E-Map_CFlo_internal
+		dc.w byte_8763-Map_CFlo_internal
+		dc.w byte_878C-Map_CFlo_internal
+		dc.w byte_87A1-Map_CFlo_internal
 byte_874E:	dc.b 4
 		dc.b $F8, $D, 0, 0, $E0	; MZ and SBZ blocks
 		dc.b 8,	$D, 0, 0, $E0

@@ -1,9 +1,10 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - flapping door (LZ)
 ; ---------------------------------------------------------------------------
-Map_Flap:	dc.w .closed-Map_Flap
-		dc.w .halfway-Map_Flap
-		dc.w .open-Map_Flap
+Map_Flap_internal:
+		dc.w .closed-Map_Flap_internal
+		dc.w .halfway-Map_Flap_internal
+		dc.w .open-Map_Flap_internal
 .closed:	dc.b 2
 		dc.b $E0, 7, 0,	0, $F8
 		dc.b 0,	7, $10,	0, $F8

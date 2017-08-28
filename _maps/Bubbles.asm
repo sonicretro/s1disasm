@@ -1,18 +1,30 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - bubbles (LZ)
 ; ---------------------------------------------------------------------------
-Map_Bub:	dc.w .bubble1-Map_Bub, .bubble2-Map_Bub
-		dc.w .bubble3-Map_Bub, .bubble4-Map_Bub
-		dc.w .bubble5-Map_Bub, .bubble6-Map_Bub
-		dc.w .bubblefull-Map_Bub, .burst1-Map_Bub
-		dc.w .burst2-Map_Bub, .zero_sm-Map_Bub
-		dc.w .five_sm-Map_Bub, .three_sm-Map_Bub
-		dc.w .one_sm-Map_Bub, .zero-Map_Bub
-		dc.w .five-Map_Bub, .four-Map_Bub
-		dc.w .three-Map_Bub, .two-Map_Bub
-		dc.w .one-Map_Bub, .bubmaker1-Map_Bub
-		dc.w .bubmaker2-Map_Bub, .bubmaker3-Map_Bub
-		dc.w .blank-Map_Bub
+Map_Bub_internal:
+		dc.w .bubble1-Map_Bub_internal
+		dc.w .bubble2-Map_Bub_internal
+		dc.w .bubble3-Map_Bub_internal
+		dc.w .bubble4-Map_Bub_internal
+		dc.w .bubble5-Map_Bub_internal
+		dc.w .bubble6-Map_Bub_internal
+		dc.w .bubblefull-Map_Bub_internal
+		dc.w .burst1-Map_Bub_internal
+		dc.w .burst2-Map_Bub_internal
+		dc.w .zero_sm-Map_Bub_internal
+		dc.w .five_sm-Map_Bub_internal
+		dc.w .three_sm-Map_Bub_internal
+		dc.w .one_sm-Map_Bub_internal
+		dc.w .zero-Map_Bub_internal
+		dc.w .five-Map_Bub_internal
+		dc.w .four-Map_Bub_internal
+		dc.w .three-Map_Bub_internal
+		dc.w .two-Map_Bub_internal
+		dc.w .one-Map_Bub_internal
+		dc.w .bubmaker1-Map_Bub_internal
+		dc.w .bubmaker2-Map_Bub_internal
+		dc.w .bubmaker3-Map_Bub_internal
+		dc.w .blank-Map_Bub_internal
 .bubble1:	dc.b 1
 		dc.b $FC, 0, 0,	0, $FC	; bubbles, increasing in size
 .bubble2:	dc.b 1

@@ -1,8 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - blocks (LZ)
 ; ---------------------------------------------------------------------------
-Map_LBlock:	dc.w .sinkblock-Map_LBlock, .riseplatform-Map_LBlock
-		dc.w .cork-Map_LBlock, .block-Map_LBlock
+Map_LBlock_internal:
+		dc.w .sinkblock-Map_LBlock_internal
+		dc.w .riseplatform-Map_LBlock_internal
+		dc.w .cork-Map_LBlock_internal
+		dc.w .block-Map_LBlock_internal
 .sinkblock:	dc.b 1
 		dc.b $F0, $F, 0, 0, $F0	; block, sinks when stood on
 .riseplatform:	dc.b 2

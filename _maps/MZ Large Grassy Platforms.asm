@@ -1,9 +1,10 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - large moving grass-covered platforms (MZ)
 ; ---------------------------------------------------------------------------
-Map_LGrass:	dc.w .wide-Map_LGrass
-		dc.w .sloped-Map_LGrass
-		dc.w .narrow-Map_LGrass
+Map_LGrass_internal:
+		dc.w .wide-Map_LGrass_internal
+		dc.w .sloped-Map_LGrass_internal
+		dc.w .narrow-Map_LGrass_internal
 .wide:		dc.b $D
 		dc.b $D8, 6, 0,	$57, $C0 ; wide platform
 		dc.b $F0, 5, 0,	$53, $C0

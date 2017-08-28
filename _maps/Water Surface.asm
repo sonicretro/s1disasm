@@ -1,9 +1,13 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - water surface (LZ)
 ; ---------------------------------------------------------------------------
-Map_Surf:	dc.w .normal1-Map_Surf, .normal2-Map_Surf
-		dc.w .normal3-Map_Surf, .paused1-Map_Surf
-		dc.w .paused2-Map_Surf, .paused3-Map_Surf
+Map_Surf_internal:
+		dc.w .normal1-Map_Surf_internal
+		dc.w .normal2-Map_Surf_internal
+		dc.w .normal3-Map_Surf_internal
+		dc.w .paused1-Map_Surf_internal
+		dc.w .paused2-Map_Surf_internal
+		dc.w .paused3-Map_Surf_internal
 .normal1:	dc.b 3
 		dc.b $FD, $D, 0, 0, $A0
 		dc.b $FD, $D, 0, 0, $E0

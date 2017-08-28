@@ -1,15 +1,16 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - spiked metal block from beta version (MZ)
 ; ---------------------------------------------------------------------------
-Map_SStom:	dc.w .block-Map_SStom
-		dc.w .spikes-Map_SStom
-		dc.w .wallbracket-Map_SStom
-		dc.w .pole1-Map_SStom
-		dc.w .pole2-Map_SStom
-		dc.w .pole3-Map_SStom
-		dc.w .pole4-Map_SStom
-		dc.w .pole5-Map_SStom
-		dc.w .pole5-Map_SStom
+Map_SStom_internal:
+		dc.w .block-Map_SStom_internal
+		dc.w .spikes-Map_SStom_internal
+		dc.w .wallbracket-Map_SStom_internal
+		dc.w .pole1-Map_SStom_internal
+		dc.w .pole2-Map_SStom_internal
+		dc.w .pole3-Map_SStom_internal
+		dc.w .pole4-Map_SStom_internal
+		dc.w .pole5-Map_SStom_internal
+		dc.w .pole5-Map_SStom_internal
 .block:		dc.b 3
 		dc.b $E0, $B, 0, $1F, $F4 ; main metal block
 		dc.b 0,	$B, $10, $1F, $F4

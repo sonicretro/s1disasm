@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
@@ -64,5 +65,38 @@ namespace S1ObjectDefinitions.Common
 		}
 
 		public override bool Debug { get { return true; } }
+
+		private PropertySpec[] customProperties = new PropertySpec[] {
+			new PropertySpec("Width", typeof(int), "Extended", null, null, GetWidth, SetWidth),
+			new PropertySpec("Height", typeof(int), "Extended", null, null, GetHeight, SetHeight)
+		};
+
+		public override PropertySpec[] CustomProperties
+		{
+			get
+			{
+				return customProperties;
+			}
+		}
+
+		private static object GetWidth(ObjectEntry obj)
+		{
+			return (obj.SubType & 0xF0) >> 4;
+		}
+
+		private static void SetWidth(ObjectEntry obj, object value)
+		{
+			obj.SubType = (byte)((Math.Min((int)value, 0xF) << 4) | (obj.SubType & 0xF));
+		}
+
+		private static object GetHeight(ObjectEntry obj)
+		{
+			return obj.SubType & 0xF;
+		}
+
+		private static void SetHeight(ObjectEntry obj, object value)
+		{
+			obj.SubType = (byte)(Math.Min((int)value, 0xF) | (obj.SubType & 0xF0));
+		}
 	}
 }

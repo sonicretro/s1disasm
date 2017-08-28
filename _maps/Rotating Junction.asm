@@ -1,15 +1,24 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - rotating disc that grabs Sonic (SBZ)
 ; ---------------------------------------------------------------------------
-Map_Jun:	dc.w .gap0-Map_Jun, .gap1-Map_Jun
-		dc.w .gap2-Map_Jun, .gap3-Map_Jun
-		dc.w .gap4-Map_Jun, .gap5-Map_Jun
-		dc.w .gap6-Map_Jun, .gap7-Map_Jun
-		dc.w .gap8-Map_Jun, .gap9-Map_Jun
-		dc.w .gapA-Map_Jun, .gapB-Map_Jun
-		dc.w .gapC-Map_Jun, .gapD-Map_Jun
-		dc.w .gapE-Map_Jun, .gapF-Map_Jun
-		dc.w .circle-Map_Jun
+Map_Jun_internal:
+		dc.w .gap0-Map_Jun_internal
+		dc.w .gap1-Map_Jun_internal
+		dc.w .gap2-Map_Jun_internal
+		dc.w .gap3-Map_Jun_internal
+		dc.w .gap4-Map_Jun_internal
+		dc.w .gap5-Map_Jun_internal
+		dc.w .gap6-Map_Jun_internal
+		dc.w .gap7-Map_Jun_internal
+		dc.w .gap8-Map_Jun_internal
+		dc.w .gap9-Map_Jun_internal
+		dc.w .gapA-Map_Jun_internal
+		dc.w .gapB-Map_Jun_internal
+		dc.w .gapC-Map_Jun_internal
+		dc.w .gapD-Map_Jun_internal
+		dc.w .gapE-Map_Jun_internal
+		dc.w .gapF-Map_Jun_internal
+		dc.w .circle-Map_Jun_internal
 .gap0:		dc.b 6
 		dc.b $E8, 5, 0,	$22, $D0
 		dc.b 8,	5, $10,	$22, $D0

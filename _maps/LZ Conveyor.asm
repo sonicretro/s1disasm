@@ -1,9 +1,12 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - platforms on a conveyor belt (LZ)
 ; ---------------------------------------------------------------------------
-Map_LConv:	dc.w .wheel1-Map_LConv, .wheel2-Map_LConv
-		dc.w .wheel3-Map_LConv, .wheel4-Map_LConv
-		dc.w .platform-Map_LConv
+Map_LConv_internal:
+		dc.w .wheel1-Map_LConv_internal
+		dc.w .wheel2-Map_LConv_internal
+		dc.w .wheel3-Map_LConv_internal
+		dc.w .wheel4-Map_LConv_internal
+		dc.w .platform-Map_LConv_internal
 .wheel1:	dc.b 1
 		dc.b $F0, $F, 0, 0, $F0
 .wheel2:	dc.b 1

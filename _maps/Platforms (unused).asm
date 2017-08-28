@@ -1,8 +1,9 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - unused
 ; ---------------------------------------------------------------------------
-Map_Plat_Unused:dc.w .small-Map_Plat_Unused
-		dc.w .large-Map_Plat_Unused
+Map_Plat_Unused_internal:
+		dc.w .small-Map_Plat_Unused_internal
+		dc.w .large-Map_Plat_Unused_internal
 .small:		dc.b 2
 		dc.b $F4, $B, 0, $3C, $E8
 		dc.b $F4, $B, 0, $48, 0

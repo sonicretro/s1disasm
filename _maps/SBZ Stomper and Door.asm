@@ -1,9 +1,12 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - stomper and	platforms (SBZ)
 ; ---------------------------------------------------------------------------
-Map_Stomp:	dc.w .door-Map_Stomp, .stomper-Map_Stomp
-		dc.w .stomper-Map_Stomp, .stomper-Map_Stomp
-		dc.w .bigdoor-Map_Stomp
+Map_Stomp_internal:
+		dc.w .door-Map_Stomp_internal
+		dc.w .stomper-Map_Stomp_internal
+		dc.w .stomper-Map_Stomp_internal
+		dc.w .stomper-Map_Stomp_internal
+		dc.w .bigdoor-Map_Stomp_internal
 .door:		dc.b 4
 		dc.b $F4, $E, $21, $AF,	$C0 ; horizontal sliding door
 		dc.b $F4, $E, $21, $B2,	$E0

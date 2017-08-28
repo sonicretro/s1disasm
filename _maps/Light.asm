@@ -1,9 +1,13 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - lamp (SYZ)
 ; ---------------------------------------------------------------------------
-Map_Light:	dc.w .f0-Map_Light, .f1-Map_Light
-		dc.w .f2-Map_Light, .f3-Map_Light
-		dc.w .f4-Map_Light, .f5-Map_Light
+Map_Light_internal:
+		dc.w .f0-Map_Light_internal
+		dc.w .f1-Map_Light_internal
+		dc.w .f2-Map_Light_internal
+		dc.w .f3-Map_Light_internal
+		dc.w .f4-Map_Light_internal
+		dc.w .f5-Map_Light_internal
 .f0:		dc.b 2
 		dc.b $F8, $C, 0, $31, $F0
 		dc.b 0,	$C, $10, $31, $F0

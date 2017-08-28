@@ -497,7 +497,7 @@ DLE_SYZ2:
 		cmpi.w	#$25A0,(v_screenposx).w
 		bcs.s	locret_71A2
 		move.w	#$420,(v_limitbtm1).w
-		cmpi.w	#$4D0,($FFFFD00C).w
+		cmpi.w	#$4D0,(v_player+obY).w
 		bcs.s	locret_71A2
 		move.w	#$520,(v_limitbtm1).w
 

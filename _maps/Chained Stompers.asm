@@ -1,17 +1,18 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - metal stomping blocks on chains (MZ)
 ; ---------------------------------------------------------------------------
-Map_CStom:	dc.w .wideblock-Map_CStom
-		dc.w .spikes-Map_CStom
-		dc.w .ceiling-Map_CStom
-		dc.w .chain1-Map_CStom
-		dc.w .chain2-Map_CStom
-		dc.w .chain3-Map_CStom
-		dc.w .chain4-Map_CStom
-		dc.w .chain5-Map_CStom
-		dc.w .chain5-Map_CStom
-		dc.w .mediumblock-Map_CStom
-		dc.w .smallblock-Map_CStom
+Map_CStom_internal:
+		dc.w .wideblock-Map_CStom_internal
+		dc.w .spikes-Map_CStom_internal
+		dc.w .ceiling-Map_CStom_internal
+		dc.w .chain1-Map_CStom_internal
+		dc.w .chain2-Map_CStom_internal
+		dc.w .chain3-Map_CStom_internal
+		dc.w .chain4-Map_CStom_internal
+		dc.w .chain5-Map_CStom_internal
+		dc.w .chain5-Map_CStom_internal
+		dc.w .mediumblock-Map_CStom_internal
+		dc.w .smallblock-Map_CStom_internal
 .wideblock:	dc.b 5
 		dc.b $F4, 6, 0,	0, $C8
 		dc.b $F4, $A, 0, 6, $D8

@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Moving Block Platform" Image="frame2special">
+  <Images>
+    <ImageFromMappings id="frame0">
+      <ArtFile filename="../artnem/SBZ Sliding Floor Trap.bin"/>
+      <MapFile type="ASM" filename="../_maps/Moving Blocks (MZ and SBZ).asm" frame="0" startpal="2"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="frame1">
+      <ArtFile filename="../artnem/SBZ Sliding Floor Trap.bin"/>
+      <MapFile type="ASM" filename="../_maps/Moving Blocks (MZ and SBZ).asm" frame="1" startpal="2"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="frame2">
+      <ArtFile filename="../artnem/SBZ Sliding Floor Trap.bin"/>
+      <MapFile type="ASM" filename="../_maps/Moving Blocks (MZ and SBZ).asm" frame="2" startpal="2"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="frame3">
+      <ArtFile filename="../artnem/SBZ Sliding Floor Trap.bin"/>
+      <MapFile type="ASM" filename="../_maps/Moving Blocks (MZ and SBZ).asm" frame="3" startpal="2"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="frame4">
+      <ArtFile filename="../artnem/SBZ Sliding Floor Trap.bin"/>
+      <MapFile type="ASM" filename="../_maps/Moving Blocks (MZ and SBZ).asm" frame="4" startpal="2"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="frame0special">
+      <ArtFile filename="../artnem/SBZ Stomper.bin"/>
+      <MapFile type="ASM" filename="../_maps/Moving Blocks (MZ and SBZ).asm" frame="0" startpal="1"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="frame1special">
+      <ArtFile filename="../artnem/SBZ Stomper.bin"/>
+      <MapFile type="ASM" filename="../_maps/Moving Blocks (MZ and SBZ).asm" frame="1" startpal="1"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="frame2special">
+      <ArtFile filename="../artnem/SBZ Stomper.bin"/>
+      <MapFile type="ASM" filename="../_maps/Moving Blocks (MZ and SBZ).asm" frame="2" startpal="1"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="frame3special">
+      <ArtFile filename="../artnem/SBZ Stomper.bin"/>
+      <MapFile type="ASM" filename="../_maps/Moving Blocks (MZ and SBZ).asm" frame="3" startpal="1"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="frame4special">
+      <ArtFile filename="../artnem/SBZ Stomper.bin"/>
+      <MapFile type="ASM" filename="../_maps/Moving Blocks (MZ and SBZ).asm" frame="4" startpal="1"/>
+    </ImageFromMappings>
+  </Images>
+  <Properties>
+    <BitsProperty name="Sprite" type="MZBlockPlatformSprite" startbit="4" length="4" />
+    <BitsProperty name="Behaviour" type="MZBlockPlatformBehaviour" startbit="0" length="4" />
+  </Properties>
+  <Enums>
+    <Enum name="MZBlockPlatformSprite">
+      <EnumMember name="Invalid 1" />
+      <EnumMember name="Invalid 2" />
+      <EnumMember name="Short Platform" />
+      <EnumMember name="Long Platform" />
+      <EnumMember name="Invalid 3" />
+    </Enum>
+    <Enum name="MZBlockPlatformBehaviour">
+      <EnumMember name="Stationary" />
+      <EnumMember name="Move left and right" />
+      <EnumMember name="When stood on, go right and stop at wall" />
+      <EnumMember name="Go right and stop at wall (not meant to be used)" />
+      <EnumMember name="When stood on, go right and fall at wall" />
+      <EnumMember name="Go right and fall at wall (not meant to be used)" />
+      <EnumMember name="Fall and land on floor (not meant to be used)" />
+      <EnumMember name="Don't appear until a switch (ID 02) is pressed, then, when stood on, go right and fall at wall" />
+      <EnumMember name="Move up and down" />
+      <EnumMember name="When stood on, retract into wall" />
+      <EnumMember name="Retract into wall (not meant to be used)" />
+    </Enum>
+  </Enums>
+  <Display>
+    <DisplayOption>
+      <Condition property="Sprite" value="Short Platform" />
+        <Condition property="Behaviour" value="Move up and down" />
+          <ImageRef image="frame2special" />
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Sprite" value="Invalid 1" />
+      <ImageRef image="frame0" />
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Sprite" value="Invalid 2" />
+      <ImageRef image="frame1" />
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Sprite" value="Short Platform" />
+      <ImageRef image="frame2" />
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Sprite" value="Long Platform" />
+      <ImageRef image="frame3" />
+    </DisplayOption>
+    <DisplayOption>
+      <Condition property="Sprite" value="Invalid 3" />
+      <ImageRef image="frame4" />
+    </DisplayOption>
+  </Display>
+</ObjDef>

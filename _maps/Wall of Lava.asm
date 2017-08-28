@@ -1,11 +1,12 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - advancing wall of lava (MZ)
 ; ---------------------------------------------------------------------------
-Map_LWall:	dc.w byte_F538-Map_LWall
-		dc.w byte_F566-Map_LWall
-		dc.w byte_F594-Map_LWall
-		dc.w byte_F5C2-Map_LWall
-		dc.w byte_F5F0-Map_LWall
+Map_LWall_internal:
+		dc.w byte_F538-Map_LWall_internal
+		dc.w byte_F566-Map_LWall_internal
+		dc.w byte_F594-Map_LWall_internal
+		dc.w byte_F5C2-Map_LWall_internal
+		dc.w byte_F5F0-Map_LWall_internal
 byte_F538:	dc.b 9
 		dc.b $E0, $F, 0, $60, $20
 		dc.b 0,	$F, 0, $70, $3C

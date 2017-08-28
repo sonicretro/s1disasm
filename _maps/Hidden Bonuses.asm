@@ -1,8 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - hidden points at the end of	a level
 ; ---------------------------------------------------------------------------
-Map_Bonus:	dc.w .blank-Map_Bonus, ._10000-Map_Bonus
-		dc.w ._1000-Map_Bonus, ._100-Map_Bonus
+Map_Bonus_internal:
+		dc.w .blank-Map_Bonus_internal
+		dc.w ._10000-Map_Bonus_internal
+		dc.w ._1000-Map_Bonus_internal
+		dc.w ._100-Map_Bonus_internal
 .blank:		dc.b 0
 ._10000:		dc.b 1
 		dc.b $F4, $E, 0, 0, $F0

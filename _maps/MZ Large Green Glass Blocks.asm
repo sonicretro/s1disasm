@@ -1,9 +1,10 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - large green	glassy blocks (MZ)
 ; ---------------------------------------------------------------------------
-Map_Glass:	dc.w .tall-Map_Glass
-		dc.w .shine-Map_Glass
-		dc.w .short-Map_Glass
+Map_Glass_internal:
+		dc.w .tall-Map_Glass_internal
+		dc.w .shine-Map_Glass_internal
+		dc.w .short-Map_Glass_internal
 .tall:		dc.b $C
 		dc.b $B8, $C, 0, 0, $E0	; tall block
 		dc.b $B8, $C, 8, 0, 0

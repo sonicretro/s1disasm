@@ -1,10 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - energy ball	launcher (FZ)
 ; ---------------------------------------------------------------------------
-Map_PLaunch:	dc.w .red-Map_PLaunch
-		dc.w .white-Map_PLaunch
-		dc.w .sparking1-Map_PLaunch
-		dc.w .sparking2-Map_PLaunch
+Map_PLaunch_internal:
+		dc.w .red-Map_PLaunch_internal
+		dc.w .white-Map_PLaunch_internal
+		dc.w .sparking1-Map_PLaunch_internal
+		dc.w .sparking2-Map_PLaunch_internal
 .red:		dc.b 1
 		dc.b $F8, 5, 0,	$6E, $F8
 .white:		dc.b 1

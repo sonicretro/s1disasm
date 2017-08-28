@@ -1,10 +1,14 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Moto Bug enemy (GHZ)
 ; ---------------------------------------------------------------------------
-Map_Moto:	dc.w .moto1-Map_Moto, .moto2-Map_Moto
-		dc.w .moto3-Map_Moto, .smoke1-Map_Moto
-		dc.w .smoke2-Map_Moto, .smoke3-Map_Moto
-		dc.w .blank-Map_Moto
+Map_Moto_internal:
+		dc.w .moto1-Map_Moto_internal
+		dc.w .moto2-Map_Moto_internal
+		dc.w .moto3-Map_Moto_internal
+		dc.w .smoke1-Map_Moto_internal
+		dc.w .smoke2-Map_Moto_internal
+		dc.w .smoke3-Map_Moto_internal
+		dc.w .blank-Map_Moto_internal
 .moto1:		dc.b 4
 		dc.b $F0, $D, 0, 0, $EC
 		dc.b 0,	$C, 0, 8, $EC
