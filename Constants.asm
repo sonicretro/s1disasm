@@ -88,7 +88,7 @@ id_SLZ:		equ 3
 id_SYZ:		equ 4
 id_SBZ:		equ 5
 id_EndZ:	equ 6
-id_SS:		equ ZoneCount	; 7 by default
+id_SS:		equ 7
 
 ; Colours
 cBlack:		equ $000		; colour black

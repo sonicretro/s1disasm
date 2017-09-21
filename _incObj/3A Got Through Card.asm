@@ -172,7 +172,7 @@ Got_Display2:
 ; ---------------------------------------------------------------------------
 LevelOrder:	incbin	"misc\Level Order.bin"
 		even
-		zonewarningnoending LevelOrder,8
+		zonewarning LevelOrder,8
 ; ===========================================================================
 
 Got_Move2:	; Routine $E

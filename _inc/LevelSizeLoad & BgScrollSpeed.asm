@@ -69,12 +69,12 @@ LevelSizeArray:
 		dc.w $0004, $0000, $1E40, $FF00, $0800, $0060
 		dc.w $0004, $2080, $2460, $0510, $0510, $0060
 		dc.w $0004, $0000, $3EC0, $0000, $0720, $0060
+		zonewarning LevelSizeArray,$30
 		; Ending
 		dc.w $0004, $0000, $0500, $0110, $0110, $0060
 		dc.w $0004, $0000, $0DC0, $0110, $0110, $0060
 		dc.w $0004, $0000, $2FFF, $0000, $0320, $0060
 		dc.w $0004, $0000, $2FFF, $0000, $0320, $0060
-		zonewarning LevelSizeArray,$30
 
 ; ---------------------------------------------------------------------------
 ; Ending start location array
@@ -167,8 +167,8 @@ LoopTileNums:
 	dc.b	$AA,	$B4,	$7F,	$7F	; Star Light
 	dc.b	$7F,	$7F,	$7F,	$7F	; Spring Yard
 	dc.b	$7F,	$7F,	$7F,	$7F	; Scrap Brain
-	dc.b	$7F,	$7F,	$7F,	$7F	; Ending (Green Hill)
 	zonewarning LoopTileNums,4
+	dc.b	$7F,	$7F,	$7F,	$7F	; Ending (Green Hill)
 
 		even
 
@@ -192,8 +192,8 @@ dword_61B4:	dc.l $700100, $1000100
 		dc.l $8000100, $1000000
 		dc.l $8000100, $1000000
 		dc.l $8000100, $1000000
-		dc.l $700100, $1000100
 		zonewarning dword_61B4,8
+		dc.l $700100, $1000100
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	set scroll speed of some backgrounds
@@ -223,8 +223,8 @@ loc_6206:
 BgScroll_Index:	dc.w BgScroll_GHZ-BgScroll_Index, BgScroll_LZ-BgScroll_Index
 		dc.w BgScroll_MZ-BgScroll_Index, BgScroll_SLZ-BgScroll_Index
 		dc.w BgScroll_SYZ-BgScroll_Index, BgScroll_SBZ-BgScroll_Index
-		dc.w BgScroll_End-BgScroll_Index
 		zonewarning BgScroll_Index,2
+		dc.w BgScroll_End-BgScroll_Index
 ; ===========================================================================
 
 BgScroll_GHZ:
