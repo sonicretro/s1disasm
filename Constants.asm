@@ -32,36 +32,36 @@ ym2612_d1:		equ $A04003
 security_addr:		equ $A14000
 
 ; Sound driver constants
-zTrackPlaybackControl:	equ 0		; All tracks
-zTrackVoiceControl:	equ 1		; All tracks
-zTrackTempoDivider:	equ 2		; All tracks
-zTrackDataPointer:	equ 4		; All tracks (4 bytes)
-zTrackTranspose:	equ 8		; FM/PSG only (sometimes written to as a word, to include zTrackVolume)
-zTrackVolume:		equ 9		; FM/PSG only
-zTrackAMSFMSPan:	equ $A		; FM/DAC only
-zTrackVoiceIndex:	equ $B		; FM/PSG only
-zTrackVolEnvIndex:	equ $C		; PSG only
-zTrackStackPointer:	equ $D		; All tracks
-zTrackDurationTimeout:	equ $E		; All tracks
-zTrackSavedDuration:	equ $F		; All tracks
-zTrackSavedDAC:		equ $10		; DAC only
-zTrackFreq:		equ $10		; FM/PSG only (2 bytes)
-zTrackNoteTimeout:	equ $12		; FM/PSG only
-zTrackNoteTimeoutMaster:equ $13		; FM/PSG only
-zTrackModulationPtr:	equ $14		; FM/PSG only (4 bytes)
-zTrackModulationWait:	equ $18		; FM/PSG only
-zTrackModulationSpeed:	equ $19		; FM/PSG only
-zTrackModulationDelta:	equ $1A		; FM/PSG only
-zTrackModulationSteps:	equ $1B		; FM/PSG only
-zTrackModulationVal:	equ $1C		; FM/PSG only (2 bytes)
-zTrackDetune:		equ $1E		; FM/PSG only
-zTrackPSGNoise:		equ $1F		; PSG only
-zTrackFeedbackAlgo:	equ $1F		; FM only
-zTrackVoicePtr:		equ $20		; FM SFX only (4 bytes)
-zTrackLoopCounters:	equ $24		; All tracks (multiple bytes)
-zTrackGoSubStack:	equ zTrackSz	; All tracks (multiple bytes. This constant won't get to be used because of an optimisation that just uses zTrackSz)
+TrackPlaybackControl:	equ 0		; All tracks
+TrackVoiceControl:	equ 1		; All tracks
+TrackTempoDivider:	equ 2		; All tracks
+TrackDataPointer:	equ 4		; All tracks (4 bytes)
+TrackTranspose:		equ 8		; FM/PSG only (sometimes written to as a word, to include TrackVolume)
+TrackVolume:		equ 9		; FM/PSG only
+TrackAMSFMSPan:		equ $A		; FM/DAC only
+TrackVoiceIndex:	equ $B		; FM/PSG only
+TrackVolEnvIndex:	equ $C		; PSG only
+TrackStackPointer:	equ $D		; All tracks
+TrackDurationTimeout:	equ $E		; All tracks
+TrackSavedDuration:	equ $F		; All tracks
+TrackSavedDAC:		equ $10		; DAC only
+TrackFreq:		equ $10		; FM/PSG only (2 bytes)
+TrackNoteTimeout:	equ $12		; FM/PSG only
+TrackNoteTimeoutMaster:equ $13		; FM/PSG only
+TrackModulationPtr:	equ $14		; FM/PSG only (4 bytes)
+TrackModulationWait:	equ $18		; FM/PSG only
+TrackModulationSpeed:	equ $19		; FM/PSG only
+TrackModulationDelta:	equ $1A		; FM/PSG only
+TrackModulationSteps:	equ $1B		; FM/PSG only
+TrackModulationVal:	equ $1C		; FM/PSG only (2 bytes)
+TrackDetune:		equ $1E		; FM/PSG only
+TrackPSGNoise:		equ $1F		; PSG only
+TrackFeedbackAlgo:	equ $1F		; FM only
+TrackVoicePtr:		equ $20		; FM SFX only (4 bytes)
+TrackLoopCounters:	equ $24		; All tracks (multiple bytes)
+TrackGoSubStack:	equ zTrackSz	; All tracks (multiple bytes. This constant won't get to be used because of an optimisation that just uses zTrackSz)
 
-zTrackSz:	equ $30
+TrackSz:	equ $30
 
 ; VRAM data
 vram_fg:	equ $C000	; foreground namespace

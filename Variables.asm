@@ -56,43 +56,43 @@ f_push_playing:		equ $02C	; if set, prevents further push sounds from playing
 
 v_music_track_ram:	equ $040	; Start of music RAM
 
-v_music_fmdac_tracks:	equ v_music_track_ram+zTrackSz*0
-v_music_dac_track:	equ v_music_fmdac_tracks+zTrackSz*0
-v_music_fm_tracks:	equ v_music_fmdac_tracks+zTrackSz*1
-v_music_fm1_track:	equ v_music_fm_tracks+zTrackSz*0
-v_music_fm2_track:	equ v_music_fm_tracks+zTrackSz*1
-v_music_fm3_track:	equ v_music_fm_tracks+zTrackSz*2
-v_music_fm4_track:	equ v_music_fm_tracks+zTrackSz*3
-v_music_fm5_track:	equ v_music_fm_tracks+zTrackSz*4
-v_music_fm6_track:	equ v_music_fm_tracks+zTrackSz*5
-v_music_fm_tracks_end:	equ v_music_fm_tracks+zTrackSz*6
+v_music_fmdac_tracks:	equ v_music_track_ram+TrackSz*0
+v_music_dac_track:	equ v_music_fmdac_tracks+TrackSz*0
+v_music_fm_tracks:	equ v_music_fmdac_tracks+TrackSz*1
+v_music_fm1_track:	equ v_music_fm_tracks+TrackSz*0
+v_music_fm2_track:	equ v_music_fm_tracks+TrackSz*1
+v_music_fm3_track:	equ v_music_fm_tracks+TrackSz*2
+v_music_fm4_track:	equ v_music_fm_tracks+TrackSz*3
+v_music_fm5_track:	equ v_music_fm_tracks+TrackSz*4
+v_music_fm6_track:	equ v_music_fm_tracks+TrackSz*5
+v_music_fm_tracks_end:	equ v_music_fm_tracks+TrackSz*6
 v_music_fmdac_tracks_end:	equ v_music_fm_tracks_end
 v_music_psg_tracks:	equ v_music_fmdac_tracks_end
-v_music_psg1_track:	equ v_music_psg_tracks+zTrackSz*0
-v_music_psg2_track:	equ v_music_psg_tracks+zTrackSz*1
-v_music_psg3_track:	equ v_music_psg_tracks+zTrackSz*2
-v_music_psg_tracks_end:	equ v_music_psg_tracks+zTrackSz*3
+v_music_psg1_track:	equ v_music_psg_tracks+TrackSz*0
+v_music_psg2_track:	equ v_music_psg_tracks+TrackSz*1
+v_music_psg3_track:	equ v_music_psg_tracks+TrackSz*2
+v_music_psg_tracks_end:	equ v_music_psg_tracks+TrackSz*3
 v_music_track_ram_end:	equ v_music_psg_tracks_end
 
 v_sfx_track_ram:	equ v_music_track_ram_end	; Start of SFX RAM, straight after the end of music RAM
 
-v_sfx_fm_tracks:	equ v_sfx_track_ram+zTrackSz*0
-v_sfx_fm3_track:	equ v_sfx_fm_tracks+zTrackSz*0
-v_sfx_fm4_track:	equ v_sfx_fm_tracks+zTrackSz*1
-v_sfx_fm5_track:	equ v_sfx_fm_tracks+zTrackSz*2
-v_sfx_fm_tracks_end:	equ v_sfx_fm_tracks+zTrackSz*3
+v_sfx_fm_tracks:	equ v_sfx_track_ram+TrackSz*0
+v_sfx_fm3_track:	equ v_sfx_fm_tracks+TrackSz*0
+v_sfx_fm4_track:	equ v_sfx_fm_tracks+TrackSz*1
+v_sfx_fm5_track:	equ v_sfx_fm_tracks+TrackSz*2
+v_sfx_fm_tracks_end:	equ v_sfx_fm_tracks+TrackSz*3
 v_sfx_psg_tracks:	equ v_sfx_fm_tracks_end
-v_sfx_psg1_track:	equ v_sfx_psg_tracks+zTrackSz*0
-v_sfx_psg2_track:	equ v_sfx_psg_tracks+zTrackSz*1
-v_sfx_psg3_track:	equ v_sfx_psg_tracks+zTrackSz*2
-v_sfx_psg_tracks_end:	equ v_sfx_psg_tracks+zTrackSz*3
+v_sfx_psg1_track:	equ v_sfx_psg_tracks+TrackSz*0
+v_sfx_psg2_track:	equ v_sfx_psg_tracks+TrackSz*1
+v_sfx_psg3_track:	equ v_sfx_psg_tracks+TrackSz*2
+v_sfx_psg_tracks_end:	equ v_sfx_psg_tracks+TrackSz*3
 v_sfx_track_ram_end:	equ v_sfx_psg_tracks_end
 
 v_spcsfx_track_ram:	equ v_sfx_track_ram_end	; Start of special SFX RAM, straight after the end of SFX RAM
 
-v_spcsfx_fm4_track:	equ v_spcsfx_track_ram+zTrackSz*0
-v_spcsfx_psg3_track:	equ v_spcsfx_track_ram+zTrackSz*1
-v_spcsfx_track_ram_end:	equ v_spcsfx_track_ram+zTrackSz*2
+v_spcsfx_fm4_track:	equ v_spcsfx_track_ram+TrackSz*0
+v_spcsfx_psg3_track:	equ v_spcsfx_track_ram+TrackSz*1
+v_spcsfx_track_ram_end:	equ v_spcsfx_track_ram+TrackSz*2
 
 v_1up_ram_copy:		equ v_spcsfx_track_ram_end
 
