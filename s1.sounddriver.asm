@@ -128,7 +128,7 @@ UpdateMusic:
 @driverinput:
 		lea	(v_snddriver_ram&$FFFFFF).l,a6
 		clr.b	f_voice_selector(a6)
-		tst.b	f_stopmusic(a6)			; is music paused?
+		tst.b	f_pausemusic(a6)		; is music paused?
 		bne.w	PauseMusic			; if yes, branch
 		subq.b	#1,v_main_tempo_timeout(a6)	; Has main tempo timer expired?
 		bne.s	@skipdelay
@@ -145,13 +145,13 @@ UpdateMusic:
 		jsr	DoFadeIn(pc)
 ; loc_71BB2:
 @skipfadein:
-		; DANGER! The following line only checks v_playsnd1 and v_playsnd2, breaking v_playnull.
-		tst.w	v_playsnd1(a6)		; is a music or sound queued for played?
+		; DANGER! The following line only checks v_soundqueue0 and v_soundqueue1, breaking v_soundqueue2.
+		tst.w	v_soundqueue0(a6)	; is a music or sound queued for played?
 		beq.s	@nosndinput		; if not, branch
 		jsr	CycleSoundQueue(pc)
 ; loc_71BBC:
 @nosndinput:
-		cmpi.b	#$80,v_playsnd0(a6)	; is song queue set for silence (empty)?
+		cmpi.b	#$80,v_sound_id(a6)	; is song queue set for silence (empty)?
 		beq.s	@nonewsound		; If yes, branch
 		jsr	PlaySoundID(pc)
 ; loc_71BC8:
@@ -233,6 +233,7 @@ DACUpdateTrack:
 		subq.b	#1,zTrackDurationTimeout(a5)	; Has DAC sample timeout expired?
 		bne.s	@locret				; Return if not
 		move.b	#$80,f_updating_dac(a6)		; Set flag to indicate this is the DAC
+;DACDoNext:
 		movea.l	zTrackDataPointer(a5),a4	; DAC track data pointer
 ; loc_71C5E:
 @sampleloop:
@@ -303,7 +304,7 @@ FMUpdateTrack:
 ; ===========================================================================
 ; loc_71CE0:
 @notegoing:
-		jsr	NoteFillUpdate(pc)
+		jsr	NoteTimeoutUpdate(pc)
 		jsr	DoModulation(pc)
 		bra.w	FMUpdateFreq
 ; End of function FMUpdateTrack
@@ -392,7 +393,7 @@ FinishTrackUpdate:
 		move.b	zTrackSavedDuration(a5),zTrackDurationTimeout(a5)	; Reset note timeout
 		btst	#4,(a5)				; Is track set to not attack note? (zTrackPlaybackControl)
 		bne.s	@locret				; If so, branch
-		move.b	zTrackNoteFillMaster(a5),zTrackNoteFillTimeout(a5)	; Reset note fill timeout
+		move.b	zTrackNoteTimeoutMaster(a5),zTrackNoteTimeout(a5)	; Reset note fill timeout
 		clr.b	zTrackVolEnvIndex(a5)		; Reset PSG volume envelope index (even on FM tracks...)
 		btst	#3,(a5)				; Is modulation on?
 		beq.s	@locret				; If not, return (zTrackPlaybackControl)
@@ -412,11 +413,11 @@ FinishTrackUpdate:
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-; sub_71D9E:
-NoteFillUpdate:
-		tst.b	zTrackNoteFillTimeout(a5)	; Is note fill on?
+; sub_71D9E: NoteFillUpdate
+NoteTimeoutUpdate:
+		tst.b	zTrackNoteTimeout(a5)	; Is note fill on?
 		beq.s	@locret
-		subq.b	#1,zTrackNoteFillTimeout(a5)	; Update note fill timeout
+		subq.b	#1,zTrackNoteTimeout(a5)	; Update note fill timeout
 		bne.s	@locret				; Return if it hasn't expired
 		bset	#1,(a5)				; Put track at rest (zTrackPlaybackControl)
 		tst.b	zTrackVoiceControl(a5)		; Is this a psg track?
@@ -432,7 +433,7 @@ NoteFillUpdate:
 ; locret_71DC4:
 @locret:
 		rts	
-; End of function NoteFillUpdate
+; End of function NoteTimeoutUpdate
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -514,9 +515,9 @@ FMSetRest:
 ; loc_71E50:
 PauseMusic:
 		bmi.s	@unpausemusic		; Branch if music is being unpaused
-		cmpi.b	#2,f_stopmusic(a6)
+		cmpi.b	#2,f_pausemusic(a6)
 		beq.w	@unpausedallfm
-		move.b	#2,f_stopmusic(a6)
+		move.b	#2,f_pausemusic(a6)
 		moveq	#2,d3
 		move.b	#$B4,d0		; Command to set AMS/FMS/panning
 		moveq	#0,d1		; No panning, AMS or FMS
@@ -542,7 +543,7 @@ PauseMusic:
 ; ===========================================================================
 ; loc_71E94:
 @unpausemusic:
-		clr.b	f_stopmusic(a6)
+		clr.b	f_pausemusic(a6)
 		moveq	#zTrackSz,d3
 		lea	v_music_fmdac_tracks(a6),a5
 		moveq	#((v_music_fmdac_tracks_end-v_music_fmdac_tracks)/zTrackSz)-1,d4	; 6 FM + 1 DAC tracks
@@ -597,9 +598,9 @@ PauseMusic:
 ; Sound_Play:
 CycleSoundQueue:
 		movea.l	(Go_SoundPriorities).l,a0
-		lea	v_playsnd1(a6),a1	; load music track number
+		lea	v_soundqueue0(a6),a1	; load music track number
 		move.b	v_sndprio(a6),d3	; Get priority of currently playing SFX
-		moveq	#2,d4			; Number of queues-1 (v_playsnd1, v_playsnd2, v_playnull)
+		moveq	#2,d4			; Number of queues-1 (v_soundqueue0, v_soundqueue1, v_soundqueue2)
 ; loc_71F12:
 @inputloop:
 		move.b	(a1),d0			; move track number to d0
@@ -607,9 +608,9 @@ CycleSoundQueue:
 		clr.b	(a1)+			; Clear entry
 		subi.b	#bgm__First,d0		; Make it into 0-based index
 		blo.s	@nextinput		; If negative (i.e., it was $80 or lower), branch
-		cmpi.b	#$80,v_playsnd0(a6)	; Is v_playsnd0 a $80 (silence/empty)?
+		cmpi.b	#$80,v_sound_id(a6)	; Is v_sound_id a $80 (silence/empty)?
 		beq.s	@havesound		; If yes, branch
-		move.b	d1,v_playsnd1(a6)	; Put sound into v_playsnd1
+		move.b	d1,v_soundqueue0(a6)	; Put sound into v_soundqueue0
 		bra.s	@nextinput
 ; ===========================================================================
 ; loc_71F2C:
@@ -619,7 +620,7 @@ CycleSoundQueue:
 		cmp.b	d3,d2			; Is it a lower priority sound?
 		blo.s	@nextinput		; Branch if yes
 		move.b	d2,d3			; Store new priority
-		move.b	d1,v_playsnd0(a6)	; Queue sound for play
+		move.b	d1,v_sound_id(a6)	; Queue sound for play
 ; loc_71F3E:
 @nextinput:
 		dbf	d4,@inputloop
@@ -638,10 +639,10 @@ CycleSoundQueue:
 ; Sound_ChkValue:
 PlaySoundID:
 		moveq	#0,d7
-		move.b	v_playsnd0(a6),d7
+		move.b	v_sound_id(a6),d7
 		beq.w	StopAllSound
 		bpl.s	@locret			; If >= 0, return (not a valid sound, bgm or command)
-		move.b	#$80,v_playsnd0(a6)	; reset	music flag
+		move.b	#$80,v_sound_id(a6)	; reset	music flag
 		; DANGER! Music ends at $93, yet this checks until $9F; attempting to
 		; play sounds $94-$9F will cause a crash! Remove the '+$C' to fix this.
 		; See LevSel_NoCheat for more.
@@ -1390,7 +1391,7 @@ StopAllSound:
 		clr.l	(a0)+
 		dbf	d0,@clearramloop
 
-		move.b	#$80,v_playsnd0(a6)	; set music to $80 (silence)
+		move.b	#$80,v_sound_id(a6)	; set music to $80 (silence)
 		jsr	FMSilenceAll(pc)
 		bra.w	PSGSilenceAll
 
@@ -1404,7 +1405,8 @@ InitMusicPlayback:
 		move.b	f_1up_playing(a6),d2
 		move.b	f_speedup(a6),d3
 		move.b	v_fadein_counter(a6),d4
-		move.w	v_playsnd1(a6),d5
+		; DANGER! Only v_soundqueue0 and v_soundqueue1 are backed up, once again breaking v_soundqueue2
+		move.w	v_soundqueue0(a6),d5
 		move.w	#((v_music_track_ram_end-v_startofvariables)/4)-1,d0	; Clear $220 bytes: all variables and music track data
 ; loc_725E4:
 @clearramloop:
@@ -1416,8 +1418,8 @@ InitMusicPlayback:
 		move.b	d2,f_1up_playing(a6)
 		move.b	d3,f_speedup(a6)
 		move.b	d4,v_fadein_counter(a6)
-		move.w	d5,v_playsnd1(a6)
-		move.b	#$80,v_playsnd0(a6)	; set music to $80 (silence)
+		move.w	d5,v_soundqueue0(a6)
+		move.b	#$80,v_sound_id(a6)	; set music to $80 (silence)
 		; DANGER! This silences ALL channels, even the ones being used
 		; by SFX, and not music! @sendfmnoteoff does this already, and
 		; doesn't affect SFX channels, either.
@@ -1696,7 +1698,7 @@ PSGUpdateTrack:
 ; ===========================================================================
 ; loc_72866:
 @notegoing:
-		jsr	NoteFillUpdate(pc)
+		jsr	NoteTimeoutUpdate(pc)
 		jsr	PSGUpdateVolFX(pc)
 		jsr	DoModulation(pc)
 		jsr	PSGUpdateFreq(pc)	; It would be better if this were a jmp and the rts was removed
@@ -1844,7 +1846,7 @@ SetPSGVolume:
 		btst	#2,(a5)		; Is SFX overriding? (zTrackPlaybackControl)
 		bne.s	locret_7298A	; Return if so
 		btst	#4,(a5)		; Is track set to not attack next note? (zTrackPlaybackControl)
-		bne.s	PSGCheckNoteFill ; Branch if yes
+		bne.s	PSGCheckNoteTimeout ; Branch if yes
 ; loc_7297C:
 PSGSendVolume:
 		or.b	zTrackVoiceControl(a5),d6 ; Add in track selector bits
@@ -1854,17 +1856,17 @@ PSGSendVolume:
 locret_7298A:
 		rts	
 ; ===========================================================================
-; loc_7298C:
-PSGCheckNoteFill:
-		tst.b	zTrackNoteFillMaster(a5)	; Is note fill on?
+; loc_7298C: PSGCheckNoteFill:
+PSGCheckNoteTimeout:
+		tst.b	zTrackNoteTimeoutMaster(a5)	; Is note timeout on?
 		beq.s	PSGSendVolume			; Branch if not
-		tst.b	zTrackNoteFillTimeout(a5)	; Has note fill timeout expired?
+		tst.b	zTrackNoteTimeout(a5)		; Has note timeout expired?
 		bne.s	PSGSendVolume			; Branch if not
 		rts	
 ; End of function SetPSGVolume
 
 ; ===========================================================================
-; loc_7299A: VolEnvHold:
+; loc_7299A: FlutterDone:
 VolEnvHold:
 		subq.b	#1,zTrackVolEnvIndex(a5)	; Decrement volume envelope index
 		rts	
@@ -1946,13 +1948,13 @@ coordflagLookup:
 ; ===========================================================================
 		bra.w	cfHoldNote		; $E7
 ; ===========================================================================
-		bra.w	cfNoteFill		; $E8
+		bra.w	cfNoteTimeout		; $E8
 ; ===========================================================================
 		bra.w	cfChangeTransposition	; $E9
 ; ===========================================================================
 		bra.w	cfSetTempo		; $EA
 ; ===========================================================================
-		bra.w	cfSetTempoMod		; $EB
+		bra.w	cfSetTempoDividerAll	; $EB
 ; ===========================================================================
 		bra.w	cfChangePSGVolume	; $EC
 ; ===========================================================================
@@ -2089,10 +2091,10 @@ cfHoldNote:
 		bset	#4,(a5)		; Set 'do not attack next note' bit (zTrackPlaybackControl)
 		rts	
 ; ===========================================================================
-; loc_72BB4:
-cfNoteFill:
-		move.b	(a4),zTrackNoteFillTimeout(a5)	; Note fill timeout
-		move.b	(a4)+,zTrackNoteFillMaster(a5)	; Note fill master
+; loc_72BB4: cfNoteFill
+cfNoteTimeout:
+		move.b	(a4),zTrackNoteTimeout(a5)		; Note fill timeout
+		move.b	(a4)+,zTrackNoteTimeoutMaster(a5)	; Note fill master
 		rts	
 ; ===========================================================================
 ; loc_72BBE: cfAddKey:
@@ -2107,8 +2109,8 @@ cfSetTempo:
 		move.b	(a4)+,v_main_tempo_timeout(a6)	; And reset timeout (!)
 		rts	
 ; ===========================================================================
-; loc_72BD0:
-cfSetTempoMod:
+; loc_72BD0: cfSetTempoMod:
+cfSetTempoDividerAll:
 		lea	v_music_track_ram(a6),a0
 		move.b	(a4)+,d0			; Get new tempo divider
 		moveq	#zTrackSz,d1

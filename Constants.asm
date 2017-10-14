@@ -46,8 +46,8 @@ zTrackDurationTimeout:	equ $E		; All tracks
 zTrackSavedDuration:	equ $F		; All tracks
 zTrackSavedDAC:		equ $10		; DAC only
 zTrackFreq:		equ $10		; FM/PSG only (2 bytes)
-zTrackNoteFillTimeout:	equ $12		; FM/PSG only
-zTrackNoteFillMaster:	equ $13		; FM/PSG only
+zTrackNoteTimeout:	equ $12		; FM/PSG only
+zTrackNoteTimeoutMaster:equ $13		; FM/PSG only
 zTrackModulationPtr:	equ $14		; FM/PSG only (4 bytes)
 zTrackModulationWait:	equ $18		; FM/PSG only
 zTrackModulationSpeed:	equ $19		; FM/PSG only

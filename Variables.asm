@@ -27,16 +27,16 @@ v_startofvariables:	equ $000
 v_sndprio:		equ $000	; sound priority (priority of new music/SFX must be higher or equal to this value or it won't play; bit 7 of priority being set prevents this value from changing)
 v_main_tempo_timeout:	equ $001	; Counts down to zero; when zero, resets to next value and delays song by 1 frame
 v_main_tempo:		equ $002	; Used for music only
-f_stopmusic:		equ $003	; flag set to stop music when paused
+f_pausemusic:		equ $003	; flag set to stop music when paused
 v_fadeout_counter:	equ $004
 
-v_fadeout_delay:		equ $006
+v_fadeout_delay:	equ $006
 v_communication_byte:	equ $007	; used in Ristar to sync with a boss' attacks; unused here
 f_updating_dac:		equ $008	; $80 if updating DAC, $00 otherwise
-v_playsnd0:		equ $009	; sound or music copied from below
-v_playsnd1:		equ $00A	; sound or music to play
-v_playsnd2:		equ $00B	; special sound to play
-v_playnull:		equ $00C	; unused sound to play
+v_sound_id:		equ $009	; sound or music copied from below
+v_soundqueue0:		equ $00A	; sound or music to play
+v_soundqueue1:		equ $00B	; special sound to play
+v_soundqueue2:		equ $00C	; unused sound to play
 
 f_voice_selector:	equ $00E	; $00 = use music voice pointer; $40 = use special voice pointer; $80 = use track voice pointer
 
@@ -74,12 +74,12 @@ v_music_psg3_track:	equ v_music_psg_tracks+zTrackSz*2
 v_music_psg_tracks_end:	equ v_music_psg_tracks+zTrackSz*3
 v_music_track_ram_end:	equ v_music_psg_tracks_end
 
-v_sfx_track_ram:		equ v_music_track_ram_end	; Start of SFX RAM, straight after the end of music RAM
+v_sfx_track_ram:	equ v_music_track_ram_end	; Start of SFX RAM, straight after the end of music RAM
 
-v_sfx_fm_tracks:		equ v_sfx_track_ram+zTrackSz*0
-v_sfx_fm3_track:		equ v_sfx_fm_tracks+zTrackSz*0
-v_sfx_fm4_track:		equ v_sfx_fm_tracks+zTrackSz*1
-v_sfx_fm5_track:		equ v_sfx_fm_tracks+zTrackSz*2
+v_sfx_fm_tracks:	equ v_sfx_track_ram+zTrackSz*0
+v_sfx_fm3_track:	equ v_sfx_fm_tracks+zTrackSz*0
+v_sfx_fm4_track:	equ v_sfx_fm_tracks+zTrackSz*1
+v_sfx_fm5_track:	equ v_sfx_fm_tracks+zTrackSz*2
 v_sfx_fm_tracks_end:	equ v_sfx_fm_tracks+zTrackSz*3
 v_sfx_psg_tracks:	equ v_sfx_fm_tracks_end
 v_sfx_psg1_track:	equ v_sfx_psg_tracks+zTrackSz*0
