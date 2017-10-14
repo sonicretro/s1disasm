@@ -55,8 +55,8 @@ loc_6DC4:
 DLE_Index:	dc.w DLE_GHZ-DLE_Index, DLE_LZ-DLE_Index
 		dc.w DLE_MZ-DLE_Index, DLE_SLZ-DLE_Index
 		dc.w DLE_SYZ-DLE_Index, DLE_SBZ-DLE_Index
-		dc.w DLE_Ending-DLE_Index
 		zonewarning DLE_Index,2
+		dc.w DLE_Ending-DLE_Index
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Green	Hill Zone dynamic level events

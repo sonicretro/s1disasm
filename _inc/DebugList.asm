@@ -8,8 +8,8 @@ DebugList:
 	dc.w .SLZ-DebugList
 	dc.w .SYZ-DebugList
 	dc.w .SBZ-DebugList
-	dc.w .Ending-DebugList
 	zonewarning DebugList,2
+	dc.w .Ending-DebugList
 
 dbug:	macro map,object,subtype,frame,vram
 	dc.l map+(object<<24)

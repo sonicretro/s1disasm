@@ -23,7 +23,7 @@ AddressSRAM	  = 3	; 0 = odd+even; 2 = even only; 3 = odd only
 
 Revision	  = 0	; change to 1 for JP1 revision
 
-ZoneCount	  = 7	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, SBZ and Ending
+ZoneCount:	  = 6	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, and SBZ
 
 OptimiseSound	  = 0	; change to 1 to optimise sound queuing
 
@@ -2652,8 +2652,15 @@ LevelMenuText:	if Revision=0
 ; ---------------------------------------------------------------------------
 ; Music	playlist
 ; ---------------------------------------------------------------------------
-MusicList:	dc.b bgm_GHZ, bgm_LZ, bgm_MZ, bgm_SLZ, bgm_SYZ, bgm_SBZ, bgm_FZ
+MusicList:
+		dc.b bgm_GHZ	; GHZ
+		dc.b bgm_LZ	; LZ
+		dc.b bgm_MZ	; MZ
+		dc.b bgm_SLZ	; SLZ
+		dc.b bgm_SYZ	; SYZ
+		dc.b bgm_SBZ	; SBZ
 		zonewarning MusicList,1
+		dc.b bgm_FZ	; Ending
 		even
 ; ===========================================================================
 
@@ -3041,8 +3048,8 @@ ColPointers:	dc.l Col_GHZ
 		dc.l Col_SLZ
 		dc.l Col_SYZ
 		dc.l Col_SBZ
+		zonewarning ColPointers,4
 ;		dc.l Col_GHZ ; Pointer for Ending is missing by default.
-		zonewarningnoending ColPointers,4
 
 		include	"_inc/Oscillatory Routines.asm"
 
@@ -6825,8 +6832,15 @@ Sonic_Modes:	dc.w Sonic_MdNormal-Sonic_Modes
 ; ---------------------------------------------------------------------------
 ; Music	to play	after invincibility wears off
 ; ---------------------------------------------------------------------------
-MusicList2:	dc.b bgm_GHZ, bgm_LZ, bgm_MZ, bgm_SLZ, bgm_SYZ, bgm_SBZ
-		zonewarningnoending MusicList2,1
+MusicList2:
+		dc.b bgm_GHZ
+		dc.b bgm_LZ
+		dc.b bgm_MZ
+		dc.b bgm_SLZ
+		dc.b bgm_SYZ
+		dc.b bgm_SBZ
+		zonewarning MusicList2,1
+		; The ending doesn't get an entry
 		even
 
 		include	"_incObj/Sonic Display.asm"
@@ -8835,35 +8849,43 @@ Art_SbzSmoke:	binclude	"artunc/SBZ Background Smoke.bin"
 ; ---------------------------------------------------------------------------
 ; Level	layout index
 ; ---------------------------------------------------------------------------
-Level_Index:	dc.w Level_GHZ1-Level_Index, Level_GHZbg-Level_Index, byte_68D70-Level_Index
+Level_Index:
+		; GHZ
+		dc.w Level_GHZ1-Level_Index, Level_GHZbg-Level_Index, byte_68D70-Level_Index
 		dc.w Level_GHZ2-Level_Index, Level_GHZbg-Level_Index, byte_68E3C-Level_Index
 		dc.w Level_GHZ3-Level_Index, Level_GHZbg-Level_Index, byte_68F84-Level_Index
 		dc.w byte_68F88-Level_Index, byte_68F88-Level_Index, byte_68F88-Level_Index
+		; LZ
 		dc.w Level_LZ1-Level_Index, Level_LZbg-Level_Index, byte_69190-Level_Index
 		dc.w Level_LZ2-Level_Index, Level_LZbg-Level_Index, byte_6922E-Level_Index
 		dc.w Level_LZ3-Level_Index, Level_LZbg-Level_Index, byte_6934C-Level_Index
 		dc.w Level_SBZ3-Level_Index, Level_LZbg-Level_Index, byte_6940A-Level_Index
+		; MZ
 		dc.w Level_MZ1-Level_Index, Level_MZ1bg-Level_Index, Level_MZ1-Level_Index
 		dc.w Level_MZ2-Level_Index, Level_MZ2bg-Level_Index, byte_6965C-Level_Index
 		dc.w Level_MZ3-Level_Index, Level_MZ3bg-Level_Index, byte_697E6-Level_Index
 		dc.w byte_697EA-Level_Index, byte_697EA-Level_Index, byte_697EA-Level_Index
+		; SLZ
 		dc.w Level_SLZ1-Level_Index, Level_SLZbg-Level_Index, byte_69B84-Level_Index
 		dc.w Level_SLZ2-Level_Index, Level_SLZbg-Level_Index, byte_69B84-Level_Index
 		dc.w Level_SLZ3-Level_Index, Level_SLZbg-Level_Index, byte_69B84-Level_Index
 		dc.w byte_69B84-Level_Index, byte_69B84-Level_Index, byte_69B84-Level_Index
+		; SYZ
 		dc.w Level_SYZ1-Level_Index, Level_SYZbg-Level_Index, byte_69C7E-Level_Index
 		dc.w Level_SYZ2-Level_Index, Level_SYZbg-Level_Index, byte_69D86-Level_Index
 		dc.w Level_SYZ3-Level_Index, Level_SYZbg-Level_Index, byte_69EE4-Level_Index
 		dc.w byte_69EE8-Level_Index, byte_69EE8-Level_Index, byte_69EE8-Level_Index
+		; SBZ
 		dc.w Level_SBZ1-Level_Index, Level_SBZ1bg-Level_Index, Level_SBZ1bg-Level_Index
 		dc.w Level_SBZ2-Level_Index, Level_SBZ2bg-Level_Index, Level_SBZ2bg-Level_Index
 		dc.w Level_SBZ2-Level_Index, Level_SBZ2bg-Level_Index, byte_6A2F8-Level_Index
 		dc.w byte_6A2FC-Level_Index, byte_6A2FC-Level_Index, byte_6A2FC-Level_Index
-		dc.w Level_End-Level_Index, Level_GHZbg-Level_Index, byte_6A320-Level_Index
-		dc.w Level_End-Level_Index, Level_GHZbg-Level_Index, byte_6A320-Level_Index
-		dc.w byte_6A320-Level_Index, byte_6A320-Level_Index, byte_6A320-Level_Index
-		dc.w byte_6A320-Level_Index, byte_6A320-Level_Index, byte_6A320-Level_Index
 		zonewarning Level_Index,24
+		; Ending
+		dc.w Level_End-Level_Index, Level_GHZbg-Level_Index, byte_6A320-Level_Index
+		dc.w Level_End-Level_Index, Level_GHZbg-Level_Index, byte_6A320-Level_Index
+		dc.w byte_6A320-Level_Index, byte_6A320-Level_Index, byte_6A320-Level_Index
+		dc.w byte_6A320-Level_Index, byte_6A320-Level_Index, byte_6A320-Level_Index
 
 Level_GHZ1:	binclude	"levels/ghz1.bin"
 		even
@@ -8959,35 +8981,43 @@ Art_BigRing:	binclude	"artunc/Giant Ring.bin"
 ; ---------------------------------------------------------------------------
 ; Sprite locations index
 ; ---------------------------------------------------------------------------
-ObjPos_Index:	dc.w ObjPos_GHZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
+ObjPos_Index:
+		; GHZ
+		dc.w ObjPos_GHZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_GHZ2-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_GHZ3-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_GHZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		; LZ
 		dc.w ObjPos_LZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_LZ2-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_LZ3-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_SBZ3-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		; MZ
 		dc.w ObjPos_MZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_MZ2-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_MZ3-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_MZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		; SLZ
 		dc.w ObjPos_SLZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_SLZ2-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_SLZ3-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_SLZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		; SYZ
 		dc.w ObjPos_SYZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_SYZ2-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_SYZ3-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_SYZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		; SBZ
 		dc.w ObjPos_SBZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_SBZ2-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_FZ-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		dc.w ObjPos_SBZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_End-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_End-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_End-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_End-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		zonewarning ObjPos_Index,$10
+		; Ending
+		dc.w ObjPos_End-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		dc.w ObjPos_End-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		dc.w ObjPos_End-ObjPos_Index, ObjPos_Null-ObjPos_Index
+		dc.w ObjPos_End-ObjPos_Index, ObjPos_Null-ObjPos_Index
 		; --- Put extra object data here. ---
 ObjPosLZPlatform_Index:
 		dc.w ObjPos_LZ1pf1-ObjPos_Index, ObjPos_LZ1pf2-ObjPos_Index

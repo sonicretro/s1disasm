@@ -32,10 +32,11 @@
 		binclude	"startpos/fz.bin"
 		dc.w	$80,$A8
 
-		binclude	"startpos/end1.bin"
-		binclude	"startpos/end2.bin"
+		zonewarning StartLocArray,$10
+
+		binclude	"startpos\end1.bin"
+		binclude	"startpos\end2.bin"
 		dc.w	$80,$A8
 		dc.w	$80,$A8
 
 		even
-		zonewarning StartLocArray,$10
