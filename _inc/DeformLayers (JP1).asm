@@ -35,8 +35,8 @@ loc_628E:
 Deform_Index:	dc.w Deform_GHZ-Deform_Index, Deform_LZ-Deform_Index
 		dc.w Deform_MZ-Deform_Index, Deform_SLZ-Deform_Index
 		dc.w Deform_SYZ-Deform_Index, Deform_SBZ-Deform_Index
-		dc.w Deform_GHZ-Deform_Index
 		zonewarning Deform_Index,2
+		dc.w Deform_GHZ-Deform_Index
 ; ---------------------------------------------------------------------------
 ; Green	Hill Zone background layer deformation code
 ; ---------------------------------------------------------------------------
