@@ -114,8 +114,11 @@ v_vdp_buffer1	= ramaddr ( $FFFFF60C )	; VDP instruction buffer (2 bytes)
 
 v_demolength	= ramaddr ( $FFFFF614 )	; the length of a demo in frames (2 bytes)
 v_scrposy_dup	= ramaddr ( $FFFFF616 )	; screen position y (duplicate) (2 bytes)
-
+v_bgscreenposy_dup_unused	= ramaddr ( $FFFFF618 )	; background screen position y (duplicate) (2 bytes)
 v_scrposx_dup	= ramaddr ( $FFFFF61A )	; screen position x (duplicate) (2 bytes)
+v_bgscreenposx_dup_unused	= ramaddr ( $FFFFF61C )	; background screen position x (duplicate) (2 bytes)
+v_bg3screenposy_dup_unused	= ramaddr ( $FFFFF61E )	; (2 bytes)
+v_bg3screenposx_dup_unused	= ramaddr ( $FFFFF620 )	; (2 bytes)
 
 v_hbla_hreg	= ramaddr ( $FFFFF624 )	; VDP H.interrupt register buffer (8Axx) (2 bytes)
 v_hbla_line	= ramaddr ( $FFFFF625 )	; screen line where water starts and palette is changed by HBlank
@@ -168,9 +171,10 @@ v_lookshift	= ramaddr ( $FFFFF73E )	; screen shift when Sonic looks up/down (2 b
 v_dle_routine	= ramaddr ( $FFFFF742 )	; dynamic level event - routine counter
 f_nobgscroll	= ramaddr ( $FFFFF744 )	; flag set to cancel background scrolling
 
-v_bgscroll1	= ramaddr ( $FFFFF754 )	; background scrolling variable 1
-v_bgscroll2	= ramaddr ( $FFFFF756 )	; background scrolling variable 2
-v_bgscroll3	= ramaddr ( $FFFFF758 )	; background scrolling variable 3
+v_fg_scroll_flags	= ramaddr ( $FFFFF754 )	; background scrolling variable 1
+v_bg1_scroll_flags	= ramaddr ( $FFFFF756 )	; background scrolling variable 2
+v_bg2_scroll_flags	= ramaddr ( $FFFFF758 )	; background scrolling variable 3
+v_bg3_scroll_flags	= ramaddr ( $FFFFF75A )	; background scrolling variable 4
 f_bgscrollvert	= ramaddr ( $FFFFF75C )	; flag for vertical background scrolling
 v_sonspeedmax	= ramaddr ( $FFFFF760 )	; Sonic's maximum speed (2 bytes)
 v_sonspeedacc	= ramaddr ( $FFFFF762 )	; Sonic's acceleration (2 bytes)
@@ -229,6 +233,10 @@ v_ringbonus	= ramaddr ( $FFFFF7D4 )	; ring bonus at the end of an act (2 bytes)
 f_endactbonus	= ramaddr ( $FFFFF7D6 )	; time/ring bonus update flag at the end of an act
 v_sonicend	= ramaddr ( $FFFFF7D7 )	; routine counter for Sonic in the ending sequence
 f_switch	= ramaddr ( $FFFFF7E0 )	; flags set when Sonic stands on a switch ($10 bytes)
+v_scroll_block_1_size	= ramaddr ( $FFFFF7F0 )	; (2 bytes)
+v_scroll_block_2_size	= ramaddr ( $FFFFF7F2 )	; unused (2 bytes)
+v_scroll_block_3_size	= ramaddr ( $FFFFF7F4 )	; unused (2 bytes)
+v_scroll_block_4_size	= ramaddr ( $FFFFF7F6 )	; unused (2 bytes)
 
 v_spritetablebuffer	= ramaddr ( $FFFFF800 )	; sprite table ($200 bytes)
 v_pal_water_dup	= ramaddr ( $FFFFFA00 )	; duplicate underwater palette, used for transitions ($80 bytes)
@@ -297,6 +305,19 @@ v_ani3_frame	= ramaddr ( $FFFFFEC7 )	; synchronised sprite animation 3 - current
 v_ani3_buf	= ramaddr ( $FFFFFEC8 )	; synchronised sprite animation 3 - info buffer (2 bytes)
 v_limittopdb	= ramaddr ( $FFFFFEF0 )	; level upper boundary, buffered for debug mode (2 bytes)
 v_limitbtmdb	= ramaddr ( $FFFFFEF2 )	; level bottom boundary, buffered for debug mode (2 bytes)
+
+v_screenposx_dup	= ramaddr ( $FFFFFF10 )	; screen position x (duplicate) (2 bytes)
+v_screenposy_dup	= ramaddr ( $FFFFFF14 )	; screen position y (duplicate) (2 bytes)
+v_bgscreenposx_dup	= ramaddr ( $FFFFFF18 )	; background screen position x (duplicate) (2 bytes)
+v_bgscreenposy_dup	= ramaddr ( $FFFFFF1C )	; background screen position y (duplicate) (2 bytes)
+v_bg2screenposx_dup	= ramaddr ( $FFFFFF20 )	; 2 bytes
+v_bg2screenposy_dup	= ramaddr ( $FFFFFF24 )	; 2 bytes
+v_bg3screenposx_dup	= ramaddr ( $FFFFFF28 )	; 2 bytes
+v_bg3screenposy_dup	= ramaddr ( $FFFFFF2C )	; 2 bytes
+v_fg_scroll_flags_dup	= ramaddr ( $FFFFFF30 )
+v_bg1_scroll_flags_dup	= ramaddr ( $FFFFFF32 )
+v_bg2_scroll_flags_dup	= ramaddr ( $FFFFFF34 )
+v_bg3_scroll_flags_dup	= ramaddr ( $FFFFFF36 )
 
 v_levseldelay	= ramaddr ( $FFFFFF80 )	; level select - time until change when up/down is held (2 bytes)
 v_levselitem	= ramaddr ( $FFFFFF82 )	; level select - item selected (2 bytes)

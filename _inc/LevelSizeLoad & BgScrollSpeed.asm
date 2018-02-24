@@ -146,7 +146,7 @@ SetScr_WithinBottom:
 		move.b	(v_zone).w,d0
 		lsl.b	#2,d0
 		move.l	LoopTileNums(pc,d0.w),(v_256loop1).w
-		bra.w	LevSz_Unk
+		bra.w	LevSz_LoadScrollBlockSize
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Sonic start location array
@@ -173,27 +173,57 @@ LoopTileNums:
 		even
 
 ; ===========================================================================
-
-LevSz_Unk:
+; LevSz_Unk:
+LevSz_LoadScrollBlockSize:
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
 		lsl.w	#3,d0
-		lea	dword_61B4(pc,d0.w),a1
-		lea	($FFFFF7F0).w,a2
+		lea	BGScrollBlockSizes(pc,d0.w),a1
+		lea	(v_scroll_block_1_size).w,a2
 		move.l	(a1)+,(a2)+
 		move.l	(a1)+,(a2)+
 		rts	
 ; End of function LevelSizeLoad
 
 ; ===========================================================================
-dword_61B4:	dc.l $700100, $1000100
-		dc.l $8000100, $1000000
-		dc.l $8000100, $1000000
-		dc.l $8000100, $1000000
-		dc.l $8000100, $1000000
-		dc.l $8000100, $1000000
-		zonewarning dword_61B4,8
-		dc.l $700100, $1000100
+; dword_61B4:
+BGScrollBlockSizes:
+		; GHZ
+		dc.w $70
+		dc.w $100	; I guess these used to be per act?
+		dc.w $100	; Or maybe each scroll block got its own size?
+		dc.w $100	; Either way, these are unused now.
+		; LZ
+		dc.w $800
+		dc.w $100
+		dc.w $100
+		dc.w 0
+		; MZ
+		dc.w $800
+		dc.w $100
+		dc.w $100
+		dc.w 0
+		; SLZ
+		dc.w $800
+		dc.w $100
+		dc.w $100
+		dc.w 0
+		; SYZ
+		dc.w $800
+		dc.w $100
+		dc.w $100
+		dc.w 0
+		; SBZ
+		dc.w $800
+		dc.w $100
+		dc.w $100
+		dc.w 0
+		zonewarning BGScrollBlockSizes,8
+		; Ending
+		dc.w $70
+		dc.w $100
+		dc.w $100
+		dc.w $100
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	set scroll speed of some backgrounds
