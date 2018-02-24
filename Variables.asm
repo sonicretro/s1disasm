@@ -110,8 +110,11 @@ v_vdp_buffer1:	equ $FFFFF60C	; VDP instruction buffer (2 bytes)
 
 v_demolength:	equ $FFFFF614	; the length of a demo in frames (2 bytes)
 v_scrposy_dup:	equ $FFFFF616	; screen position y (duplicate) (2 bytes)
-
+v_bgscreenposy_dup_unused:	equ $FFFFF618	; background screen position y (duplicate) (2 bytes)
 v_scrposx_dup:	equ $FFFFF61A	; screen position x (duplicate) (2 bytes)
+v_bgscreenposx_dup_unused:	equ $FFFFF61C	; background screen position x (duplicate) (2 bytes)
+v_bg3screenposy_dup_unused:	equ $FFFFF61E	; (2 bytes)
+v_bg3screenposx_dup_unused:	equ $FFFFF620	; (2 bytes)
 
 v_hbla_hreg:	equ $FFFFF624	; VDP H.interrupt register buffer (8Axx) (2 bytes)
 v_hbla_line:	equ $FFFFF625	; screen line where water starts and palette is changed by HBlank
@@ -164,9 +167,10 @@ v_lookshift:	equ $FFFFF73E	; screen shift when Sonic looks up/down (2 bytes)
 v_dle_routine:	equ $FFFFF742	; dynamic level event - routine counter
 f_nobgscroll:	equ $FFFFF744	; flag set to cancel background scrolling
 
-v_bgscroll1:	equ $FFFFF754	; background scrolling variable 1
-v_bgscroll2:	equ $FFFFF756	; background scrolling variable 2
-v_bgscroll3:	equ $FFFFF758	; background scrolling variable 3
+v_fg_scroll_flags:	equ $FFFFF754	; background scrolling variable 1
+v_bg1_scroll_flags:	equ $FFFFF756	; background scrolling variable 2
+v_bg2_scroll_flags:	equ $FFFFF758	; background scrolling variable 3
+v_bg3_scroll_flags:	equ $FFFFF75A	; background scrolling variable 4
 f_bgscrollvert:	equ $FFFFF75C	; flag for vertical background scrolling
 v_sonspeedmax:	equ $FFFFF760	; Sonic's maximum speed (2 bytes)
 v_sonspeedacc:	equ $FFFFF762	; Sonic's acceleration (2 bytes)
@@ -225,6 +229,10 @@ v_ringbonus:	equ $FFFFF7D4	; ring bonus at the end of an act (2 bytes)
 f_endactbonus:	equ $FFFFF7D6	; time/ring bonus update flag at the end of an act
 v_sonicend:	equ $FFFFF7D7	; routine counter for Sonic in the ending sequence
 f_switch:	equ $FFFFF7E0	; flags set when Sonic stands on a switch ($10 bytes)
+v_scroll_block_1_size:	equ $FFFFF7F0	; (2 bytes)
+v_scroll_block_2_size:	equ $FFFFF7F2	; unused (2 bytes)
+v_scroll_block_3_size:	equ $FFFFF7F4	; unused (2 bytes)
+v_scroll_block_4_size:	equ $FFFFF7F6	; unused (2 bytes)
 
 v_spritetablebuffer:	equ $FFFFF800 ; sprite table ($280 bytes, last $80 bytes are overwritten by v_pal_water_dup)
 v_pal_water_dup:	equ $FFFFFA00 ; duplicate underwater palette, used for transitions ($80 bytes)
@@ -293,6 +301,19 @@ v_ani3_frame:	equ $FFFFFEC7	; synchronised sprite animation 3 - current frame
 v_ani3_buf:	equ $FFFFFEC8	; synchronised sprite animation 3 - info buffer (2 bytes)
 v_limittopdb:	equ $FFFFFEF0	; level upper boundary, buffered for debug mode (2 bytes)
 v_limitbtmdb:	equ $FFFFFEF2	; level bottom boundary, buffered for debug mode (2 bytes)
+
+v_screenposx_dup:	equ $FFFFFF10	; screen position x (duplicate) (2 bytes)
+v_screenposy_dup:	equ $FFFFFF14	; screen position y (duplicate) (2 bytes)
+v_bgscreenposx_dup:	equ $FFFFFF18	; background screen position x (duplicate) (2 bytes)
+v_bgscreenposy_dup:	equ $FFFFFF1C	; background screen position y (duplicate) (2 bytes)
+v_bg2screenposx_dup:	equ $FFFFFF20	; 2 bytes
+v_bg2screenposy_dup:	equ $FFFFFF24	; 2 bytes
+v_bg3screenposx_dup:	equ $FFFFFF28	; 2 bytes
+v_bg3screenposy_dup:	equ $FFFFFF2C	; 2 bytes
+v_fg_scroll_flags_dup:	equ $FFFFFF30
+v_bg1_scroll_flags_dup:	equ $FFFFFF32
+v_bg2_scroll_flags_dup:	equ $FFFFFF34
+v_bg3_scroll_flags_dup:	equ $FFFFFF36
 
 v_levseldelay:	equ $FFFFFF80	; level select - time until change when up/down is held (2 bytes)
 v_levselitem:	equ $FFFFFF82	; level select - item selected (2 bytes)
