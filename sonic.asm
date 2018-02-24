@@ -4252,7 +4252,7 @@ LoadTilesAsYouMove:
 		bsr.w	Calc_VRAM_Pos
 		moveq	#-16,d4 ; Y coordinate
 		moveq	#-16,d5 ; X coordinate
-		bsr.w	DrawTiles_LR
+		bsr.w	DrawBlocks_LR
 
 loc_6908:
 		bclr	#1,(a2)
@@ -4263,7 +4263,7 @@ loc_6908:
 		bsr.w	Calc_VRAM_Pos
 		move.w	#224,d4
 		moveq	#-16,d5
-		bsr.w	DrawTiles_LR
+		bsr.w	DrawBlocks_LR
 
 loc_6922:
 		bclr	#2,(a2)
@@ -4274,7 +4274,7 @@ loc_6922:
 		bsr.w	Calc_VRAM_Pos
 		moveq	#-16,d4
 		moveq	#-16,d5
-		bsr.w	DrawTiles_TB
+		bsr.w	DrawBlocks_TB
 
 loc_6938:
 		bclr	#3,(a2)
@@ -4285,7 +4285,7 @@ loc_6938:
 		bsr.w	Calc_VRAM_Pos
 		moveq	#-16,d4
 		move.w	#320,d5
-		bsr.w	DrawTiles_TB
+		bsr.w	DrawBlocks_TB
 
 locret_6952:
 		rts	
@@ -4308,9 +4308,9 @@ DrawBGScrollBlock1:
 		moveq	#-16,d5
 		if Revision=0
 		moveq	#(512/16)-1,d6	 ; Draw entire row of plane
-		bsr.w	DrawTiles_LR_2
+		bsr.w	DrawBlocks_LR_2
 		else
-			bsr.w	DrawTiles_LR
+			bsr.w	DrawBlocks_LR
 		endc
 
 loc_6972:
@@ -4324,9 +4324,9 @@ loc_6972:
 		moveq	#-16,d5
 		if Revision=0
 		moveq	#(512/16)-1,d6
-		bsr.w	DrawTiles_LR_2
+		bsr.w	DrawBlocks_LR_2
 		else
-			bsr.w	DrawTiles_LR
+			bsr.w	DrawBlocks_LR
 		endc
 
 loc_698E:
@@ -4351,7 +4351,7 @@ loc_698E:
 		moveq	#((224+16+16)/16)-1,d6	; Cap at height of screen
 
 loc_69BA:
-		bsr.w	DrawTiles_TB_2
+		bsr.w	DrawBlocks_TB_2
 
 loc_69BE:
 		bclr	#3,(a2)
@@ -4373,7 +4373,7 @@ loc_69BE:
 		moveq	#((224+16+16)/16)-1,d6
 
 loc_69EE:
-		bsr.w	DrawTiles_TB_2
+		bsr.w	DrawBlocks_TB_2
 
 		else
 
@@ -4384,7 +4384,7 @@ loc_69EE:
 			bsr.w	Calc_VRAM_Pos
 			moveq	#-16,d4
 			moveq	#-16,d5
-			bsr.w	DrawTiles_TB
+			bsr.w	DrawBlocks_TB
 	locj_6D56:
 
 			bclr	#3,(a2)
@@ -4395,7 +4395,7 @@ loc_69EE:
 			bsr.w	Calc_VRAM_Pos
 			moveq	#-16,d4
 			move.w	#320,d5
-			bsr.w	DrawTiles_TB
+			bsr.w	DrawBlocks_TB
 	locj_6D70:
 
 			bclr	#4,(a2)
@@ -4407,7 +4407,7 @@ loc_69EE:
 			moveq	#-16,d4
 			moveq	#0,d5
 			moveq	#(512/16)-1,d6
-			bsr.w	DrawTiles_LR_3
+			bsr.w	DrawBlocks_LR_3
 	locj_6D88:
 
 			bclr	#5,(a2)
@@ -4419,7 +4419,7 @@ loc_69EE:
 			move.w	#224,d4
 			moveq	#0,d5
 			moveq	#(512/16)-1,d6
-			bsr.w	DrawTiles_LR_3
+			bsr.w	DrawBlocks_LR_3
 		endc
 
 locret_69F2:
@@ -4459,7 +4459,7 @@ DrawBGScrollBlock2:
 		subi.w	#((224+16)/16)-1,d6	; Get however many of the rows on screen are not scroll block 1
 		bhs.s	loc_6A3E
 		neg.w	d6
-		bsr.w	DrawTiles_TB_2
+		bsr.w	DrawBlocks_TB_2
 
 loc_6A3E:
 		bclr	#3,(a2)
@@ -4483,7 +4483,7 @@ loc_6A3E:
 		subi.w	#((224+16)/16)-1,d6
 		bhs.s	locret_6A80
 		neg.w	d6
-		bsr.w	DrawTiles_TB_2
+		bsr.w	DrawBlocks_TB_2
 
 locret_6A80:
 		rts	
@@ -4508,7 +4508,7 @@ locret_6A80:
 		move.w	(sp)+,d4
 		moveq	#-16,d5
 		moveq	#3-1,d6	; Draw only three rows
-		bsr.w	DrawTiles_TB_2
+		bsr.w	DrawBlocks_TB_2
 
 loc_6AAC:
 		bclr	#3,(a2)
@@ -4524,7 +4524,7 @@ loc_6AAC:
 		move.w	(sp)+,d4
 		move.w	#320,d5
 		moveq	#3-1,d6
-		bsr.w	DrawTiles_TB_2
+		bsr.w	DrawBlocks_TB_2
 
 locret_6AD6:
 		rts	
@@ -4544,7 +4544,7 @@ locret_6AD6:
 			move.w	#224/2,d4
 			moveq	#-16,d5
 			moveq	#3-1,d6		; Draw three rows... could this be a repurposed version of the above unused code?
-			bsr.w	DrawTiles_TB_2
+			bsr.w	DrawBlocks_TB_2
 	locj_6DD2:
 			bclr	#1,(a2)
 			beq.s	locj_6DF2
@@ -4555,7 +4555,7 @@ locret_6AD6:
 			move.w	#224/2,d4
 			move.w	#320,d5
 			moveq	#3-1,d6
-			bsr.w	DrawTiles_TB_2
+			bsr.w	DrawBlocks_TB_2
 	locj_6DF2:
 			rts
 ;===============================================================================
@@ -4585,7 +4585,7 @@ locret_6AD6:
 			movem.l	d4/d5,-(sp)
 			bsr.w	Calc_VRAM_Pos
 			movem.l	(sp)+,d4/d5
-			bsr.w	DrawTiles_LR
+			bsr.w	DrawBlocks_LR
 			bra.s	locj_6E72
 ;===============================================================================
 	locj_6E5E:
@@ -4594,7 +4594,7 @@ locret_6AD6:
 			bsr.w	Calc_VRAM_Pos_2
 			movem.l	(sp)+,d4/d5
 			moveq	#(512/16)-1,d6
-			bsr.w	DrawTiles_LR_3
+			bsr.w	DrawBlocks_LR_3
 	locj_6E72:
 			tst.b	(a2)
 			bne.s	locj_6E78
@@ -4634,7 +4634,7 @@ locret_6AD6:
 			move.w	#$40,d4
 			moveq	#-16,d5
 			moveq	#3-1,d6
-			bsr.w	DrawTiles_TB_2
+			bsr.w	DrawBlocks_TB_2
 	locj_6ED0:
 			bclr	#1,(a2)
 			beq.s	locj_6EF0
@@ -4645,7 +4645,7 @@ locret_6AD6:
 			move.w	#$40,d4
 			move.w	#320,d5
 			moveq	#3-1,d6
-			bsr.w	DrawTiles_TB_2
+			bsr.w	DrawBlocks_TB_2
 	locj_6EF0:
 			rts
 	locj_6EF2:
@@ -4678,7 +4678,7 @@ locret_6AD6:
 			movem.l	d4/d5,-(sp)
 			bsr.w	Calc_VRAM_Pos
 			movem.l	(sp)+,d4/d5
-			bsr.w	DrawTiles_LR
+			bsr.w	DrawBlocks_LR
 			bra.s	locj_6FAE
 ;===============================================================================
 	locj_6F9A:
@@ -4687,7 +4687,7 @@ locret_6AD6:
 			bsr.w	Calc_VRAM_Pos_2
 			movem.l	(sp)+,d4/d5
 			moveq	#(512/16)-1,d6
-			bsr.w	DrawTiles_LR_3
+			bsr.w	DrawBlocks_LR_3
 	locj_6FAE:
 			tst.b	(a2)
 			bne.s	locj_6FB4
@@ -4727,7 +4727,7 @@ locret_6AD6:
 			bsr.w	GetBlockData
 			movem.l	(sp)+,d4/d5
 			bsr.w	Calc_VRAM_Pos
-			bsr.w	DrawTiles
+			bsr.w	DrawBlock
 			movem.l	(sp)+,d4/d5/a0
 	locj_701C:
 			addi.w	#16,d4
@@ -4741,10 +4741,11 @@ locret_6AD6:
 
 ; Don't be fooled by the name: this function's for drawing from left to right
 ; when the camera's moving up or down
-DrawTiles_LR:
+; DrawTiles_LR:
+DrawBlocks_LR:
 		moveq	#((320+16+16)/16)-1,d6	; Draw the entire width of the screen + two extra columns
-
-DrawTiles_LR_2:
+; DrawTiles_LR_2:
+DrawBlocks_LR_2:
 		move.l	#$800000,d7	; Delta between rows of tiles
 		move.l	d0,d1
 
@@ -4752,18 +4753,19 @@ DrawTiles_LR_2:
 		movem.l	d4-d5,-(sp)
 		bsr.w	GetBlockData
 		move.l	d1,d0
-		bsr.w	DrawTiles
+		bsr.w	DrawBlock
 		addq.b	#4,d1		; Two tiles ahead
 		andi.b	#$7F,d1		; Wrap around row
 		movem.l	(sp)+,d4-d5
 		addi.w	#16,d5		; Move X coordinate one block ahead
 		dbf	d6,@loop
 		rts
-; End of function DrawTiles_LR
+; End of function DrawBlocks_LR
 
 		if Revision=1
-; The exact same as DrawTiles_LR_2...
-DrawTiles_LR_3:
+; The exact same as DrawBlocks_LR_2...
+; DrawTiles_LR_3:
+DrawBlocks_LR_3:
 		move.l	#$800000,d7
 		move.l	d0,d1
 
@@ -4771,14 +4773,14 @@ DrawTiles_LR_3:
 		movem.l	d4-d5,-(sp)
 		bsr.w	GetBlockData_2
 		move.l	d1,d0
-		bsr.w	DrawTiles
+		bsr.w	DrawBlock
 		addq.b	#4,d1
 		andi.b	#$7F,d1
 		movem.l	(sp)+,d4-d5
 		addi.w	#16,d5
 		dbf	d6,@loop
 		rts	
-; End of function DrawTiles_LR_3
+; End of function DrawBlocks_LR_3
 		endc
 
 
@@ -4786,10 +4788,11 @@ DrawTiles_LR_3:
 
 ; Don't be fooled by the name: this function's for drawing from top to bottom
 ; when the camera's moving left or right
-DrawTiles_TB:
+; DrawTiles_TB:
+DrawBlocks_TB:
 		moveq	#((224+16+16)/16)-1,d6	; Draw the entire height of the screen + two extra rows
-
-DrawTiles_TB_2:
+; DrawTiles_TB_2:
+DrawBlocks_TB_2:
 		move.l	#$800000,d7	; Delta between rows of tiles
 		move.l	d0,d1
 
@@ -4797,14 +4800,14 @@ DrawTiles_TB_2:
 		movem.l	d4-d5,-(sp)
 		bsr.w	GetBlockData
 		move.l	d1,d0
-		bsr.w	DrawTiles
+		bsr.w	DrawBlock
 		addi.w	#$100,d1	; Two rows ahead
 		andi.w	#$FFF,d1	; Wrap around plane
 		movem.l	(sp)+,d4-d5
 		addi.w	#16,d4		; Move X coordinate one block ahead
 		dbf	d6,@loop
 		rts	
-; End of function DrawTiles_TB_2
+; End of function DrawBlocks_TB_2
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -4818,7 +4821,8 @@ DrawTiles_TB_2:
 ; d0 = VRAM command to access plane
 ; d2 = VRAM plane A/B specifier
 ; d7 = Plane row delta
-DrawTiles:
+; DrawTiles:
+DrawBlock:
 		or.w	d2,d0	; OR in that plane A/B specifier to the VRAM command
 		swap	d0
 		btst	#4,(a0)	; Check Y-flip bit
@@ -4876,7 +4880,7 @@ DrawFlipXY:
 		swap	d5
 		move.l	d5,(a6)
 		rts	
-; End of function DrawTiles
+; End of function DrawBlocks
 
 ; ===========================================================================
 ; unused garbage
@@ -5066,7 +5070,7 @@ DrawChunks:
 		move.w	d1,d4
 		moveq	#0,d5
 		moveq	#(512/16)-1,d6
-		bsr.w	DrawTiles_LR_2
+		bsr.w	DrawBlocks_LR_2
 		movem.l	(sp)+,d4-d6
 		addi.w	#16,d4
 		dbf	d6,@loop
@@ -5133,7 +5137,7 @@ DrawChunks:
 			movem.l	d4/d5,-(sp)
 			bsr.w	Calc_VRAM_Pos
 			movem.l	(sp)+,d4/d5
-			bsr.w	DrawTiles_LR
+			bsr.w	DrawBlocks_LR
 			bra.s	locj_72EE
 	locj_72da:
 			moveq	#0,d5
@@ -5141,7 +5145,7 @@ DrawChunks:
 			bsr.w	Calc_VRAM_Pos_2
 			movem.l	(sp)+,d4/d5
 			moveq	#(512/16)-1,d6
-			bsr.w	DrawTiles_LR_3
+			bsr.w	DrawBlocks_LR_3
 	locj_72EE:
 			rts
 		endc
