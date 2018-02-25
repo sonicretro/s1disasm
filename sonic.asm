@@ -4763,7 +4763,6 @@ DrawBlocks_LR_2:
 ; End of function DrawBlocks_LR
 
 		if Revision=1
-; The exact same as DrawBlocks_LR_2...
 ; DrawTiles_LR_3:
 DrawBlocks_LR_3:
 		move.l	#$800000,d7
