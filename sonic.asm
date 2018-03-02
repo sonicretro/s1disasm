@@ -3532,7 +3532,7 @@ SS_BGAnimate:
 		move.w	($FFFFF7A0).w,d0
 		bne.s	loc_4BF6
 		move.w	#0,(v_bgscreenposy).w
-		move.w	(v_bgscreenposy).w,(v_bgscreenposy_dup_unused).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 
 loc_4BF6:
 		cmpi.w	#8,d0
@@ -3541,7 +3541,7 @@ loc_4BF6:
 		bne.s	loc_4C10
 		addq.w	#1,(v_bg3screenposx).w
 		addq.w	#1,(v_bgscreenposy).w
-		move.w	(v_bgscreenposy).w,(v_bgscreenposy_dup_unused).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 
 loc_4C10:
 		moveq	#0,d0

@@ -110,7 +110,7 @@ v_vdp_buffer1:	equ $FFFFF60C	; VDP instruction buffer (2 bytes)
 
 v_demolength:	equ $FFFFF614	; the length of a demo in frames (2 bytes)
 v_scrposy_dup:	equ $FFFFF616	; screen position y (duplicate) (2 bytes)
-v_bgscreenposy_dup_unused:	equ $FFFFF618	; background screen position y (duplicate) (2 bytes)
+v_bgscrposy_dup:	equ $FFFFF618	; background screen position y (duplicate) (2 bytes)
 v_scrposx_dup:	equ $FFFFF61A	; screen position x (duplicate) (2 bytes)
 v_bgscreenposx_dup_unused:	equ $FFFFF61C	; background screen position x (duplicate) (2 bytes)
 v_bg3screenposy_dup_unused:	equ $FFFFF61E	; (2 bytes)
