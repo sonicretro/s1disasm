@@ -4694,7 +4694,7 @@ locret_6AD6:
 			move.b	d0,(a2)
 			move.w	#320,d5
 	locj_6E8C:
-			lea	(locj_6DF4),a0
+			lea	(locj_6DF4).l,a0
 			move.w	(v_bgscreenposy).w,d0
 			andi.w	#$1F0,d0
 			lsr.w	#4,d0
@@ -4749,7 +4749,7 @@ locret_6AD6:
 			beq.s	locj_6FAE
 			move.w	#224,d4
 	locj_6F66:
-			lea	(locj_6EF2+1),a0
+			lea	(locj_6EF2+1).l,a0
 			move.w	(v_bgscreenposy).w,d0
 			subi.w	#$200,d0
 			add.w	d4,d0
@@ -4787,7 +4787,7 @@ locret_6AD6:
 			move.b	d0,(a2)
 			move.w	#320,d5
 	locj_6FC8:
-			lea	(locj_6EF2),a0
+			lea	(locj_6EF2).l,a0
 			move.w	(v_bgscreenposy).w,d0
 			subi.w	#$200,d0
 			andi.w	#$7F0,d0
