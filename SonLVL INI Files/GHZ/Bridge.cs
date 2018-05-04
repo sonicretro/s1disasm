@@ -48,21 +48,17 @@ namespace S1ObjectDefinitions.GHZ
 			return img;
 		}
 
-		public override Rectangle GetBounds(ObjectEntry obj, Point camera)
-		{
-			int w = (obj.SubType & 0x1F) * img.Width;
-			return new Rectangle(obj.X - (w / 2) + img.X - camera.X, obj.Y + img.Y - camera.Y, w, img.Height);
-		}
-
 		public override Sprite GetSprite(ObjectEntry obj)
 		{
-			int st = -(((obj.SubType & 0x1F) * img.Width) / 2) + img.X;
+			int st = -(((obj.SubType & 0x1F) * img.Width) / 2);
 			List<Sprite> sprs = new List<Sprite>();
 			for (int i = 0; i < (obj.SubType & 0x1F); i++)
-				sprs.Add(new Sprite(img.Image, new Point(st + (i * img.Width), img.Y)));
-			Sprite spr = new Sprite(sprs.ToArray());
-			spr.Offset = new Point(spr.X + obj.X, spr.Y + obj.Y);
-			return spr;
+			{
+				Sprite tmp = new Sprite(img);
+				tmp.Offset(st + (i * img.Width), 0);
+				sprs.Add(tmp);
+			}
+			return new Sprite(sprs.ToArray());
 		}
 	}
 }

@@ -20,7 +20,7 @@ loc_628E:
 		bsr.w	ScrollVertical
 		bsr.w	DynamicLevelEvents
 		move.w	(v_screenposy).w,(v_scrposy_dup).w
-		move.w	(v_bgscreenposy).w,(v_bgscreenposy_dup_unused).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
 		add.w	d0,d0
@@ -68,7 +68,7 @@ Deform_GHZ:
 		moveq	#0,d0
 loc_62F6:
 		move.w	d0,d4
-		move.w	d0,(v_bgscreenposy_dup_unused).w
+		move.w	d0,(v_bgscrposy_dup).w
 		move.w	(v_screenposx).w,d0
 		cmpi.b	#id_Title,($FFFFF600).w
 		bne.s	loc_630A
@@ -154,7 +154,7 @@ Deform_LZ:
 		ext.l	d5
 		asl.l	#7,d5
 		bsr.w	ScrollBlock1
-		move.w	(v_bgscreenposy).w,(v_bgscreenposy_dup_unused).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	(Lz_Scroll_Data).l,a3
 		lea	(Drown_WobbleData).l,a2
 		move.b	($FFFFF7D8).w,d2
@@ -255,7 +255,7 @@ loc_6590:
 		move.w	d0,(v_bg2screenposy).w
 		move.w	d0,(v_bg3screenposy).w
 		bsr.w	ScrollBlock2
-		move.w	(v_bgscreenposy).w,(v_bgscreenposy_dup_unused).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		move.b	(v_bg1_scroll_flags).w,d0
 		or.b	(v_bg2_scroll_flags).w,d0
 		or.b	d0,(v_bg3_scroll_flags).w
@@ -327,7 +327,7 @@ Deform_SLZ:
 		ext.l	d5
 		asl.l	#7,d5
 		bsr.w	Bg_Scroll_Y
-		move.w	(v_bgscreenposy).w,(v_bgscreenposy_dup_unused).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	($FFFFA800).w,a1
 		move.w	(v_screenposx).w,d2
 		neg.w	d2
@@ -426,7 +426,7 @@ Deform_SYZ:
 		asl.l	#1,d5
 		add.l	d1,d5
 		bsr.w	Bg_Scroll_Y
-		move.w	(v_bgscreenposy).w,(v_bgscreenposy_dup_unused).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	($FFFFA800).w,a1
 		move.w	(v_screenposx).w,d2
 		neg.w	d2
@@ -526,7 +526,7 @@ Deform_SBZ:
 		move.w	(v_bgscreenposy).w,d0
 		move.w	d0,(v_bg2screenposy).w
 		move.w	d0,(v_bg3screenposy).w
-		move.w	d0,(v_bgscreenposy_dup_unused).w
+		move.w	d0,(v_bgscrposy_dup).w
 		move.b	(v_bg1_scroll_flags).w,d0
 		or.b	(v_bg3_scroll_flags).w,d0
 		or.b	d0,(v_bg2_scroll_flags).w
@@ -588,7 +588,7 @@ Bg_Scroll_SBz_2:;loc_68A2:
 		ext.l	d5
 		asl.l	#5,d5
 		bsr.w	ScrollBlock1
-		move.w	(v_bgscreenposy).w,(v_bgscreenposy_dup_unused).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	(v_hscrolltablebuffer).w,a1
 		move.w	#223,d1
 		move.w	(v_screenposx).w,d0

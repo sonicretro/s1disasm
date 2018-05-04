@@ -48,16 +48,11 @@ namespace S1ObjectDefinitions.SYZ
 			return imgs[(subtype & 0x70) >> 4];
 		}
 
-		public override Rectangle GetBounds(ObjectEntry obj, Point camera)
-		{
-			return new Rectangle(obj.X + SubtypeImage(obj.SubType).X - camera.X, obj.Y + SubtypeImage(obj.SubType).Y - camera.Y, SubtypeImage(obj.SubType).Width, SubtypeImage(obj.SubType).Height);
-		}
-
 		public override Sprite GetSprite(ObjectEntry obj)
 		{
-			BitmapBits bits = new BitmapBits(SubtypeImage(obj.SubType).Image);
-			bits.Flip(obj.XFlip, obj.YFlip);
-			return new Sprite(bits, new Point(obj.X + SubtypeImage(obj.SubType).X, obj.Y + SubtypeImage(obj.SubType).Y));
+			Sprite tmp = new Sprite(SubtypeImage(obj.SubType));
+			tmp.Flip(obj.XFlip, obj.YFlip);
+			return tmp;
 		}
 
 		private static readonly PropertySpec[] customProperties = new PropertySpec[] {

@@ -22,7 +22,7 @@ loc_628E:
 		move.w	(v_screenposx).w,(v_scrposx_dup).w
 		move.w	(v_screenposy).w,(v_scrposy_dup).w
 		move.w	(v_bgscreenposx).w,(v_bgscreenposx_dup_unused).w
-		move.w	(v_bgscreenposy).w,(v_bgscreenposy_dup_unused).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		move.w	(v_bg3screenposx).w,(v_bg3screenposx_dup_unused).w
 		move.w	(v_bg3screenposy).w,(v_bg3screenposy_dup_unused).w
 		moveq	#0,d0
@@ -67,7 +67,7 @@ Deform_GHZ:
 		move.w	d0,(v_bg2screenposy).w
 		move.w	d0,d4
 		bsr.w	ScrollBlock3
-		move.w	(v_bgscreenposy).w,(v_bgscreenposy_dup_unused).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		move.w	#$6F,d1
 		sub.w	d4,d1
 		move.w	(v_screenposx).w,d0
@@ -132,7 +132,7 @@ Deform_LZ:
 		ext.l	d5
 		asl.l	#7,d5
 		bsr.w	ScrollBlock1
-		move.w	(v_bgscreenposy).w,(v_bgscreenposy_dup_unused).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	(v_hscrolltablebuffer).w,a1
 		move.w	#223,d1
 		move.w	(v_screenposx).w,d0
@@ -178,7 +178,7 @@ Deform_MZ:
 loc_6402:
 		move.w	d0,(v_bg2screenposy).w
 		bsr.w	ScrollBlock3
-		move.w	(v_bgscreenposy).w,(v_bgscreenposy_dup_unused).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	(v_hscrolltablebuffer).w,a1
 		move.w	#223,d1
 		move.w	(v_screenposx).w,d0
@@ -208,7 +208,7 @@ Deform_SLZ:
 		ext.l	d5
 		asl.l	#7,d5
 		bsr.w	ScrollBlock2
-		move.w	(v_bgscreenposy).w,(v_bgscreenposy_dup_unused).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		bsr.w	Deform_SLZ_2
 		lea	($FFFFA800).w,a2
 		move.w	(v_bgscreenposy).w,d0
@@ -321,7 +321,7 @@ Deform_SYZ:
 		asl.l	#1,d5
 		add.l	d1,d5
 		bsr.w	ScrollBlock1
-		move.w	(v_bgscreenposy).w,(v_bgscreenposy_dup_unused).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	(v_hscrolltablebuffer).w,a1
 		move.w	#223,d1
 		move.w	(v_screenposx).w,d0
@@ -352,7 +352,7 @@ Deform_SBZ:
 		asl.l	#4,d5
 		asl.l	#1,d5
 		bsr.w	ScrollBlock1
-		move.w	(v_bgscreenposy).w,(v_bgscreenposy_dup_unused).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	(v_hscrolltablebuffer).w,a1
 		move.w	#223,d1
 		move.w	(v_screenposx).w,d0

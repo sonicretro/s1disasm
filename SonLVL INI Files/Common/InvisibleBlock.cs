@@ -52,16 +52,7 @@ namespace S1ObjectDefinitions.Common
 			int h = ((obj.SubType & 0xF) + 1) * 16;
 			BitmapBits bmp = new BitmapBits(w, h);
 			bmp.DrawRectangle(0x1C, 0, 0, w - 1, h - 1);
-			Sprite spr = new Sprite(new Sprite(bmp, new Point(-(w / 2), -(h / 2))), img);
-			spr.Offset = new Point(spr.X + obj.X, spr.Y + obj.Y);
-			return spr;
-		}
-
-		public override Rectangle GetBounds(ObjectEntry obj, Point camera)
-		{
-			int w = ((obj.SubType >> 4) + 1) * 16;
-			int h = ((obj.SubType & 0xF) + 1) * 16;
-			return new Rectangle(obj.X - (w / 2) - camera.X, obj.Y - (h / 2) - camera.Y, w, h);
+			return new Sprite(new Sprite(bmp, new Point(-(w / 2), -(h / 2))), img);
 		}
 
 		public override bool Debug { get { return true; } }

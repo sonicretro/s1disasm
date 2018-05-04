@@ -66,27 +66,20 @@ namespace S1ObjectDefinitions.Common
 			return img;
 		}
 
-		public override Rectangle GetBounds(ObjectEntry obj, Point camera)
-		{
-			int count = Math.Min(6, obj.SubType & 7);
-			Size space = Spacing[obj.SubType >> 4];
-			return new Rectangle(obj.X + img.X - camera.X, obj.Y + img.Y - camera.Y, (space.Width * count) + img.Width, (space.Height * count) + img.Height);
-		}
-
 		public override Sprite GetSprite(ObjectEntry obj)
 		{
 			int count = Math.Min(6, obj.SubType & 7) + 1;
 			Size space = Spacing[obj.SubType >> 4];
-			Point loc = new Point(img.X, img.Y);
+			Point loc = new Point();
 			List<Sprite> sprs = new List<Sprite>();
 			for (int i = 0; i < count; i++)
 			{
-				sprs.Add(new Sprite(img.Image, loc));
+				Sprite tmp = new Sprite(img);
+				tmp.Offset(loc);
+				sprs.Add(tmp);
 				loc += space;
 			}
-			Sprite spr = new Sprite(sprs.ToArray());
-			spr.Offset = new Point(spr.X + obj.X, spr.Y + obj.Y);
-			return spr;
+			return new Sprite(sprs.ToArray());
 		}
 
 		private PropertySpec[] customProperties = new PropertySpec[] {
