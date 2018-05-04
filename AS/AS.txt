@@ -1,8 +1,11 @@
 The assembler used here is the Macro Assembler AS, found here:
 http://john.ccac.rwth-aachen.de:8000/as
 
-In particular, this disassembly uses 1.42 Build 89. Later versions were so buggy the ROM wouldn't even assemble. You can get it here:
+In particular, this disassembly uses 1.42 Build 79 (OSX)/Build 89 (Windows)/Build 107 (Linux).
+Later versions were so buggy the ROM wouldn't even assemble. You can get them here:
+http://john.ccac.rwth-aachen.de:8000/ftp/as/source/c_version/asl-current-142-bld79.tar.bz2
 http://john.ccac.rwth-aachen.de:8000/ftp/as/source/c_version/asl-current-142-bld89.tar.bz2
+http://john.ccac.rwth-aachen.de:8000/ftp/as/source/c_version/asl-current-142-bld107.tar.bz2
 
 AS is under the GPL, so here's its license:
 
