@@ -2,7 +2,14 @@
 #include <stdio.h>
 #include <unistd.h> // for unlink
 
+#ifdef S1P2BIN_PLUS
+#include <fstream>
+#include "FW_KENSC/kosinski.h"
+
+using namespace std;
+#else
 #include "KENSKosComp/K-Compressor2.h"
+#endif
 
 const char* codeFileName = NULL;
 const char* romFileName = NULL;
@@ -10,7 +17,11 @@ int compressedLength = 0;
 
 unsigned char Z80_RAM_buffer[0x2000];
 
+#ifdef S1P2BIN_PLUS
+void printUsage() { printf("usage: s1p2bin_plus.exe inputcodefile.p outputromfile.bin\n\nOver s1p2bin.exe, this utilises a better compressor for the Z80 DAC driver.\nNote that this does not produce a bit-perfect ROM."); }
+#else
 void printUsage() { printf("usage: s1p2bin.exe inputcodefile.p outputromfile.bin\n"); }
+#endif
 bool buildRom(FILE* from, FILE* to);
 
 int main(int argc, char *argv[])
@@ -39,8 +50,12 @@ int main(int argc, char *argv[])
 
 	if(codeFileName && romFileName)
 	{
+#ifdef S1P2BIN_PLUS
+		printf("\ns1p2bin_plus.exe: generating %s from %s...", romFileName, codeFileName);
+#else
 		printf("\ns1p2bin.exe: generating %s from %s", romFileName, codeFileName);
-		
+#endif
+
 		FILE* from = fopen(codeFileName, "rb");
 		if(from)
 		{
@@ -52,7 +67,11 @@ int main(int argc, char *argv[])
 				fclose(from);
 				if(built)
 				{
+#ifdef S1P2BIN_PLUS
+					printf("\n...done");
+#else
 					printf(" ... done.");
+#endif
 				}
 				else
 				{
@@ -167,7 +186,14 @@ bool buildRom(FILE* from, FILE* to)
 		if(cpuType != 0x51 && lastSegmentCompressed)
 		{
 			// Compress all Z80 segments found
+#ifdef S1P2BIN_PLUS
+			int dstStart = ftell(to);
+			fstream fout(romFileName, ios::in|ios::out|ios::binary);
+			compressedLength = kosinski::encode(Z80_RAM_buffer, fout, 8192, 256, current_Z80_size, dstStart);
+			fseek(to, compressedLength, SEEK_CUR);
+#else
 			compressedLength = KComp3(Z80_RAM_buffer, to, 8192, 256, current_Z80_size, false);
+#endif
 		}
 
 		long cur = ftell(to);
@@ -184,6 +210,12 @@ bool buildRom(FILE* from, FILE* to)
 				printf("\nERROR: Compressed DAC driver might not fit.\nPlease increase your value of Size_of_DAC_driver_guess to at least $%X and try again.", compressedLength);
 				return false;
 			}
+#ifdef S1P2BIN_PLUS
+			else
+			{
+				printf("\n  Compressed DAC driver size: $%X\n  Set Size_of_DAC_driver_guess to this to save a little space.", compressedLength);
+			}
+#endif
 		}
 
 		// hack to make padding directives use 0xFF without breaking backwards orgs
@@ -223,7 +255,14 @@ bool buildRom(FILE* from, FILE* to)
 	if (lastSegmentCompressed)
 	{
 		// Do this here too, just in case the last Z80 segment was at the end of the ROM
+#ifdef S1P2BIN_PLUS
+		int dstStart = ftell(to);
+		fstream fout(romFileName, ios::in|ios::out|ios::binary);
+		compressedLength = kosinski::encode(Z80_RAM_buffer, fout, 8192, 256, current_Z80_size, dstStart);
+		fseek(to, compressedLength, SEEK_CUR);
+#else
 		KComp3(Z80_RAM_buffer, to, 8192, 256, current_Z80_size, false);
+#endif
 	}
 
 	return true;
