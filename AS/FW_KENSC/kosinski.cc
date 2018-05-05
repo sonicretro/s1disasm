@@ -167,21 +167,16 @@ void kosinski::encode_internal(ostream &Dst, unsigned char const *&Buffer,
 	out.putbyte(0x00);
 }
 
-long kosinski::encode(istream &Src, ostream &Dst, streamoff SlideWin, streamoff RecLen,
-                      int srcStart, int srcLength, int dstStart) {
+long kosinski::encode(unsigned char *const Buffer, ostream &Dst, streamoff SlideWin, streamoff RecLen,
+                      int srcLength, int dstStart) {
 	streamsize BSize = srcLength;
-	Src.seekg(srcStart);
 	Dst.seekp(dstStart);
-	char *const Buffer = new char[BSize];
 	unsigned char const *ptr = reinterpret_cast<unsigned char *>(Buffer);
-	Src.read(Buffer, BSize);
 	encode_internal(Dst, ptr, SlideWin, RecLen, BSize, 1u);
 
 	// Pad to even size.
 	if ((Dst.tellp() & 1) != 0)
 		Dst.put(0);
-
-	delete [] Buffer;
 
 	int size = Dst.tellp();
 	size -= dstStart;

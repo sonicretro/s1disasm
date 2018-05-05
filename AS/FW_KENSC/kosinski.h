@@ -28,9 +28,9 @@ private:
 	                            std::streamsize const BSize,
 	                            std::streamsize const Padding);
 public:
-	static long encode(std::istream &Src, std::ostream &Dst,
+	static long encode(unsigned char *const Buffer, std::ostream &Dst,
 	                   std::streamoff SlideWin = 8192, std::streamoff RecLen = 256,
-	                   int srcStart = 0, int srcLength = 0, int dstStart = 0);
+	                   int srcLength = 0, int dstStart = 0);
 };
 
 #endif // _KOSINSKI_H_

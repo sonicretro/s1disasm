@@ -2,9 +2,13 @@
 #include <stdio.h>
 #include <unistd.h> // for unlink
 
+#include "KENSKosComp/K-Compressor2.h"
+
 const char* codeFileName = NULL;
 const char* romFileName = NULL;
 int compressedLength = 0;
+
+unsigned char Z80_RAM_buffer[0x2000];
 
 void printUsage() { printf("usage: s1p2bin.exe inputcodefile.p outputromfile.bin\n"); }
 bool buildRom(FILE* from, FILE* to);
@@ -67,8 +71,6 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-long KComp3(FILE *Src, FILE *Dst, int SlideWin, int RecLen, int srcStart, int srcLen, bool Moduled);
-
 bool buildRom(FILE* from, FILE* to)
 {
 	if(fgetc(from) != 0x89) printf("\nWarning: First byte of a .p file should be $89");
@@ -81,17 +83,16 @@ bool buildRom(FILE* from, FILE* to)
 	static const int scratchSize = 4096;
 	unsigned char scratch [scratchSize];
 	bool lastSegmentCompressed = false;
+	int current_Z80_size = 0;
 	
 	while(true)
 	{
 		unsigned char headerByte = fgetc(from);
-		if(ferror(from) || feof(from))
+		if(ferror(from) || feof(from) || headerByte == 0 /* "END" segment */)
 			break;
 
 		switch(headerByte)
 		{
-			case 0x00: // "END" segment
-				return true;
 			case 0x80: // "entry point" segment
 				fseek(from, 3, SEEK_CUR);
 				continue;
@@ -129,21 +130,32 @@ bool buildRom(FILE* from, FILE* to)
 			return false;
 		}
 
-		if(cpuType == 0x51 && start != 0 && lastSegmentCompressed)
-		{
-			printf("\nERROR: The compressed Z80 code (z80.asm) must all be in one segment. That means no ORG/ALIGN/CNOP/EVEN or memory reservation commands in the Z80 code and the size must be < 65535 bytes. The offending new segment starts at address $%X relative to the start of the Z80 code.", start);
-			return false;
-		}
-
 		if(cpuType == 0x51 && start == 0) // 0x51 is the type for Z80 family (0x01 is for 68000)
 		{
-			// Kosinski-compressed Z80 segment
-			start = lastStart + lastLength;
-			int srcStart = ftell(from);
-			compressedLength = KComp3(from, to, 8192, 256, srcStart, length, false);
-			fseek(from, srcStart + length, SEEK_SET);
+			// First Kosinski-compressed Z80 segment
+			current_Z80_size = length;
+
+			fread(Z80_RAM_buffer, 1, length, from);
+
 			lastSegmentCompressed = true;
 			continue;
+		}
+
+		if(cpuType == 0x51 && start != 0 && lastSegmentCompressed)
+		{
+			// Following Kosinski-compressed Z80 segment
+			if (start + length > current_Z80_size)
+				current_Z80_size = start + length;
+
+			fread(Z80_RAM_buffer + start, 1, length, from);
+
+			continue;
+		}
+
+		if(cpuType != 0x51 && lastSegmentCompressed)
+		{
+			// Compress all Z80 segments found
+			compressedLength = KComp3(Z80_RAM_buffer, to, 8192, 256, current_Z80_size, false);
 		}
 
 		long cur = ftell(to);
@@ -194,6 +206,12 @@ bool buildRom(FILE* from, FILE* to)
 		lastStart = start;
 		lastLength = length;
 		lastSegmentCompressed = false;
+	}
+
+	if (lastSegmentCompressed)
+	{
+		// Do this here too, just in case the last Z80 segment was at the end of the ROM
+		KComp3(Z80_RAM_buffer, to, 8192, 256, current_Z80_size, false);
 	}
 
 	return true;

@@ -1,4 +1,4 @@
-CXXFLAGS := -O3
+CXXFLAGS := -O3 --static
 
 all: s1p2bin.exe s1p2bin_plus.exe
 

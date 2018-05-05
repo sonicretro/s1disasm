@@ -30,11 +30,13 @@
 
 #include <stdio.h>
 
+#include "K-Compressor2.h"
+
 //-----------------------------------------------------------------------------------------------
 // Name: KComp3(char *SrcFile, char *DstFile, int SlideWin, int RecLen, bool Moduled)
 // Desc: Compresses the data using the Kosinski compression format
 //-----------------------------------------------------------------------------------------------
-long KComp3(FILE *Src, FILE *Dst, int SlideWin, int RecLen, int srcStart, int srcLen, bool Moduled)
+long KComp3(unsigned char *srcBuffer, FILE *Dst, int SlideWin, int RecLen, int srcLen, bool Moduled)
 {
 
 // Pre-write infos
@@ -67,12 +69,8 @@ long KComp3(FILE *Src, FILE *Dst, int SlideWin, int RecLen, int srcStart, int sr
 
 //----------------------------------------------------------------------------------------------------------------
 
-	if (Src==NULL) return 0;
+	Buffer = srcBuffer;
 	BSize=srcLen;
-	Buffer = new unsigned char[BSize];
-	if (Buffer==NULL) { return 0; }
-	fseek(Src, srcStart, SEEK_SET);
-	fread(Buffer,BSize,1,Src);
 
 	BITFIELD=1;
 	BFP=1;
