@@ -2667,7 +2667,7 @@ SoundD0:	binclude	"sound/sfx/SndD0 - Waterfall.bin"
 		even
 
 		cnop ($8000-Size_of_SegaPCM),$8000
-SegaPCM:	binclude	"sound/dac/segapcm.bin"
+SegaPCM:	binclude	"sound/dac/sega.pcm"
 SegaPCM_End
 		even
 
