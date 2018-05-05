@@ -16,6 +16,7 @@ const char* romFileName = NULL;
 int compressedLength = 0;
 
 unsigned char Z80_RAM_buffer[0x2000];
+int current_Z80_size = 0;
 
 #ifdef S1P2BIN_PLUS
 void printUsage() { printf("usage: s1p2bin_plus.exe inputcodefile.p outputromfile.bin\n\nOver s1p2bin.exe, this utilises a better compressor for the Z80 DAC driver.\nNote that this does not produce a bit-perfect ROM."); }
@@ -90,6 +91,18 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
+void CompressZ80Driver(FILE *to)
+{
+#ifdef S1P2BIN_PLUS
+	int dstStart = ftell(to);
+	fstream fout(romFileName, ios::in|ios::out|ios::binary);
+	compressedLength = kosinski::encode(Z80_RAM_buffer, fout, 8192, 256, current_Z80_size, dstStart);
+	fseek(to, compressedLength, SEEK_CUR);
+#else
+	KComp3(Z80_RAM_buffer, to, 8192, 256, current_Z80_size, false);
+#endif
+}
+
 bool buildRom(FILE* from, FILE* to)
 {
 	if(fgetc(from) != 0x89) printf("\nWarning: First byte of a .p file should be $89");
@@ -102,7 +115,6 @@ bool buildRom(FILE* from, FILE* to)
 	static const int scratchSize = 4096;
 	unsigned char scratch [scratchSize];
 	bool lastSegmentCompressed = false;
-	int current_Z80_size = 0;
 	
 	while(true)
 	{
@@ -186,14 +198,7 @@ bool buildRom(FILE* from, FILE* to)
 		if(cpuType != 0x51 && lastSegmentCompressed)
 		{
 			// Compress all Z80 segments found
-#ifdef S1P2BIN_PLUS
-			int dstStart = ftell(to);
-			fstream fout(romFileName, ios::in|ios::out|ios::binary);
-			compressedLength = kosinski::encode(Z80_RAM_buffer, fout, 8192, 256, current_Z80_size, dstStart);
-			fseek(to, compressedLength, SEEK_CUR);
-#else
-			compressedLength = KComp3(Z80_RAM_buffer, to, 8192, 256, current_Z80_size, false);
-#endif
+			CompressZ80Driver(to);
 		}
 
 		long cur = ftell(to);
@@ -255,14 +260,7 @@ bool buildRom(FILE* from, FILE* to)
 	if (lastSegmentCompressed)
 	{
 		// Do this here too, just in case the last Z80 segment was at the end of the ROM
-#ifdef S1P2BIN_PLUS
-		int dstStart = ftell(to);
-		fstream fout(romFileName, ios::in|ios::out|ios::binary);
-		compressedLength = kosinski::encode(Z80_RAM_buffer, fout, 8192, 256, current_Z80_size, dstStart);
-		fseek(to, compressedLength, SEEK_CUR);
-#else
-		KComp3(Z80_RAM_buffer, to, 8192, 256, current_Z80_size, false);
-#endif
+		CompressZ80Driver(to);
 	}
 
 	return true;
