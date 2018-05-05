@@ -135,6 +135,12 @@ bool buildRom(FILE* from, FILE* to)
 			// First Kosinski-compressed Z80 segment
 			current_Z80_size = length;
 
+			if (current_Z80_size > 0x2000)
+			{
+				printf("\nERROR: Compressed Z80 segment goes past end of Z80 RAM (segment ends at $%X, Z80 RAM ends at $2000).", current_Z80_size);
+				return false;
+			}
+
 			fread(Z80_RAM_buffer, 1, length, from);
 
 			lastSegmentCompressed = true;
@@ -146,6 +152,12 @@ bool buildRom(FILE* from, FILE* to)
 			// Following Kosinski-compressed Z80 segment
 			if (start + length > current_Z80_size)
 				current_Z80_size = start + length;
+
+			if (current_Z80_size > 0x2000)
+			{
+				printf("\nERROR: Compressed Z80 segment goes past end of Z80 RAM (segment ends at $%X, Z80 RAM ends at $2000).", current_Z80_size);
+				return false;
+			}
 
 			fread(Z80_RAM_buffer + start, 1, length, from);
 
