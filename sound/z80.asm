@@ -56,8 +56,8 @@ endpad := $
 
 	ld	b,8								; Number of bits to latch to ROM bank
 	ld	a,zmake68kBank(SegaPCM)>>1		; Bank ID without the least significant bit
-	
-zBankSwitchLoop:	
+
+zBankSwitchLoop:
 	ld	(zBankRegister),a				; Latch another bit to bank register.
 	rrca								; Move next bit into position
 	djnz	zBankSwitchLoop				; decrement and loop if not zero
@@ -75,7 +75,7 @@ zDACDecodeTbl:
 zCheckForSamples:
 	ld	hl,zDAC_Sample					; Load the address of next sample.
 
-zWaitDACLoop:	
+zWaitDACLoop:
 	ld	a,(hl)							; a = next sample to play.
 	or	a								; Do we have a valid sample?
 	jp	p,zWaitDACLoop					; Loop until we do
@@ -116,7 +116,7 @@ zWaitDACLoop:
 	exx
 	ld	h,(zDACDecodeTbl&0FF00h)>>8		; We set low byte of pointer below
 
-zPlayPCMLoop:	
+zPlayPCMLoop:
 	ld	a,(de)							; a = byte from DAC sample
 	and	0F0h							; Get upper nibble
 	; Shift-right 4 times to rotate the nibble into place
@@ -183,12 +183,12 @@ zPlayPCMLoop:
 	jp	nz,zPlayPCMLoop					; If yes, keep playing sample
 
 	jp	zCheckForSamples				; Sample is done; wait for new samples
-; 
+;
 ; Subroutine - Play_SegaPCM
 ;
 ; This subroutine plays the "SEGA" sound.
-; 
-zPlay_SegaPCM:	
+;
+zPlay_SegaPCM:
 	ld	de,zmake68kPtr(SegaPCM)			; de = bank-relative location of the SEGA sound
 	ld	hl,SegaPCM_End-SegaPCM			; hl = size of the SEGA sound
 	ld	c,2Ah							; c = Command to select DAC output register
@@ -211,7 +211,7 @@ zPlaySEGAPCMLoop:
 
 ;
 ; Table referencing the three PCM samples
-;	
+;
 ; As documented by jman2050, first two bytes are a pointer to the sample, third and fourth are the sample size, fifth is the pitch, 6-8 are unused.
 ;
 
@@ -221,18 +221,18 @@ zPCM_Table:
 	dw	(zDAC_Sample1_End-zDAC_Sample1)
 	dw	0017h			; Pitch = 17h
 	dw	0000h
-	
+
 	dw	zDAC_Sample2	; Snare sample
 	dw	(zDAC_Sample2_End-zDAC_Sample2)
 	dw	0001h			; Pitch = 1h
 	dw	0000h
-	
+
 	dw	zDAC_Sample3	; Timpani sample
 	dw	(zDAC_Sample3_End-zDAC_Sample3)
 zSample3_Pitch:
 	dw	001Bh			; Pitch = 1Bh
 	dw	0000h
-	
+
 
 
 zDAC_Sample1:
