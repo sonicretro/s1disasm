@@ -236,15 +236,15 @@ zSample3_Pitch:
 
 
 zDAC_Sample1:
-	binclude "sound/dac/kick.bin"
+	binclude "sound/dac/kick.dpcm"
 zDAC_Sample1_End:
 
 zDAC_Sample2:
-	binclude "sound/dac/snare.bin"
+	binclude "sound/dac/snare.dpcm"
 zDAC_Sample2_End:
 
 zDAC_Sample3:
-	binclude "sound/dac/timpani.bin"
+	binclude "sound/dac/timpani.dpcm"
 zDAC_Sample3_End:
 
 	if MOMPASS==2
