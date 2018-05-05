@@ -155,8 +155,8 @@ Deform_LZ:
 		asl.l	#7,d5
 		bsr.w	ScrollBlock1
 		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
-		lea	(Lz_Scroll_Data),a3
-		lea	(Drown_WobbleData),a2
+		lea	(Lz_Scroll_Data).l,a3
+		lea	(Drown_WobbleData).l,a2
 		move.b	($FFFFF7D8).w,d2
 		move.b	d2,d3
 		addi.w	#$80,($FFFFF7D8).w
