@@ -2677,7 +2677,7 @@ SoundD0:	incbin	"sound/sfx/SndD0 - Waterfall.bin"
 		even
 
 		cnop ($8000-Size_of_SegaPCM),$8000
-SegaPCM:	incbin	"sound/dac/segapcm.bin"
+SegaPCM:	incbin	"sound/dac/sega.pcm"
 SegaPCM_End
 		even
 
