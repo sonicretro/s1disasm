@@ -21,9 +21,12 @@ EnableSRAM	  = 0	; change to 1 to enable SRAM
 BackupSRAM	  = 1
 AddressSRAM	  = 3	; 0 = odd+even; 2 = even only; 3 = odd only
 
-Revision	  = 0	; change to 1 for JP1 revision
+; Change to 0 to build the original version of the game, dubbed REV00
+; Change to 1 to build the later vesion, dubbed REV01, which includes various bugfixes and enhancements
+; Change to 2 to build the version from Sonic Mega Collection, dubbed REVXB, which fixes the infamous "spike bug"
+Revision	  = 0
 
-ZoneCount:	  = 6	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, and SBZ
+ZoneCount	  = 6	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, and SBZ
 
 OptimiseSound	  = 0	; change to 1 to optimise sound queuing
 
@@ -44,8 +47,21 @@ Vectors:	dc.l $FFFE00, EntryPoint, BusError, AddressError
 		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
 		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
 		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
+	if Revision<>2
 		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
 		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
+	else
+loc_E0:
+		; Relocated code from Spik_Hurt. REVXB was a nasty hex-edit.
+		move.l	obY(a0),d3
+		move.w	obVelY(a0),d0
+		ext.l	d0
+		asl.l	#8,d0
+		jmp	(loc_D5A2).l
+
+		dc.w ErrorTrap
+		dc.l ErrorTrap, ErrorTrap, ErrorTrap
+	endif
 Console:	dc.b "SEGA MEGA DRIVE " ; Hardware system ID
 _Date:		dc.b "(C)SEGA 1991.APR" ; Release date
 Title_Local:	dc.b "SONIC THE               HEDGEHOG                " ; Domestic name
@@ -4240,7 +4256,7 @@ LoadTilesAsYouMove:
 		lea	(v_bg2_scroll_flags_dup).w,a2	; Scroll block 2 scroll flags
 		lea	(v_bg2screenposx_dup).w,a3	; Scroll block 2 X coordinate
 		bsr.w	DrawBGScrollBlock2
-		if Revision<>0
+		if Revision>=1
 		; REV01 added a third scroll block, though, technically,
 		; the RAM for it was already there in REV00
 		lea	(v_bg3_scroll_flags_dup).w,a2	; Scroll block 3 scroll flags
@@ -4773,8 +4789,7 @@ DrawBlocks_LR_2:
 		rts
 ; End of function DrawBlocks_LR
 
-		if Revision<>0
-; The exact same as DrawBlocks_LR_2...
+		if Revision>=1
 ; DrawTiles_LR_3:
 DrawBlocks_LR_3:
 		move.l	#$800000,d7
@@ -5086,7 +5101,7 @@ DrawChunks:
 		rts	
 ; End of function DrawChunks
 
-		if Revision<>0
+		if Revision>=1
 Draw_GHz_Bg:
 			moveq	#0,d4
 			moveq	#((224+16+16)/16)-1,d6
