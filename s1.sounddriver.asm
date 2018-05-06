@@ -395,7 +395,7 @@ FinishTrackUpdate:
 		bne.s	@locret				; If so, branch
 		move.b	TrackNoteTimeoutMaster(a5),TrackNoteTimeout(a5)	; Reset note fill timeout
 		clr.b	TrackVolEnvIndex(a5)		; Reset PSG volume envelope index (even on FM tracks...)
-		btst	#3,(a5)				; Is modulation on?
+		btst	#3,(a5)				; Is modulation on? (TrackPlaybackControl)
 		beq.s	@locret				; If not, return (TrackPlaybackControl)
 		movea.l	TrackModulationPtr(a5),a0	; Modulation data pointer
 		move.b	(a0)+,TrackModulationWait(a5)	; Reset wait
@@ -869,7 +869,7 @@ Sound_PlayBGM:
 @gotchannelindex:
 		lea	SFX_BGMChannelRAM(pc),a0
 		movea.l	(a0,d0.w),a0
-		bset	#2,(a0)		; Set 'SFX is overriding' bit
+		bset	#2,(a0)		; Set 'SFX is overriding' bit (TrackPlaybackControl)
 ; loc_7217C:
 @sfxnext:
 		adda.w	d6,a1
@@ -2381,7 +2381,7 @@ cfStopTrack:
 ; loc_72DCC:
 @getpsgptr:
 		lea	v_spcsfx_psg3_track(a6),a0
-		tst.b	(a0)		; Is track playing?
+		tst.b	(a0)		; Is track playing? (TrackPlaybackControl)
 		bpl.s	@getchannelptr	; Branch if not
 		cmpi.b	#$E0,d0		; Is it the noise channel?
 		beq.s	@gotchannelptr	; Branch if yes
