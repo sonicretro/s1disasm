@@ -1563,9 +1563,9 @@ DoFadeIn:
 ; ===========================================================================
 ; loc_726E2:
 FMNoteOn:
-		btst	#1,TrackPlaybackControl(a5)	; Is track resting? (TrackPlaybackControl)
+		btst	#1,TrackPlaybackControl(a5)	; Is track resting?
 		bne.s	.locret				; Return if so
-		btst	#2,TrackPlaybackControl(a5)	; Is track being overridden? (TrackPlaybackControl)
+		btst	#2,TrackPlaybackControl(a5)	; Is track being overridden?
 		bne.s	.locret				; Return if so
 		moveq	#$28,d0				; Note on/off register
 		move.b	TrackVoiceControl(a5),d1	; Get channel bits
@@ -1845,7 +1845,7 @@ SetPSGVolume:
 		bne.s	locret_7298A			; Return if so
 		btst	#2,TrackPlaybackControl(a5)	; Is SFX overriding?
 		bne.s	locret_7298A			; Return if so
-		btst	#4,TrackPlaybackControl(a5)	; Is track set to not attack next note? (TrackPlaybackControl)
+		btst	#4,TrackPlaybackControl(a5)	; Is track set to not attack next note?
 		bne.s	PSGCheckNoteTimeout ; Branch if yes
 ; loc_7297C:
 PSGSendVolume:
@@ -2381,7 +2381,7 @@ cfStopTrack:
 ; loc_72DCC:
 .getpsgptr:
 		lea	v_spcsfx_psg3_track(a6),a0
-		tst.b	(a0)		; Is track playing?
+		tst.b	TrackPlaybackControl(a0)	; Is track playing?
 		bpl.s	.getchannelptr	; Branch if not
 		cmpi.b	#$E0,d0		; Is it the noise channel?
 		beq.s	.gotchannelptr	; Branch if yes
