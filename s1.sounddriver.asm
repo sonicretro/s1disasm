@@ -2676,7 +2676,11 @@ SoundCF:	incbin	"sound/sfx/SndCF - Signpost.bin"
 SoundD0:	incbin	"sound/sfx/SndD0 - Waterfall.bin"
 		even
 
-		cnop ($8000-Size_of_SegaPCM),$8000
+		; Don't let Sega sample cross $8000-byte boundary
+		; (DAC driver doesn't switch banks automatically)
+		if (*&$7FFF)+Size_of_SegaPCM>$8000
+			align $8000
+		endif
 SegaPCM:	incbin	"sound/dac/sega.pcm"
 SegaPCM_End
 		even
