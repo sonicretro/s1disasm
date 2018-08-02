@@ -60,6 +60,7 @@ namespace S1ObjectDefinitions.GHZ
 			{
 				Sprite tmp = new Sprite(imgs[i & 7]);
 				tmp.Offset(-spikeoffset, 0);
+				sprs.Add(tmp);
 				spikeoffset -= 0x10;
 			}
 			return new Sprite(sprs.ToArray());
