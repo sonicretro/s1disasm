@@ -3,6 +3,7 @@
 ; ---------------------------------------------------------------------------
 
 Size_of_SegaPCM:		equ $6978
+System_Stack:		equ $FFFE00
 
 ; VDP addressses
 vdp_data_port:		equ $C00000

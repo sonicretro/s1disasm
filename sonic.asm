@@ -27,23 +27,71 @@ OptimiseSound:	equ 0	; change to 1 to optimise sound queuing
 ; ===========================================================================
 
 StartOfRom:
-Vectors:	dc.l $FFFE00, EntryPoint, BusError, AddressError
-		dc.l IllegalInstr, ZeroDivide, ChkInstr, TrapvInstr
-		dc.l PrivilegeViol, Trace, Line1010Emu,	Line1111Emu
-		dc.l ErrorExcept, ErrorExcept, ErrorExcept, ErrorExcept
-		dc.l ErrorExcept, ErrorExcept, ErrorExcept, ErrorExcept
-		dc.l ErrorExcept, ErrorExcept, ErrorExcept, ErrorExcept
-		dc.l ErrorExcept, ErrorTrap, ErrorTrap,	ErrorTrap
-		dc.l HBlank, ErrorTrap, VBlank, ErrorTrap
-		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
-		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
-		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
-		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
-		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
-		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
+Vectors:	dc.l System_Stack	; Initial stack pointer value
+		dc.l EntryPoint			; Start of program
+		dc.l BusError			; Bus error
+		dc.l AddressError		; Address error (4)
+		dc.l IllegalInstr		; Illegal instruction
+		dc.l ZeroDivide			; Division by zero
+		dc.l ChkInstr			; CHK exception
+		dc.l TrapvInstr			; TRAPV exception (8)
+		dc.l PrivilegeViol		; Privilege violation
+		dc.l Trace				; TRACE exception
+		dc.l Line1010Emu		; Line-A emulator
+		dc.l Line1111Emu		; Line-F emulator (12)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved) (16)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved) (20)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved) (24)
+		dc.l ErrorExcept		; Spurious exception
+		dc.l ErrorTrap			; IRQ level 1
+		dc.l ErrorTrap			; IRQ level 2
+		dc.l ErrorTrap			; IRQ level 3 (28)
+		dc.l HBlank				; IRQ level 4 (horizontal retrace interrupt)
+		dc.l ErrorTrap			; IRQ level 5
+		dc.l VBlank				; IRQ level 6 (vertical retrace interrupt)
+		dc.l ErrorTrap			; IRQ level 7 (32)
+		dc.l ErrorTrap			; TRAP #00 exception
+		dc.l ErrorTrap			; TRAP #01 exception
+		dc.l ErrorTrap			; TRAP #02 exception
+		dc.l ErrorTrap			; TRAP #03 exception (36)
+		dc.l ErrorTrap			; TRAP #04 exception
+		dc.l ErrorTrap			; TRAP #05 exception
+		dc.l ErrorTrap			; TRAP #06 exception
+		dc.l ErrorTrap			; TRAP #07 exception (40)
+		dc.l ErrorTrap			; TRAP #08 exception
+		dc.l ErrorTrap			; TRAP #09 exception
+		dc.l ErrorTrap			; TRAP #10 exception
+		dc.l ErrorTrap			; TRAP #11 exception (44)
+		dc.l ErrorTrap			; TRAP #12 exception
+		dc.l ErrorTrap			; TRAP #13 exception
+		dc.l ErrorTrap			; TRAP #14 exception
+		dc.l ErrorTrap			; TRAP #15 exception (48)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
 	if Revision<>2
-		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
-		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
 	else
 loc_E0:
 		; Relocated code from Spik_Hurt. REVXB was a nasty hex-edit.
@@ -54,23 +102,25 @@ loc_E0:
 		jmp	(loc_D5A2).l
 
 		dc.w ErrorTrap
-		dc.l ErrorTrap, ErrorTrap, ErrorTrap
+		dc.l ErrorTrap
+		dc.l ErrorTrap
+		dc.l ErrorTrap
 	endif
-Console:	dc.b "SEGA MEGA DRIVE " ; Hardware system ID
-Date:		dc.b "(C)SEGA 1991.APR" ; Release date
+Console:	dc.b "SEGA MEGA DRIVE " ; Hardware system ID (Console name)
+Date:		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally year)
 Title_Local:	dc.b "SONIC THE               HEDGEHOG                " ; Domestic name
 Title_Int:	dc.b "SONIC THE               HEDGEHOG                " ; International name
 Serial:		if Revision=0
-		dc.b "GM 00001009-00"   ; Serial/version number
+		dc.b "GM 00001009-00"   ; Serial/version number (Rev 0)
 		else
-			dc.b "GM 00004049-01"
+			dc.b "GM 00004049-01" ; Serial/version number (Rev non-0)
 		endc
 Checksum:	dc.w 0
 		dc.b "J               " ; I/O support
-RomStartLoc:	dc.l StartOfRom		; ROM start
-RomEndLoc:	dc.l EndOfRom-1		; ROM end
-RamStartLoc:	dc.l $FF0000		; RAM start
-RamEndLoc:	dc.l $FFFFFF		; RAM end
+RomStartLoc:	dc.l StartOfRom		; Start address of ROM
+RomEndLoc:	dc.l EndOfRom-1		; End address of ROM
+RamStartLoc:	dc.l $FF0000		; Start address of RAM
+RamEndLoc:	dc.l $FFFFFF		; End address of RAM
 SRAMSupport:	if EnableSRAM=1
 		dc.b $52, $41, $A0+(BackupSRAM<<6)+(AddressSRAM<<3), $20
 		else
@@ -78,10 +128,11 @@ SRAMSupport:	if EnableSRAM=1
 		endc
 		dc.l $20202020		; SRAM start ($200001)
 		dc.l $20202020		; SRAM end ($20xxxx)
-Notes:		dc.b "                                                    "
-Region:		dc.b "JUE             " ; Region
+Notes:		dc.b "                                                    " ; Notes (unused, anything can be put in this space, but it has to be 52 bytes.)
+Region:		dc.b "JUE             " ; Region (Country code)
 
 ; ===========================================================================
+; Crash/Freeze the 68000. Note that the Z80 continues to run, so the music keeps playing.
 
 ErrorTrap:
 		nop	
@@ -93,9 +144,9 @@ EntryPoint:
 		tst.l	(z80_port_1_control).l ; test port A & B control registers
 		bne.s	PortA_Ok
 		tst.w	(z80_expansion_control).l ; test port C control register
-	PortA_Ok:
-		bne.s	SkipSetup
 
+PortA_Ok:
+		bne.s	SkipSetup
 		lea	SetupValues(pc),a5
 		movem.w	(a5)+,d5-d7
 		movem.l	(a5)+,a0-a4
