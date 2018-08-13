@@ -115,7 +115,7 @@ Serial:		if Revision=0
 		else
 			dc.b "GM 00004049-01" ; Serial/version number (Rev non-0)
 		endc
-Checksum:	dc.w 0
+Checksum:	dc.w $264A
 		dc.b "J               " ; I/O support
 RomStartLoc:	dc.l StartOfRom		; Start address of ROM
 RomEndLoc:	dc.l EndOfRom-1		; End address of ROM
@@ -706,7 +706,7 @@ Demo_Time:
 		bsr.w	LoadTilesAsYouMove
 		jsr	(AnimateLevelGfx).l
 		jsr	(HUD_Update).l
-		bsr.w	sub_165E
+		bsr.w	ProcessDPLC2
 		tst.w	(v_demolength).w ; is there time left on the demo?
 		beq.w	@end		; if not, branch
 		subq.w	#1,(v_demolength).w ; subtract 1 from time left
@@ -733,9 +733,9 @@ VBla_0A:
 		move.b	#0,(f_sonframechg).w
 
 	@nochg:
-		tst.w	(v_demolength).w
-		beq.w	@end
-		subq.w	#1,(v_demolength).w
+		tst.w	(v_demolength).w	; is there time left on the demo?
+		beq.w	@end	; if not, return
+		subq.w	#1,(v_demolength).w	; subtract 1 from time left in demo
 
 	@end:
 		rts	
@@ -1259,7 +1259,8 @@ sub_1642:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-sub_165E:
+; sub_165E:
+ProcessDPLC2:
 		tst.w	(f_plc_execute).w
 		beq.s	locret_16DA
 		move.w	#3,($FFFFF6FA).w
@@ -1311,7 +1312,7 @@ loc_16E2:
 		move.l	6(a0),(a0)+
 		dbf	d0,loc_16E2
 		rts	
-; End of function sub_165E
+; End of function ProcessDPLC2
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	execute	the pattern load cue
