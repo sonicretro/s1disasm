@@ -1222,7 +1222,7 @@ RunPLC:
 loc_160E:
 		andi.w	#$7FFF,d2
 		move.w	d2,(f_plc_execute).w
-		bsr.w	NemDec4
+		bsr.w	NemDecPrepare
 		move.b	(a0)+,d5
 		asl.w	#8,d5
 		move.b	(a0)+,d5
@@ -1286,7 +1286,7 @@ loc_1676:
 
 loc_16AA:
 		movea.w	#8,a5
-		bsr.w	NemDec3
+		bsr.w	NemDec_WriteIter
 		subq.w	#1,(f_plc_execute).w
 		beq.s	loc_16DC
 		subq.w	#1,($FFFFF6FA).w
