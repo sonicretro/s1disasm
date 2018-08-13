@@ -34,12 +34,12 @@ loc_146A:
 		moveq	#8,d3
 		moveq	#0,d2
 		moveq	#0,d4
-		bsr.w	NemDec4
+		bsr.w	NemDecPrepare
 		move.b	(a0)+,d5
 		asl.w	#8,d5
 		move.b	(a0)+,d5
 		move.w	#$10,d6
-		bsr.s	NemDec2
+		bsr.s	NemDecRun
 		movem.l	(sp)+,d0-a1/a3-a5
 		rts	
 ; End of function NemDec
@@ -48,7 +48,7 @@ loc_146A:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-NemDec2:
+NemDecRun:
 		move.w	d6,d7
 		subq.w	#8,d7
 		move.w	d5,d1
@@ -79,21 +79,21 @@ loc_14C2:
 		lsl.l	#4,d4
 		or.b	d1,d4
 		subq.w	#1,d3
-		bne.s	loc_14D0
-		jmp	(a3)
-; End of function NemDec2
+		bne.s	NemDec_WriteIter_Part2
+		jmp	(a3) ; dynamic jump! to NemDec_WriteAndStay, NemDec_WriteAndAdvance, NemDec_WriteAndStay_XOR, or NemDec_WriteAndAdvance_XOR
+; End of function NemDecRun
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-NemDec3:
+NemDec_WriteIter:
 		moveq	#0,d4
 		moveq	#8,d3
 
-loc_14D0:
+NemDec_WriteIter_Part2:
 		dbf	d0,loc_14C2
-		bra.s	NemDec2
+		bra.s	NemDecRun
 ; ===========================================================================
 
 loc_14D6:
@@ -117,7 +117,7 @@ loc_14E4:
 		asl.w	#8,d5
 		move.b	(a0)+,d5
 		bra.s	loc_14C0
-; End of function NemDec3
+; End of function NemDec_WriteIter
 
 ; ===========================================================================
 
@@ -125,14 +125,14 @@ NemDec_WriteAndStay:
 		move.l	d4,(a4)
 		subq.w	#1,a5
 		move.w	a5,d4
-		bne.s	NemDec3
+		bne.s	NemDec_WriteIter
 		rts	
 ; ===========================================================================
 		eor.l	d4,d2
 		move.l	d2,(a4)
 		subq.w	#1,a5
 		move.w	a5,d4
-		bne.s	NemDec3
+		bne.s	NemDec_WriteIter
 		rts	
 ; ===========================================================================
 
@@ -140,20 +140,20 @@ NemDec_WriteAndAdvance:
 		move.l	d4,(a4)+
 		subq.w	#1,a5
 		move.w	a5,d4
-		bne.s	NemDec3
+		bne.s	NemDec_WriteIter
 		rts	
 ; ===========================================================================
 		eor.l	d4,d2
 		move.l	d2,(a4)+
 		subq.w	#1,a5
 		move.w	a5,d4
-		bne.s	NemDec3
+		bne.s	NemDec_WriteIter
 		rts	
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-NemDec4:
+NemDecPrepare:
 		move.b	(a0)+,d0
 
 loc_1530:
@@ -199,4 +199,4 @@ loc_1574:
 		addq.w	#2,d0
 		dbf	d5,loc_1574
 		bra.s	loc_153A
-; End of function NemDec4
+; End of function NemDecPrepare
