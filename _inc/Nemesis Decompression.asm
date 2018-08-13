@@ -1,20 +1,27 @@
 ; ---------------------------------------------------------------------------
 ; Nemesis decompression	algorithm
+
+; For format explanation see http://info.sonicretro.org/Nemesis_compression
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
 
-
+; Nemesis decompression to VRAM
 NemDec:
 		movem.l	d0-a1/a3-a5,-(sp)
-		lea	(loc_1502).l,a3
-		lea	(vdp_data_port).l,a4
-		bra.s	loc_145C
-; ===========================================================================
-		movem.l	d0-a1/a3-a5,-(sp)
-		lea	(loc_1518).l,a3
+		lea	(NemDec_WriteAndStay).l,a3	; write all data to the same location
+		lea	(vdp_data_port).l,a4	; specifically, to the VDP data port
+		bra.s	NemDecMain
 
-loc_145C:
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+
+; Nemesis decompression to RAM
+; input: a4 = starting address of destination
+NemDecToRAM:
+		movem.l	d0-a1/a3-a5,-(sp)
+		lea	(NemDec_WriteAndAdvance).l,a3
+
+NemDecMain:
 		lea	(v_ngfx_buffer).w,a1
 		move.w	(a0)+,d2
 		lsl.w	#1,d2
@@ -114,7 +121,7 @@ loc_14E4:
 
 ; ===========================================================================
 
-loc_1502:
+NemDec_WriteAndStay:
 		move.l	d4,(a4)
 		subq.w	#1,a5
 		move.w	a5,d4
@@ -129,7 +136,7 @@ loc_1502:
 		rts	
 ; ===========================================================================
 
-loc_1518:
+NemDec_WriteAndAdvance:
 		move.l	d4,(a4)+
 		subq.w	#1,a5
 		move.w	a5,d4

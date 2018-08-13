@@ -911,7 +911,7 @@ JoypadInit:
 		moveq	#$40,d0
 		move.b	d0,($A10009).l	; init port 1 (joypad 1)
 		move.b	d0,($A1000B).l	; init port 2 (joypad 2)
-		move.b	d0,($A1000D).l	; init port 3 (expansion)
+		move.b	d0,($A1000D).l	; init port 3 (expansion/extra)
 		startZ80
 		rts	
 ; End of function JoypadInit
@@ -919,7 +919,6 @@ JoypadInit:
 ; ---------------------------------------------------------------------------
 ; Subroutine to	read joypad input, and send it to the RAM
 ; ---------------------------------------------------------------------------
-
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
@@ -967,7 +966,7 @@ VDPSetupGame:
 
 		move.w	(VDPSetupArray+2).l,d0
 		move.w	d0,(v_vdp_buffer1).w
-		move.w	#$8A00+223,(v_hbla_hreg).w
+		move.w	#$8A00+223,(v_hbla_hreg).w	; H-INT every 224th scanline
 		moveq	#0,d0
 		move.l	#$C0000000,(vdp_control_port).l ; set VDP to CRAM write
 		move.w	#$3F,d7
@@ -1107,14 +1106,14 @@ TilemapToVRAM:
 		move.l	#$800000,d4
 
 	Tilemap_Line:
-		move.l	d0,4(a6)
+		move.l	d0,4(a6)	; move d0 to VDP_control_port
 		move.w	d1,d3
 
 	Tilemap_Cell:
 		move.w	(a1)+,(a6)	; write value to namespace
-		dbf	d3,Tilemap_Cell
+		dbf	d3,Tilemap_Cell	; next tile
 		add.l	d4,d0		; goto next line
-		dbf	d2,Tilemap_Line
+		dbf	d2,Tilemap_Line	; next line
 		rts	
 ; End of function TilemapToVRAM
 
@@ -1214,7 +1213,7 @@ RunPLC:
 		tst.w	(f_plc_execute).w
 		bne.s	Rplc_Exit
 		movea.l	(v_plc_buffer).w,a0
-		lea	(loc_1502).l,a3
+		lea	(NemDec_WriteAndStay).l,a3
 		lea	(v_ngfx_buffer).w,a1
 		move.w	(a0)+,d2
 		bpl.s	loc_160E
