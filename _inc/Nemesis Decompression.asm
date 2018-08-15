@@ -23,7 +23,7 @@ NemDec:
 ; a4 = destination RAM address
 NemDecToRAM:
 		movem.l	d0-a1/a3-a5,-(sp)
-		lea	(NemPCD_WriteRowToRAM).l,a3
+		lea	(NemPCD_WriteRowToRAM).l,a3 ; advance to the next location after each write
 
 NemDecMain:
 		lea	(v_ngfx_buffer).w,a1
@@ -135,7 +135,7 @@ NemPCD_WriteRowToVDP:
 		bne.s	NemPCD_NewRow	; if not, branch
 		rts		; otherwise the decompression is finished
 ; ===========================================================================
-NemPCD_WriteRowToVDP_XOR
+NemPCD_WriteRowToVDP_XOR:
 		eor.l	d4,d2	; XOR the previous row by the current row
 		move.l	d2,(a4)	; and write the result
 		subq.w	#1,a5
@@ -181,6 +181,7 @@ NemBCT_Loop:
 		move.b	(a0)+,d0	; read next byte
 		cmpi.b	#$80,d0	; sign bit being set signifies a new palette index
 		bcc.s	NemBCT_ChkEnd	; a bmi could have been used instead of a compare and bcc
+		
 		move.b	d0,d1
 		andi.w	#$F,d7	; get palette index
 		andi.w	#$70,d1	; get repeat count for palette index
