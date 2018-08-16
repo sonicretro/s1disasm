@@ -1119,22 +1119,24 @@ TilemapToVRAM:
 
 		include	"_inc\Nemesis Decompression.asm"
 
-; ---------------------------------------------------------------------------
-; Subroutines to load pattern load cues
 
-; input:
-;	d0 = pattern load cue number
+; ---------------------------------------------------------------------------
+; Subroutine to load pattern load cues (aka to queue pattern load requests)
+; ---------------------------------------------------------------------------
+
+; ARGUMENTS
+; d0 = index of PLC lis
 ; ---------------------------------------------------------------------------
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-
+; LoadPLC:
 AddPLC:
 		movem.l	a1-a2,-(sp)
 		lea	(ArtLoadCues).l,a1
 		add.w	d0,d0
 		move.w	(a1,d0.w),d0
-		lea	(a1,d0.w),a1	; jump to relevant PLC
+		lea	(a1,d0.w),a1		; jump to relevant PLC
 		lea	(v_plc_buffer).w,a2 ; PLC buffer space
 
 	@findspace:
@@ -1154,14 +1156,24 @@ AddPLC:
 		dbf	d0,@loop	; repeat for length of PLC
 
 	@skip:
-		movem.l	(sp)+,a1-a2
+		movem.l	(sp)+,a1-a2 ; a1=object
 		rts	
 ; End of function AddPLC
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
+; Queue pattern load requests, but clear the PLQ first
 
+; ARGUMENTS
+; d0 = index of PLC list (see ArtLoadCues)
 
+; NOTICE: This subroutine does not check for buffer overruns. The programmer
+;	  (or hacker) is responsible for making sure that no more than
+;	  16 load requests are copied into the buffer.
+;	  _________DO NOT PUT MORE THAN 16 LOAD REQUESTS IN A LIST!__________
+;         (or if you change the size of Plc_Buffer, the limit becomes (Plc_Buffer_Only_End-Plc_Buffer)/6)
+
+; LoadPLC2:
 NewPLC:
 		movem.l	a1-a2,-(sp)
 		lea	(ArtLoadCues).l,a1
@@ -1171,28 +1183,30 @@ NewPLC:
 		bsr.s	ClearPLC	; erase any data in PLC buffer space
 		lea	(v_plc_buffer).w,a2
 		move.w	(a1)+,d0	; get length of PLC
-		bmi.s	@skip
+		bmi.s	@skip		; if it's negative, skip the next loop
 
 	@loop:
 		move.l	(a1)+,(a2)+
 		move.w	(a1)+,(a2)+	; copy PLC to RAM
-		dbf	d0,@loop	; repeat for length of PLC
+		dbf	d0,@loop		; repeat for length of PLC
 
 	@skip:
 		movem.l	(sp)+,a1-a2
 		rts	
 ; End of function NewPLC
 
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
+
 ; ---------------------------------------------------------------------------
 ; Subroutine to	clear the pattern load cues
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
+; Clear the pattern load queue ($FFF680 - $FFF700)
 
 
 ClearPLC:
 		lea	(v_plc_buffer).w,a2 ; PLC buffer space in RAM
-		moveq	#$1F,d0
+		moveq	#$1F,d0	; bytesToLcnt(v_plc_buffer_end-v_plc_buffer)
 
 	@loop:
 		clr.l	(a2)+
