@@ -162,7 +162,7 @@ PortA_Ok:
 		move.l	#'SEGA',$2F00(a1) ; move "SEGA" to TMSS register ($A14000)
 
 SkipSecurity:
-		move.w	(a4),d0	; check if VDP works
+		move.w	(a4),d0	; clear write-pending flag in VDP to prevent issues if the 68k has been reset in the middle of writing a command long word to the VDP.
 		moveq	#0,d0	; clear d0
 		movea.l	d0,a6	; clear a6
 		move.l	a6,usp	; set usp to $0
