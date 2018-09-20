@@ -115,7 +115,12 @@ Serial:		if Revision=0
 		else
 			dc.b "GM 00004049-01" ; Serial/version number (Rev non-0)
 		endc
-Checksum:	dc.w $264A
+Checksum:
+		if Revision=0
+		dc.w $264A	; Hardcoded to make it easier to check for ROM correctness
+		else if Revision=1
+		dc.w $AFC7
+		endc
 		dc.b "J               " ; I/O support
 RomStartLoc:	dc.l StartOfRom		; Start address of ROM
 RomEndLoc:	dc.l EndOfRom-1		; End address of ROM
@@ -133,7 +138,7 @@ Region:		dc.b "JUE             " ; Region (Country code)
 EndOfHeader:
 
 ; ===========================================================================
-; Crash/Freeze the 68000. Note that the Z80 continues to run, so the music keeps playing.
+; Crash/Freeze the 68000. Unlike Sonic 2, Sonic 1 uses the 68000 for playing music, so it stops too
 
 ErrorTrap:
 		nop	
