@@ -12,19 +12,19 @@ DeformLayers:
 ; ===========================================================================
 
 loc_628E:
-		clr.w	(v_bgscroll1).w
-		clr.w	(v_bgscroll2).w
-		clr.w	(v_bgscroll3).w
-		clr.w	($FFFFF75A).w
+		clr.w	(v_fg_scroll_flags).w
+		clr.w	(v_bg1_scroll_flags).w
+		clr.w	(v_bg2_scroll_flags).w
+		clr.w	(v_bg3_scroll_flags).w
 		bsr.w	ScrollHoriz
 		bsr.w	ScrollVertical
 		bsr.w	DynamicLevelEvents
 		move.w	(v_screenposx).w,(v_scrposx_dup).w
 		move.w	(v_screenposy).w,(v_scrposy_dup).w
-		move.w	(v_bgscreenposx).w,($FFFFF61C).w
-		move.w	(v_bgscreenposy).w,($FFFFF618).w
-		move.w	(v_bg3screenposx).w,($FFFFF620).w
-		move.w	(v_bg3screenposy).w,($FFFFF61E).w
+		move.w	(v_bgscreenposx).w,(v_bgscreenposx_dup_unused).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
+		move.w	(v_bg3screenposx).w,(v_bg3screenposx_dup_unused).w
+		move.w	(v_bg3screenposy).w,(v_bg3screenposy_dup_unused).w
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
 		add.w	d0,d0
@@ -39,8 +39,8 @@ loc_628E:
 Deform_Index:	dc.w Deform_GHZ-Deform_Index, Deform_LZ-Deform_Index
 		dc.w Deform_MZ-Deform_Index, Deform_SLZ-Deform_Index
 		dc.w Deform_SYZ-Deform_Index, Deform_SBZ-Deform_Index
-		dc.w Deform_GHZ-Deform_Index
 		zonewarning Deform_Index,2
+		dc.w Deform_GHZ-Deform_Index
 ; ---------------------------------------------------------------------------
 ; Green	Hill Zone background layer deformation code
 ; ---------------------------------------------------------------------------
@@ -67,7 +67,7 @@ Deform_GHZ:
 		move.w	d0,(v_bg2screenposy).w
 		move.w	d0,d4
 		bsr.w	ScrollBlock3
-		move.w	(v_bgscreenposy).w,($FFFFF618).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		move.w	#$6F,d1
 		sub.w	d4,d1
 		move.w	(v_screenposx).w,d0
@@ -132,7 +132,7 @@ Deform_LZ:
 		ext.l	d5
 		asl.l	#7,d5
 		bsr.w	ScrollBlock1
-		move.w	(v_bgscreenposy).w,($FFFFF618).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	(v_hscrolltablebuffer).w,a1
 		move.w	#223,d1
 		move.w	(v_screenposx).w,d0
@@ -178,7 +178,7 @@ Deform_MZ:
 loc_6402:
 		move.w	d0,(v_bg2screenposy).w
 		bsr.w	ScrollBlock3
-		move.w	(v_bgscreenposy).w,($FFFFF618).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	(v_hscrolltablebuffer).w,a1
 		move.w	#223,d1
 		move.w	(v_screenposx).w,d0
@@ -208,7 +208,7 @@ Deform_SLZ:
 		ext.l	d5
 		asl.l	#7,d5
 		bsr.w	ScrollBlock2
-		move.w	(v_bgscreenposy).w,($FFFFF618).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		bsr.w	Deform_SLZ_2
 		lea	($FFFFA800).w,a2
 		move.w	(v_bgscreenposy).w,d0
@@ -321,7 +321,7 @@ Deform_SYZ:
 		asl.l	#1,d5
 		add.l	d1,d5
 		bsr.w	ScrollBlock1
-		move.w	(v_bgscreenposy).w,($FFFFF618).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	(v_hscrolltablebuffer).w,a1
 		move.w	#223,d1
 		move.w	(v_screenposx).w,d0
@@ -352,7 +352,7 @@ Deform_SBZ:
 		asl.l	#4,d5
 		asl.l	#1,d5
 		bsr.w	ScrollBlock1
-		move.w	(v_bgscreenposy).w,($FFFFF618).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	(v_hscrolltablebuffer).w,a1
 		move.w	#223,d1
 		move.w	(v_screenposx).w,d0
@@ -387,11 +387,11 @@ ScrollHoriz:
 		sub.w	d4,d0		; compare new with old screen position
 		bpl.s	SH_Forward
 
-		bset	#2,(v_bgscroll1).w ; screen moves backward
+		bset	#2,(v_fg_scroll_flags).w ; screen moves backward
 		rts	
 
 	SH_Forward:
-		bset	#3,(v_bgscroll1).w ; screen moves forward
+		bset	#3,(v_fg_scroll_flags).w ; screen moves forward
 
 locret_65B0:
 		rts	
@@ -600,12 +600,12 @@ loc_6724:
 		move.w	(v_screenposy).w,d0
 		sub.w	d4,d0
 		bpl.s	loc_6760
-		bset	#0,(v_bgscroll1).w
+		bset	#0,(v_fg_scroll_flags).w
 		rts	
 ; ===========================================================================
 
 loc_6760:
-		bset	#1,(v_bgscroll1).w
+		bset	#1,(v_fg_scroll_flags).w
 
 locret_6766:
 		rts	
@@ -629,12 +629,12 @@ ScrollBlock1:
 		eori.b	#$10,($FFFFF74C).w
 		sub.l	d2,d0
 		bpl.s	loc_6796
-		bset	#2,(v_bgscroll2).w
+		bset	#2,(v_bg1_scroll_flags).w
 		bra.s	loc_679C
 ; ===========================================================================
 
 loc_6796:
-		bset	#3,(v_bgscroll2).w
+		bset	#3,(v_bg1_scroll_flags).w
 
 loc_679C:
 		move.l	(v_bgscreenposy).w,d3
@@ -650,12 +650,12 @@ loc_679C:
 		eori.b	#$10,($FFFFF74D).w
 		sub.l	d3,d0
 		bpl.s	loc_67CA
-		bset	#0,(v_bgscroll2).w
+		bset	#0,(v_bg1_scroll_flags).w
 		rts	
 ; ===========================================================================
 
 loc_67CA:
-		bset	#1,(v_bgscroll2).w
+		bset	#1,(v_bg1_scroll_flags).w
 
 locret_67D0:
 		rts	
@@ -683,12 +683,12 @@ ScrollBlock2:
 		eori.b	#$10,($FFFFF74D).w
 		sub.l	d3,d0
 		bpl.s	loc_680C
-		bset	#0,(v_bgscroll2).w
+		bset	#0,(v_bg1_scroll_flags).w
 		rts	
 ; ===========================================================================
 
 loc_680C:
-		bset	#1,(v_bgscroll2).w
+		bset	#1,(v_bg1_scroll_flags).w
 
 locret_6812:
 		rts	
@@ -709,12 +709,12 @@ ScrollBlock3:
 		eori.b	#$10,($FFFFF74D).w
 		sub.w	d3,d0
 		bpl.s	loc_683C
-		bset	#0,(v_bgscroll2).w
+		bset	#0,(v_bg1_scroll_flags).w
 		rts	
 ; ===========================================================================
 
 loc_683C:
-		bset	#1,(v_bgscroll2).w
+		bset	#1,(v_bg1_scroll_flags).w
 
 locret_6842:
 		rts	
@@ -740,12 +740,12 @@ ScrollBlock4:
 		move.w	(v_bg2screenposx).w,d0
 		sub.w	d2,d0
 		bpl.s	loc_687E
-		bset	#2,(v_bgscroll3).w
+		bset	#2,(v_bg2_scroll_flags).w
 		bra.s	locret_6884
 ; ===========================================================================
 
 loc_687E:
-		bset	#3,(v_bgscroll3).w
+		bset	#3,(v_bg2_scroll_flags).w
 
 locret_6884:
 		rts	

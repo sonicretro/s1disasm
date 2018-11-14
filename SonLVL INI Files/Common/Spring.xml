@@ -35,7 +35,6 @@
       <EnumMember name="Up" />
       <EnumMember name="Horizontal" />
       <EnumMember name="Down" />
-      <EnumMember name="Horizontal 2" />
     </Enum>
     <Enum name="SpringColor">
       <EnumMember name="Red" />

@@ -1,10 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - "PRESS START BUTTON" and "TM" from title screen
 ; ---------------------------------------------------------------------------
-Map_PSB:	dc.w byte_A7CD-Map_PSB
-		dc.w M_PSB_PSB-Map_PSB
-		dc.w M_PSB_Limiter-Map_PSB
-		dc.w M_PSB_TM-Map_PSB
+Map_PSB_internal:
+		dc.w byte_A7CD-Map_PSB_internal
+		dc.w M_PSB_PSB-Map_PSB_internal
+		dc.w M_PSB_Limiter-Map_PSB_internal
+		dc.w M_PSB_TM-Map_PSB_internal
 M_PSB_PSB:	dc.b 6			; "PRESS START BUTTON"
 byte_A7CD:	dc.b 0,	$C, 0, $F0, 0
 		dc.b 0,	0, 0, $F3, $20

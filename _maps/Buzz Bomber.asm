@@ -1,9 +1,13 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Buzz Bomber	enemy
 ; ---------------------------------------------------------------------------
-Map_Buzz:	dc.w @Fly1-Map_Buzz, @Fly2-Map_Buzz
-		dc.w @Fly3-Map_Buzz, @Fly4-Map_Buzz
-		dc.w @Fire1-Map_Buzz, @Fire2-Map_Buzz
+Map_Buzz_internal:
+		dc.w @Fly1-Map_Buzz_internal
+		dc.w @Fly2-Map_Buzz_internal
+		dc.w @Fly3-Map_Buzz_internal
+		dc.w @Fly4-Map_Buzz_internal
+		dc.w @Fire1-Map_Buzz_internal
+		dc.w @Fire2-Map_Buzz_internal
 @Fly1:		dc.b 6
 		dc.b $F4, 9, 0,	0, $E8	; flying
 		dc.b $F4, 9, 0,	$F, 0

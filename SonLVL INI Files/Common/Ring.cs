@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Drawing;
 using SonicRetro.SonLVL.API;
 
@@ -65,32 +66,25 @@ namespace S1ObjectDefinitions.Common
 			return img;
 		}
 
-		public override Rectangle GetBounds(ObjectEntry obj, Point camera)
-		{
-			int count = Math.Min(6, obj.SubType & 7);
-			Size space = Spacing[obj.SubType >> 4];
-			return new Rectangle(obj.X + img.X - camera.X, obj.Y + img.Y - camera.Y, (space.Width * count) + img.Width, (space.Height * count) + img.Height);
-		}
-
 		public override Sprite GetSprite(ObjectEntry obj)
 		{
 			int count = Math.Min(6, obj.SubType & 7) + 1;
 			Size space = Spacing[obj.SubType >> 4];
-			Point loc = new Point(img.X, img.Y);
+			Point loc = new Point();
 			List<Sprite> sprs = new List<Sprite>();
 			for (int i = 0; i < count; i++)
 			{
-				sprs.Add(new Sprite(img.Image, loc));
+				Sprite tmp = new Sprite(img);
+				tmp.Offset(loc);
+				sprs.Add(tmp);
 				loc += space;
 			}
-			Sprite spr = new Sprite(sprs.ToArray());
-			spr.Offset = new Point(spr.X + obj.X, spr.Y + obj.Y);
-			return spr;
+			return new Sprite(sprs.ToArray());
 		}
 
 		private PropertySpec[] customProperties = new PropertySpec[] {
 			new PropertySpec("Count", typeof(int), "Extended", null, null, GetCount, SetCount),
-			new PropertySpec("Direction", typeof(int), "Extended", null, null, GetDirection, SetDirection)
+			new PropertySpec("Direction", typeof(int), "Extended", null, null, typeof(DirectionConverter), GetDirection, SetDirection)
 		};
 
 		public override PropertySpec[] CustomProperties
@@ -120,5 +114,73 @@ namespace S1ObjectDefinitions.Common
 		{
 			obj.SubType = (byte)((obj.SubType & ~0xF0) | (((int)value & 0xF) << 4));
 		}
+	}
+
+	internal class DirectionConverter : TypeConverter
+	{
+		public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
+		{
+			if (sourceType == typeof(string))
+				return true;
+			return base.CanConvertFrom(context, sourceType);
+		}
+
+		public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+		{
+			if (destinationType == typeof(int))
+				return true;
+			return base.CanConvertTo(context, destinationType);
+		}
+
+		public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+		{
+			if (value is string)
+				return values[(string)value];
+			return base.ConvertFrom(context, culture, value);
+		}
+
+		public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
+		{
+			if (destinationType == typeof(string) && value is int)
+			{
+				string result = null;
+				foreach (KeyValuePair<string, int> item in values)
+					if (item.Value.Equals(value))
+						result = item.Key;
+				if (result != null) return result;
+				throw new KeyNotFoundException();
+			}
+			return base.ConvertTo(context, culture, value, destinationType);
+		}
+
+		public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context)
+		{
+			return new StandardValuesCollection(values.Keys);
+		}
+
+		public override bool GetStandardValuesSupported(ITypeDescriptorContext context)
+		{
+			return true;
+		}
+
+		private Dictionary<string, int> values = new Dictionary<string, int>()
+		{
+			{ "Right (Short)", 0 },
+			{ "Right (Medium)", 1 },
+			{ "Right (Far)", 2 },
+			{ "Down (Short)", 3 },
+			{ "Down (Medium)", 4 },
+			{ "Down (Far)", 5 },
+			{ "Down-Right (Short)", 6 },
+			{ "Down-Right (Medium)", 7 },
+			{ "Down-Right (Far)", 8 },
+			{ "Down-Left (Short)", 9 },
+			{ "Down-Left (Medium)", 10 },
+			{ "Down-Left (Far)", 11 },
+			{ "Down-Right-Right (Short)", 12 },
+			{ "Down-Right-Right (Medium)", 13 },
+			{ "Down-Left-Left (Short)", 14 },
+			{ "Down-Left-Left (Medium)", 15 }
+		};
 	}
 }

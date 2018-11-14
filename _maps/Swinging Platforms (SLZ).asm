@@ -1,9 +1,10 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - SLZ	swinging platforms
 ; ---------------------------------------------------------------------------
-Map_Swing_SLZ:	dc.w @block-Map_Swing_SLZ
-		dc.w @chain-Map_Swing_SLZ
-		dc.w @anchor-Map_Swing_SLZ
+Map_Swing_SLZ_internal:
+		dc.w @block-Map_Swing_SLZ_internal
+		dc.w @chain-Map_Swing_SLZ_internal
+		dc.w @anchor-Map_Swing_SLZ_internal
 @block:		dc.b 8
 		dc.b $F0, $F, 0, 4, $E0
 		dc.b $F0, $F, 8, 4, 0

@@ -1,10 +1,14 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Crabmeat enemy (GHZ, SYZ)
 ; ---------------------------------------------------------------------------
-Map_Crab:	dc.w @stand-Map_Crab, @walk-Map_Crab
-		dc.w @slope1-Map_Crab, @slope2-Map_Crab
-		dc.w @firing-Map_Crab, @ball1-Map_Crab
-		dc.w @ball2-Map_Crab
+Map_Crab_internal:
+		dc.w @stand-Map_Crab_internal
+		dc.w @walk-Map_Crab_internal
+		dc.w @slope1-Map_Crab_internal
+		dc.w @slope2-Map_Crab_internal
+		dc.w @firing-Map_Crab_internal
+		dc.w @ball1-Map_Crab_internal
+		dc.w @ball2-Map_Crab_internal
 @stand:		dc.b 4
 		dc.b $F0, 9, 0,	0, $E8	; standing/middle walking frame
 		dc.b $F0, 9, 8,	0, 0

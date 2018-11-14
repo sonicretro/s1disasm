@@ -1,16 +1,27 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - lava geyser / lava that falls from the ceiling (MZ)
 ; ---------------------------------------------------------------------------
-Map_Geyser:	dc.w @bubble1-Map_Geyser, @bubble2-Map_Geyser
-		dc.w @bubble3-Map_Geyser, @bubble4-Map_Geyser
-		dc.w @bubble5-Map_Geyser, @bubble6-Map_Geyser
-		dc.w @end1-Map_Geyser, @end2-Map_Geyser
-		dc.w @medcolumn1-Map_Geyser, @medcolumn2-Map_Geyser
-		dc.w @medcolumn3-Map_Geyser, @shortcolumn1-Map_Geyser
-		dc.w @shortcolumn2-Map_Geyser, @shortcolumn3-Map_Geyser
-		dc.w @longcolumn1-Map_Geyser, @longcolumn2-Map_Geyser
-		dc.w @longcolumn3-Map_Geyser, @bubble7-Map_Geyser
-		dc.w @bubble8-Map_Geyser, @blank-Map_Geyser
+Map_Geyser_internal:
+		dc.w @bubble1-Map_Geyser_internal
+		dc.w @bubble2-Map_Geyser_internal
+		dc.w @bubble3-Map_Geyser_internal
+		dc.w @bubble4-Map_Geyser_internal
+		dc.w @bubble5-Map_Geyser_internal
+		dc.w @bubble6-Map_Geyser_internal
+		dc.w @end1-Map_Geyser_internal
+		dc.w @end2-Map_Geyser_internal
+		dc.w @medcolumn1-Map_Geyser_internal
+		dc.w @medcolumn2-Map_Geyser_internal
+		dc.w @medcolumn3-Map_Geyser_internal
+		dc.w @shortcolumn1-Map_Geyser_internal
+		dc.w @shortcolumn2-Map_Geyser_internal
+		dc.w @shortcolumn3-Map_Geyser_internal
+		dc.w @longcolumn1-Map_Geyser_internal
+		dc.w @longcolumn2-Map_Geyser_internal
+		dc.w @longcolumn3-Map_Geyser_internal
+		dc.w @bubble7-Map_Geyser_internal
+		dc.w @bubble8-Map_Geyser_internal
+		dc.w @blank-Map_Geyser_internal
 @bubble1:	dc.b 2
 		dc.b $EC, $B, 0, 0, $E8
 		dc.b $EC, $B, 8, 0, 0

@@ -1,12 +1,18 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Eggman (SBZ2)
 ; ---------------------------------------------------------------------------
-Map_SEgg:	dc.w @stand-Map_SEgg, @laugh1-Map_SEgg
-		dc.w @laugh2-Map_SEgg, @jump1-Map_SEgg
-		dc.w @jump2-Map_SEgg, @surprise-Map_SEgg
-		dc.w @starjump-Map_SEgg, @running1-Map_SEgg
-		dc.w @running2-Map_SEgg, @intube-Map_SEgg
-		dc.w @cockpit-Map_SEgg
+Map_SEgg_internal:
+		dc.w @stand-Map_SEgg_internal
+		dc.w @laugh1-Map_SEgg_internal
+		dc.w @laugh2-Map_SEgg_internal
+		dc.w @jump1-Map_SEgg_internal
+		dc.w @jump2-Map_SEgg_internal
+		dc.w @surprise-Map_SEgg_internal
+		dc.w @starjump-Map_SEgg_internal
+		dc.w @running1-Map_SEgg_internal
+		dc.w @running2-Map_SEgg_internal
+		dc.w @intube-Map_SEgg_internal
+		dc.w @cockpit-Map_SEgg_internal
 @stand:		dc.b 3
 		dc.b $FC, 0, 0,	$8F, $E8
 		dc.b $E8, $E, 0, 0, $F0

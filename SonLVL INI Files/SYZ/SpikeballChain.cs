@@ -45,16 +45,6 @@ namespace S1ObjectDefinitions.SYZ
 			return img;
 		}
 
-		public override Rectangle GetBounds(ObjectEntry obj, Point camera)
-		{
-			return new Rectangle(
-				obj.X + img.Offset.X - camera.X,
-				obj.Y + img.Offset.Y - camera.Y + img.Height - (img.Image.Height * ((obj.SubType & 0x0F) + 1)),
-				img.Image.Width,
-				img.Image.Height * ((obj.SubType & 0x0F) + 1)
-			);
-		}
-
 		public override Sprite GetSprite(ObjectEntry obj)
 		{
 			int length = (obj.SubType & 0x0F) + 1;
@@ -62,12 +52,12 @@ namespace S1ObjectDefinitions.SYZ
 			int yoff = 0;
 			for (int i = 0; i < length; i++)
 			{
-				sprs.Add(new Sprite(img.Image, new Point(img.X, yoff + img.Y)));
+				Sprite tmp = new Sprite(img);
+				tmp.Offset(0, yoff);
+				sprs.Add(tmp);
 				yoff -= 16;
 			}
-			Sprite spr = new Sprite(sprs.ToArray());
-			spr.Offset = new Point(spr.X + obj.X, spr.Y + obj.Y);
-			return spr;
+			return new Sprite(sprs.ToArray());
 		}
 
 		private PropertySpec[] customProperties = new PropertySpec[] {

@@ -1,13 +1,20 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Eggman (boss levels)
 ; ---------------------------------------------------------------------------
-Map_Eggman:	dc.w @ship-Map_Eggman, @facenormal1-Map_Eggman
-		dc.w @facenormal2-Map_Eggman, @facelaugh1-Map_Eggman
-		dc.w @facelaugh2-Map_Eggman, @facehit-Map_Eggman
-		dc.w @facepanic-Map_Eggman, @facedefeat-Map_Eggman
-		dc.w @flame1-Map_Eggman, @flame2-Map_Eggman
-		dc.w @blank-Map_Eggman, @escapeflame1-Map_Eggman
-		dc.w @escapeflame2-Map_Eggman
+Map_Eggman_internal:
+		dc.w @ship-Map_Eggman_internal
+		dc.w @facenormal1-Map_Eggman_internal
+		dc.w @facenormal2-Map_Eggman_internal
+		dc.w @facelaugh1-Map_Eggman_internal
+		dc.w @facelaugh2-Map_Eggman_internal
+		dc.w @facehit-Map_Eggman_internal
+		dc.w @facepanic-Map_Eggman_internal
+		dc.w @facedefeat-Map_Eggman_internal
+		dc.w @flame1-Map_Eggman_internal
+		dc.w @flame2-Map_Eggman_internal
+		dc.w @blank-Map_Eggman_internal
+		dc.w @escapeflame1-Map_Eggman_internal
+		dc.w @escapeflame2-Map_Eggman_internal
 @ship:		dc.b 6
 		dc.b $EC, 1, 0,	$A, $E4
 		dc.b $EC, 5, 0,	$C, $C

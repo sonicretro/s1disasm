@@ -1,10 +1,15 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - moving blocks (SYZ/SLZ/LZ)
 ; ---------------------------------------------------------------------------
-Map_FBlock:	dc.w @syz1x1-Map_FBlock, @syz2x2-Map_FBlock
-		dc.w @syz1x2-Map_FBlock, @syzrect2x2-Map_FBlock
-		dc.w @syzrect1x3-Map_FBlock, @slz-Map_FBlock
-		dc.w @lzvert-Map_FBlock, @lzhoriz-Map_FBlock
+Map_FBlock_internal:
+		dc.w @syz1x1-Map_FBlock_internal
+		dc.w @syz2x2-Map_FBlock_internal
+		dc.w @syz1x2-Map_FBlock_internal
+		dc.w @syzrect2x2-Map_FBlock_internal
+		dc.w @syzrect1x3-Map_FBlock_internal
+		dc.w @slz-Map_FBlock_internal
+		dc.w @lzvert-Map_FBlock_internal
+		dc.w @lzhoriz-Map_FBlock_internal
 @syz1x1:	dc.b 1
 		dc.b $F0, $F, 0, $61, $F0 ; SYZ - 1x1 square block
 @syz2x2:	dc.b 4

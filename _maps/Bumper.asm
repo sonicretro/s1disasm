@@ -1,9 +1,10 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - pinball bumper (SYZ)
 ; ---------------------------------------------------------------------------
-Map_Bump:	dc.w @normal-Map_Bump
-		dc.w @bumped1-Map_Bump
-		dc.w @bumped2-Map_Bump
+Map_Bump_internal:
+		dc.w @normal-Map_Bump_internal
+		dc.w @bumped1-Map_Bump_internal
+		dc.w @bumped2-Map_Bump_internal
 @normal:	dc.b 2
 		dc.b $F0, 7, 0,	0, $F0
 		dc.b $F0, 7, 8,	0, 0

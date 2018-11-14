@@ -1,9 +1,13 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - harpoon (LZ)
 ; ---------------------------------------------------------------------------
-Map_Harp:	dc.w @h_retracted-Map_Harp, @h_middle-Map_Harp
-		dc.w @h_extended-Map_Harp, @v_retracted-Map_Harp
-		dc.w @v_middle-Map_Harp, @v_extended-Map_Harp
+Map_Harp_internal:
+		dc.w @h_retracted-Map_Harp_internal
+		dc.w @h_middle-Map_Harp_internal
+		dc.w @h_extended-Map_Harp_internal
+		dc.w @v_retracted-Map_Harp_internal
+		dc.w @v_middle-Map_Harp_internal
+		dc.w @v_extended-Map_Harp_internal
 @h_retracted:	dc.b 1
 		dc.b $FC, 4, 0,	0, $F8
 @h_middle:	dc.b 1

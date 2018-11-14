@@ -1,14 +1,15 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Sonic on the title screen
 ; ---------------------------------------------------------------------------
-Map_TSon:	dc.w byte_A898-Map_TSon
-		dc.w byte_A8CB-Map_TSon
-		dc.w byte_A917-Map_TSon
-		dc.w byte_A96D-Map_TSon
-		dc.w byte_A9AF-Map_TSon
-		dc.w byte_A9E7-Map_TSon
-		dc.w byte_AA47-Map_TSon
-		dc.w byte_AAB1-Map_TSon
+Map_TSon_internal:
+		dc.w byte_A898-Map_TSon_internal
+		dc.w byte_A8CB-Map_TSon_internal
+		dc.w byte_A917-Map_TSon_internal
+		dc.w byte_A96D-Map_TSon_internal
+		dc.w byte_A9AF-Map_TSon_internal
+		dc.w byte_A9E7-Map_TSon_internal
+		dc.w byte_AA47-Map_TSon_internal
+		dc.w byte_AAB1-Map_TSon_internal
 byte_A898:	dc.b $A
 		dc.b 8,	8, 0, 0, 8
 		dc.b $10, $F, 0, 3, 8

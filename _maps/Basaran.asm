@@ -1,8 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Basaran enemy (MZ)
 ; ---------------------------------------------------------------------------
-Map_Bas:	dc.w @still-Map_Bas, @fly1-Map_Bas
-		dc.w @fly2-Map_Bas, @fly3-Map_Bas
+Map_Bas_internal:
+		dc.w @still-Map_Bas_internal
+		dc.w @fly1-Map_Bas_internal
+		dc.w @fly2-Map_Bas_internal
+		dc.w @fly3-Map_Bas_internal
 @still:		dc.b 1
 		dc.b $F4, 6, 0,	0, $F8
 @fly1:		dc.b 3

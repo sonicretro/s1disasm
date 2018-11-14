@@ -1,12 +1,13 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Ball Hog enemy (SBZ)
 ; ---------------------------------------------------------------------------
-Map_Hog:	dc.w M_Hog_Stand-Map_Hog
-		dc.w M_Hog_Open-Map_Hog
-		dc.w M_Hog_Squat-Map_Hog
-		dc.w M_Hog_Leap-Map_Hog
-		dc.w M_Hog_Ball1-Map_Hog
-		dc.w M_Hog_Ball2-Map_Hog
+Map_Hog_internal:
+		dc.w M_Hog_Stand-Map_Hog_internal
+		dc.w M_Hog_Open-Map_Hog_internal
+		dc.w M_Hog_Squat-Map_Hog_internal
+		dc.w M_Hog_Leap-Map_Hog_internal
+		dc.w M_Hog_Ball1-Map_Hog_internal
+		dc.w M_Hog_Ball2-Map_Hog_internal
 M_Hog_Stand:	dc.b 2
 		dc.b $EF, 9, 0,	0, $F4
 		dc.b $FF, $A, 0, 6, $F4	; Ball hog standing

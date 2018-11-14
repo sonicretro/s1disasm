@@ -1,10 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Orbinaut enemy (LZ,	SLZ, SBZ)
 ; ---------------------------------------------------------------------------
-Map_Orb:	dc.w @normal-Map_Orb
-		dc.w @medium-Map_Orb
-		dc.w @angry-Map_Orb
-		dc.w @spikeball-Map_Orb
+Map_Orb_internal:
+		dc.w @normal-Map_Orb_internal
+		dc.w @medium-Map_Orb_internal
+		dc.w @angry-Map_Orb_internal
+		dc.w @spikeball-Map_Orb_internal
 @normal:	dc.b 1
 		dc.b $F4, $A, 0, 0, $F4
 @medium:	dc.b 1

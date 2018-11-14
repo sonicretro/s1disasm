@@ -1,8 +1,9 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Eggman in broken eggmobile (FZ)
 ; ---------------------------------------------------------------------------
-Map_FZDamaged:	dc.w @damage1-Map_FZDamaged
-		dc.w @damage2-Map_FZDamaged
+Map_FZDamaged_internal:
+		dc.w @damage1-Map_FZDamaged_internal
+		dc.w @damage2-Map_FZDamaged_internal
 @damage1:	dc.b 6
 		dc.b $E4, 8, 0,	$20, $F4
 		dc.b $EC, $D, 0, $23, $E4

@@ -1,9 +1,6 @@
 ; ---------------------------------------------------------------------------
 ; Subroutine to display Sonic and set music
 ; ---------------------------------------------------------------------------
-flashtime:	equ $30		; time between flashes after getting hit
-invtime:		equ $32		; time left for invincibility
-shoetime:	equ $34		; time left for speed shoes
 
 Sonic_Display:
 		move.w	flashtime(a0),d0

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using SonicRetro.SonLVL.API;
 
 namespace S1ObjectDefinitions.SBZ
@@ -55,33 +54,23 @@ namespace S1ObjectDefinitions.SBZ
 				return imgs[0];
 		}
 
-		public override Rectangle GetBounds(ObjectEntry obj, Point camera)
-		{
-			int length = obj.SubType & 0x0F;
-			return new Rectangle(
-				obj.X + SubtypeImage(obj.SubType).Offset.X - camera.X,
-				obj.Y + Math.Min(imgs[2].Offset.Y, imgs[2].Offset.Y + imgs[2].Height + (16 * length) + (SubtypeImage(obj.SubType).Top + SubtypeImage(obj.SubType).Bottom) - (SubtypeImage(obj.SubType).Height / 2)) - camera.Y,
-				SubtypeImage(obj.SubType).Width,
-				Math.Max(SubtypeImage(obj.SubType).Height, imgs[2].Height + (16 * length) + ((SubtypeImage(obj.SubType).Height + SubtypeImage(obj.SubType).Top + SubtypeImage(obj.SubType).Bottom) / 2))
-			);
-		}
-
 		public override Sprite GetSprite(ObjectEntry obj)
 		{
 			int length = obj.SubType & 0x0F;
-			List<Sprite> sprs = new List<Sprite>();
-			sprs.Add(imgs[2]);
+			List<Sprite> sprs = new List<Sprite>() { imgs[2] };
 			int yoff = 16;
 			for (int i = 0; i < length; i++)
 			{
-				sprs.Add(new Sprite(imgs[1].Image, new Point(imgs[1].X, yoff + imgs[1].Y)));
+				Sprite tmp = new Sprite(imgs[1]);
+				tmp.Offset(0, yoff);
+				sprs.Add(tmp);
 				yoff += 16;
 			}
 			yoff -= 8;
-			sprs.Add(new Sprite(SubtypeImage(obj.SubType).Image, new Point(SubtypeImage(obj.SubType).X, yoff + SubtypeImage(obj.SubType).Y)));
-			Sprite spr = new Sprite(sprs.ToArray());
-			spr.Offset = new Point(spr.X + obj.X, spr.Y + obj.Y);
-			return spr;
+			Sprite tm2 = new Sprite(SubtypeImage(obj.SubType));
+			tm2.Offset(0, yoff);
+			sprs.Add(tm2);
+			return new Sprite(sprs.ToArray());
 		}
 
 		private PropertySpec[] customProperties = new PropertySpec[] {

@@ -55,8 +55,8 @@ loc_6DC4:
 DLE_Index:	dc.w DLE_GHZ-DLE_Index, DLE_LZ-DLE_Index
 		dc.w DLE_MZ-DLE_Index, DLE_SLZ-DLE_Index
 		dc.w DLE_SYZ-DLE_Index, DLE_SBZ-DLE_Index
-		dc.w DLE_Ending-DLE_Index
 		zonewarning DLE_Index,2
+		dc.w DLE_Ending-DLE_Index
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Green	Hill Zone dynamic level events
@@ -498,7 +498,7 @@ DLE_SYZ2:
 		cmpi.w	#$25A0,(v_screenposx).w
 		bcs.s	locret_71A2
 		move.w	#$420,(v_limitbtm1).w
-		cmpi.w	#$4D0,($FFFFD00C).w
+		cmpi.w	#$4D0,(v_player+obY).w
 		bcs.s	locret_71A2
 		move.w	#$520,(v_limitbtm1).w
 

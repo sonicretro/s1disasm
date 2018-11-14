@@ -1,9 +1,10 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - water splash (LZ)
 ; ---------------------------------------------------------------------------
-Map_Splash:	dc.w @splash1-Map_Splash
-		dc.w @splash2-Map_Splash
-		dc.w @splash3-Map_Splash
+Map_Splash_internal:
+		dc.w @splash1-Map_Splash_internal
+		dc.w @splash2-Map_Splash_internal
+		dc.w @splash3-Map_Splash_internal
 @splash1:	dc.b 2
 		dc.b $F2, 4, 0,	$6D, $F8
 		dc.b $FA, $C, 0, $6F, $F0

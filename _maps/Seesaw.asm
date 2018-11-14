@@ -1,10 +1,11 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - seesaws (SLZ)
 ; ---------------------------------------------------------------------------
-Map_Seesaw:	dc.w @sloping-Map_Seesaw
-		dc.w @flat-Map_Seesaw
-		dc.w @sloping-Map_Seesaw
-		dc.w @flat-Map_Seesaw
+Map_Seesaw_internal:
+		dc.w @sloping-Map_Seesaw_internal
+		dc.w @flat-Map_Seesaw_internal
+		dc.w @sloping-Map_Seesaw_internal
+		dc.w @flat-Map_Seesaw_internal
 @sloping:	dc.b 7
 		dc.b $D4, 6, 0,	0, $D3
 		dc.b $DC, 6, 0,	6, $E3

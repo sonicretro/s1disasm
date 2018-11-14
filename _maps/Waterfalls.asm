@@ -1,12 +1,19 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - waterfalls (LZ)
 ; ---------------------------------------------------------------------------
-Map_WFall:	dc.w @vertnarrow-Map_WFall, @cornerwide-Map_WFall
-		dc.w @cornermedium-Map_WFall, @cornernarrow-Map_WFall
-		dc.w @cornermedium2-Map_WFall, @cornernarrow2-Map_WFall
-		dc.w @cornernarrow3-Map_WFall, @vertwide-Map_WFall
-		dc.w @diagonal-Map_WFall, @splash1-Map_WFall
-		dc.w @splash2-Map_WFall, @splash3-Map_WFall
+Map_WFall_internal:
+		dc.w @vertnarrow-Map_WFall_internal
+		dc.w @cornerwide-Map_WFall_internal
+		dc.w @cornermedium-Map_WFall_internal
+		dc.w @cornernarrow-Map_WFall_internal
+		dc.w @cornermedium2-Map_WFall_internal
+		dc.w @cornernarrow2-Map_WFall_internal
+		dc.w @cornernarrow3-Map_WFall_internal
+		dc.w @vertwide-Map_WFall_internal
+		dc.w @diagonal-Map_WFall_internal
+		dc.w @splash1-Map_WFall_internal
+		dc.w @splash2-Map_WFall_internal
+		dc.w @splash3-Map_WFall_internal
 @vertnarrow:	dc.b 1
 		dc.b $F0, 7, 0,	0, $F8
 @cornerwide:	dc.b 2

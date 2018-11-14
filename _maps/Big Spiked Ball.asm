@@ -1,9 +1,10 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - spiked ball on a chain (SBZ) and big spiked ball (SYZ)
 ; ---------------------------------------------------------------------------
-Map_BBall:	dc.w @ball-Map_BBall
-		dc.w @chain-Map_BBall
-		dc.w @anchor-Map_BBall
+Map_BBall_internal:
+		dc.w @ball-Map_BBall_internal
+		dc.w @chain-Map_BBall_internal
+		dc.w @anchor-Map_BBall_internal
 @ball:		dc.b 5
 		dc.b $E8, 4, 0,	0, $F8	; big spiked ball
 		dc.b $F0, $F, 0, 2, $F0

@@ -1,12 +1,19 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - monitors
 ; ---------------------------------------------------------------------------
-Map_Monitor:	dc.w @static0-Map_Monitor, @static1-Map_Monitor
-		dc.w @static2-Map_Monitor, @eggman-Map_Monitor
-		dc.w @sonic-Map_Monitor, @shoes-Map_Monitor
-		dc.w @shield-Map_Monitor, @invincible-Map_Monitor
-		dc.w @rings-Map_Monitor, @s-Map_Monitor
-		dc.w @goggles-Map_Monitor, @broken-Map_Monitor
+Map_Monitor_internal:
+		dc.w @static0-Map_Monitor_internal
+		dc.w @static1-Map_Monitor_internal
+		dc.w @static2-Map_Monitor_internal
+		dc.w @eggman-Map_Monitor_internal
+		dc.w @sonic-Map_Monitor_internal
+		dc.w @shoes-Map_Monitor_internal
+		dc.w @shield-Map_Monitor_internal
+		dc.w @invincible-Map_Monitor_internal
+		dc.w @rings-Map_Monitor_internal
+		dc.w @s-Map_Monitor_internal
+		dc.w @goggles-Map_Monitor_internal
+		dc.w @broken-Map_Monitor_internal
 @static0:	dc.b 1			; static monitor
 		dc.b $EF, $F, 0, 0, $F0
 @static1:	dc.b 2			; static monitor

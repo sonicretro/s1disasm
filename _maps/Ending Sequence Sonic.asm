@@ -1,10 +1,15 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Sonic on the ending	sequence
 ; ---------------------------------------------------------------------------
-Map_ESon:	dc.w M_ESon_Hold1-Map_ESon, M_ESon_Hold2-Map_ESon
-		dc.w M_ESon_Up-Map_ESon, M_ESon_Conf1-Map_ESon
-		dc.w M_ESon_Conf2-Map_ESon, M_ESon_Leap1-Map_ESon
-		dc.w M_ESon_Leap2-Map_ESon, M_ESon_Leap3-Map_ESon
+Map_ESon_internal:
+		dc.w M_ESon_Hold1-Map_ESon_internal
+		dc.w M_ESon_Hold2-Map_ESon_internal
+		dc.w M_ESon_Up-Map_ESon_internal
+		dc.w M_ESon_Conf1-Map_ESon_internal
+		dc.w M_ESon_Conf2-Map_ESon_internal
+		dc.w M_ESon_Leap1-Map_ESon_internal
+		dc.w M_ESon_Leap2-Map_ESon_internal
+		dc.w M_ESon_Leap3-Map_ESon_internal
 M_ESon_Hold1:	dc.b 2
 		dc.b $EC, $B, 0, 0, $F8	; holding emeralds
 		dc.b $C, $C, 0,	$C, $F0

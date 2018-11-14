@@ -45,27 +45,9 @@ namespace S1ObjectDefinitions.SYZ
 			return img;
 		}
 
-		public override Rectangle GetBounds(ObjectEntry obj, Point camera)
-		{
-			int yoff = new int();
-			if ((obj.SubType & 0x0F) == (int)SpikeballMovement.Circular)
-			{
-				if (obj.YFlip == true)
-					yoff = -0x50;
-				else
-					yoff = 0x50;
-			}
-			return new Rectangle(
-				obj.X + img.Offset.X - camera.X,
-				obj.Y + img.Offset.Y - camera.Y + yoff,
-				img.Width,
-				img.Height
-			);
-		}
-
 		public override Sprite GetSprite(ObjectEntry obj)
 		{
-			int yoff = new int();
+			int yoff = 0;
 			if ((obj.SubType & 0x0F) == (int)SpikeballMovement.Circular)
 			{
 				if (obj.YFlip == true)
@@ -73,7 +55,9 @@ namespace S1ObjectDefinitions.SYZ
 				else
 					yoff = 0x50;
 			}
-			return new Sprite(img.Image, new Point(img.X + obj.X, img.Y + obj.Y + yoff));
+			Sprite tmp = new Sprite(img);
+			tmp.Offset(0, yoff);
+			return tmp;
 		}
 
 		private static readonly PropertySpec[] customProperties = new PropertySpec[] {

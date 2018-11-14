@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Moving Block Platform" Image="frame0">
+  <Images>
+    <ImageFromMappings id="frame0">
+      <ArtFile filename="../artnem/LZ 32x16 Block.bin"/>
+      <MapFile type="ASM" filename="../_maps/Moving Blocks (LZ).asm" frame="0" startpal="2"/>
+    </ImageFromMappings>
+  </Images>
+  <Properties>
+    <BitsProperty name="Sprite" type="LZBlockPlatformSprite" startbit="4" length="4" />
+    <BitsProperty name="Behaviour" type="LZBlockPlatformBehaviour" startbit="0" length="4" />
+  </Properties>
+  <Enums>
+    <Enum name="LZBlockPlatformSprite">
+      <EnumMember name="Small Block" />
+      <EnumMember name="Invalid 1" />
+      <EnumMember name="Invalid 2" />
+      <EnumMember name="Invalid 3" />
+      <EnumMember name="Invalid 4" />
+    </Enum>
+    <Enum name="LZBlockPlatformBehaviour">
+      <EnumMember name="Stationary" />
+      <EnumMember name="Move left and right" />
+      <EnumMember name="When stood on, go right and stop at wall" />
+      <EnumMember name="Go right and stop at wall (not meant to be used)" />
+      <EnumMember name="When stood on, go right and fall at wall" />
+      <EnumMember name="Go right and fall at wall (not meant to be used)" />
+      <EnumMember name="Fall and land on floor (not meant to be used)" />
+      <EnumMember name="Don't appear until a switch (ID 02) is pressed, then, when stood on, go right and fall at wall" />
+      <EnumMember name="Move up and down" />
+      <EnumMember name="When stood on, retract into wall" />
+      <EnumMember name="Retract into wall (not meant to be used)" />
+    </Enum>
+  </Enums>
+  <Display>
+    <DisplayOption>
+      <Condition property="Sprite" value="Small Block" />
+        <ImageRef image="frame0" />
+    </DisplayOption>
+  </Display>
+</ObjDef>

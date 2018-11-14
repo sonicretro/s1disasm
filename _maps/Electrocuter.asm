@@ -1,9 +1,13 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - electrocution orbs (SBZ)
 ; ---------------------------------------------------------------------------
-Map_Elec:	dc.w @normal-Map_Elec, @zap1-Map_Elec
-		dc.w @zap2-Map_Elec, @zap3-Map_Elec
-		dc.w @zap4-Map_Elec, @zap5-Map_Elec
+Map_Elec_internal:
+		dc.w @normal-Map_Elec_internal
+		dc.w @zap1-Map_Elec_internal
+		dc.w @zap2-Map_Elec_internal
+		dc.w @zap3-Map_Elec_internal
+		dc.w @zap4-Map_Elec_internal
+		dc.w @zap5-Map_Elec_internal
 @normal:	dc.b 2
 		dc.b $F8, 4, $60, 0, $F8
 		dc.b 0,	6, $40,	2, $F8

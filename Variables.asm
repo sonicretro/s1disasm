@@ -28,16 +28,16 @@ v_startofvariables:	equ $000
 v_sndprio:		equ $000	; sound priority (priority of new music/SFX must be higher or equal to this value or it won't play; bit 7 of priority being set prevents this value from changing)
 v_main_tempo_timeout:	equ $001	; Counts down to zero; when zero, resets to next value and delays song by 1 frame
 v_main_tempo:		equ $002	; Used for music only
-f_stopmusic:		equ $003	; flag set to stop music when paused
+f_pausemusic:		equ $003	; flag set to stop music when paused
 v_fadeout_counter:	equ $004
 
-v_fadeout_delay:		equ $006
+v_fadeout_delay:	equ $006
 v_communication_byte:	equ $007	; used in Ristar to sync with a boss' attacks; unused here
 f_updating_dac:		equ $008	; $80 if updating DAC, $00 otherwise
-v_playsnd0:		equ $009	; sound or music copied from below
-v_playsnd1:		equ $00A	; sound or music to play
-v_playsnd2:		equ $00B	; special sound to play
-v_playnull:		equ $00C	; unused sound to play
+v_sound_id:		equ $009	; sound or music copied from below
+v_soundqueue0:		equ $00A	; sound or music to play
+v_soundqueue1:		equ $00B	; special sound to play
+v_soundqueue2:		equ $00C	; unused sound to play
 
 f_voice_selector:	equ $00E	; $00 = use music voice pointer; $40 = use special voice pointer; $80 = use track voice pointer
 
@@ -57,43 +57,43 @@ f_push_playing:		equ $02C	; if set, prevents further push sounds from playing
 
 v_music_track_ram:	equ $040	; Start of music RAM
 
-v_music_fmdac_tracks:	equ v_music_track_ram+zTrackSz*0
-v_music_dac_track:	equ v_music_fmdac_tracks+zTrackSz*0
-v_music_fm_tracks:	equ v_music_fmdac_tracks+zTrackSz*1
-v_music_fm1_track:	equ v_music_fm_tracks+zTrackSz*0
-v_music_fm2_track:	equ v_music_fm_tracks+zTrackSz*1
-v_music_fm3_track:	equ v_music_fm_tracks+zTrackSz*2
-v_music_fm4_track:	equ v_music_fm_tracks+zTrackSz*3
-v_music_fm5_track:	equ v_music_fm_tracks+zTrackSz*4
-v_music_fm6_track:	equ v_music_fm_tracks+zTrackSz*5
-v_music_fm_tracks_end:	equ v_music_fm_tracks+zTrackSz*6
+v_music_fmdac_tracks:	equ v_music_track_ram+TrackSz*0
+v_music_dac_track:	equ v_music_fmdac_tracks+TrackSz*0
+v_music_fm_tracks:	equ v_music_fmdac_tracks+TrackSz*1
+v_music_fm1_track:	equ v_music_fm_tracks+TrackSz*0
+v_music_fm2_track:	equ v_music_fm_tracks+TrackSz*1
+v_music_fm3_track:	equ v_music_fm_tracks+TrackSz*2
+v_music_fm4_track:	equ v_music_fm_tracks+TrackSz*3
+v_music_fm5_track:	equ v_music_fm_tracks+TrackSz*4
+v_music_fm6_track:	equ v_music_fm_tracks+TrackSz*5
+v_music_fm_tracks_end:	equ v_music_fm_tracks+TrackSz*6
 v_music_fmdac_tracks_end:	equ v_music_fm_tracks_end
 v_music_psg_tracks:	equ v_music_fmdac_tracks_end
-v_music_psg1_track:	equ v_music_psg_tracks+zTrackSz*0
-v_music_psg2_track:	equ v_music_psg_tracks+zTrackSz*1
-v_music_psg3_track:	equ v_music_psg_tracks+zTrackSz*2
-v_music_psg_tracks_end:	equ v_music_psg_tracks+zTrackSz*3
+v_music_psg1_track:	equ v_music_psg_tracks+TrackSz*0
+v_music_psg2_track:	equ v_music_psg_tracks+TrackSz*1
+v_music_psg3_track:	equ v_music_psg_tracks+TrackSz*2
+v_music_psg_tracks_end:	equ v_music_psg_tracks+TrackSz*3
 v_music_track_ram_end:	equ v_music_psg_tracks_end
 
-v_sfx_track_ram:		equ v_music_track_ram_end	; Start of SFX RAM, straight after the end of music RAM
+v_sfx_track_ram:	equ v_music_track_ram_end	; Start of SFX RAM, straight after the end of music RAM
 
-v_sfx_fm_tracks:		equ v_sfx_track_ram+zTrackSz*0
-v_sfx_fm3_track:		equ v_sfx_fm_tracks+zTrackSz*0
-v_sfx_fm4_track:		equ v_sfx_fm_tracks+zTrackSz*1
-v_sfx_fm5_track:		equ v_sfx_fm_tracks+zTrackSz*2
-v_sfx_fm_tracks_end:	equ v_sfx_fm_tracks+zTrackSz*3
+v_sfx_fm_tracks:	equ v_sfx_track_ram+TrackSz*0
+v_sfx_fm3_track:	equ v_sfx_fm_tracks+TrackSz*0
+v_sfx_fm4_track:	equ v_sfx_fm_tracks+TrackSz*1
+v_sfx_fm5_track:	equ v_sfx_fm_tracks+TrackSz*2
+v_sfx_fm_tracks_end:	equ v_sfx_fm_tracks+TrackSz*3
 v_sfx_psg_tracks:	equ v_sfx_fm_tracks_end
-v_sfx_psg1_track:	equ v_sfx_psg_tracks+zTrackSz*0
-v_sfx_psg2_track:	equ v_sfx_psg_tracks+zTrackSz*1
-v_sfx_psg3_track:	equ v_sfx_psg_tracks+zTrackSz*2
-v_sfx_psg_tracks_end:	equ v_sfx_psg_tracks+zTrackSz*3
+v_sfx_psg1_track:	equ v_sfx_psg_tracks+TrackSz*0
+v_sfx_psg2_track:	equ v_sfx_psg_tracks+TrackSz*1
+v_sfx_psg3_track:	equ v_sfx_psg_tracks+TrackSz*2
+v_sfx_psg_tracks_end:	equ v_sfx_psg_tracks+TrackSz*3
 v_sfx_track_ram_end:	equ v_sfx_psg_tracks_end
 
 v_spcsfx_track_ram:	equ v_sfx_track_ram_end	; Start of special SFX RAM, straight after the end of SFX RAM
 
-v_spcsfx_fm4_track:	equ v_spcsfx_track_ram+zTrackSz*0
-v_spcsfx_psg3_track:	equ v_spcsfx_track_ram+zTrackSz*1
-v_spcsfx_track_ram_end:	equ v_spcsfx_track_ram+zTrackSz*2
+v_spcsfx_fm4_track:	equ v_spcsfx_track_ram+TrackSz*0
+v_spcsfx_psg3_track:	equ v_spcsfx_track_ram+TrackSz*1
+v_spcsfx_track_ram_end:	equ v_spcsfx_track_ram+TrackSz*2
 
 v_1up_ram_copy:		equ v_spcsfx_track_ram_end
 
@@ -111,8 +111,11 @@ v_vdp_buffer1:	equ $FFFFF60C	; VDP instruction buffer (2 bytes)
 
 v_demolength:	equ $FFFFF614	; the length of a demo in frames (2 bytes)
 v_scrposy_dup:	equ $FFFFF616	; screen position y (duplicate) (2 bytes)
-
+v_bgscrposy_dup:	equ $FFFFF618	; background screen position y (duplicate) (2 bytes)
 v_scrposx_dup:	equ $FFFFF61A	; screen position x (duplicate) (2 bytes)
+v_bgscreenposx_dup_unused:	equ $FFFFF61C	; background screen position x (duplicate) (2 bytes)
+v_bg3screenposy_dup_unused:	equ $FFFFF61E	; (2 bytes)
+v_bg3screenposx_dup_unused:	equ $FFFFF620	; (2 bytes)
 
 v_hbla_hreg:	equ $FFFFF624	; VDP H.interrupt register buffer (8Axx) (2 bytes)
 v_hbla_line:	equ $FFFFF625	; screen line where water starts and palette is changed by HBlank
@@ -165,9 +168,10 @@ v_lookshift:	equ $FFFFF73E	; screen shift when Sonic looks up/down (2 bytes)
 v_dle_routine:	equ $FFFFF742	; dynamic level event - routine counter
 f_nobgscroll:	equ $FFFFF744	; flag set to cancel background scrolling
 
-v_bgscroll1:	equ $FFFFF754	; background scrolling variable 1
-v_bgscroll2:	equ $FFFFF756	; background scrolling variable 2
-v_bgscroll3:	equ $FFFFF758	; background scrolling variable 3
+v_fg_scroll_flags:	equ $FFFFF754	; background scrolling variable 1
+v_bg1_scroll_flags:	equ $FFFFF756	; background scrolling variable 2
+v_bg2_scroll_flags:	equ $FFFFF758	; background scrolling variable 3
+v_bg3_scroll_flags:	equ $FFFFF75A	; background scrolling variable 4
 f_bgscrollvert:	equ $FFFFF75C	; flag for vertical background scrolling
 v_sonspeedmax:	equ $FFFFF760	; Sonic's maximum speed (2 bytes)
 v_sonspeedacc:	equ $FFFFF762	; Sonic's acceleration (2 bytes)
@@ -226,6 +230,10 @@ v_ringbonus:	equ $FFFFF7D4	; ring bonus at the end of an act (2 bytes)
 f_endactbonus:	equ $FFFFF7D6	; time/ring bonus update flag at the end of an act
 v_sonicend:	equ $FFFFF7D7	; routine counter for Sonic in the ending sequence
 f_switch:	equ $FFFFF7E0	; flags set when Sonic stands on a switch ($10 bytes)
+v_scroll_block_1_size:	equ $FFFFF7F0	; (2 bytes)
+v_scroll_block_2_size:	equ $FFFFF7F2	; unused (2 bytes)
+v_scroll_block_3_size:	equ $FFFFF7F4	; unused (2 bytes)
+v_scroll_block_4_size:	equ $FFFFF7F6	; unused (2 bytes)
 
 v_spritetablebuffer:	equ $FFFFF800 ; sprite table ($280 bytes, last $80 bytes are overwritten by v_pal_water_dup)
 v_pal_water_dup:	equ $FFFFFA00 ; duplicate underwater palette, used for transitions ($80 bytes)
@@ -233,6 +241,9 @@ v_pal_water:	equ $FFFFFA80	; main underwater palette ($80 bytes)
 v_pal_dry:	equ $FFFFFB00	; main palette ($80 bytes)
 v_pal_dry_dup:	equ $FFFFFB80	; duplicate palette, used for transitions ($80 bytes)
 v_objstate:	equ $FFFFFC00	; object state list ($200 bytes)
+
+
+v_systemstack:	equ $FFFFFE00
 f_restart:	equ $FFFFFE02	; restart level flag (2 bytes)
 v_framecount:	equ $FFFFFE04	; frame counter (adds 1 every frame) (2 bytes)
 v_framebyte:	equ v_framecount+1; low byte for frame counter
@@ -294,6 +305,19 @@ v_ani3_frame:	equ $FFFFFEC7	; synchronised sprite animation 3 - current frame
 v_ani3_buf:	equ $FFFFFEC8	; synchronised sprite animation 3 - info buffer (2 bytes)
 v_limittopdb:	equ $FFFFFEF0	; level upper boundary, buffered for debug mode (2 bytes)
 v_limitbtmdb:	equ $FFFFFEF2	; level bottom boundary, buffered for debug mode (2 bytes)
+
+v_screenposx_dup:	equ $FFFFFF10	; screen position x (duplicate) (2 bytes)
+v_screenposy_dup:	equ $FFFFFF14	; screen position y (duplicate) (2 bytes)
+v_bgscreenposx_dup:	equ $FFFFFF18	; background screen position x (duplicate) (2 bytes)
+v_bgscreenposy_dup:	equ $FFFFFF1C	; background screen position y (duplicate) (2 bytes)
+v_bg2screenposx_dup:	equ $FFFFFF20	; 2 bytes
+v_bg2screenposy_dup:	equ $FFFFFF24	; 2 bytes
+v_bg3screenposx_dup:	equ $FFFFFF28	; 2 bytes
+v_bg3screenposy_dup:	equ $FFFFFF2C	; 2 bytes
+v_fg_scroll_flags_dup:	equ $FFFFFF30
+v_bg1_scroll_flags_dup:	equ $FFFFFF32
+v_bg2_scroll_flags_dup:	equ $FFFFFF34
+v_bg3_scroll_flags_dup:	equ $FFFFFF36
 
 v_levseldelay:	equ $FFFFFF80	; level select - time until change when up/down is held (2 bytes)
 v_levselitem:	equ $FFFFFF82	; level select - item selected (2 bytes)

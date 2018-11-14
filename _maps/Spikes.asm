@@ -1,12 +1,13 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - spikes
 ; ---------------------------------------------------------------------------
-Map_Spike:	dc.w byte_CFF4-Map_Spike
-		dc.w byte_D004-Map_Spike
-		dc.w byte_D014-Map_Spike
-		dc.w byte_D01A-Map_Spike
-		dc.w byte_D02A-Map_Spike
-		dc.w byte_D049-Map_Spike
+Map_Spike_internal:
+		dc.w byte_CFF4-Map_Spike_internal
+		dc.w byte_D004-Map_Spike_internal
+		dc.w byte_D014-Map_Spike_internal
+		dc.w byte_D01A-Map_Spike_internal
+		dc.w byte_D02A-Map_Spike_internal
+		dc.w byte_D049-Map_Spike_internal
 byte_CFF4:	dc.b 3			; 3 spikes
 		dc.b $F0, 3, 0,	4, $EC
 		dc.b $F0, 3, 0,	4, $FC

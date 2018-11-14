@@ -1,9 +1,12 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - signpost
 ; ---------------------------------------------------------------------------
-Map_Sign:	dc.w @eggman-Map_Sign, @spin1-Map_Sign
-		dc.w @spin2-Map_Sign, @spin3-Map_Sign
-		dc.w @sonic-Map_Sign
+Map_Sign_internal:
+		dc.w @eggman-Map_Sign_internal
+		dc.w @spin1-Map_Sign_internal
+		dc.w @spin2-Map_Sign_internal
+		dc.w @spin3-Map_Sign_internal
+		dc.w @sonic-Map_Sign_internal
 @eggman:	dc.b 3
 		dc.b $F0, $B, 0, 0, $E8
 		dc.b $F0, $B, 8, 0, 0

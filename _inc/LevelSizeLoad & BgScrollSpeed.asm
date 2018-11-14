@@ -38,9 +38,43 @@ LevelSizeLoad:
 ; ---------------------------------------------------------------------------
 ; Level size array
 ; ---------------------------------------------------------------------------
-LevelSizeArray:	incbin	"misc\Level Size Array.bin"
-		even
+LevelSizeArray:
+		; GHZ
+		dc.w $0004, $0000, $24BF, $0000, $0300, $0060
+		dc.w $0004, $0000, $1EBF, $0000, $0300, $0060
+		dc.w $0004, $0000, $2960, $0000, $0300, $0060
+		dc.w $0004, $0000, $2ABF, $0000, $0300, $0060
+		; LZ
+		dc.w $0004, $0000, $19BF, $0000, $0530, $0060
+		dc.w $0004, $0000, $10AF, $0000, $0720, $0060
+		dc.w $0004, $0000, $202F, $FF00, $0800, $0060
+		dc.w $0004, $0000, $20BF, $0000, $0720, $0060
+		; MZ
+		dc.w $0004, $0000, $17BF, $0000, $01D0, $0060
+		dc.w $0004, $0000, $17BF, $0000, $0520, $0060
+		dc.w $0004, $0000, $1800, $0000, $0720, $0060
+		dc.w $0004, $0000, $16BF, $0000, $0720, $0060
+		; SLZ
+		dc.w $0004, $0000, $1FBF, $0000, $0640, $0060
+		dc.w $0004, $0000, $1FBF, $0000, $0640, $0060
+		dc.w $0004, $0000, $2000, $0000, $06C0, $0060
+		dc.w $0004, $0000, $3EC0, $0000, $0720, $0060
+		; SYZ
+		dc.w $0004, $0000, $22C0, $0000, $0420, $0060
+		dc.w $0004, $0000, $28C0, $0000, $0520, $0060
+		dc.w $0004, $0000, $2C00, $0000, $0620, $0060
+		dc.w $0004, $0000, $2EC0, $0000, $0620, $0060
+		; SBZ
+		dc.w $0004, $0000, $21C0, $0000, $0720, $0060
+		dc.w $0004, $0000, $1E40, $FF00, $0800, $0060
+		dc.w $0004, $2080, $2460, $0510, $0510, $0060
+		dc.w $0004, $0000, $3EC0, $0000, $0720, $0060
 		zonewarning LevelSizeArray,$30
+		; Ending
+		dc.w $0004, $0000, $0500, $0110, $0110, $0060
+		dc.w $0004, $0000, $0DC0, $0110, $0110, $0060
+		dc.w $0004, $0000, $2FFF, $0000, $0320, $0060
+		dc.w $0004, $0000, $2FFF, $0000, $0320, $0060
 
 ; ---------------------------------------------------------------------------
 ; Ending start location array
@@ -116,7 +150,7 @@ SetScreen:
 	SetScr_WithinBottom:
 		move.w	d0,(v_screenposy).w ; set vertical screen position
 		bsr.w	BgScrollSpeed
-		bra.w	LevSz_Unk
+		bra.w	LevSz_LoadScrollBlockSize
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Sonic start location array
@@ -124,27 +158,57 @@ SetScreen:
 StartLocArray:	include	"_inc\Start Location Array - Levels.asm"
 
 ; ===========================================================================
-
-LevSz_Unk:
+; LevSz_Unk:
+LevSz_LoadScrollBlockSize:
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
 		lsl.w	#3,d0
-		lea	dword_61B4(pc,d0.w),a1
-		lea	($FFFFF7F0).w,a2
+		lea	BGScrollBlockSizes(pc,d0.w),a1
+		lea	(v_scroll_block_1_size).w,a2
 		move.l	(a1)+,(a2)+
 		move.l	(a1)+,(a2)+
 		rts	
 ; End of function LevelSizeLoad
 
 ; ===========================================================================
-dword_61B4:	dc.l $700100, $1000100
-		dc.l $8000100, $1000000
-		dc.l $8000100, $1000000
-		dc.l $8000100, $1000000
-		dc.l $8000100, $1000000
-		dc.l $8000100, $1000000
-		dc.l $700100, $1000100
-		zonewarning dword_61B4,8
+; dword_61B4:
+BGScrollBlockSizes:
+		; GHZ
+		dc.w $70
+		dc.w $100	; I guess these used to be per act?
+		dc.w $100	; Or maybe each scroll block got its own size?
+		dc.w $100	; Either way, these are unused now.
+		; LZ
+		dc.w $800
+		dc.w $100
+		dc.w $100
+		dc.w 0
+		; MZ
+		dc.w $800
+		dc.w $100
+		dc.w $100
+		dc.w 0
+		; SLZ
+		dc.w $800
+		dc.w $100
+		dc.w $100
+		dc.w 0
+		; SYZ
+		dc.w $800
+		dc.w $100
+		dc.w $100
+		dc.w 0
+		; SBZ
+		dc.w $800
+		dc.w $100
+		dc.w $100
+		dc.w 0
+		zonewarning BGScrollBlockSizes,8
+		; Ending
+		dc.w $70
+		dc.w $100
+		dc.w $100
+		dc.w $100
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	set scroll speed of some backgrounds
@@ -174,8 +238,8 @@ loc_6206:
 BgScroll_Index:	dc.w BgScroll_GHZ-BgScroll_Index, BgScroll_LZ-BgScroll_Index
 		dc.w BgScroll_MZ-BgScroll_Index, BgScroll_SLZ-BgScroll_Index
 		dc.w BgScroll_SYZ-BgScroll_Index, BgScroll_SBZ-BgScroll_Index
-		dc.w BgScroll_End-BgScroll_Index
 		zonewarning BgScroll_Index,2
+		dc.w BgScroll_End-BgScroll_Index
 ; ===========================================================================
 
 BgScroll_GHZ:

@@ -1,10 +1,15 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Continue screen
 ; ---------------------------------------------------------------------------
-Map_ContScr:	dc.w M_Cont_text-Map_ContScr, M_Cont_Sonic1-Map_ContScr
-		dc.w M_Cont_Sonic2-Map_ContScr, M_Cont_Sonic3-Map_ContScr
-		dc.w M_Cont_oval-Map_ContScr, M_Cont_Mini1-Map_ContScr
-		dc.w M_Cont_Mini1-Map_ContScr, M_Cont_Mini2-Map_ContScr
+Map_ContScr_internal:
+		dc.w M_Cont_text-Map_ContScr_internal
+		dc.w M_Cont_Sonic1-Map_ContScr_internal
+		dc.w M_Cont_Sonic2-Map_ContScr_internal
+		dc.w M_Cont_Sonic3-Map_ContScr_internal
+		dc.w M_Cont_oval-Map_ContScr_internal
+		dc.w M_Cont_Mini1-Map_ContScr_internal
+		dc.w M_Cont_Mini1-Map_ContScr_internal
+		dc.w M_Cont_Mini2-Map_ContScr_internal
 M_Cont_text:	dc.b $B
 		dc.b $F8, 5, 0,	$88, $C4 ; "CONTINUE", stars and countdown
 		dc.b $F8, 5, 0,	$B2, $D4

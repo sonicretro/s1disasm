@@ -52,24 +52,18 @@ namespace S1ObjectDefinitions.GHZ
 			return imgs[0];
 		}
 
-		public override Rectangle GetBounds(ObjectEntry obj, Point camera)
-		{
-			int spikeoffset = Math.Min(0x16, (int)obj.SubType)<<3;
-			return new Rectangle(obj.X - (spikeoffset + 4) + imgs[0].X - camera.X, obj.Y + imgs[0].Y - camera.Y, spikeoffset*2, imgs[0].Height*2);
-		}
-
 		public override Sprite GetSprite(ObjectEntry obj)
 		{
 			List<Sprite> sprs = new List<Sprite>();
-			int spikeoffset = Math.Min(0x16, (int)obj.SubType)<<3;
+			int spikeoffset = Math.Min(0x16, (int)obj.SubType) << 3;
 			for (int i = 0; i < Math.Min(0x16, (int)obj.SubType); i++)
 			{
-				sprs.Add(new Sprite(imgs[i&7].Image, new Point(imgs[i&7].X - spikeoffset, imgs[i&7].Y)));
+				Sprite tmp = new Sprite(imgs[i & 7]);
+				tmp.Offset(-spikeoffset, 0);
+				sprs.Add(tmp);
 				spikeoffset -= 0x10;
 			}
-			Sprite spr = new Sprite(sprs.ToArray());
-			spr.Offset = new Point(spr.X + obj.X, spr.Y + obj.Y);
-			return spr;
+			return new Sprite(sprs.ToArray());
 		}
 
 		private PropertySpec[] customProperties = new PropertySpec[] {

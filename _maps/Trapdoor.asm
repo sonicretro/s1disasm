@@ -1,9 +1,10 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - trapdoor (SBZ)
 ; ---------------------------------------------------------------------------
-Map_Trap:	dc.w @closed-Map_Trap
-		dc.w @half-Map_Trap
-		dc.w @open-Map_Trap
+Map_Trap_internal:
+		dc.w @closed-Map_Trap_internal
+		dc.w @half-Map_Trap_internal
+		dc.w @open-Map_Trap_internal
 @closed:	dc.b 4
 		dc.b $F4, $E, 0, 0, $C0
 		dc.b $F4, $E, 8, 0, $E0
