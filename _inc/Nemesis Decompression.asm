@@ -207,8 +207,8 @@ NemBCT_Loop:
 ; so if 11000 is a valid code then all indices of the form 11000XXX need to have the same entry
 NemBCT_ShortCode:
 		move.b	(a0)+,d0	; get code
-		add.w	d0,d0	; shift so that high bit is in bit position 7
 		lsl.w	d1,d0	; get index into code table
+		add.w	d0,d0	; shift so that high bit is in bit position 7
 		moveq	#1,d5
 		lsl.w	d1,d5
 		subq.w	#1,d5	; d5 = 2^d1 - 1
