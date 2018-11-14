@@ -33,23 +33,71 @@ OptimiseSound	  = 0	; change to 1 to optimise sound queuing
 ; ===========================================================================
 
 StartOfRom:
-Vectors:	dc.l $FFFE00, EntryPoint, BusError, AddressError
-		dc.l IllegalInstr, ZeroDivide, ChkInstr, TrapvInstr
-		dc.l PrivilegeViol, Trace, Line1010Emu,	Line1111Emu
-		dc.l ErrorExcept, ErrorExcept, ErrorExcept, ErrorExcept
-		dc.l ErrorExcept, ErrorExcept, ErrorExcept, ErrorExcept
-		dc.l ErrorExcept, ErrorExcept, ErrorExcept, ErrorExcept
-		dc.l ErrorExcept, ErrorTrap, ErrorTrap,	ErrorTrap
-		dc.l HBlank, ErrorTrap, VBlank, ErrorTrap
-		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
-		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
-		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
-		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
-		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
-		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
+Vectors:	dc.l System_Stack	; Initial stack pointer value
+		dc.l EntryPoint			; Start of program
+		dc.l BusError			; Bus error
+		dc.l AddressError		; Address error (4)
+		dc.l IllegalInstr		; Illegal instruction
+		dc.l ZeroDivide			; Division by zero
+		dc.l ChkInstr			; CHK exception
+		dc.l TrapvInstr			; TRAPV exception (8)
+		dc.l PrivilegeViol		; Privilege violation
+		dc.l Trace				; TRACE exception
+		dc.l Line1010Emu		; Line-A emulator
+		dc.l Line1111Emu		; Line-F emulator (12)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved) (16)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved) (20)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved)
+		dc.l ErrorExcept		; Unused (reserved) (24)
+		dc.l ErrorExcept		; Spurious exception
+		dc.l ErrorTrap			; IRQ level 1
+		dc.l ErrorTrap			; IRQ level 2
+		dc.l ErrorTrap			; IRQ level 3 (28)
+		dc.l HBlank				; IRQ level 4 (horizontal retrace interrupt)
+		dc.l ErrorTrap			; IRQ level 5
+		dc.l VBlank				; IRQ level 6 (vertical retrace interrupt)
+		dc.l ErrorTrap			; IRQ level 7 (32)
+		dc.l ErrorTrap			; TRAP #00 exception
+		dc.l ErrorTrap			; TRAP #01 exception
+		dc.l ErrorTrap			; TRAP #02 exception
+		dc.l ErrorTrap			; TRAP #03 exception (36)
+		dc.l ErrorTrap			; TRAP #04 exception
+		dc.l ErrorTrap			; TRAP #05 exception
+		dc.l ErrorTrap			; TRAP #06 exception
+		dc.l ErrorTrap			; TRAP #07 exception (40)
+		dc.l ErrorTrap			; TRAP #08 exception
+		dc.l ErrorTrap			; TRAP #09 exception
+		dc.l ErrorTrap			; TRAP #10 exception
+		dc.l ErrorTrap			; TRAP #11 exception (44)
+		dc.l ErrorTrap			; TRAP #12 exception
+		dc.l ErrorTrap			; TRAP #13 exception
+		dc.l ErrorTrap			; TRAP #14 exception
+		dc.l ErrorTrap			; TRAP #15 exception (48)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
 	if Revision<>2
-		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
-		dc.l ErrorTrap,	ErrorTrap, ErrorTrap, ErrorTrap
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
+		dc.l ErrorTrap			; Unused (reserved)
 	else
 loc_E0:
 		; Relocated code from Spik_Hurt. REVXB was a nasty hex-edit.
@@ -60,23 +108,25 @@ loc_E0:
 		jmp	(loc_D5A2).l
 
 		dc.w ErrorTrap
-		dc.l ErrorTrap, ErrorTrap, ErrorTrap
+		dc.l ErrorTrap
+		dc.l ErrorTrap
+		dc.l ErrorTrap
 	endif
-Console:	dc.b "SEGA MEGA DRIVE " ; Hardware system ID
-_Date:		dc.b "(C)SEGA 1991.APR" ; Release date
+Console:	dc.b "SEGA MEGA DRIVE " ; Hardware system ID (Console name)
+_Date:		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally year)
 Title_Local:	dc.b "SONIC THE               HEDGEHOG                " ; Domestic name
 Title_Int:	dc.b "SONIC THE               HEDGEHOG                " ; International name
 Serial:		if Revision=0
-		dc.b "GM 00001009-00"   ; Serial/version number
+		dc.b "GM 00001009-00"   ; Serial/version number (Rev 0)
 		else
-			dc.b "GM 00004049-01"
+			dc.b "GM 00004049-01" ; Serial/version number (Rev non-0)
 		endif
-Checksum:	dc.w 0
+Checksum: dc.w $0
 		dc.b "J               " ; I/O support
-RomStartLoc:	dc.l StartOfRom		; ROM start
-RomEndLoc:	dc.l EndOfRom-1		; ROM end
-RamStartLoc:	dc.l $FF0000		; RAM start
-RamEndLoc:	dc.l $FFFFFF		; RAM end
+RomStartLoc:	dc.l StartOfRom		; Start address of ROM
+RomEndLoc:	dc.l EndOfRom-1		; End address of ROM
+RamStartLoc:	dc.l $FF0000		; Start address of RAM
+RamEndLoc:	dc.l $FFFFFF		; End address of RAM
 SRAMSupport:	if EnableSRAM=1
 		dc.b $52, $41, $A0+(BackupSRAM<<6)+(AddressSRAM<<3), $20
 		else
@@ -84,10 +134,12 @@ SRAMSupport:	if EnableSRAM=1
 		endif
 		dc.l $20202020		; SRAM start ($200001)
 		dc.l $20202020		; SRAM end ($20xxxx)
-Notes:		dc.b "                                                    "
-Region:		dc.b "JUE             " ; Region
+Notes:		dc.b "                                                    " ; Notes (unused, anything can be put in this space, but it has to be 52 bytes.)
+Region:		dc.b "JUE             " ; Region (Country code)
+EndOfHeader:
 
 ; ===========================================================================
+; Crash/Freeze the 68000. Unlike Sonic 2, Sonic 1 uses the 68000 for playing music, so it stops too
 
 ErrorTrap:
 		nop	
@@ -99,22 +151,22 @@ EntryPoint:
 		tst.l	(z80_port_1_control).l ; test port A & B control registers
 		bne.s	PortA_Ok
 		tst.w	(z80_expansion_control).l ; test port C control register
-PortA_Ok:
-		bne.s	SkipSetup
 
-		lea	SetupValues(pc),a5
+PortA_Ok:
+		bne.s	SkipSetup ; Skip the VDP and Z80 setup code if port A, B or C is ok...?
+		lea	SetupValues(pc),a5	; Load setup values array address.
 		movem.w	(a5)+,d5-d7
 		movem.l	(a5)+,a0-a4
 		move.b	-$10FF(a1),d0	; get hardware version (from $A10001)
 		andi.b	#$F,d0
-		beq.s	SkipSecurity
+		beq.s	SkipSecurity	; If the console has no TMSS, skip the security stuff.
 		move.l	#'SEGA',$2F00(a1) ; move "SEGA" to TMSS register ($A14000)
 
 SkipSecurity:
-		move.w	(a4),d0
-		moveq	#0,d0
-		movea.l	d0,a6
-		move.l	a6,usp		; set usp to 0
+		move.w	(a4),d0	; clear write-pending flag in VDP to prevent issues if the 68k has been reset in the middle of writing a command long word to the VDP.
+		moveq	#0,d0	; clear d0
+		movea.l	d0,a6	; clear a6
+		move.l	a6,usp	; set usp to $0
 
 		moveq	#$17,d1
 VDPInitLoop:
@@ -122,6 +174,7 @@ VDPInitLoop:
 		move.w	d5,(a4)		; move value to	VDP register
 		add.w	d7,d5		; next register
 		dbf	d1,VDPInitLoop
+		
 		move.l	(a5)+,(a4)
 		move.w	d0,(a3)		; clear	the VRAM
 		move.w	d7,(a1)		; stop the Z80
@@ -135,33 +188,34 @@ WaitForZ80:
 Z80InitLoop:
 		move.b	(a5)+,(a0)+
 		dbf	d2,Z80InitLoop
+		
 		move.w	d0,(a2)
 		move.w	d0,(a1)		; start	the Z80
 		move.w	d7,(a2)		; reset	the Z80
 
 ClrRAMLoop:
-		move.l	d0,-(a6)
-		dbf	d6,ClrRAMLoop	; clear	the entire RAM
-		move.l	(a5)+,(a4)	; set VDP display mode and increment
+		move.l	d0,-(a6)	; clear 4 bytes of RAM
+		dbf	d6,ClrRAMLoop	; repeat until the entire RAM is clear
+		move.l	(a5)+,(a4)	; set VDP display mode and increment mode
 		move.l	(a5)+,(a4)	; set VDP to CRAM write
 
-		moveq	#$1F,d3
+		moveq	#$1F,d3	; set repeat times
 ClrCRAMLoop:
-		move.l	d0,(a3)
-		dbf	d3,ClrCRAMLoop	; clear	the CRAM
-		move.l	(a5)+,(a4)
+		move.l	d0,(a3)	; clear 2 palettes
+		dbf	d3,ClrCRAMLoop	; repeat until the entire CRAM is clear
+		move.l	(a5)+,(a4)	; set VDP to VSRAM write
 
 		moveq	#$13,d4
 ClrVSRAMLoop:
-		move.l	d0,(a3)
-		dbf	d4,ClrVSRAMLoop ; clear the VSRAM
+		move.l	d0,(a3)	; clear 4 bytes of VSRAM.
+		dbf	d4,ClrVSRAMLoop	; repeat until the entire VSRAM is clear
 		moveq	#3,d5
 
 PSGInitLoop:
 		move.b	(a5)+,$11(a3)	; reset	the PSG
-		dbf	d5,PSGInitLoop
+		dbf	d5,PSGInitLoop	; repeat for other channels
 		move.w	d0,(a2)
-		movem.l	(a6),d0-a6	; clear	all registers
+		movem.l	(a6),d0-a6	; clear all registers
 		disable_ints
 
 SkipSetup:
@@ -257,7 +311,7 @@ GameProgram:
 		beq.w	GameInit	; if yes, branch
 
 CheckSumCheck:
-		movea.l	#ErrorTrap,a0	; start	checking bytes after the header	($200)
+		movea.l	#EndOfHeader,a0	; start	checking bytes after the header	($200)
 		movea.l	#RomEndLoc,a1	; stop at end of ROM
 		move.l	(a1),d0
 		moveq	#0,d1
@@ -298,9 +352,9 @@ GameInit:
 
 MainGameLoop:
 		move.b	(v_gamemode).w,d0 ; load Game Mode
-		andi.w	#$1C,d0
+		andi.w	#$1C,d0	; limit Game Mode value to $1C max (change to a maximum of 7C to add more game modes)
 		jsr	GameModeArray(pc,d0.w) ; jump to apt location in ROM
-		bra.s	MainGameLoop
+		bra.s	MainGameLoop	; loop indefinitely
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Main game mode array
@@ -527,7 +581,7 @@ VBlank:
 
 		move.w	#$700,d0
 .waitPAL:
-		dbf	d0,.waitPAL
+		dbf	d0,.waitPAL ; wait here in a loop doing nothing for a while...
 
 .notPAL:
 		move.b	(v_vbla_routine).w,d0
@@ -671,7 +725,7 @@ Demo_Time:
 		bsr.w	LoadTilesAsYouMove
 		jsr	(AnimateLevelGfx).l
 		jsr	(HUD_Update).l
-		bsr.w	sub_165E
+		bsr.w	ProcessDPLC2
 		tst.w	(v_demolength).w ; is there time left on the demo?
 		beq.w	.end		; if not, branch
 		subq.w	#1,(v_demolength).w ; subtract 1 from time left
@@ -698,9 +752,9 @@ VBla_0A:
 		move.b	#0,(f_sonframechg).w
 
 .nochg:
-		tst.w	(v_demolength).w
-		beq.w	.end
-		subq.w	#1,(v_demolength).w
+		tst.w	(v_demolength).w	; is there time left on the demo?
+		beq.w	.end	; if not, return
+		subq.w	#1,(v_demolength).w	; subtract 1 from time left in demo
 
 .end:
 		rts	
@@ -876,7 +930,7 @@ JoypadInit:
 		moveq	#$40,d0
 		move.b	d0,($A10009).l	; init port 1 (joypad 1)
 		move.b	d0,($A1000B).l	; init port 2 (joypad 2)
-		move.b	d0,($A1000D).l	; init port 3 (expansion)
+		move.b	d0,($A1000D).l	; init port 3 (expansion/extra)
 		startZ80
 		rts	
 ; End of function JoypadInit
@@ -884,7 +938,6 @@ JoypadInit:
 ; ---------------------------------------------------------------------------
 ; Subroutine to	read joypad input, and send it to the RAM
 ; ---------------------------------------------------------------------------
-
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
@@ -932,7 +985,7 @@ VDPSetupGame:
 
 		move.w	(VDPSetupArray+2).l,d0
 		move.w	d0,(v_vdp_buffer1).w
-		move.w	#$8A00+223,(v_hbla_hreg).w
+		move.w	#$8A00+223,(v_hbla_hreg).w	; H-INT every 224th scanline
 		moveq	#0,d0
 		move.l	#$C0000000,(vdp_control_port).l ; set VDP to CRAM write
 		move.w	#$3F,d7
@@ -1072,35 +1125,37 @@ TilemapToVRAM:
 		move.l	#$800000,d4
 
 Tilemap_Line:
-		move.l	d0,4(a6)
+		move.l	d0,4(a6)	; move d0 to VDP_control_port
 		move.w	d1,d3
 
 Tilemap_Cell:
 		move.w	(a1)+,(a6)	; write value to namespace
-		dbf	d3,Tilemap_Cell
+		dbf	d3,Tilemap_Cell	; next tile
 		add.l	d4,d0		; goto next line
-		dbf	d2,Tilemap_Line
+		dbf	d2,Tilemap_Line	; next line
 		rts	
 ; End of function TilemapToVRAM
 
 		include	"_inc/Nemesis Decompression.asm"
 
-; ---------------------------------------------------------------------------
-; Subroutines to load pattern load cues
 
-; input:
-;	d0 = pattern load cue number
+; ---------------------------------------------------------------------------
+; Subroutine to load pattern load cues (aka to queue pattern load requests)
+; ---------------------------------------------------------------------------
+
+; ARGUMENTS
+; d0 = index of PLC list
 ; ---------------------------------------------------------------------------
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-
+; LoadPLC:
 AddPLC:
 		movem.l	a1-a2,-(sp)
 		lea	(ArtLoadCues).l,a1
 		add.w	d0,d0
 		move.w	(a1,d0.w),d0
-		lea	(a1,d0.w),a1	; jump to relevant PLC
+		lea	(a1,d0.w),a1		; jump to relevant PLC
 		lea	(v_plc_buffer).w,a2 ; PLC buffer space
 
 .findspace:
@@ -1120,14 +1175,24 @@ AddPLC:
 		dbf	d0,.loop	; repeat for length of PLC
 
 .skip:
-		movem.l	(sp)+,a1-a2
+		movem.l	(sp)+,a1-a2 ; a1=object
 		rts	
 ; End of function AddPLC
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
+; Queue pattern load requests, but clear the PLQ first
 
+; ARGUMENTS
+; d0 = index of PLC list (see ArtLoadCues)
 
+; NOTICE: This subroutine does not check for buffer overruns. The programmer
+;	  (or hacker) is responsible for making sure that no more than
+;	  16 load requests are copied into the buffer.
+;	  _________DO NOT PUT MORE THAN 16 LOAD REQUESTS IN A LIST!__________
+;         (or if you change the size of Plc_Buffer, the limit becomes (Plc_Buffer_Only_End-Plc_Buffer)/6)
+
+; LoadPLC2:
 NewPLC:
 		movem.l	a1-a2,-(sp)
 		lea	(ArtLoadCues).l,a1
@@ -1137,28 +1202,30 @@ NewPLC:
 		bsr.s	ClearPLC	; erase any data in PLC buffer space
 		lea	(v_plc_buffer).w,a2
 		move.w	(a1)+,d0	; get length of PLC
-		bmi.s	.skip
+		bmi.s	.skip		; if it's negative, skip the next loop
 
 .loop:
 		move.l	(a1)+,(a2)+
 		move.w	(a1)+,(a2)+	; copy PLC to RAM
-		dbf	d0,.loop	; repeat for length of PLC
+		dbf	d0,.loop		; repeat for length of PLC
 
 .skip:
 		movem.l	(sp)+,a1-a2
 		rts	
 ; End of function NewPLC
 
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
+
 ; ---------------------------------------------------------------------------
 ; Subroutine to	clear the pattern load cues
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
+; Clear the pattern load queue ($FFF680 - $FFF700)
 
 
 ClearPLC:
 		lea	(v_plc_buffer).w,a2 ; PLC buffer space in RAM
-		moveq	#$1F,d0
+		moveq	#$1F,d0	; bytesToLcnt(v_plc_buffer_end-v_plc_buffer)
 
 .loop:
 		clr.l	(a2)+
@@ -1179,7 +1246,7 @@ RunPLC:
 		tst.w	(f_plc_execute).w
 		bne.s	Rplc_Exit
 		movea.l	(v_plc_buffer).w,a0
-		lea	(loc_1502).l,a3
+		lea	(NemPCD_WriteRowToVDP).l,a3
 		lea	(v_ngfx_buffer).w,a1
 		move.w	(a0)+,d2
 		bpl.s	loc_160E
@@ -1188,7 +1255,7 @@ RunPLC:
 loc_160E:
 		andi.w	#$7FFF,d2
 		move.w	d2,(f_plc_execute).w
-		bsr.w	NemDec4
+		bsr.w	NemDec_BuildCodeTable
 		move.b	(a0)+,d5
 		asl.w	#8,d5
 		move.b	(a0)+,d5
@@ -1224,7 +1291,8 @@ sub_1642:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-sub_165E:
+; sub_165E:
+ProcessDPLC2:
 		tst.w	(f_plc_execute).w
 		beq.s	locret_16DA
 		move.w	#3,($FFFFF6FA).w
@@ -1251,7 +1319,7 @@ loc_1676:
 
 loc_16AA:
 		movea.w	#8,a5
-		bsr.w	NemDec3
+		bsr.w	NemPCD_NewRow
 		subq.w	#1,(f_plc_execute).w
 		beq.s	loc_16DC
 		subq.w	#1,($FFFFF6FA).w
@@ -1276,7 +1344,7 @@ loc_16E2:
 		move.l	6(a0),(a0)+
 		dbf	d0,loc_16E2
 		rts	
-; End of function sub_165E
+; End of function ProcessDPLC2
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	execute	the pattern load cue

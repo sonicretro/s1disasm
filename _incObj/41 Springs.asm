@@ -69,7 +69,7 @@ Spring_Up:	; Routine 2
 		move.w	#$10,d3
 		move.w	obX(a0),d4
 		bsr.w	SolidObject
-		tst.b	ob2ndRout(a0)	; is Sonic on top of the spring?
+		tst.b	obSolid(a0)	; is Sonic on top of the spring?
 		bne.s	Spring_BounceUp	; if yes, branch
 		rts	
 ; ===========================================================================
@@ -83,7 +83,7 @@ Spring_BounceUp:
 		move.b	#id_Spring,obAnim(a1) ; use "bouncing" animation
 		move.b	#2,obRoutine(a1)
 		bclr	#3,obStatus(a0)
-		clr.b	ob2ndRout(a0)
+		clr.b	obSolid(a0)
 		sfx	sfx_Spring,0,0,0	; play spring sound
 
 Spring_AniUp:	; Routine 4
@@ -157,7 +157,7 @@ Spring_Dwn:	; Routine $E
 		move.b	#$E,obRoutine(a0)
 
 loc_DCA4:
-		tst.b	ob2ndRout(a0)
+		tst.b	obSolid(a0)
 		bne.s	locret_DCAE
 		tst.w	d4
 		bmi.s	Spring_BounceDwn
@@ -175,7 +175,7 @@ Spring_BounceDwn:
 		bclr	#3,obStatus(a1)
 		move.b	#2,obRoutine(a1)
 		bclr	#3,obStatus(a0)
-		clr.b	ob2ndRout(a0)
+		clr.b	obSolid(a0)
 		sfx	sfx_Spring,0,0,0	; play spring sound
 
 Spring_AniDwn:	; Routine $10
