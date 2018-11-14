@@ -33,7 +33,7 @@ OptimiseSound	  = 0	; change to 1 to optimise sound queuing
 ; ===========================================================================
 
 StartOfRom:
-Vectors:	dc.l System_Stack	; Initial stack pointer value
+Vectors:	dc.l v_systemstack&$FFFFFF	; Initial stack pointer value
 		dc.l EntryPoint			; Start of program
 		dc.l BusError			; Bus error
 		dc.l AddressError		; Address error (4)

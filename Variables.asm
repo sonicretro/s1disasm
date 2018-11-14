@@ -244,6 +244,8 @@ v_pal_water	= ramaddr ( $FFFFFA80 )	; main underwater palette ($80 bytes)
 v_pal_dry	= ramaddr ( $FFFFFB00 )	; main palette ($80 bytes)
 v_pal_dry_dup	= ramaddr ( $FFFFFB80 )	; duplicate palette, used for transitions ($80 bytes)
 v_objstate	= ramaddr ( $FFFFFC00 )	; object state list ($200 bytes)
+
+v_systemstack	= ramaddr ( $FFFFFE00 )
 f_restart	= ramaddr ( $FFFFFE02 )	; restart level flag (2 bytes)
 v_framecount	= ramaddr ( $FFFFFE04 )	; frame counter (adds 1 every frame) (2 bytes)
 v_framebyte	= v_framecount+1; low byte for frame counter
