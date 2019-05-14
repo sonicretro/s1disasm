@@ -5022,7 +5022,7 @@ GetBlockData:
 		add.w	(a3),d5		; MJ: load X position to d5
 		else
 			add.w	(a3),d5		; MJ: load X position to d5
-	DrawBlocks_2:
+	GetBlockData_2:
 			add.w	4(a3),d4	; MJ: load Y position to d4
 			lea	(v_16x16).w,a1	; MJ: load Block's location
 		endc
