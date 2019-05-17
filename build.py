@@ -12,23 +12,35 @@ import hashlib
 # Paths to build tools, depending on OS
 
 if platform.system() == "Windows":
+	platformDir = "AS/Win32";
 	asBinary = "AS/Win32/asw.exe";
 	s1p2binBinary = "AS/Win32/s1p2bin.exe";
 
 elif platform.system() == "Darwin": # Osx
+	platformDir = "AS/Osx";
 	asBinary = "AS/Osx/asl";
 	s1p2binBinary = "AS/Osx/s1p2bin";
 
 elif platform.system() == "Linux":
 	if sys.maxsize > 2**32:	# detect if running in 64-bit environment
+		platformDir = "AS/Linux";
 		asBinary = "AS/Linux/asl";
 		s1p2binBinary = "AS/Linux/s1p2bin";
 	else:
+		platformDir = "AS/Linux32";
 		asBinary = "AS/Linux32/asl";
 		s1p2binBinary = "AS/Linux32/s1p2bin";
 
 else:
 	print("Unknown platform");
+	sys.exit();
+
+if not os.path.isfile(s1p2binBinary):
+	print(
+		"Sorry, the s1p2bin tool for your platform is outdated and needs recompiling.\n\n"
+		f"You can find the source code as well as a Makefile in 'AS/s1p2bin'. Once compiled, copy the executable to '{platformDir}'.\n\n"
+		"We'd appreciate it if you could send us your binary in a pull request at https://github.com/sonicretro/s1disasm, so other users don't have this problem in the future."
+	);
 	sys.exit();
 
 def delete(path):
