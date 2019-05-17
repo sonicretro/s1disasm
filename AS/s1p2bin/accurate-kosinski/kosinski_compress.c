@@ -128,10 +128,10 @@ size_t AccurateKosinskiCompress(unsigned char *file_buffer, size_t file_size, un
 
 	descriptor_bits_remaining = TOTAL_DESCRIPTOR_BITS;
 
-	unsigned char *file_pointer = file_buffer;
+	size_t file_index = 0;
 	unsigned long last_src_file_index = 0;
 
-	while (file_pointer < file_buffer + file_size)
+	while (file_index < file_size)
 	{
 		// Mistake 5: This is completely pointless.
 		// For some reason, the original compressor would insert a dummy match
@@ -141,10 +141,10 @@ size_t AccurateKosinskiCompress(unsigned char *file_buffer, size_t file_size, un
 		// buffer, and these commands were for signalling that it's about to
 		// run out of room, and to allocate a bigger buffer.
 		// Still though, this is pointless to the Mega Drive.
-		if ((unsigned long)(file_pointer - file_buffer) / 0xA000 != last_src_file_index / 0xA000)
+		if (file_index / 0xA000 != last_src_file_index / 0xA000)
 		{
 			#ifdef DEBUG
-			PRINTF("%zX - 0xA000 boundary flag: %tX\n", MemoryStream_GetPosition(output_stream) + MemoryStream_GetPosition(match_stream) + 2, file_pointer - file_buffer);
+			PRINTF("%zX - 0xA000 boundary flag: %tX\n", MemoryStream_GetPosition(output_stream) + MemoryStream_GetPosition(match_stream) + 2, file_index);
 			#endif
 
 			// 0xA000 boundary match
@@ -155,10 +155,10 @@ size_t AccurateKosinskiCompress(unsigned char *file_buffer, size_t file_size, un
 			PutMatchByte(0x01);
 		}
 
-		last_src_file_index = file_pointer - file_buffer;
+		last_src_file_index = file_index;
 
-		const unsigned int max_match_distance = MIN(file_pointer - file_buffer, MAX_MATCH_DISTANCE);
-		const unsigned int max_match_length = MIN(file_size - (file_pointer - file_buffer), MAX_MATCH_LENGTH);
+		const unsigned int max_match_distance = MIN(file_index, MAX_MATCH_DISTANCE);
+		const unsigned int max_match_length = MIN(file_size - file_index, MAX_MATCH_LENGTH);
 
 		unsigned int longest_match_index;
 		unsigned int longest_match_length = 0;
@@ -166,7 +166,7 @@ size_t AccurateKosinskiCompress(unsigned char *file_buffer, size_t file_size, un
 		{
 
 			unsigned int match_length = 0;
-			while (match_length < max_match_length && file_pointer[match_length] == file_pointer[-(size_t)backsearch_index + match_length])
+			while (match_length < max_match_length && file_buffer[file_index + match_length] == file_buffer[file_index - backsearch_index + match_length])
 			{
 				++match_length;
 			}
@@ -181,7 +181,7 @@ size_t AccurateKosinskiCompress(unsigned char *file_buffer, size_t file_size, un
 		if (longest_match_length >= 2 && longest_match_length <= 5 && longest_match_index < 256)	// Mistake 3: This should be '<= 256'
 		{
 			#ifdef DEBUG
-			PRINTF("%zX - Inline dictionary match found: %tX, %tX, %X\n", MemoryStream_GetPosition(output_stream) + MemoryStream_GetPosition(match_stream) + 2, file_pointer - file_buffer, file_pointer - file_buffer - longest_match_index, longest_match_length);
+			PRINTF("%zX - Inline dictionary match found: %tX, %tX, %X\n", MemoryStream_GetPosition(output_stream) + MemoryStream_GetPosition(match_stream) + 2, file_index, file_index - longest_match_index, longest_match_length);
 			#endif
 
 			const unsigned int length = longest_match_length - 2;
@@ -192,12 +192,12 @@ size_t AccurateKosinskiCompress(unsigned char *file_buffer, size_t file_size, un
 			PutDescriptorBit(length & 1);
 			PutMatchByte(-longest_match_index);
 
-			file_pointer += longest_match_length;
+			file_index += longest_match_length;
 		}
 		else if (longest_match_length >= 3 && longest_match_length <= 9)
 		{
 			#ifdef DEBUG
-			PRINTF("%zX - Full match found: %tX, %tX, %X\n", MemoryStream_GetPosition(output_stream) + MemoryStream_GetPosition(match_stream) + 2, file_pointer - file_buffer, file_pointer - file_buffer - longest_match_index, longest_match_length);
+			PRINTF("%zX - Full match found: %tX, %tX, %X\n", MemoryStream_GetPosition(output_stream) + MemoryStream_GetPosition(match_stream) + 2, file_index, file_index - longest_match_index, longest_match_length);
 			#endif
 
 			const unsigned int distance = -longest_match_index;
@@ -206,12 +206,12 @@ size_t AccurateKosinskiCompress(unsigned char *file_buffer, size_t file_size, un
 			PutMatchByte(distance & 0xFF);
 			PutMatchByte(((distance >> (8 - 3)) & 0xF8) | ((longest_match_length - 2) & 7));
 
-			file_pointer += longest_match_length;
+			file_index += longest_match_length;
 		}
 		else if (longest_match_length >= 3)
 		{
 			#ifdef DEBUG
-			PRINTF("%zX - Extended full match found: %tX, %tX, %X\n", MemoryStream_GetPosition(output_stream) + MemoryStream_GetPosition(match_stream) + 2, file_pointer - file_buffer, file_pointer - file_buffer - longest_match_index, longest_match_length);
+			PRINTF("%zX - Extended full match found: %tX, %tX, %X\n", MemoryStream_GetPosition(output_stream) + MemoryStream_GetPosition(match_stream) + 2, file_index, file_index - longest_match_index, longest_match_length);
 			#endif
 
 			const unsigned int distance = -longest_match_index;
@@ -221,21 +221,21 @@ size_t AccurateKosinskiCompress(unsigned char *file_buffer, size_t file_size, un
 			PutMatchByte((distance >> (8 - 3)) & 0xF8);
 			PutMatchByte(longest_match_length - 1);
 
-			file_pointer += longest_match_length;
+			file_index += longest_match_length;
 		}
 		else
 		{
 			#ifdef DEBUG
-			PRINTF("%zX - Literal match found: %X at %tX\n", MemoryStream_GetPosition(output_stream) + MemoryStream_GetPosition(match_stream) + 2, *file_pointer, file_pointer - file_buffer);
+			PRINTF("%zX - Literal match found: %X at %tX\n", MemoryStream_GetPosition(output_stream) + MemoryStream_GetPosition(match_stream) + 2, file_buffer[file_index], file_index);
 			#endif
 
 			PutDescriptorBit(true);
-			PutMatchByte(*file_pointer++);
+			PutMatchByte(file_buffer[file_index++]);
 		}
 	}
 
 	#ifdef DEBUG
-	PRINTF("%zX - Terminator: %tX\n", MemoryStream_GetPosition(output_stream) + MemoryStream_GetPosition(match_stream) + 2, file_pointer - file_buffer);
+	PRINTF("%zX - Terminator: %tX\n", MemoryStream_GetPosition(output_stream) + MemoryStream_GetPosition(match_stream) + 2, file_index);
 	#endif
 
 	// Terminator match
