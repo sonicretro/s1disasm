@@ -1,28 +1,21 @@
-#include <string.h>
+#include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <unistd.h> // for unlink
 
-#ifdef S1P2BIN_PLUS
-#include <fstream>
-#include "FW_KENSC/kosinski.h"
-
-using namespace std;
-#else
-#include "KENSKosComp/K-Compressor2.h"
-#endif
+#include "accurate-kosinski/kosinski_compress.h"
+#include "clownlzss/kosinski.h"
 
 const char* codeFileName = NULL;
 const char* romFileName = NULL;
-int compressedLength = 0;
+size_t compressedLength = 0;
+bool accurate_compression;
 
 unsigned char Z80_RAM_buffer[0x2000];
 int current_Z80_size = 0;
 
-#ifdef S1P2BIN_PLUS
-void printUsage() { printf("usage: s1p2bin_plus.exe inputcodefile.p outputromfile.bin\n\nOver s1p2bin.exe, this utilises a better compressor for the Z80 DAC driver.\nNote that this does not produce a bit-perfect ROM."); }
-#else
-void printUsage() { printf("usage: s1p2bin.exe inputcodefile.p outputromfile.bin\n"); }
-#endif
+void printUsage() { printf("usage: s1p2bin [-a | --accurate] inputcodefile.p outputromfile.bin sharefile.h\n\n  -a, --accurate    use weaker sound driver compression that's accurate to\n                    the original ROM"); }
 bool buildRom(FILE* from, FILE* to);
 
 int main(int argc, char *argv[])
@@ -43,6 +36,8 @@ int main(int argc, char *argv[])
 		
 		if(!strcasecmp(arg, "-h") || !strcasecmp(arg, "--help"))
 			printUsage(), argc = 0;
+		else if (!strcasecmp(arg, "-a") || !strcasecmp(arg, "--accurate"))
+			accurate_compression = true;
 		else if(!codeFileName)
 			codeFileName = arg;
 		else if(!romFileName)
@@ -51,11 +46,7 @@ int main(int argc, char *argv[])
 
 	if(codeFileName && romFileName)
 	{
-#ifdef S1P2BIN_PLUS
-		printf("\ns1p2bin_plus.exe: generating %s from %s...", romFileName, codeFileName);
-#else
-		printf("\ns1p2bin.exe: generating %s from %s", romFileName, codeFileName);
-#endif
+		printf("\ns1p2bin.exe: generating %s from %s...", romFileName, codeFileName);
 
 		FILE* from = fopen(codeFileName, "rb");
 		if(from)
@@ -68,11 +59,7 @@ int main(int argc, char *argv[])
 				fclose(from);
 				if(built)
 				{
-#ifdef S1P2BIN_PLUS
-					printf("\n...done");
-#else
-					printf(" ... done.");
-#endif
+					printf("\n...done.");
 				}
 				else
 				{
@@ -93,14 +80,15 @@ int main(int argc, char *argv[])
 
 void CompressZ80Driver(FILE *to)
 {
-#ifdef S1P2BIN_PLUS
-	int dstStart = ftell(to);
-	fstream fout(romFileName, ios::in|ios::out|ios::binary);
-	compressedLength = kosinski::encode(Z80_RAM_buffer, fout, 8192, 256, current_Z80_size, dstStart);
-	fseek(to, compressedLength, SEEK_CUR);
-#else
-	KComp3(Z80_RAM_buffer, to, 8192, 256, current_Z80_size, false);
-#endif
+	unsigned char *compressed_buffer;;
+
+	if (accurate_compression)
+		compressedLength = AccurateKosinskiCompress(Z80_RAM_buffer, current_Z80_size, &compressed_buffer);
+	else
+		compressed_buffer = KosinskiCompress(Z80_RAM_buffer, current_Z80_size, &compressedLength);
+
+	fwrite(compressed_buffer, compressedLength, 1, to);
+	free(compressed_buffer);
 }
 
 bool buildRom(FILE* from, FILE* to)
@@ -212,15 +200,18 @@ bool buildRom(FILE* from, FILE* to)
 		{
 			if(start < cur)
 			{
-				printf("\nERROR: Compressed DAC driver might not fit.\nPlease increase your value of Size_of_DAC_driver_guess to at least $%X and try again.", compressedLength);
+				#ifdef __MINGW32__
+				#define PRINTF __mingw_printf
+				#else
+				#define PRINTF printf
+				#endif
+				PRINTF("\nERROR: Compressed DAC driver might not fit.\nPlease increase your value of Size_of_DAC_driver_guess to at least $%zX and try again.", compressedLength);
 				return false;
 			}
-#ifdef S1P2BIN_PLUS
 			else
 			{
-				printf("\n  Compressed DAC driver size: $%X\n  Set Size_of_DAC_driver_guess to this to save a little space.", compressedLength);
+				printf("\n  Compressed DAC driver size: $%lX\n  Set Size_of_DAC_driver_guess to this to save a little space.", compressedLength);
 			}
-#endif
 		}
 
 		// hack to make padding directives use 0xFF without breaking backwards orgs
