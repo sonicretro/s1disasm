@@ -146,7 +146,7 @@ bool buildRom(FILE* from, FILE* to)
 
 		if(start < 0)
 		{
-			printf("\nERROR: negative start address ($%X).", start), start = 0;
+			printf("\nERROR: negative start address ($%lX).", start), start = 0;
 			return false;
 		}
 
@@ -195,7 +195,7 @@ bool buildRom(FILE* from, FILE* to)
 		if(!lastSegmentCompressed)
 		{
 			if(start+3 < cur) // 3 bytes of leeway for instruction patching
-				printf("\nWarning: overlapping allocation detected! $%X < $%X", start, ftell(to));
+				printf("\nWarning: overlapping allocation detected! $%lX < $%lX", start, ftell(to));
 		}
 		else
 		{
