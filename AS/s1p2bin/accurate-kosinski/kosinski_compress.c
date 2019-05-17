@@ -166,7 +166,7 @@ size_t AccurateKosinskiCompress(unsigned char *file_buffer, size_t file_size, un
 		{
 
 			unsigned int match_length = 0;
-			while (match_length < max_match_length && file_pointer[match_length] == file_pointer[-backsearch_index + match_length])
+			while (match_length < max_match_length && file_pointer[match_length] == file_pointer[-(size_t)backsearch_index + match_length])
 			{
 				++match_length;
 			}
