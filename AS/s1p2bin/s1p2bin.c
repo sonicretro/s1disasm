@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
 
 void CompressZ80Driver(FILE *to)
 {
-	unsigned char *compressed_buffer;;
+	unsigned char *compressed_buffer;
 
 	if (accurate_compression)
 		compressedLength = AccurateKosinskiCompress(Z80_RAM_buffer, current_Z80_size, &compressed_buffer);
