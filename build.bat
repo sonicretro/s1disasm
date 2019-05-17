@@ -25,14 +25,24 @@ REM // -L generates a listing file
 set AS_MSGPATH=AS/Win32
 set USEANSI=n
 
+set s1p2bin_args=
+
+:parseloop
+IF "%1"=="-a" (
+	set s1p2bin_args=-a
+	echo Will use accurate sound driver compression
+)
+SHIFT
+IF NOT "%1"=="" goto parseloop
+
 REM // allow the user to choose to output error messages to file by supplying the -logerrors parameter
-IF "%1"=="-logerrors" ( "AS/Win32/asw.exe" -xx -q -A -L sonic.asm ) ELSE "AS/Win32/asw.exe" -xx -q -E -A -L sonic.asm
+"AS/Win32/asw.exe" -xx -q -E -A -L sonic.asm
 
 REM // if there were errors, a log file is produced
 IF EXIST sonic.log goto LABLERROR3
 
 REM // combine the assembler output into a ROM
-IF EXIST sonic.p "AS/Win32/s1p2bin" -a sonic.p s1built.bin
+IF EXIST sonic.p "AS/Win32/s1p2bin" %s1p2bin_args% sonic.p s1built.bin
 
 REM // done -- pause if we seem to have failed, then exit
 IF NOT EXIST sonic.p goto LABLPAUSE
