@@ -11,7 +11,7 @@ import hashlib
 
 # Paths to build tools, depending on OS
 
-if platform.system() == "Windows":
+if platform.system() == "Windows" or "MSYS" in platform.system() or "MINGW" in platform.system():
 	platformDir = "AS/Win32"
 	asBinary = "AS/Win32/asw.exe"
 	s1p2binBinary = "AS/Win32/s1p2bin.exe"
