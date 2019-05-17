@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include <unistd.h> // for unlink
 
 #include "accurate-kosinski/kosinski_compress.h"
