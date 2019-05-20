@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 
 	if(codeFileName && romFileName)
 	{
-		printf("\ns1p2bin.exe: generating %s from %s...", romFileName, codeFileName);
+		printf("\ns1p2bin: generating %s from %s...", romFileName, codeFileName);
 
 		FILE* from = fopen(codeFileName, "rb");
 		if(from)
