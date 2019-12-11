@@ -73,7 +73,7 @@ Deform_GHZ:
 		move.w	d0,d4
 		move.w	d0,(v_bgscrposy_dup).w
 		move.w	(v_screenposx).w,d0
-		cmpi.b	#id_Title,(v_zone).w
+		cmpi.b	#id_Title,(v_gamemode).w
 		bne.s	@notTitle
 		moveq	#0,d0	; reset foreground position in title screen
 	@notTitle:

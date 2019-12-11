@@ -238,7 +238,7 @@ v_timebonus:	equ $FFFFF7D2	; time bonus at the end of an act (2 bytes)
 v_ringbonus:	equ $FFFFF7D4	; ring bonus at the end of an act (2 bytes)
 f_endactbonus:	equ $FFFFF7D6	; time/ring bonus update flag at the end of an act
 v_sonicend:	equ $FFFFF7D7	; routine counter for Sonic in the ending sequence
-v_lz_deform:	equ	$FFFF7D8	; LZ deformtaion offset, in units of $80 (2 bytes)
+v_lz_deform:	equ	$FFFFF7D8	; LZ deformtaion offset, in units of $80 (2 bytes)
 f_switch:	equ $FFFFF7E0	; flags set when Sonic stands on a switch ($10 bytes)
 v_scroll_block_1_size:	equ $FFFFF7F0	; (2 bytes)
 v_scroll_block_2_size:	equ $FFFFF7F2	; unused (2 bytes)
