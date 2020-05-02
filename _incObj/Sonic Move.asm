@@ -34,7 +34,7 @@ Sonic_Move:
 		btst	#3,obStatus(a0)
 		beq.s	Sonic_Balance
 		moveq	#0,d0
-		move.b	$3D(a0),d0
+		move.b	standonobject(a0),d0
 		lsl.w	#6,d0
 		lea	(v_objspace).w,a1
 		lea	(a1,d0.w),a1
