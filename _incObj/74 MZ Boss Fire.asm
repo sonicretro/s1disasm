@@ -59,13 +59,13 @@ Obj74_Index2:	dc.w Obj74_Drop-Obj74_Index2
 ; ===========================================================================
 
 Obj74_Drop:
-		bset	#1,obStatus(a0)
+		bset	#obStatusInAir,obStatus(a0)
 		subq.b	#1,$29(a0)
 		bpl.s	locret_18780
 		move.b	#$8B,obColType(a0)
 		clr.b	obSubtype(a0)
 		addi.w	#$18,obVelY(a0)
-		bclr	#1,obStatus(a0)
+		bclr	#obStatusInAir,obStatus(a0)
 		bsr.w	ObjFloorDist
 		tst.w	d1
 		bpl.s	locret_18780
@@ -153,7 +153,7 @@ loc_1882C:
 ; ===========================================================================
 
 Obj74_FallEdge:
-		bclr	#1,obStatus(a0)
+		bclr	#obStatusInAir,obStatus(a0)
 		addi.w	#$24,obVelY(a0)	; make flame fall
 		move.w	obX(a0),d0
 		sub.w	$32(a0),d0

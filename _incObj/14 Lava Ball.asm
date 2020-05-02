@@ -83,10 +83,10 @@ LBall_Type00:
 		addq.b	#2,obRoutine(a0)	; goto "LBall_Delete" routine
 
 loc_E41E:
-		bclr	#1,obStatus(a0)
+		bclr	#obStatusInAir,obStatus(a0)
 		tst.w	obVelY(a0)
 		bpl.s	locret_E430
-		bset	#1,obStatus(a0)
+		bset	#obStatusInAir,obStatus(a0)
 
 locret_E430:
 		rts	
@@ -94,7 +94,7 @@ locret_E430:
 ; lavaball type	04 flies up until it hits the ceiling
 
 LBall_Type04:
-		bset	#1,obStatus(a0)
+		bset	#obStatusInAir,obStatus(a0)
 		bsr.w	ObjHitCeiling
 		tst.w	d1
 		bpl.s	locret_E452
@@ -108,7 +108,7 @@ locret_E452:
 ; lavaball type	05 falls down until it hits the	floor
 
 LBall_Type05:
-		bclr	#1,obStatus(a0)
+		bclr	#obStatusInAir,obStatus(a0)
 		bsr.w	ObjFloorDist
 		tst.w	d1
 		bpl.s	locret_E474
@@ -122,7 +122,7 @@ locret_E474:
 ; lavaball types 06-07 move sideways
 
 LBall_Type06:
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		moveq	#-8,d3
 		bsr.w	ObjHitWallLeft
 		tst.w	d1
@@ -136,7 +136,7 @@ locret_E498:
 ; ===========================================================================
 
 LBall_Type07:
-		bclr	#0,obStatus(a0)
+		bclr	#obStatusHFlip,obStatus(a0)
 		moveq	#8,d3
 		bsr.w	ObjHitWallRight
 		tst.w	d1

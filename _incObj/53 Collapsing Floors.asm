@@ -49,7 +49,7 @@ CFlo_Touch:	; Routine 2
 		bsr.w	PlatformObject
 		tst.b	obSubtype(a0)
 		bpl.s	@remstate
-		btst	#3,obStatus(a1)
+		btst	#obStatusOnObject,obStatus(a1)
 		beq.s	@remstate
 		bclr	#0,obRender(a0)
 		move.w	obX(a1),d0
@@ -93,12 +93,12 @@ loc_8402:
 		subq.b	#1,cflo_timedelay(a0)
 		bsr.w	CFlo_WalkOff
 		lea	(v_player).w,a1
-		btst	#3,obStatus(a1)
+		btst	#obStatusOnObject,obStatus(a1)
 		beq.s	loc_842E
 		tst.b	cflo_timedelay(a0)
 		bne.s	locret_843A
-		bclr	#3,obStatus(a1)
-		bclr	#5,obStatus(a1)
+		bclr	#obStatusOnObject,obStatus(a1)
+		bclr	#obStatusPushing,obStatus(a1)
 		move.b	#1,obNextAni(a1)
 
 loc_842E:

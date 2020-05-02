@@ -23,7 +23,7 @@ loc_1356A:
 		cmpi.w	#$280,d0
 		bcc.s	locret_13580
 		clr.w	obInertia(a0)
-		bset	#1,obStatus(a0)
+		bset	#obStatusInAir,obStatus(a0)
 		move.w	#$1E,$3E(a0)
 
 locret_13580:

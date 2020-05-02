@@ -76,12 +76,12 @@ loc_82D0:
 		subq.b	#1,ledge_timedelay(a0)
 		bsr.w	Ledge_WalkOff
 		lea	(v_player).w,a1
-		btst	#3,obStatus(a1)
+		btst	#obStatusOnObject,obStatus(a1)
 		beq.s	loc_82FC
 		tst.b	ledge_timedelay(a0)
 		bne.s	locret_8308
-		bclr	#3,obStatus(a1)
-		bclr	#5,obStatus(a1)
+		bclr	#obStatusOnObject,obStatus(a1)
+		bclr	#obStatusPushing,obStatus(a1)
 		move.b	#1,obNextAni(a1)
 
 loc_82FC:

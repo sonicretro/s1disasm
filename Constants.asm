@@ -120,6 +120,15 @@ bitL:		equ 2
 bitDn:		equ 1
 bitUp:		equ 0
 
+; Object statuses
+obStatusHFlip		equ 0 ; Flips the object horizontally, Sonic faces left when set, for others it may be different
+obStatusInAir		equ 1 ; Used by some as the upside-down status
+obStatusRolling	equ 2
+obStatusOnObject	equ 3
+obStatusRollJump	equ 4 ; Jumped from rolling
+obStatusPushing	equ 5
+obStatusUnderWater	equ 6
+
 ; Object variables
 obRender:	equ 1	; bitfield for x/y flip, display mode
 obGfx:		equ 2	; palette line & VRAM setting (2 bytes)

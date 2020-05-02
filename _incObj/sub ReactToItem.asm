@@ -273,10 +273,10 @@ HurtSonic:
 		move.b	#0,(v_shield).w	; remove shield
 		move.b	#4,obRoutine(a0)
 		bsr.w	Sonic_ResetOnFloor
-		bset	#1,obStatus(a0)
+		bset	#obStatusInAir,obStatus(a0)
 		move.w	#-$400,obVelY(a0) ; make Sonic bounce away from the object
 		move.w	#-$200,obVelX(a0)
-		btst	#6,obStatus(a0)	; is Sonic underwater?
+		btst	#obStatusUnderWater,obStatus(a0)	; is Sonic underwater?
 		beq.s	@isdry		; if not, branch
 
 		move.w	#-$200,obVelY(a0) ; slower bounce
@@ -322,7 +322,7 @@ KillSonic:
 		move.b	#0,(v_invinc).w	; remove invincibility
 		move.b	#6,obRoutine(a0)
 		bsr.w	Sonic_ResetOnFloor
-		bset	#1,obStatus(a0)
+		bset	#obStatusInAir,obStatus(a0)
 		move.w	#-$700,obVelY(a0)
 		move.w	#0,obVelX(a0)
 		move.w	#0,obInertia(a0)
@@ -370,7 +370,7 @@ React_Special:
 		bcc.s	@normalenemy
 		move.w	obX(a1),d0
 		subq.w	#4,d0
-		btst	#0,obStatus(a1)
+		btst	#obStatusHFlip,obStatus(a1)
 		beq.s	@noflip
 		subi.w	#$10,d0
 

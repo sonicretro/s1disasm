@@ -65,7 +65,7 @@ Orb_Main:	; Routine 0
 
 	@fail:
 		moveq	#1,d0
-		btst	#0,obStatus(a0)	; is orbinaut facing left?
+		btst	#obStatusHFlip,obStatus(a0)	; is orbinaut facing left?
 		beq.s	@noflip		; if not, branch
 		neg.w	d0
 
@@ -74,7 +74,7 @@ Orb_Main:	; Routine 0
 		move.b	obSubtype(a0),obRoutine(a0) ; if type is 02, skip Orb_ChkSonic
 		addq.b	#2,obRoutine(a0)
 		move.w	#-$40,obVelX(a0) ; move orbinaut to the left
-		btst	#0,obStatus(a0)	; is orbinaut facing left??
+		btst	#obStatusHFlip,obStatus(a0)	; is orbinaut facing left??
 		beq.s	@noflip2	; if not, branch
 		neg.w	obVelX(a0)	; move orbinaut	to the right
 
@@ -158,7 +158,7 @@ Orb_MoveOrb:	; Routine 6
 
 	@fire:
 		move.w	#-$200,obVelX(a0) ; move orb to the left (quickly)
-		btst	#0,obStatus(a1)
+		btst	#obStatusHFlip,obStatus(a1)
 		beq.s	@noflip
 		neg.w	obVelX(a0)
 

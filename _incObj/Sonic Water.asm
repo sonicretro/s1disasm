@@ -17,7 +17,7 @@ Sonic_Water:
 		move.w	(v_waterpos1).w,d0
 		cmp.w	obY(a0),d0	; is Sonic above the water?
 		bge.s	@abovewater	; if yes, branch
-		bset	#6,obStatus(a0)
+		bset	#obStatusUnderWater,obStatus(a0)
 		bne.s	@exit
 		bsr.w	ResumeMusic
 		move.b	#id_DrownCount,(v_objspace+$340).w ; load bubbles object from Sonic's mouth
@@ -34,7 +34,7 @@ Sonic_Water:
 ; ===========================================================================
 
 @abovewater:
-		bclr	#6,obStatus(a0)
+		bclr	#obStatusUnderWater,obStatus(a0)
 		beq.s	@exit
 		bsr.w	ResumeMusic
 		move.w	#$600,(v_sonspeedmax).w ; restore Sonic's speed

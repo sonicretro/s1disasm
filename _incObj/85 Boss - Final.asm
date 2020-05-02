@@ -157,11 +157,11 @@ loc_19EC6:
 loc_19F10:
 		tst.w	$32(a0)
 		bmi.w	loc_19FA6
-		bclr	#0,obStatus(a0)
+		bclr	#obStatusHFlip,obStatus(a0)
 		move.w	(v_player+obX).w,d0
 		sub.w	obX(a0),d0
 		bcs.s	loc_19F2E
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 
 loc_19F2E:
 		move.w	#$2B,d1
@@ -183,7 +183,7 @@ loc_19F50:
 		cmpi.b	#id_Roll,(v_player+obAnim).w
 		bne.s	loc_19F48
 		move.w	#$300,d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		bne.s	loc_19F6A
 		neg.w	d0
 
@@ -271,7 +271,7 @@ loc_1A02A:
 		else
 			move.b	#$30,obActWid(a0)
 		endc
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		jsr	(SpeedToPos).l
 		move.b	#6,obFrame(a0)
 		addi.w	#$10,obVelY(a0)
@@ -293,7 +293,7 @@ loc_1A070:
 ; ===========================================================================
 
 loc_1A074:
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		move.b	#4,obAnim(a0)
 		jsr	(SpeedToPos).l
 		addi.w	#$10,obVelY(a0)
@@ -392,7 +392,7 @@ loc_1A192:
 		move.l	#Map_Eggman,obMap(a0)
 		move.w	#$400,obGfx(a0)
 		move.b	#0,obAnim(a0)
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		jsr	(SpeedToPos).l
 		cmpi.w	#$544,obY(a0)
 		bcc.s	loc_1A1D0
@@ -406,7 +406,7 @@ loc_1A1D0:
 ; ===========================================================================
 
 loc_1A1D4:
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		jsr	(SpeedToPos).l
 		tst.w	$30(a0)
 		bne.s	loc_1A1FC
@@ -527,7 +527,7 @@ loc_1A312:
 ; ===========================================================================
 
 loc_1A346:	; Routine 8
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		movea.l	$34(a0),a1
 		cmpi.l	#Map_Eggman,obMap(a1)
 		beq.s	loc_1A35E
@@ -566,7 +566,7 @@ loc_1A3A6:
 
 loc_1A3AC:	; Routine $C
 		move.b	#0,obFrame(a0)
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		movea.l	$34(a0),a1
 		cmpi.b	#$C,$34(a1)
 		bne.s	loc_1A3D0

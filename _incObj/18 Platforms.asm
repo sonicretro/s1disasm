@@ -193,7 +193,7 @@ Plat_Move:
 @type03:
 		tst.w	$3A(a0)		; is time delay	set?
 		bne.s	@type03_wait	; if yes, branch
-		btst	#3,obStatus(a0)	; is Sonic standing on the platform?
+		btst	#obStatusOnObject,obStatus(a0)	; is Sonic standing on the platform?
 		beq.s	@type03_nomove	; if not, branch
 		move.w	#30,$3A(a0)	; set time delay to 0.5	seconds
 
@@ -213,12 +213,12 @@ Plat_Move:
 		beq.s	@loc_8048
 		subq.w	#1,$3A(a0)
 		bne.s	@loc_8048
-		btst	#3,obStatus(a0)
+		btst	#obStatusOnObject,obStatus(a0)
 		beq.s	@loc_8042
-		bset	#1,obStatus(a1)
-		bclr	#3,obStatus(a1)
+		bset	#obStatusInAir,obStatus(a1)
+		bclr	#obStatusOnObject,obStatus(a1)
 		move.b	#2,obRoutine(a1)
-		bclr	#3,obStatus(a0)
+		bclr	#obStatusOnObject,obStatus(a0)
 		clr.b	$25(a0)
 		move.w	obVelY(a0),obVelY(a1)
 

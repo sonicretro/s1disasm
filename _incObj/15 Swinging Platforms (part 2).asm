@@ -4,7 +4,7 @@
 Swing_Move:
 		move.b	(v_oscillate+$1A).w,d0
 		move.w	#$80,d1
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	loc_7B78
 		neg.w	d0
 		add.w	d1,d0

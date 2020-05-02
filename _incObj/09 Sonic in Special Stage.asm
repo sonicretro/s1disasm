@@ -30,8 +30,8 @@ Obj09_Main:	; Routine 0
 		move.b	#4,obRender(a0)
 		move.b	#0,obPriority(a0)
 		move.b	#id_Roll,obAnim(a0)
-		bset	#2,obStatus(a0)
-		bset	#1,obStatus(a0)
+		bset	#obStatusRolling,obStatus(a0)
+		bset	#obStatusInAir,obStatus(a0)
 
 Obj09_ChkDebug:	; Routine 2
 		tst.w	(f_debugmode).w	; is debug mode	cheat enabled?
@@ -146,7 +146,7 @@ loc_1BAF2:
 
 
 Obj09_MoveLeft:
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		move.w	obInertia(a0),d0
 		beq.s	loc_1BB06
 		bpl.s	loc_1BB1A
@@ -177,7 +177,7 @@ loc_1BB22:
 
 
 Obj09_MoveRight:
-		bclr	#0,obStatus(a0)
+		bclr	#obStatusHFlip,obStatus(a0)
 		move.w	obInertia(a0),d0
 		bmi.s	loc_1BB48
 		addi.w	#$C,d0
@@ -221,7 +221,7 @@ Obj09_Jump:
 		muls.w	#$680,d0
 		asr.l	#8,d0
 		move.w	d0,obVelY(a0)
-		bset	#1,obStatus(a0)
+		bset	#obStatusInAir,obStatus(a0)
 		sfx	sfx_Jump,0,0,0	; play jumping sound
 
 Obj09_NoJump:
@@ -339,7 +339,7 @@ Obj09_Fall:
 		sub.l	d0,d3
 		moveq	#0,d0
 		move.w	d0,obVelX(a0)
-		bclr	#1,obStatus(a0)
+		bclr	#obStatusInAir,obStatus(a0)
 		add.l	d1,d2
 		bsr.w	sub_1BCE8
 		beq.s	loc_1BCC6
@@ -356,7 +356,7 @@ loc_1BCB0:
 		sub.l	d1,d2
 		moveq	#0,d1
 		move.w	d1,obVelY(a0)
-		bclr	#1,obStatus(a0)
+		bclr	#obStatusInAir,obStatus(a0)
 
 loc_1BCC6:
 		asr.l	#8,d0
@@ -371,7 +371,7 @@ loc_1BCD4:
 		asr.l	#8,d1
 		move.w	d0,obVelX(a0)
 		move.w	d1,obVelY(a0)
-		bset	#1,obStatus(a0)
+		bset	#obStatusInAir,obStatus(a0)
 		rts	
 ; End of function Obj09_Fall
 
@@ -609,7 +609,7 @@ Obj09_ChkBumper:
 		muls.w	#-$700,d0
 		asr.l	#8,d0
 		move.w	d0,obVelY(a0)
-		bset	#1,obStatus(a0)
+		bset	#obStatusInAir,obStatus(a0)
 		bsr.w	SS_RemoveCollectedItem
 		bne.s	Obj09_BumpSnd
 		move.b	#2,(a2)

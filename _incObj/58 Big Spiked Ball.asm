@@ -62,7 +62,7 @@ BBall_Move:	; Routine 2
 		move.w	#$60,d1
 		moveq	#0,d0
 		move.b	(v_oscillate+$E).w,d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	@noflip1
 		neg.w	d0
 		add.w	d1,d0
@@ -78,7 +78,7 @@ BBall_Move:	; Routine 2
 		move.w	#$60,d1
 		moveq	#0,d0
 		move.b	(v_oscillate+$E).w,d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	@noflip2
 		neg.w	d0
 		addi.w	#$80,d0

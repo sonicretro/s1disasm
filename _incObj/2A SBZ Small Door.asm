@@ -34,13 +34,13 @@ ADoor_OpenShut:	; Routine 2
 		add.w	d1,d0
 		cmp.w	obX(a0),d0	; is Sonic left of the door?
 		bcc.s	loc_899A	; if yes, branch
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		bne.s	ADoor_Animate
 		bra.s	ADoor_Open
 ; ===========================================================================
 
 loc_899A:
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	ADoor_Animate
 
 ADoor_Open:

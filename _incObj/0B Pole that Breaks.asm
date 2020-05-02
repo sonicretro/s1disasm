@@ -90,7 +90,7 @@ Pole_Action:	; Routine 2
 		move.w	obX(a0),d0
 		addi.w	#$14,d0
 		move.w	d0,obX(a1)
-		bclr	#0,obStatus(a1)
+		bclr	#obStatusHFlip,obStatus(a1)
 		move.b	#id_Hang,obAnim(a1) ; set Sonic's animation to "hanging" ($11)
 		move.b	#1,(f_lockmulti).w ; lock controls
 		move.b	#1,(f_wtunnelallow).w ; disable wind tunnel

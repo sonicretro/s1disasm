@@ -34,7 +34,7 @@ BGHZ_ShipMove:
 		move.w	#$40,obVelX(a0)
 
 BGHZ_Reverse:
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		bne.s	loc_17950
 		neg.w	obVelX(a0)	; reverse direction of the ship
 
@@ -50,7 +50,7 @@ loc_17954:
 ; ===========================================================================
 
 loc_17960:
-		bchg	#0,obStatus(a0)
+		bchg	#obStatusHFlip,obStatus(a0)
 		move.w	#$3F,$3C(a0)
 		subq.b	#2,ob2ndRout(a0)
 		move.w	#0,obVelX(a0)
@@ -66,7 +66,7 @@ loc_1797A:
 ; ===========================================================================
 
 loc_17984:
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		bclr	#7,obStatus(a0)
 		clr.w	obVelX(a0)
 		addq.b	#2,ob2ndRout(a0)

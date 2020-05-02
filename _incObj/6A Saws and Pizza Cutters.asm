@@ -54,7 +54,7 @@ Saw_Action:	; Routine 2
 		move.w	#$60,d1
 		moveq	#0,d0
 		move.b	(v_oscillate+$E).w,d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	@noflip01
 		neg.w	d0
 		add.w	d1,d0
@@ -85,7 +85,7 @@ Saw_Action:	; Routine 2
 		move.w	#$30,d1
 		moveq	#0,d0
 		move.b	(v_oscillate+6).w,d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	@noflip02
 		neg.w	d0
 		addi.w	#$80,d0

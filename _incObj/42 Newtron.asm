@@ -40,12 +40,12 @@ Newt_Action:	; Routine 2
 ; ===========================================================================
 
 @chkdistance:
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		move.w	(v_player+obX).w,d0
 		sub.w	obX(a0),d0
 		bcc.s	@sonicisright
 		neg.w	d0
-		bclr	#0,obStatus(a0)
+		bclr	#obStatusHFlip,obStatus(a0)
 
 	@sonicisright:
 		cmpi.w	#$80,d0		; is Sonic within $80 pixels of	the newtron?
@@ -67,11 +67,11 @@ Newt_Action:	; Routine 2
 @type00:
 		cmpi.b	#4,obFrame(a0)	; has "appearing" animation finished?
 		bcc.s	@fall		; is yes, branch
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		move.w	(v_player+obX).w,d0
 		sub.w	obX(a0),d0
 		bcc.s	@sonicisright2
-		bclr	#0,obStatus(a0)
+		bclr	#obStatusHFlip,obStatus(a0)
 
 	@sonicisright2:
 		rts	
@@ -99,7 +99,7 @@ Newt_Action:	; Routine 2
 	@pppppppp:
 		move.b	#$D,obColType(a0)
 		move.w	#$200,obVelX(a0) ; move newtron horizontally
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		bne.s	@keepfalling
 		neg.w	obVelX(a0)
 
@@ -147,7 +147,7 @@ Newt_Action:	; Routine 2
 		subq.w	#8,obY(a1)
 		move.w	#$200,obVelX(a1)
 		move.w	#$14,d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		bne.s	@noflip
 		neg.w	d0
 		neg.w	obVelX(a1)

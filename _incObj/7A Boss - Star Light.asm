@@ -41,7 +41,7 @@ Obj7A_Loop:
 		move.w	obY(a0),obY(a1)
 
 Obj7A_LoadBoss:
-		bclr	#0,obStatus(a0)
+		bclr	#obStatusHFlip,obStatus(a0)
 		clr.b	ob2ndRout(a1)
 		move.b	(a2)+,obRoutine(a1)
 		move.b	(a2)+,obAnim(a1)
@@ -155,7 +155,7 @@ loc_18A46:
 loc_18A5E:
 		move.w	$30(a0),d0
 		move.w	#$200,obVelX(a0)
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		bne.s	loc_18A7C
 		neg.w	obVelX(a0)
 		cmpi.w	#$2008,d0
@@ -168,7 +168,7 @@ loc_18A7C:
 		blt.s	loc_18A88
 
 loc_18A82:
-		bchg	#0,obStatus(a0)
+		bchg	#obStatusHFlip,obStatus(a0)
 
 loc_18A88:
 		move.w	8(a0),d0
@@ -183,7 +183,7 @@ loc_18A88:
 loc_18A9E:
 		move.w	(a2)+,d1
 		movea.l	d1,a3
-		btst	#3,obStatus(a3)
+		btst	#obStatusOnObject,obStatus(a3)
 		bne.s	loc_18AB4
 		move.w	8(a3),d3
 		add.w	d4,d3
@@ -258,7 +258,7 @@ loc_18B48:
 loc_18B52:
 		addq.b	#2,ob2ndRout(a0)
 		clr.w	obVelY(a0)
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		bclr	#7,obStatus(a0)
 		clr.w	obVelX(a0)
 		move.b	#-$18,$3C(a0)

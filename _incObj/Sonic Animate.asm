@@ -90,7 +90,7 @@ Sonic_Animate:
 		andi.b	#$FC,obRender(a0)
 		eor.b	d1,d2
 		or.b	d2,obRender(a0)
-		btst	#5,obStatus(a0)	; is Sonic pushing something?
+		btst	#obStatusPushing,obStatus(a0)	; is Sonic pushing something?
 		bne.w	@push		; if yes, branch
 
 		lsr.b	#4,d0		; divide angle by $10

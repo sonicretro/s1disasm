@@ -52,7 +52,7 @@ LGrass_Action:	; Routine 2
 		move.b	obActWid(a0),d1
 		addi.w	#$B,d1
 		bsr.w	ExitPlatform
-		btst	#3,obStatus(a1)
+		btst	#obStatusOnObject,obStatus(a1)
 		bne.w	LGrass_Slope
 		clr.b	ob2ndRout(a0)
 		bra.s	LGrass_Display

@@ -17,7 +17,7 @@ SolidObject:
 		move.w	d1,d2
 		add.w	d2,d2
 		lea	(v_player).w,a1
-		btst	#1,obStatus(a1)	; is Sonic in the air?
+		btst	#obStatusInAir,obStatus(a1)	; is Sonic in the air?
 		bne.s	@leave		; if yes, branch
 		move.w	obX(a1),d0
 		sub.w	obX(a0),d0
@@ -27,8 +27,8 @@ SolidObject:
 		bcs.s	@stand		; if not, branch
 
 	@leave:
-		bclr	#3,obStatus(a1)	; clear Sonic's standing flag
-		bclr	#3,obStatus(a0)	; clear object's standing flag
+		bclr	#obStatusOnObject,obStatus(a1)	; clear Sonic's standing flag
+		bclr	#obStatusOnObject,obStatus(a0)	; clear object's standing flag
 		clr.b	obSolid(a0)
 		moveq	#0,d4
 		rts	
@@ -46,7 +46,7 @@ SolidObject71:
 		move.w	d1,d2
 		add.w	d2,d2
 		lea	(v_player).w,a1
-		btst	#1,obStatus(a1)
+		btst	#obStatusInAir,obStatus(a1)
 		bne.s	@leave
 		move.w	obX(a1),d0
 		sub.w	obX(a0),d0
@@ -56,8 +56,8 @@ SolidObject71:
 		bcs.s	@stand
 
 	@leave:
-		bclr	#3,obStatus(a1)
-		bclr	#3,obStatus(a0)
+		bclr	#obStatusOnObject,obStatus(a1)
+		bclr	#obStatusOnObject,obStatus(a0)
 		clr.b	obSolid(a0)
 		moveq	#0,d4
 		rts	
@@ -188,10 +188,10 @@ Solid_Left:
 
 Solid_Centre:
 		sub.w	d0,obX(a1)	; correct Sonic's position
-		btst	#1,obStatus(a1)	; is Sonic in the air?
+		btst	#obStatusInAir,obStatus(a1)	; is Sonic in the air?
 		bne.s	Solid_SideAir	; if yes, branch
-		bset	#5,obStatus(a1)	; make Sonic push object
-		bset	#5,obStatus(a0)	; make object be pushed
+		bset	#obStatusPushing,obStatus(a1)	; make Sonic push object
+		bset	#obStatusPushing,obStatus(a0)	; make object be pushed
 		moveq	#1,d4		; return side collision
 		rts	
 ; ===========================================================================
@@ -203,13 +203,13 @@ Solid_SideAir:
 ; ===========================================================================
 
 Solid_Ignore:
-		btst	#5,obStatus(a0)	; is Sonic pushing?
+		btst	#obStatusPushing,obStatus(a0)	; is Sonic pushing?
 		beq.s	Solid_Debug	; if not, branch
 		move.w	#id_Run,obAnim(a1) ; use running animation
 
 Solid_NotPushing:
-		bclr	#5,obStatus(a0)	; clear pushing flag
-		bclr	#5,obStatus(a1)	; clear Sonic's pushing flag
+		bclr	#obStatusPushing,obStatus(a0)	; clear pushing flag
+		bclr	#obStatusPushing,obStatus(a1)	; clear Sonic's pushing flag
 
 Solid_Debug:
 		moveq	#0,d4		; return no collision
@@ -239,7 +239,7 @@ Solid_TopBtmAir:
 ; ===========================================================================
 
 Solid_Squash:
-		btst	#1,obStatus(a1)	; is Sonic in the air?
+		btst	#obStatusInAir,obStatus(a1)	; is Sonic in the air?
 		bne.s	Solid_TopBtmAir	; if yes, branch
 		move.l	a0,-(sp)
 		movea.l	a1,a0
@@ -266,7 +266,7 @@ Solid_Landed:
 		subq.w	#1,obY(a1)
 		bsr.s	Solid_ResetFloor
 		move.b	#2,obSolid(a0) ; set standing flags
-		bset	#3,obStatus(a0)
+		bset	#obStatusOnObject,obStatus(a0)
 		moveq	#-1,d4		; return top/bottom collision
 		rts	
 ; ===========================================================================
@@ -281,7 +281,7 @@ Solid_Miss:
 
 
 Solid_ResetFloor:
-		btst	#3,obStatus(a1)	; is Sonic standing on something?
+		btst	#obStatusOnObject,obStatus(a1)	; is Sonic standing on something?
 		beq.s	@notonobj	; if not, branch
 
 		moveq	#0,d0
@@ -289,7 +289,7 @@ Solid_ResetFloor:
 		lsl.w	#6,d0
 		addi.l	#(v_objspace&$FFFFFF),d0
 		movea.l	d0,a2
-		bclr	#3,obStatus(a2)	; clear object's standing flags
+		bclr	#obStatusOnObject,obStatus(a2)	; clear object's standing flags
 		clr.b	obSolid(a2)
 
 	@notonobj:
@@ -301,7 +301,7 @@ Solid_ResetFloor:
 		move.b	#0,obAngle(a1)	; clear Sonic's angle
 		move.w	#0,obVelY(a1)	; stop Sonic
 		move.w	obVelX(a1),obInertia(a1)
-		btst	#1,obStatus(a1)	; is Sonic in the air?
+		btst	#obStatusInAir,obStatus(a1)	; is Sonic in the air?
 		beq.s	@notinair	; if not, branch
 		move.l	a0,-(sp)
 		movea.l	a1,a0
@@ -309,7 +309,7 @@ Solid_ResetFloor:
 		movea.l	(sp)+,a0
 
 	@notinair:
-		bset	#3,obStatus(a1)	; set object standing flag
-		bset	#3,obStatus(a0)	; set Sonic standing on object flag
+		bset	#obStatusOnObject,obStatus(a1)	; set object standing flag
+		bset	#obStatusOnObject,obStatus(a0)	; set Sonic standing on object flag
 		rts	
 ; End of function Solid_ResetFloor

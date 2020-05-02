@@ -49,7 +49,7 @@ loc_131A6:
 loc_131AA:
 		tst.w	obInertia(a0)	; is Sonic moving?
 		bne.s	loc_131CC	; if yes, branch
-		bclr	#2,obStatus(a0)
+		bclr	#obStatusRolling,obStatus(a0)
 		move.b	#$13,obHeight(a0)
 		move.b	#9,obWidth(a0)
 		move.b	#id_Wait,obAnim(a0) ; use "standing" animation
@@ -87,7 +87,7 @@ Sonic_RollLeft:
 		bpl.s	loc_13218
 
 loc_1320A:
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		move.b	#id_Roll,obAnim(a0) ; use "rolling" animation
 		rts	
 ; ===========================================================================
@@ -109,7 +109,7 @@ loc_13220:
 Sonic_RollRight:
 		move.w	obInertia(a0),d0
 		bmi.s	loc_1323A
-		bclr	#0,obStatus(a0)
+		bclr	#obStatusHFlip,obStatus(a0)
 		move.b	#id_Roll,obAnim(a0) ; use "rolling" animation
 		rts	
 ; ===========================================================================

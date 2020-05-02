@@ -5391,14 +5391,14 @@ Platform3:
 		addq.b	#2,obRoutine(a0)
 
 loc_74AE:
-		btst	#3,obStatus(a1)
+		btst	#obStatusOnObject,obStatus(a1)
 		beq.s	loc_74DC
 		moveq	#0,d0
 		move.b	$3D(a1),d0
 		lsl.w	#6,d0
 		addi.l	#v_objspace&$FFFFFF,d0
 		movea.l	d0,a2
-		bclr	#3,obStatus(a2)
+		bclr	#obStatusOnObject,obStatus(a2)
 		clr.b	ob2ndRout(a2)
 		cmpi.b	#4,obRoutine(a2)
 		bne.s	loc_74DC
@@ -5413,7 +5413,7 @@ loc_74DC:
 		move.b	#0,obAngle(a1)
 		move.w	#0,obVelY(a1)
 		move.w	obVelX(a1),obInertia(a1)
-		btst	#1,obStatus(a1)
+		btst	#obStatusInAir,obStatus(a1)
 		beq.s	loc_7512
 		move.l	a0,-(sp)
 		movea.l	a1,a0
@@ -5421,8 +5421,8 @@ loc_74DC:
 		movea.l	(sp)+,a0
 
 loc_7512:
-		bset	#3,obStatus(a1)
-		bset	#3,obStatus(a0)
+		bset	#obStatusOnObject,obStatus(a1)
+		bset	#obStatusOnObject,obStatus(a0)
 
 Plat_Exit:
 		rts	
@@ -5497,7 +5497,7 @@ ExitPlatform:
 ExitPlatform2:
 		add.w	d2,d2
 		lea	(v_player).w,a1
-		btst	#1,obStatus(a1)
+		btst	#obStatusInAir,obStatus(a1)
 		bne.s	loc_75E0
 		move.w	obX(a1),d0
 		sub.w	obX(a0),d0
@@ -5507,9 +5507,9 @@ ExitPlatform2:
 		blo.s	locret_75F2
 
 loc_75E0:
-		bclr	#3,obStatus(a1)
+		bclr	#obStatusOnObject,obStatus(a1)
 		move.b	#2,obRoutine(a0)
-		bclr	#3,obStatus(a0)
+		bclr	#obStatusOnObject,obStatus(a0)
 
 locret_75F2:
 		rts	
@@ -5647,7 +5647,7 @@ CFlo_Data3:	dc.b $16, $1E, $1A, $12, 6, $E,	$A, 2
 
 SlopeObject2:
 		lea	(v_player).w,a1
-		btst	#3,obStatus(a1)
+		btst	#obStatusOnObject,obStatus(a1)
 		beq.s	locret_856E
 		move.w	obX(a1),d0
 		sub.w	obX(a0),d0
@@ -5720,21 +5720,21 @@ loc_8A82:
 		move.w	#0,obVelX(a1)
 
 loc_8A92:
-		btst	#1,obStatus(a1)
+		btst	#obStatusInAir,obStatus(a1)
 		bne.s	loc_8AB6
-		bset	#5,obStatus(a1)
-		bset	#5,obStatus(a0)
+		bset	#obStatusPushing,obStatus(a1)
+		bset	#obStatusPushing,obStatus(a0)
 		rts	
 ; ===========================================================================
 
 loc_8AA8:
-		btst	#5,obStatus(a0)
+		btst	#obStatusPushing,obStatus(a0)
 		beq.s	locret_8AC2
 		move.w	#id_Run,obAnim(a1)
 
 loc_8AB6:
-		bclr	#5,obStatus(a0)
-		bclr	#5,obStatus(a1)
+		bclr	#obStatusPushing,obStatus(a0)
+		bclr	#obStatusPushing,obStatus(a1)
 
 locret_8AC2:
 		rts	
@@ -7022,7 +7022,7 @@ Sonic_MdJump:
 		bsr.w	Sonic_JumpDirection
 		bsr.w	Sonic_LevelBound
 		jsr	(ObjectFall).l
-		btst	#6,obStatus(a0)
+		btst	#obStatusUnderWater,obStatus(a0)
 		beq.s	loc_12E5C
 		subi.w	#$28,obVelY(a0)
 
@@ -7048,7 +7048,7 @@ Sonic_MdJump2:
 		bsr.w	Sonic_JumpDirection
 		bsr.w	Sonic_LevelBound
 		jsr	(ObjectFall).l
-		btst	#6,obStatus(a0)
+		btst	#obStatusUnderWater,obStatus(a0)
 		beq.s	loc_12EA6
 		subi.w	#$28,obVelY(a0)
 

@@ -9,7 +9,7 @@ Sonic_JumpHeight:
 		tst.b	$3C(a0)
 		beq.s	loc_134C4
 		move.w	#-$400,d1
-		btst	#6,obStatus(a0)
+		btst	#obStatusUnderWater,obStatus(a0)
 		beq.s	loc_134AE
 		move.w	#-$200,d1
 

@@ -139,13 +139,13 @@ Bas_Action:	; Routine 2
 
 @chkdistance:
 		move.w	#$100,d1
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		move.w	(v_player+obX).w,d0
 		sub.w	obX(a0),d0
 		bcc.s	@right		; if Sonic is right of basaran, branch
 		neg.w	d0
 		neg.w	d1
-		bclr	#0,obStatus(a0)
+		bclr	#obStatusHFlip,obStatus(a0)
 
 	@right:
 		cmp.w	d2,d0

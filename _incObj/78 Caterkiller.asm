@@ -48,7 +48,7 @@ Cat_Main:	; Routine 0
 		move.b	#$B,obColType(a0)
 		move.w	obX(a0),d2
 		moveq	#$C,d5
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	@noflip
 		neg.w	d5
 
@@ -169,7 +169,7 @@ loc_16B02:
 			move.l	d2,d3
 		endc
 		move.w	obVelX(a0),d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	@noflip
 		neg.w	d0
 
@@ -225,7 +225,7 @@ loc_16B02:
 @loc_16B70:
 		if Revision=0
 		move.l	d2,obX(a0)
-		bchg	#0,obStatus(a0)
+		bchg	#obStatusHFlip,obStatus(a0)
 		move.b	obStatus(a0),obRender(a0)
 		moveq	#0,d0
 		move.b	cat_parent(a0),d0
@@ -236,7 +236,7 @@ loc_16B02:
 			move.b	#$80,$2C(a0,d0)
 			neg.w	obX+2(a0)
 			beq.s	@loc_1730A
-			btst	#0,obStatus(a0)
+			btst	#obStatusHFlip,obStatus(a0)
 			beq.s	@loc_1730A
 			subq.w	#1,obX(a0)
 			addq.b	#1,cat_parent(a0)
@@ -244,7 +244,7 @@ loc_16B02:
 			move.b	cat_parent(a0),d0
 			clr.b	$2C(a0,d0)
 	@loc_1730A:
-			bchg	#0,obStatus(a0)
+			bchg	#obStatusHFlip,obStatus(a0)
 			move.b	obStatus(a0),obRender(a0)
 		endc
 		addq.b	#1,cat_parent(a0)
@@ -287,7 +287,7 @@ Cat_BodySeg1:	; Routine 4, 8
 		move.l	obX(a0),d2
 		move.l	d2,d3
 		move.w	obVelX(a0),d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	loc_16C0C
 		neg.w	d0
 
@@ -312,7 +312,7 @@ loc_16C0C:
 			move.b	d1,$2C(a0,d0)
 			neg.w	obX+2(a0)
 			beq.s	locj_173E4
-			btst	#0,obStatus(a0)
+			btst	#obStatusHFlip,obStatus(a0)
 			beq.s	locj_173E4
 			cmpi.w	#-$C0,obVelX(a0)
 			bne.s	locj_173E4
@@ -323,7 +323,7 @@ loc_16C0C:
 			clr.b	$2C(a0,d0)
 	locj_173E4:
 		endc
-		bchg	#0,obStatus(a0)
+		bchg	#obStatusHFlip,obStatus(a0)
 		move.b	obStatus(a0),1(a0)
 		addq.b	#1,cat_parent(a0)
 		andi.b	#$F,cat_parent(a0)
@@ -362,7 +362,7 @@ loc_16C96:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Cat_FragSpeed-2(pc,d0.w),d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	loc_16CAA
 		neg.w	d0
 

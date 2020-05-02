@@ -30,7 +30,7 @@ Flame_Main:	; Routine 0
 		lsl.w	#5,d0		; multiply by $20
 		move.w	d0,$34(a0)	; set pause time
 		move.b	#$A,$36(a0)
-		btst	#1,obStatus(a0)
+		btst	#obStatusInAir,obStatus(a0)
 		beq.s	Flame_Action
 		move.b	#2,obAnim(a0)
 		move.b	#$15,$36(a0)

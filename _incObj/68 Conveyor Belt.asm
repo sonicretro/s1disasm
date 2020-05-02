@@ -55,7 +55,7 @@ Conv_Action:	; Routine 2
 		addi.w	#$30,d1
 		cmpi.w	#$30,d1
 		bcc.s	@notonconveyor
-		btst	#1,obStatus(a1)
+		btst	#obStatusInAir,obStatus(a1)
 		bne.s	@notonconveyor
 		move.w	conv_speed(a0),d0
 		add.w	d0,obX(a1)

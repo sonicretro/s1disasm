@@ -49,7 +49,7 @@ Buzz_Action:	; Routine 2
 		move.w	#127,buzz_timedelay(a0) ; set time delay to just over 2 seconds
 		move.w	#$400,obVelX(a0) ; move Buzz Bomber to the right
 		move.b	#1,obAnim(a0)	; use "flying" animation
-		btst	#0,obStatus(a0)	; is Buzz Bomber facing	left?
+		btst	#obStatusHFlip,obStatus(a0)	; is Buzz Bomber facing	left?
 		bne.s	@noflip		; if not, branch
 		neg.w	obVelX(a0)	; move Buzz Bomber to the left
 
@@ -67,7 +67,7 @@ Buzz_Action:	; Routine 2
 		move.w	#$200,obVelY(a1) ; move missile downwards
 		move.w	#$200,obVelX(a1) ; move missile to the right
 		move.w	#$18,d0
-		btst	#0,obStatus(a0)	; is Buzz Bomber facing	left?
+		btst	#obStatusHFlip,obStatus(a0)	; is Buzz Bomber facing	left?
 		bne.s	@noflip2	; if not, branch
 		neg.w	d0
 		neg.w	obVelX(a1)	; move missile to the left
@@ -108,7 +108,7 @@ Buzz_Action:	; Routine 2
 
 	@chgdirection:
 		move.b	#0,buzz_buzzstatus(a0) ; set Buzz Bomber to "normal"
-		bchg	#0,obStatus(a0)	; change direction
+		bchg	#obStatusHFlip,obStatus(a0)	; change direction
 		move.w	#59,buzz_timedelay(a0)
 
 	@stop:

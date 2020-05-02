@@ -33,7 +33,7 @@ Bom_Main:	; Routine 0
 
 loc_11A3C:
 		move.b	#$9A,obColType(a0)
-		bchg	#0,obStatus(a0)
+		bchg	#obStatusHFlip,obStatus(a0)
 
 Bom_Action:	; Routine 2
 		moveq	#0,d0
@@ -57,7 +57,7 @@ Bom_Action:	; Routine 2
 		move.w	#1535,bom_time(a0) ; set time delay to 25 seconds
 		move.w	#$10,obVelX(a0)
 		move.b	#1,obAnim(a0)	; use walking animation
-		bchg	#0,obStatus(a0)
+		bchg	#obStatusHFlip,obStatus(a0)
 		beq.s	@noflip
 		neg.w	obVelX(a0)	; change direction
 
@@ -125,7 +125,7 @@ Bom_Action:	; Routine 2
 		move.b	#4,obSubtype(a1)
 		move.b	#3,obAnim(a1)
 		move.w	#$10,obVelY(a1)
-		btst	#1,obStatus(a0)	; is bomb upside-down?
+		btst	#obStatusInAir,obStatus(a0)	; is bomb upside-down?
 		beq.s	@normal		; if not, branch
 		neg.w	obVelY(a1)	; reverse direction for fuse
 

@@ -75,7 +75,7 @@ Crab_Action:	; Routine 2
 		bsr.w	Crab_SetAni
 		addq.b	#3,d0
 		move.b	d0,obAnim(a0)
-		bchg	#0,obStatus(a0)
+		bchg	#obStatusHFlip,obStatus(a0)
 		bne.s	@noflip
 		neg.w	obVelX(a0)	; change direction
 
@@ -118,7 +118,7 @@ Crab_Action:	; Routine 2
 		bne.s	loc_9654
 		move.w	obX(a0),d3
 		addi.w	#$10,d3
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	loc_9640
 		subi.w	#$20,d3
 
@@ -162,7 +162,7 @@ Crab_SetAni:
 		cmpi.b	#6,d3
 		bcs.s	locret_96A2
 		moveq	#1,d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		bne.s	locret_96A2
 		moveq	#2,d0
 
@@ -174,7 +174,7 @@ loc_96A4:
 		cmpi.b	#-6,d3
 		bhi.s	locret_96B6
 		moveq	#2,d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		bne.s	locret_96B6
 		moveq	#1,d0
 

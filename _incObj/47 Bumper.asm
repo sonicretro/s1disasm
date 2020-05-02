@@ -38,9 +38,9 @@ Bump_Hit:	; Routine 2
 		muls.w	#-$700,d0
 		asr.l	#8,d0
 		move.w	d0,obVelY(a1)	; bounce Sonic away
-		bset	#1,obStatus(a1)
-		bclr	#4,obStatus(a1)
-		bclr	#5,obStatus(a1)
+		bset	#obStatusInAir,obStatus(a1)
+		bclr	#obStatusRollJump,obStatus(a1)
+		bclr	#obStatusPushing,obStatus(a1)
 		clr.b	$3C(a1)
 		move.b	#1,obAnim(a0)	; use "hit" animation
 		sfx	sfx_Bumper,0,0,0	; play bumper sound

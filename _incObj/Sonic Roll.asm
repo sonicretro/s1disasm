@@ -26,13 +26,13 @@ Sonic_Roll:
 ; ===========================================================================
 
 Sonic_ChkRoll:
-		btst	#2,obStatus(a0)	; is Sonic already rolling?
+		btst	#obStatusRolling,obStatus(a0)	; is Sonic already rolling?
 		beq.s	@roll		; if not, branch
 		rts	
 ; ===========================================================================
 
 @roll:
-		bset	#2,obStatus(a0)
+		bset	#obStatusRolling,obStatus(a0)
 		move.b	#$E,obHeight(a0)
 		move.b	#7,obWidth(a0)
 		move.b	#id_Roll,obAnim(a0) ; use "rolling" animation

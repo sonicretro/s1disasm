@@ -81,7 +81,7 @@ FBlock_Main:	; Routine 0
 		lea	(a2,d0.w),a2
 		tst.w	(a2)
 		bpl.s	@stillnotLZ
-		bchg	#0,obStatus(a0)
+		bchg	#obStatusHFlip,obStatus(a0)
 
 	@stillnotLZ:
 		move.b	obSubtype(a0),d0
@@ -171,7 +171,7 @@ FBlock_Action:	; Routine 2
 		move.b	(v_oscillate+$1E).w,d0
 
 	@moveLR:
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	@noflip
 		neg.w	d0
 		add.w	d1,d0
@@ -198,7 +198,7 @@ FBlock_Action:	; Routine 2
 		move.b	(v_oscillate+$1E).w,d0
 
 	@moveUD:
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	@noflip04
 		neg.w	d0
 		add.w	d1,d0
@@ -288,7 +288,7 @@ FBlock_Action:	; Routine 2
 
 @loc_10512:
 		move.w	fb_height(a0),d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	@loc_10520
 		neg.w	d0
 
@@ -352,7 +352,7 @@ FBlock_Action:	; Routine 2
 
 @loc_105A2:
 		move.w	fb_height(a0),d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	@loc_105B4
 		neg.w	d0
 		addi.w	#$80,d0
@@ -393,7 +393,7 @@ FBlock_Action:	; Routine 2
 
 @wtf:
 		move.w	fb_height(a0),d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	@loc_10618
 		neg.w	d0
 		addi.w	#$80,d0
@@ -450,8 +450,8 @@ FBlock_Action:	; Routine 2
 @square:
 		tst.w	d3
 		bne.s	@loc_1068E
-		addq.b	#1,obStatus(a0)
-		andi.b	#3,obStatus(a0)
+		addq.b	#obStatusInAir,obStatus(a0)
+		andi.b	#obStatusOnObject,obStatus(a0)
 
 @loc_1068E:
 		move.b	obStatus(a0),d2

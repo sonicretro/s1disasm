@@ -5,7 +5,7 @@
 Sonic_Hurt:	; Routine 4
 		jsr	(SpeedToPos).l
 		addi.w	#$30,obVelY(a0)
-		btst	#6,obStatus(a0)
+		btst	#obStatusUnderWater,obStatus(a0)
 		beq.s	loc_1380C
 		subi.w	#$20,obVelY(a0)
 
@@ -30,7 +30,7 @@ Sonic_HurtStop:
 		cmp.w	obY(a0),d0
 		bcs.w	KillSonic
 		bsr.w	Sonic_Floor
-		btst	#1,obStatus(a0)
+		btst	#obStatusInAir,obStatus(a0)
 		bne.s	locret_13860
 		moveq	#0,d0
 		move.w	d0,obVelY(a0)

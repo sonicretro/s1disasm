@@ -63,7 +63,7 @@ Yad_Main:	; Routine 0
 		add.w	d1,obY(a0)	; match	object's position with the floor
 		move.w	#0,obVelY(a0)
 		addq.b	#2,obRoutine(a0)
-		bchg	#0,obStatus(a0)
+		bchg	#obStatusHFlip,obStatus(a0)
 
 	locret_F89E:
 		rts	
@@ -88,7 +88,7 @@ Yad_Move:
 		addq.b	#2,ob2ndRout(a0)
 		move.w	#-$100,obVelX(a0) ; move object
 		move.b	#1,obAnim(a0)
-		bchg	#0,obStatus(a0)
+		bchg	#obStatusHFlip,obStatus(a0)
 		bne.s	locret_F8E2
 		neg.w	obVelX(a0)	; change direction
 

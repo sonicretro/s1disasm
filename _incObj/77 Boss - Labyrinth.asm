@@ -40,7 +40,7 @@ Obj77_Loop:
 		move.w	obY(a0),obY(a1)
 
 Obj77_LoadBoss:
-		bclr	#0,obStatus(a0)
+		bclr	#obStatusHFlip,obStatus(a0)
 		clr.b	ob2ndRout(a1)
 		move.b	(a2)+,obRoutine(a1)
 		move.b	(a2)+,obAnim(a1)
@@ -192,13 +192,13 @@ loc_18046:
 ; ===========================================================================
 
 loc_1804E:
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		addq.b	#2,$3F(a0)
 		move.b	$3F(a0),d0
 		jsr	(CalcSine).l
 		tst.w	d1
 		bpl.s	loc_1806C
-		bclr	#0,obStatus(a0)
+		bclr	#obStatusHFlip,obStatus(a0)
 
 loc_1806C:
 		asr.w	#4,d0
@@ -252,7 +252,7 @@ loc_180D2:
 loc_180E6:
 		bne.s	loc_180F2
 		addq.b	#2,ob2ndRout(a0)
-		bclr	#0,obStatus(a0)
+		bclr	#obStatusHFlip,obStatus(a0)
 
 loc_180F2:
 		bra.w	loc_17F38
@@ -273,7 +273,7 @@ loc_18112:
 		else
 			clr.b	(f_lockscreen).w
 		endc
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		addq.b	#2,ob2ndRout(a0)
 
 loc_18126:

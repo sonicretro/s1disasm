@@ -87,7 +87,7 @@ LBlk_Action:	; Routine 2
 @type03:
 		tst.w	lblk_time(a0)	; does time remain?
 		bne.s	@wait01		; if yes, branch
-		btst	#3,obStatus(a0)	; is Sonic standing on the object?
+		btst	#obStatusOnObject,obStatus(a0)	; is Sonic standing on the object?
 		beq.s	@donothing01	; if not, branch
 		move.w	#30,lblk_time(a0) ; wait for half second
 
@@ -183,7 +183,7 @@ LBlk_Action:	; Routine 2
 loc_12180:
 		tst.b	lblk_untouched(a0) ; has block been stood on or touched?
 		beq.s	locret_121C0	; if yes, branch
-		btst	#3,obStatus(a0)	; is Sonic standing on it now?
+		btst	#obStatusOnObject,obStatus(a0)	; is Sonic standing on it now?
 		bne.s	loc_1219A	; if yes, branch
 		tst.b	$3E(a0)
 		beq.s	locret_121C0

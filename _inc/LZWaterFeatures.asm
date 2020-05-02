@@ -331,7 +331,7 @@ LZWindTunnels:
 		move.w	#$400,obVelX(a1) ; move Sonic horizontally
 		move.w	#0,obVelY(a1)
 		move.b	#id_Float2,obAnim(a1)	; use floating animation
-		bset	#1,obStatus(a1)
+		bset	#obStatusInAir,obStatus(a1)
 		btst	#0,(v_jpadhold2).w ; is up pressed?
 		beq.s	@down		; if not, branch
 		subq.w	#1,obY(a1)	; move Sonic up on pole
@@ -378,7 +378,7 @@ LZWind_Data:	dc.w $A80, $300, $C10,  $380 ; act 1 values (set 1)
 
 LZWaterSlides:
 		lea	(v_player).w,a1
-		btst	#1,obStatus(a1)	; is Sonic jumping?
+		btst	#obStatusInAir,obStatus(a1)	; is Sonic jumping?
 		bne.s	loc_3F6A	; if not, branch
 		move.w	obY(a1),d0
 		lsr.w	#1,d0
@@ -412,11 +412,11 @@ LZSlide_Move:
 		nop	
 
 loc_3F84:
-		bclr	#0,obStatus(a1)
+		bclr	#obStatusHFlip,obStatus(a1)
 		move.b	Slide_Speeds(pc,d1.w),d0
 		move.b	d0,obInertia(a1)
 		bpl.s	loc_3F9A
-		bset	#0,obStatus(a1)
+		bset	#obStatusHFlip,obStatus(a1)
 
 loc_3F9A:
 		clr.b	obInertia+1(a1)

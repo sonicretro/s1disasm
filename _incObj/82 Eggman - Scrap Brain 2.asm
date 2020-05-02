@@ -22,7 +22,7 @@ SEgg_Main:	; Routine 0
 		move.w	#$5A4,obY(a0)
 		move.b	#$F,obColType(a0)
 		move.b	#$10,obColProp(a0)
-		bclr	#0,obStatus(a0)
+		bclr	#obStatusHFlip,obStatus(a0)
 		clr.b	ob2ndRout(a0)
 		move.b	(a2)+,obRoutine(a0)
 		move.b	(a2)+,obAnim(a0)

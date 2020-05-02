@@ -6,7 +6,7 @@
 
 
 Sonic_AnglePos:
-		btst	#3,obStatus(a0)
+		btst	#obStatusOnObject,obStatus(a0)
 		beq.s	loc_14602
 		moveq	#0,d0
 		move.b	d0,($FFFFF768).w
@@ -101,8 +101,8 @@ loc_146C6:
 loc_146CC:
 		tst.b	$38(a0)
 		bne.s	loc_146C6
-		bset	#1,obStatus(a0)
-		bclr	#5,obStatus(a0)
+		bset	#obStatusInAir,obStatus(a0)
+		bclr	#obStatusPushing,obStatus(a0)
 		move.b	#1,obNextAni(a0)
 		rts	
 ; ===========================================================================
@@ -246,8 +246,8 @@ loc_147F8:
 loc_147FE:
 		tst.b	$38(a0)
 		bne.s	loc_147F8
-		bset	#1,obStatus(a0)
-		bclr	#5,obStatus(a0)
+		bset	#obStatusInAir,obStatus(a0)
+		bclr	#obStatusPushing,obStatus(a0)
 		move.b	#1,obNextAni(a0)
 		rts	
 ; End of function Sonic_WalkVertR
@@ -316,8 +316,8 @@ loc_1489A:
 loc_148A0:
 		tst.b	$38(a0)
 		bne.s	loc_1489A
-		bset	#1,obStatus(a0)
-		bclr	#5,obStatus(a0)
+		bset	#obStatusInAir,obStatus(a0)
+		bclr	#obStatusPushing,obStatus(a0)
 		move.b	#1,obNextAni(a0)
 		rts	
 ; End of function Sonic_WalkCeiling
@@ -386,8 +386,8 @@ loc_1493C:
 loc_14942:
 		tst.b	$38(a0)
 		bne.s	loc_1493C
-		bset	#1,obStatus(a0)
-		bclr	#5,obStatus(a0)
+		bset	#obStatusInAir,obStatus(a0)
+		bclr	#obStatusPushing,obStatus(a0)
 		move.b	#1,obNextAni(a0)
 		rts	
 ; End of function Sonic_WalkVertL

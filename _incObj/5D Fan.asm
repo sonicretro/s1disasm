@@ -39,7 +39,7 @@ Fan_Delay:	; Routine 2
 		lea	(v_player).w,a1
 		move.w	obX(a1),d0
 		sub.w	obX(a0),d0
-		btst	#0,obStatus(a0)	; is fan facing right?
+		btst	#obStatusHFlip,obStatus(a0)	; is fan facing right?
 		bne.s	@chksonic	; if yes, branch
 		neg.w	d0
 
@@ -60,7 +60,7 @@ Fan_Delay:	; Routine 2
 
 	@faraway:
 		addi.w	#$60,d0
-		btst	#0,obStatus(a0)	; is fan facing right?
+		btst	#obStatusHFlip,obStatus(a0)	; is fan facing right?
 		bne.s	@right		; if yes, branch
 		neg.w	d0
 

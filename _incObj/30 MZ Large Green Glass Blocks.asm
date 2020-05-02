@@ -166,7 +166,7 @@ Glass_Type03:
 ; ===========================================================================
 
 loc_B53E:
-		btst	#3,obStatus(a0)
+		btst	#obStatusOnObject,obStatus(a0)
 		bne.s	loc_B54E
 		bclr	#0,$34(a0)
 		bra.s	loc_B582

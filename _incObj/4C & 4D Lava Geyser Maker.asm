@@ -68,7 +68,7 @@ GMake_MakeLava:	; Routine 6
 
 	@isgeyser:
 		movea.l	gmake_parent(a0),a1 ; get parent object address
-		bset	#1,obStatus(a1)
+		bset	#obStatusInAir,obStatus(a1)
 		move.w	#-$580,obVelY(a1)
 		bra.s	GMake_Display
 ; ===========================================================================

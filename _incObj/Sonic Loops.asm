@@ -35,7 +35,7 @@ Sonic_Loops:
 ; ===========================================================================
 
 @chkifinair:
-		btst	#1,obStatus(a0)	; is Sonic in the air?
+		btst	#obStatusInAir,obStatus(a0)	; is Sonic in the air?
 		beq.s	@chkifleft	; if not, branch
 
 		bclr	#6,obRender(a0)	; return Sonic to high plane

@@ -24,7 +24,7 @@ Stair_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		moveq	#$38,d3
 		moveq	#1,d4
-		btst	#0,obStatus(a0)	; is object flipped?
+		btst	#obStatusHFlip,obStatus(a0)	; is object flipped?
 		beq.s	@notflipped	; if not, branch
 		moveq	#$3B,d3
 		moveq	#-1,d4
@@ -88,7 +88,7 @@ Stair_Solid:	; Routine 4
 		move.b	d4,$36(a2)
 
 loc_10F92:
-		btst	#3,obStatus(a0)
+		btst	#obStatusOnObject,obStatus(a0)
 		beq.s	locret_10FA0
 		move.b	#1,$36(a2)
 

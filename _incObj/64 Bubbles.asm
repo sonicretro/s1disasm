@@ -88,11 +88,11 @@ Bub_ChkWater:	; Routine 4
 		move.b	#id_GetAir,obAnim(a1) ; use bubble-collecting animation
 		move.w	#$23,$3E(a1)
 		move.b	#0,$3C(a1)
-		bclr	#5,obStatus(a1)
-		bclr	#4,obStatus(a1)
-		btst	#2,obStatus(a1)
+		bclr	#obStatusPushing,obStatus(a1)
+		bclr	#obStatusRollJump,obStatus(a1)
+		btst	#obStatusRolling,obStatus(a1)
 		beq.w	@burst
-		bclr	#2,obStatus(a1)
+		bclr	#obStatusRolling,obStatus(a1)
 		move.b	#$13,obHeight(a1)
 		move.b	#9,obWidth(a1)
 		subq.w	#5,obY(a1)

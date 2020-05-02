@@ -37,11 +37,11 @@ Obj7B_Main:	; Routine 0
 		movea.l	$3C(a0),a1
 		move.w	obX(a1),$30(a0)
 		move.w	obY(a1),$34(a0)
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		move.w	obX(a0),d0
 		cmp.w	obX(a1),d0
 		bgt.s	loc_18D68
-		bclr	#0,obStatus(a0)
+		bclr	#obStatusHFlip,obStatus(a0)
 		move.b	#2,$3A(a0)
 
 loc_18D68:
@@ -66,7 +66,7 @@ loc_18D8E:
 		bgt.s	locret_18DC4
 		movea.l	$3C(a0),a1
 		moveq	#2,d1
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	loc_18DAE
 		moveq	#0,d1
 
@@ -272,7 +272,7 @@ loc_18FA2:
 		move.b	d1,$3A(a0)
 		cmp.b	obFrame(a1),d1
 		beq.s	loc_19008
-		bclr	#3,obStatus(a1)
+		bclr	#obStatusOnObject,obStatus(a1)
 		beq.s	loc_19008
 		clr.b	ob2ndRout(a1)
 		move.b	#2,obRoutine(a1)
@@ -284,8 +284,8 @@ loc_18FA2:
 		asr	obVelY(a2)
 
 loc_18FDC:
-		bset	#1,obStatus(a2)
-		bclr	#3,obStatus(a2)
+		bset	#obStatusInAir,obStatus(a2)
+		bclr	#obStatusOnObject,obStatus(a2)
 		clr.b	$3C(a2)
 		move.l	a0,-(sp)
 		lea	(a2),a0

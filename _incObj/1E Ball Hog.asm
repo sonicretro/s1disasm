@@ -62,7 +62,7 @@ Hog_Action:	; Routine 2
 		move.w	#-$100,obVelX(a1) ; cannonball bounces to the left
 		move.w	#0,obVelY(a1)
 		moveq	#-4,d0
-		btst	#0,obStatus(a0)	; is Ball Hog facing right?
+		btst	#obStatusHFlip,obStatus(a0)	; is Ball Hog facing right?
 		beq.s	@noflip		; if not, branch
 		neg.w	d0
 		neg.w	obVelX(a1)	; cannonball bounces to	the right

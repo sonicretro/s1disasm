@@ -56,7 +56,7 @@ Spik_SideWays:
 		addq.w	#1,d3
 		move.w	obX(a0),d4
 		bsr.w	SolidObject
-		btst	#3,obStatus(a0)
+		btst	#obStatusOnObject,obStatus(a0)
 		bne.s	Spik_Display
 		cmpi.w	#1,d4
 		beq.s	Spik_Hurt
@@ -73,7 +73,7 @@ Spik_Upright:
 		move.w	#$11,d3
 		move.w	obX(a0),d4
 		bsr.w	SolidObject
-		btst	#3,obStatus(a0)
+		btst	#obStatusOnObject,obStatus(a0)
 		bne.s	Spik_Hurt
 		tst.w	d4
 		bpl.s	Spik_Display

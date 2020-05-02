@@ -155,7 +155,7 @@ Sto_Action:	; Routine 2
 
 	@loc_15DC2:
 		move.w	$3A(a0),d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	@noflip01
 		neg.w	d0
 		addi.w	#$80,d0
@@ -193,7 +193,7 @@ Sto_Action:	; Routine 2
 
 	@loc_15E1E:
 		move.w	$3A(a0),d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	@noflip02
 		neg.w	d0
 		addi.w	#$80,d0
@@ -240,7 +240,7 @@ Sto_Action:	; Routine 2
 
 @loc_15E8E:
 		move.w	$3A(a0),d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	@noflip03
 		neg.w	d0
 		addi.w	#$38,d0
@@ -283,7 +283,7 @@ Sto_Action:	; Routine 2
 
 @loc_15EF0:
 		move.w	$3A(a0),d0
-		btst	#0,obStatus(a0)
+		btst	#obStatusHFlip,obStatus(a0)
 		beq.s	@noflip04
 		neg.w	d0
 		addi.w	#$38,d0

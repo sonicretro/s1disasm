@@ -16,7 +16,7 @@ Sonic_Jump:
 		cmpi.w	#6,d1
 		blt.w	locret_1348E
 		move.w	#$680,d2
-		btst	#6,obStatus(a0)
+		btst	#obStatusUnderWater,obStatus(a0)
 		beq.s	loc_1341C
 		move.w	#$380,d2
 
@@ -31,20 +31,20 @@ loc_1341C:
 		muls.w	d2,d0
 		asr.l	#8,d0
 		add.w	d0,obVelY(a0)	; make Sonic jump
-		bset	#1,obStatus(a0)
-		bclr	#5,obStatus(a0)
+		bset	#obStatusInAir,obStatus(a0)
+		bclr	#obStatusPushing,obStatus(a0)
 		addq.l	#4,sp
 		move.b	#1,$3C(a0)
 		clr.b	$38(a0)
 		sfx	sfx_Jump,0,0,0	; play jumping sound
 		move.b	#$13,obHeight(a0)
 		move.b	#9,obWidth(a0)
-		btst	#2,obStatus(a0)
+		btst	#obStatusRolling,obStatus(a0)
 		bne.s	loc_13490
 		move.b	#$E,obHeight(a0)
 		move.b	#7,obWidth(a0)
 		move.b	#id_Roll,obAnim(a0) ; use "jumping" animation
-		bset	#2,obStatus(a0)
+		bset	#obStatusRolling,obStatus(a0)
 		addq.w	#5,obY(a0)
 
 locret_1348E:
@@ -52,6 +52,6 @@ locret_1348E:
 ; ===========================================================================
 
 loc_13490:
-		bset	#4,obStatus(a0)
+		bset	#obStatusRollJump,obStatus(a0)
 		rts	
 ; End of function Sonic_Jump

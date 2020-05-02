@@ -65,7 +65,7 @@ Disc_MoveSonic:
 		add.w	d2,d1
 		cmp.w	d3,d1
 		bcc.s	loc_155A8
-		btst	#1,obStatus(a1)
+		btst	#obStatusInAir,obStatus(a1)
 		beq.s	loc_155B8
 		clr.b	$3A(a0)
 		rts	
@@ -85,12 +85,12 @@ loc_155B8:
 		tst.b	$3A(a0)
 		bne.s	loc_155E2
 		move.b	#1,$3A(a0)
-		btst	#2,obStatus(a1)
+		btst	#obStatusRolling,obStatus(a1)
 		bne.s	loc_155D0
 		clr.b	obAnim(a1)
 
 loc_155D0:
-		bclr	#5,obStatus(a1)
+		bclr	#obStatusPushing,obStatus(a1)
 		move.b	#1,obNextAni(a1)
 		move.b	#1,$38(a1)
 

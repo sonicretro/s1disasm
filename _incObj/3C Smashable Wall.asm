@@ -32,7 +32,7 @@ Smash_Solid:	; Routine 2
 		move.w	#$20,d3
 		move.w	obX(a0),d4
 		bsr.w	SolidObject
-		btst	#5,obStatus(a0)	; is Sonic pushing against the wall?
+		btst	#obStatusPushing,obStatus(a0)	; is Sonic pushing against the wall?
 		bne.s	@chkroll	; if yes, branch
 
 @donothing:
@@ -60,8 +60,8 @@ Smash_Solid:	; Routine 2
 
 	@smash:
 		move.w	obVelX(a1),obInertia(a1)
-		bclr	#5,obStatus(a0)
-		bclr	#5,obStatus(a1)
+		bclr	#obStatusPushing,obStatus(a0)
+		bclr	#obStatusPushing,obStatus(a1)
 		moveq	#7,d1		; load 8 fragments
 		move.w	#$70,d2
 		bsr.s	SmashObject

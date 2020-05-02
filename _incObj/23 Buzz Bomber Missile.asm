@@ -26,7 +26,7 @@ Msl_Main:	; Routine 0
 		move.b	#4,obRender(a0)
 		move.b	#3,obPriority(a0)
 		move.b	#8,obActWid(a0)
-		andi.b	#3,obStatus(a0)
+		andi.b	#obStatusOnObject,obStatus(a0)
 		tst.b	obSubtype(a0)	; was object created by	a Newtron?
 		beq.s	Msl_Animate	; if not, branch
 

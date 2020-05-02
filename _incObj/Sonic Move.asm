@@ -29,9 +29,9 @@ Sonic_Move:
 		bne.w	Sonic_ResetScr	; if yes, branch
 		tst.w	obInertia(a0)	; is Sonic moving?
 		bne.w	Sonic_ResetScr	; if yes, branch
-		bclr	#5,obStatus(a0)
+		bclr	#obStatusPushing,obStatus(a0)
 		move.b	#id_Wait,obAnim(a0) ; use "standing" animation
-		btst	#3,obStatus(a0)
+		btst	#obStatusOnObject,obStatus(a0)
 		beq.s	Sonic_Balance
 		moveq	#0,d0
 		move.b	$3D(a0),d0
@@ -62,7 +62,7 @@ Sonic_Balance:
 		bne.s	loc_12F62
 
 loc_12F5A:
-		bclr	#0,obStatus(a0)
+		bclr	#obStatusHFlip,obStatus(a0)
 		bra.s	loc_12F70
 ; ===========================================================================
 
@@ -71,7 +71,7 @@ loc_12F62:
 		bne.s	Sonic_LookUp
 
 loc_12F6A:
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 
 loc_12F70:
 		move.b	#id_Balance,obAnim(a0) ; use "balancing" animation
@@ -168,7 +168,7 @@ loc_13024:
 		cmpi.b	#$80,d0
 		beq.s	loc_13060
 		add.w	d1,obVelX(a0)
-		bset	#5,obStatus(a0)
+		bset	#obStatusPushing,obStatus(a0)
 		move.w	#0,obInertia(a0)
 		rts	
 ; ===========================================================================
@@ -180,7 +180,7 @@ loc_13060:
 
 loc_13066:
 		sub.w	d1,obVelX(a0)
-		bset	#5,obStatus(a0)
+		bset	#obStatusPushing,obStatus(a0)
 		move.w	#0,obInertia(a0)
 		rts	
 ; ===========================================================================
@@ -202,9 +202,9 @@ Sonic_MoveLeft:
 		bpl.s	loc_130B2
 
 loc_13086:
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		bne.s	loc_1309A
-		bclr	#5,obStatus(a0)
+		bclr	#obStatusPushing,obStatus(a0)
 		move.b	#1,obNextAni(a0)
 
 loc_1309A:
@@ -235,7 +235,7 @@ loc_130BA:
 		cmpi.w	#$400,d0
 		blt.s	locret_130E8
 		move.b	#id_Stop,obAnim(a0) ; use "stopping" animation
-		bclr	#0,obStatus(a0)
+		bclr	#obStatusHFlip,obStatus(a0)
 		sfx	sfx_Skid,0,0,0	; play stopping sound
 
 locret_130E8:
@@ -249,9 +249,9 @@ locret_130E8:
 Sonic_MoveRight:
 		move.w	obInertia(a0),d0
 		bmi.s	loc_13118
-		bclr	#0,obStatus(a0)
+		bclr	#obStatusHFlip,obStatus(a0)
 		beq.s	loc_13104
-		bclr	#5,obStatus(a0)
+		bclr	#obStatusPushing,obStatus(a0)
 		move.b	#1,obNextAni(a0)
 
 loc_13104:
@@ -280,7 +280,7 @@ loc_13120:
 		cmpi.w	#-$400,d0
 		bgt.s	locret_1314E
 		move.b	#id_Stop,obAnim(a0) ; use "stopping" animation
-		bset	#0,obStatus(a0)
+		bset	#obStatusHFlip,obStatus(a0)
 		sfx	sfx_Skid,0,0,0	; play stopping sound
 
 locret_1314E:

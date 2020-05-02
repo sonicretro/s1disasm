@@ -179,10 +179,10 @@ Elev_Types:
 ; ===========================================================================
 
 	@typereset:
-		btst	#3,obStatus(a0)
+		btst	#obStatusOnObject,obStatus(a0)
 		beq.s	@delete
-		bset	#1,obStatus(a1)
-		bclr	#3,obStatus(a1)
+		bset	#obStatusInAir,obStatus(a1)
+		bclr	#obStatusOnObject,obStatus(a1)
 		move.b	#2,obRoutine(a1)
 
 	@delete:
