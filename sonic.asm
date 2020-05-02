@@ -5395,7 +5395,7 @@ loc_74AE:
 		btst	#3,obStatus(a1)
 		beq.s	loc_74DC
 		moveq	#0,d0
-		move.b	$3D(a1),d0
+		move.b	standonobject(a1),d0
 		lsl.w	#6,d0
 		addi.l	#v_objspace&$FFFFFF,d0
 		movea.l	d0,a2
@@ -5410,7 +5410,7 @@ loc_74DC:
 		subi.w	#-$3000,d0
 		lsr.w	#6,d0
 		andi.w	#$7F,d0
-		move.b	d0,$3D(a1)
+		move.b	d0,standonobject(a1)
 		move.b	#0,obAngle(a1)
 		move.w	#0,obVelY(a1)
 		move.w	obVelX(a1),obInertia(a1)

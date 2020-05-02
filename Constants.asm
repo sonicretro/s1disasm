@@ -154,6 +154,7 @@ obSolid:	equ ob2ndRout ; solid status flag
 flashtime:	equ $30	; time between flashes after getting hit
 invtime:	equ $32	; time left for invincibility
 shoetime:	equ $34	; time left for speed shoes
+standonobject:	equ $3D	; object Sonic stands on
 
 ; Object variables (Sonic 2 disassembly nomenclature)
 render_flags:	equ 1	; bitfield for x/y flip, display mode

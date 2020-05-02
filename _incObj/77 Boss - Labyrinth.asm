@@ -86,7 +86,7 @@ loc_17F38:
 		move.w	$30(a0),obX(a0)
 
 loc_17F48:
-		tst.b	$3D(a0)
+		tst.b	standonobject(a0)
 		bne.s	loc_17F8E
 		tst.b	obStatus(a0)
 		bmi.s	loc_17F92
@@ -121,7 +121,7 @@ loc_17F8E:
 loc_17F92:
 		moveq	#100,d0
 		bsr.w	AddPoints
-		move.b	#-1,$3D(a0)
+		move.b	#-1,standonobject(a0)
 		rts	
 ; ===========================================================================
 
@@ -181,7 +181,7 @@ loc_1801E:
 		move.w	#$100,$38(a0)
 		move.w	#$140,obVelX(a0)
 		move.w	#-$80,obVelY(a0)
-		tst.b	$3D(a0)
+		tst.b	standonobject(a0)
 		beq.s	loc_18046
 		asl	obVelX(a0)
 		asl	obVelY(a0)
@@ -224,7 +224,7 @@ loc_1806C:
 loc_180A2:
 		ext.l	d0
 		asl.l	#8,d0
-		tst.b	$3D(a0)
+		tst.b	standonobject(a0)
 		beq.s	loc_180AE
 		add.l	d0,d0
 
@@ -259,7 +259,7 @@ loc_180F2:
 ; ===========================================================================
 
 loc_180F6:
-		tst.b	$3D(a0)
+		tst.b	standonobject(a0)
 		bne.s	loc_18112
 		cmpi.w	#$1EC8,obX(a1)
 		blt.s	loc_18126
@@ -281,7 +281,7 @@ loc_18126:
 ; ===========================================================================
 
 loc_1812A:
-		tst.b	$3D(a0)
+		tst.b	standonobject(a0)
 		bne.s	loc_18136
 		subq.b	#1,$3C(a0)
 		bne.s	loc_1814E
@@ -290,7 +290,7 @@ loc_18136:
 		clr.b	$3C(a0)
 		move.w	#$400,obVelX(a0)
 		move.w	#-$40,obVelY(a0)
-		clr.b	$3D(a0)
+		clr.b	standonobject(a0)
 		addq.b	#2,ob2ndRout(a0)
 
 loc_1814E:
@@ -324,7 +324,7 @@ Obj77_FaceMain:	; Routine 4
 		moveq	#0,d0
 		move.b	ob2ndRout(a1),d0
 		moveq	#1,d1
-		tst.b	$3D(a0)
+		tst.b	standonobject(a0)
 		beq.s	loc_1818C
 		moveq	#$A,d1
 		bra.s	loc_181A0
