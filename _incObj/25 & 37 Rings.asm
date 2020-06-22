@@ -137,9 +137,10 @@ Ring_Delete:	; Routine 8
 
 
 CollectRing:
-		addq.w	#1,(v_rings).w	; add 1 to rings
-		ori.b	#1,(f_ringcount).w ; update the rings counter
-		move.w	#sfx_Ring,d0	; play ring sound
+		addq.l	#1,(v_rings).w	; add 1 to rings (expanded ring size)
+		move.b	#1,(f_ringcount).w ; update the rings counter
+		move.l	#sfx_Ring,d0	; play ring sound
+		jmp	(PlaySound_Special).l
 		cmpi.w	#100,(v_rings).w ; do you have < 100 rings?
 		bcs.s	@playsnd	; if yes, branch
 		bset	#1,(v_lifecount).w ; update lives counter
@@ -148,13 +149,47 @@ CollectRing:
 		bcs.s	@playsnd	; if yes, branch
 		bset	#2,(v_lifecount).w ; update lives counter
 		bne.s	@playsnd
+		cmpi.w	#300,(v_rings).w ; do you have < 300 rings?
+		bcs.s	@playsnd	; if yes, branch
+		bset	#3,(v_lifecount).w ; update lives counter
+		bne.s	@playsnd
+		cmpi.w	#400,(v_rings).w ; do you have < 400 rings?
+		bcs.s	@playsnd	; if yes, branch
+		bset	#4,(v_lifecount).w ; update lives counter
+		bne.s	@playsnd
+		cmpi.w	#500,(v_rings).w ; do you have < 500 rings?
+		bcs.s	@playsnd	; if yes, branch
+		bset	#5,(v_lifecount).w ; update lives counter
+		bne.s	@playsnd
+		cmpi.w	#600,(v_rings).w ; do you have < 600 rings?
+		bcs.s	@playsnd	; if yes, branch
+		bset	#6,(v_lifecount).w ; update lives counter
+		bne.s	@playsnd
+		cmpi.w	#700,(v_rings).w ; do you have < 700 rings?
+		bcs.s	@playsnd	; if yes, branch
+		bset	#7,(v_lifecount).w ; update lives counter
+		bne.s	@playsnd
+		cmpi.w	#800,(v_rings).w ; do you have < 800 rings?
+		bcs.s	@playsnd	; if yes, branch
+		bset	#8,(v_lifecount).w ; update lives counter
+		bne.s	@playsnd
+		cmpi.w	#900,(v_rings).w ; do you have < 900 rings?
+		bcs.s	@playsnd	; if yes, branch
+		bset	#9,(v_lifecount).w ; update lives counter
+		bne.s	@playsnd
+		cmpi.w	#999,(v_rings).w ; do you have < 999 rings?
+		bcs.s	@playsnd	; if yes, branch
+		bset	#10,(v_lifecount).w ; update lives counter
+		bne.s	@playsnd
 
 	@got100:
-		addq.b	#1,(v_lives).w	; add 1 to the number of lives you have
-		addq.b	#1,(f_lifecount).w ; update the lives counter
+		addq.l	#1,(v_lives).w	; add 1 to the number of lives you have (expaned life count size)
+		addq.l	#1,(f_lifecount).w ; update the lives counter
 		move.w	#bgm_ExtraLife,d0 ; play extra life music
+		jmp	(PlaySound_Special).l
 
 	@playsnd:
+		move.l	#bgm_Ring,d0
 		jmp	(PlaySound_Special).l
 ; End of function CollectRing
 
@@ -243,10 +278,7 @@ RLoss_Bounce:	; Routine 2
 		bsr.w	SpeedToPos
 		addi.w	#$18,obVelY(a0)
 		bmi.s	@chkdel
-		move.b	(v_vbla_byte).w,d0
-		add.b	d7,d0
-		andi.b	#3,d0
-		bne.s	@chkdel
+		; weird useless code that would make rings fall through the floor removed
 		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.s	@chkdel
