@@ -47,7 +47,7 @@ Pow_ChkEggman:
 		move.b	obAnim(a0),d0
 		cmpi.b	#1,d0		; does monitor contain Eggman?
 		bne.s	Pow_ChkSonic
-		rts			; Eggman monitor does nothing
+		jmp	KillSonic	; restored
 ; ===========================================================================
 
 Pow_ChkSonic:
@@ -131,10 +131,11 @@ Pow_ChkRings:
 Pow_ChkS:
 		cmpi.b	#7,d0		; does monitor contain 'S'?
 		bne.s	Pow_ChkEnd
-		nop	
+		jmp	Sonic_SpeedUp
+		jmp	Sonic_Invincibile
 
 Pow_ChkEnd:
-		rts			; 'S' and goggles monitors do nothing
+		rts
 ; ===========================================================================
 
 Pow_Delete:	; Routine 4

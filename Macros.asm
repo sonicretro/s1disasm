@@ -81,42 +81,7 @@ copyTilemap:	macro source,loc,width,height
 		bsr.w	TilemapToVRAM
 		endm
 
-; ---------------------------------------------------------------------------
-; stop the Z80
-; ---------------------------------------------------------------------------
-
-stopZ80:	macro
-		move.w	#$100,(z80_bus_request).l
-		endm
-
-; ---------------------------------------------------------------------------
-; wait for Z80 to stop
-; ---------------------------------------------------------------------------
-
-waitZ80:	macro
-	@wait:	btst	#0,(z80_bus_request).l
-		bne.s	@wait
-		endm
-
-; ---------------------------------------------------------------------------
-; reset the Z80
-; ---------------------------------------------------------------------------
-
-resetZ80:	macro
-		move.w	#$100,(z80_reset).l
-		endm
-
-resetZ80a:	macro
-		move.w	#0,(z80_reset).l
-		endm
-
-; ---------------------------------------------------------------------------
-; start the Z80
-; ---------------------------------------------------------------------------
-
-startZ80:	macro
-		move.w	#0,(z80_bus_request).l
-		endm
+		; z80 stops are useless and a waste of time
 
 ; ---------------------------------------------------------------------------
 ; disable interrupts
@@ -244,14 +209,19 @@ out_of_range:	macro exit,pos
 ; ---------------------------------------------------------------------------
 
 music:		macro track,terminate,branch,byte
+		; added in missing branches and sizes
 		  if OptimiseSound=1
-			move.b	#track,(v_snddriver_ram+v_playsnd1).l
+			move.b	#track,d0
+			move.b d0,(v_snddriver_ram+v_playsnd1).l
+			move.b d0,(v_snddriver_ram+v_playsnd2).l
 		    if terminate=1
 			rts
 		    endc
 		  else
 	 	    if byte=1
 			move.b	#track,d0
+		    elseif byte=2
+			move.l	#track,d0
 		    else
 			move.w	#track,d0
 		    endc
@@ -260,6 +230,30 @@ music:		macro track,terminate,branch,byte
 			bsr.w	PlaySound
 		      else
 			bra.w	PlaySound
+		      endc
+		    elseif branch=2
+		      if terminate=0
+			bsr.s	PlaySound
+		      else
+			bra.s	PlaySound
+		      endc
+		    elseif branch=3
+		      if terminate=0
+			bsr.l	PlaySound
+		      else
+			bra.l	PlaySound
+		      endc
+		    elseif branch=4
+		      if terminate=0
+			jsr	PlaySound(pc)
+		      else
+			jmp	PlaySound(pc)
+		      endc
+		    elseif branch=5
+		      if terminate=0
+			jsr	(PlaySound).w
+		      else
+			jmp	(PlaySound).w
 		      endc
 		    else
 		      if terminate=0
@@ -272,14 +266,19 @@ music:		macro track,terminate,branch,byte
 		endm
 
 sfx:		macro track,terminate,branch,byte
+		; added in missing branches and sizes
 		  if OptimiseSound=1
-			move.b	#track,(v_snddriver_ram+v_playsnd2).l
+			move.b	#track,d0
+			move.b d0,(v_snddriver_ram+v_playsnd1).l
+			move.b d0,(v_snddriver_ram+v_playsnd2).l
 		    if terminate=1
 			rts
 		    endc
 		  else
 	 	    if byte=1
 			move.b	#track,d0
+		    elseif byte=2
+			move.l	#track,d0
 		    else
 			move.w	#track,d0
 		    endc
@@ -288,6 +287,30 @@ sfx:		macro track,terminate,branch,byte
 			bsr.w	PlaySound_Special
 		      else
 			bra.w	PlaySound_Special
+		      endc
+		    elseif branch=2
+		      if terminate=0
+			bsr.s	PlaySound_Special
+		      else
+			bra.s	PlaySound_Special
+		      endc
+		    elseif branch=3
+		      if terminate=0
+			bsr.l	PlaySound_Special
+		      else
+			bra.l	PlaySound_Special
+		      endc
+		    elseif branch=4
+		      if terminate=0
+			jsr	PlaySound_Special(pc)
+		      else
+			jmp	PlaySound_Special(pc)
+		      endc
+		    elseif branch=5
+		      if terminate=0
+			jsr	(PlaySound_Special).w
+		      else
+			jmp	(PlaySound_Special).w
 		      endc
 		    else
 		      if terminate=0
