@@ -1,29 +1,43 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - lamp (SYZ)
 ; ---------------------------------------------------------------------------
-Map_Light_internal:
-		dc.w .f0-Map_Light_internal
-		dc.w .f1-Map_Light_internal
-		dc.w .f2-Map_Light_internal
-		dc.w .f3-Map_Light_internal
-		dc.w .f4-Map_Light_internal
-		dc.w .f5-Map_Light_internal
-.f0:		dc.b 2
-		dc.b $F8, $C, 0, $31, $F0
-		dc.b 0,	$C, $10, $31, $F0
-.f1:		dc.b 2
-		dc.b $F8, $C, 0, $35, $F0
-		dc.b 0,	$C, $10, $35, $F0
-.f2:		dc.b 2
-		dc.b $F8, $C, 0, $39, $F0
-		dc.b 0,	$C, $10, $39, $F0
-.f3:		dc.b 2
-		dc.b $F8, $C, 0, $3D, $F0
-		dc.b 0,	$C, $10, $3D, $F0
-.f4:		dc.b 2
-		dc.b $F8, $C, 0, $41, $F0
-		dc.b 0,	$C, $10, $41, $F0
-.f5:		dc.b 2
-		dc.b $F8, $C, 0, $45, $F0
-		dc.b 0,	$C, $10, $45, $F0
+Map_Light_internal:	mappingsTable
+	mappingsTableEntry.w	._0
+	mappingsTableEntry.w	._1
+	mappingsTableEntry.w	._2
+	mappingsTableEntry.w	._3
+	mappingsTableEntry.w	._4
+	mappingsTableEntry.w	._5
+
+._0:	spriteHeader
+	spritePiece	-$10, -8, 4, 1, $31, 0, 0, 0, 0
+	spritePiece	-$10, 0, 4, 1, $31, 0, 1, 0, 0
+._0_End
+
+._1:	spriteHeader
+	spritePiece	-$10, -8, 4, 1, $35, 0, 0, 0, 0
+	spritePiece	-$10, 0, 4, 1, $35, 0, 1, 0, 0
+._1_End
+
+._2:	spriteHeader
+	spritePiece	-$10, -8, 4, 1, $39, 0, 0, 0, 0
+	spritePiece	-$10, 0, 4, 1, $39, 0, 1, 0, 0
+._2_End
+
+._3:	spriteHeader
+	spritePiece	-$10, -8, 4, 1, $3D, 0, 0, 0, 0
+	spritePiece	-$10, 0, 4, 1, $3D, 0, 1, 0, 0
+._3_End
+
+._4:	spriteHeader
+	spritePiece	-$10, -8, 4, 1, $41, 0, 0, 0, 0
+	spritePiece	-$10, 0, 4, 1, $41, 0, 1, 0, 0
+._4_End
+
+._5:	spriteHeader
+	spritePiece	-$10, -8, 4, 1, $45, 0, 0, 0, 0
+	spritePiece	-$10, 0, 4, 1, $45, 0, 1, 0, 0
+._5_End
+
+	even
 		even

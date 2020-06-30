@@ -279,91 +279,91 @@ bgm_Stop:	equ ((ptr_flgE4-Sound_ExIndex)/4)+flg__First
 flg__Last:	equ ((ptr_flgend-Sound_ExIndex-4)/4)+flg__First
 
 ; Sonic frame IDs
-fr_Null:	equ 0
-fr_Stand:	equ 1
-fr_Wait1:	equ 2
-fr_Wait2:	equ 3
-fr_Wait3:	equ 4
-fr_LookUp:	equ 5
-fr_Walk11:	equ 6
-fr_Walk12:	equ 7
-fr_Walk13:	equ 8
-fr_Walk14:	equ 9
-fr_Walk15:	equ $A
-fr_Walk16:	equ $B
-fr_Walk21:	equ $C
-fr_Walk22:	equ $D
-fr_Walk23:	equ $E
-fr_Walk24:	equ $F
-fr_Walk25:	equ $10
-fr_Walk26:	equ $11
-fr_Walk31:	equ $12
-fr_Walk32:	equ $13
-fr_Walk33:	equ $14
-fr_Walk34:	equ $15
-fr_Walk35:	equ $16
-fr_Walk36:	equ $17
-fr_Walk41:	equ $18
-fr_Walk42:	equ $19
-fr_Walk43:	equ $1A
-fr_Walk44:	equ $1B
-fr_Walk45:	equ $1C
-fr_Walk46:	equ $1D
-fr_Run11:	equ $1E
-fr_Run12:	equ $1F
-fr_Run13:	equ $20
-fr_Run14:	equ $21
-fr_Run21:	equ $22
-fr_Run22:	equ $23
-fr_Run23:	equ $24
-fr_Run24:	equ $25
-fr_Run31:	equ $26
-fr_Run32:	equ $27
-fr_Run33:	equ $28
-fr_Run34:	equ $29
-fr_Run41:	equ $2A
-fr_Run42:	equ $2B
-fr_Run43:	equ $2C
-fr_Run44:	equ $2D
-fr_Roll1:	equ $2E
-fr_Roll2:	equ $2F
-fr_Roll3:	equ $30
-fr_Roll4:	equ $31
-fr_Roll5:	equ $32
-fr_Warp1:	equ $33
-fr_Warp2:	equ $34
-fr_Warp3:	equ $35
-fr_Warp4:	equ $36
-fr_Stop1:	equ $37
-fr_Stop2:	equ $38
-fr_Duck:	equ $39
-fr_Balance1:	equ $3A
-fr_Balance2:	equ $3B
-fr_Float1:	equ $3C
-fr_Float2:	equ $3D
-fr_Float3:	equ $3E
-fr_Float4:	equ $3F
-fr_Spring:	equ $40
-fr_Hang1:	equ $41
-fr_Hang2:	equ $42
-fr_Leap1:	equ $43
-fr_Leap2:	equ $44
-fr_Push1:	equ $45
-fr_Push2:	equ $46
-fr_Push3:	equ $47
-fr_Push4:	equ $48
-fr_Surf:	equ $49
-fr_BubStand:	equ $4A
-fr_Burnt:	equ $4B
-fr_Drown:	equ $4C
-fr_Death:	equ $4D
-fr_Shrink1:	equ $4E
-fr_Shrink2:	equ $4F
-fr_Shrink3:	equ $50
-fr_Shrink4:	equ $51
-fr_Shrink5:	equ $52
-fr_Float5:	equ $53
-fr_Float6:	equ $54
-fr_Injury:	equ $55
-fr_GetAir:	equ $56
-fr_WaterSlide:	equ $57
+fr_Null:	equ  (ptr_MS_Null-Map_Sonic)/2
+fr_Stand:	equ (ptr_MS_Stand-Map_Sonic)/2		; 1
+fr_Wait1:	equ (ptr_MS_Wait1-Map_Sonic)/2		; 2
+fr_Wait2:	equ (ptr_MS_Wait2-Map_Sonic)/2		; 3
+fr_Wait3:	equ (ptr_MS_Wait3-Map_Sonic)/2		; 4
+fr_LookUp:	equ (ptr_MS_LookUp-Map_Sonic)/2		; 5
+fr_Walk11:	equ (ptr_MS_Walk11-Map_Sonic)/2		; 6
+fr_Walk12:	equ (ptr_MS_Walk12-Map_Sonic)/2		; 7
+fr_Walk13:	equ (ptr_MS_Walk13-Map_Sonic)/2		; 8
+fr_Walk14:	equ (ptr_MS_Walk14-Map_Sonic)/2		; 9
+fr_Walk15:	equ (ptr_MS_Walk15-Map_Sonic)/2		; $A
+fr_Walk16:	equ (ptr_MS_Walk16-Map_Sonic)/2		; $B
+fr_Walk21:	equ (ptr_MS_Walk21-Map_Sonic)/2		; $C
+fr_Walk22:	equ (ptr_MS_Walk22-Map_Sonic)/2		; $D
+fr_Walk23:	equ (ptr_MS_Walk23-Map_Sonic)/2		; $E
+fr_Walk24:	equ (ptr_MS_Walk24-Map_Sonic)/2		; $F
+fr_Walk25:	equ (ptr_MS_Walk25-Map_Sonic)/2		; $10
+fr_Walk26:	equ (ptr_MS_Walk26-Map_Sonic)/2		; $11
+fr_Walk31:	equ (ptr_MS_Walk31-Map_Sonic)/2		; $12
+fr_Walk32:	equ (ptr_MS_Walk32-Map_Sonic)/2		; $13
+fr_Walk33:	equ (ptr_MS_Walk33-Map_Sonic)/2		; $14
+fr_Walk34:	equ (ptr_MS_Walk34-Map_Sonic)/2		; $15
+fr_Walk35:	equ (ptr_MS_Walk35-Map_Sonic)/2		; $16
+fr_Walk36:	equ (ptr_MS_Walk36-Map_Sonic)/2		; $17
+fr_Walk41:	equ (ptr_MS_Walk41-Map_Sonic)/2		; $18
+fr_Walk42:	equ (ptr_MS_Walk42-Map_Sonic)/2		; $19
+fr_Walk43:	equ (ptr_MS_Walk43-Map_Sonic)/2		; $1A
+fr_Walk44:	equ (ptr_MS_Walk44-Map_Sonic)/2		; $1B
+fr_Walk45:	equ (ptr_MS_Walk45-Map_Sonic)/2		; $1C
+fr_Walk46:	equ (ptr_MS_Walk46-Map_Sonic)/2		; $1D
+fr_Run11:	equ (ptr_MS_Run11-Map_Sonic)/2		; $1E
+fr_Run12:	equ (ptr_MS_Run12-Map_Sonic)/2		; $1F
+fr_Run13:	equ (ptr_MS_Run13-Map_Sonic)/2		; $20
+fr_Run14:	equ (ptr_MS_Run14-Map_Sonic)/2		; $21
+fr_Run21:	equ (ptr_MS_Run21-Map_Sonic)/2		; $22
+fr_Run22:	equ (ptr_MS_Run22-Map_Sonic)/2		; $23
+fr_Run23:	equ (ptr_MS_Run23-Map_Sonic)/2		; $24
+fr_Run24:	equ (ptr_MS_Run24-Map_Sonic)/2		; $25
+fr_Run31:	equ (ptr_MS_Run31-Map_Sonic)/2		; $26
+fr_Run32:	equ (ptr_MS_Run32-Map_Sonic)/2		; $27
+fr_Run33:	equ (ptr_MS_Run33-Map_Sonic)/2		; $28
+fr_Run34:	equ (ptr_MS_Run34-Map_Sonic)/2		; $29
+fr_Run41:	equ (ptr_MS_Run41-Map_Sonic)/2		; $2A
+fr_Run42:	equ (ptr_MS_Run42-Map_Sonic)/2		; $2B
+fr_Run43:	equ (ptr_MS_Run43-Map_Sonic)/2		; $2C
+fr_Run44:	equ (ptr_MS_Run44-Map_Sonic)/2		; $2D
+fr_Roll1:	equ (ptr_MS_Roll1-Map_Sonic)/2		; $2E
+fr_Roll2:	equ (ptr_MS_Roll2-Map_Sonic)/2		; $2F
+fr_Roll3:	equ (ptr_MS_Roll3-Map_Sonic)/2		; $30
+fr_Roll4:	equ (ptr_MS_Roll4-Map_Sonic)/2		; $31
+fr_Roll5:	equ (ptr_MS_Roll5-Map_Sonic)/2		; $32
+fr_Warp1:	equ (ptr_MS_Warp1-Map_Sonic)/2		; $33
+fr_Warp2:	equ (ptr_MS_Warp2-Map_Sonic)/2		; $34
+fr_Warp3:	equ (ptr_MS_Warp3-Map_Sonic)/2		; $35
+fr_Warp4:	equ (ptr_MS_Warp4-Map_Sonic)/2		; $36
+fr_Stop1:	equ (ptr_MS_Stop1-Map_Sonic)/2		; $37
+fr_Stop2:	equ (ptr_MS_Stop2-Map_Sonic)/2		; $38
+fr_Duck:	equ (ptr_MS_Duck-Map_Sonic)/2		; $39
+fr_Balance1:	equ (ptr_MS_Balance1-Map_Sonic)/2	; $3A
+fr_Balance2:	equ (ptr_MS_Balance2-Map_Sonic)/2	; $3B
+fr_Float1:	equ (ptr_MS_Float1-Map_Sonic)/2		; $3C
+fr_Float2:	equ (ptr_MS_Float2-Map_Sonic)/2		; $3D
+fr_Float3:	equ (ptr_MS_Float3-Map_Sonic)/2		; $3E
+fr_Float4:	equ (ptr_MS_Float4-Map_Sonic)/2		; $3F
+fr_Spring:	equ (ptr_MS_Spring-Map_Sonic)/2		; $40
+fr_Hang1:	equ (ptr_MS_Hang1-Map_Sonic)/2		; $41
+fr_Hang2:	equ (ptr_MS_Hang2-Map_Sonic)/2		; $42
+fr_Leap1:	equ (ptr_MS_Leap1-Map_Sonic)/2		; $43
+fr_Leap2:	equ (ptr_MS_Leap2-Map_Sonic)/2		; $44
+fr_Push1:	equ (ptr_MS_Push1-Map_Sonic)/2		; $45
+fr_Push2:	equ (ptr_MS_Push2-Map_Sonic)/2		; $46
+fr_Push3:	equ (ptr_MS_Push3-Map_Sonic)/2		; $47
+fr_Push4:	equ (ptr_MS_Push4-Map_Sonic)/2		; $48
+fr_Surf:	equ (ptr_MS_Surf-Map_Sonic)/2		; $49
+fr_BubStand:	equ (ptr_MS_BubStand-Map_Sonic)/2	; $4A
+fr_Burnt:	equ (ptr_MS_Burnt-Map_Sonic)/2		; $4B
+fr_Drown:	equ (ptr_MS_Drown-Map_Sonic)/2		; $4C
+fr_Death:	equ (ptr_MS_Death-Map_Sonic)/2		; $4D
+fr_Shrink1:	equ (ptr_MS_Shrink1-Map_Sonic)/2	; $4E
+fr_Shrink2:	equ (ptr_MS_Shrink2-Map_Sonic)/2	; $4F
+fr_Shrink3:	equ (ptr_MS_Shrink3-Map_Sonic)/2	; $50
+fr_Shrink4:	equ (ptr_MS_Shrink4-Map_Sonic)/2	; $51
+fr_Shrink5:	equ (ptr_MS_Shrink5-Map_Sonic)/2	; $52
+fr_Float5:	equ (ptr_MS_Float5-Map_Sonic)/2		; $53
+fr_Float6:	equ (ptr_MS_Float6-Map_Sonic)/2		; $54
+fr_Injury:	equ (ptr_MS_Injury-Map_Sonic)/2		; $55
+fr_GetAir:	equ (ptr_MS_GetAir-Map_Sonic)/2		; $56
+fr_WaterSlide:	equ (ptr_MS_WaterSlide-Map_Sonic)/2	; $57
