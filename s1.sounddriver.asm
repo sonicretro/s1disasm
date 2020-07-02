@@ -1441,10 +1441,10 @@ InitMusicPlayback:
 		;lea	PSGInitBytes(pc),a2
 		;moveq	#((v_music_psg_tracks_end-v_music_psg_tracks)/TrackSz)-1,d1	; 3 PSG tracks
 
-;@writeloop:
+;.writeloop:
 		;move.b	(a2)+,(a1)		; Write track's channel byte
 		;lea	TrackSz(a1),a1		; Next track
-		;dbf	d1,@writeloop		; Loop for all DAC/FM/PSG tracks
+		;dbf	d1,.writeloop		; Loop for all DAC/FM/PSG tracks
 
 		;rts
 	
