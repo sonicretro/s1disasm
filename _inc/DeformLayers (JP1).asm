@@ -7,11 +7,11 @@
 
 DeformLayers:
 		tst.b	(f_nobgscroll).w
-		beq.s	loc_628E
+		beq.s	.bgscroll
 		rts	
 ; ===========================================================================
 
-loc_628E:
+	.bgscroll:
 		clr.w	(v_fg_scroll_flags).w
 		clr.w	(v_bg1_scroll_flags).w
 		clr.w	(v_bg2_scroll_flags).w
@@ -45,6 +45,7 @@ Deform_Index:	dc.w Deform_GHZ-Deform_Index, Deform_LZ-Deform_Index
 
 
 Deform_GHZ:
+	; block 3 - distant mountains
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#5,d4
@@ -52,70 +53,79 @@ Deform_GHZ:
 		asl.l	#1,d4
 		add.l	d1,d4
 		moveq	#0,d6
-		bsr.w	ScrollBlock5
+		bsr.w	BGScroll_Block3
+	; block 2 - hills & waterfalls
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#7,d4
 		moveq	#0,d6
-		bsr.w	ScrollBlock4
+		bsr.w	BGScroll_Block2
+	; calculate Y position
 		lea	(v_hscrolltablebuffer).w,a1
 		move.w	(v_screenposy).w,d0
 		andi.w	#$7FF,d0
 		lsr.w	#5,d0
 		neg.w	d0
 		addi.w	#$20,d0
-		bpl.s	loc_62F6
+		bpl.s	.limitY
 		moveq	#0,d0
-loc_62F6:
+	.limitY:
 		move.w	d0,d4
 		move.w	d0,(v_bgscrposy_dup).w
 		move.w	(v_screenposx).w,d0
-		cmpi.b	#id_Title,($FFFFF600).w
-		bne.s	loc_630A
-		moveq	#0,d0
-loc_630A:
+		cmpi.b	#id_Title,(v_gamemode).w
+		bne.s	.notTitle
+		moveq	#0,d0	; reset foreground position in title screen
+	.notTitle:
 		neg.w	d0
 		swap	d0
-		lea	($FFFFA800).w,a2
+	; auto-scroll clouds
+		lea	(v_bgscroll_buffer).w,a2
 		addi.l	#$10000,(a2)+
 		addi.l	#$C000,(a2)+
 		addi.l	#$8000,(a2)+
-		move.w	($FFFFA800).w,d0
+	; calculate background scroll	
+		move.w	(v_bgscroll_buffer).w,d0
 		add.w	(v_bg3screenposx).w,d0
 		neg.w	d0
 		move.w	#$1F,d1
 		sub.w	d4,d1
-		bcs.s	loc_633C
-loc_6336:		
+		bcs.s	.gotoCloud2
+	.cloudLoop1:		; upper cloud (32px)
 		move.l	d0,(a1)+
-		dbf	d1,loc_6336
-loc_633C:
-		move.w	($FFFFA804).w,d0
+		dbf	d1,.cloudLoop1
+
+	.gotoCloud2:
+		move.w	(v_bgscroll_buffer+4).w,d0
 		add.w	(v_bg3screenposx).w,d0
 		neg.w	d0
 		move.w	#$F,d1
-loc_634A:		
+	.cloudLoop2:		; middle cloud (16px)
 		move.l	d0,(a1)+
-		dbf	d1,loc_634A
-		move.w	($FFFFA808).w,d0
+		dbf	d1,.cloudLoop2
+
+		move.w	(v_bgscroll_buffer+8).w,d0
 		add.w	(v_bg3screenposx).w,d0
 		neg.w	d0
 		move.w	#$F,d1
-loc_635E:		
+	.cloudLoop3:		; lower cloud (16px)
 		move.l	d0,(a1)+
-		dbf	d1,loc_635E
+		dbf	d1,.cloudLoop3
+
 		move.w	#$2F,d1
 		move.w	(v_bg3screenposx).w,d0
 		neg.w	d0
-loc_636E:		
+	.mountainLoop:		; distant mountains (48px)
 		move.l	d0,(a1)+
-		dbf	d1,loc_636E
+		dbf	d1,.mountainLoop
+
 		move.w	#$27,d1
 		move.w	(v_bg2screenposx).w,d0
 		neg.w	d0
-loc_637E:		
+	.hillLoop:			; hills & waterfalls (40px)
 		move.l	d0,(a1)+
-		dbf	d1,loc_637E
+		dbf	d1,.hillLoop
+
 		move.w	(v_bg2screenposx).w,d0
 		move.w	(v_screenposx).w,d2
 		sub.w	d0,d2
@@ -128,14 +138,14 @@ loc_637E:
 		move.w	d0,d3
 		move.w	#$47,d1
 		add.w	d4,d1
-loc_63A4:		
+	.waterLoop:			; water deformation
 		move.w	d3,d0
 		neg.w	d0
 		move.l	d0,(a1)+
 		swap	d3
 		add.l	d2,d3
 		swap	d3
-		dbf	d1,loc_63A4
+		dbf	d1,.waterLoop
 		rts
 ; End of function Deform_GHZ
 
@@ -147,19 +157,22 @@ loc_63A4:
 
 
 Deform_LZ:
+	; plain background scroll
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#7,d4
-		move.w	($FFFFF73C).w,d5
+		move.w	(v_scrshifty).w,d5
 		ext.l	d5
 		asl.l	#7,d5
-		bsr.w	ScrollBlock1
+		bsr.w	BGScroll_XY
+
 		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		lea	(Lz_Scroll_Data).l,a3
 		lea	(Drown_WobbleData).l,a2
-		move.b	($FFFFF7D8).w,d2
+		move.b	(v_lz_deform).w,d2
 		move.b	d2,d3
-		addi.w	#$80,($FFFFF7D8).w
+		addi.w	#$80,(v_lz_deform).w
+
 		add.w	(v_bgscreenposy).w,d2
 		andi.w	#$FF,d2
 		add.w	(v_screenposy).w,d3
@@ -174,16 +187,18 @@ Deform_LZ:
 		neg.w	d0
 		move.w	(v_waterpos1).w,d4
 		move.w	(v_screenposy).w,d5
-loc_6418:		
-		cmp.w	d4,d5
-		bge.s	loc_642A
+	; write normal scroll before meeting water position
+	.normalLoop:		
+		cmp.w	d4,d5	; is current y >= water y?
+		bge.s	.underwaterLoop	; if yes, branch
 		move.l	d0,(a1)+
 		addq.w	#1,d5
 		addq.b	#1,d2
 		addq.b	#1,d3
-		dbf	d1,loc_6418
+		dbf	d1,.normalLoop
 		rts
-loc_642A:
+	; apply water deformation when underwater
+	.underwaterLoop:
 		move.b	(a3,d3),d4
 		ext.w	d4
 		add.w	d6,d4
@@ -194,7 +209,7 @@ loc_642A:
 		move.w	d4,(a1)+
 		addq.b	#1,d2
 		addq.b	#1,d3
-		dbf	d1,loc_642A
+		dbf	d1,.underwaterLoop
 		rts
 
 Lz_Scroll_Data:
@@ -224,6 +239,7 @@ Lz_Scroll_Data:
 
 
 Deform_MZ:
+	; block 1 - dungeon interior
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#6,d4
@@ -231,37 +247,42 @@ Deform_MZ:
 		asl.l	#1,d4
 		add.l	d1,d4
 		moveq	#2,d6
-		bsr.w	ScrollBlock3
+		bsr.w	BGScroll_Block1
+	; block 3 - mountains
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#6,d4
 		moveq	#6,d6
-		bsr.w	ScrollBlock5
+		bsr.w	BGScroll_Block3
+	; block 2 - bushes & antique buildings
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#7,d4
 		moveq	#4,d6
-		bsr.w	ScrollBlock4
-		move.w	#$200,d0
+		bsr.w	BGScroll_Block2
+	; calculate y-position of background
+		move.w	#$200,d0	; start with 512px, ignoring 2 chunks
 		move.w	(v_screenposy).w,d1
-		subi.w	#$1C8,d1
-		bcs.s	loc_6590
+		subi.w	#$1C8,d1	; 0% scrolling when y <= 56px 
+		bcs.s	.noYscroll
 		move.w	d1,d2
 		add.w	d1,d1
 		add.w	d2,d1
 		asr.w	#2,d1
 		add.w	d1,d0
-loc_6590:
+	.noYscroll:
 		move.w	d0,(v_bg2screenposy).w
 		move.w	d0,(v_bg3screenposy).w
-		bsr.w	ScrollBlock2
+		bsr.w	BGScroll_YAbsolute
 		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
+	; do something with redraw flags
 		move.b	(v_bg1_scroll_flags).w,d0
 		or.b	(v_bg2_scroll_flags).w,d0
 		or.b	d0,(v_bg3_scroll_flags).w
 		clr.b	(v_bg1_scroll_flags).w
 		clr.b	(v_bg2_scroll_flags).w
-		lea	($FFFFA800).w,a1
+	; calculate background scroll buffer
+		lea	(v_bgscroll_buffer).w,a1
 		move.w	(v_screenposx).w,d2
 		neg.w	d2
 		move.w	d2,d0
@@ -277,38 +298,42 @@ loc_6590:
 		move.w	d2,d3
 		asr.w	#1,d3
 		move.w	#4,d1
-loc_65DE:		
+	.cloudLoop:		
 		move.w	d3,(a1)+
 		swap	d3
 		add.l	d0,d3
 		swap	d3
-		dbf	d1,loc_65DE
+		dbf	d1,.cloudLoop
+
 		move.w	(v_bg3screenposx).w,d0
 		neg.w	d0
 		move.w	#1,d1
-loc_65F4:		
+	.mountainLoop:		
 		move.w	d0,(a1)+
-		dbf	d1,loc_65F4
+		dbf	d1,.mountainLoop
+
 		move.w	(v_bg2screenposx).w,d0
 		neg.w	d0
 		move.w	#8,d1
-loc_6604:		
+	.bushLoop:		
 		move.w	d0,(a1)+
-		dbf	d1,loc_6604
+		dbf	d1,.bushLoop
+
 		move.w	(v_bgscreenposx).w,d0
 		neg.w	d0
 		move.w	#$F,d1
-loc_6614:		
+	.interiorLoop:		
 		move.w	d0,(a1)+
-		dbf	d1,loc_6614
-		lea	($FFFFA800).w,a2
+		dbf	d1,.interiorLoop
+
+		lea	(v_bgscroll_buffer).w,a2
 		move.w	(v_bgscreenposy).w,d0
-		subi.w	#$200,d0
+		subi.w	#$200,d0	; subtract 512px (unused 2 chunks)
 		move.w	d0,d2
 		cmpi.w	#$100,d0
-		bcs.s	loc_6632
+		bcs.s	.limitY
 		move.w	#$100,d0
-loc_6632:
+	.limitY:
 		andi.w	#$1F0,d0
 		lsr.w	#3,d0
 		lea	(a2,d0),a2
@@ -323,12 +348,14 @@ loc_6632:
 
 
 Deform_SLZ:
-		move.w	($FFFFF73C).w,d5
+	; vertical scrolling
+		move.w	(v_scrshifty).w,d5
 		ext.l	d5
 		asl.l	#7,d5
 		bsr.w	Bg_Scroll_Y
 		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
-		lea	($FFFFA800).w,a1
+	; calculate background scroll buffer
+		lea	(v_bgscroll_buffer).w,a1
 		move.w	(v_screenposx).w,d2
 		neg.w	d2
 		move.w	d2,d0
@@ -343,34 +370,38 @@ Deform_SLZ:
 		moveq	#0,d3
 		move.w	d2,d3
 		move.w	#$1B,d1
-loc_6678:		
+	.starLoop:		
 		move.w	d3,(a1)+
 		swap	d3
 		add.l	d0,d3
 		swap	d3
-		dbf	d1,loc_6678
+		dbf	d1,.starLoop
+
 		move.w	d2,d0
 		asr.w	#3,d0
 		move.w	d0,d1
 		asr.w	#1,d1
 		add.w	d1,d0
 		move.w	#4,d1
-loc_6692:		
+	.buildingLoop1:		; distant black buildings
 		move.w	d0,(a1)+
-		dbf	d1,loc_6692
+		dbf	d1,.buildingLoop1
+
 		move.w	d2,d0
 		asr.w	#2,d0
 		move.w	#4,d1
-loc_66A0:		
+	.buildingLoop2:		; closer buildings
 		move.w	d0,(a1)+
-		dbf	d1,loc_66A0
+		dbf	d1,.buildingLoop2
+
 		move.w	d2,d0
 		asr.w	#1,d0
 		move.w	#$1D,d1
-loc_66AE:		
+	.bottomLoop:		; bottom part of background
 		move.w	d0,(a1)+
-		dbf	d1,loc_66AE
-		lea	($FFFFA800).w,a2
+		dbf	d1,.bottomLoop
+
+		lea	(v_bgscroll_buffer).w,a2
 		move.w	(v_bgscreenposy).w,d0
 		move.w	d0,d2
 		subi.w	#$C0,d0
@@ -388,10 +419,10 @@ Bg_Scroll_X:
 		andi.w	#$F,d2
 		add.w	d2,d2
 		move.w	(a2)+,d0
-		jmp	loc_66EA(pc,d2.w)
-Loop_Bg_Scroll_X:
+		jmp	.pixelJump(pc,d2.w)		; skip pixels for first row
+	.blockLoop:
 		move.w	(a2)+,d0
-loc_66EA:		
+	.pixelJump:		
 		move.l	d0,(a1)+
 		move.l	d0,(a1)+
 		move.l	d0,(a1)+
@@ -408,7 +439,7 @@ loc_66EA:
 		move.l	d0,(a1)+
 		move.l	d0,(a1)+
 		move.l	d0,(a1)+
-		dbf	d1,Loop_Bg_Scroll_X
+		dbf	d1,.blockLoop
 		rts
 
 ; ---------------------------------------------------------------------------
@@ -419,7 +450,8 @@ loc_66EA:
 
 
 Deform_SYZ:
-		move.w	($FFFFF73C).w,d5
+	; vertical scrolling
+		move.w	(v_scrshifty).w,d5
 		ext.l	d5
 		asl.l	#4,d5
 		move.l	d5,d1
@@ -427,7 +459,8 @@ Deform_SYZ:
 		add.l	d1,d5
 		bsr.w	Bg_Scroll_Y
 		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
-		lea	($FFFFA800).w,a1
+	; calculate background scroll buffer
+		lea	(v_bgscroll_buffer).w,a1
 		move.w	(v_screenposx).w,d2
 		neg.w	d2
 		move.w	d2,d0
@@ -443,24 +476,27 @@ Deform_SYZ:
 		move.w	d2,d3
 		asr.w	#1,d3
 		move.w	#7,d1
-loc_6750:		
+	.cloudLoop:		
 		move.w	d3,(a1)+
 		swap	d3
 		add.l	d0,d3
 		swap	d3
-		dbf	d1,loc_6750
+		dbf	d1,.cloudLoop
+
 		move.w	d2,d0
 		asr.w	#3,d0
 		move.w	#4,d1
-loc_6764:		
+	.mountainLoop:		
 		move.w	d0,(a1)+
-		dbf	d1,loc_6764
+		dbf	d1,.mountainLoop
+
 		move.w	d2,d0
 		asr.w	#2,d0
 		move.w	#5,d1
-loc_6772:		
+	.buildingLoop:		
 		move.w	d0,(a1)+
-		dbf	d1,loc_6772
+		dbf	d1,.buildingLoop
+
 		move.w	d2,d0
 		move.w	d2,d1
 		asr.w	#1,d1
@@ -475,13 +511,14 @@ loc_6772:
 		move.w	d2,d3
 		asr.w	#1,d3
 		move.w	#$D,d1
-loc_6798:		
+	.bushLoop:		
 		move.w	d3,(a1)+
 		swap	d3
 		add.l	d0,d3
 		swap	d3
-		dbf	d1,loc_6798
-		lea	($FFFFA800).w,a2
+		dbf	d1,.bushLoop
+
+		lea	(v_bgscroll_buffer).w,a2
 		move.w	(v_bgscreenposy).w,d0
 		move.w	d0,d2
 		andi.w	#$1F0,d0
@@ -499,17 +536,20 @@ loc_6798:
 
 Deform_SBZ:
 		tst.b	(v_act).w
-		bne.w	Bg_Scroll_SBz_2
+		bne.w	Deform_SBZ2
+	; block 1 - lower black buildings
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#7,d4
 		moveq	#2,d6
-		bsr.w	ScrollBlock3
+		bsr.w	BGScroll_Block1
+	; block 3 - distant brown buildings
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#6,d4
 		moveq	#6,d6
-		bsr.w	ScrollBlock5
+		bsr.w	BGScroll_Block3
+	; block 2 - upper black buildings
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#5,d4
@@ -517,12 +557,14 @@ Deform_SBZ:
 		asl.l	#1,d4
 		add.l	d1,d4
 		moveq	#4,d6
-		bsr.w	ScrollBlock4
+		bsr.w	BGScroll_Block2
+	; vertical scrolling
 		moveq	#0,d4
-		move.w	($FFFFF73C).w,d5
+		move.w	(v_scrshifty).w,d5
 		ext.l	d5
 		asl.l	#5,d5
-		bsr.w	loc_6AF8
+		bsr.w	BGScroll_YRelative
+
 		move.w	(v_bgscreenposy).w,d0
 		move.w	d0,(v_bg2screenposy).w
 		move.w	d0,(v_bg3screenposy).w
@@ -532,7 +574,8 @@ Deform_SBZ:
 		or.b	d0,(v_bg2_scroll_flags).w
 		clr.b	(v_bg1_scroll_flags).w
 		clr.b	(v_bg3_scroll_flags).w
-		lea	($FFFFA800).w,a1
+	; calculate background scroll buffer
+		lea	(v_bgscroll_buffer).w,a1
 		move.w	(v_screenposx).w,d2
 		neg.w	d2
 		asr.w	#2,d2
@@ -548,31 +591,34 @@ Deform_SBZ:
 		moveq	#0,d3
 		move.w	d2,d3
 		move.w	#3,d1
-loc_684E:		
+	.cloudLoop:		
 		move.w	d3,(a1)+
 		swap	d3
 		add.l	d0,d3
 		swap	d3
-		dbf	d1,loc_684E
+		dbf	d1,.cloudLoop
+
 		move.w	(v_bg3screenposx).w,d0
 		neg.w	d0
 		move.w	#9,d1
-loc_6864:		
+	.buildingLoop1:		; distant brown buildings
 		move.w	d0,(a1)+
-		dbf	d1,loc_6864
+		dbf	d1,.buildingLoop1
+
 		move.w	(v_bg2screenposx).w,d0
 		neg.w	d0
 		move.w	#6,d1
-loc_6874:		
+	.buildingLoop2:		; upper black buildings
 		move.w	d0,(a1)+
-		dbf	d1,loc_6874
+		dbf	d1,.buildingLoop2
+
 		move.w	(v_bgscreenposx).w,d0
 		neg.w	d0
 		move.w	#$A,d1
-loc_6884:		
+	.buildingLoop3:		; lower black buildings
 		move.w	d0,(a1)+
-		dbf	d1,loc_6884
-		lea	($FFFFA800).w,a2
+		dbf	d1,.buildingLoop3
+		lea	(v_bgscroll_buffer).w,a2
 		move.w	(v_bgscreenposy).w,d0
 		move.w	d0,d2
 		andi.w	#$1F0,d0
@@ -580,15 +626,17 @@ loc_6884:
 		lea	(a2,d0),a2
 		bra.w	Bg_Scroll_X
 ;-------------------------------------------------------------------------------
-Bg_Scroll_SBz_2:;loc_68A2:
+Deform_SBZ2:;loc_68A2:
+	; plain background deformation
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4		
 		asl.l	#6,d4
-		move.w	($FFFFF73C).w,d5
+		move.w	(v_scrshifty).w,d5
 		ext.l	d5
 		asl.l	#5,d5
-		bsr.w	ScrollBlock1
+		bsr.w	BGScroll_XY
 		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
+	; copy fg & bg x-position to hscroll table
 		lea	(v_hscrolltablebuffer).w,a1
 		move.w	#223,d1
 		move.w	(v_screenposx).w,d0
@@ -596,9 +644,9 @@ Bg_Scroll_SBz_2:;loc_68A2:
 		swap	d0
 		move.w	(v_bgscreenposx).w,d0
 		neg.w	d0
-loc_68D2:		
+	.loop:		
 		move.l	d0,(a1)+
-		dbf	d1,loc_68D2
+		dbf	d1,.loop
 		rts
 ; End of function Deform_SBZ
 
@@ -614,21 +662,21 @@ ScrollHoriz:
 		bsr.s	MoveScreenHoriz
 		move.w	(v_screenposx).w,d0
 		andi.w	#$10,d0
-		move.b	($FFFFF74A).w,d1
+		move.b	(v_fg_xblock).w,d1
 		eor.b	d1,d0
-		bne.s	locret_65B0
-		eori.b	#$10,($FFFFF74A).w
+		bne.s	.return
+		eori.b	#$10,(v_fg_xblock).w
 		move.w	(v_screenposx).w,d0
 		sub.w	d4,d0		; compare new with old screen position
-		bpl.s	SH_Forward
+		bpl.s	.scrollRight
 
 		bset	#2,(v_fg_scroll_flags).w ; screen moves backward
 		rts	
 
-SH_Forward:
+	.scrollRight:
 		bset	#3,(v_fg_scroll_flags).w ; screen moves forward
 
-locret_65B0:
+	.return:
 		rts	
 ; End of function ScrollHoriz
 
@@ -721,7 +769,7 @@ loc_664A:
 		bne.s	loc_66A8
 
 loc_6656:
-		clr.w	($FFFFF73C).w
+		clr.w	(v_scrshifty).w
 		rts	
 ; ===========================================================================
 
@@ -740,7 +788,7 @@ loc_666C:
 		bgt.s	loc_66F6
 		cmpi.w	#-6,d0
 		blt.s	loc_66C0
-		bra.s	loc_66AEa
+		bra.s	loc_66AE
 ; ===========================================================================
 
 loc_6684:
@@ -749,7 +797,7 @@ loc_6684:
 		bgt.s	loc_66F6
 		cmpi.w	#-2,d0
 		blt.s	loc_66C0
-		bra.s	loc_66AEa
+		bra.s	loc_66AE
 ; ===========================================================================
 
 loc_6696:
@@ -758,14 +806,14 @@ loc_6696:
 		bgt.s	loc_66F6
 		cmpi.w	#-$10,d0
 		blt.s	loc_66C0
-		bra.s	loc_66AEa
+		bra.s	loc_66AE
 ; ===========================================================================
 
 loc_66A8:
 		moveq	#0,d0
 		move.b	d0,(f_bgscrollvert).w
 
-loc_66AEa:
+loc_66AE:
 		moveq	#0,d1
 		move.w	d0,d1
 		add.w	(v_screenposy).w,d1
@@ -824,33 +872,35 @@ loc_6724:
 		move.l	d1,d3
 		sub.l	(v_screenposy).w,d3
 		ror.l	#8,d3
-		move.w	d3,($FFFFF73C).w
+		move.w	d3,(v_scrshifty).w
 		move.l	d1,(v_screenposy).w
 		move.w	(v_screenposy).w,d0
 		andi.w	#$10,d0
-		move.b	($FFFFF74B).w,d1
+		move.b	(v_fg_yblock).w,d1
 		eor.b	d1,d0
-		bne.s	locret_6766
-		eori.b	#$10,($FFFFF74B).w
+		bne.s	.return
+		eori.b	#$10,(v_fg_yblock).w
 		move.w	(v_screenposy).w,d0
 		sub.w	d4,d0
-		bpl.s	loc_6760
+		bpl.s	.scrollBottom
 		bset	#0,(v_fg_scroll_flags).w
 		rts	
 ; ===========================================================================
 
-loc_6760:
+	.scrollBottom:
 		bset	#1,(v_fg_scroll_flags).w
 
-locret_6766:
+	.return:
 		rts	
 ; End of function ScrollVertical
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
+; Scrolls background and sets redraw flags.
+; d4 - background x offset * $10000
+; d5 - background y offset * $10000
 
-
-ScrollBlock1:
+BGScroll_XY:
 		move.l	(v_bgscreenposx).w,d2
 		move.l	d2,d0
 		add.l	d4,d0
@@ -858,17 +908,17 @@ ScrollBlock1:
 		move.l	d0,d1
 		swap	d1
 		andi.w	#$10,d1
-		move.b	($FFFFF74C).w,d3
+		move.b	(v_bg1_xblock).w,d3
 		eor.b	d3,d1
-		bne.s	loc_6AF8
-		eori.b	#$10,($FFFFF74C).w
-		sub.l	d2,d0
-		bpl.s	loc_6AF2
+		bne.s	BGScroll_YRelative	; no change in Y
+		eori.b	#$10,(v_bg1_xblock).w
+		sub.l	d2,d0	; new - old
+		bpl.s	.scrollRight
 		bset	#2,(v_bg1_scroll_flags).w
-		bra.s	loc_6AF8
-loc_6AF2:
+		bra.s	BGScroll_YRelative
+	.scrollRight:
 		bset	#3,(v_bg1_scroll_flags).w
-loc_6AF8:
+BGScroll_YRelative:
 		move.l	(v_bgscreenposy).w,d3
 		move.l	d3,d0
 		add.l	d5,d0
@@ -876,19 +926,19 @@ loc_6AF8:
 		move.l	d0,d1
 		swap	d1
 		andi.w	#$10,d1
-		move.b	($FFFFF74D).w,d2
+		move.b	(v_bg1_yblock).w,d2
 		eor.b	d2,d1
-		bne.s	loc_6B2C
-		eori.b	#$10,($FFFFF74D).w
+		bne.s	.return
+		eori.b	#$10,(v_bg1_yblock).w
 		sub.l	d3,d0
-		bpl.s	loc_6B26
+		bpl.s	.scrollBottom
 		bset	#0,(v_bg1_scroll_flags).w
 		rts
-loc_6B26:
+	.scrollBottom:
 		bset	#1,(v_bg1_scroll_flags).w
-loc_6B2C:
+	.return:
 		rts
-; End of function ScrollBlock1
+; End of function BGScroll_XY
 
 Bg_Scroll_Y:
 		move.l	(v_bgscreenposy).w,d3
@@ -898,47 +948,47 @@ Bg_Scroll_Y:
 		move.l	d0,d1
 		swap	d1
 		andi.w	#$10,d1
-		move.b	($FFFFF74D).w,d2
+		move.b	(v_bg1_yblock).w,d2
 		eor.b	d2,d1
-		bne.s	Exit_Bg_Scroll_Y
-		eori.b	#$10,($FFFFF74D).w
+		bne.s	.return
+		eori.b	#$10,(v_bg1_yblock).w
 		sub.l	d3,d0
-		bpl.s	loc_6B5C
+		bpl.s	.scrollBottom
 		bset	#4,(v_bg1_scroll_flags).w
 		rts
-loc_6B5C:
+	.scrollBottom:
 		bset	#5,(v_bg1_scroll_flags).w
-Exit_Bg_Scroll_Y:
+	.return:
 		rts
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-ScrollBlock2:
+BGScroll_YAbsolute:
 		move.w	(v_bgscreenposy).w,d3
 		move.w	d0,(v_bgscreenposy).w
 		move.w	d0,d1
 		andi.w	#$10,d1
-		move.b	($FFFFF74D).w,d2
+		move.b	(v_bg1_yblock).w,d2
 		eor.b	d2,d1
-		bne.s	Exit_Scroll_Block2
-		eori.b	#$10,($FFFFF74D).w
+		bne.s	.return
+		eori.b	#$10,(v_bg1_yblock).w
 		sub.w	d3,d0
-		bpl.s	loc_6B8C
+		bpl.s	.scrollBottom
 		bset	#0,(v_bg1_scroll_flags).w
 		rts
-loc_6B8C:
+	.scrollBottom:
 		bset	#1,(v_bg1_scroll_flags).w
-Exit_Scroll_Block2:
+	.return:
 		rts
-; End of function ScrollBlock2
+; End of function BGScroll_YAbsolute
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
+; d6 - bit to set for redraw
 
-
-ScrollBlock3:
+BGScroll_Block1:
 		move.l	(v_bgscreenposx).w,d2
 		move.l	d2,d0
 		add.l	d4,d0
@@ -946,26 +996,26 @@ ScrollBlock3:
 		move.l	d0,d1
 		swap	d1
 		andi.w	#$10,d1
-		move.b	($FFFFF74C).w,d3
+		move.b	(v_bg1_xblock).w,d3
 		eor.b	d3,d1
-		bne.s	Exit_Scroll_Block3
-		eori.b	#$10,($FFFFF74C).w
+		bne.s	.return
+		eori.b	#$10,(v_bg1_xblock).w
 		sub.l	d2,d0
-		bpl.s	loc_6BC0
+		bpl.s	.scrollRight
 		bset	d6,(v_bg1_scroll_flags).w
-		bra.s	Exit_Scroll_Block3
-loc_6BC0:
+		bra.s	.return
+	.scrollRight:
 		addq.b	#1,d6
 		bset	d6,(v_bg1_scroll_flags).w
-Exit_Scroll_Block3:
+	.return:
 		rts
-; End of function ScrollBlock3
+; End of function BGScroll_Block1
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-ScrollBlock4:
+BGScroll_Block2:
 		move.l	(v_bg2screenposx).w,d2
 		move.l	d2,d0
 		add.l	d4,d0
@@ -973,21 +1023,21 @@ ScrollBlock4:
 		move.l	d0,d1
 		swap	d1
 		andi.w	#$10,d1
-		move.b	($FFFFF74E).w,d3
+		move.b	(v_bg2_xblock).w,d3
 		eor.b	d3,d1
-		bne.s	Exit_Scroll_Block4
-		eori.b	#$10,($FFFFF74E).w
+		bne.s	.return
+		eori.b	#$10,(v_bg2_xblock).w
 		sub.l	d2,d0
-		bpl.s	loc_6BF4
+		bpl.s	.scrollRight
 		bset	d6,(v_bg2_scroll_flags).w
-		bra.s	Exit_Scroll_Block4
-loc_6BF4:
+		bra.s	.return
+	.scrollRight:
 		addq.b	#1,d6
 		bset	d6,(v_bg2_scroll_flags).w
-Exit_Scroll_Block4:
+	.return:
 		rts
 ;-------------------------------------------------------------------------------
-ScrollBlock5:
+BGScroll_Block3:
 		move.l	(v_bg3screenposx).w,d2
 		move.l	d2,d0
 		add.l	d4,d0
@@ -995,16 +1045,16 @@ ScrollBlock5:
 		move.l	d0,d1
 		swap	d1
 		andi.w	#$10,d1
-		move.b	($FFFFF750).w,d3
+		move.b	(v_bg3_xblock).w,d3
 		eor.b	d3,d1
-		bne.s	loc_6C2E
-		eori.b	#$10,($FFFFF750).w
+		bne.s	.return
+		eori.b	#$10,(v_bg3_xblock).w
 		sub.l	d2,d0
-		bpl.s	loc_6C28
+		bpl.s	.scrollRight
 		bset	d6,(v_bg3_scroll_flags).w
-		bra.s	loc_6C2E
-loc_6C28:
+		bra.s	.return
+	.scrollRight:
 		addq.b	#1,d6
 		bset	d6,(v_bg3_scroll_flags).w
-loc_6C2E:
+	.return:
 		rts

@@ -7,11 +7,11 @@
 
 DeformLayers:
 		tst.b	(f_nobgscroll).w
-		beq.s	loc_628E
+		beq.s	.bgscroll
 		rts	
 ; ===========================================================================
 
-loc_628E:
+	.bgscroll:
 		clr.w	(v_fg_scroll_flags).w
 		clr.w	(v_bg1_scroll_flags).w
 		clr.w	(v_bg2_scroll_flags).w
@@ -128,7 +128,7 @@ Deform_LZ:
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#7,d4
-		move.w	($FFFFF73C).w,d5
+		move.w	(v_scrshifty).w,d5
 		ext.l	d5
 		asl.l	#7,d5
 		bsr.w	ScrollBlock1
@@ -204,13 +204,13 @@ Deform_SLZ:
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#7,d4
-		move.w	($FFFFF73C).w,d5
+		move.w	(v_scrshifty).w,d5
 		ext.l	d5
 		asl.l	#7,d5
 		bsr.w	ScrollBlock2
 		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
 		bsr.w	Deform_SLZ_2
-		lea	($FFFFA800).w,a2
+		lea	(v_bgscroll_buffer).w,a2
 		move.w	(v_bgscreenposy).w,d0
 		move.w	d0,d2
 		subi.w	#$C0,d0
@@ -257,7 +257,7 @@ loc_6482:
 
 
 Deform_SLZ_2:
-		lea	($FFFFA800).w,a1
+		lea	(v_bgscroll_buffer).w,a1
 		move.w	(v_screenposx).w,d2
 		neg.w	d2
 		move.w	d2,d0
@@ -314,7 +314,7 @@ Deform_SYZ:
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#6,d4
-		move.w	($FFFFF73C).w,d5
+		move.w	(v_scrshifty).w,d5
 		ext.l	d5
 		asl.l	#4,d5
 		move.l	d5,d1
@@ -347,7 +347,7 @@ Deform_SBZ:
 		move.w	(v_scrshiftx).w,d4
 		ext.l	d4
 		asl.l	#6,d4
-		move.w	($FFFFF73C).w,d5
+		move.w	(v_scrshifty).w,d5
 		ext.l	d5
 		asl.l	#4,d5
 		asl.l	#1,d5
@@ -486,7 +486,7 @@ loc_664A:
 		bne.s	loc_66A8
 
 loc_6656:
-		clr.w	($FFFFF73C).w
+		clr.w	(v_scrshifty).w
 		rts	
 ; ===========================================================================
 
@@ -589,7 +589,7 @@ loc_6724:
 		move.l	d1,d3
 		sub.l	(v_screenposy).w,d3
 		ror.l	#8,d3
-		move.w	d3,($FFFFF73C).w
+		move.w	d3,(v_scrshifty).w
 		move.l	d1,(v_screenposy).w
 		move.w	(v_screenposy).w,d0
 		andi.w	#$10,d0

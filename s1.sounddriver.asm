@@ -607,7 +607,7 @@ CycleSoundQueue:
 		move.b	d0,d1
 		clr.b	(a1)+			; Clear entry
 		subi.b	#bgm__First,d0		; Make it into 0-based index
-		blo.s	.nextinput		; If negative (i.e., it was $80 or lower), branch
+		bcs.s	.nextinput		; If negative (i.e., it was $80 or lower), branch
 		cmpi.b	#$80,v_sound_id(a6)	; Is v_sound_id a $80 (silence/empty)?
 		beq.s	.havesound		; If yes, branch
 		move.b	d1,v_soundqueue0(a6)	; Put sound into v_soundqueue0
@@ -1744,7 +1744,7 @@ PSGDoNext:
 ; sub_728AC:
 PSGSetFreq:
 		subi.b	#$81,d5		; Convert to 0-based index
-		blo.s	.restpsg	; If $80, put track at rest
+		bcs.s	.restpsg	; If $80, put track at rest
 		add.b	TrackTranspose(a5),d5 ; Add in channel transposition
 		andi.w	#$7F,d5		; Clear high byte and sign bit
 		lsl.w	#1,d5
@@ -2267,7 +2267,7 @@ SendVoiceTL:
 		lsr.b	#1,d4		; Is bit set for this operator in the mask?
 		bcc.s	.senttl		; Branch if not
 		add.b	d3,d1		; Include additional attenuation
-		blo.s	.senttl		; Branch on overflow
+		bcs.s	.senttl		; Branch on overflow
 		jsr	WriteFMIorII(pc)
 ; loc_72D12:
 .senttl:
