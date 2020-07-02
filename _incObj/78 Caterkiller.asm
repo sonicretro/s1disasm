@@ -194,7 +194,7 @@ loc_16B02:
 			cmp.w	obX(a0),d3
 			beq.s	.notmoving
 			jsr	(ObjFloorDist).l
-			cmpi.w	#$FFF8,d1
+			cmpi.w	#-8,d1
 			blt.s	.loc_16B70
 			cmpi.w	#$C,d1
 			bge.s	.loc_16B70
