@@ -78,7 +78,7 @@ Deform_GHZ:
 		moveq	#0,d0	; reset foreground position in title screen
 	@notTitle:
 		neg.w	d0
-		swap.w	d0
+		swap	d0
 	; auto-scroll clouds
 		lea	(v_bgscroll_buffer).w,a2
 		addi.l	#$10000,(a2)+
@@ -142,9 +142,9 @@ Deform_GHZ:
 		move.w	d3,d0
 		neg.w	d0
 		move.l	d0,(a1)+
-		swap.w	d3
+		swap	d3
 		add.l	d2,d3
-		swap.w	d3
+		swap	d3
 		dbf	d1,@waterLoop
 		rts
 ; End of function Deform_GHZ
@@ -182,7 +182,7 @@ Deform_LZ:
 		move.w	(v_screenposx).w,d0
 		neg.w	d0
 		move.w	d0,d6
-		swap.w	d0
+		swap	d0
 		move.w	(v_bgscreenposx).w,d0
 		neg.w	d0
 		move.w	(v_waterpos1).w,d4
@@ -300,9 +300,9 @@ Deform_MZ:
 		move.w	#4,d1
 	@cloudLoop:		
 		move.w	d3,(a1)+
-		swap.w	d3
+		swap	d3
 		add.l	d0,d3
-		swap.w	d3
+		swap	d3
 		dbf	d1,@cloudLoop
 
 		move.w	(v_bg3screenposx).w,d0
@@ -372,9 +372,9 @@ Deform_SLZ:
 		move.w	#$1B,d1
 	@starLoop:		
 		move.w	d3,(a1)+
-		swap.w	d3
+		swap	d3
 		add.l	d0,d3
-		swap.w	d3
+		swap	d3
 		dbf	d1,@starLoop
 
 		move.w	d2,d0
@@ -415,7 +415,7 @@ Bg_Scroll_X:
 		move.w	#$E,d1
 		move.w	(v_screenposx).w,d0
 		neg.w	d0
-		swap.w	d0
+		swap	d0
 		andi.w	#$F,d2
 		add.w	d2,d2
 		move.w	(a2)+,d0
@@ -478,9 +478,9 @@ Deform_SYZ:
 		move.w	#7,d1
 	@cloudLoop:		
 		move.w	d3,(a1)+
-		swap.w	d3
+		swap	d3
 		add.l	d0,d3
-		swap.w	d3
+		swap	d3
 		dbf	d1,@cloudLoop
 
 		move.w	d2,d0
@@ -513,9 +513,9 @@ Deform_SYZ:
 		move.w	#$D,d1
 	@bushLoop:		
 		move.w	d3,(a1)+
-		swap.w	d3
+		swap	d3
 		add.l	d0,d3
-		swap.w	d3
+		swap	d3
 		dbf	d1,@bushLoop
 
 		lea	(v_bgscroll_buffer).w,a2
@@ -593,9 +593,9 @@ Deform_SBZ:
 		move.w	#3,d1
 	@cloudLoop:		
 		move.w	d3,(a1)+
-		swap.w	d3
+		swap	d3
 		add.l	d0,d3
-		swap.w	d3
+		swap	d3
 		dbf	d1,@cloudLoop
 
 		move.w	(v_bg3screenposx).w,d0
@@ -641,7 +641,7 @@ Deform_SBZ2:;loc_68A2:
 		move.w	#223,d1
 		move.w	(v_screenposx).w,d0
 		neg.w	d0
-		swap.w	d0
+		swap	d0
 		move.w	(v_bgscreenposx).w,d0
 		neg.w	d0
 	@loop:		
@@ -906,7 +906,7 @@ BGScroll_XY:
 		add.l	d4,d0
 		move.l	d0,(v_bgscreenposx).w
 		move.l	d0,d1
-		swap.w	d1
+		swap	d1
 		andi.w	#$10,d1
 		move.b	(v_bg1_xblock).w,d3
 		eor.b	d3,d1
@@ -924,7 +924,7 @@ BGScroll_YRelative:
 		add.l	d5,d0
 		move.l	d0,(v_bgscreenposy).w
 		move.l	d0,d1
-		swap.w	d1
+		swap	d1
 		andi.w	#$10,d1
 		move.b	(v_bg1_yblock).w,d2
 		eor.b	d2,d1
@@ -946,7 +946,7 @@ Bg_Scroll_Y:
 		add.l	d5,d0
 		move.l	d0,(v_bgscreenposy).w
 		move.l	d0,d1
-		swap.w	d1
+		swap	d1
 		andi.w	#$10,d1
 		move.b	(v_bg1_yblock).w,d2
 		eor.b	d2,d1
@@ -994,7 +994,7 @@ BGScroll_Block1:
 		add.l	d4,d0
 		move.l	d0,(v_bgscreenposx).w
 		move.l	d0,d1
-		swap.w	d1
+		swap	d1
 		andi.w	#$10,d1
 		move.b	(v_bg1_xblock).w,d3
 		eor.b	d3,d1
@@ -1021,7 +1021,7 @@ BGScroll_Block2:
 		add.l	d4,d0
 		move.l	d0,(v_bg2screenposx).w
 		move.l	d0,d1
-		swap.w	d1
+		swap	d1
 		andi.w	#$10,d1
 		move.b	(v_bg2_xblock).w,d3
 		eor.b	d3,d1
@@ -1043,7 +1043,7 @@ BGScroll_Block3:
 		add.l	d4,d0
 		move.l	d0,(v_bg3screenposx).w
 		move.l	d0,d1
-		swap.w	d1
+		swap	d1
 		andi.w	#$10,d1
 		move.b	(v_bg3_xblock).w,d3
 		eor.b	d3,d1
