@@ -15,17 +15,16 @@ Num 16x16 Pages:       1
 Page0 8x8 Page:        0
 16x16 Tiles Page 0:    ..\map16\LZ.bin
 
-Metatile Size:         256
+Metatile Size:         128
 Metatile Compression:  1
 Num Metatile Pages:    1
 Page0 16x16 Page:      0
-Metatile Tiles Page 0: ..\map256\LZ.bin
+Metatile Tiles Page 0: ..\map128\LZ.bin
 
-Layout Format:         0
+Layout Format:         1
 Layout Compression:    0
-FG Level Layout:       ..\levels\lz3.bin
 BG 128x128 Page:       0
-BG Level Layout:       ..\levels\lzbg.bin
+FG Level Layout:       ..\levels\lz3.bin
 
 Objects Format:        1
 Objects:               ..\objpos\lz3 (JP1).bin
@@ -67,9 +66,10 @@ Collision Array:         ..\collide\Collision Array (Normal).bin
 Rotated Collision Array: ..\collide\Collision Array (Rotated).bin
 Angle Array:             ..\collide\Angle Map.bin
 
-Collision Index Format:      0
+Collision Index Format:      1
 Collision Index Compression: 0
-Collision Index:             ..\collide\LZ.bin
+Collision Index 1:           ..\collide\LZ1.bin
+Collision Index 2:           ..\collide\LZ2.bin
 
 Game Name: Sonic 1
 

@@ -8,8 +8,9 @@ v_regbuffer	= ramaddr ( $FFFFFC00 )	; stores registers d0-a7 during an error eve
 v_spbuffer	= ramaddr ( $FFFFFC40 )	; stores most recent sp address (4 bytes)
 v_errortype	= ramaddr ( $FFFFFC44 )	; error type
 
-v_256x256	= ramaddr (   $FF0000 )	; 256x256 tile mappings ($A400 bytes)
-v_lvllayout	= ramaddr ( $FFFFA400 )	; level and background layouts ($400 bytes)
+v_128x128:	= ramaddr ( $FF0000 )	; 128x128 tile mappings ($A400 bytes)
+v_lvllayoutfg	= ramaddr ( $FFFFA400 )	; level layout ROM address (4 bytes)
+v_lvllayoutbg	= ramaddr ( $FFFFA404 )	; background layout ROM address (4 bytes)
 
 v_ngfx_buffer	= ramaddr ( $FFFFAA00 )	; Nemesis graphics decompression buffer ($200 bytes)
 v_spritequeue	= ramaddr ( $FFFFAC00 )	; sprite display queue, in order of priority ($400 bytes)
@@ -326,6 +327,10 @@ v_levselitem	= ramaddr ( $FFFFFF82 )	; level select - item selected (2 bytes)
 v_levselsound	= ramaddr ( $FFFFFF84 )	; level select - sound selected (2 bytes)
 v_scorecopy	= ramaddr ( $FFFFFFC0 )	; score, duplicate (4 bytes)
 v_scorelife	= ramaddr ( $FFFFFFC0 )	; points required for an extra life (4 bytes) (JP1 only)
+v_colladdr1	= ramaddr ( $FFFFFFD0 )	; (4 bytes)
+v_colladdr2	= ramaddr ( $FFFFFFD4 )	; (4 bytes)
+v_top_solid_bit	= ramaddr ( $FFFFFFD8 )
+v_lrb_solid_bit	= ramaddr ( $FFFFFFD9 )
 f_levselcheat	= ramaddr ( $FFFFFFE0 )	; level select cheat flag
 f_slomocheat	= ramaddr ( $FFFFFFE1 )	; slow motion & frame advance cheat flag
 f_debugcheat	= ramaddr ( $FFFFFFE2 )	; debug mode cheat flag
