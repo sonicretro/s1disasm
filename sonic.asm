@@ -2197,6 +2197,7 @@ GM_Title:
 
 		move.b	#id_TitleSonic,(v_objspace+$40).w ; load big Sonic object
 		move.b	#id_PSBTM,(v_objspace+$80).w ; load "PRESS START BUTTON" object
+		;clr.b	(v_objspace+$80+obRoutine).w ; The 'Mega Games 10' version of Sonic 1 added this line, to fix the 'PRESS START BUTTON' object not appearing
 
 		if Revision=0
 		else
