@@ -19,7 +19,7 @@ echa_angle:	equ $3E	; angle for rotation (2 bytes)
 ; ===========================================================================
 
 ECha_Main:	; Routine 0
-		cmpi.b	#2,(v_player+obFrame).w
+		cmpi.b	#fr_Wait1,(v_player+obFrame).w
 		beq.s	ECha_CreateEms
 		addq.l	#4,sp
 		rts	
