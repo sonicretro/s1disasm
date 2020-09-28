@@ -4021,7 +4021,7 @@ End_MoveSon2:
 		move.w	d0,(v_jpadhold2).w ; stop Sonic moving
 		move.w	d0,(v_player+obInertia).w
 		move.b	#$81,(f_lockmulti).w ; lock controls & position
-		move.b	#3,(v_player+obFrame).w
+		move.b	#fr_Wait2,(v_player+obFrame).w
 		move.w	#(id_Wait<<8)+id_Wait,(v_player+obAnim).w ; use "standing" animation
 		move.b	#3,(v_player+obTimeFrame).w
 		rts	
