@@ -1,4 +1,4 @@
-Palette File: ../palette/Sega2.bin
+Palette File: ../palette/Hidden Japanese Credits.bin
 Mapping File: ../tilemaps/Hidden Japanese Credits.bin
 Art File: ../artnem/Hidden Japanese Credits.bin
 Mapping Compression: Enigma
