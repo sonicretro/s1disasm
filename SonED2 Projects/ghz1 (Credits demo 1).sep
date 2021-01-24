@@ -1,6 +1,6 @@
 Type: Level
 
-Zone ID:    0
+Zone ID:    5
 Act ID:     0
 
 Object Def:     objdef\s1obj
@@ -33,7 +33,7 @@ Objects:               ..\objpos\ghz1.bin
 Rings Format:          0
 Misc Format:           0
 Num Start Positions:   1
-Start Position 0:      ..\startpos\ghz1 (Credits demo 1).bin
+Start Position 0:      ..\startpos\sbz1 (Credits demo 1).bin
 
 Palettes-
 
@@ -42,7 +42,7 @@ Palettes-
   Palette 0-
 
    Start index:        0
-   Number of entries: 16
+   Number of entries: 15
    File:              ..\palette\Sonic.bin
 
   Palette 1-
