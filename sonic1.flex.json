@@ -1,0 +1,2794 @@
+{
+    "Flex": 2,
+    "name": "Sonic 1",
+    "node": "da472ab9-f363-45e6-8ee3-a83fd70d6d9c",
+    "objects": [
+        {
+            "name": "Common",
+            "children": [
+                {
+                    "name": "Sonic",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artunc/Sonic.bin",
+                        "compression": "Uncompressed",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Sonic.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": true,
+                        "path": "_maps/Sonic - Dynamic Gfx Script.asm",
+                        "label": ""
+                    },
+                    "uuid": "da472ab9-f363-45e6-8ee3-a83fd70d6d9c"
+                },
+                {
+                    "name": "Signpost",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Signpost.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Signpost.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "472ab9f3-6355-46ce-a3a8-3fd70d6d9cd8"
+                },
+                {
+                    "name": "Ring",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Rings.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Rings.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "2ab9f363-55e6-4ee3-a83f-d70d6d9cd886"
+                },
+                {
+                    "name": "Monitor",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Monitors.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Monitor.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "b9f36355-e6ce-43a8-bfd7-0d6d9cd8865f"
+                },
+                {
+                    "name": "Spikes",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Spikes.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Spikes.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "f36355e6-cee3-483f-970d-6d9cd8865fb1"
+                },
+                {
+                    "name": "Egg Prison",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Prison Capsule.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Prison Capsule.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "6355e6ce-e3a8-4fd7-8d6d-9cd8865fb147"
+                },
+                {
+                    "name": "Spring",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Spring Horizontal.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Springs.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "55e6cee3-a83f-470d-ad9c-d8865fb14792"
+                },
+                {
+                    "name": "Giant ring",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artunc/Giant Ring.bin",
+                        "compression": "Uncompressed",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Giant Ring.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "e6cee3a8-3fd7-4d6d-9cd8-865fb1479299"
+                },
+                {
+                    "name": "Invisible solid block",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Monitors.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Invisible Barriers.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "e3a83fd7-0d6d-4cd8-865f-b147929999ea"
+                },
+                {
+                    "name": "Lamppost",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Lamppost.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Lamppost.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "a83fd70d-6d9c-4886-9fb1-47929999eaa2"
+                },
+                {
+                    "name": "Hidden Point Bonus",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Hidden Bonuses.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Hidden Bonuses.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "3fd70d6d-9cd8-465f-b147-929999eaa239"
+                }
+            ],
+            "isDirectory": true,
+            "expanded": false,
+            "uuid": "14da472a-b9f3-4355-a6ce-e3a83fd70d6d"
+        },
+        {
+            "name": "GHZ",
+            "children": [
+                {
+                    "uuid": "00cd250e-813f-440e-b06c-e8c1cfd2387d",
+                    "format": "Sonic 1.js",
+                    "name": "Ball",
+                    "palettes": [],
+                    "art": {
+                        "path": "artnem/GHZ Giant Ball.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/GHZ Ball.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    }
+                },
+                {
+                    "name": "Bridge",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Green Hill Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/GHZ Bridge.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Bridge.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "0d6d9cd8-865f-4147-9299-99eaa239c304"
+                },
+                {
+                    "name": "Swinging Platform",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Green Hill Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/GHZ Swinging Platform.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Swinging Platforms (GHZ).asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "6d9cd886-5fb1-4792-9999-eaa239c3047f"
+                },
+                {
+                    "name": "Helix of spikes on a pole",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Green Hill Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/GHZ Spiked Log.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Spiked Pole Helix.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "9cd8865f-b147-4299-99ea-a239c3047fd4"
+                },
+                {
+                    "name": "Platform",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Green Hill Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/8x8 - GHZ1.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Platforms (GHZ).asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "d8865fb1-4792-4999-aaa2-39c3047fd4d4"
+                },
+                {
+                    "name": "Collapsing Cliff",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Green Hill Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/8x8 - GHZ1.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Collapsing Ledge.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "865fb147-9299-49ea-a239-c3047fd4d422"
+                },
+                {
+                    "name": "Bridge stump",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Green Hill Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/GHZ Bridge.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Bridge.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "5fb14792-9999-4aa2-b9c3-047fd4d422f4"
+                },
+                {
+                    "name": "Crabmeat",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Green Hill Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Enemy Crabmeat.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Crabmeat.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "b1479299-99ea-4239-8304-7fd4d422f43f"
+                },
+                {
+                    "name": "Buzz Bomber",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Green Hill Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Enemy Buzz Bomber.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Buzz Bomber.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "47929999-eaa2-49c3-847f-d4d422f43f5e"
+                },
+                {
+                    "name": "Chopper",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Green Hill Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Enemy Chopper.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Chopper.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "929999ea-a239-4304-bfd4-d422f43f5ed1"
+                },
+                {
+                    "name": "Purple rock",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Green Hill Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/GHZ Purple Rock.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Purple Rock.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "9999eaa2-39c3-447f-94d4-22f43f5ed13c"
+                },
+                {
+                    "name": "Breakable Wall",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Green Hill Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/GHZ Breakable Wall.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Smashable Walls.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "99eaa239-c304-4fd4-9422-f43f5ed13c29"
+                },
+                {
+                    "name": "Moto Bug",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Green Hill Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Enemy Motobug.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Moto Bug.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "eaa239c3-047f-44d4-a2f4-3f5ed13c29d5"
+                },
+                {
+                    "name": "Newtron",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Green Hill Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Enemy Newtron.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Newtron.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "a239c304-7fd4-4422-b43f-5ed13c29d58b"
+                },
+                {
+                    "name": "Wall Barrier",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Green Hill Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/GHZ Edge Wall.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/GHZ Edge Walls.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "39c3047f-d4d4-42f4-bf5e-d13c29d58b5f"
+                }
+            ],
+            "isDirectory": true,
+            "expanded": false,
+            "uuid": "d70d6d9c-d886-4fb1-8792-9999eaa239c3"
+        },
+        {
+            "name": "LZ",
+            "children": [
+                {
+                    "name": "Pole",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 3.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/LZ Breakable Pole.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Pole that Breaks.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "047fd4d4-22f4-4f5e-913c-29d58b5f0d2c"
+                },
+                {
+                    "name": "Flapping Door",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 3.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/LZ Flapping Door.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Flapping Door.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "7fd4d422-f43f-4ed1-bc29-d58b5f0d2c6b"
+                },
+                {
+                    "name": "Harpoon",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 3.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/LZ Harpoon.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Harpoon.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "d4d422f4-3f5e-413c-a9d5-8b5f0d2c6bda"
+                },
+                {
+                    "name": "Jaws",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 3.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Enemy Jaws.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Jaws.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "d422f43f-5ed1-4c29-958b-5f0d2c6bdae6"
+                },
+                {
+                    "name": "Burrobot",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 3.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Enemy Burrobot.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Burrobot.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "22f43f5e-d13c-49d5-8b5f-0d2c6bdae612"
+                },
+                {
+                    "name": "Switch",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 3.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Switch.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Button.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "f43f5ed1-3c29-458b-9f0d-2c6bdae612ef"
+                },
+                {
+                    "name": "Moving Block Platform",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 3.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/LZ 32x16 Block.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Moving Blocks (LZ).asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "3f5ed13c-29d5-4b5f-8d2c-6bdae612ef85"
+                },
+                {
+                    "name": "Door",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 3.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/LZ Vertical Door.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Floating Blocks and Doors.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "5ed13c29-d58b-4f0d-ac6b-dae612ef85be"
+                },
+                {
+                    "name": "Spikeball on Chain",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 3.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/LZ Spiked Ball & Chain.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Spiked Ball and Chain (LZ).asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "d13c29d5-8b5f-4d2c-abda-e612ef85be41"
+                },
+                {
+                    "name": "Orbinaut",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 3.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Enemy Orbinaut.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Orbinaut.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "3c29d58b-5f0d-4c6b-9ae6-12ef85be41a2"
+                },
+                {
+                    "name": "Gargoyle",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 3.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/LZ Gargoyle & Fireball.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Gargoyle.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "29d58b5f-0d2c-4bda-a612-ef85be41a2ca"
+                },
+                {
+                    "name": "Conveyor Belt",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 3.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/LZ Wheel.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/LZ Conveyor.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "d58b5f0d-2c6b-4ae6-92ef-85be41a2ca52"
+                },
+                {
+                    "name": "Bubbles",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 3.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/LZ Bubbles & Countdown.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Bubbles.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "8b5f0d2c-6bda-4612-af85-be41a2ca5284"
+                },
+                {
+                    "name": "Block/Cork",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 3.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/LZ Horizontal Door.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/LZ Blocks.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "5f0d2c6b-dae6-42ef-85be-41a2ca5284d1"
+                },
+                {
+                    "name": "Waterfall",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 3.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/LZ Water & Splashes.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Waterfalls.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "0d2c6bda-e612-4f85-be41-a2ca5284d18b"
+                }
+            ],
+            "isDirectory": true,
+            "expanded": false,
+            "uuid": "c3047fd4-d422-443f-9ed1-3c29d58b5f0d"
+        },
+        {
+            "name": "MZ",
+            "children": [
+                {
+                    "name": "Fireball Spawner",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Marble Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Fireballs.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Fireballs.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "6bdae612-ef85-4e41-a2ca-5284d18ba250"
+                },
+                {
+                    "name": "Buzz Bomber",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Marble Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Enemy Buzz Bomber.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Buzz Bomber.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "e612ef85-be41-42ca-9284-d18ba25059c7"
+                },
+                {
+                    "name": "Grass Platform",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Marble Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/8x8 - MZ.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/MZ Large Grassy Platforms.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "12ef85be-41a2-4a52-84d1-8ba25059c71d"
+                },
+                {
+                    "name": "Large Glass Pillar",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Marble Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/MZ Green Glass Block.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/MZ Large Green Glass Blocks.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "ef85be41-a2ca-4284-918b-a25059c71df9"
+                },
+                {
+                    "name": "Switch",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Marble Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/MZ Switch.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Button.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "85be41a2-ca52-44d1-8ba2-5059c71df96d"
+                },
+                {
+                    "name": "Movable Block",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Marble Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/MZ Green Pushable Block.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Pushable Blocks.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "be41a2ca-5284-418b-a250-59c71df96d67"
+                },
+                {
+                    "name": "Sideways Stomper",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Marble Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/MZ Metal Blocks.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Sideways Stomper.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "41a2ca52-84d1-4ba2-9059-c71df96d676a"
+                },
+                {
+                    "name": "Brick",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Marble Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/8x8 - MZ.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/MZ Bricks.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "a2ca5284-d18b-4250-99c7-1df96d676a04"
+                },
+                {
+                    "name": "Wall of Lava",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Marble Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/MZ Lava.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Wall of Lava.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "ca5284d1-8ba2-4059-871d-f96d676a0423"
+                },
+                {
+                    "name": "Yadrin",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Marble Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Enemy Yadrin.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Yadrin.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "5284d18b-a250-49c7-9df9-6d676a04238a"
+                },
+                {
+                    "name": "Smashable Block",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Marble Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/MZ Green Pushable Block.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Smashable Green Block.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "84d18ba2-5059-471d-b96d-676a04238a07"
+                },
+                {
+                    "name": "Moving Block Platform",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Marble Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/MZ Green Pushable Block.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Moving Blocks (MZ and SBZ).asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "d18ba250-59c7-4df9-ad67-6a04238a0756"
+                },
+                {
+                    "name": "Collapsing Floor",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Marble Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/MZ Green Pushable Block.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Collapsing Floors.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "8ba25059-c71d-496d-a76a-04238a0756b3"
+                },
+                {
+                    "name": "Basaran",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Marble Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Enemy Basaran.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Basaran.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "a25059c7-1df9-4d67-aa04-238a0756b351"
+                },
+                {
+                    "name": "Caterkiller",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Marble Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Enemy Caterkiller.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Caterkiller.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "5059c71d-f96d-476a-8423-8a0756b3511a"
+                }
+            ],
+            "isDirectory": true,
+            "expanded": false,
+            "uuid": "2c6bdae6-12ef-45be-81a2-ca5284d18ba2"
+        },
+        {
+            "name": "SBZ",
+            "children": [
+                {
+                    "name": "Swinging Spikeball",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 2.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/SYZ Large Spikeball.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Big Spiked Ball.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "c71df96d-676a-4423-8a07-56b3511a57a1"
+                },
+                {
+                    "name": "Ball Hog",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 2.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Enemy Ball Hog.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Ball Hog.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "1df96d67-6a04-438a-8756-b3511a57a1e8"
+                },
+                {
+                    "name": "One-Way Barrier",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 2.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/SBZ Small Vertical Door.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/SBZ Small Door.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "f96d676a-0423-4a07-96b3-511a57a1e8dd"
+                },
+                {
+                    "name": "Switch",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 2.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Switch.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Button.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "6d676a04-238a-4756-b351-1a57a1e8ddd8"
+                },
+                {
+                    "name": "Moving Block Platform",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 2.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/SBZ Sliding Floor Trap.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Moving Blocks (MZ and SBZ).asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "676a0423-8a07-46b3-911a-57a1e8ddd81c"
+                },
+                {
+                    "name": "Collapsing Floor",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 2.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/SBZ Collapsing Floor.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Collapsing Floors.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "6a04238a-0756-4351-9a57-a1e8ddd81c53"
+                },
+                {
+                    "name": "Bomb",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 2.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Enemy Bomb.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Bomb Enemy.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "04238a07-56b3-411a-97a1-e8ddd81c539e"
+                },
+                {
+                    "name": "Orbinaut",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 2.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Enemy Orbinaut.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Orbinaut.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "238a0756-b351-4a57-a1e8-ddd81c539e89"
+                },
+                {
+                    "name": "Rotating Junction",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 2.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/SBZ Junction Wheel.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Rotating Junction.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "8a0756b3-511a-47a1-a8dd-d81c539e896a"
+                },
+                {
+                    "name": "Trapdoor/Spinning Platform",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 2.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/SBZ Spinning Platform.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/SBZ Spinning Platforms.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "0756b351-1a57-41e8-9dd8-1c539e896a36"
+                },
+                {
+                    "name": "Vanishing Platform",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 2.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/SBZ Vanishing Block.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/SBZ Vanishing Platforms.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "56b3511a-57a1-48dd-981c-539e896a365c"
+                },
+                {
+                    "name": "Flamethrower",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 2.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/SBZ Flaming Pipe.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Flamethrower.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "b3511a57-a1e8-4dd8-9c53-9e896a365cd1"
+                },
+                {
+                    "name": "Electrocuter",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 2.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/SBZ Electrocuter.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Electrocuter.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "511a57a1-e8dd-481c-939e-896a365cd177"
+                },
+                {
+                    "name": "Girder Block",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 2.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/SBZ Crushing Girder.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Girder Block.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "1a57a1e8-ddd8-4c53-9e89-6a365cd17768"
+                },
+                {
+                    "name": "Caterkiller",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/SBZ Act 2.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Enemy Caterkiller.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Caterkiller.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "57a1e8dd-d81c-439e-896a-365cd177686c"
+                }
+            ],
+            "isDirectory": true,
+            "expanded": false,
+            "uuid": "59c71df9-6d67-4a04-a38a-0756b3511a57"
+        },
+        {
+            "name": "SLZ",
+            "children": [
+                {
+                    "name": "Fireball Spawner",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Star Light Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Fireballs.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Fireballs.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "e8ddd81c-539e-496a-b65c-d177686c6337"
+                },
+                {
+                    "name": "Swinging Platform",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Star Light Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/SLZ Swinging Platform.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Swinging Platforms (SLZ).asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "ddd81c53-9e89-4a36-9cd1-77686c6337c4"
+                },
+                {
+                    "name": "Platform",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Star Light Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/8x8 - SLZ.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Platforms (SLZ).asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "d81c539e-896a-465c-9177-686c6337c46a"
+                },
+                {
+                    "name": "Fireball Thrower",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Star Light Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/SLZ Cannon.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Scenery.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "1c539e89-6a36-4cd1-b768-6c6337c46aa9"
+                },
+                {
+                    "name": "Breakable Wall",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Star Light Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/SLZ Breakable Wall.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Smashable Walls.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "539e896a-365c-4177-a86c-6337c46aa914"
+                },
+                {
+                    "name": "Collapsing Floor",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Star Light Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/SLZ 32x32 Block.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Collapsing Floors.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "9e896a36-5cd1-4768-ac63-37c46aa9148b"
+                },
+                {
+                    "name": "Elevator",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Star Light Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/8x8 - SLZ.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/SLZ Elevators.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "896a365c-d177-486c-a337-c46aa9148b30"
+                },
+                {
+                    "name": "Rotating Platform",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Star Light Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/8x8 - SLZ.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/SLZ Circling Platform.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "6a365cd1-7768-4c63-b7c4-6aa9148b3085"
+                },
+                {
+                    "name": "Stairs",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Star Light Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/8x8 - SLZ.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Staircase.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "365cd177-686c-4337-846a-a9148b3085fe"
+                },
+                {
+                    "name": "Fan",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Star Light Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/SLZ Fan.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Fan.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "5cd17768-6c63-47c4-aaa9-148b3085fe2f"
+                },
+                {
+                    "name": "Seesaw",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Star Light Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/SLZ Seesaw.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Seesaw.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "d177686c-6337-446a-a914-8b3085fe2f64"
+                },
+                {
+                    "name": "Bomb",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Star Light Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Enemy Bomb.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Bomb Enemy.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "77686c63-37c4-4aa9-948b-3085fe2f6400"
+                },
+                {
+                    "name": "Orbinaut",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Star Light Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Enemy Orbinaut.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Orbinaut.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "686c6337-c46a-4914-8b30-85fe2f6400cd"
+                }
+            ],
+            "isDirectory": true,
+            "expanded": false,
+            "uuid": "a1e8ddd8-1c53-4e89-aa36-5cd177686c63"
+        },
+        {
+            "name": "SYZ",
+            "children": [
+                {
+                    "name": "Siren Light",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Spring Yard Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/8x8 - SYZ.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Light.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "6337c46a-a914-4b30-85fe-2f6400cd250e"
+                },
+                {
+                    "name": "Platform",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Spring Yard Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/8x8 - SYZ.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Platforms (SYZ).asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "37c46aa9-148b-4085-be2f-6400cd250e81"
+                },
+                {
+                    "name": "Crabmeat",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Spring Yard Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Enemy Crabmeat.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Crabmeat.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "c46aa914-8b30-45fe-af64-00cd250e813f"
+                },
+                {
+                    "name": "Buzz Bomber",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Spring Yard Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Enemy Buzz Bomber.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Buzz Bomber.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "6aa9148b-3085-4e2f-a400-cd250e813fb4"
+                },
+                {
+                    "name": "Switch",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Spring Yard Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Switch.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Button.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "a9148b30-85fe-4f64-80cd-250e813fb40e"
+                },
+                {
+                    "name": "Roller",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Spring Yard Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Enemy Roller.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Roller.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "148b3085-fe2f-4400-8d25-0e813fb40ef0"
+                },
+                {
+                    "name": "Bumper",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Spring Yard Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/SYZ Bumper.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Bumper.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "8b3085fe-2f64-40cd-a50e-813fb40ef06c"
+                },
+                {
+                    "name": "Yadrin",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Spring Yard Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Enemy Yadrin.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Yadrin.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "3085fe2f-6400-4d25-8e81-3fb40ef06ce8"
+                },
+                {
+                    "name": "Platform",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Spring Yard Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/8x8 - SYZ.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Floating Blocks and Doors.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "85fe2f64-00cd-450e-813f-b40ef06ce8c1"
+                },
+                {
+                    "name": "Spikeball Chain",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Spring Yard Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/SYZ Small Spikeball.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Spiked Ball and Chain (SYZ).asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "fe2f6400-cd25-4e81-bfb4-0ef06ce8c1cf"
+                },
+                {
+                    "name": "Big Spiked Ball",
+                    "format": "Sonic 1.js",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Spring Yard Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/SYZ Large Spikeball.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Big Spiked Ball.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "2f6400cd-250e-413f-b40e-f06ce8c1cfd2"
+                },
+                {
+                    "name": "Caterkiller",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Spring Yard Zone.bin",
+                            "length": 3
+                        }
+                    ],
+                    "format": "Sonic 1.js",
+                    "art": {
+                        "path": "artnem/Enemy Caterkiller.bin",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Caterkiller.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "6400cd25-0e81-4fb4-8ef0-6ce8c1cfd238"
+                }
+            ],
+            "isDirectory": true,
+            "expanded": false,
+            "uuid": "6c6337c4-6aa9-448b-b085-fe2f6400cd25"
+        }
+    ]
+}
