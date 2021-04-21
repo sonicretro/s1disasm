@@ -2196,7 +2196,7 @@ SetVoice:
 		jsr	WriteFMIorII(pc)
 		dbf	d3,@sendvoiceloop
 
-		moveq	#3,d5
+		moveq	#(FMInstrumentTLTable_End-FMInstrumentTLTable)-1,d5
 		andi.w	#7,d4			; Get algorithm
 		move.b	FMSlotMask(pc,d4.w),d4	; Get slot mask for algorithm
 		move.b	TrackVolume(a5),d3	; Track volume attenuation
