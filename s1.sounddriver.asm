@@ -1,5 +1,5 @@
 ; ---------------------------------------------------------------------------
-; Modified (early?) SMPS 68k Type 1b
+; Modified SMPS 68k Type 1b sound driver
 ; ---------------------------------------------------------------------------
 ; Go_SoundTypes:
 Go_SoundPriorities:	dc.l SoundPriorities
@@ -1618,10 +1618,10 @@ WriteFMIorII:
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-; The reason I think this is an *early* SMPS 68k Type 1b
-; is because this subroutine is the one from Type 1a:
-; other Type 1b drivers have a newer, optimised version.
-; The driver itself is Type 1b, with this odd exception.
+; Strangely, despite this driver being SMPS 68k Type 1b,
+; WriteFMI and WriteFMII are the Type 1a versions.
+; In Sonic 1's prototype, they were the Type 1b versions.
+; I wonder why they were changed?
 
 ; sub_7272E:
 WriteFMI:
@@ -2196,7 +2196,7 @@ SetVoice:
 		jsr	WriteFMIorII(pc)
 		dbf	d3,@sendvoiceloop
 
-		moveq	#3,d5
+		moveq	#(FMInstrumentTLTable_End-FMInstrumentTLTable)-1,d5
 		andi.w	#7,d4			; Get algorithm
 		move.b	FMSlotMask(pc,d4.w),d4	; Get slot mask for algorithm
 		move.b	TrackVolume(a5),d3	; Track volume attenuation
