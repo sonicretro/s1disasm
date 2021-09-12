@@ -2349,8 +2349,8 @@ LevelSelect:
 		beq.s	LevSel_Credits	; if yes, branch
 
 LevSel_NoCheat:
-		; This is a workaround for a bug, see Sound_ChkValue for more.
-		; Once you've fixed the bugs there, comment these four instructions out
+		; This is a workaround for a bug; see PlaySoundID for more.
+		; Once you've fixed the bugs there, comment these four instructions out.
 		cmpi.w	#bgm__Last+1,d0	; is sound $80-$93 being played?
 		blo.s	LevSel_PlaySnd	; if yes, branch
 		cmpi.w	#sfx__First,d0	; is sound $94-$9F being played?
