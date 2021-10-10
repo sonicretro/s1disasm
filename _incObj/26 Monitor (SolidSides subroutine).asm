@@ -63,4 +63,4 @@ loc_A4EA:
 		bcc.s	loc_A4E2
 		moveq	#-1,d1
 		rts	
-; End of function Obj26_SolidSides
+; End of function Mon_SolidSides
