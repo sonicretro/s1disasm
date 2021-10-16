@@ -82,9 +82,9 @@ void CompressZ80Driver(FILE *to)
 	unsigned char *compressed_buffer;
 
 	if (accurate_compression)
-		compressedLength = AccurateKosinskiCompress(Z80_RAM_buffer, current_Z80_size, &compressed_buffer);
+		compressedLength = KosinskiCompress(Z80_RAM_buffer, current_Z80_size, &compressed_buffer);
 	else
-		compressed_buffer = KosinskiCompress(Z80_RAM_buffer, current_Z80_size, &compressedLength);
+		compressed_buffer = ClownLZSS_KosinskiCompress(Z80_RAM_buffer, current_Z80_size, &compressedLength);
 
 	fwrite(compressed_buffer, compressedLength, 1, to);
 	free(compressed_buffer);
@@ -209,7 +209,7 @@ bool buildRom(FILE* from, FILE* to)
 			}
 			else
 			{
-				printf("\n  Compressed DAC driver size: $%lX\n  Set Size_of_DAC_driver_guess to this to save a little space.", compressedLength);
+				printf("\n  Compressed DAC driver size: $%zX\n  Set Size_of_DAC_driver_guess to this to save a little space.", compressedLength);
 			}
 		}
 

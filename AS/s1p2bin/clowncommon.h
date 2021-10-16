@@ -1,5 +1,5 @@
 /*
-	(C) 2018-2021 Clownacy
+	(C) 2021 Clownacy
 
 	This software is provided 'as-is', without any express or implied
 	warranty.  In no event will the authors be held liable for any damages
@@ -18,12 +18,22 @@
 	3. This notice may not be removed or altered from any source distribution.
 */
 
-#ifndef CLOWNLZSS_KOSINSKI_H
-#define CLOWNLZSS_KOSINSKI_H
+#ifndef CLOWNCOMMON_H
+#define CLOWNCOMMON_H
 
-#include <stddef.h>
+/* Boolean */
+typedef unsigned char cc_bool_small;
+typedef unsigned int cc_bool_fast;
+enum
+{
+	CC_FALSE = 0,
+	CC_TRUE = 1
+};
 
-unsigned char* ClownLZSS_KosinskiCompress(const unsigned char *data, size_t data_size, size_t *compressed_size);
-unsigned char* ClownLZSS_ModuledKosinskiCompress(const unsigned char *data, size_t data_size, size_t *compressed_size, size_t module_size);
+/* Common macros */
+#define CC_MIN(a, b) ((a) < (b) ? (a) : (b))
+#define CC_MAX(a, b) ((a) > (b) ? (a) : (b))
+#define CC_CLAMP(x, min, max) (CC_MIN((max), CC_MAX((min), (x))))
+#define CC_COUNT_OF(array) (sizeof(array) / sizeof(*array))
 
-#endif /* CLOWNLZSS_KOSINSKI_H */
+#endif /* CLOWNCOMMON_H */
