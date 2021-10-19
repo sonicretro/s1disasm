@@ -1997,6 +1997,7 @@ WaitForVBla:
 
 		include	"_incObj\sub RandomNumber.asm"
 		include	"_incObj\sub CalcSine.asm"
+		include	"_incObj\sub CalcSqrt.asm"
 		include	"_incObj\sub CalcAngle.asm"
 
 ; ---------------------------------------------------------------------------
@@ -2890,7 +2891,7 @@ Level_TtlCardLoop:
 		bset	#2,(v_fg_scroll_flags).w
 		bsr.w	LevelDataLoad ; load block mappings and palettes
 		bsr.w	LoadTilesFromStart
-		jsr	(FloorLog_Unk).l
+		jsr	(ConvertCollisionArray).l
 		bsr.w	ColIndexLoad
 		bsr.w	LZWaterFeatures
 		move.b	#id_SonicPlayer,(v_player).w ; load Sonic object
@@ -7158,101 +7159,114 @@ Map_Splash:	include	"_maps\Water Splash.asm"
 		include	"_incObj\sub FindWall.asm"
 
 ; ---------------------------------------------------------------------------
-; Unused floor/wall subroutine - logs something	to do with collision
+; This subroutine takes 'raw' bitmap-like collision block data as input and
+; converts it into the proper collision arrays (ColArray and ColArray2).
+; Pointers to said raw data are dummied out.
+; Curiously, an example of the original 'raw' data that this was intended
+; to process can be found in the J2ME version, in a file called 'blkcol.bct'.
 ; ---------------------------------------------------------------------------
 
+RawColBlocks		equ CollArray1
+ConvRowColBlocks	equ CollArray1
+
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-FloorLog_Unk:
+ConvertCollisionArray:
 		rts	
+; ---------------------------------------------------------------------------
+		; The raw format stores the collision data column by column for the normal collision array.
+		; This makes a copy of the data, but stored row by row, for the rotated collision array.
+		lea	(RawColBlocks).l,a1	; Source location of raw collision block data
+		lea	(ConvRowColBlocks).l,a2	; Destinatation location for row-converted collision block data
 
-		lea	(CollArray1).l,a1
-		lea	(CollArray1).l,a2
-		move.w	#$FF,d3
+		move.w	#$100-1,d3		; Number of blocks in collision data
 
-loc_14C5E:
-		moveq	#$10,d5
-		move.w	#$F,d2
+	@blockLoop:
+		moveq	#16,d5			; Start on the 16th bit (the leftmost pixel)
 
-loc_14C64:
+		move.w	#16-1,d2		; Width of a block in pixels
+
+	@columnLoop:
 		moveq	#0,d4
-		move.w	#$F,d1
 
-loc_14C6A:
-		move.w	(a1)+,d0
-		lsr.l	d5,d0
-		addx.w	d4,d4
-		dbf	d1,loc_14C6A
+		move.w	#16-1,d1		; Height of a block in pixels
 
-		move.w	d4,(a2)+
-		suba.w	#$20,a1
-		subq.w	#1,d5
-		dbf	d2,loc_14C64
+	@rowLoop:
+		move.w	(a1)+,d0		; Get row of collision bits
+		lsr.l	d5,d0			; Push the selected bit of this row into the 'eXtend' flag
+		addx.w	d4,d4			; Shift d4 to the left, and insert the selected bit into bit 0
+		dbf	d1,@rowLoop		; Loop for each row of pixels in a block
 
-		adda.w	#$20,a1
-		dbf	d3,loc_14C5E
+		move.w	d4,(a2)+		; Store column of collision bits
+		suba.w	#2*16,a1		; Back to the start of the block
+		subq.w	#1,d5			; Get next bit in the row
+		dbf	d2,@columnLoop		; Loop for each column of pixels in a block
 
-		lea	(CollArray1).l,a1
-		lea	(CollArray2).l,a2
-		bsr.s	FloorLog_Unk2
-		lea	(CollArray1).l,a1
-		lea	(CollArray1).l,a2
+		adda.w	#2*16,a1		; Next block
+		dbf	d3,@blockLoop		; Loop for each block in the raw collision block data
 
-; End of function FloorLog_Unk
-
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
+		; This then converts the collision data into the final collision arrays
+		lea	(ConvRowColBlocks).l,a1
+		lea	(CollArray2).l,a2	; Convert the row-converted collision block data into final rotated collision array
+		bsr.s	@convertArray
+		lea	(RawColBlocks).l,a1
+		lea	(CollArray1).l,a2	; Convert the raw collision block data into final normal collision array
 
 
-FloorLog_Unk2:
-		move.w	#$FFF,d3
+	@convertArray:
+		move.w	#$1000-1,d3		; Size of the collision array
 
-loc_14CA6:
+	@processLoop:
 		moveq	#0,d2
 		move.w	#$F,d1
-		move.w	(a1)+,d0
-		beq.s	loc_14CD4
-		bmi.s	loc_14CBE
+		move.w	(a1)+,d0		; Get current column of collision pixels
+		beq.s	@noCollision		; Branch if there's no collision in this column
+		bmi.s	@topPixelSolid		; Branch if top pixel of collision is solid
 
-loc_14CB2:
+	; Here we count, starting from the bottom, how many pixels tall
+	; the collision in this column is.
+	@processColumnLoop1:
 		lsr.w	#1,d0
-		bhs.s	loc_14CB8
+		bhs.s	@pixelNotSolid1
 		addq.b	#1,d2
 
-loc_14CB8:
-		dbf	d1,loc_14CB2
+	@pixelNotSolid1:
+		dbf	d1,@processColumnLoop1
 
-		bra.s	loc_14CD6
+		bra.s	@columnProcessed
 ; ===========================================================================
 
-loc_14CBE:
-		cmpi.w	#-1,d0
-		beq.s	loc_14CD0
+	@topPixelSolid:
+		cmpi.w	#$FFFF,d0		; Is entire column solid?
+		beq.s	@entireColumnSolid	; Branch if so
 
-loc_14CC4:
+	; Here we count, starting from the top, how many pixels tall
+	; the collision in this column is (the resulting number is negative).
+	@processColumnLoop2:
 		lsl.w	#1,d0
-		bhs.s	loc_14CCA
+		bhs.s	@pixelNotSolid2
 		subq.b	#1,d2
 
-loc_14CCA:
-		dbf	d1,loc_14CC4
+	@pixelNotSolid2:
+		dbf	d1,@processColumnLoop2
 
-		bra.s	loc_14CD6
+		bra.s	@columnProcessed
 ; ===========================================================================
 
-loc_14CD0:
+	@entireColumnSolid:
 		move.w	#$10,d0
 
-loc_14CD4:
+	@noCollision:
 		move.w	d0,d2
 
-loc_14CD6:
-		move.b	d2,(a2)+
-		dbf	d3,loc_14CA6
+	@columnProcessed:
+		move.b	d2,(a2)+		; Store column collision height
+		dbf	d3,@processLoop
 
 		rts	
 
-; End of function FloorLog_Unk2
+; End of function ConvertCollisionArray
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
