@@ -1997,7 +1997,10 @@ WaitForVBla:
 
 		include	"_incObj\sub RandomNumber.asm"
 		include	"_incObj\sub CalcSine.asm"
+		if Revision=0
 		include	"_incObj\sub CalcSqrt.asm"
+		else
+		endc
 		include	"_incObj\sub CalcAngle.asm"
 
 ; ---------------------------------------------------------------------------

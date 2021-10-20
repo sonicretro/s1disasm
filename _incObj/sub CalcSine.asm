@@ -24,6 +24,6 @@ CalcSine:
 
 ; ===========================================================================
 
-Sine_Data:	incbin	"misc\sinewave.bin"	; values for a 360º sine wave
+Sine_Data:	incbin	"misc\sinewave.bin"	; values for a 360° sine wave
 
 ; ===========================================================================
