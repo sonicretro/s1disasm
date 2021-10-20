@@ -11,7 +11,6 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-		if Revision=0
 CalcSqrt:
 		movem.l	d1-d2,-(sp)
 		move.w	d0,d1
@@ -40,6 +39,4 @@ CalcSqrt:
 		lsr.w	#1,d0
 		movem.l	(sp)+,d1-d2
 		rts	
-		else
-		endc
 ; End of function CalcSqrt
