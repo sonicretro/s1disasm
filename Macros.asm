@@ -5,9 +5,9 @@
 
 align:	macro
 	if (narg=1)
-	dcb.b \1-(*%\1),0
+	dcb.b (\1-(*%\1))%\1,0
 	else
-	dcb.b \1-(*%\1),\2
+	dcb.b (\1-(*%\1))%\1,\2
 	endc
 	endm
 
