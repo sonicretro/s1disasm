@@ -146,7 +146,7 @@ UpdateMusic:
 ; loc_71BB2:
 @skipfadein:
 		; DANGER! The following line only checks v_soundqueue0 and v_soundqueue1, breaking v_soundqueue2.
-		tst.w	v_soundqueue0(a6)	; is a music or sound queued for played?
+		tst.w	v_soundqueue0(a6)	; is a music or sound queued for playing?
 		beq.s	@nosndinput		; if not, branch
 		jsr	CycleSoundQueue(pc)
 ; loc_71BBC:
@@ -202,7 +202,7 @@ UpdateMusic:
 @sfxpsgloop:
 		adda.w	#TrackSz,a5
 		tst.b	(a5)			; Is track playing? (TrackPlaybackControl)
-		bpl.s	@sfxpsgnext		; Branch of not
+		bpl.s	@sfxpsgnext		; Branch if not
 		jsr	PSGUpdateTrack(pc)
 ; loc_71C22:
 @sfxpsgnext:
@@ -420,7 +420,7 @@ NoteTimeoutUpdate:
 		subq.b	#1,TrackNoteTimeout(a5)	; Update note fill timeout
 		bne.s	@locret				; Return if it hasn't expired
 		bset	#1,(a5)				; Put track at rest (TrackPlaybackControl)
-		tst.b	TrackVoiceControl(a5)		; Is this a psg track?
+		tst.b	TrackVoiceControl(a5)		; Is this a PSG track?
 		bmi.w	@psgnoteoff			; If yes, branch
 		jsr	FMNoteOff(pc)
 		addq.w	#4,sp				; Do not return to caller
@@ -620,7 +620,7 @@ CycleSoundQueue:
 		cmp.b	d3,d2			; Is it a lower priority sound?
 		blo.s	@nextinput		; Branch if yes
 		move.b	d2,d3			; Store new priority
-		move.b	d1,v_sound_id(a6)	; Queue sound for play
+		move.b	d1,v_sound_id(a6)	; Queue sound for playing
 ; loc_71F3E:
 @nextinput:
 		dbf	d4,@inputloop
