@@ -302,7 +302,7 @@ PLC_GHZAnimals:	dc.w ((PLC_GHZAnimalsend-PLC_GHZAnimals-2)/6)-1
 ; Pattern load cues - LZ animals
 ; ---------------------------------------------------------------------------
 PLC_LZAnimals:	dc.w ((PLC_LZAnimalsend-PLC_LZAnimals-2)/6)-1
-		plcm	Nem_BlackBird, $B000	; blackbird
+		plcm	Nem_Penguin, $B000	; penguin
 		plcm	Nem_Seal, $B240		; seal
 	PLC_LZAnimalsend:
 ; ---------------------------------------------------------------------------
@@ -330,7 +330,7 @@ PLC_SYZAnimals:	dc.w ((PLC_SYZAnimalsend-PLC_SYZAnimals-2)/6)-1
 ; Pattern load cues - SBZ animals
 ; ---------------------------------------------------------------------------
 PLC_SBZAnimals:	dc.w ((PLC_SBZAnimalsend-PLC_SBZAnimals-2)/6)-1
-		plcm	Nem_Rabbit, $B000		; rabbit
+		plcm	Nem_Rabbit, $B000	; rabbit
 		plcm	Nem_Chicken, $B240	; chicken
 	PLC_SBZAnimalsend:
 ; ---------------------------------------------------------------------------
@@ -356,7 +356,7 @@ PLC_Ending:	dc.w ((PLC_Endingend-PLC_Ending-2)/6)-1
 		endc
 		plcm	Nem_Rabbit, $AA60	; rabbit
 		plcm	Nem_Chicken, $ACA0	; chicken
-		plcm	Nem_BlackBird, $AE60	; blackbird
+		plcm	Nem_Penguin, $AE60	; penguin
 		plcm	Nem_Seal, $B0A0		; seal
 		plcm	Nem_Pig, $B260		; pig
 		plcm	Nem_Flicky, $B4A0	; flicky

@@ -8854,7 +8854,7 @@ Nem_Rabbit:	incbin	"artnem\Animal Rabbit.bin"
 		even
 Nem_Chicken:	incbin	"artnem\Animal Chicken.bin"
 		even
-Nem_BlackBird:	incbin	"artnem\Animal Blackbird.bin"
+Nem_Penguin:	incbin	"artnem\Animal Penguin.bin"
 		even
 Nem_Seal:	incbin	"artnem\Animal Seal.bin"
 		even
