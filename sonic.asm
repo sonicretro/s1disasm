@@ -8886,7 +8886,7 @@ Nem_Rabbit:	binclude	"artnem/Animal Rabbit.bin"
 		even
 Nem_Chicken:	binclude	"artnem/Animal Chicken.bin"
 		even
-Nem_BlackBird:	binclude	"artnem/Animal Blackbird.bin"
+Nem_Penguin:	binclude	"artnem/Animal Penguin.bin"
 		even
 Nem_Seal:	binclude	"artnem/Animal Seal.bin"
 		even
