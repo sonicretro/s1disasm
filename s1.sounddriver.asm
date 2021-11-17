@@ -781,7 +781,7 @@ Sound_PlayBGM:
 		lea	v_music_fmdac_tracks(a6),a1
 		lea	FMDACInitBytes(pc),a2
 ; loc_72098:
-.bmg_fmloadloop:
+.bgm_fmloadloop:
 		bset	#7,TrackPlaybackControl(a1)	; Initial playback control: set 'track playing' bit
 		move.b	(a2)+,TrackVoiceControl(a1)	; Voice control bits
 		move.b	d4,TrackTempoDivider(a1)
@@ -791,10 +791,11 @@ Sound_PlayBGM:
 		moveq	#0,d0
 		move.w	(a4)+,d0			; load DAC/FM pointer
 		add.l	a3,d0				; Relative pointer
-		move.l	d0,TrackDataPointer(a1)	; Store track pointer
+		move.l	d0,TrackDataPointer(a1)		; Store track pointer
 		move.w	(a4)+,TrackTranspose(a1)	; load FM channel modifier
 		adda.w	d6,a1
-		dbf	d7,.bmg_fmloadloop
+		dbf	d7,.bgm_fmloadloop
+
 		cmpi.b	#7,2(a3)	; Are 7 FM tracks defined?
 		bne.s	.silencefm6
 		moveq	#$2B,d0		; DAC enable/disable register
