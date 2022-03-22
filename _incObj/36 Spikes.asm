@@ -97,7 +97,7 @@ Spik_Hurt:
 		bne.s	loc_CF20	; If so, skip getting hurt
 		jmp	(loc_E0).l	; This is a copy of the above code that was pushed aside for this
 loc_D5A2:
-	endif
+	endc
 		sub.l	d0,d3
 		move.l	d3,obY(a0)
 		jsr	(HurtSonic).l

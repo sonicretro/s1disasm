@@ -103,7 +103,7 @@ loc_E0:
 		dc.l ErrorTrap
 		dc.l ErrorTrap
 		dc.l ErrorTrap
-	endif
+	endc
 Console:	dc.b "SEGA MEGA DRIVE " ; Hardware system ID (Console name)
 Date:		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally year)
 Title_Local:	dc.b "SONIC THE               HEDGEHOG                " ; Domestic name
