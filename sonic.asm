@@ -22,8 +22,6 @@ Revision:	equ 1
 
 ZoneCount:	equ 6	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, and SBZ
 
-OptimiseSound:	equ 0	; change to 1 to optimise sound queuing
-
 DebugPathSwappers: = 1
 
 ; ===========================================================================
@@ -1999,6 +1997,10 @@ WaitForVBla:
 
 		include	"_incObj\sub RandomNumber.asm"
 		include	"_incObj\sub CalcSine.asm"
+		if Revision=0
+		include	"_incObj\sub CalcSqrt.asm"
+		else
+		endc
 		include	"_incObj\sub CalcAngle.asm"
 
 ; ---------------------------------------------------------------------------
@@ -2006,7 +2008,8 @@ WaitForVBla:
 ; ---------------------------------------------------------------------------
 
 GM_Sega:
-		sfx	bgm_Stop,0,1,1 ; stop music
+		move.b	#bgm_Stop,d0
+		bsr.w	PlaySound_Special ; stop music
 		bsr.w	ClearPLC
 		bsr.w	PaletteFadeOut
 		lea	(vdp_control_port).l,a6
@@ -2056,7 +2059,8 @@ Sega_WaitPal:
 		bsr.w	PalCycle_Sega
 		bne.s	Sega_WaitPal
 
-		sfx	sfx_Sega,0,1,1	; play "SEGA" sound
+		move.b	#sfx_Sega,d0
+		bsr.w	PlaySound_Special	; play "SEGA" sound
 		move.b	#$14,(v_vbla_routine).w
 		bsr.w	WaitForVBla
 		move.w	#$1E,(v_demolength).w
@@ -2079,7 +2083,8 @@ Sega_GotoTitle:
 ; ---------------------------------------------------------------------------
 
 GM_Title:
-		sfx	bgm_Stop,0,1,1 ; stop music
+		move.b	#bgm_Stop,d0
+		bsr.w	PlaySound_Special ; stop music
 		bsr.w	ClearPLC
 		bsr.w	PaletteFadeOut
 		disable_ints
@@ -2186,7 +2191,8 @@ GM_Title:
 		bsr.w	NemDec
 		moveq	#palid_Title,d0	; load title screen palette
 		bsr.w	PalLoad1
-		sfx	bgm_Title,0,1,1	; play title screen music
+		move.b	#bgm_Title,d0
+		bsr.w	PlaySound_Special	; play title screen music
 		move.b	#0,(f_debugmode).w ; disable debug mode
 		move.w	#$178,(v_demolength).w ; run title screen for $178 frames
 		lea	(v_objspace+$80).w,a1
@@ -2274,7 +2280,8 @@ Tit_EnterCheat:
 
 	Tit_PlayRing:
 		move.b	#1,(a0,d1.w)	; activate cheat
-		sfx	sfx_Ring,0,1,1	; play ring sound when code is entered
+		move.b	#sfx_Ring,d0
+		bsr.w	PlaySound_Special	; play ring sound when code is entered
 		bra.s	Tit_CountC
 ; ===========================================================================
 
@@ -2351,8 +2358,8 @@ LevelSelect:
 		beq.s	LevSel_Credits	; if yes, branch
 
 LevSel_NoCheat:
-		; This is a workaround for a bug, see Sound_ChkValue for more.
-		; Once you've fixed the bugs there, comment these four instructions out
+		; This is a workaround for a bug; see PlaySoundID for more.
+		; Once you've fixed the bugs there, comment these four instructions out.
 		cmpi.w	#bgm__Last+1,d0	; is sound $80-$93 being played?
 		blo.s	LevSel_PlaySnd	; if yes, branch
 		cmpi.w	#sfx__First,d0	; is sound $94-$9F being played?
@@ -2371,7 +2378,8 @@ LevSel_Ending:
 
 LevSel_Credits:
 		move.b	#id_Credits,(v_gamemode).w ; set screen mode to $1C (Credits)
-		sfx	bgm_Credits,0,1,1 ; play credits music
+		move.b	#bgm_Credits,d0
+		bsr.w	PlaySound_Special ; play credits music
 		move.w	#0,(v_creditsnum).w
 		rts	
 ; ===========================================================================
@@ -2416,7 +2424,8 @@ PlayLevel:
 		else
 			move.l	#5000,(v_scorelife).w ; extra life is awarded at 50000 points
 		endc
-		sfx	bgm_Fade,0,1,1 ; fade out music
+		move.b	#bgm_Fade,d0
+		bsr.w	PlaySound_Special ; fade out music
 		rts	
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -2509,7 +2518,8 @@ loc_33E4:
 		bne.w	Tit_ChkLevSel	; if yes, branch
 		tst.w	(v_demolength).w
 		bne.w	loc_33B6
-		sfx	bgm_Fade,0,1,1 ; fade out music
+		move.b	#bgm_Fade,d0
+		bsr.w	PlaySound_Special ; fade out music
 		move.w	(v_demonum).w,d0 ; load	demo number
 		andi.w	#7,d0
 		add.w	d0,d0
@@ -2745,7 +2755,8 @@ GM_Level:
 		bset	#7,(v_gamemode).w ; add $80 to screen mode (for pre level sequence)
 		tst.w	(f_demo).w
 		bmi.s	Level_NoMusicFade
-		sfx	bgm_Fade,0,1,1 ; fade out music
+		move.b	#bgm_Fade,d0
+		bsr.w	PlaySound_Special ; fade out music
 
 	Level_NoMusicFade:
 		bsr.w	ClearPLC
@@ -2892,7 +2903,7 @@ Level_TtlCardLoop:
 		bset	#2,(v_fg_scroll_flags).w
 		bsr.w	LevelDataLoad ; load block mappings and palettes
 		bsr.w	LoadTilesFromStart
-		jsr	(FloorLog_Unk).l
+		jsr	(ConvertCollisionArray).l
 		bsr.w	ColIndexLoad
 		bsr.w	LZWaterFeatures
 		move.b	#id_SonicPlayer,(v_player).w ; load Sonic object
@@ -3231,7 +3242,8 @@ Demo_SS:	incbin	"demodata\Intro - Special Stage.bin"
 ; ---------------------------------------------------------------------------
 
 GM_Special:
-		sfx	sfx_EnterSS,0,1,0 ; play special stage entry sound
+		move.w	#sfx_EnterSS,d0
+		bsr.w	PlaySound_Special ; play special stage entry sound
 		bsr.w	PaletteWhiteOut
 		disable_ints
 		lea	(vdp_control_port).l,a6
@@ -3294,7 +3306,8 @@ GM_Special:
 		bsr.w	PalCycle_SS
 		clr.w	(v_ssangle).w	; set stage angle to "upright"
 		move.w	#$40,(v_ssrotate).w ; set stage rotation speed
-		music	bgm_SS,0,1,0	; play special stage BG	music
+		move.w	#bgm_SS,d0
+		bsr.w	PlaySound	; play special stage BG	music
 		move.w	#0,(v_btnpushtime1).w
 		lea	(DemoDataPtr).l,a1
 		moveq	#6,d0
@@ -3397,7 +3410,8 @@ loc_47D4:
 		move.w	(v_rings).w,d0
 		mulu.w	#10,d0		; multiply rings by 10
 		move.w	d0,(v_ringbonus).w ; set rings bonus
-		sfx	bgm_GotThrough,0,0,0	 ; play end-of-level music
+		move.w	#bgm_GotThrough,d0
+		jsr	(PlaySound_Special).l	 ; play end-of-level music
 
 		lea	(v_objspace).w,a1
 		moveq	#0,d0
@@ -3419,7 +3433,8 @@ SS_NormalExit:
 		beq.s	SS_NormalExit
 		tst.l	(v_plc_buffer).w
 		bne.s	SS_NormalExit
-		sfx	sfx_EnterSS,0,1,0 ; play special stage exit sound
+		move.w	#sfx_EnterSS,d0
+		bsr.w	PlaySound_Special ; play special stage exit sound
 		bsr.w	PaletteWhiteOut
 		rts	
 ; ===========================================================================
@@ -3757,7 +3772,8 @@ GM_Continue:
 		jsr	(ContScrCounter).l	; run countdown	(start from 10)
 		moveq	#palid_Continue,d0
 		bsr.w	PalLoad1	; load continue	screen palette
-		music	bgm_Continue,0,1,1	; play continue	music
+		move.b	#bgm_Continue,d0
+		bsr.w	PlaySound	; play continue	music
 		move.w	#659,(v_demolength).w ; set time delay to 11 seconds
 		clr.l	(v_screenposx).w
 		move.l	#$1000000,(v_screenposy).w
@@ -3827,7 +3843,8 @@ Map_ContScr:	include	"_maps\Continue Screen.asm"
 ; ---------------------------------------------------------------------------
 
 GM_Ending:
-		sfx	bgm_Stop,0,1,1 ; stop music
+		move.b	#bgm_Stop,d0
+		bsr.w	PlaySound_Special ; stop music
 		bsr.w	PaletteFadeOut
 
 		lea	(v_objspace).w,a1
@@ -3896,7 +3913,8 @@ End_LoadData:
 		bsr.w	KosDec
 		moveq	#palid_Sonic,d0
 		bsr.w	PalLoad1	; load Sonic's palette
-		music	bgm_Ending,0,1,0	; play ending sequence music
+		move.w	#bgm_Ending,d0
+		bsr.w	PlaySound	; play ending sequence music
 		btst	#bitA,(v_jpadhold1).w ; is button A pressed?
 		beq.s	End_LoadSonic	; if not, branch
 		move.b	#1,(f_debugmode).w ; enable debug mode
@@ -3956,7 +3974,8 @@ End_MainLoop:
 		beq.s	End_ChkEmerald	; if yes, branch
 
 		move.b	#id_Credits,(v_gamemode).w ; goto credits
-		sfx	bgm_Credits,0,1,1 ; play credits music
+		move.b	#bgm_Credits,d0
+		bsr.w	PlaySound_Special ; play credits music
 		move.w	#0,(v_creditsnum).w ; set credits index number to 0
 		rts	
 ; ===========================================================================
@@ -4818,7 +4837,7 @@ locret_6AD6:
 			move.b	(a0)+,d0
 			btst	d0,(a2)
 			beq.s	locj_701C
-			move.w	locj_6FE4(pc,d0.w),a3
+			movea.w	locj_6FE4(pc,d0.w),a3
 			movem.l	d4/d5/a0,-(sp)
 			movem.l	d4/d5,-(sp)
 			bsr.w	GetBlockData
@@ -5367,7 +5386,7 @@ loc_74AE:
 		btst	#3,obStatus(a1)
 		beq.s	loc_74DC
 		moveq	#0,d0
-		move.b	$3D(a1),d0
+		move.b	standonobject(a1),d0
 		lsl.w	#6,d0
 		addi.l	#v_objspace&$FFFFFF,d0
 		movea.l	d0,a2
@@ -5382,7 +5401,7 @@ loc_74DC:
 		subi.w	#-$3000,d0
 		lsr.w	#6,d0
 		andi.w	#$7F,d0
-		move.b	d0,$3D(a1)
+		move.b	d0,standonobject(a1)
 		move.b	#0,obAngle(a1)
 		move.w	#0,obVelY(a1)
 		move.w	obVelX(a1),obInertia(a1)
@@ -5601,7 +5620,8 @@ loc_84EE:
 
 loc_84F2:
 		bsr.w	DisplaySprite
-		sfx	sfx_Collapse,1,0,0	; play collapsing sound
+		move.w	#sfx_Collapse,d0
+		jmp	(PlaySound_Special).l	; play collapsing sound
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Disintegration data for collapsing ledges (MZ, SLZ, SBZ)
@@ -7133,101 +7153,114 @@ Map_Splash:	include	"_maps\Water Splash.asm"
 		include	"_incObj\sub FindWall.asm"
 
 ; ---------------------------------------------------------------------------
-; Unused floor/wall subroutine - logs something	to do with collision
+; This subroutine takes 'raw' bitmap-like collision block data as input and
+; converts it into the proper collision arrays (ColArray and ColArray2).
+; Pointers to said raw data are dummied out.
+; Curiously, an example of the original 'raw' data that this was intended
+; to process can be found in the J2ME version, in a file called 'blkcol.bct'.
 ; ---------------------------------------------------------------------------
 
+RawColBlocks		equ CollArray1
+ConvRowColBlocks	equ CollArray1
+
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-FloorLog_Unk:
+ConvertCollisionArray:
 		rts	
+; ---------------------------------------------------------------------------
+		; The raw format stores the collision data column by column for the normal collision array.
+		; This makes a copy of the data, but stored row by row, for the rotated collision array.
+		lea	(RawColBlocks).l,a1	; Source location of raw collision block data
+		lea	(ConvRowColBlocks).l,a2	; Destinatation location for row-converted collision block data
 
-		lea	(CollArray1).l,a1
-		lea	(CollArray1).l,a2
-		move.w	#$FF,d3
+		move.w	#$100-1,d3		; Number of blocks in collision data
 
-loc_14C5E:
-		moveq	#$10,d5
-		move.w	#$F,d2
+	@blockLoop:
+		moveq	#16,d5			; Start on the 16th bit (the leftmost pixel)
 
-loc_14C64:
+		move.w	#16-1,d2		; Width of a block in pixels
+
+	@columnLoop:
 		moveq	#0,d4
-		move.w	#$F,d1
 
-loc_14C6A:
-		move.w	(a1)+,d0
-		lsr.l	d5,d0
-		addx.w	d4,d4
-		dbf	d1,loc_14C6A
+		move.w	#16-1,d1		; Height of a block in pixels
 
-		move.w	d4,(a2)+
-		suba.w	#$20,a1
-		subq.w	#1,d5
-		dbf	d2,loc_14C64
+	@rowLoop:
+		move.w	(a1)+,d0		; Get row of collision bits
+		lsr.l	d5,d0			; Push the selected bit of this row into the 'eXtend' flag
+		addx.w	d4,d4			; Shift d4 to the left, and insert the selected bit into bit 0
+		dbf	d1,@rowLoop		; Loop for each row of pixels in a block
 
-		adda.w	#$20,a1
-		dbf	d3,loc_14C5E
+		move.w	d4,(a2)+		; Store column of collision bits
+		suba.w	#2*16,a1		; Back to the start of the block
+		subq.w	#1,d5			; Get next bit in the row
+		dbf	d2,@columnLoop		; Loop for each column of pixels in a block
 
-		lea	(CollArray1).l,a1
-		lea	(CollArray2).l,a2
-		bsr.s	FloorLog_Unk2
-		lea	(CollArray1).l,a1
-		lea	(CollArray1).l,a2
+		adda.w	#2*16,a1		; Next block
+		dbf	d3,@blockLoop		; Loop for each block in the raw collision block data
 
-; End of function FloorLog_Unk
-
-; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
+		; This then converts the collision data into the final collision arrays
+		lea	(ConvRowColBlocks).l,a1
+		lea	(CollArray2).l,a2	; Convert the row-converted collision block data into final rotated collision array
+		bsr.s	@convertArray
+		lea	(RawColBlocks).l,a1
+		lea	(CollArray1).l,a2	; Convert the raw collision block data into final normal collision array
 
 
-FloorLog_Unk2:
-		move.w	#$FFF,d3
+	@convertArray:
+		move.w	#$1000-1,d3		; Size of the collision array
 
-loc_14CA6:
+	@processLoop:
 		moveq	#0,d2
 		move.w	#$F,d1
-		move.w	(a1)+,d0
-		beq.s	loc_14CD4
-		bmi.s	loc_14CBE
+		move.w	(a1)+,d0		; Get current column of collision pixels
+		beq.s	@noCollision		; Branch if there's no collision in this column
+		bmi.s	@topPixelSolid		; Branch if top pixel of collision is solid
 
-loc_14CB2:
+	; Here we count, starting from the bottom, how many pixels tall
+	; the collision in this column is.
+	@processColumnLoop1:
 		lsr.w	#1,d0
-		bhs.s	loc_14CB8
+		bhs.s	@pixelNotSolid1
 		addq.b	#1,d2
 
-loc_14CB8:
-		dbf	d1,loc_14CB2
+	@pixelNotSolid1:
+		dbf	d1,@processColumnLoop1
 
-		bra.s	loc_14CD6
+		bra.s	@columnProcessed
 ; ===========================================================================
 
-loc_14CBE:
-		cmpi.w	#-1,d0
-		beq.s	loc_14CD0
+	@topPixelSolid:
+		cmpi.w	#$FFFF,d0		; Is entire column solid?
+		beq.s	@entireColumnSolid	; Branch if so
 
-loc_14CC4:
+	; Here we count, starting from the top, how many pixels tall
+	; the collision in this column is (the resulting number is negative).
+	@processColumnLoop2:
 		lsl.w	#1,d0
-		bhs.s	loc_14CCA
+		bhs.s	@pixelNotSolid2
 		subq.b	#1,d2
 
-loc_14CCA:
-		dbf	d1,loc_14CC4
+	@pixelNotSolid2:
+		dbf	d1,@processColumnLoop2
 
-		bra.s	loc_14CD6
+		bra.s	@columnProcessed
 ; ===========================================================================
 
-loc_14CD0:
+	@entireColumnSolid:
 		move.w	#$10,d0
 
-loc_14CD4:
+	@noCollision:
 		move.w	d0,d2
 
-loc_14CD6:
-		move.b	d2,(a2)+
-		dbf	d3,loc_14CA6
+	@columnProcessed:
+		move.b	d2,(a2)+		; Store column collision height
+		dbf	d3,@processLoop
 
 		rts	
 
-; End of function FloorLog_Unk2
+; End of function ConvertCollisionArray
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -8220,7 +8253,8 @@ SS_AniEmeraldSparks:
 		clr.l	(a0)
 		clr.l	4(a0)
 		move.b	#4,($FFFFD024).w
-		sfx	sfx_SSGoal,0,0,0	; play special stage GOAL sound
+		move.w	#sfx_SSGoal,d0
+		jsr	(PlaySound_Special).l	; play special stage GOAL sound
 
 locret_1B60C:
 		rts	
@@ -8414,7 +8448,8 @@ AddPoints:
 			bmi.s   @noextralife ; branch if Mega Drive is Japanese
 			addq.b  #1,(v_lives).w ; give extra life
 			addq.b  #1,(f_lifecount).w
-			music	bgm_ExtraLife,1,0,0
+			move.w	#bgm_ExtraLife,d0
+			jmp	(PlaySound).l
 		endc
 
 @locret_1C6B6:

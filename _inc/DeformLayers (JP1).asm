@@ -199,11 +199,11 @@ Deform_LZ:
 		rts
 	; apply water deformation when underwater
 	@underwaterLoop:
-		move.b	(a3,d3),d4
+		move.b	(a3,d3.w),d4
 		ext.w	d4
 		add.w	d6,d4
 		move.w	d4,(a1)+
-		move.b	(a2,d2),d4
+		move.b	(a2,d2.w),d4
 		ext.w	d4
 		add.w	d0,d4
 		move.w	d4,(a1)+
@@ -336,7 +336,7 @@ Deform_MZ:
 	@limitY:
 		andi.w	#$1F0,d0
 		lsr.w	#3,d0
-		lea	(a2,d0),a2
+		lea	(a2,d0.w),a2
 		bra.w	Bg_Scroll_X
 ; End of function Deform_MZ
 
@@ -407,7 +407,7 @@ Deform_SLZ:
 		subi.w	#$C0,d0
 		andi.w	#$3F0,d0
 		lsr.w	#3,d0
-		lea	(a2,d0),a2
+		lea	(a2,d0.w),a2
 ;-------------------------------------------------------------------------------
 ;-------------------------------------------------------------------------------
 Bg_Scroll_X:
@@ -523,7 +523,7 @@ Deform_SYZ:
 		move.w	d0,d2
 		andi.w	#$1F0,d0
 		lsr.w	#3,d0
-		lea	(a2,d0),a2
+		lea	(a2,d0.w),a2
 		bra.w	Bg_Scroll_X
 ; End of function Deform_SYZ
 
@@ -623,7 +623,7 @@ Deform_SBZ:
 		move.w	d0,d2
 		andi.w	#$1F0,d0
 		lsr.w	#3,d0
-		lea	(a2,d0),a2
+		lea	(a2,d0.w),a2
 		bra.w	Bg_Scroll_X
 ;-------------------------------------------------------------------------------
 Deform_SBZ2:;loc_68A2:

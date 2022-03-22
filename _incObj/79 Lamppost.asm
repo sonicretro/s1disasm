@@ -78,7 +78,8 @@ Lamp_Blue:	; Routine 2
 		cmpi.w	#$68,d0
 		bcc.s	@donothing
 
-		sfx	sfx_Lamppost,0,0,0	; play lamppost sound
+		move.w	#sfx_Lamppost,d0
+		jsr	(PlaySound_Special).l	; play lamppost sound
 		addq.b	#2,obRoutine(a0)
 		jsr	(FindFreeObj).l
 		bne.s	@fail

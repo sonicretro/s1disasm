@@ -7,7 +7,7 @@ GlassBlock:
 		move.b	obRoutine(a0),d0
 		move.w	Glass_Index(pc,d0.w),d1
 		jsr	Glass_Index(pc,d1.w)
-		out_of_range	Glass_Delete
+		out_of_range.w	Glass_Delete
 		bra.w	DisplaySprite
 ; ===========================================================================
 

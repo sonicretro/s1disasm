@@ -140,7 +140,7 @@ SBall_Move:	; Routine 2
 ; ===========================================================================
 
 @chkdel:
-		out_of_range	@delete,sball_origX(a0)
+		out_of_range.w	@delete,sball_origX(a0)
 		bra.w	DisplaySprite
 ; ===========================================================================
 

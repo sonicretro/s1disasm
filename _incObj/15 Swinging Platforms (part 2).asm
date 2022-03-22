@@ -18,7 +18,7 @@ loc_7B78:
 
 
 Obj48_Move:
-		tst.b	$3D(a0)
+		tst.b	standonobject(a0)
 		bne.s	loc_7B9C
 		move.w	$3E(a0),d0
 		addq.w	#8,d0
@@ -26,7 +26,7 @@ Obj48_Move:
 		add.w	d0,obAngle(a0)
 		cmpi.w	#$200,d0
 		bne.s	loc_7BB6
-		move.b	#1,$3D(a0)
+		move.b	#1,standonobject(a0)
 		bra.s	loc_7BB6
 ; ===========================================================================
 
@@ -37,7 +37,7 @@ loc_7B9C:
 		add.w	d0,obAngle(a0)
 		cmpi.w	#-$200,d0
 		bne.s	loc_7BB6
-		move.b	#0,$3D(a0)
+		move.b	#0,standonobject(a0)
 
 loc_7BB6:
 		move.b	obAngle(a0),d0
@@ -79,7 +79,7 @@ loc_7BCE:
 ; ===========================================================================
 
 Swing_ChkDel:
-		out_of_range	Swing_DelAll,$3A(a0)
+		out_of_range.w	Swing_DelAll,$3A(a0)
 		rts	
 ; ===========================================================================
 

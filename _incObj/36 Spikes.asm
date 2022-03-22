@@ -107,7 +107,7 @@ loc_CF20:
 
 Spik_Display:
 		bsr.w	DisplaySprite
-		out_of_range	DeleteObject,spik_origX(a0)
+		out_of_range.w	DeleteObject,spik_origX(a0)
 		rts	
 ; ===========================================================================
 
@@ -152,7 +152,8 @@ Spik_Wait:
 		bne.s	locret_CFE6
 		tst.b	obRender(a0)
 		bpl.s	locret_CFE6
-		sfx	sfx_SpikesMove,0,0,0	; play "spikes moving" sound
+		move.w	#sfx_SpikesMove,d0
+		jsr	(PlaySound_Special).l	; play "spikes moving" sound
 		bra.s	locret_CFE6
 ; ===========================================================================
 

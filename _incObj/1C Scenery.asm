@@ -27,7 +27,7 @@ Scen_Main:	; Routine 0
 		move.b	(a1)+,obColType(a0)
 
 Scen_ChkDel:	; Routine 2
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		bra.w	DisplaySprite
 ; ===========================================================================
 ; ---------------------------------------------------------------------------

@@ -5,9 +5,9 @@
 
 align:	macro
 	if (narg=1)
-	dcb.b \1-(*%\1),0
+	dcb.b (\1-(*%\1))%\1,0
 	else
-	dcb.b \1-(*%\1),\2
+	dcb.b (\1-(*%\1))%\1,\2
 	endc
 	endm
 
@@ -236,67 +236,6 @@ out_of_range:	macro exit,pos
 		sub.w	d1,d0		; approx distance between object and screen
 		cmpi.w	#128+320+192,d0
 		bhi.\0	exit
-		endm
-
-; ---------------------------------------------------------------------------
-; play a sound effect or music
-; input: track, terminate routine, branch or jump, move operand size
-; ---------------------------------------------------------------------------
-
-music:		macro track,terminate,branch,byte
-		  if OptimiseSound=1
-			move.b	#track,(v_snddriver_ram+v_playsnd1).l
-		    if terminate=1
-			rts
-		    endc
-		  else
-	 	    if byte=1
-			move.b	#track,d0
-		    else
-			move.w	#track,d0
-		    endc
-		    if branch=1
-		      if terminate=0
-			bsr.w	PlaySound
-		      else
-			bra.w	PlaySound
-		      endc
-		    else
-		      if terminate=0
-			jsr	(PlaySound).l
-		      else
-			jmp	(PlaySound).l
-		      endc
-		    endc
-		  endc
-		endm
-
-sfx:		macro track,terminate,branch,byte
-		  if OptimiseSound=1
-			move.b	#track,(v_snddriver_ram+v_playsnd2).l
-		    if terminate=1
-			rts
-		    endc
-		  else
-	 	    if byte=1
-			move.b	#track,d0
-		    else
-			move.w	#track,d0
-		    endc
-		    if branch=1
-		      if terminate=0
-			bsr.w	PlaySound_Special
-		      else
-			bra.w	PlaySound_Special
-		      endc
-		    else
-		      if terminate=0
-			jsr	(PlaySound_Special).l
-		      else
-			jmp	(PlaySound_Special).l
-		      endc
-		    endc
-		  endc
 		endm
 
 ; ---------------------------------------------------------------------------

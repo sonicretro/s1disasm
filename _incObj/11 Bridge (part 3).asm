@@ -105,7 +105,7 @@ Obj11_BendData2:incbin	"misc\ghzbend2.bin"
 ; ===========================================================================
 
 Bri_ChkDel:
-		out_of_range	@deletebridge
+		out_of_range.w	@deletebridge
 		rts	
 ; ===========================================================================
 

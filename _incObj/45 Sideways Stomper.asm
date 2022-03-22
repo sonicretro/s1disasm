@@ -104,7 +104,7 @@ SStom_Display:	; Routine 6
 		bsr.w	DisplaySprite
 
 SStom_ChkDel:
-		out_of_range	DeleteObject,$3A(a0)
+		out_of_range.w	DeleteObject,$3A(a0)
 		rts	
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||

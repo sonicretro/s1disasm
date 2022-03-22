@@ -61,7 +61,8 @@ loc_BDBE:
 loc_BDC8:
 		tst.b	(a3)
 		bne.s	loc_BDD6
-		sfx	sfx_Switch,0,0,0	; play switch sound
+		move.w	#sfx_Switch,d0
+		jsr	(PlaySound_Special).l	; play switch sound
 
 loc_BDD6:
 		bset	d3,(a3)
@@ -77,7 +78,7 @@ loc_BDDE:
 
 But_Display:
 		bsr.w	DisplaySprite
-		out_of_range	But_Delete
+		out_of_range.w	But_Delete
 		rts	
 ; ===========================================================================
 

@@ -34,7 +34,7 @@ Sonic_Move:
 		btst	#3,obStatus(a0)
 		beq.s	Sonic_Balance
 		moveq	#0,d0
-		move.b	$3D(a0),d0
+		move.b	standonobject(a0),d0
 		lsl.w	#6,d0
 		lea	(v_objspace).w,a1
 		lea	(a1,d0.w),a1
@@ -236,7 +236,8 @@ loc_130BA:
 		blt.s	locret_130E8
 		move.b	#id_Stop,obAnim(a0) ; use "stopping" animation
 		bclr	#0,obStatus(a0)
-		sfx	sfx_Skid,0,0,0	; play stopping sound
+		move.w	#sfx_Skid,d0
+		jsr	(PlaySound_Special).l	; play stopping sound
 
 locret_130E8:
 		rts	
@@ -281,7 +282,8 @@ loc_13120:
 		bgt.s	locret_1314E
 		move.b	#id_Stop,obAnim(a0) ; use "stopping" animation
 		bset	#0,obStatus(a0)
-		sfx	sfx_Skid,0,0,0	; play stopping sound
+		move.w	#sfx_Skid,d0
+		jsr	(PlaySound_Special).l	; play stopping sound
 
 locret_1314E:
 		rts	
