@@ -115,7 +115,7 @@ Cat_Head:	; Routine 2
 		move.b	d0,obFrame(a0)
 
 	@display:
-		out_of_range	Cat_ChkGone
+		out_of_range.w	Cat_ChkGone
 		jmp	(DisplaySprite).l
 
 	Cat_ChkGone:

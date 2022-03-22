@@ -10,7 +10,7 @@ Signpost:
 		lea	(Ani_Sign).l,a1
 		bsr.w	AnimateSprite
 		bsr.w	DisplaySprite
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		rts	
 ; ===========================================================================
 Sign_Index:	dc.w Sign_Main-Sign_Index

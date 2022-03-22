@@ -113,7 +113,7 @@ Orb_Display:	; Routine 4
 		bsr.w	SpeedToPos
 
 Orb_ChkDel:
-		out_of_range	@chkgone
+		out_of_range.w	@chkgone
 		bra.w	DisplaySprite
 
 @chkgone:

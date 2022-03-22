@@ -77,7 +77,7 @@ loc_BDDE:
 
 But_Display:
 		bsr.w	DisplaySprite
-		out_of_range	But_Delete
+		out_of_range.w	But_Delete
 		rts	
 ; ===========================================================================
 

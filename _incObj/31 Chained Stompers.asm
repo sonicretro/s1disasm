@@ -153,7 +153,7 @@ CStom_Display2:	; Routine 6
 		bsr.w	DisplaySprite
 
 CStom_ChkDel:
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		rts	
 ; ===========================================================================
 

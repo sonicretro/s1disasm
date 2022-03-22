@@ -30,5 +30,5 @@ Light_Animate:	; Routine 2
 		move.b	#0,obFrame(a0)
 
 	@chkdel:
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		bra.w	DisplaySprite

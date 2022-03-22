@@ -37,7 +37,7 @@ Swi_Action:	; Routine 2
 
 Swi_ChkDel:
 		bsr.w	DisplaySprite
-		out_of_range	Swi_Delete
+		out_of_range.w	Swi_Delete
 		rts	
 ; ===========================================================================
 

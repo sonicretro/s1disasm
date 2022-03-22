@@ -34,5 +34,5 @@ Edge_Solid:	; Routine 2
 
 Edge_Display:	; Routine 4
 		bsr.w	DisplaySprite
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		rts	

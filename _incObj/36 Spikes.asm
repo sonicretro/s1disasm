@@ -107,7 +107,7 @@ loc_CF20:
 
 Spik_Display:
 		bsr.w	DisplaySprite
-		out_of_range	DeleteObject,spik_origX(a0)
+		out_of_range.w	DeleteObject,spik_origX(a0)
 		rts	
 ; ===========================================================================
 
