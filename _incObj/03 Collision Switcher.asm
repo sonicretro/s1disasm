@@ -10,7 +10,7 @@ PathSwapper:
 	if DebugPathSwappers
 		tst.w	(f_debugcheat).w
 		bne.w	RememberState
-	endif
+	endc
 		; like RememberState, but doesn't display (Sonic 2's MarkObjGone3)
 		out_of_range.w	@offscreen
 		rts
@@ -121,7 +121,7 @@ PSwapper_MainX:
 		beq.s	@locret
 		move.b	#sfx_Lamppost,d0
 		jmp	(PlaySound_Special).l
-	endif
+	endc
 @locret:
 		rts
 ; ===========================================================================
@@ -164,7 +164,7 @@ PSwapper_MainX_Alt:
 		beq.s	@locret
 		move.b	#sfx_Lamppost,d0
 		jmp	(PlaySound_Special).l
-	endif
+	endc
 @locret:
 		rts
 ; ===========================================================================
@@ -214,7 +214,7 @@ PSwapper_MainY:
 		beq.s	@locret
 		move.b	#sfx_Lamppost,d0
 		jmp	(PlaySound_Special).l
-	endif
+	endc
 @locret:
 		rts
 ; ===========================================================================
@@ -257,7 +257,7 @@ PSwapper_MainY_Alt:
 		beq.s	@locret
 		move.b	#sfx_Lamppost,d0
 		jmp	(PlaySound_Special).l
-	endif
+	endc
 @locret:
 		rts
 ; ===========================================================================
