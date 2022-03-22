@@ -233,7 +233,7 @@ loc_16B02:
 		else
 			moveq	#0,d0
 			move.b	cat_parent(a0),d0
-			move.b	#$80,$2C(a0,d0)
+			move.b	#$80,$2C(a0,d0.w)
 			neg.w	obX+2(a0)
 			beq.s	.loc_1730A
 			btst	#0,obStatus(a0)
@@ -242,7 +242,7 @@ loc_16B02:
 			addq.b	#1,cat_parent(a0)
 			moveq	#0,d0
 			move.b	cat_parent(a0),d0
-			clr.b	$2C(a0,d0)
+			clr.b	$2C(a0,d0.w)
 .loc_1730A:
 			bchg	#0,obStatus(a0)
 			move.b	obStatus(a0),obRender(a0)
@@ -309,7 +309,7 @@ loc_16C0C:
 		move.l	d3,obX(a0)
 		move.b	d1,$2C(a0,d0.w)
 		else
-			move.b	d1,$2C(a0,d0)
+			move.b	d1,$2C(a0,d0.w)
 			neg.w	obX+2(a0)
 			beq.s	locj_173E4
 			btst	#0,obStatus(a0)
@@ -320,7 +320,7 @@ loc_16C0C:
 			addq.b	#1,cat_parent(a0)
 			moveq	#0,d0
 			move.b	cat_parent(a0),d0
-			clr.b	$2C(a0,d0)
+			clr.b	$2C(a0,d0.w)
 locj_173E4:
 		endif
 		bchg	#0,obStatus(a0)

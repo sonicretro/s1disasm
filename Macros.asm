@@ -226,67 +226,6 @@ out_of_range:	macro exit,pos
 		endm
 
 ; ---------------------------------------------------------------------------
-; play a sound effect or music
-; input: track, terminate routine, branch or jump, move operand size
-; ---------------------------------------------------------------------------
-
-music:		macro track,terminate,branch,byte
-		  if (OptimiseSound<>0)
-			move.b	#track,(v_snddriver_ram+v_playsnd1).l
-		    if ("terminate"<>"0")
-			rts
-		    endif
-		  else
-	 	    if ("byte"<>"0")
-			move.b	#track,d0
-		    else
-			move.w	#track,d0
-		    endif
-		    if ("branch"<>"0")
-		      if ("terminate"="0")
-			bsr.w	PlaySound
-		      else
-			bra.w	PlaySound
-		      endif
-		    else
-		      if ("terminate"="0")
-			jsr	(PlaySound).l
-		      else
-			jmp	(PlaySound).l
-		      endif
-		    endif
-		  endif
-		endm
-
-sfx:		macro track,terminate,branch,byte
-		  if (OptimiseSound<>0)
-			move.b	#track,(v_snddriver_ram+v_playsnd2).l
-		    if ("terminate"<>"0")
-			rts
-		    endif
-		  else
-	 	    if ("byte"<>"0")
-			move.b	#track,d0
-		    else
-			move.w	#track,d0
-		    endif
-		    if ("branch"<>"0")
-		      if ("terminate"="0")
-			bsr.w	PlaySound_Special
-		      else
-			bra.w	PlaySound_Special
-		      endif
-		    else
-		      if ("terminate"="0")
-			jsr	(PlaySound_Special).l
-		      else
-			jmp	(PlaySound_Special).l
-		      endif
-		    endif
-		  endif
-		endm
-
-; ---------------------------------------------------------------------------
 ; bankswitch between SRAM and ROM
 ; (remember to enable SRAM in the header first!)
 ; ---------------------------------------------------------------------------

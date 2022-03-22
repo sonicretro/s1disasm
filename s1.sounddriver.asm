@@ -785,7 +785,7 @@ Sound_PlayBGM:
 		bset	#7,TrackPlaybackControl(a1)	; Initial playback control: set 'track playing' bit
 		move.b	(a2)+,TrackVoiceControl(a1)	; Voice control bits
 		move.b	d4,TrackTempoDivider(a1)
-		move.b	d6,TrackStackPointer(a1)	; set "gosub" (coord flag F8h) stack init value
+		move.b	d6,TrackStackPointer(a1)	; set "gosub" (coord flag $F8) stack init value
 		move.b	d1,TrackAMSFMSPan(a1)		; Set AMS/FMS/Panning
 		move.b	d5,TrackDurationTimeout(a1)	; Set duration of first "note"
 		moveq	#0,d0
@@ -835,7 +835,7 @@ Sound_PlayBGM:
 		bset	#7,TrackPlaybackControl(a1)	; Initial playback control: set 'track playing' bit
 		move.b	(a2)+,TrackVoiceControl(a1)	; Voice control bits
 		move.b	d4,TrackTempoDivider(a1)
-		move.b	d6,TrackStackPointer(a1)	; set "gosub" (coord flag F8h) stack init value
+		move.b	d6,TrackStackPointer(a1)	; set "gosub" (coord flag $F8) stack init value
 		move.b	d5,TrackDurationTimeout(a1)	; Set duration of first "note"
 		moveq	#0,d0
 		move.w	(a4)+,d0			; load PSG channel pointer
@@ -996,7 +996,7 @@ Sound_PlaySFX:
 		move.l	d0,TrackDataPointer(a5)	; Store track pointer
 		move.w	(a1)+,TrackTranspose(a5)	; load FM/PSG channel modifier
 		move.b	#1,TrackDurationTimeout(a5)	; Set duration of first "note"
-		move.b	d6,TrackStackPointer(a5)	; set "gosub" (coord flag F8h) stack init value
+		move.b	d6,TrackStackPointer(a5)	; set "gosub" (coord flag $F8) stack init value
 		tst.b	d4				; Is this a PSG channel?
 		bmi.s	.sfxpsginitdone			; Branch if yes
 		move.b	#$C0,TrackAMSFMSPan(a5)	; AMS/FMS/Panning
@@ -1102,7 +1102,7 @@ Sound_PlaySpecial:
 		move.l	d0,TrackDataPointer(a5)	; Store track pointer
 		move.w	(a1)+,TrackTranspose(a5)	; load FM/PSG channel modifier
 		move.b	#1,TrackDurationTimeout(a5)	; Set duration of first "note"
-		move.b	d6,TrackStackPointer(a5)	; set "gosub" (coord flag F8h) stack init value
+		move.b	d6,TrackStackPointer(a5)	; set "gosub" (coord flag $F8) stack init value
 		tst.b	d4				; Is this a PSG channel?
 		bmi.s	.sfxpsginitdone			; Branch if yes
 		move.b	#$C0,TrackAMSFMSPan(a5)	; AMS/FMS/Panning

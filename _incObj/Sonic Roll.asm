@@ -37,7 +37,8 @@ Sonic_ChkRoll:
 		move.b	#7,obWidth(a0)
 		move.b	#id_Roll,obAnim(a0) ; use "rolling" animation
 		addq.w	#5,obY(a0)
-		sfx	sfx_Roll,0,0,0	; play rolling sound
+		move.w	#sfx_Roll,d0
+		jsr	(PlaySound_Special).l	; play rolling sound
 		tst.w	obInertia(a0)
 		bne.s	.ismoving
 		move.w	#$200,obInertia(a0) ; set inertia if 0

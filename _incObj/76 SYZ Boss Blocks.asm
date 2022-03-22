@@ -137,7 +137,8 @@ loc_197AA:
 		dbf	d1,Obj76_LoopFrag ; repeat sequence 3 more times
 
 loc_197D4:
-		sfx	sfx_WallSmash,1,0,0	; play smashing sound
+		move.w	#sfx_WallSmash,d0
+		jmp	(PlaySound_Special).l	; play smashing sound
 ; End of function Obj76_Break
 
 ; ===========================================================================

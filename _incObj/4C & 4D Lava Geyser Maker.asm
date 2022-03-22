@@ -178,7 +178,8 @@ Geyser_Main:	; Routine 0
 		move.b	#0,obSubtype(a0)
 
 .sound:
-		sfx	sfx_Burning,0,0,0	; play flame sound
+		move.w	#sfx_Burning,d0
+		jsr	(PlaySound_Special).l	; play flame sound
 
 Geyser_Action:	; Routine 2
 		moveq	#0,d0

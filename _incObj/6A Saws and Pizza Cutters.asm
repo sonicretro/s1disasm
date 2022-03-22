@@ -75,7 +75,8 @@ Saw_Action:	; Routine 2
 		move.w	(v_framecount).w,d0
 		andi.w	#$F,d0
 		bne.s	.nosound01
-		sfx	sfx_Saw,0,0,0		; play saw sound
+		move.w	#sfx_Saw,d0
+		jsr	(PlaySound_Special).l		; play saw sound
 
 .nosound01:
 		rts	
@@ -105,7 +106,8 @@ Saw_Action:	; Routine 2
 		move.b	(v_oscillate+6).w,d0
 		cmpi.b	#$18,d0
 		bne.s	.nosound02
-		sfx	sfx_Saw,0,0,0		; play saw sound
+		move.w	#sfx_Saw,d0
+		jsr	(PlaySound_Special).l		; play saw sound
 
 .nosound02:
 		rts	
@@ -131,7 +133,8 @@ Saw_Action:	; Routine 2
 		move.w	#$600,obVelX(a0) ; move object to the right
 		move.b	#$A2,obColType(a0)
 		move.b	#2,obFrame(a0)
-		sfx	sfx_Saw,0,0,0		; play saw sound
+		move.w	#sfx_Saw,d0
+		jsr	(PlaySound_Special).l		; play saw sound
 
 .nosaw03x:
 		addq.l	#4,sp
@@ -170,7 +173,8 @@ Saw_Action:	; Routine 2
 		move.w	#-$600,obVelX(a0) ; move object to the left
 		move.b	#$A2,obColType(a0)
 		move.b	#2,obFrame(a0)
-		sfx	sfx_Saw,0,0,0		; play saw sound
+		move.w	#sfx_Saw,d0
+		jsr	(PlaySound_Special).l		; play saw sound
 
 .nosaw04x:
 		addq.l	#4,sp
