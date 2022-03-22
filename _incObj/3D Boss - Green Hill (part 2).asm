@@ -109,7 +109,8 @@ loc_179DA:
 
 loc_179E0:
 		clr.w	obVelY(a0)
-		music	bgm_GHZ,0,0,0		; play GHZ music
+		move.w	#bgm_GHZ,d0
+		jsr	(PlaySound).l		; play GHZ music
 
 loc_179EE:
 		bsr.w	BossMove

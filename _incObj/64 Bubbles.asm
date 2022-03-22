@@ -80,7 +80,8 @@ Bub_ChkWater:	; Routine 4
 		beq.s	@display	; if not, branch
 
 		bsr.w	ResumeMusic	; cancel countdown music
-		sfx	sfx_Bubble,0,0,0	; play collecting bubble sound
+		move.w	#sfx_Bubble,d0
+		jsr	(PlaySound_Special).l	; play collecting bubble sound
 		lea	(v_player).w,a1
 		clr.w	obVelX(a1)
 		clr.w	obVelY(a1)

@@ -222,7 +222,8 @@ Obj09_Jump:
 		asr.l	#8,d0
 		move.w	d0,obVelY(a0)
 		bset	#1,obStatus(a0)
-		sfx	sfx_Jump,0,0,0	; play jumping sound
+		move.w	#sfx_Jump,d0
+		jsr	(PlaySound_Special).l	; play jumping sound
 
 Obj09_NoJump:
 		rts	
@@ -474,7 +475,8 @@ Obj09_GetCont:
 		bset	#0,(v_lifecount).w
 		bne.s	Obj09_NoCont
 		addq.b	#1,(v_continues).w ; add 1 to number of continues
-		music	sfx_Continue,0,0,0	; play extra continue sound
+		move.w	#sfx_Continue,d0
+		jsr	(PlaySound).l	; play extra continue sound
 
 Obj09_NoCont:
 		moveq	#0,d4
@@ -492,7 +494,8 @@ Obj09_Chk1Up:
 Obj09_Get1Up:
 		addq.b	#1,(v_lives).w	; add 1 to number of lives
 		addq.b	#1,(f_lifecount).w ; update the lives counter
-		music	bgm_ExtraLife,0,0,0	; play extra life music
+		move.w	#bgm_ExtraLife,d0
+		jsr	(PlaySound).l	; play extra life music
 		moveq	#0,d4
 		rts	
 ; ===========================================================================
@@ -518,7 +521,8 @@ Obj09_GetEmer:
 		addq.b	#1,(v_emeralds).w ; add 1 to number of emeralds
 
 Obj09_NoEmer:
-		sfx	bgm_Emerald,0,0,0 ;	play emerald music
+		move.w	#bgm_Emerald,d0
+		jsr	(PlaySound_Special).l ;	play emerald music
 		moveq	#0,d4
 		rts	
 ; ===========================================================================
@@ -618,14 +622,16 @@ Obj09_ChkBumper:
 		move.l	d0,4(a2)
 
 Obj09_BumpSnd:
-		sfx	sfx_Bumper,1,0,0	; play bumper sound
+		move.w	#sfx_Bumper,d0
+		jmp	(PlaySound_Special).l	; play bumper sound
 ; ===========================================================================
 
 Obj09_GOAL:
 		cmpi.b	#$27,d0		; is the item a	"GOAL"?
 		bne.s	Obj09_UPblock
 		addq.b	#2,obRoutine(a0) ; run routine "Obj09_ExitStage"
-		sfx	sfx_SSGoal,0,0,0	; play "GOAL" sound
+		move.w	#sfx_SSGoal,d0
+		jsr	(PlaySound_Special).l	; play "GOAL" sound
 		rts	
 ; ===========================================================================
 
@@ -643,7 +649,8 @@ Obj09_UPblock:
 		move.b	#$2A,(a1)	; change item to a "DOWN" block
 
 Obj09_UPsnd:
-		sfx	sfx_SSItem,1,0,0	; play up/down sound
+		move.w	#sfx_SSItem,d0
+		jmp	(PlaySound_Special).l	; play up/down sound
 ; ===========================================================================
 
 Obj09_DOWNblock:
@@ -660,7 +667,8 @@ Obj09_DOWNblock:
 		move.b	#$29,(a1)	; change item to an "UP" block
 
 Obj09_DOWNsnd:
-		sfx	sfx_SSItem,1,0,0	; play up/down sound
+		move.w	#sfx_SSItem,d0
+		jmp	(PlaySound_Special).l	; play up/down sound
 ; ===========================================================================
 
 Obj09_Rblock:
@@ -678,7 +686,8 @@ Obj09_Rblock:
 
 Obj09_RevStage:
 		neg.w	(v_ssrotate).w	; reverse stage rotation
-		sfx	sfx_SSItem,1,0,0	; play sound
+		move.w	#sfx_SSItem,d0
+		jmp	(PlaySound_Special).l	; play sound
 ; ===========================================================================
 
 Obj09_ChkGlass:
@@ -708,7 +717,8 @@ Obj09_GlassUpdate:
 		move.b	d0,4(a2)	; update the stage layout
 
 Obj09_GlassSnd:
-		sfx	sfx_SSGlass,1,0,0	; play glass block sound
+		move.w	#sfx_SSGlass,d0
+		jmp	(PlaySound_Special).l	; play glass block sound
 ; ===========================================================================
 
 Obj09_NoGlass:
