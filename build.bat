@@ -41,11 +41,13 @@ REM // allow the user to choose to output error messages to file by supplying th
 REM // if there were errors, a log file is produced
 IF EXIST sonic.log goto LABLERROR3
 
+REM // if there were errors, there won't be any sonic.p output
+IF NOT EXIST sonic.p goto LABLPAUSE
+
 REM // combine the assembler output into a ROM
-IF EXIST sonic.p "AS/Win32/s1p2bin" %s1p2bin_args% sonic.p s1built.bin
+"AS/Win32/s1p2bin" %s1p2bin_args% sonic.p s1built.bin
 
 REM // done -- pause if we seem to have failed, then exit
-IF NOT EXIST sonic.p goto LABLPAUSE
 IF NOT EXIST s1built.bin goto LABLPAUSE
 fixheader s1built.bin
 exit /b
