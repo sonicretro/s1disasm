@@ -2680,7 +2680,7 @@ SoundD0:	incbin	"sound/sfx/SndD0 - Waterfall.bin"
 		; (DAC driver doesn't switch banks automatically)
 		if (*&$7FFF)+Size_of_SegaPCM>$8000
 			align $8000
-		endif
+		endc
 SegaPCM:	incbin	"sound/dac/sega.pcm"
 SegaPCM_End
 		even

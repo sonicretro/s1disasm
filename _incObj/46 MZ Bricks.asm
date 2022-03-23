@@ -44,10 +44,10 @@ Brick_Action:	; Routine 2
 	@chkdel:
 		if Revision=0
 		bsr.w	DisplaySprite
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		rts	
 		else
-			out_of_range	DeleteObject
+			out_of_range.w	DeleteObject
 			bra.w	DisplaySprite
 		endc
 ; ===========================================================================

@@ -80,7 +80,8 @@ Bub_ChkWater:	; Routine 4
 		beq.s	@display	; if not, branch
 
 		bsr.w	ResumeMusic	; cancel countdown music
-		sfx	sfx_Bubble,0,0,0	; play collecting bubble sound
+		move.w	#sfx_Bubble,d0
+		jsr	(PlaySound_Special).l	; play collecting bubble sound
 		lea	(v_player).w,a1
 		clr.w	obVelX(a1)
 		clr.w	obVelY(a1)
@@ -208,7 +209,7 @@ Bub_BblMaker:	; Routine $A
 		jsr	(AnimateSprite).l
 
 @chkdel:
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		move.w	(v_waterpos1).w,d0
 		cmp.w	obY(a0),d0
 		bcs.w	DisplaySprite

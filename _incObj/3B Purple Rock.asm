@@ -27,5 +27,5 @@ Rock_Solid:	; Routine 2
 		move.w	obX(a0),d4
 		bsr.w	SolidObject
 		bsr.w	DisplaySprite
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		rts	

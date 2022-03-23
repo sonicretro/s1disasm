@@ -42,7 +42,8 @@ Flame_Action:	; Routine 2
 		bchg	#0,obAnim(a0)
 		beq.s	loc_E57A
 		move.w	$32(a0),$30(a0)	; begin	flaming	time
-		sfx	sfx_Flamethrower,0,0,0 ; play flame sound
+		move.w	#sfx_Flamethrower,d0
+		jsr	(PlaySound_Special).l ; play flame sound
 
 loc_E57A:
 		lea	(Ani_Flame).l,a1
@@ -54,5 +55,5 @@ loc_E57A:
 		move.b	#$A3,obColType(a0)
 
 Flame_ChkDel:
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		bra.w	DisplaySprite

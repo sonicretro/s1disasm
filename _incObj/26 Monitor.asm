@@ -134,7 +134,7 @@ Mon_Animate:	; Routine 6
 
 Mon_Display:	; Routine 8
 		bsr.w	DisplaySprite
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		rts	
 ; ===========================================================================
 

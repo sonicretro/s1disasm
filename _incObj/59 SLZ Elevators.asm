@@ -7,7 +7,7 @@ Elevator:
 		move.b	obRoutine(a0),d0
 		move.w	Elev_Index(pc,d0.w),d1
 		jsr	Elev_Index(pc,d1.w)
-		out_of_range	DeleteObject,elev_origX(a0)
+		out_of_range.w	DeleteObject,elev_origX(a0)
 		bra.w	DisplaySprite
 ; ===========================================================================
 Elev_Index:	dc.w Elev_Main-Elev_Index
@@ -243,5 +243,5 @@ Elev_MakeMulti:	; Routine 6
 
 @chkdel:
 		addq.l	#4,sp
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		rts	

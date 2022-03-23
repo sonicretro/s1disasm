@@ -97,7 +97,7 @@ Spik_Hurt:
 		bne.s	loc_CF20	; If so, skip getting hurt
 		jmp	(loc_E0).l	; This is a copy of the above code that was pushed aside for this
 loc_D5A2:
-	endif
+	endc
 		sub.l	d0,d3
 		move.l	d3,obY(a0)
 		jsr	(HurtSonic).l
@@ -107,7 +107,7 @@ loc_CF20:
 
 Spik_Display:
 		bsr.w	DisplaySprite
-		out_of_range	DeleteObject,spik_origX(a0)
+		out_of_range.w	DeleteObject,spik_origX(a0)
 		rts	
 ; ===========================================================================
 
@@ -152,7 +152,8 @@ Spik_Wait:
 		bne.s	locret_CFE6
 		tst.b	obRender(a0)
 		bpl.s	locret_CFE6
-		sfx	sfx_SpikesMove,0,0,0	; play "spikes moving" sound
+		move.w	#sfx_SpikesMove,d0
+		jsr	(PlaySound_Special).l	; play "spikes moving" sound
 		bra.s	locret_CFE6
 ; ===========================================================================
 

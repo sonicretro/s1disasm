@@ -178,7 +178,8 @@ Geyser_Main:	; Routine 0
 		move.b	#0,obSubtype(a0)
 
 	@sound:
-		sfx	sfx_Burning,0,0,0	; play flame sound
+		move.w	#sfx_Burning,d0
+		jsr	(PlaySound_Special).l	; play flame sound
 
 Geyser_Action:	; Routine 2
 		moveq	#0,d0
@@ -191,7 +192,7 @@ Geyser_Action:	; Routine 2
 		bsr.w	AnimateSprite
 
 Geyser_ChkDel:
-		out_of_range	DeleteObject
+		out_of_range.w	DeleteObject
 		rts	
 ; ===========================================================================
 Geyser_Types:	dc.w Geyser_Type00-Geyser_Types
