@@ -113,7 +113,12 @@ Serial:		if Revision=0
 		else
 			dc.b "GM 00004049-01" ; Serial/version number (Rev non-0)
 		endc
-Checksum: dc.w $0
+Checksum:
+		if Revision=0
+		dc.w $264A	; Hardcoded to make it easier to check for ROM correctness
+		else
+		dc.w $AFC7
+		endc
 		dc.b "J               " ; I/O support
 RomStartLoc:	dc.l StartOfRom		; Start address of ROM
 RomEndLoc:	dc.l EndOfRom-1		; End address of ROM
