@@ -104,11 +104,11 @@ loc_E0:
 		dc.l ErrorTrap
 		dc.l ErrorTrap
 	endc
-Console:	dc.b "SEGA MEGA DRIVE " ; Hardware system ID (Console name)
-Date:		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally year)
-Title_Local:	dc.b "SONIC THE               HEDGEHOG                " ; Domestic name
-Title_Int:	dc.b "SONIC THE               HEDGEHOG                " ; International name
-Serial:		if Revision=0
+		dc.b "SEGA MEGA DRIVE " ; Hardware system ID (Console name)
+		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally year)
+		dc.b "SONIC THE               HEDGEHOG                " ; Domestic name
+		dc.b "SONIC THE               HEDGEHOG                " ; International name
+		if Revision=0
 		dc.b "GM 00001009-00"   ; Serial/version number (Rev 0)
 		else
 			dc.b "GM 00004049-01" ; Serial/version number (Rev non-0)
@@ -120,19 +120,19 @@ Checksum:
 		dc.w $AFC7
 		endc
 		dc.b "J               " ; I/O support
-RomStartLoc:	dc.l StartOfRom		; Start address of ROM
+		dc.l StartOfRom		; Start address of ROM
 RomEndLoc:	dc.l EndOfRom-1		; End address of ROM
-RamStartLoc:	dc.l $FF0000		; Start address of RAM
-RamEndLoc:	dc.l $FFFFFF		; End address of RAM
-SRAMSupport:	if EnableSRAM=1
-		dc.b $52, $41, $A0+(BackupSRAM<<6)+(AddressSRAM<<3), $20
+		dc.l $FF0000		; Start address of RAM
+		dc.l $FFFFFF		; End address of RAM
+		if EnableSRAM=1
+		dc.b $52, $41, $A0+(BackupSRAM<<6)+(AddressSRAM<<3), $20 ; SRAM support
 		else
 		dc.l $20202020
 		endc
 		dc.l $20202020		; SRAM start ($200001)
 		dc.l $20202020		; SRAM end ($20xxxx)
-Notes:		dc.b "                                                    " ; Notes (unused, anything can be put in this space, but it has to be 52 bytes.)
-Region:		dc.b "JUE             " ; Region (Country code)
+		dc.b "                                                    " ; Notes (unused, anything can be put in this space, but it has to be 52 bytes.)
+		dc.b "JUE             " ; Region (Country code)
 EndOfHeader:
 
 ; ===========================================================================
