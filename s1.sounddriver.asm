@@ -2499,8 +2499,13 @@ cfOpF9:
 		move.b	#$F,d1		; Loaded with fixed value (max RR, 1TL)
 		bra.w	WriteFMI
 ; ===========================================================================
-
+; ---------------------------------------------------------------------------
+; DAC driver
+; ---------------------------------------------------------------------------
 Kos_Z80:
+		; In this branch, the DAC driver is a binary blob. We do some
+		; hackery here to manually patch some of its pointers. In the
+		; AS branch, this driver is properly disassembled.
 		incbin	"sound\z80.bin", 0, $15
 		dc.b ((SegaPCM&$FF8000)/$8000)&1						; Least bit of bank ID (bit 15 of address)
 		incbin	"sound\z80.bin", $16, 6
@@ -2512,6 +2517,9 @@ Kos_Z80:
 		incbin	"sound\z80.bin", $B5, $16AB
 		even
 
+; ---------------------------------------------------------------------------
+; Music data
+; ---------------------------------------------------------------------------
 Music81:	incbin	"sound/music/Mus81 - GHZ.bin"
 		even
 Music82:	incbin	"sound/music/Mus82 - LZ.bin"
@@ -2550,6 +2558,7 @@ Music92:	incbin	"sound/music/Mus92 - Drowning.bin"
 		even
 Music93:	incbin	"sound/music/Mus93 - Get Emerald.bin"
 		even
+
 ; ---------------------------------------------------------------------------
 ; Sound	effect pointers
 ; ---------------------------------------------------------------------------
@@ -2603,12 +2612,17 @@ ptr_sndCD:	dc.l SoundCD
 ptr_sndCE:	dc.l SoundCE
 ptr_sndCF:	dc.l SoundCF
 ptr_sndend
+
 ; ---------------------------------------------------------------------------
 ; Special sound effect pointers
 ; ---------------------------------------------------------------------------
 SpecSoundIndex:
 ptr_sndD0:	dc.l SoundD0
 ptr_specend
+
+; ---------------------------------------------------------------------------
+; Sound effect data
+; ---------------------------------------------------------------------------
 SoundA0:	incbin	"sound/sfx/SndA0 - Jump.bin"
 		even
 SoundA1:	incbin	"sound/sfx/SndA1 - Lamppost.bin"
@@ -2705,9 +2719,16 @@ SoundCE:	incbin	"sound/sfx/SndCE - Ring Left Speaker.bin"
 		even
 SoundCF:	incbin	"sound/sfx/SndCF - Signpost.bin"
 		even
+
+; ---------------------------------------------------------------------------
+; Special sound effect data
+; ---------------------------------------------------------------------------
 SoundD0:	incbin	"sound/sfx/SndD0 - Waterfall.bin"
 		even
 
+; ---------------------------------------------------------------------------
+; 'Sega' chant PCM sample
+; ---------------------------------------------------------------------------
 		; Don't let Sega sample cross $8000-byte boundary
 		; (DAC driver doesn't switch banks automatically)
 		if (*&$7FFF)+Size_of_SegaPCM>$8000
