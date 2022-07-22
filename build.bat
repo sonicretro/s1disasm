@@ -36,7 +36,7 @@ SHIFT
 IF NOT "%1"=="" goto parseloop
 
 REM // allow the user to choose to output error messages to file by supplying the -logerrors parameter
-"AS/Win32/asw.exe" -xx -q -E -A -L sonic.asm
+"AS/Win32/asw.exe" -xx -q -E -A -L -i "%cd%" sonic.asm
 
 REM // if there were errors, a log file is produced
 IF EXIST sonic.log goto LABLERROR3

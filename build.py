@@ -109,7 +109,7 @@ delete(outputPath)
 delete(binaryOutputPath)
 delete("sonic.p")
 
-assembleCommand = [asBinary, "-xx", "-n", "-q", "-A", "-L", "-U"]
+assembleCommand = [asBinary, "-xx", "-n", "-q", "-A", "-L", "-U", "-i", "."]
 
 # Input asm file
 assembleCommand.append("sonic.asm")
