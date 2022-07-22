@@ -1673,17 +1673,34 @@ WriteFMII:
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; FM Note Values: b-0 to a#8
+;
+; Each row is an octave, starting with B and ending with A-sharp/B-flat.
+; Notably, this differs from the PSG frequency table, which starts with C and
+; ends with B. This is caused by 'FMSetFreq' subtracting $80 from the note
+; instead of $81, meaning that the first frequency in the table ironically
+; corresponds to the 'rest' note. The only way to use this frequency in a
+; real note is to transpose the channel to a lower semitone.
+;
+; Rather than use a complete lookup table, other SMPS drivers such as
+; Sonic 3's compute the octave, and only store a single octave's worth of
+; notes in the table.
+;
+; Invalid transposition values will cause this table to be overflowed,
+; resulting in garbage data being used as frequency values. In drivers that
+; compute the octave instead, invalid transposition values merely cause the
+; notes to wrap-around (the note below the lowest note will be the highest
+; note). It's important to keep this in mind when porting buggy songs.
 ; ---------------------------------------------------------------------------
 ; word_72790: FM_Notes:
 FMFrequencies:
-	dc.w $025E,$0284,$02AB,$02D3,$02FE,$032D,$035C,$038F,$03C5,$03FF,$043C,$047C
-	dc.w $0A5E,$0A84,$0AAB,$0AD3,$0AFE,$0B2D,$0B5C,$0B8F,$0BC5,$0BFF,$0C3C,$0C7C
-	dc.w $125E,$1284,$12AB,$12D3,$12FE,$132D,$135C,$138F,$13C5,$13FF,$143C,$147C
-	dc.w $1A5E,$1A84,$1AAB,$1AD3,$1AFE,$1B2D,$1B5C,$1B8F,$1BC5,$1BFF,$1C3C,$1C7C
-	dc.w $225E,$2284,$22AB,$22D3,$22FE,$232D,$235C,$238F,$23C5,$23FF,$243C,$247C
-	dc.w $2A5E,$2A84,$2AAB,$2AD3,$2AFE,$2B2D,$2B5C,$2B8F,$2BC5,$2BFF,$2C3C,$2C7C
-	dc.w $325E,$3284,$32AB,$32D3,$32FE,$332D,$335C,$338F,$33C5,$33FF,$343C,$347C
-	dc.w $3A5E,$3A84,$3AAB,$3AD3,$3AFE,$3B2D,$3B5C,$3B8F,$3BC5,$3BFF,$3C3C,$3C7C
+		dc.w $025E,$0284,$02AB,$02D3,$02FE,$032D,$035C,$038F,$03C5,$03FF,$043C,$047C
+		dc.w $0A5E,$0A84,$0AAB,$0AD3,$0AFE,$0B2D,$0B5C,$0B8F,$0BC5,$0BFF,$0C3C,$0C7C
+		dc.w $125E,$1284,$12AB,$12D3,$12FE,$132D,$135C,$138F,$13C5,$13FF,$143C,$147C
+		dc.w $1A5E,$1A84,$1AAB,$1AD3,$1AFE,$1B2D,$1B5C,$1B8F,$1BC5,$1BFF,$1C3C,$1C7C
+		dc.w $225E,$2284,$22AB,$22D3,$22FE,$232D,$235C,$238F,$23C5,$23FF,$243C,$247C
+		dc.w $2A5E,$2A84,$2AAB,$2AD3,$2AFE,$2B2D,$2B5C,$2B8F,$2BC5,$2BFF,$2C3C,$2C7C
+		dc.w $325E,$3284,$32AB,$32D3,$32FE,$332D,$335C,$338F,$33C5,$33FF,$343C,$347C
+		dc.w $3A5E,$3A84,$3AAB,$3AD3,$3AFE,$3B2D,$3B5C,$3B8F,$3BC5,$3BFF,$3C3C,$3C7C
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
@@ -1908,17 +1925,32 @@ PSGSilenceAll:
 ; End of function PSGSilenceAll
 
 ; ===========================================================================
+; ---------------------------------------------------------------------------
+; PSG Note Values: c-1 to a-6
+;
+; Each row is an octave, starting with C and ending with B. Sonic 3's driver
+; adds another octave at the start, as well as two more notes and the end to
+; complete the last octave. Notably, a-6 is changed from 0 to $10. These
+; changes need to be applied here in order for ports of songs from Sonic 3
+; and later to sound correct.
+;
+; Here is what Sonic 3's version of this table looks like:
+;	dc.w $3FF, $3FF, $3FF, $3FF, $3FF, $3FF, $3FF, $3FF, $3FF, $3F7, $3BE, $388
+;	dc.w $356, $326, $2F9, $2CE, $2A5, $280, $25C, $23A, $21A, $1FB, $1DF, $1C4
+;	dc.w $1AB, $193, $17D, $167, $153, $140, $12E, $11D, $10D,  $FE,  $EF,  $E2
+;	dc.w  $D6,  $C9,  $BE,  $B4,  $A9,  $A0,  $97,  $8F,  $87,  $7F,  $78,  $71
+;	dc.w  $6B,  $65,  $5F,  $5A,  $55,  $50,  $4B,  $47,  $43,  $40,  $3C,  $39
+;	dc.w  $36,  $33,  $30,  $2D,  $2B,  $28,  $26,  $24,  $22,  $20,  $1F,  $1D
+;	dc.w  $1B,  $1A,  $18,  $17,  $16,  $15,  $13,  $12,  $11,  $10,    0,    0
+; ---------------------------------------------------------------------------
 ; word_729CE:
 PSGFrequencies:
-		dc.w $356, $326, $2F9, $2CE, $2A5, $280, $25C, $23A
-		dc.w $21A, $1FB, $1DF, $1C4, $1AB, $193, $17D, $167
-		dc.w $153, $140, $12E, $11D, $10D,  $FE,  $EF,  $E2
-		dc.w  $D6,  $C9,  $BE,  $B4,  $A9,  $A0,  $97,  $8F
-		dc.w  $87,  $7F,  $78,  $71,  $6B,  $65,  $5F,  $5A
-		dc.w  $55,  $50,  $4B,  $47,  $43,  $40,  $3C,  $39
-		dc.w  $36,  $33,  $30,  $2D,  $2B,  $28,  $26,  $24
-		dc.w  $22,  $20,  $1F,  $1D,  $1B,  $1A,  $18,  $17
-		dc.w  $16,  $15,  $13,  $12,  $11,    0
+		dc.w $356, $326, $2F9, $2CE, $2A5, $280, $25C, $23A, $21A, $1FB, $1DF, $1C4
+		dc.w $1AB, $193, $17D, $167, $153, $140, $12E, $11D, $10D,  $FE,  $EF,  $E2
+		dc.w  $D6,  $C9,  $BE,  $B4,  $A9,  $A0,  $97,  $8F,  $87,  $7F,  $78,  $71
+		dc.w  $6B,  $65,  $5F,  $5A,  $55,  $50,  $4B,  $47,  $43,  $40,  $3C,  $39
+		dc.w  $36,  $33,  $30,  $2D,  $2B,  $28,  $26,  $24,  $22,  $20,  $1F,  $1D
+		dc.w  $1B,  $1A,  $18,  $17,  $16,  $15,  $13,  $12,  $11,    0
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
