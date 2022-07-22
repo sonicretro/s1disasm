@@ -3457,7 +3457,7 @@ SS_BGLoad:
 		lea	(Eni_SSBg1).l,a0 ; load	mappings for the birds and fish
 		move.w	#$4051,d0
 		bsr.w	EniDec
-		move.l	#$50000001,d3
+		locVRAM	$5000,d3
 		lea	($FF0080).l,a2
 		moveq	#6,d7
 
@@ -3506,16 +3506,8 @@ loc_491C:
 		lea	(Eni_SSBg2).l,a0 ; load	mappings for the clouds
 		move.w	#$4000,d0
 		bsr.w	EniDec
-		lea	($FF0000).l,a1
-		move.l	#$40000003,d0
-		moveq	#$3F,d1
-		moveq	#$1F,d2
-		bsr.w	TilemapToVRAM
-		lea	($FF0000).l,a1
-		move.l	#$50000003,d0
-		moveq	#$3F,d1
-		moveq	#$3F,d2
-		bsr.w	TilemapToVRAM
+		copyTilemap	$FF0000,$C000,$3F,$1F
+		copyTilemap	$FF0000,$D000,$3F,$3F
 		rts	
 ; End of function SS_BGLoad
 
@@ -8277,7 +8269,7 @@ SS_AniEmeraldSparks:
 		bne.s	locret_1B60C
 		clr.l	(a0)
 		clr.l	4(a0)
-		move.b	#4,($FFFFD024).w
+		move.b	#4,(v_player+obRoutine).w
 		move.w	#sfx_SSGoal,d0
 		jsr	(PlaySound_Special).l	; play special stage GOAL sound
 

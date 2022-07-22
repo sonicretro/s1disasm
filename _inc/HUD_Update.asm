@@ -4,11 +4,6 @@
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
-hudVRAM:	macro loc
-		move.l	#($40000000+((loc&$3FFF)<<16)+((loc&$C000)>>14)),d0
-		endm
-
-
 HUD_Update:
 		tst.w	(f_debugmode).w	; is debug mode	on?
 		bne.w	HudDebug	; if yes, branch
@@ -16,7 +11,7 @@ HUD_Update:
 		beq.s	@chkrings	; if not, branch
 
 		clr.b	(f_scorecount).w
-		hudVRAM	$DC80		; set VRAM address
+		locVRAM	$DC80,d0	; set VRAM address
 		move.l	(v_score).w,d1	; load score
 		bsr.w	Hud_Score
 
@@ -28,7 +23,7 @@ HUD_Update:
 
 	@notzero:
 		clr.b	(f_ringcount).w
-		hudVRAM	$DF40		; set VRAM address
+		locVRAM	$DF40,d0	; set VRAM address
 		moveq	#0,d1
 		move.w	(v_rings).w,d1	; load number of rings
 		bsr.w	Hud_Rings
@@ -56,11 +51,11 @@ HUD_Update:
 		move.b	#9,(a1)		; keep as 9
 
 	@updatetime:
-		hudVRAM	$DE40
+		locVRAM	$DE40,d0
 		moveq	#0,d1
 		move.b	(v_timemin).w,d1 ; load	minutes
 		bsr.w	Hud_Mins
-		hudVRAM	$DEC0
+		locVRAM	$DEC0,d0
 		moveq	#0,d1
 		move.b	(v_timesec).w,d1 ; load	seconds
 		bsr.w	Hud_Secs
@@ -105,13 +100,13 @@ HudDebug:
 
 	@notzero:
 		clr.b	(f_ringcount).w
-		hudVRAM	$DF40		; set VRAM address
+		locVRAM	$DF40,d0	; set VRAM address
 		moveq	#0,d1
 		move.w	(v_rings).w,d1	; load number of rings
 		bsr.w	Hud_Rings
 
 	@objcounter:
-		hudVRAM	$DEC0		; set VRAM address
+		locVRAM	$DEC0,d0	; set VRAM address
 		moveq	#0,d1
 		move.b	(v_spritecount).w,d1 ; load "number of objects" counter
 		bsr.w	Hud_Secs
