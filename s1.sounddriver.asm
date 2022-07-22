@@ -2499,9 +2499,14 @@ cfOpF9:
 		move.b	#$F,d1		; Loaded with fixed value (max RR, 1TL)
 		bra.w	WriteFMI
 ; ===========================================================================
-
+; ---------------------------------------------------------------------------
+; DAC driver
+; ---------------------------------------------------------------------------
 Kos_Z80:	include		"sound/z80.asm"
 
+; ---------------------------------------------------------------------------
+; Music data
+; ---------------------------------------------------------------------------
 Music81:	binclude	"sound/music/Mus81 - GHZ.bin"
 		even
 Music82:	binclude	"sound/music/Mus82 - LZ.bin"
@@ -2540,6 +2545,7 @@ Music92:	binclude	"sound/music/Mus92 - Drowning.bin"
 		even
 Music93:	binclude	"sound/music/Mus93 - Get Emerald.bin"
 		even
+
 ; ---------------------------------------------------------------------------
 ; Sound	effect pointers
 ; ---------------------------------------------------------------------------
@@ -2593,12 +2599,17 @@ ptr_sndCD:	dc.l SoundCD
 ptr_sndCE:	dc.l SoundCE
 ptr_sndCF:	dc.l SoundCF
 ptr_sndend
+
 ; ---------------------------------------------------------------------------
 ; Special sound effect pointers
 ; ---------------------------------------------------------------------------
 SpecSoundIndex:
 ptr_sndD0:	dc.l SoundD0
 ptr_specend
+
+; ---------------------------------------------------------------------------
+; Sound effect data
+; ---------------------------------------------------------------------------
 SoundA0:	binclude	"sound/sfx/SndA0 - Jump.bin"
 		even
 SoundA1:	binclude	"sound/sfx/SndA1 - Lamppost.bin"
@@ -2695,9 +2706,16 @@ SoundCE:	binclude	"sound/sfx/SndCE - Ring Left Speaker.bin"
 		even
 SoundCF:	binclude	"sound/sfx/SndCF - Signpost.bin"
 		even
+
+; ---------------------------------------------------------------------------
+; Special sound effect data
+; ---------------------------------------------------------------------------
 SoundD0:	binclude	"sound/sfx/SndD0 - Waterfall.bin"
 		even
 
+; ---------------------------------------------------------------------------
+; 'Sega' chant PCM sample
+; ---------------------------------------------------------------------------
 		; Don't let Sega sample cross $8000-byte boundary
 		; (DAC driver doesn't switch banks automatically)
 		if ((*)&$7FFF)+Size_of_SegaPCM>$8000
