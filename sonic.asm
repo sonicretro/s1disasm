@@ -104,30 +104,35 @@ loc_E0:
 		dc.l ErrorTrap
 		dc.l ErrorTrap
 	endc
-Console:	dc.b "SEGA MEGA DRIVE " ; Hardware system ID (Console name)
-Date:		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally year)
-Title_Local:	dc.b "SONIC THE               HEDGEHOG                " ; Domestic name
-Title_Int:	dc.b "SONIC THE               HEDGEHOG                " ; International name
-Serial:		if Revision=0
+		dc.b "SEGA MEGA DRIVE " ; Hardware system ID (Console name)
+		dc.b "(C)SEGA 1991.APR" ; Copyright holder and release date (generally year)
+		dc.b "SONIC THE               HEDGEHOG                " ; Domestic name
+		dc.b "SONIC THE               HEDGEHOG                " ; International name
+		if Revision=0
 		dc.b "GM 00001009-00"   ; Serial/version number (Rev 0)
 		else
 			dc.b "GM 00004049-01" ; Serial/version number (Rev non-0)
 		endc
-Checksum: dc.w $0
+Checksum:
+		if Revision=0
+		dc.w $264A	; Hardcoded to make it easier to check for ROM correctness
+		else
+		dc.w $AFC7
+		endc
 		dc.b "J               " ; I/O support
-RomStartLoc:	dc.l StartOfRom		; Start address of ROM
+		dc.l StartOfRom		; Start address of ROM
 RomEndLoc:	dc.l EndOfRom-1		; End address of ROM
-RamStartLoc:	dc.l $FF0000		; Start address of RAM
-RamEndLoc:	dc.l $FFFFFF		; End address of RAM
-SRAMSupport:	if EnableSRAM=1
-		dc.b $52, $41, $A0+(BackupSRAM<<6)+(AddressSRAM<<3), $20
+		dc.l $FF0000		; Start address of RAM
+		dc.l $FFFFFF		; End address of RAM
+		if EnableSRAM=1
+		dc.b $52, $41, $A0+(BackupSRAM<<6)+(AddressSRAM<<3), $20 ; SRAM support
 		else
 		dc.l $20202020
 		endc
 		dc.l $20202020		; SRAM start ($200001)
 		dc.l $20202020		; SRAM end ($20xxxx)
-Notes:		dc.b "                                                    " ; Notes (unused, anything can be put in this space, but it has to be 52 bytes.)
-Region:		dc.b "JUE             " ; Region (Country code)
+		dc.b "                                                    " ; Notes (unused, anything can be put in this space, but it has to be 52 bytes.)
+		dc.b "JUE             " ; Region (Country code)
 EndOfHeader:
 
 ; ===========================================================================
@@ -1363,7 +1368,8 @@ Pal_GHZCyc:	incbin	"palette\Cycle - GHZ.bin"
 Pal_LZCyc1:	incbin	"palette\Cycle - LZ Waterfall.bin"
 Pal_LZCyc2:	incbin	"palette\Cycle - LZ Conveyor Belt.bin"
 Pal_LZCyc3:	incbin	"palette\Cycle - LZ Conveyor Belt Underwater.bin"
-Pal_SBZ3Cyc1:	incbin	"palette\Cycle - SBZ3 Waterfall.bin"
+Pal_SBZ3Cyc:	incbin	"palette\Cycle - SBZ3 Waterfall.bin"
+Pal_MZCyc:	incbin	"palette\Cycle - MZ (Unused).bin"
 Pal_SLZCyc:	incbin	"palette\Cycle - SLZ.bin"
 Pal_SYZCyc1:	incbin	"palette\Cycle - SYZ1.bin"
 Pal_SYZCyc2:	incbin	"palette\Cycle - SYZ2.bin"
