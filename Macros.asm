@@ -29,13 +29,13 @@ locVRAM:	macro loc,controlport
 ; input: source, length, destination
 ; ---------------------------------------------------------------------------
 
-writeVRAM:	macro
+writeVRAM:	macro source,length,destination
 		lea	(vdp_control_port).l,a5
-		move.l	#$94000000+(((\2>>1)&$FF00)<<8)+$9300+((\2>>1)&$FF),(a5)
-		move.l	#$96000000+(((\1>>1)&$FF00)<<8)+$9500+((\1>>1)&$FF),(a5)
-		move.w	#$9700+((((\1>>1)&$FF0000)>>16)&$7F),(a5)
-		move.w	#$4000+(\3&$3FFF),(a5)
-		move.w	#$80+((\3&$C000)>>14),(v_vdp_buffer2).w
+		move.l	#$94000000+(((length>>1)&$FF00)<<8)+$9300+((length>>1)&$FF),(a5)
+		move.l	#$96000000+(((source>>1)&$FF00)<<8)+$9500+((source>>1)&$FF),(a5)
+		move.w	#$9700+((((source>>1)&$FF0000)>>16)&$7F),(a5)
+		move.w	#$4000+(destination&$3FFF),(a5)
+		move.w	#$80+((destination&$C000)>>14),(v_vdp_buffer2).w
 		move.w	(v_vdp_buffer2).w,(a5)
 		endm
 
@@ -44,13 +44,13 @@ writeVRAM:	macro
 ; input: source, length, destination
 ; ---------------------------------------------------------------------------
 
-writeCRAM:	macro
+writeCRAM:	macro source,length,destination
 		lea	(vdp_control_port).l,a5
-		move.l	#$94000000+(((\2>>1)&$FF00)<<8)+$9300+((\2>>1)&$FF),(a5)
-		move.l	#$96000000+(((\1>>1)&$FF00)<<8)+$9500+((\1>>1)&$FF),(a5)
-		move.w	#$9700+((((\1>>1)&$FF0000)>>16)&$7F),(a5)
-		move.w	#$C000+(\3&$3FFF),(a5)
-		move.w	#$80+((\3&$C000)>>14),(v_vdp_buffer2).w
+		move.l	#$94000000+(((length>>1)&$FF00)<<8)+$9300+((length>>1)&$FF),(a5)
+		move.l	#$96000000+(((source>>1)&$FF00)<<8)+$9500+((source>>1)&$FF),(a5)
+		move.w	#$9700+((((source>>1)&$FF0000)>>16)&$7F),(a5)
+		move.w	#$C000+(destination&$3FFF),(a5)
+		move.w	#$80+((destination&$C000)>>14),(v_vdp_buffer2).w
 		move.w	(v_vdp_buffer2).w,(a5)
 		endm
 
@@ -75,7 +75,7 @@ fillVRAM:	macro value,length,loc
 
 copyTilemap:	macro source,destination,width,height
 		lea	(source).l,a1
-		locVRAM	destination,d0
+		locVRAM	\destination,d0
 		moveq	#width,d1
 		moveq	#height,d2
 		bsr.w	TilemapToVRAM
@@ -244,11 +244,11 @@ out_of_range:	macro exit,pos
 ; ---------------------------------------------------------------------------
 
 gotoSRAM:	macro
-		move.b  #1,($A130F1).l
+		move.b	#1,($A130F1).l
 		endm
 
 gotoROM:	macro
-		move.b  #0,($A130F1).l
+		move.b	#0,($A130F1).l
 		endm
 
 ; ---------------------------------------------------------------------------
