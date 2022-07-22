@@ -2505,45 +2505,51 @@ cfOpF9:
 Kos_Z80:	include		"sound/z80.asm"
 
 ; ---------------------------------------------------------------------------
+; SMPS2ASM - A collection of macros that make SMPS's bytecode human-readable.
+; ---------------------------------------------------------------------------
+SonicDriverVer = 1 ; Tell SMPS2ASM that we're using Sonic 1's driver.
+		include "sound/_smps2asm_inc.asm"
+
+; ---------------------------------------------------------------------------
 ; Music data
 ; ---------------------------------------------------------------------------
-Music81:	binclude	"sound/music/Mus81 - GHZ.bin"
+Music81:	include	"sound/music/Mus81 - GHZ.asm"
 		even
-Music82:	binclude	"sound/music/Mus82 - LZ.bin"
+Music82:	include	"sound/music/Mus82 - LZ.asm"
 		even
-Music83:	binclude	"sound/music/Mus83 - MZ.bin"
+Music83:	include	"sound/music/Mus83 - MZ.asm"
 		even
-Music84:	binclude	"sound/music/Mus84 - SLZ.bin"
+Music84:	include	"sound/music/Mus84 - SLZ.asm"
 		even
-Music85:	binclude	"sound/music/Mus85 - SYZ.bin"
+Music85:	include	"sound/music/Mus85 - SYZ.asm"
 		even
-Music86:	binclude	"sound/music/Mus86 - SBZ.bin"
+Music86:	include	"sound/music/Mus86 - SBZ.asm"
 		even
-Music87:	binclude	"sound/music/Mus87 - Invincibility.bin"
+Music87:	include	"sound/music/Mus87 - Invincibility.asm"
 		even
-Music88:	binclude	"sound/music/Mus88 - Extra Life.bin"
+Music88:	include	"sound/music/Mus88 - Extra Life.asm"
 		even
-Music89:	binclude	"sound/music/Mus89 - Special Stage.bin"
+Music89:	include	"sound/music/Mus89 - Special Stage.asm"
 		even
-Music8A:	binclude	"sound/music/Mus8A - Title Screen.bin"
+Music8A:	include	"sound/music/Mus8A - Title Screen.asm"
 		even
-Music8B:	binclude	"sound/music/Mus8B - Ending.bin"
+Music8B:	include	"sound/music/Mus8B - Ending.asm"
 		even
-Music8C:	binclude	"sound/music/Mus8C - Boss.bin"
+Music8C:	include	"sound/music/Mus8C - Boss.asm"
 		even
-Music8D:	binclude	"sound/music/Mus8D - FZ.bin"
+Music8D:	include	"sound/music/Mus8D - FZ.asm"
 		even
-Music8E:	binclude	"sound/music/Mus8E - Sonic Got Through.bin"
+Music8E:	include	"sound/music/Mus8E - Sonic Got Through.asm"
 		even
-Music8F:	binclude	"sound/music/Mus8F - Game Over.bin"
+Music8F:	include	"sound/music/Mus8F - Game Over.asm"
 		even
-Music90:	binclude	"sound/music/Mus90 - Continue Screen.bin"
+Music90:	include	"sound/music/Mus90 - Continue Screen.asm"
 		even
-Music91:	binclude	"sound/music/Mus91 - Credits.bin"
+Music91:	include	"sound/music/Mus91 - Credits.asm"
 		even
-Music92:	binclude	"sound/music/Mus92 - Drowning.bin"
+Music92:	include	"sound/music/Mus92 - Drowning.asm"
 		even
-Music93:	binclude	"sound/music/Mus93 - Get Emerald.bin"
+Music93:	include	"sound/music/Mus93 - Get Emerald.asm"
 		even
 
 ; ---------------------------------------------------------------------------
@@ -2610,107 +2616,107 @@ ptr_specend
 ; ---------------------------------------------------------------------------
 ; Sound effect data
 ; ---------------------------------------------------------------------------
-SoundA0:	binclude	"sound/sfx/SndA0 - Jump.bin"
+SoundA0:	include	"sound/sfx/SndA0 - Jump.asm"
 		even
-SoundA1:	binclude	"sound/sfx/SndA1 - Lamppost.bin"
+SoundA1:	include	"sound/sfx/SndA1 - Lamppost.asm"
 		even
-SoundA2:	binclude	"sound/sfx/SndA2.bin"
+SoundA2:	include	"sound/sfx/SndA2.asm"
 		even
-SoundA3:	binclude	"sound/sfx/SndA3 - Death.bin"
+SoundA3:	include	"sound/sfx/SndA3 - Death.asm"
 		even
-SoundA4:	binclude	"sound/sfx/SndA4 - Skid.bin"
+SoundA4:	include	"sound/sfx/SndA4 - Skid.asm"
 		even
-SoundA5:	binclude	"sound/sfx/SndA5.bin"
+SoundA5:	include	"sound/sfx/SndA5.asm"
 		even
-SoundA6:	binclude	"sound/sfx/SndA6 - Hit Spikes.bin"
+SoundA6:	include	"sound/sfx/SndA6 - Hit Spikes.asm"
 		even
-SoundA7:	binclude	"sound/sfx/SndA7 - Push Block.bin"
+SoundA7:	include	"sound/sfx/SndA7 - Push Block.asm"
 		even
-SoundA8:	binclude	"sound/sfx/SndA8 - SS Goal.bin"
+SoundA8:	include	"sound/sfx/SndA8 - SS Goal.asm"
 		even
-SoundA9:	binclude	"sound/sfx/SndA9 - SS Item.bin"
+SoundA9:	include	"sound/sfx/SndA9 - SS Item.asm"
 		even
-SoundAA:	binclude	"sound/sfx/SndAA - Splash.bin"
+SoundAA:	include	"sound/sfx/SndAA - Splash.asm"
 		even
-SoundAB:	binclude	"sound/sfx/SndAB.bin"
+SoundAB:	include	"sound/sfx/SndAB.asm"
 		even
-SoundAC:	binclude	"sound/sfx/SndAC - Hit Boss.bin"
+SoundAC:	include	"sound/sfx/SndAC - Hit Boss.asm"
 		even
-SoundAD:	binclude	"sound/sfx/SndAD - Get Bubble.bin"
+SoundAD:	include	"sound/sfx/SndAD - Get Bubble.asm"
 		even
-SoundAE:	binclude	"sound/sfx/SndAE - Fireball.bin"
+SoundAE:	include	"sound/sfx/SndAE - Fireball.asm"
 		even
-SoundAF:	binclude	"sound/sfx/SndAF - Shield.bin"
+SoundAF:	include	"sound/sfx/SndAF - Shield.asm"
 		even
-SoundB0:	binclude	"sound/sfx/SndB0 - Saw.bin"
+SoundB0:	include	"sound/sfx/SndB0 - Saw.asm"
 		even
-SoundB1:	binclude	"sound/sfx/SndB1 - Electric.bin"
+SoundB1:	include	"sound/sfx/SndB1 - Electric.asm"
 		even
-SoundB2:	binclude	"sound/sfx/SndB2 - Drown Death.bin"
+SoundB2:	include	"sound/sfx/SndB2 - Drown Death.asm"
 		even
-SoundB3:	binclude	"sound/sfx/SndB3 - Flamethrower.bin"
+SoundB3:	include	"sound/sfx/SndB3 - Flamethrower.asm"
 		even
-SoundB4:	binclude	"sound/sfx/SndB4 - Bumper.bin"
+SoundB4:	include	"sound/sfx/SndB4 - Bumper.asm"
 		even
-SoundB5:	binclude	"sound/sfx/SndB5 - Ring.bin"
+SoundB5:	include	"sound/sfx/SndB5 - Ring.asm"
 		even
-SoundB6:	binclude	"sound/sfx/SndB6 - Spikes Move.bin"
+SoundB6:	include	"sound/sfx/SndB6 - Spikes Move.asm"
 		even
-SoundB7:	binclude	"sound/sfx/SndB7 - Rumbling.bin"
+SoundB7:	include	"sound/sfx/SndB7 - Rumbling.asm"
 		even
-SoundB8:	binclude	"sound/sfx/SndB8.bin"
+SoundB8:	include	"sound/sfx/SndB8.asm"
 		even
-SoundB9:	binclude	"sound/sfx/SndB9 - Collapse.bin"
+SoundB9:	include	"sound/sfx/SndB9 - Collapse.asm"
 		even
-SoundBA:	binclude	"sound/sfx/SndBA - SS Glass.bin"
+SoundBA:	include	"sound/sfx/SndBA - SS Glass.asm"
 		even
-SoundBB:	binclude	"sound/sfx/SndBB - Door.bin"
+SoundBB:	include	"sound/sfx/SndBB - Door.asm"
 		even
-SoundBC:	binclude	"sound/sfx/SndBC - Teleport.bin"
+SoundBC:	include	"sound/sfx/SndBC - Teleport.asm"
 		even
-SoundBD:	binclude	"sound/sfx/SndBD - ChainStomp.bin"
+SoundBD:	include	"sound/sfx/SndBD - ChainStomp.asm"
 		even
-SoundBE:	binclude	"sound/sfx/SndBE - Roll.bin"
+SoundBE:	include	"sound/sfx/SndBE - Roll.asm"
 		even
-SoundBF:	binclude	"sound/sfx/SndBF - Get Continue.bin"
+SoundBF:	include	"sound/sfx/SndBF - Get Continue.asm"
 		even
-SoundC0:	binclude	"sound/sfx/SndC0 - Basaran Flap.bin"
+SoundC0:	include	"sound/sfx/SndC0 - Basaran Flap.asm"
 		even
-SoundC1:	binclude	"sound/sfx/SndC1 - Break Item.bin"
+SoundC1:	include	"sound/sfx/SndC1 - Break Item.asm"
 		even
-SoundC2:	binclude	"sound/sfx/SndC2 - Drown Warning.bin"
+SoundC2:	include	"sound/sfx/SndC2 - Drown Warning.asm"
 		even
-SoundC3:	binclude	"sound/sfx/SndC3 - Giant Ring.bin"
+SoundC3:	include	"sound/sfx/SndC3 - Giant Ring.asm"
 		even
-SoundC4:	binclude	"sound/sfx/SndC4 - Bomb.bin"
+SoundC4:	include	"sound/sfx/SndC4 - Bomb.asm"
 		even
-SoundC5:	binclude	"sound/sfx/SndC5 - Cash Register.bin"
+SoundC5:	include	"sound/sfx/SndC5 - Cash Register.asm"
 		even
-SoundC6:	binclude	"sound/sfx/SndC6 - Ring Loss.bin"
+SoundC6:	include	"sound/sfx/SndC6 - Ring Loss.asm"
 		even
-SoundC7:	binclude	"sound/sfx/SndC7 - Chain Rising.bin"
+SoundC7:	include	"sound/sfx/SndC7 - Chain Rising.asm"
 		even
-SoundC8:	binclude	"sound/sfx/SndC8 - Burning.bin"
+SoundC8:	include	"sound/sfx/SndC8 - Burning.asm"
 		even
-SoundC9:	binclude	"sound/sfx/SndC9 - Hidden Bonus.bin"
+SoundC9:	include	"sound/sfx/SndC9 - Hidden Bonus.asm"
 		even
-SoundCA:	binclude	"sound/sfx/SndCA - Enter SS.bin"
+SoundCA:	include	"sound/sfx/SndCA - Enter SS.asm"
 		even
-SoundCB:	binclude	"sound/sfx/SndCB - Wall Smash.bin"
+SoundCB:	include	"sound/sfx/SndCB - Wall Smash.asm"
 		even
-SoundCC:	binclude	"sound/sfx/SndCC - Spring.bin"
+SoundCC:	include	"sound/sfx/SndCC - Spring.asm"
 		even
-SoundCD:	binclude	"sound/sfx/SndCD - Switch.bin"
+SoundCD:	include	"sound/sfx/SndCD - Switch.asm"
 		even
-SoundCE:	binclude	"sound/sfx/SndCE - Ring Left Speaker.bin"
+SoundCE:	include	"sound/sfx/SndCE - Ring Left Speaker.asm"
 		even
-SoundCF:	binclude	"sound/sfx/SndCF - Signpost.bin"
+SoundCF:	include	"sound/sfx/SndCF - Signpost.asm"
 		even
 
 ; ---------------------------------------------------------------------------
 ; Special sound effect data
 ; ---------------------------------------------------------------------------
-SoundD0:	binclude	"sound/sfx/SndD0 - Waterfall.bin"
+SoundD0:	include	"sound/sfx/SndD0 - Waterfall.asm"
 		even
 
 ; ---------------------------------------------------------------------------
