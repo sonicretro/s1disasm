@@ -23,9 +23,9 @@ repeat
 	end
 
 	if bytes == 64 then
-		md5_hasher.PushData(block_string) -- All 64 bytes
+		md5_hasher:PushData(block_string) -- All 64 bytes
 	else
-		hash = md5_hasher.PushFinalData(block_string, bytes * 8) -- 63 or fewer bytes
+		hash = md5_hasher:PushFinalData(block_string, bytes * 8) -- 63 or fewer bytes
 	end
 until bytes ~= 64
 
