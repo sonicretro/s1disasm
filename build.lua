@@ -81,12 +81,21 @@ else
 
 	-- If the assembler encountered an error, then the object file will not exist.
 	if not file_exists("sonic.p") then
-		print "\n\z
-			**********************************************************************\n\z
-			*                                                                    *\n\z
-			*      There were build errors. See sonic.log for more details.      *\n\z
-			*                                                                    *\n\z
-			**********************************************************************\n\z"
+		if not file_exists("sonic.log") then
+			print "\n\z
+				**********************************************************************\n\z
+				*                                                                    *\n\z
+				*         The assembler crashed. See above for more details.         *\n\z
+				*                                                                    *\n\z
+				**********************************************************************\n\z"
+		else
+			print "\n\z
+				**********************************************************************\n\z
+				*                                                                    *\n\z
+				*      There were build errors. See sonic.log for more details.      *\n\z
+				*                                                                    *\n\z
+				**********************************************************************\n\z"
+		end
 	else
 		-- Convert the object file into a ROM.
 		local p2bin_args = "-a"
