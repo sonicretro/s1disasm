@@ -21,19 +21,21 @@ local os_name, arch_name = require "build_tools.Lua.get_os_name".get_os_name()
 
 local platform_directory, as_path, p2bin_path
 
+platform_directory = "build_tools"
+
 if os_name == "Windows" then
-	platform_directory = "build_tools\\Win32"
+	platform_directory = platform_directory .. "\\Win32"
 	as_path = platform_directory .. "\\asw.exe"
 	p2bin_path = platform_directory .. "\\s1p2bin.exe"
 elseif os_name == "Mac" then
-	platform_directory = "build_tools/Osx"
+	platform_directory = platform_directory .. "/Osx"
 	as_path = platform_directory .. "/asl"
 	p2bin_path = platform_directory .. "/s1p2bin"
 elseif os_name == "Linux" then
 	if arch_name == "x86" then
-		platform_directory = "build_tools/Linux32"
+		platform_directory = platform_directory .. "/Linux32"
 	elseif arch_name == "x86_64" then
-		platform_directory = "build_tools/Linux"
+		platform_directory = platform_directory .. "/Linux"
 	end
 
 	as_path = platform_directory .. "/asl"
