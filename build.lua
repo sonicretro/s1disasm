@@ -1,9 +1,17 @@
 #!/usr/bin/env lua
 
+--------------
+-- Settings --
+--------------
+
 -- Set this to true to use a better compression algorithm for the DAC driver.
 -- Having this set to false will use an inferior compression algorithm that
 -- results in an accurate ROM being produced.
 local improved_dac_driver_compression = false
+
+---------------------
+-- End of settings --
+---------------------
 
 local function file_exists(path)
 	local file = io.open(path, "rb")
@@ -91,6 +99,10 @@ if not file_exists("sonic.p") then
 			*                                                                    *\n\z
 			**********************************************************************\n\z"
 	else
+		for line in io.lines("sonic.log") do
+			print(line)
+		end
+
 		print "\n\z
 			**********************************************************************\n\z
 			*                                                                    *\n\z
@@ -141,12 +153,17 @@ rom:close()
 
 -- If we've gotten this far but a log file exists, then there must have been build warnings.
 if file_exists("sonic.log") then
+	for line in io.lines("sonic.log") do
+		print(line)
+	end
+
 	print "\n\z
 		**********************************************************************\n\z
 		*                                                                    *\n\z
 		*     There were build warnings. See sonic.log for more details.     *\n\z
 		*                                                                    *\n\z
 		**********************************************************************\n\z"
+
 	os.exit(false)
 end
 
