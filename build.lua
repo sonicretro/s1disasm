@@ -136,12 +136,12 @@ else
 
 		-- If we've gotten this far but a log file exists, then there must have been build warnings.
 		if file_exists("sonic.log") then
-		print "\n\z
-			**********************************************************************\n\z
-			*                                                                    *\n\z
-			*     There were build warnings. See sonic.log for more details.     *\n\z
-			*                                                                    *\n\z
-			**********************************************************************\n\z"
+			print "\n\z
+				**********************************************************************\n\z
+				*                                                                    *\n\z
+				*     There were build warnings. See sonic.log for more details.     *\n\z
+				*                                                                    *\n\z
+				**********************************************************************\n\z"
 		else
 			-- A successful build; we can quit now.
 			return
