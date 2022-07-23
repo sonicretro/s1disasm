@@ -42,12 +42,12 @@ elseif os_name == "Linux" then
 	p2bin_path = platform_directory .. "/s1p2bin"
 else
 	print "Build failed: Your OS is unsupported."
-	return
+	os.exit(false)
 end
 
 if arch_name ~= "x86" and arch_name ~= "x86_64" then
 	print "Build failed: Your CPU architecture is unsupported."
-	return
+	os.exit(false)
 end
 
 if not file_exists(p2bin_path) then
@@ -60,96 +60,94 @@ if not file_exists(p2bin_path) then
 		We'd appreciate it if you could send us your binary in a pull request at\n\z
 		https://github.com/sonicretro/s1disasm, so other users don't have this problem\n\z
 		in the future.", platform_directory))
-else
-	-- Delete old ROM.
-	os.remove("s1built.prev.bin")
+	os.exit(false)
+end
 
-	-- Backup the most recent ROM.
-	os.rename("s1built.bin", "s1built.prev.bin")
+-- Delete old ROM.
+os.remove("s1built.prev.bin")
 
-	-- Delete object file, so that we can use its presence to detect a successful build.
-	os.remove("sonic.p")
+-- Backup the most recent ROM.
+os.rename("s1built.bin", "s1built.prev.bin")
 
-	-- Assemble the ROM, producing an object file.
-	-- '-xx'  - shows the most detailed error output
-	-- '-q'   - shuts up AS
-	-- '-A'   - gives us a small speedup
-	-- '-U'   - forces case-sensitivity
-	-- '-E'   - output errors to a file (sonic.log)
-	-- '-i .' - allows (b)include paths to be absolute
-	os.execute(as_path .. " -xx -n -q -A -L -U -E -i . sonic.asm")
+-- Delete object file, so that we can use its presence to detect a successful build.
+os.remove("sonic.p")
 
-	-- If the assembler encountered an error, then the object file will not exist.
-	if not file_exists("sonic.p") then
-		if not file_exists("sonic.log") then
-			print "\n\z
-				**********************************************************************\n\z
-				*                                                                    *\n\z
-				*         The assembler crashed. See above for more details.         *\n\z
-				*                                                                    *\n\z
-				**********************************************************************\n\z"
-		else
-			print "\n\z
-				**********************************************************************\n\z
-				*                                                                    *\n\z
-				*      There were build errors. See sonic.log for more details.      *\n\z
-				*                                                                    *\n\z
-				**********************************************************************\n\z"
-		end
+-- Assemble the ROM, producing an object file.
+-- '-xx'  - shows the most detailed error output
+-- '-q'   - shuts up AS
+-- '-A'   - gives us a small speedup
+-- '-U'   - forces case-sensitivity
+-- '-E'   - output errors to a file (sonic.log)
+-- '-i .' - allows (b)include paths to be absolute
+os.execute(as_path .. " -xx -n -q -A -L -U -E -i . sonic.asm")
+
+-- If the assembler encountered an error, then the object file will not exist.
+if not file_exists("sonic.p") then
+	if not file_exists("sonic.log") then
+		print "\n\z
+			**********************************************************************\n\z
+			*                                                                    *\n\z
+			*         The assembler crashed. See above for more details.         *\n\z
+			*                                                                    *\n\z
+			**********************************************************************\n\z"
 	else
-		-- Convert the object file into a ROM.
-		local p2bin_args = "-a"
+		print "\n\z
+			**********************************************************************\n\z
+			*                                                                    *\n\z
+			*      There were build errors. See sonic.log for more details.      *\n\z
+			*                                                                    *\n\z
+			**********************************************************************\n\z"
+	end
 
-		if improved_dac_driver_compression then
-			p2bin_args = ""
-		end
+	os.exit(false)
+end
 
-		os.execute(p2bin_path .. " " .. p2bin_args .. " sonic.p s1built.bin")
+-- Convert the object file into a ROM.
+local p2bin_args = "-a"
 
-		-- Correct the ROM's header with a proper checksum and end-of-ROM value.
-		local rom = io.open("s1built.bin", "r+b")
+if improved_dac_driver_compression then
+	p2bin_args = ""
+end
 
-		-- Obtain the end-of-ROM value.
-		local rom_end = rom:seek("end", 0) - 1
+os.execute(p2bin_path .. " " .. p2bin_args .. " sonic.p s1built.bin")
 
-		-- Write the end-of-ROM value to the ROM header.
-		rom:seek("set", 0x1A4)
-		rom:write(string.pack(">I4", rom_end))
+-- Correct the ROM's header with a proper checksum and end-of-ROM value.
+local rom = io.open("s1built.bin", "r+b")
 
-		-- Calculate the checksum.
-		local checksum = 0
-		rom:seek("set", 0x200)
-		for bytes in function() return rom:read(2) end do
-			if bytes:len() == 2 then
-				checksum = checksum + string.unpack(">I2", bytes)
-			else
-				checksum = checksum + (string.unpack("I1", byte) << 8)
-			end
-		end
+-- Obtain the end-of-ROM value.
+local rom_end = rom:seek("end", 0) - 1
 
-		-- Write the checksum to the ROM header.
-		rom:seek("set", 0x18E)
-		rom:write(string.pack(">I2", checksum & 0xFFFF))
+-- Write the end-of-ROM value to the ROM header.
+rom:seek("set", 0x1A4)
+rom:write(string.pack(">I4", rom_end))
 
-		-- We're done editing the ROM header.
-		rom:close()
-
-		-- If we've gotten this far but a log file exists, then there must have been build warnings.
-		if file_exists("sonic.log") then
-			print "\n\z
-				**********************************************************************\n\z
-				*                                                                    *\n\z
-				*     There were build warnings. See sonic.log for more details.     *\n\z
-				*                                                                    *\n\z
-				**********************************************************************\n\z"
-		else
-			-- A successful build; we can quit now.
-			return
-		end
+-- Calculate the checksum.
+local checksum = 0
+rom:seek("set", 0x200)
+for bytes in function() return rom:read(2) end do
+	if bytes:len() == 2 then
+		checksum = checksum + string.unpack(">I2", bytes)
+	else
+		checksum = checksum + (string.unpack("I1", byte) << 8)
 	end
 end
 
--- If we're on Windows, then keep the console window open so that the user can read the message that we're trying to show them.
-if os_name == "Windows" then
-	os.execute("pause")
+-- Write the checksum to the ROM header.
+rom:seek("set", 0x18E)
+rom:write(string.pack(">I2", checksum & 0xFFFF))
+
+-- We're done editing the ROM header.
+rom:close()
+
+-- If we've gotten this far but a log file exists, then there must have been build warnings.
+if file_exists("sonic.log") then
+	print "\n\z
+		**********************************************************************\n\z
+		*                                                                    *\n\z
+		*     There were build warnings. See sonic.log for more details.     *\n\z
+		*                                                                    *\n\z
+		**********************************************************************\n\z"
+	os.exit(false)
 end
+
+-- A successful build; we can quit now.
