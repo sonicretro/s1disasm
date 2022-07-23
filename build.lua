@@ -17,23 +17,23 @@ local function file_exists(path)
 end
 
 -- Before we begin, let's detect our OS and set up our paths.
-local os_name, arch_name = require "AS.Lua.get_os_name".get_os_name()
+local os_name, arch_name = require "build_tools.Lua.get_os_name".get_os_name()
 
 local platform_directory, as_path, p2bin_path
 
 if os_name == "Windows" then
-	platform_directory = "AS\\Win32"
+	platform_directory = "build_tools\\Win32"
 	as_path = platform_directory .. "\\asw.exe"
 	p2bin_path = platform_directory .. "\\s1p2bin.exe"
 elseif os_name == "Mac" then
-	platform_directory = "AS/Osx"
+	platform_directory = "build_tools/Osx"
 	as_path = platform_directory .. "/asl"
 	p2bin_path = platform_directory .. "/s1p2bin"
 elseif os_name == "Linux" then
 	if arch_name == "x86" then
-		platform_directory = "AS/Linux32"
+		platform_directory = "build_tools/Linux32"
 	elseif arch_name == "x86_64" then
-		platform_directory = "AS/Linux"
+		platform_directory = "build_tools/Linux"
 	end
 
 	as_path = platform_directory .. "/asl"
@@ -52,8 +52,8 @@ if not file_exists(p2bin_path) then
 	print(string.format("\z
 		Sorry, the s1p2bin tool for your platform is outdated and needs recompiling.\n\z
 		\n\z
-		You can find the source code as well as a Makefile in 'AS/s1p2bin'. Once\n\z
-		compiled, copy the executable to '%s'.\n\z
+		You can find the source code as well as a Makefile in 'build_tools/s1p2bin'.\n\z
+		Once compiled, copy the executable to '%s'.\n\z
 		\n\z
 		We'd appreciate it if you could send us your binary in a pull request at\n\z
 		https://github.com/sonicretro/s1disasm, so other users don't have this problem\n\z

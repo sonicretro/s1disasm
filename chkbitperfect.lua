@@ -1,6 +1,6 @@
 #!/usr/bin/env lua
 
-local md5 = require "AS.Lua.md5"
+local md5 = require "build_tools.Lua.md5"
 
 -- Build the ROM.
 dofile("build.lua")
