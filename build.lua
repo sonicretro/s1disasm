@@ -13,52 +13,13 @@ local improved_dac_driver_compression = false
 -- End of settings --
 ---------------------
 
-local function file_exists(path)
-	local file = io.open(path, "rb")
+local common = require "build_tools.Lua.common"
 
-	if file then
-		file:close()
-		return true
-	else
-		return false
-	end
-end
+-- Obtain the paths to the native build tools for the current platform.
+local tools, platform_directory = common.find_tools("s1p2bin")
 
--- Before we begin, let's detect our OS and set up our paths.
-local os_name, arch_name = require "build_tools.Lua.get_os_name".get_os_name()
-
-local platform_directory, as_path, p2bin_path
-
-platform_directory = "build_tools"
-
-if os_name == "Windows" then
-	platform_directory = platform_directory .. "\\Win32"
-	as_path = platform_directory .. "\\asw.exe"
-	p2bin_path = platform_directory .. "\\s1p2bin.exe"
-elseif os_name == "Mac" then
-	platform_directory = platform_directory .. "/Osx"
-	as_path = platform_directory .. "/asl"
-	p2bin_path = platform_directory .. "/s1p2bin"
-elseif os_name == "Linux" then
-	if arch_name == "x86" then
-		platform_directory = platform_directory .. "/Linux32"
-	elseif arch_name == "x86_64" then
-		platform_directory = platform_directory .. "/Linux"
-	end
-
-	as_path = platform_directory .. "/asl"
-	p2bin_path = platform_directory .. "/s1p2bin"
-else
-	print "Build failed: Your OS is unsupported."
-	os.exit(false)
-end
-
-if arch_name ~= "x86" and arch_name ~= "x86_64" then
-	print "Build failed: Your CPU architecture is unsupported."
-	os.exit(false)
-end
-
-if not file_exists(p2bin_path) then
+-- Present an error message to the user if the build tools for their platform do not exist.
+if not tools then
 	print(string.format("\z
 		Sorry, the s1p2bin tool for your platform is outdated and needs recompiling.\n\z
 		\n\z
@@ -68,6 +29,7 @@ if not file_exists(p2bin_path) then
 		We'd appreciate it if you could send us your binary in a pull request at\n\z
 		https://github.com/sonicretro/s1disasm, so that other users don't have this\n\z
 		problem in the future.", platform_directory))
+
 	os.exit(false)
 end
 
@@ -77,78 +39,33 @@ os.remove("s1built.prev.bin")
 -- Backup the most recent ROM.
 os.rename("s1built.bin", "s1built.prev.bin")
 
--- Delete object file, so that we can use its presence to detect a successful build.
-os.remove("sonic.p")
+-- Assemble the ROM.
+local assemble_result = common.assemble_file("sonic", "s1built.bin", tools.as, tools.s1p2bin .. (improved_dac_driver_compression and "" or " -a"), false)
 
--- Assemble the ROM, producing an object file.
--- '-xx'  - shows the most detailed error output
--- '-q'   - shuts up AS
--- '-A'   - gives us a small speedup
--- '-U'   - forces case-sensitivity
--- '-E'   - output errors to a file (sonic.log)
--- '-i .' - allows (b)include paths to be absolute
-os.execute(as_path .. " -xx -n -q -A -L -U -E -i . sonic.asm")
+if assemble_result == "crash" then
+	print "\n\z
+		**********************************************************************\n\z
+		*                                                                    *\n\z
+		*         The assembler crashed. See above for more details.         *\n\z
+		*                                                                    *\n\z
+		**********************************************************************\n\z"
 
--- If the assembler encountered an error, then the object file will not exist.
-if not file_exists("sonic.p") then
-	if not file_exists("sonic.log") then
-		print "\n\z
-			**********************************************************************\n\z
-			*                                                                    *\n\z
-			*         The assembler crashed. See above for more details.         *\n\z
-			*                                                                    *\n\z
-			**********************************************************************\n\z"
-	else
-		for line in io.lines("sonic.log") do
-			print(line)
-		end
-
-		print "\n\z
-			**********************************************************************\n\z
-			*                                                                    *\n\z
-			*      There were build errors. See sonic.log for more details.      *\n\z
-			*                                                                    *\n\z
-			**********************************************************************\n\z"
-	end
+	os.exit(false)
+elseif assemble_result == "error" then
+	print "\n\z
+		**********************************************************************\n\z
+		*                                                                    *\n\z
+		*      There were build errors. See sonic.log for more details.      *\n\z
+		*                                                                    *\n\z
+		**********************************************************************\n\z"
 
 	os.exit(false)
 end
 
--- Convert the object file into a ROM.
-local p2bin_args = improved_dac_driver_compression and "" or "-a"
-
-os.execute(p2bin_path .. " " .. p2bin_args .. " sonic.p s1built.bin")
-
 -- Correct the ROM's header with a proper checksum and end-of-ROM value.
-local rom = io.open("s1built.bin", "r+b")
+common.fix_header("s1built.bin")
 
--- Obtain the end-of-ROM value.
-local rom_end = rom:seek("end", 0) - 1
-
--- Write the end-of-ROM value to the ROM header.
-rom:seek("set", 0x1A4)
-rom:write(string.pack(">I4", rom_end))
-
--- Calculate the checksum.
-local checksum = 0
-rom:seek("set", 0x200)
-for bytes in function() return rom:read(2) end do
-	if bytes:len() == 2 then
-		checksum = checksum + string.unpack(">I2", bytes)
-	else
-		checksum = checksum + (string.unpack("I1", byte) << 8)
-	end
-end
-
--- Write the checksum to the ROM header.
-rom:seek("set", 0x18E)
-rom:write(string.pack(">I2", checksum & 0xFFFF))
-
--- We're done editing the ROM header.
-rom:close()
-
--- If we've gotten this far but a log file exists, then there must have been build warnings.
-if file_exists("sonic.log") then
+if assemble_result == "warning" then
 	for line in io.lines("sonic.log") do
 		print(line)
 	end

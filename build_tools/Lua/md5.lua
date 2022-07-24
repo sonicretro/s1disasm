@@ -268,6 +268,7 @@ local function HashFile(filename)
 
 	while true do
 		local block_string = file:read(64)
+		local bytes
 
 		if block_string == nil then
 			bytes = 0
