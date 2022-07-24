@@ -13,7 +13,7 @@
  * successors. We intend this dedication to be an overt act of
  * relinquishment in perpetuity of all present and future rights to this
  * software under copyright law.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
@@ -190,7 +190,7 @@ local function PushFinalData(self, data, bits)
 	if bits & 7 == 0 then
 		bytes[1 + i] = 0x80
 	else
-		bytes[1 + i] = bytes[1 + i] & ~((1 << (7 - (bits & 7) + 1)) - 1) -- Clear the spare bits 
+		bytes[1 + i] = bytes[1 + i] & ~((1 << (7 - (bits & 7) + 1)) - 1) -- Clear the spare bits
 		bytes[1 + i] = bytes[1 + i] | 1 << (7 - (bits & 7)) -- Set the first bit after the data
 	end
 
@@ -261,6 +261,33 @@ local function CreateMD5Object()
 	return object
 end
 
+local function HashFile(filename)
+	local file = io.open(filename, "rb")
+
+	local hasher = CreateMD5Object()
+
+	while true do
+		local block_string = file:read(64)
+
+		if block_string == nil then
+			bytes = 0
+		else
+			bytes = block_string:len()
+		end
+
+		if bytes == 64 then
+			-- All 64 bytes
+			hasher:PushData(block_string)
+		else
+			-- 63 or fewer bytes
+			file:close()
+
+			return hasher:PushFinalData(block_string, bytes * 8)
+		end
+	end
+end
+
 return {
-	new = CreateMD5Object
+	new = CreateMD5Object,
+	HashFile = HashFile
 }

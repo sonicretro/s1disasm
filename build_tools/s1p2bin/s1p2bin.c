@@ -99,7 +99,7 @@ bool buildRom(FILE* from, FILE* to)
 	signed long start = 0, lastStart = 0;
 	unsigned short length = 0, lastLength = 0;
 	long maxpos = 0;
-	static const int scratchSize = 4096;
+	#define scratchSize 4096
 	unsigned char scratch [scratchSize];
 	bool lastSegmentCompressed = false;
 	

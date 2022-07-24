@@ -15,7 +15,7 @@ local improved_dac_driver_compression = false
 
 local function file_exists(path)
 	local file = io.open(path, "rb")
-	
+
 	if file then
 		file:close()
 		return true
@@ -62,12 +62,12 @@ if not file_exists(p2bin_path) then
 	print(string.format("\z
 		Sorry, the s1p2bin tool for your platform is outdated and needs recompiling.\n\z
 		\n\z
-		You can find the source code as well as a Makefile in 'build_tools/s1p2bin'.\n\z
+		You can find the source code in 'build_tools/s1p2bin'.\n\z
 		Once compiled, copy the executable to '%s'.\n\z
 		\n\z
 		We'd appreciate it if you could send us your binary in a pull request at\n\z
-		https://github.com/sonicretro/s1disasm, so other users don't have this problem\n\z
-		in the future.", platform_directory))
+		https://github.com/sonicretro/s1disasm, so that other users don't have this\n\z
+		problem in the future.", platform_directory))
 	os.exit(false)
 end
 
@@ -115,11 +115,7 @@ if not file_exists("sonic.p") then
 end
 
 -- Convert the object file into a ROM.
-local p2bin_args = "-a"
-
-if improved_dac_driver_compression then
-	p2bin_args = ""
-end
+local p2bin_args = improved_dac_driver_compression and "" or "-a"
 
 os.execute(p2bin_path .. " " .. p2bin_args .. " sonic.p s1built.bin")
 

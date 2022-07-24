@@ -2,10 +2,15 @@ SonED2 Projects/temp.dat
 SonED2 v1.0x Projects/temp.dat
 SonLVL INI Files/dllcache
 SonLVL INI Files/SonLVL.log
+
+# Misc. compiler output.
 sonic.lst
 sonic.log
+sonic.p
+
+# Built ROMs.
 s1built.bin
 s1built.prev.bin
-sonic.p
-_Output.txt
-_BinaryOutput.txt
+
+# Typical CMake build directory.
+build_tools/s1p2bin/build

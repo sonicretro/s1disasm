@@ -2,34 +2,16 @@
 
 local md5 = require "build_tools.Lua.md5"
 
--- Build the ROM.
-dofile("build.lua")
+-- Prevent build.lua's calls to os.exit from terminating the program.
+local os_exit = os.exit
+os.exit = coroutine.yield
 
--- Create MD5 hasher.
-local md5_hasher = md5.new()
+-- Build the ROM.
+local co = coroutine.create(function() dofile("build.lua") end)
+coroutine.resume(co)
 
 -- Hash the ROM.
-local rom = io.open("s1built.bin", "rb")
-
-local hash
-
-repeat
-	local block_string = rom:read(64)
-
-	if block_string == nil then
-		bytes = 0
-	else
-		bytes = block_string:len()
-	end
-
-	if bytes == 64 then
-		md5_hasher:PushData(block_string) -- All 64 bytes
-	else
-		hash = md5_hasher:PushFinalData(block_string, bytes * 8) -- 63 or fewer bytes
-	end
-until bytes ~= 64
-
-rom:close()
+local hash = md5.HashFile("s1built.bin")
 
 -- Verify the hash against known builds.
 print "-------------------------------------------------------------"
