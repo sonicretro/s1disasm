@@ -727,7 +727,10 @@ Mus91_Credits_Loop29:
 	dc.b	nA6, nA6, nE7, nA6, nD7, nA6, nC7, nA6
 	smpsLoop            $00, $04, Mus91_Credits_Loop29
 	smpsLoop            $01, $02, Mus91_Credits_Loop27
-	dc.b	nRst, $60, nRst, nRst, nRst, nRst, nRst, nRst, nRst, nRst
+	dc.b	nRst, $60, nRst, nRst, nRst, nRst, nRst
+	; These rests are unnecessary, and cause the following notes to play way too late.
+	; Delete these three notes to fix this.
+	dc.b	nRst, nRst, nRst
 	; This erroneous FM-only command causes the following notes to be inaudible.
 	smpsAlterVol        $0C
 	smpsAlterNote       $02
