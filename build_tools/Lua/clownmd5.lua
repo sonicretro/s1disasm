@@ -51,18 +51,7 @@ local function DoRound(a, b, c, d, x, s, ac, f)
 	return b + RotateLeft32Bit((a + f(b, c, d) + x + ac), s)
 end
 
-local function ProcessBlock(self, block)
-	-- Copy block into X.
-	local X = {}
-
-	for i = 0, 15 do
-		X[1 + i] = 0
-
-		for j = 0, 3 do
-			X[1 + i] = X[1 + i] | block[1 + i * 4 + j] << (8 * j)
-		end
-	end
-
+local function ProcessBlock(self, X)
 	local A = self.A
 	local B = self.B
 	local C = self.C
@@ -162,76 +151,85 @@ local function PushData(self, data)
 	self.total_bits = self.total_bits + 16 * 4 * 8
 
 	-- Unpack the bytes from a string to a table.
-	ProcessBlock(self, {string.unpack("\z
-		I1I1I1I1I1I1I1I1I1I1I1I1I1I1I1I1\z
-		I1I1I1I1I1I1I1I1I1I1I1I1I1I1I1I1\z
-		I1I1I1I1I1I1I1I1I1I1I1I1I1I1I1I1\z
-		I1I1I1I1I1I1I1I1I1I1I1I1I1I1I1I1", data)})
+	ProcessBlock(self, {string.unpack("<I4<I4<I4<I4<I4<I4<I4<I4<I4<I4<I4<I4<I4<I4<I4<I4", data)})
 end
 
 local function PushFinalData(self, data, bits)
 	self.total_bits = self.total_bits + bits
 
-	local bytes = {}
+	local words = {}
 	local position = 1
 
-	-- Unpack the bytes from a string to a table.
-	for i = 1, (bits + (8 - 1)) // 8 do
-		bytes[i], position = string.unpack("I1", data, position)
+	local total_bytes = (bits + (8 - 1)) // 8
+
+	-- Unpack the words from the string to a table.
+	for i = 1, total_bytes // 4 do
+		words[i], position = string.unpack("<I4", data, position)
 	end
 
+	-- Handle the string ending with a partial word.
+	if (total_bytes & 3 ~= 0) then
+		words[#words + 1] = string.unpack("<I" .. (total_bytes & 3), data, position)
+	end
+
+	-- If this is a full block, then process it and start from scratch with an empty block.
 	if bits == 16 * 4 * 8 then
-		ProcessBlock(self, bytes)
+		ProcessBlock(self, words)
 		bits = 0
 	end
 
-	local i = bits // 8
+	local i = bits // 32
 
-	if bits & 7 == 0 then
-		bytes[1 + i] = 0x80
+	-- Insert the termination bit at the end of the block's data.
+	-- While we're doing this, pad to the next byte.
+	if bits & 31 == 0 then
+		words[1 + i] = 0x00000080 -- byteswap(0x80000000)
 	else
-		bytes[1 + i] = bytes[1 + i] & ~((1 << (7 - (bits & 7) + 1)) - 1) -- Clear the spare bits
-		bytes[1 + i] = bytes[1 + i] | 1 << (7 - (bits & 7)) -- Set the first bit after the data
+		local function byteswap(value)
+			return ((value & 0xFF000000) >> 24) | ((value & 0x00FF0000) >> 8) | ((value & 0x0000FF00) << 8) | ((value & 0x000000FF) << 24)
+		end
+
+		local or_mask = 0x80000000 >> (bits & 31)
+		local and_mask = ~(or_mask - 1)
+
+		words[1 + i] = words[1 + i] & byteswap(and_mask) -- Clear the spare bits.
+		words[1 + i] = words[1 + i] | byteswap(or_mask) -- Set the first bit after the data.
 	end
 
 	i = i + 1
 
-	if i > 16 * 4 - 8 then
-		while i < 16 * 4 do
-			bytes[1 + i] = 0
+	-- If we're too close to the end of the block, then complete this one and then start a new one.
+	if i > 16 - 2 then
+		-- Fill the rest of the block with padding.
+		while i < 16 do
+			words[1 + i] = 0
 			i = i + 1
 		end
 
-		ProcessBlock(self, bytes)
+		-- Process the block.
+		ProcessBlock(self, words)
 
+		-- Start a new block.
 		i = 0
 	end
 
 	-- "Step 1. Append Padding Bits"
-	while i < 16 * 4 - 8 do
-		bytes[1 + i] = 0
+	while i < 16 - 2 do
+		words[1 + i] = 0
 		i = i + 1
 	end
 
 	-- "Step 2. Append Length"
-	for j = 0, 7 do
-		bytes[1 + i] = (self.total_bits >> (8 * j)) & 0xFF
+	for j = 0, 1 do
+		words[1 + i] = (self.total_bits >> (32 * j)) & 0xFFFFFFFF
 		i = i + 1
 	end
 
-	ProcessBlock(self, bytes)
+	-- Process the final block.
+	ProcessBlock(self, words)
 
 	-- "Step 5. Output"
-	local string_table = {}
-
-	for i = 0, 3 do
-		string_table[1 + 4 * 0 + i] = string.format("%02X", (self.A >> (8 * i)) & 0xFF)
-		string_table[1 + 4 * 1 + i] = string.format("%02X", (self.B >> (8 * i)) & 0xFF)
-		string_table[1 + 4 * 2 + i] = string.format("%02X", (self.C >> (8 * i)) & 0xFF)
-		string_table[1 + 4 * 3 + i] = string.format("%02X", (self.D >> (8 * i)) & 0xFF)
-	end
-
-	return table.concat(string_table)
+	return string.pack("<I4<I4<I4<I4", self.A & 0xFFFFFFFF, self.B & 0xFFFFFFFF, self.C & 0xFFFFFFFF, self.D & 0xFFFFFFFF)
 end
 
 -- The class holds the methods and metamethod. There is only one instance of the class, but many objects.

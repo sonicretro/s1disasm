@@ -1,6 +1,6 @@
 #!/usr/bin/env lua
 
-local md5 = require "build_tools.Lua.md5"
+local clownmd5 = require "build_tools.Lua.clownmd5"
 
 -- Prevent build.lua's calls to os.exit from terminating the program.
 local os_exit = os.exit
@@ -14,16 +14,16 @@ assert(coroutine.resume(co))
 os.exit = os_exit
 
 -- Hash the ROM.
-local hash = md5.HashFile("s1built.bin")
+local hash = clownmd5.HashFile("s1built.bin")
 
 -- Verify the hash against known builds.
 print "-------------------------------------------------------------"
 
-if hash == "1BC674BE034E43C96B86487AC69D9293" then
+if hash == "\x1B\xC6\x74\xBE\x03\x4E\x43\xC9\x6B\x86\x48\x7A\xC6\x9D\x92\x93" then
 	print "ROM is bit-perfect with REV00."
-elseif hash == "09DADB5071EB35050067A32462E39C5F" then
+elseif hash == "\x09\xDA\xDB\x50\x71\xEB\x35\x05\x00\x67\xA3\x24\x62\xE3\x9C\x5F" then
 	print "ROM is bit-perfect with REV01."
-elseif hash == "C6C15AEA60BDA10AE11C6BC375296153" then
+elseif hash == "\xC6\xC1\x5A\xEA\x60\xBD\xA1\x0A\xE1\x1C\x6B\xC3\x75\x29\x61\x53" then
 	print "ROM is bit-perfect with REVXB."
 else
 	print "ROM is not bit-perfect with REV00, REV01, or REVXB."
