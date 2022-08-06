@@ -40,7 +40,7 @@ os.remove("s1built.prev.bin")
 os.rename("s1built.bin", "s1built.prev.bin")
 
 -- Assemble the ROM.
-local assemble_result = common.assemble_file("sonic", "s1built.bin", tools.as, tools.s1p2bin .. (improved_dac_driver_compression and "" or " -a"), false)
+local assemble_result = common.assemble_file("sonic.asm", "s1built.bin", tools.as, tools.s1p2bin .. (improved_dac_driver_compression and "" or " -a"), false)
 
 if assemble_result == "crash" then
 	print "\n\z

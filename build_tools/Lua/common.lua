@@ -105,10 +105,12 @@ end
 
 -- Produce a binary from an assembly file.
 local function assemble_file(input_filename, output_filename, as_path, p2bin_path, create_header)
-	local asm_filename = input_filename .. ".asm"
-	local object_filename = input_filename .. ".p"
-	local header_filename = input_filename .. ".h"
-	local log_filename = input_filename .. ".log"
+	-- As substitutes everything after the first period.
+	local input_filename_before_first_period = string.match(input_filename, "(.-)%.");
+
+	local object_filename = input_filename_before_first_period .. ".p"
+	local header_filename = input_filename_before_first_period .. ".h"
+	local log_filename = input_filename_before_first_period .. ".log"
 
 	-- Delete the object file, so that we can use its presence to detect a successful build later on.
 	os.remove(object_filename)
@@ -121,7 +123,7 @@ local function assemble_file(input_filename, output_filename, as_path, p2bin_pat
 	-- '-E'   - output errors to a file (*.log)
 	-- '-i .' - allows (b)include paths to be absolute
 	-- '-c'   - outputs a shared file (*.h)
-	os.execute(as_path .. " -xx -n -q -A -L -U -E -i . " .. (create_header and "-c " or " ") .. asm_filename)
+	os.execute(as_path .. " -xx -n -q -A -L -U -E -i . " .. (create_header and "-c " or " ") .. input_filename)
 
 	-- If the assembler encountered an error, then the object file will not exist.
 	if not file_exists(object_filename) then
