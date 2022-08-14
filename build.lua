@@ -13,7 +13,7 @@ local improved_dac_driver_compression = false
 -- End of settings --
 ---------------------
 
-local common = require "build_tools.Lua.common"
+local common = require "build_tools.lua.common"
 
 -- Obtain the paths to the native build tools for the current platform.
 local tools, platform_directory = common.find_tools("s1p2bin")

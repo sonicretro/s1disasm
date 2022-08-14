@@ -15,42 +15,26 @@ end
 -- Returns a table containing paths to the specified native tools.
 -- Returns nil if the tools could not be found for the current platform.
 local function find_tools(...)
-	local path_separator, executable_suffix, as_filename, platform_directory
+	local path_separator, executable_suffix, as_filename
 
-	local os_name, arch_name = require "get_os_name".get_os_name()
+	local os_name, arch_name = require "build_tools.lua.get_os_name".get_os_name()
 
-	if os_name == "Windows" and (arch_name == "x86" or arch_name == "x86_64") then
+	if os_name == "Windows" then
+		-- 64-bit x86 Windows can run 32-bit x86 executables.
+		if arch_name == "x86_64" then
+			arch_name = "x86"
+		end
 		path_separator = "\\"
 		executable_suffix = ".exe"
 		as_filename = "asw"
-		platform_directory = "Win32"
-	elseif os_name == "Mac" then
-		path_separator = "/"
-		executable_suffix = ""
-		as_filename = "asl"
-		platform_directory = "Osx"
-	elseif os_name == "Linux" then
-		path_separator = "/"
-		executable_suffix = ""
-		as_filename = "asl"
-
-		if arch_name == "x86" then
-			platform_directory = "Linux32"
-		elseif arch_name == "x86_64" then
-			platform_directory = "Linux"
-		end
 	else
-		print "Build failed: Your OS is unsupported."
-		os.exit(false)
+		path_separator = "/"
+		executable_suffix = ""
+		as_filename = "asl"
 	end
 
-	if arch_name ~= "x86" and arch_name ~= "x86_64" then
-		print "Build failed: Your CPU architecture is unsupported."
-		os.exit(false)
-	end
-
-	-- Complete the platform directory.
-	platform_directory = "build_tools" .. path_separator .. platform_directory
+	-- Determine the platform directory.
+	local platform_directory = "build_tools" .. path_separator .. os_name .. "-" .. arch_name
 
 	local tools = {}
 
