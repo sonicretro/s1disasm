@@ -1,5 +1,3 @@
-#!/usr/bin/env lua
-
 -- Determine if a file exists.
 local function file_exists(path)
 	local file = io.open(path, "rb")
@@ -88,7 +86,7 @@ local function fix_header(filename)
 end
 
 -- Produce a binary from an assembly file.
-local function assemble_file(input_filename, output_filename, as_path, p2bin_path, create_header)
+local function assemble_file(input_filename, output_filename, as_path, as_arguments, p2bin_path, p2bin_arguments, create_header)
 	-- As substitutes everything after the first period.
 	local input_filename_before_first_period = string.match(input_filename, "(.-)%.");
 
@@ -107,7 +105,7 @@ local function assemble_file(input_filename, output_filename, as_path, p2bin_pat
 	-- '-E'   - output errors to a file (*.log)
 	-- '-i .' - allows (b)include paths to be absolute
 	-- '-c'   - outputs a shared file (*.h)
-	os.execute(as_path .. " -xx -n -q -A -L -U -E -i . " .. (create_header and "-c " or " ") .. input_filename)
+	os.execute(as_path .. " -xx -n -q -A -L -U -E -i . " .. (create_header and "-c" or "") .. " " .. as_arguments .. " " .. input_filename)
 
 	-- If the assembler encountered an error, then the object file will not exist.
 	if not file_exists(object_filename) then
@@ -119,7 +117,7 @@ local function assemble_file(input_filename, output_filename, as_path, p2bin_pat
 	end
 
 	-- Convert the object file to a flat binary.
-	os.execute(p2bin_path .. " " .. object_filename .. " " .. output_filename .. " " .. (create_header and header_filename or ""))
+	os.execute(p2bin_path .. " " .. p2bin_arguments .. " " .. object_filename .. " " .. output_filename .. " " .. (create_header and header_filename or ""))
 
 	-- Remove the object file, since we no longer need it.
 	os.remove(object_filename)
