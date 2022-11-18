@@ -228,7 +228,7 @@ Drown_Countdown:; Routine $A
 
 		; Sonic drowns here
 		bsr.w	ResumeMusic
-		move.b	#$81,(f_lockmulti).w ; lock controls
+		move.b	#$81,(f_playerctrl).w ; lock controls and disable object interaction
 		move.w	#sfx_Drown,d0
 		jsr	(PlaySound_Special).l	; play drowning sound
 		move.b	#$A,$34(a0)

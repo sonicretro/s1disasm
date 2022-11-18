@@ -197,7 +197,7 @@ loc_B086:
 		moveq	#0,d0
 		move.b	(a2)+,d0
 		lsl.w	#6,d0
-		addi.w	#$D000,d0
+		addi.w	#v_objspace&$FFFF,d0
 		movea.w	d0,a1
 		move.w	d1,$3C(a1)
 		dbf	d2,loc_B086
@@ -215,7 +215,7 @@ sub_B09C:
 		addq.b	#1,(a2)
 		lea	1(a2,d0.w),a2
 		move.w	a1,d0
-		subi.w	#$D000,d0
+		subi.w	#v_objspace&$FFFF,d0
 		lsr.w	#6,d0
 		andi.w	#$7F,d0
 		move.b	d0,(a2)
@@ -250,7 +250,7 @@ loc_B0F4:
 		move.b	(a2),d0
 		clr.b	(a2)+
 		lsl.w	#6,d0
-		addi.w	#$D000,d0
+		addi.w	#v_objspace&$FFFF,d0
 		movea.w	d0,a1
 		bsr.w	DeleteChild
 		dbf	d2,loc_B0F4

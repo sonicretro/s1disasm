@@ -224,7 +224,7 @@ Bub_BblTypes:	dc.b 0,	1, 0, 0, 0, 0, 1, 0, 0,	0, 0, 1, 0, 1, 0, 0, 1,	0
 ; ===========================================================================
 
 Bub_ChkSonic:
-		tst.b	(f_lockmulti).w
+		tst.b	(f_playerctrl).w
 		bmi.s	.loc_12998
 		lea	(v_player).w,a1
 		move.w	obX(a1),d0

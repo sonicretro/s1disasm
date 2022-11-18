@@ -113,12 +113,12 @@ v_jpadpress1	= ramaddr ( $FFFFF605 )	; joypad input - pressed
 v_vdp_buffer1	= ramaddr ( $FFFFF60C )	; VDP instruction buffer (2 bytes)
 
 v_demolength	= ramaddr ( $FFFFF614 )	; the length of a demo in frames (2 bytes)
-v_scrposy_dup	= ramaddr ( $FFFFF616 )	; screen position y (duplicate) (2 bytes)
-v_bgscrposy_dup	= ramaddr ( $FFFFF618 )	; background screen position y (duplicate) (2 bytes)
-v_scrposx_dup	= ramaddr ( $FFFFF61A )	; screen position x (duplicate) (2 bytes)
-v_bgscreenposx_dup_unused	= ramaddr ( $FFFFF61C )	; background screen position x (duplicate) (2 bytes)
-v_bg3screenposy_dup_unused	= ramaddr ( $FFFFF61E )	; (2 bytes)
-v_bg3screenposx_dup_unused	= ramaddr ( $FFFFF620 )	; (2 bytes)
+v_scrposy_vdp	= ramaddr ( $FFFFF616 )	; screen position y (VDP) (2 bytes)
+v_bgscrposy_vdp	= ramaddr ( $FFFFF618 )	; background screen position y (VDP) (2 bytes)
+v_scrposx_vdp	= ramaddr ( $FFFFF61A )	; screen position x (VDP) (2 bytes)
+v_bgscrposx_vdp	= ramaddr ( $FFFFF61C )	; background screen position x (VDP) (2 bytes)
+v_bg3scrposy_vdp	= ramaddr ( $FFFFF61E )	; (2 bytes)
+v_bg3scrposx_vdp	= ramaddr ( $FFFFF620 )	; (2 bytes)
 
 v_hbla_hreg	= ramaddr ( $FFFFF624 )	; VDP H.interrupt register buffer (8Axx) (2 bytes)
 v_hbla_line	= ramaddr ( $FFFFF625 )	; screen line where water starts and palette is changed by HBlank
@@ -231,9 +231,9 @@ v_gfxbigring	= ramaddr ( $FFFFF7BE )	; settings for giant ring graphics loading 
 f_conveyrev	= ramaddr ( $FFFFF7C0 )	; flag set to reverse conveyor belts in LZ/SBZ
 v_obj63	= ramaddr ( $FFFFF7C1 )	; object 63 (LZ/SBZ platforms) variables (6 bytes)
 f_wtunnelmode	= ramaddr ( $FFFFF7C7 )	; LZ water tunnel mode
-f_lockmulti	= ramaddr ( $FFFFF7C8 )	; flag set to lock controls, lock Sonic's position & animation
+f_playerctrl	= ramaddr ( $FFFFF7C8 )	; Player control override flags (object ineraction, control enable)
 f_wtunnelallow	= ramaddr ( $FFFFF7C9 )	; LZ water tunnels (00 = enabled; 01 = disabled)
-f_jumponly	= ramaddr ( $FFFFF7CA )	; flag set to lock controls apart from jumping
+f_slidemode	= ramaddr ( $FFFFF7CA )	; LZ water slide mode
 v_obj6B	= ramaddr ( $FFFFF7CB )	; object 6B (SBZ stomper) variable
 f_lockctrl	= ramaddr ( $FFFFF7CC )	; flag set to lock controls during ending sequence
 f_bigring	= ramaddr ( $FFFFF7CD )	; flag set when Sonic collects the giant ring

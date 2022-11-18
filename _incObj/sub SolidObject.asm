@@ -137,7 +137,7 @@ loc_FAD0:
 		bcc.w	Solid_Ignore	; if yes, branch
 
 loc_FB0E:
-		tst.b	(f_lockmulti).w	; are controls locked?
+		tst.b	(f_playerctrl).w ; are object interactions disabled?
 		bmi.w	Solid_Ignore	; if yes, branch
 		cmpi.b	#6,(v_player+obRoutine).w ; is Sonic dying?
 		if Revision=0
@@ -294,7 +294,7 @@ Solid_ResetFloor:
 
 .notonobj:
 		move.w	a0,d0
-		subi.w	#$D000,d0
+		subi.w	#v_objspace&$FFFF,d0
 		lsr.w	#6,d0
 		andi.w	#$7F,d0
 		move.b	d0,standonobject(a1)	; set object being stood on
