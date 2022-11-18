@@ -66,7 +66,7 @@ SBall_Main:	; Routine 0
 		bne.s	.fail
 		addq.b	#1,sball_childs(a0) ; increment child object counter
 		move.w	a1,d5		; get child object RAM address
-		subi.w	#$D000,d5	; subtract $D000
+		subi.w	#v_objspace&$FFFF,d5 ; subtract base address
 		lsr.w	#6,d5		; divide by $40
 		andi.w	#$7F,d5
 		move.b	d5,(a2)+	; copy child RAM number
@@ -92,7 +92,7 @@ SBall_Main:	; Routine 0
 
 .fail:
 		move.w	a0,d5
-		subi.w	#$D000,d5
+		subi.w	#v_objspace&$FFFF,d5
 		lsr.w	#6,d5
 		andi.w	#$7F,d5
 		move.b	d5,(a2)+

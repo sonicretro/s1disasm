@@ -6,7 +6,7 @@
 
 
 Sonic_Roll:
-		tst.b	(f_jumponly).w
+		tst.b	(f_slidemode).w
 		bne.s	.noroll
 		move.w	obInertia(a0),d0
 		bpl.s	.ispositive

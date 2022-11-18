@@ -578,7 +578,7 @@ VBlank:
 		beq.s	VBla_00
 		move.w	(vdp_control_port).l,d0
 		move.l	#$40000010,(vdp_control_port).l
-		move.l	(v_scrposy_dup).w,(vdp_data_port).l ; send screen y-axis pos. to VSRAM
+		move.l	(v_scrposy_vdp).w,(vdp_data_port).l ; send screen y-axis pos. to VSRAM
 		btst	#6,(v_megadrive).w ; is Megadrive PAL?
 		beq.s	.notPAL		; if not, branch
 
@@ -997,8 +997,8 @@ VDPSetupGame:
 		move.w	d0,(a1)
 		dbf	d7,.clrCRAM	; clear	the CRAM
 
-		clr.l	(v_scrposy_dup).w
-		clr.l	(v_scrposx_dup).w
+		clr.l	(v_scrposy_vdp).w
+		clr.l	(v_scrposx_vdp).w
 		move.l	d1,-(sp)
 		fillVRAM	0,$FFFF,0
 
@@ -1058,11 +1058,11 @@ ClearScreen:
 
 		move.w	#$8F02,(a5)
 		if Revision=0
-		move.l	#0,(v_scrposy_dup).w
-		move.l	#0,(v_scrposx_dup).w
+		move.l	#0,(v_scrposy_vdp).w
+		move.l	#0,(v_scrposx_vdp).w
 		else
-		clr.l	(v_scrposy_dup).w
-		clr.l	(v_scrposx_dup).w
+		clr.l	(v_scrposy_vdp).w
+		clr.l	(v_scrposx_vdp).w
 		endif
 
 		lea	(v_spritetablebuffer).w,a1
@@ -2341,7 +2341,7 @@ Tit_ClrScroll1:
 		move.l	d0,(a1)+
 		dbf	d1,Tit_ClrScroll1 ; clear scroll data (in RAM)
 
-		move.l	d0,(v_scrposy_dup).w
+		move.l	d0,(v_scrposy_vdp).w
 		disable_ints
 		lea	(vdp_data_port).l,a6
 		locVRAM	$E000
@@ -3560,15 +3560,15 @@ loc_4992:
 		move.w	d0,($FFFFF7A0).w
 		lea	(byte_4ABC).l,a1
 		lea	(a1,d0.w),a1
-		move.w	#-$7E00,d0
+		move.w	#$8200,d0
 		move.b	(a1)+,d0
 		move.w	d0,(a6)
-		move.b	(a1),(v_scrposy_dup).w
-		move.w	#-$7C00,d0
+		move.b	(a1),(v_scrposy_vdp).w
+		move.w	#$8400,d0
 		move.b	(a0)+,d0
 		move.w	d0,(a6)
 		move.l	#$40000010,(vdp_control_port).l
-		move.l	(v_scrposy_dup).w,(vdp_data_port).l
+		move.l	(v_scrposy_vdp).w,(vdp_data_port).l
 		moveq	#0,d0
 		move.b	(a0)+,d0
 		bmi.s	loc_49E8
@@ -3649,7 +3649,7 @@ SS_BGAnimate:
 		move.w	($FFFFF7A0).w,d0
 		bne.s	loc_4BF6
 		move.w	#0,(v_bgscreenposy).w
-		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_vdp).w
 
 loc_4BF6:
 		cmpi.w	#8,d0
@@ -3658,7 +3658,7 @@ loc_4BF6:
 		bne.s	loc_4C10
 		addq.w	#1,(v_bg3screenposx).w
 		addq.w	#1,(v_bgscreenposy).w
-		move.w	(v_bgscreenposy).w,(v_bgscrposy_dup).w
+		move.w	(v_bgscreenposy).w,(v_bgscrposy_vdp).w
 
 loc_4C10:
 		moveq	#0,d0
@@ -4056,7 +4056,7 @@ End_MoveSon2:
 		move.b	d0,(f_lockctrl).w
 		move.w	d0,(v_jpadhold2).w ; stop Sonic moving
 		move.w	d0,(v_player+obInertia).w
-		move.b	#$81,(f_lockmulti).w ; lock controls & position
+		move.b	#$81,(f_playerctrl).w ; lock controls and disable object interaction
 		move.b	#fr_Wait2,(v_player+obFrame).w
 		move.w	#(id_Wait<<8)+id_Wait,(v_player+obAnim).w ; use "standing" animation
 		move.b	#3,(v_player+obTimeFrame).w
@@ -5416,7 +5416,7 @@ Platform3:
 		cmpi.w	#-$10,d0
 		blo.w	Plat_Exit
 
-		tst.b	(f_lockmulti).w
+		tst.b	(f_playerctrl).w
 		bmi.w	Plat_Exit
 		cmpi.b	#6,obRoutine(a1)
 		bhs.w	Plat_Exit
@@ -5441,7 +5441,7 @@ loc_74AE:
 
 loc_74DC:
 		move.w	a0,d0
-		subi.w	#-$3000,d0
+		subi.w	#v_objspace&$FFFF,d0
 		lsr.w	#6,d0
 		andi.w	#$7F,d0
 		move.b	d0,standonobject(a1)
@@ -5582,7 +5582,7 @@ MvSonicOnPtfm2:
 		subi.w	#9,d0
 
 MvSonic2:
-		tst.b	(f_lockmulti).w
+		tst.b	(f_playerctrl).w
 		bmi.s	locret_7B62
 		cmpi.b	#6,(v_player+obRoutine).w
 		bhs.s	locret_7B62
@@ -5813,7 +5813,7 @@ Obj44_SolidWall2:
 		add.w	d4,d4
 		cmp.w	d4,d3
 		bhs.s	loc_8B48
-		tst.b	(f_lockmulti).w
+		tst.b	(f_playerctrl).w
 		bmi.s	loc_8B48
 		cmpi.b	#6,(v_player+obRoutine).w
 		bhs.s	loc_8B48
@@ -6983,7 +6983,7 @@ loc_12C58:
 		move.w	(v_jpadhold1).w,(v_jpadhold2).w ; enable joypad control
 
 loc_12C64:
-		btst	#0,(f_lockmulti).w ; are controls locked?
+		btst	#0,(f_playerctrl).w ; are controls locked?
 		bne.s	loc_12C7E	; if yes, branch
 		moveq	#0,d0
 		move.b	obStatus(a0),d0
@@ -7005,7 +7005,7 @@ loc_12C7E:
 
 loc_12CA6:
 		bsr.w	Sonic_Animate
-		tst.b	(f_lockmulti).w
+		tst.b	(f_playerctrl).w
 		bmi.s	loc_12CB6
 		jsr	(ReactToItem).l
 
