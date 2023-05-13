@@ -82,7 +82,7 @@ loc_C610:
 ; ===========================================================================
 
 loc_C61A:
-		cmpi.b	#$E,($FFFFD724).w
+		cmpi.b	#$E,(v_endcardring+obRoutine).w
 		beq.s	loc_C610
 		cmpi.b	#4,obFrame(a0)
 		bne.s	loc_C5FE

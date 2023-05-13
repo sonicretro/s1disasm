@@ -18,9 +18,75 @@ v_16x16	= ramaddr ( $FFFFB000 )	; 16x16 tile mappings
 v_sgfx_buffer	= ramaddr ( $FFFFC800 )	; buffered Sonic graphics ($17 cells) ($2E0 bytes)
 v_tracksonic	= ramaddr ( $FFFFCB00 )	; position tracking data for Sonic ($100 bytes)
 v_hscrolltablebuffer	= ramaddr ( $FFFFCC00 )	; scrolling table data (actually $380 bytes, but $400 is reserved for it)
+
 v_objspace	= ramaddr ( $FFFFD000 )	; object variable space ($40 bytes per object) ($2000 bytes)
-v_player	= v_objspace	; object variable space for Sonic ($40 bytes)
-v_lvlobjspace	= ramaddr ( $FFFFD800 )	; level object variable space ($1800 bytes)
+
+; Title screen objects
+v_sonicteam	= v_objspace+$80	; object variable space for the "SONIC TEAM PRESENTS" text ($40 bytes)
+v_titlesonic	= v_objspace+$40	; object variable space for Sonic in the title screen ($40 bytes)
+v_pressstart	= v_objspace+$80	; object variable space for the "PRESS START BUTTON" text ($40 bytes)
+v_titletm	= v_objspace+$C0	; object variable space for the trademark symbol ($40 bytes)
+v_ttlsonichide	= v_objspace+$100	; object variable space for hiding part of Sonic ($40 bytes)
+
+; Level objects
+v_player	= v_objspace		; object variable space for Sonic ($40 bytes)
+v_hud		= v_objspace+$40	; object variable space for the HUD ($40 bytes)
+
+v_titlecard	= v_objspace+$80	; object variable space for the title card ($100 bytes)
+v_ttlcardname	= v_titlecard		; object variable space for the title card zone name text ($40 bytes)
+v_ttlcardzone	= v_titlecard+$40	; object variable space for the title card "ZONE" text ($40 bytes)
+v_ttlcardact	= v_titlecard+$80	; object variable space for the title card act text ($40 bytes)
+v_ttlcardoval	= v_titlecard+$C0	; object variable space for the title card oval ($40 bytes)
+
+v_gameovertext1	= v_objspace+$80	; object variable space for the "GAME"/"TIME" in "GAME OVER"/"TIME OVER" text ($40 bytes)
+v_gameovertext2	= v_objspace+$C0	; object variable space for the "OVER" in "GAME OVER"/"TIME OVER" text ($40 bytes)
+
+v_shieldobj	= v_objspace+$180	; object variable space for the shield ($40 bytes)
+v_starsobj1	= v_objspace+$200	; object variable space for the invincibility stars #1 ($40 bytes)
+v_starsobj2	= v_objspace+$240	; object variable space for the invincibility stars #2 ($40 bytes)
+v_starsobj3	= v_objspace+$280	; object variable space for the invincibility stars #3 ($40 bytes)
+v_starsobj4	= v_objspace+$2C0	; object variable space for the invincibility stars #4 ($40 bytes)
+
+v_splash	= v_objspace+$300	; object variable space for the water splash ($40 bytes)
+v_sonicbubbles	= v_objspace+$340	; object variable space for the bubbles that come out of Sonic's mouth/drown countdown ($40 bytes)
+v_watersurface1	= v_objspace+$780	; object variable space for the water surface #1 ($40 bytes)
+v_watersurface2	= v_objspace+$7C0	; object variable space for the water surface #1 ($40 bytes)
+
+v_endcard	= v_objspace+$5C0	; object variable space for the level results card ($1C0 bytes)
+v_endcardsonic	= v_endcard		; object variable space for the level results card "SONIC HAS" text ($40 bytes)
+v_endcardpassed	= v_endcard+$40		; object variable space for the level results card "PASSED" text ($40 bytes)
+v_endcardact	= v_endcard+$80		; object variable space for the level results card act text ($40 bytes)
+v_endcardscore	= v_endcard+$C0		; object variable space for the level results card score tally ($40 bytes)
+v_endcardtime	= v_endcard+$100	; object variable space for the level results card time bonus tally ($40 bytes)
+v_endcardring	= v_endcard+$140	; object variable space for the level results card ring bonus tally ($40 bytes)
+v_endcardoval	= v_endcard+$180	; object variable space for the level results card oval ($40 bytes)
+
+v_lvlobjspace	= v_objspace+$800	; level object variable space ($1800 bytes)
+v_lvlobjend	= v_lvlobjspace+$1800
+
+; Special Stage objects
+v_ssrescard	= v_objspace+$5C0	; object variable space for the Special Stage results card ($140 bytes)
+v_ssrestext	= v_ssrescard		; object variable space for the Special Stage results card text ($40 bytes)
+v_ssresscore	= v_ssrescard+$40	; object variable space for the Special Stage results card score tally ($40 bytes)
+v_ssresring	= v_ssrescard+$80	; object variable space for the Special Stage results card ring bonus tally ($40 bytes)
+v_ssresoval	= v_ssrescard+$C0	; object variable space for the Special Stage results card oval ($40 bytes)
+v_ssrescontinue	= v_ssrescard+$100	; object variable space for the Special Stage results card continue icon ($40 bytes)
+v_ssresemeralds	= v_objspace+$800	; object variable space for the emeralds in the Special Stage results ($180 bytes)
+
+; Continue screen objects
+v_continuetext	= v_objspace+$40	; object variable space for the continue screen text ($40 bytes)
+v_continuelight	= v_objspace+$80	; object variable space for the continue screen light spot ($40 bytes)
+v_continueicon	= v_objspace+$C0	; object variable space for the continue screen icon ($40 bytes)
+
+; Ending objects
+v_endemeralds	= v_objspace+$400	; object variable space for the emeralds in the ending ($180 bytes)
+v_endlogo	= v_objspace+$400	; object variable space for the logo in the ending ($40 bytes)
+
+; Credits objects
+v_credits	= v_objspace+$80	; object variable space for the credits text ($40 bytes)
+v_endeggman	= v_objspace+$80	; object variable space for Eggman after the credits ($40 bytes)
+v_tryagain	= v_objspace+$C0	; object variable space for the "TRY AGAIN" text ($40 bytes)
+v_eggmanchaos	= v_objspace+$800	; object variable space for the emeralds juggled by Eggman ($180 bytes)
 
 v_snddriver_ram  = ramaddr ( $FFFFF000 )	; start of RAM for the sound driver data ($5C0 bytes)
 

@@ -276,7 +276,7 @@ loc_18FA2:
 		beq.s	loc_19008
 		clr.b	ob2ndRout(a1)
 		move.b	#2,obRoutine(a1)
-		lea	(v_objspace).w,a2
+		lea	(v_player).w,a2
 		move.w	obVelY(a0),obVelY(a2)
 		neg.w	obVelY(a2)
 		cmpi.b	#1,obFrame(a1)

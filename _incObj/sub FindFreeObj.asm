@@ -9,7 +9,7 @@
 
 
 FindFreeObj:
-		lea	(v_objspace+$800).w,a1 ; start address for object RAM
+		lea	(v_lvlobjspace).w,a1 ; start address for object RAM
 		move.w	#$5F,d0
 
 FFree_Loop:
@@ -36,7 +36,7 @@ FFree_Found:
 
 FindNextFreeObj:
 		movea.l	a0,a1
-		move.w	#$F000,d0
+		move.w	#v_lvlobjend&$FFFF,d0
 		sub.w	a0,d0
 		lsr.w	#6,d0
 		subq.w	#1,d0
