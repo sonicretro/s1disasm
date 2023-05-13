@@ -76,7 +76,7 @@ Jun_Action:	; Routine 2
 
 		move.b	d1,$32(a0)
 		addq.b	#4,obRoutine(a0) ; goto Jun_Release next
-		move.b	#1,(f_lockmulti).w ; lock controls
+		move.b	#1,(f_playerctrl).w ; lock controls
 		move.b	#id_Roll,obAnim(a1) ; make Sonic use "rolling" animation
 		move.w	#$800,obInertia(a1)
 		move.w	#0,obVelX(a1)
@@ -115,7 +115,7 @@ Jun_Release:	; Routine 6
 		move.w	#$800,obVelY(a1)
 
 	@isdown:
-		clr.b	(f_lockmulti).w	; unlock controls
+		clr.b	(f_playerctrl).w	; unlock controls
 		subq.b	#4,obRoutine(a0)
 
 	@dontrelease:

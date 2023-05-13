@@ -68,7 +68,7 @@ Pole_Action:	; Routine 2
 @release:
 		clr.b	obColType(a0)
 		addq.b	#2,obRoutine(a0) ; goto Pole_Display next
-		clr.b	(f_lockmulti).w
+		clr.b	(f_playerctrl).w
 		clr.b	(f_wtunnelallow).w
 		clr.b	pole_grabbed(a0)
 		bra.s	Pole_Display
@@ -92,7 +92,7 @@ Pole_Action:	; Routine 2
 		move.w	d0,obX(a1)
 		bclr	#0,obStatus(a1)
 		move.b	#id_Hang,obAnim(a1) ; set Sonic's animation to "hanging" ($11)
-		move.b	#1,(f_lockmulti).w ; lock controls
+		move.b	#1,(f_playerctrl).w ; lock controls
 		move.b	#1,(f_wtunnelallow).w ; disable wind tunnel
 		move.b	#1,pole_grabbed(a0) ; begin countdown to breakage
 

@@ -109,12 +109,12 @@ v_jpadpress1:	equ $FFFFF605	; joypad input - pressed
 v_vdp_buffer1:	equ $FFFFF60C	; VDP instruction buffer (2 bytes)
 
 v_demolength:	equ $FFFFF614	; the length of a demo in frames (2 bytes)
-v_scrposy_dup:	equ $FFFFF616	; screen position y (duplicate) (2 bytes)
-v_bgscrposy_dup:	equ $FFFFF618	; background screen position y (duplicate) (2 bytes)
-v_scrposx_dup:	equ $FFFFF61A	; screen position x (duplicate) (2 bytes)
-v_bgscreenposx_dup_unused:	equ $FFFFF61C	; background screen position x (duplicate) (2 bytes)
-v_bg3screenposy_dup_unused:	equ $FFFFF61E	; (2 bytes)
-v_bg3screenposx_dup_unused:	equ $FFFFF620	; (2 bytes)
+v_scrposy_vdp:	equ $FFFFF616	; screen position y (VDP) (2 bytes)
+v_bgscrposy_vdp:	equ $FFFFF618	; background screen position y (VDP) (2 bytes)
+v_scrposx_vdp:	equ $FFFFF61A	; screen position x (VDP) (2 bytes)
+v_bgscrposx_vdp:	equ $FFFFF61C	; background screen position x (VDP) (2 bytes)
+v_bg3scrposy_vdp:	equ $FFFFF61E	; (2 bytes)
+v_bg3scrposx_vdp:	equ $FFFFF620	; (2 bytes)
 
 v_hbla_hreg:	equ $FFFFF624	; VDP H.interrupt register buffer (8Axx) (2 bytes)
 v_hbla_line:	equ $FFFFF625	; screen line where water starts and palette is changed by HBlank
@@ -225,12 +225,12 @@ v_lani5_frame:	equ $FFFFF7BA	; level graphics animation 5 - current frame
 v_lani5_time:	equ $FFFFF7BB	; level graphics animation 5 - time until next frame
 v_gfxbigring:	equ $FFFFF7BE	; settings for giant ring graphics loading (2 bytes)
 f_conveyrev:	equ $FFFFF7C0	; flag set to reverse conveyor belts in LZ/SBZ
-v_obj63:		equ $FFFFF7C1	; object 63 (LZ/SBZ platforms) variables (6 bytes)
+v_obj63:	equ $FFFFF7C1	; object 63 (LZ/SBZ platforms) variables (6 bytes)
 f_wtunnelmode:	equ $FFFFF7C7	; LZ water tunnel mode
-f_lockmulti:	equ $FFFFF7C8	; flag set to lock controls, lock Sonic's position & animation
+f_playerctrl:	equ $FFFFF7C8	; Player control override flags (object ineraction, control enable)
 f_wtunnelallow:	equ $FFFFF7C9	; LZ water tunnels (00 = enabled; 01 = disabled)
-f_jumponly:	equ $FFFFF7CA	; flag set to lock controls apart from jumping
-v_obj6B:		equ $FFFFF7CB	; object 6B (SBZ stomper) variable
+f_slidemode:	equ $FFFFF7CA	; LZ water slide mode
+v_obj6B:	equ $FFFFF7CB	; object 6B (SBZ stomper) variable
 f_lockctrl:	equ $FFFFF7CC	; flag set to lock controls during ending sequence
 f_bigring:	equ $FFFFF7CD	; flag set when Sonic collects the giant ring
 v_itembonus:	equ $FFFFF7D0	; item bonus from broken enemies, blocks etc. (2 bytes)
@@ -238,7 +238,7 @@ v_timebonus:	equ $FFFFF7D2	; time bonus at the end of an act (2 bytes)
 v_ringbonus:	equ $FFFFF7D4	; ring bonus at the end of an act (2 bytes)
 f_endactbonus:	equ $FFFFF7D6	; time/ring bonus update flag at the end of an act
 v_sonicend:	equ $FFFFF7D7	; routine counter for Sonic in the ending sequence
-v_lz_deform:	equ	$FFFFF7D8	; LZ deformtaion offset, in units of $80 (2 bytes)
+v_lz_deform:	equ $FFFFF7D8	; LZ deformtaion offset, in units of $80 (2 bytes)
 f_switch:	equ $FFFFF7E0	; flags set when Sonic stands on a switch ($10 bytes)
 v_scroll_block_1_size:	equ $FFFFF7F0	; (2 bytes)
 v_scroll_block_2_size:	equ $FFFFF7F2	; unused (2 bytes)

@@ -47,7 +47,7 @@ Hel_Build:
 		bne.s	Hel_Action
 		addq.b	#1,obSubtype(a0)
 		move.w	a1,d5
-		subi.w	#$D000,d5
+		subi.w	#v_objspace&$FFFF,d5
 		lsr.w	#6,d5
 		andi.w	#$7F,d5
 		move.b	d5,(a2)+	; copy child address to parent RAM

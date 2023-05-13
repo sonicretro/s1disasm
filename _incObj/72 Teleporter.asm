@@ -47,7 +47,7 @@ loc_166E0:
 		addi.w	#$20,d1
 		cmpi.w	#$40,d1
 		bcc.s	locret_1675C
-		tst.b	(f_lockmulti).w
+		tst.b	(f_playerctrl).w
 		bne.s	locret_1675C
 		cmpi.b	#7,obSubtype(a0)
 		bne.s	loc_1670E
@@ -56,7 +56,7 @@ loc_166E0:
 
 loc_1670E:
 		addq.b	#2,obRoutine(a0)
-		move.b	#$81,(f_lockmulti).w ; lock controls
+		move.b	#$81,(f_playerctrl).w ; lock controls and disable object interaction
 		move.b	#id_Roll,obAnim(a1) ; use Sonic's rolling animation
 		move.w	#$800,obInertia(a1)
 		move.w	#0,obVelX(a1)
@@ -137,7 +137,7 @@ loc_167DA:
 loc_16800:
 		andi.w	#$7FF,obY(a1)
 		clr.b	obRoutine(a0)
-		clr.b	(f_lockmulti).w
+		clr.b	(f_playerctrl).w
 		move.w	#0,obVelX(a1)
 		move.w	#$200,obVelY(a1)
 		rts	

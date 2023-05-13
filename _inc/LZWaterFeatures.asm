@@ -399,10 +399,10 @@ loc_3F62:
 		beq.s	LZSlide_Move
 
 loc_3F6A:
-		tst.b	(f_jumponly).w
+		tst.b	(f_slidemode).w
 		beq.s	locret_3F7A
 		move.w	#5,$3E(a1)
-		clr.b	(f_jumponly).w
+		clr.b	(f_slidemode).w
 
 locret_3F7A:
 		rts	
@@ -423,7 +423,7 @@ loc_3F84:
 loc_3F9A:
 		clr.b	obInertia+1(a1)
 		move.b	#id_WaterSlide,obAnim(a1) ; use Sonic's "sliding" animation
-		move.b	#1,(f_jumponly).w ; lock controls (except jumping)
+		move.b	#1,(f_slidemode).w	; set water slide flag
 		move.b	(v_vbla_byte).w,d0
 		andi.b	#$1F,d0
 		bne.s	locret_3FBE

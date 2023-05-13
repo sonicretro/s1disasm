@@ -45,7 +45,7 @@ Orb_Main:	; Routine 0
 		bne.s	@fail
 		addq.b	#1,(a3)
 		move.w	a1,d5
-		subi.w	#$D000,d5
+		subi.w	#v_objspace&$FFFF,d5
 		lsr.w	#6,d5
 		andi.w	#$7F,d5
 		move.b	d5,(a2)+

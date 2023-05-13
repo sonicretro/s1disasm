@@ -45,7 +45,7 @@ Bri_Main:	; Routine 0
 		move.w	d2,obY(a0)
 		move.w	d2,$3C(a0)
 		move.w	a0,d5
-		subi.w	#$D000,d5
+		subi.w	#v_objspace&$FFFF,d5
 		lsr.w	#6,d5
 		andi.w	#$7F,d5
 		move.b	d5,(a2)+
@@ -53,7 +53,7 @@ Bri_Main:	; Routine 0
 
 	@notleftmost:
 		move.w	a1,d5
-		subi.w	#$D000,d5
+		subi.w	#v_objspace&$FFFF,d5
 		lsr.w	#6,d5
 		andi.w	#$7F,d5
 		move.b	d5,(a2)+
