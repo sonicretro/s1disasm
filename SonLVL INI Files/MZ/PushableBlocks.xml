@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Movable Block" Image="frame0">
+  <Images>
+    <ImageFromMappings id="frame0">
+      <ArtFile filename="../artnem/MZ Green Pushable Block.bin"/>
+      <MapFile type="ASM" filename="../_maps/Pushable Blocks.asm" frame="0" startpal="2"/>
+    </ImageFromMappings>
+    <ImageFromMappings id="frame1">
+      <ArtFile filename="../artnem/MZ Green Pushable Block.bin"/>
+      <MapFile type="ASM" filename="../_maps/Pushable Blocks.asm" frame="1" startpal="2"/>
+    </ImageFromMappings>
+  </Images>
+ <Subtypes>
+    <Subtype id="00" name="1 block" image="frame0"/>
+    <Subtype id="81" name="4 blocks" image="frame1"/>
+  </Subtypes>
+</ObjDef>
