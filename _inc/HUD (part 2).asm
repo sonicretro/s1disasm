@@ -152,7 +152,7 @@ Hud_ClrBonusLoop:
 
 
 Hud_Lives:
-		hudVRAM	$FBA0		; set VRAM address
+		locVRAM	$FBA0,d0	; set VRAM address
 		moveq	#0,d1
 		move.b	(v_lives).w,d1	; load number of lives
 		lea	(Hud_10).l,a2
