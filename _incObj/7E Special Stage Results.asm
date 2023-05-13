@@ -91,7 +91,7 @@ loc_C86C:
 		bne.s	loc_C85A
 		addq.b	#2,obRoutine(a0)
 		move.w	#180,obTimeFrame(a0) ; set time delay to 3 seconds
-		move.b	#id_SSRChaos,(v_objspace+$800).w ; load chaos emerald object
+		move.b	#id_SSRChaos,(v_ssresemeralds).w ; load chaos emerald object
 
 SSR_Wait:	; Routine 4, 8, $C, $10
 		subq.w	#1,obTimeFrame(a0) ; subtract 1 from time delay
@@ -137,8 +137,8 @@ SSR_Exit:	; Routine $A, $12
 ; ===========================================================================
 
 SSR_Continue:	; Routine $E
-		move.b	#4,(v_objspace+$6C0+obFrame).w
-		move.b	#$14,(v_objspace+$6C0+obRoutine).w
+		move.b	#4,(v_ssrescontinue+obFrame).w
+		move.b	#$14,(v_ssrescontinue+obRoutine).w
 		move.w	#sfx_Continue,d0
 		jsr	(PlaySound_Special).l	; play continues jingle
 		addq.b	#2,obRoutine(a0)

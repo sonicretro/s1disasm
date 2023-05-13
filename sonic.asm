@@ -2135,7 +2135,7 @@ GM_Title:
 
 		moveq	#palid_Sonic,d0	; load Sonic's palette
 		bsr.w	PalLoad1
-		move.b	#id_CreditsText,(v_objspace+$80).w ; load "SONIC TEAM PRESENTS" object
+		move.b	#id_CreditsText,(v_sonicteam).w ; load "SONIC TEAM PRESENTS" object
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		bsr.w	PaletteFadeIn
@@ -2199,17 +2199,21 @@ GM_Title:
 		bsr.w	PlaySound_Special	; play title screen music
 		move.b	#0,(f_debugmode).w ; disable debug mode
 		move.w	#$178,(v_demolength).w ; run title screen for $178 frames
-		lea	(v_objspace+$80).w,a1
+		
+		; Bug: this only clears half of the "SONIC TEAM PRESENTS" slot.
+		; This is responsible for why the "PRESS START BUTTON" text doesn't
+		; show up, as the routine ID isn't reset.
+		lea	(v_sonicteam).w,a1
 		moveq	#0,d0
-		move.w	#7,d1
+		move.w	#7,d1			; should be $F
 
 	Tit_ClrObj2:
 		move.l	d0,(a1)+
 		dbf	d1,Tit_ClrObj2
 
-		move.b	#id_TitleSonic,(v_objspace+$40).w ; load big Sonic object
-		move.b	#id_PSBTM,(v_objspace+$80).w ; load "PRESS START BUTTON" object
-		;clr.b	(v_objspace+$80+obRoutine).w ; The 'Mega Games 10' version of Sonic 1 added this line, to fix the 'PRESS START BUTTON' object not appearing
+		move.b	#id_TitleSonic,(v_titlesonic).w ; load big Sonic object
+		move.b	#id_PSBTM,(v_pressstart).w ; load "PRESS START BUTTON" object
+		;clr.b	(v_pressstart+obRoutine).w ; The 'Mega Games 10' version of Sonic 1 added this line, to fix the 'PRESS START BUTTON' object not appearing
 
 		if Revision=0
 		else
@@ -2217,11 +2221,11 @@ GM_Title:
 			bpl.s   @isjap		; if yes, branch
 		endc
 
-		move.b	#id_PSBTM,(v_objspace+$C0).w ; load "TM" object
-		move.b	#3,(v_objspace+$C0+obFrame).w
+		move.b	#id_PSBTM,(v_titletm).w ; load "TM" object
+		move.b	#3,(v_titletm+obFrame).w
 	@isjap:
-		move.b	#id_PSBTM,(v_objspace+$100).w ; load object which hides part of Sonic
-		move.b	#2,(v_objspace+$100+obFrame).w
+		move.b	#id_PSBTM,(v_ttlsonichide).w ; load object which hides part of Sonic
+		move.b	#2,(v_ttlsonichide+obFrame).w
 		jsr	(ExecuteObjects).l
 		bsr.w	DeformLayers
 		jsr	(BuildSprites).l
@@ -2884,7 +2888,7 @@ Level_GetBgm:
 		lea	(MusicList).l,a1 ; load	music playlist
 		move.b	(a1,d0.w),d0
 		bsr.w	PlaySound	; play music
-		move.b	#id_TitleCard,(v_objspace+$80).w ; load title card object
+		move.b	#id_TitleCard,(v_titlecard).w ; load title card object
 
 Level_TtlCardLoop:
 		move.b	#$C,(v_vbla_routine).w
@@ -2892,8 +2896,8 @@ Level_TtlCardLoop:
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		bsr.w	RunPLC
-		move.w	(v_objspace+$108).w,d0
-		cmp.w	(v_objspace+$130).w,d0 ; has title card sequence finished?
+		move.w	(v_ttlcardact+obX).w,d0
+		cmp.w	(v_ttlcardact+card_mainX).w,d0 ; has title card sequence finished?
 		bne.s	Level_TtlCardLoop ; if not, branch
 		tst.l	(v_plc_buffer).w ; are there any items in the pattern load cue?
 		bne.s	Level_TtlCardLoop ; if yes, branch
@@ -2913,7 +2917,7 @@ Level_TtlCardLoop:
 		move.b	#id_SonicPlayer,(v_player).w ; load Sonic object
 		tst.w	(f_demo).w
 		bmi.s	Level_ChkDebug
-		move.b	#id_HUD,(v_objspace+$40).w ; load HUD object
+		move.b	#id_HUD,(v_hud).w ; load HUD object
 
 Level_ChkDebug:
 		tst.b	(f_debugcheat).w ; has debug cheat been entered?
@@ -2927,10 +2931,10 @@ Level_ChkWater:
 		move.w	#0,(v_jpadhold1).w
 		cmpi.b	#id_LZ,(v_zone).w ; is level LZ?
 		bne.s	Level_LoadObj	; if not, branch
-		move.b	#id_WaterSurface,(v_objspace+$780).w ; load water surface object
-		move.w	#$60,(v_objspace+$780+obX).w
-		move.b	#id_WaterSurface,(v_objspace+$7C0).w
-		move.w	#$120,(v_objspace+$7C0+obX).w
+		move.b	#id_WaterSurface,(v_watersurface1).w ; load water surface object
+		move.w	#$60,(v_watersurface1+obX).w
+		move.b	#id_WaterSurface,(v_watersurface2).w
+		move.w	#$120,(v_watersurface2+obX).w
 
 Level_LoadObj:
 		jsr	(ObjPosLoad).l
@@ -3004,10 +3008,10 @@ Level_Delay:
 		bsr.w	PalFadeIn_Alt
 		tst.w	(f_demo).w	; is an ending sequence demo running?
 		bmi.s	Level_ClrCardArt ; if yes, branch
-		addq.b	#2,(v_objspace+$80+obRoutine).w ; make title card move
-		addq.b	#4,(v_objspace+$C0+obRoutine).w
-		addq.b	#4,(v_objspace+$100+obRoutine).w
-		addq.b	#4,(v_objspace+$140+obRoutine).w
+		addq.b	#2,(v_ttlcardname+obRoutine).w ; make title card move
+		addq.b	#4,(v_ttlcardzone+obRoutine).w
+		addq.b	#4,(v_ttlcardact+obRoutine).w
+		addq.b	#4,(v_ttlcardoval+obRoutine).w
 		bra.s	Level_StartGame
 ; ===========================================================================
 
@@ -3415,7 +3419,7 @@ loc_47D4:
 		move.l	d0,(a1)+
 		dbf	d1,SS_EndClrObjRam ; clear object RAM
 
-		move.b	#id_SSResult,(v_objspace+$5C0).w ; load results screen object
+		move.b	#id_SSResult,(v_ssrescard).w ; load results screen object
 
 SS_NormalExit:
 		bsr.w	PauseGame
@@ -3765,12 +3769,12 @@ GM_Continue:
 		clr.l	(v_screenposx).w
 		move.l	#$1000000,(v_screenposy).w
 		move.b	#id_ContSonic,(v_player).w ; load Sonic object
-		move.b	#id_ContScrItem,(v_objspace+$40).w ; load continue screen objects
-		move.b	#id_ContScrItem,(v_objspace+$80).w
-		move.b	#3,(v_objspace+$80+obPriority).w
-		move.b	#4,(v_objspace+$80+obFrame).w
-		move.b	#id_ContScrItem,(v_objspace+$C0).w
-		move.b	#4,(v_objspace+$C0+obRoutine).w
+		move.b	#id_ContScrItem,(v_continuetext).w ; load continue screen objects
+		move.b	#id_ContScrItem,(v_continuelight).w
+		move.b	#3,(v_continuelight+obPriority).w
+		move.b	#4,(v_continuelight+obFrame).w
+		move.b	#id_ContScrItem,(v_continueicon).w
+		move.b	#4,(v_continueicon+obRoutine).w
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		move.w	(v_vdp_buffer1).w,d0
@@ -3911,7 +3915,7 @@ End_LoadSonic:
 		move.b	#1,(f_lockctrl).w ; lock controls
 		move.w	#(btnL<<8),(v_jpadhold2).w ; move Sonic to the left
 		move.w	#$F800,(v_player+obInertia).w ; set Sonic's speed
-		move.b	#id_HUD,(v_objspace+$40).w ; load HUD object
+		move.b	#id_HUD,(v_hud).w ; load HUD object
 		jsr	(ObjPosLoad).l
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
@@ -4105,7 +4109,7 @@ GM_Credits:
 
 		moveq	#palid_Sonic,d0
 		bsr.w	PalLoad1	; load Sonic's palette
-		move.b	#id_CreditsText,(v_objspace+$80).w ; load credits object
+		move.b	#id_CreditsText,(v_credits).w ; load credits object
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		bsr.w	EndingDemoLoad
@@ -4234,7 +4238,7 @@ TryAgainEnd:
 		moveq	#palid_Ending,d0
 		bsr.w	PalLoad1	; load ending palette
 		clr.w	(v_pal_dry_dup+$40).w
-		move.b	#id_EndEggman,(v_objspace+$80).w ; load Eggman object
+		move.b	#id_EndEggman,(v_endeggman).w ; load Eggman object
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		move.w	#1800,(v_demolength).w ; show screen for 30 seconds
@@ -6102,13 +6106,13 @@ M_Got_RBonus:	dc.b 7			; RING BONUS
 ; ---------------------------------------------------------------------------
 Map_SSR:	dc.w M_SSR_Chaos-Map_SSR
 		dc.w M_SSR_Score-Map_SSR
-		dc.w byte_CD0D-Map_SSR
+		dc.w M_SSR_Ring-Map_SSR
 		dc.w M_Card_Oval-Map_SSR
-		dc.w byte_CD31-Map_SSR
-		dc.w byte_CD46-Map_SSR
-		dc.w byte_CD5B-Map_SSR
-		dc.w byte_CD6B-Map_SSR
-		dc.w byte_CDA8-Map_SSR
+		dc.w M_SSR_ContSonic1-Map_SSR
+		dc.w M_SSR_ContSonic2-Map_SSR
+		dc.w M_SSR_Continue-Map_SSR
+		dc.w M_SSR_SpecStage-Map_SSR
+		dc.w M_SSR_GotAll-Map_SSR
 M_SSR_Chaos:	dc.b $D			; "CHAOS EMERALDS"
 		dc.b $F8, 5, 0,	8, $90
 		dc.b $F8, 5, 0,	$1C, $A0
@@ -6130,7 +6134,7 @@ M_SSR_Score:	dc.b 6			; "SCORE"
 		dc.b $F8, $D, 1, $6A, $30
 		dc.b $F7, 4, 0,	$6E, $CD
 		dc.b $FF, 4, $18, $6E, $CD
-byte_CD0D:	dc.b 7
+M_SSR_Ring:	dc.b 7
 		dc.b $F8, $D, 1, $52, $B0
 		dc.b $F8, $D, 0, $66, $D9
 		dc.b $F8, 1, 1,	$4A, $F9
@@ -6138,21 +6142,21 @@ byte_CD0D:	dc.b 7
 		dc.b $FF, 4, $18, $6E, $F6
 		dc.b $F8, $D, $FF, $F8,	$28
 		dc.b $F8, 1, 1,	$70, $48
-byte_CD31:	dc.b 4
+M_SSR_ContSonic1:	dc.b 4
 		dc.b $F8, $D, $FF, $D1,	$B0
 		dc.b $F8, $D, $FF, $D9,	$D0
 		dc.b $F8, 1, $FF, $E1, $F0
 		dc.b $F8, 6, $1F, $E3, $40
-byte_CD46:	dc.b 4
+M_SSR_ContSonic2:	dc.b 4
 		dc.b $F8, $D, $FF, $D1,	$B0
 		dc.b $F8, $D, $FF, $D9,	$D0
 		dc.b $F8, 1, $FF, $E1, $F0
 		dc.b $F8, 6, $1F, $E9, $40
-byte_CD5B:	dc.b 3
+M_SSR_Continue:	dc.b 3
 		dc.b $F8, $D, $FF, $D1,	$B0
 		dc.b $F8, $D, $FF, $D9,	$D0
 		dc.b $F8, 1, $FF, $E1, $F0
-byte_CD6B:	dc.b $C			; "SPECIAL STAGE"
+M_SSR_SpecStage:	dc.b $C			; "SPECIAL STAGE"
 		dc.b $F8, 5, 0,	$3E, $9C
 		dc.b $F8, 5, 0,	$36, $AC
 		dc.b $F8, 5, 0,	$10, $BC
@@ -6165,7 +6169,7 @@ byte_CD6B:	dc.b $C			; "SPECIAL STAGE"
 		dc.b $F8, 5, 0,	0, $34
 		dc.b $F8, 5, 0,	$18, $44
 		dc.b $F8, 5, 0,	$10, $54
-byte_CDA8:	dc.b $F			; "SONIC GOT THEM ALL"
+M_SSR_GotAll:	dc.b $F			; "SONIC GOT THEM ALL"
 		dc.b $F8, 5, 0,	$3E, $88
 		dc.b $F8, 5, 0,	$32, $98
 		dc.b $F8, 5, 0,	$2E, $A8
@@ -7150,7 +7154,7 @@ ResumeMusic:
 
 	@over12:
 		move.w	#30,(v_air).w	; reset air to 30 seconds
-		clr.b	(v_objspace+$340+$32).w
+		clr.b	(v_sonicbubbles+$32).w
 		rts	
 ; End of function ResumeMusic
 

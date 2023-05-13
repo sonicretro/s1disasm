@@ -42,7 +42,7 @@ ESon_MakeEmeralds:
 		bne.s	ESon_Wait
 		addq.b	#2,ob2ndRout(a0)
 		move.w	#1,obAnim(a0)
-		move.b	#id_EndChaos,(v_objspace+$400).w ; load chaos emeralds objects
+		move.b	#id_EndChaos,(v_endemeralds).w ; load chaos emeralds objects
 
 	ESon_Wait:
 		rts	
@@ -63,7 +63,7 @@ Obj87_ClrObjRam:
 		; Routine 8
 		subq.w	#1,eson_time(a0)
 		bne.s	ESon_Wait2
-		lea	(v_objspace+$400).w,a1
+		lea	(v_endemeralds).w,a1
 		move.w	#$FF,d1
 
 Obj87_ClrLoop:
@@ -84,7 +84,7 @@ Obj87_MakeLogo:	; Routine $C
 		addq.b	#2,ob2ndRout(a0)
 		move.w	#180,eson_time(a0)
 		move.b	#2,obAnim(a0)
-		move.b	#id_EndSTH,(v_objspace+$400).w ; load "SONIC THE HEDGEHOG" object
+		move.b	#id_EndSTH,(v_endlogo).w ; load "SONIC THE HEDGEHOG" object
 
 ESon_Wait3:
 		rts	
@@ -106,7 +106,7 @@ Obj87_Leap:	; Routine $10
 		move.b	#2,obPriority(a0)
 		move.b	#5,obFrame(a0)
 		move.b	#2,obAnim(a0)	; use "leaping"	animation
-		move.b	#id_EndSTH,(v_objspace+$400).w ; load "SONIC THE HEDGEHOG" object
+		move.b	#id_EndSTH,(v_endlogo).w ; load "SONIC THE HEDGEHOG" object
 		bra.s	Obj87_Animate
 ; ===========================================================================
 
