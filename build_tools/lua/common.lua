@@ -272,7 +272,7 @@ local function assemble_file(input_filename, output_filename, as_arguments, p2bi
 	end
 end
 
-local function build_rom(input_filename, output_filename, as_arguments, p2bin_arguments, create_header_file, fix_rom_header, repository)
+local function build_rom(input_filename, output_filename, as_arguments, p2bin_arguments, create_header_file, repository)
 	-- Delete old ROM.
 	os.remove(output_filename .. ".prev.bin")
 
@@ -282,14 +282,7 @@ local function build_rom(input_filename, output_filename, as_arguments, p2bin_ar
 	local log_filename = input_filename .. ".log"
 
 	-- Assemble the ROM.
-	local success, continue = assemble_file(input_filename .. ".asm", output_filename .. ".bin", as_arguments, p2bin_arguments, create_header_file, repository)
-
-	-- Correct the ROM's header with a proper checksum and end-of-ROM value.
-	if file_exists(output_filename) and fix_rom_header then
-		fix_header(output_filename .. ".bin")
-	end
-
-	return success, continue
+	return assemble_file(input_filename .. ".asm", output_filename .. ".bin", as_arguments, p2bin_arguments, create_header_file, repository)
 end
 
 return {
