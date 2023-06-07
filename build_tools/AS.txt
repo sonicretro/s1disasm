@@ -1,6 +1,6 @@
 The assembler used here is Flamewing's modified version of The Macro Assembler AS, found here:
 
-https://github.com/flamewing/asl-releases
+https://github.com/Clownacy/asl-releases
 
 AS is under the GPL, so here's its license:
 

@@ -148,7 +148,7 @@ end
 
 local function find_assembler(repository)
 	local _, _, as_filename = get_platform_specific_info_memoised()
-	local tools = find_tools("assembler", "https://github.com/flamewing/asl-releases", repository, as_filename)
+	local tools = find_tools("assembler", "https://github.com/Clownacy/asl-releases", repository, as_filename)
 
 	if tools == nil then
 		return nil
