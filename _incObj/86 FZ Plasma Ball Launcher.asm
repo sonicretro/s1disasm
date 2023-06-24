@@ -16,8 +16,8 @@ Obj86_Index:	dc.w Obj86_Main-Obj86_Index
 ; ===========================================================================
 
 Obj86_Main:	; Routine 0
-		move.w	#$2588,obX(a0)
-		move.w	#$53C,obY(a0)
+		move.w	#boss_fz_x+$138,obX(a0)
+		move.w	#boss_fz_y+$2C,obY(a0)
 		move.w	#$300,obGfx(a0)
 		move.l	#Map_PLaunch,obMap(a0)
 		move.b	#0,obAnim(a0)
@@ -81,7 +81,7 @@ Obj86_Loop:
 		bne.w	loc_1A954
 		move.b	#id_BossPlasma,(a1)
 		move.w	obX(a0),obX(a1)
-		move.w	#$53C,obY(a1)
+		move.w	#boss_fz_y+$2C,obY(a1)
 		move.b	#8,obRoutine(a1)
 		move.w	#$2300,obGfx(a1)
 		move.l	#Map_Plasma,obMap(a1)
@@ -96,7 +96,7 @@ Obj86_Loop:
 		jsr	(RandomNumber).l
 		move.w	$32(a0),d1
 		muls.w	#-$4F,d1
-		addi.w	#$2578,d1
+		addi.w	#boss_fz_x+$128,d1
 		andi.w	#$1F,d0
 		subi.w	#$10,d0
 		add.w	d1,d0
@@ -182,7 +182,7 @@ locret_1AA1C:
 
 loc_1AA1E:
 		jsr	(SpeedToPos).l
-		cmpi.w	#$5E0,obY(a0)
+		cmpi.w	#boss_fz_y+$D0,obY(a0)
 		bcc.s	loc_1AA34
 		subq.w	#1,obSubtype(a0)
 		beq.s	loc_1AA34

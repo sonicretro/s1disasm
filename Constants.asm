@@ -368,3 +368,33 @@ fr_Float6:	equ $54
 fr_Injury:	equ $55
 fr_GetAir:	equ $56
 fr_WaterSlide:	equ $57
+
+; Boss locations
+; The main values are based on where the camera boundaries mainly lie
+; The end values are where the camera scrolls towards after defeat
+boss_ghz_x:	equ $2960		; Green Hill Zone
+boss_ghz_y:	equ $300
+boss_ghz_end:	equ boss_ghz_x+$160
+
+boss_lz_x:	equ $1DE0		; Labyrinth Zone
+boss_lz_y:	equ $C0
+boss_lz_end:	equ boss_lz_x+$250
+
+boss_mz_x:	equ $1800		; Marble Zone
+boss_mz_y:	equ $210
+boss_mz_end:	equ boss_mz_x+$160
+
+boss_slz_x:	equ $2000		; Star Light Zone
+boss_slz_y:	equ $210
+boss_slz_end:	equ boss_slz_x+$160
+
+boss_syz_x:	equ $2C00		; Spring Yard Zone
+boss_syz_y:	equ $4CC
+boss_syz_end:	equ boss_syz_x+$140
+
+boss_sbz2_x:	equ $2050		; Scrap Brain Zone Act 2 Cutscene
+boss_sbz2_y:	equ $510
+
+boss_fz_x:	equ $2450		; Final Zone
+boss_fz_y:	equ $510
+boss_fz_end:	equ boss_fz_x+$2B0

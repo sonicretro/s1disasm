@@ -79,7 +79,7 @@ loc_18302:
 		move.w	d0,obVelY(a0)
 		move.w	#-$100,obVelX(a0)
 		bsr.w	BossMove
-		cmpi.w	#$1910,$30(a0)
+		cmpi.w	#boss_mz_x+$110,$30(a0)
 		bne.s	loc_18334
 		addq.b	#2,ob2ndRout(a0)
 		clr.b	obSubtype(a0)
@@ -148,7 +148,7 @@ loc_183CA:
 		tst.w	obVelX(a0)
 		bne.s	loc_183FE
 		moveq	#$40,d0
-		cmpi.w	#$22C,$38(a0)
+		cmpi.w	#boss_mz_y+$1C,$38(a0)
 		beq.s	loc_183E6
 		bcs.s	loc_183DE
 		neg.w	d0
@@ -177,12 +177,12 @@ Obj73_MakeLava:
 		jsr	(FindFreeObj).l
 		bne.s	loc_1844A
 		_move.b	#id_LavaBall,0(a1) ; load lava ball object
-		move.w	#$2E8,obY(a1)	; set Y	position
+		move.w	#boss_mz_y+$D8,obY(a1)	; set Y	position
 		jsr	(RandomNumber).l
 		andi.l	#$FFFF,d0
 		divu.w	#$50,d0
 		swap	d0
-		addi.w	#$1878,d0
+		addi.w	#boss_mz_x+$78,d0
 		move.w	d0,obX(a1)
 		lsr.b	#7,d1
 		move.w	#$FF,obSubtype(a1)
@@ -196,21 +196,21 @@ loc_1844A:
 loc_1845C:
 		btst	#0,obStatus(a0)
 		beq.s	loc_18474
-		cmpi.w	#$1910,$30(a0)
+		cmpi.w	#boss_mz_x+$110,$30(a0)
 		blt.s	locret_1849C
-		move.w	#$1910,$30(a0)
+		move.w	#boss_mz_x+$110,$30(a0)
 		bra.s	loc_18482
 ; ===========================================================================
 
 loc_18474:
-		cmpi.w	#$1830,$30(a0)
+		cmpi.w	#boss_mz_x+$30,$30(a0)
 		bgt.s	locret_1849C
-		move.w	#$1830,$30(a0)
+		move.w	#boss_mz_x+$30,$30(a0)
 
 loc_18482:
 		clr.w	obVelX(a0)
 		move.w	#-$180,obVelY(a0)
-		cmpi.w	#$22C,$38(a0)
+		cmpi.w	#boss_mz_y+$1C,$38(a0)
 		bcc.s	loc_18498
 		neg.w	obVelY(a0)
 
@@ -224,9 +224,9 @@ locret_1849C:
 Obj73_MakeLava2:
 		bsr.w	BossMove
 		move.w	$38(a0),d0
-		subi.w	#$22C,d0
+		subi.w	#boss_mz_y+$1C,d0
 		bgt.s	locret_184F4
-		move.w	#$22C,d0
+		move.w	#boss_mz_y+$1C,d0
 		tst.w	obVelY(a0)
 		beq.s	loc_184EA
 		clr.w	obVelY(a0)
@@ -274,7 +274,7 @@ loc_1852C:
 		addq.w	#1,$3C(a0)
 		beq.s	loc_18544
 		bpl.s	loc_1854E
-		cmpi.w	#$270,$38(a0)
+		cmpi.w	#boss_mz_y+$60,$38(a0)
 		bcc.s	loc_18544
 		addi.w	#$18,obVelY(a0)
 		bra.s	loc_1857A
@@ -314,7 +314,7 @@ loc_1857A:
 loc_18582:
 		move.w	#$500,obVelX(a0)
 		move.w	#-$40,obVelY(a0)
-		cmpi.w	#$1960,(v_limitright2).w
+		cmpi.w	#boss_mz_end,(v_limitright2).w
 		bcc.s	loc_1859C
 		addq.w	#2,(v_limitright2).w
 		bra.s	loc_185A2

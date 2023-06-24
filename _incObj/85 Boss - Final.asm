@@ -22,15 +22,15 @@ Obj85_Index:	dc.w Obj85_Main-Obj85_Index
 
 Obj85_ObjData:	dc.w $100, $100, $470	; X pos, Y pos,	VRAM setting
 		dc.l Map_SEgg		; mappings pointer
-		dc.w $25B0, $590, $300
+		dc.w boss_fz_x+$160, boss_fz_y+$80, $300
 		dc.l Map_EggCyl
-		dc.w $26E0, $596, $3A0
+		dc.w boss_fz_x+$290, boss_fz_y+$86, $3A0
 		dc.l Map_FZLegs
-		dc.w $26E0, $596, $470
+		dc.w boss_fz_x+$290, boss_fz_y+$86, $470
 		dc.l Map_SEgg
-		dc.w $26E0, $596, $400
+		dc.w boss_fz_x+$290, boss_fz_y+$86, $400
 		dc.l Map_Eggman
-		dc.w $26E0, $596, $400
+		dc.w boss_fz_x+$290, boss_fz_y+$86, $400
 		dc.l Map_Eggman
 
 Obj85_ObjData2:	dc.b 2,	0, 4, $20, $19	; routine num, animation, sprite priority, width, height
@@ -115,7 +115,7 @@ off_19E80:	dc.w loc_19E90-off_19E80, loc_19EA8-off_19E80
 loc_19E90:
 		tst.l	(v_plc_buffer).w
 		bne.s	loc_19EA2
-		cmpi.w	#$2450,(v_screenposx).w
+		cmpi.w	#boss_fz_x,(v_screenposx).w
 		bcs.s	loc_19EA2
 		addq.b	#2,$34(a0)
 
@@ -227,8 +227,8 @@ loc_19FBC:
 			bsr.w	AddPoints
 		endif
 		move.b	#6,$34(a0)
-		move.w	#$25C0,obX(a0)
-		move.w	#$53C,obY(a0)
+		move.w	#boss_fz_x+$170,obX(a0)
+		move.w	#boss_fz_y+$2C,obY(a0)
 		move.b	#$14,obHeight(a0)
 		rts	
 ; ===========================================================================
@@ -277,9 +277,9 @@ loc_1A02A:
 		jsr	(SpeedToPos).l
 		move.b	#6,obFrame(a0)
 		addi.w	#$10,obVelY(a0)
-		cmpi.w	#$59C,obY(a0)
+		cmpi.w	#boss_fz_y+$8C,obY(a0)
 		bcs.s	loc_1A070
-		move.w	#$59C,obY(a0)
+		move.w	#boss_fz_y+$8C,obY(a0)
 		addq.b	#2,$34(a0)
 		if Revision=0
 		move.b	#$20,obWidth(a0)
@@ -299,7 +299,7 @@ loc_1A074:
 		move.b	#4,obAnim(a0)
 		jsr	(SpeedToPos).l
 		addi.w	#$10,obVelY(a0)
-		cmpi.w	#$5A3,obY(a0)
+		cmpi.w	#boss_fz_y+$93,obY(a0)
 		bcs.s	loc_1A09A
 		move.w	#-$40,obVelY(a0)
 
@@ -333,9 +333,9 @@ loc_1A0B4:
 		clr.w	obVelX(a0)
 
 loc_1A0F2:
-		cmpi.w	#$26A0,obX(a0)
+		cmpi.w	#boss_fz_x+$250,obX(a0)
 		bcs.s	loc_1A110
-		move.w	#$26A0,obX(a0)
+		move.w	#boss_fz_x+$250,obX(a0)
 		move.w	#$240,obVelX(a0)
 		move.w	#-$4C0,obVelY(a0)
 		addq.b	#2,$34(a0)
@@ -346,7 +346,7 @@ loc_1A110:
 
 loc_1A112:
 		jsr	(SpeedToPos).l
-		cmpi.w	#$26E0,obX(a0)
+		cmpi.w	#boss_fz_x+$290,obX(a0)
 		bcs.s	loc_1A124
 		clr.w	obVelX(a0)
 
@@ -354,9 +354,9 @@ loc_1A124:
 		addi.w	#$34,obVelY(a0)
 		tst.w	obVelY(a0)
 		bmi.s	loc_1A142
-		cmpi.w	#$592,obY(a0)
+		cmpi.w	#boss_fz_y+$82,obY(a0)
 		bcs.s	loc_1A142
-		move.w	#$592,obY(a0)
+		move.w	#boss_fz_y+$82,obY(a0)
 		clr.w	obVelY(a0)
 
 loc_1A142:
@@ -372,7 +372,7 @@ loc_1A15C:
 		jsr	(AnimateSprite).l
 
 loc_1A166:
-		cmpi.w	#$2700,(v_limitright2).w
+		cmpi.w	#boss_fz_end,(v_limitright2).w
 		bge.s	loc_1A172
 		addq.w	#2,(v_limitright2).w
 
@@ -396,7 +396,7 @@ loc_1A192:
 		move.b	#0,obAnim(a0)
 		bset	#0,obStatus(a0)
 		jsr	(SpeedToPos).l
-		cmpi.w	#$544,obY(a0)
+		cmpi.w	#boss_fz_y+$34,obY(a0)
 		bcc.s	loc_1A1D0
 		move.w	#$180,obVelX(a0)
 		move.w	#-$18,obVelY(a0)
@@ -431,7 +431,7 @@ loc_1A210:
 		move.b	#$F,obColType(a0)
 
 loc_1A216:
-		cmpi.w	#$2790,(v_player+obX).w
+		cmpi.w	#boss_fz_end+$90,(v_player+obX).w
 		blt.s	loc_1A23A
 		move.b	#1,(f_lockctrl).w
 		move.w	#0,(v_jpadhold2).w
@@ -441,12 +441,12 @@ loc_1A216:
 		move.w	#$100,(v_jpadhold2).w
 
 loc_1A23A:
-		cmpi.w	#$27E0,(v_player+obX).w
+		cmpi.w	#boss_fz_end+$E0,(v_player+obX).w
 		blt.s	loc_1A248
-		move.w	#$27E0,(v_player+obX).w
+		move.w	#boss_fz_end+$E0,(v_player+obX).w
 
 loc_1A248:
-		cmpi.w	#$2900,obX(a0)
+		cmpi.w	#boss_fz_end+$200,obX(a0)
 		bcs.s	loc_1A260
 		tst.b	obRender(a0)
 		bmi.s	loc_1A260

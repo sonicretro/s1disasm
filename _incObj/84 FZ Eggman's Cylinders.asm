@@ -16,10 +16,10 @@ Obj84_Index:	dc.w Obj84_Main-Obj84_Index
 		dc.w loc_1A4CE-Obj84_Index
 		dc.w loc_1A57E-Obj84_Index
 
-Obj84_PosData:	dc.w $24D0, $620
-		dc.w $2550, $620
-		dc.w $2490, $4C0
-		dc.w $2510, $4C0
+Obj84_PosData:	dc.w boss_fz_x+$80,  boss_fz_y+$110
+		dc.w boss_fz_x+$100, boss_fz_y+$110
+		dc.w boss_fz_x+$40,  boss_fz_y-$50
+		dc.w boss_fz_x+$C0,  boss_fz_y-$50
 ; ===========================================================================
 
 Obj84_Main:	; Routine
