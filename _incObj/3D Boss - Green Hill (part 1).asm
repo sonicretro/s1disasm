@@ -74,7 +74,7 @@ BGHZ_ShipIndex:	dc.w BGHZ_ShipStart-BGHZ_ShipIndex
 BGHZ_ShipStart:
 		move.w	#$100,obVelY(a0) ; move ship down
 		bsr.w	BossMove
-		cmpi.w	#$338,$38(a0)
+		cmpi.w	#boss_ghz_y+$38,$38(a0)
 		bne.s	loc_177E6
 		move.w	#0,obVelY(a0)	; stop ship
 		addq.b	#2,ob2ndRout(a0) ; goto next routine

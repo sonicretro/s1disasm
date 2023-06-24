@@ -17,14 +17,14 @@ FFloor_Index:	dc.w FFloor_Main-FFloor_Index
 ; ===========================================================================
 
 FFloor_Main:	; Routine 0
-		move.w	#$2080,obX(a0)
-		move.w	#$5D0,obY(a0)
+		move.w	#boss_sbz2_x+$30,obX(a0)
+		move.w	#boss_sbz2_y+$C0,obY(a0)
 		move.b	#$80,obActWid(a0)
 		move.b	#$10,obHeight(a0)
 		move.b	#4,obRender(a0)
 		bset	#7,obRender(a0)
 		moveq	#0,d4
-		move.w	#$2010,d5
+		move.w	#boss_sbz2_x-$40,d5
 		moveq	#7,d6
 		lea	$30(a0),a2
 
@@ -40,7 +40,7 @@ FFloor_MakeBlock:
 		move.b	#$10,obHeight(a1)
 		move.b	#3,obPriority(a1)
 		move.w	d5,obX(a1)	; set X	position
-		move.w	#$5D0,obY(a1)
+		move.w	#boss_sbz2_y+$C0,obY(a1)
 		addi.w	#$20,d5		; add $20 for next X position
 		move.b	#8,obRoutine(a1)
 		dbf	d6,FFloor_MakeBlock ; repeat sequence 7 more times
@@ -51,7 +51,7 @@ FFloor_ExitMake:
 ; ===========================================================================
 
 FFloor_ChkBreak:; Routine 2
-		cmpi.w	#$474F,obSubtype(a0) ; is object set to disintegrate?
+		cmpi.w	#"GO",obSubtype(a0) ; is object set to disintegrate?
 		bne.s	FFloor_Solid	; if not, branch
 		clr.b	obFrame(a0)
 		addq.b	#2,obRoutine(a0) ; next subroutine
@@ -63,7 +63,7 @@ FFloor_Solid:
 		ext.w	d0
 		addq.w	#8,d0
 		asl.w	#4,d0
-		move.w	#$2100,d4
+		move.w	#boss_sbz2_x+$B0,d4
 		sub.w	d0,d4
 		move.b	d0,obActWid(a0)
 		move.w	d4,obX(a0)
@@ -83,7 +83,7 @@ loc_19C36:	; Routine 4
 		add.w	d0,d0
 		move.w	$30(a0,d0.w),d0
 		movea.l	d0,a1
-		move.w	#$474F,obSubtype(a1)
+		move.w	#"GO",obSubtype(a1)
 		addq.b	#1,obFrame(a0)
 		cmpi.b	#8,obFrame(a0)
 		beq.s	loc_19C62
@@ -99,7 +99,7 @@ loc_19C62:	; Routine 6
 ; ===========================================================================
 
 loc_19C72:	; Routine 8
-		cmpi.w	#$474F,obSubtype(a0) ; is object set to disintegrate?
+		cmpi.w	#"GO",obSubtype(a0) ; is object set to disintegrate?
 		beq.s	FFloor_Break	; if yes, branch
 		jmp	(DisplaySprite).l
 ; ===========================================================================

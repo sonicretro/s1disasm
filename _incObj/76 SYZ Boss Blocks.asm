@@ -15,7 +15,7 @@ Obj76_Index:	dc.w Obj76_Main-Obj76_Index
 
 Obj76_Main:	; Routine 0
 		moveq	#0,d4
-		move.w	#$2C10,d5
+		move.w	#boss_syz_x+$10,d5
 		moveq	#9,d6
 		lea	(a0),a1
 		bra.s	Obj76_MakeBlock

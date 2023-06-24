@@ -21,8 +21,8 @@ Obj7A_ObjData:	dc.b 2,	0, 4		; routine number, animation, priority
 ; ===========================================================================
 
 Obj7A_Main:
-		move.w	#$2188,obX(a0)
-		move.w	#$228,obY(a0)
+		move.w	#boss_slz_x+$188,obX(a0)
+		move.w	#boss_slz_y+$18,obY(a0)
 		move.w	obX(a0),$30(a0)
 		move.w	obY(a0),$38(a0)
 		move.b	#$F,obColType(a0)
@@ -93,7 +93,7 @@ Obj7A_ShipIndex:dc.w loc_189B8-Obj7A_ShipIndex
 
 loc_189B8:
 		move.w	#-$100,obVelX(a0)
-		cmpi.w	#$2120,$30(a0)
+		cmpi.w	#boss_slz_x+$120,$30(a0)
 		bcc.s	loc_189CA
 		addq.b	#2,ob2ndRout(a0)
 
@@ -159,13 +159,13 @@ loc_18A5E:
 		btst	#0,obStatus(a0)
 		bne.s	loc_18A7C
 		neg.w	obVelX(a0)
-		cmpi.w	#$2008,d0
+		cmpi.w	#boss_slz_x+8,d0
 		bgt.s	loc_18A88
 		bra.s	loc_18A82
 ; ===========================================================================
 
 loc_18A7C:
-		cmpi.w	#$2138,d0
+		cmpi.w	#boss_slz_x+$138,d0
 		blt.s	loc_18A88
 
 loc_18A82:
@@ -311,7 +311,7 @@ loc_18BC2:
 loc_18BC6:
 		move.w	#$400,obVelX(a0)
 		move.w	#-$40,obVelY(a0)
-		cmpi.w	#$2160,(v_limitright2).w
+		cmpi.w	#boss_slz_end,(v_limitright2).w
 		bcc.s	loc_18BE0
 		addq.w	#2,(v_limitright2).w
 		bra.s	loc_18BE8

@@ -184,8 +184,8 @@ loc_18EC0:
 		move.w	obY(a1),d1
 		move.w	obX(a0),d2
 		move.w	obY(a0),d3
-		lea	byte_19022(pc),a2
-		lea	byte_19026(pc),a3
+		lea	Obj7B_BossHitbox(pc),a2
+		lea	Obj7B_BallHitbox(pc),a3
 		move.b	(a2)+,d4
 		ext.w	d4
 		add.w	d4,d0
@@ -303,9 +303,13 @@ loc_19008:
 ; ===========================================================================
 word_19018:	dc.w -8, -$1C, -$2F, -$1C, -8
 		even
-byte_19022:	dc.b $E8, $30, $E8, $30
+Obj7B_BossHitbox:
+		dc.b -$18, $18+$18		; left to right
+		dc.b -$18, $18+$18		; top to bottom
 		even
-byte_19026:	dc.b 8,	$F0, 8,	$F0
+Obj7B_BallHitbox:
+		dc.b 8,	-8-8			; right to left
+		dc.b 8, -8-8			; bottom to top
 		even
 ; ===========================================================================
 

@@ -19,8 +19,8 @@ Obj77_ObjData:	dc.b 2,	0		; routine number, animation
 ; ===========================================================================
 
 Obj77_Main:	; Routine 0
-		move.w	#$1E10,obX(a0)
-		move.w	#$5C0,obY(a0)
+		move.w	#boss_lz_x+$30,obX(a0)
+		move.w	#boss_lz_y+$500,obY(a0)
 		move.w	obX(a0),$30(a0)
 		move.w	obY(a0),$38(a0)
 		move.b	#$F,obColType(a0)
@@ -74,7 +74,7 @@ Obj77_ShipIndex:dc.w loc_17F1E-Obj77_ShipIndex,	loc_17FA0-Obj77_ShipIndex
 
 loc_17F1E:
 		move.w	obX(a1),d0
-		cmpi.w	#$1DA0,d0
+		cmpi.w	#boss_lz_x-$40,d0
 		bcs.s	loc_17F38
 		move.w	#-$180,obVelY(a0)
 		move.w	#$60,obVelX(a0)
@@ -128,16 +128,16 @@ loc_17F92:
 
 loc_17FA0:
 		moveq	#-2,d0
-		cmpi.w	#$1E48,$30(a0)
+		cmpi.w	#boss_lz_x+$68,$30(a0)
 		bcs.s	loc_17FB6
-		move.w	#$1E48,$30(a0)
+		move.w	#boss_lz_x+$68,$30(a0)
 		clr.w	obVelX(a0)
 		addq.w	#1,d0
 
 loc_17FB6:
-		cmpi.w	#$500,$38(a0)
+		cmpi.w	#boss_lz_y+$440,$38(a0)
 		bgt.s	loc_17FCA
-		move.w	#$500,$38(a0)
+		move.w	#boss_lz_y+$440,$38(a0)
 		clr.w	obVelY(a0)
 		addq.w	#1,d0
 
@@ -153,16 +153,16 @@ loc_17FDC:
 
 loc_17FE0:
 		moveq	#-2,d0
-		cmpi.w	#$1E70,$30(a0)
+		cmpi.w	#boss_lz_x+$90,$30(a0)
 		bcs.s	loc_17FF6
-		move.w	#$1E70,$30(a0)
+		move.w	#boss_lz_x+$90,$30(a0)
 		clr.w	obVelX(a0)
 		addq.w	#1,d0
 
 loc_17FF6:
-		cmpi.w	#$4C0,$38(a0)
+		cmpi.w	#boss_lz_y+$400,$38(a0)
 		bgt.s	loc_1800A
-		move.w	#$4C0,$38(a0)
+		move.w	#boss_lz_y+$400,$38(a0)
 		clr.w	obVelY(a0)
 		addq.w	#1,d0
 
@@ -177,9 +177,9 @@ loc_1801A:
 ; ===========================================================================
 
 loc_1801E:
-		cmpi.w	#$100,$38(a0)
+		cmpi.w	#boss_lz_y+$40,$38(a0)
 		bgt.s	loc_1804E
-		move.w	#$100,$38(a0)
+		move.w	#boss_lz_y+$40,$38(a0)
 		move.w	#$140,obVelX(a0)
 		move.w	#-$80,obVelY(a0)
 		tst.b	standonobject(a0)
@@ -237,16 +237,16 @@ loc_180AE:
 
 loc_180BC:
 		moveq	#-2,d0
-		cmpi.w	#$1F4C,$30(a0)
+		cmpi.w	#boss_lz_x+$16C,$30(a0)
 		bcs.s	loc_180D2
-		move.w	#$1F4C,$30(a0)
+		move.w	#boss_lz_x+$16C,$30(a0)
 		clr.w	obVelX(a0)
 		addq.w	#1,d0
 
 loc_180D2:
-		cmpi.w	#$C0,$38(a0)
+		cmpi.w	#boss_lz_y,$38(a0)
 		bgt.s	loc_180E6
-		move.w	#$C0,$38(a0)
+		move.w	#boss_lz_y,$38(a0)
 		clr.w	obVelY(a0)
 		addq.w	#1,d0
 
@@ -262,9 +262,9 @@ loc_180F2:
 loc_180F6:
 		tst.b	standonobject(a0)
 		bne.s	loc_18112
-		cmpi.w	#$1EC8,obX(a1)
+		cmpi.w	#boss_lz_x+$E8,obX(a1)
 		blt.s	loc_18126
-		cmpi.w	#$F0,obY(a1)
+		cmpi.w	#boss_lz_y+$30,obY(a1)
 		bgt.s	loc_18126
 		move.b	#$32,$3C(a0)
 
@@ -299,7 +299,7 @@ loc_1814E:
 ; ===========================================================================
 
 loc_18152:
-		cmpi.w	#$2030,(v_limitright2).w
+		cmpi.w	#boss_lz_end,(v_limitright2).w
 		bcc.s	loc_18160
 		addq.w	#2,(v_limitright2).w
 		bra.s	loc_18166
