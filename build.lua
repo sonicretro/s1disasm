@@ -15,7 +15,8 @@ local improved_dac_driver_compression = false
 
 local common = require "build_tools.lua.common"
 
-local success, continue = common.build_rom("sonic", "s1built", "", "-p=FF -z=0," .. (improved_dac_driver_compression and "kosinski-optimised" or "kosinski") .. ",Size_of_DAC_driver_guess,after", false, "https://github.com/sonicretro/s1disasm")
+local compression = improved_dac_driver_compression and "kosinski-optimised" or "kosinski"
+local success, continue = common.build_rom("sonic", "s1built", "", "-p=FF -z=0," .. compression .. ",Size_of_DAC_driver_guess,after", false, "https://github.com/sonicretro/s1disasm")
 
 if not success then
 	exit_code = false
