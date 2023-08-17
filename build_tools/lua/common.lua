@@ -257,18 +257,18 @@ local function assemble_file(input_filename, output_filename, as_arguments, p2bi
 
 	if result == "failure" then
 		show_flashy_message("Build failed. See above for more details.")
-		return false, false -- Failure, do not continue.
+		return true, true -- Error message, abort.
 	elseif result == "crash" then
 		show_flashy_message("The assembler crashed. See above for more details.")
-		return false, false -- Failure, do not continue.
+		return true, true -- Error message, abort.
 	elseif result == "error" then
 		show_flashy_message("There were build errors. See " .. log_filename .. " for more details.")
-		return false, false -- Failure, do not continue.
+		return true, true -- Error message, abort.
 	elseif result == "warning" then
 		show_flashy_message("There were build warnings. See " .. log_filename .. " for more details.")
-		return false, true -- Failure, continue.
+		return true, false -- Warning message, continue.
 	else
-		return true, true -- Success, continue.
+		return false, false -- No message, continue.
 	end
 end
 

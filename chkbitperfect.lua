@@ -8,12 +8,12 @@ os.exit = coroutine.yield
 
 -- Build the ROM.
 local co = coroutine.create(function() dofile("build.lua") end)
-local _, exit_code = assert(coroutine.resume(co))
+local _, _, abort = assert(coroutine.resume(co))
 
 -- Restore os.exit back to normal.
 os.exit = os_exit
 
-if exit_code ~= false then
+if not abort then
 	-- Hash the ROM.
 	local hash = clownmd5.HashFile("s1built.bin")
 
