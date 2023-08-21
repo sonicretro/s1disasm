@@ -84,7 +84,7 @@ Bom_Action:	; Routine 2
 .explode:
 		subq.w	#1,bom_time(a0)	; subtract 1 from time delay
 		bpl.s	.noexplode	; if time remains, branch
-		_move.b	#id_ExplosionBomb,0(a0) ; change bomb into an explosion
+		_move.b	#id_ExplosionBomb,obID(a0) ; change bomb into an explosion
 		move.b	#0,obRoutine(a0)
 
 .noexplode:
@@ -117,7 +117,7 @@ Bom_Action:	; Routine 2
 		move.b	#2,obAnim(a0)	; use activated animation
 		bsr.w	FindNextFreeObj
 		bne.s	.outofrange
-		_move.b	#id_Bomb,0(a1)	; load fuse object
+		_move.b	#id_Bomb,obID(a1)	; load fuse object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		move.w	obY(a0),bom_origY(a1)
@@ -166,7 +166,7 @@ loc_11B7C:
 		bne.s	.fail
 
 .makeshrapnel:
-		_move.b	#id_Bomb,0(a1)	; load shrapnel	object
+		_move.b	#id_Bomb,obID(a1)	; load shrapnel	object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		move.b	#6,obSubtype(a1)

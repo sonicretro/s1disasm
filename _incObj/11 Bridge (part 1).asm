@@ -22,7 +22,7 @@ Bri_Main:	; Routine 0
 		move.b	#$80,obActWid(a0)
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
-		_move.b	0(a0),d4	; copy object number ($11) to d4
+		_move.b	obID(a0),d4	; copy object number ($11) to d4
 		lea	obSubtype(a0),a2
 		moveq	#0,d1
 		move.b	(a2),d1		; copy bridge length to d1
@@ -58,7 +58,7 @@ Bri_Main:	; Routine 0
 		andi.w	#$7F,d5
 		move.b	d5,(a2)+
 		move.b	#$A,obRoutine(a1)
-		_move.b	d4,0(a1)	; load bridge object (d4 = $11)
+		_move.b	d4,obID(a1)	; load bridge object (d4 = $11)
 		move.w	d2,obY(a1)
 		move.w	d2,$3C(a1)
 		move.w	d3,obX(a1)

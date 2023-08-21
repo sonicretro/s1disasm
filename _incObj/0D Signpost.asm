@@ -68,7 +68,7 @@ Sign_Spin:	; Routine 4
 		lea	Sign_SparkPos(pc,d0.w),a2 ; load sparkle position data
 		bsr.w	FindFreeObj
 		bne.s	.fail
-		_move.b	#id_Rings,0(a1)	; load rings object
+		_move.b	#id_Rings,obID(a1)	; load rings object
 		move.b	#id_Ring_Sparkle,obRoutine(a1) ; jump to ring sparkle subroutine
 		move.b	(a2)+,d0
 		ext.w	d0

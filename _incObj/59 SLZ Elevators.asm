@@ -88,7 +88,7 @@ Elev_Action:	; Routine 4
 		move.w	obX(a0),-(sp)
 		bsr.w	Elev_Types
 		move.w	(sp)+,d2
-		_tst.b	0(a0)
+		_tst.b	obID(a0)
 		beq.s	.deleted
 		jmp	(MvSonicOnPtfm2).l
 
@@ -236,7 +236,7 @@ Elev_MakeMulti:	; Routine 6
 		move.w	$3E(a0),elev_dist(a0)
 		bsr.w	FindFreeObj
 		bne.s	.chkdel
-		_move.b	#id_Elevator,0(a1) ; duplicate the object
+		_move.b	#id_Elevator,obID(a1) ; duplicate the object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		move.b	#$E,obSubtype(a1)

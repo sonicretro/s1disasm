@@ -108,7 +108,7 @@ Pri_Explosion:	; Routine 6, 8, $A
 		bne.s	.noexplosion
 		jsr	(FindFreeObj).l
 		bne.s	.noexplosion
-		_move.b	#id_ExplosionBomb,0(a1) ; load explosion object
+		_move.b	#id_ExplosionBomb,obID(a1) ; load explosion object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		jsr	(RandomNumber).l
@@ -140,7 +140,7 @@ Pri_Explosion:	; Routine 6, 8, $A
 .loop:
 		jsr	(FindFreeObj).l
 		bne.s	.fail
-		_move.b	#id_Animals,0(a1) ; load animal object
+		_move.b	#id_Animals,obID(a1) ; load animal object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		add.w	d4,obX(a1)
@@ -159,7 +159,7 @@ Pri_Animals:	; Routine $C
 		bne.s	.noanimal
 		jsr	(FindFreeObj).l
 		bne.s	.noanimal
-		_move.b	#id_Animals,0(a1) ; load animal object
+		_move.b	#id_Animals,obID(a1) ; load animal object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		jsr	(RandomNumber).l

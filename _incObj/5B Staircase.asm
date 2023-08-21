@@ -43,7 +43,7 @@ Stair_Main:	; Routine 0
 		move.b	#4,obRoutine(a1)
 
 .makeblocks:
-		_move.b	#id_Staircase,0(a1) ; load another block object
+		_move.b	#id_Staircase,obID(a1) ; load another block object
 		move.l	#Map_Stair,obMap(a1)
 		move.w	#$4000,obGfx(a1)
 		move.b	#4,obRender(a1)

@@ -51,7 +51,7 @@ Msl_Animate:	; Routine 2
 
 Msl_ChkCancel:
 		movea.l	msl_parent(a0),a1
-		_cmpi.b	#id_ExplosionItem,0(a1) ; has Buzz Bomber been destroyed?
+		_cmpi.b	#id_ExplosionItem,obID(a1) ; has Buzz Bomber been destroyed?
 		beq.s	Msl_Delete	; if yes, branch
 		rts	
 ; End of function Msl_ChkCancel
@@ -75,7 +75,7 @@ Msl_FromBuzz:	; Routine 4
 ; ===========================================================================
 
 .explode:
-		_move.b	#id_MissileDissolve,0(a0) ; change object to an explosion (Obj24)
+		_move.b	#id_MissileDissolve,obID(a0) ; change object to an explosion (Obj24)
 		move.b	#0,obRoutine(a0)
 		bra.w	MissileDissolve
 ; ===========================================================================

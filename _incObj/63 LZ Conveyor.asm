@@ -113,7 +113,7 @@ LCon_Loop:
 		bne.s	loc_124AA
 
 LCon_MakePtfms:
-		_move.b	#id_LabyrinthConvey,0(a1)
+		_move.b	#id_LabyrinthConvey,obID(a1)
 		move.w	(a2)+,obX(a1)
 		move.w	(a2)+,obY(a1)
 		move.w	(a2)+,d0

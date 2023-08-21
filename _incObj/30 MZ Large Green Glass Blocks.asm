@@ -51,7 +51,7 @@ Glass_Main:	; Routine 0
 
 .Load:
 		move.b	(a2)+,obRoutine(a1)
-		_move.b	#id_GlassBlock,0(a1)
+		_move.b	#id_GlassBlock,obID(a1)
 		move.w	obX(a0),obX(a1)
 		move.b	(a2)+,d0
 		ext.w	d0

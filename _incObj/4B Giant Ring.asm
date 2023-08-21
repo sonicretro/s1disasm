@@ -45,7 +45,7 @@ GRing_Collect:	; Routine 4
 		move.b	#0,obColType(a0)
 		bsr.w	FindFreeObj
 		bne.w	GRing_PlaySnd
-		_move.b	#id_RingFlash,0(a1) ; load giant ring flash object
+		_move.b	#id_RingFlash,obID(a1) ; load giant ring flash object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		move.l	a0,$3C(a1)

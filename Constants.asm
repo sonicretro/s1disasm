@@ -122,6 +122,7 @@ bitDn:		equ 1
 bitUp:		equ 0
 
 ; Object variables
+obID:		equ 0	; object ID number
 obRender:	equ 1	; bitfield for x/y flip, display mode
 obGfx:		equ 2	; palette line & VRAM setting (2 bytes)
 obMap:		equ 4	; mappings address (4 bytes)

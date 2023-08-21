@@ -5628,7 +5628,7 @@ loc_8486:
 		adda.w	(a3,d0.w),a3
 		addq.w	#1,a3
 		bset	#5,obRender(a0)
-		_move.b	0(a0),d4
+		_move.b	obID(a0),d4
 		move.b	obRender(a0),d5
 		movea.l	a0,a1
 		bra.s	loc_84B2
@@ -5641,7 +5641,7 @@ loc_84AA:
 
 loc_84B2:
 		move.b	#6,obRoutine(a1)
-		_move.b	d4,0(a1)
+		_move.b	d4,obID(a1)
 		move.l	a3,obMap(a1)
 		move.b	d5,obRender(a1)
 		move.w	obX(a0),obX(a1)
@@ -6795,7 +6795,7 @@ OPL_MakeItem:
 		move.b	d2,obRespawnNo(a1)
 
 loc_DA80:
-		_move.b	d0,0(a1)
+		_move.b	d0,obID(a1)
 		move.b	(a0)+,obSubtype(a1)
 		moveq	#0,d0
 
@@ -7777,7 +7777,7 @@ BossDefeated:
 		bne.s	locret_178A2
 		jsr	(FindFreeObj).l
 		bne.s	locret_178A2
-		_move.b	#id_ExplosionBomb,0(a1)	; load explosion object
+		_move.b	#id_ExplosionBomb,obID(a1)	; load explosion object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		jsr	(RandomNumber).l

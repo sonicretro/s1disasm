@@ -35,7 +35,7 @@ Obj77_Main:	; Routine 0
 Obj77_Loop:
 		jsr	(FindNextFreeObj).l
 		bne.s	Obj77_ShipMain
-		_move.b	#id_BossLabyrinth,0(a1)
+		_move.b	#id_BossLabyrinth,obID(a1)
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 

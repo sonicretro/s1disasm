@@ -43,7 +43,7 @@ SStom_Main:	; Routine 0
 
 .load:
 		move.b	(a2)+,obRoutine(a1)
-		_move.b	#id_SideStomp,0(a1)
+		_move.b	#id_SideStomp,obID(a1)
 		move.w	obY(a0),obY(a1)
 		move.b	(a2)+,d0
 		ext.w	d0

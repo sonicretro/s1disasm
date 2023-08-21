@@ -40,7 +40,7 @@ Card_LoadConfig:
 		moveq	#3,d1
 
 Card_Loop:
-		_move.b	#id_TitleCard,0(a1)
+		_move.b	#id_TitleCard,obID(a1)
 		move.w	(a3),obX(a1)	; load start x-position
 		move.w	(a3)+,card_finalX(a1) ; load finish x-position (same as start)
 		move.w	(a3)+,card_mainX(a1) ; load main x-position

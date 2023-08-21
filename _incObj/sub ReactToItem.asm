@@ -206,7 +206,7 @@ React_Enemy:
 
 .lessthan16:
 		bsr.w	AddPoints
-		_move.b	#id_ExplosionItem,0(a1) ; change object to explosion
+		_move.b	#id_ExplosionItem,obID(a1) ; change object to explosion
 		move.b	#0,obRoutine(a1)
 		tst.w	obVelY(a0)
 		bmi.s	.bouncedown
@@ -265,7 +265,7 @@ HurtSonic:
 
 		jsr	(FindFreeObj).l
 		bne.s	.hasshield
-		_move.b	#id_RingLoss,0(a1) ; load bouncing multi rings object
+		_move.b	#id_RingLoss,obID(a1) ; load bouncing multi rings object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 

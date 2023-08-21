@@ -42,11 +42,11 @@ LGrass_Main:	; Routine 0
 		move.b	(a1),obActWid(a0)
 		andi.b	#$F,obSubtype(a0)
 		move.b	#$40,obHeight(a0)
-		bset	#4,1(a0)
+		bset	#4,obRender(a0)
 
 LGrass_Action:	; Routine 2
 		bsr.w	LGrass_Types
-		tst.b	ob2ndRout(a0)
+		tst.b	obSolid(a0)
 		beq.s	LGrass_Solid
 		moveq	#0,d1
 		move.b	obActWid(a0),d1
@@ -54,7 +54,7 @@ LGrass_Action:	; Routine 2
 		bsr.w	ExitPlatform
 		btst	#3,obStatus(a1)
 		bne.w	LGrass_Slope
-		clr.b	ob2ndRout(a0)
+		clr.b	obSolid(a0)
 		bra.s	LGrass_Display
 ; ===========================================================================
 
@@ -147,7 +147,7 @@ loc_AFF2:
 
 LGrass_Type05:
 		move.b	$34(a0),d0
-		tst.b	ob2ndRout(a0)
+		tst.b	obSolid(a0)
 		bne.s	loc_B010
 		subq.b	#2,d0
 		bcc.s	loc_B01C
@@ -175,7 +175,7 @@ loc_B01C:
 		move.b	#1,$35(a0)
 		bsr.w	FindNextFreeObj
 		bne.s	loc_B07A
-		_move.b	#id_GrassFire,0(a1) ; load sitting flame object
+		_move.b	#id_GrassFire,obID(a1) ; load sitting flame object
 		move.w	obX(a0),obX(a1)
 		move.w	lgrass_origY(a0),lgrass_origY(a1)
 		addq.w	#8,lgrass_origY(a1)
