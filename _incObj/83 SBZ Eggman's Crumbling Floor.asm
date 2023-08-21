@@ -26,7 +26,7 @@ FFloor_Main:	; Routine 0
 		moveq	#0,d4
 		move.w	#boss_sbz2_x-$40,d5
 		moveq	#7,d6
-		lea	$30(a0),a2
+		lea	objoff_30(a0),a2
 
 FFloor_MakeBlock:
 		jsr	(FindFreeObj).l
@@ -81,7 +81,7 @@ loc_19C36:	; Routine 4
 		move.b	obFrame(a0),d0
 		ext.w	d0
 		add.w	d0,d0
-		move.w	$30(a0,d0.w),d0
+		move.w	objoff_30(a0,d0.w),d0
 		movea.l	d0,a1
 		move.w	#"GO",obSubtype(a1)
 		addq.b	#1,obFrame(a0)

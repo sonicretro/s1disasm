@@ -11,7 +11,7 @@ Sonic_Move:
 		move.w	(v_sonspeeddec).w,d4
 		tst.b	(f_slidemode).w
 		bne.w	loc_12FEE
-		tst.w	$3E(a0)
+		tst.w	objoff_3E(a0)
 		bne.w	Sonic_ResetScr
 		btst	#bitL,(v_jpadhold2).w ; is left being pressed?
 		beq.s	.notleft	; if not, branch
@@ -58,7 +58,7 @@ Sonic_Balance:
 		jsr	(ObjFloorDist).l
 		cmpi.w	#$C,d1
 		blt.s	Sonic_LookUp
-		cmpi.b	#3,$36(a0)
+		cmpi.b	#3,objoff_36(a0)
 		bne.s	loc_12F62
 
 loc_12F5A:
@@ -67,7 +67,7 @@ loc_12F5A:
 ; ===========================================================================
 
 loc_12F62:
-		cmpi.b	#3,$37(a0)
+		cmpi.b	#3,objoff_37(a0)
 		bne.s	Sonic_LookUp
 
 loc_12F6A:

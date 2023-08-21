@@ -29,8 +29,8 @@ PushB_Main:	; Routine 0
 .notLZ:
 		move.b	#4,obRender(a0)
 		move.b	#3,obPriority(a0)
-		move.w	obX(a0),$34(a0)
-		move.w	obY(a0),$36(a0)
+		move.w	obX(a0),objoff_34(a0)
+		move.w	obY(a0),objoff_36(a0)
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0
 		add.w	d0,d0
@@ -52,7 +52,7 @@ PushB_Main:	; Routine 0
 		bne.w	DeleteObject
 
 loc_BF6E:	; Routine 2
-		tst.b	$32(a0)
+		tst.b	objoff_32(a0)
 		bne.w	loc_C046
 		moveq	#0,d1
 		move.b	obActWid(a0),d1
@@ -81,9 +81,9 @@ loc_BFC6:
 ; ===========================================================================
 
 loc_ppppp:
-		out_of_range.s	loc_C016,$34(a0)
-		move.w	$34(a0),obX(a0)
-		move.w	$36(a0),obY(a0)
+		out_of_range.s	loc_C016,objoff_34(a0)
+		move.w	objoff_34(a0),obX(a0)
+		move.w	objoff_36(a0),obY(a0)
 		move.b	#4,obRoutine(a0)
 		bra.s	loc_C02C
 ; ===========================================================================
@@ -103,7 +103,7 @@ loc_C02C:	; Routine 4
 		bsr.w	ChkPartiallyVisible
 		beq.s	locret_C044
 		move.b	#2,obRoutine(a0)
-		clr.b	$32(a0)
+		clr.b	objoff_32(a0)
 		clr.w	obVelX(a0)
 		clr.w	obVelY(a0)
 
@@ -131,10 +131,10 @@ loc_C056:
 		andi.w	#$3FF,d0
 		cmpi.w	#$16A,d0
 		bcs.s	loc_C09E
-		move.w	$30(a0),d0
+		move.w	objoff_30(a0),d0
 		asr.w	#3,d0
 		move.w	d0,obVelX(a0)
-		move.b	#1,$32(a0)
+		move.b	#1,objoff_32(a0)
 		clr.w	$E(a0)
 
 loc_C09E:
@@ -227,7 +227,7 @@ PushB_LoadLava:
 		add.w	d2,obX(a1)
 		move.w	obY(a0),obY(a1)
 		addi.w	#$10,obY(a1)
-		move.l	a0,$3C(a1)
+		move.l	a0,objoff_3C(a1)
 
 locret_C184:
 		rts	
@@ -265,10 +265,10 @@ loc_C1AA:
 		andi.w	#$3FF,d0
 		cmpi.w	#$16A,d0
 		bcs.s	locret_C1F0
-		move.w	$30(a0),d0
+		move.w	objoff_30(a0),d0
 		asr.w	#3,d0
 		move.w	d0,obVelX(a0)
-		move.b	#1,$32(a0)
+		move.b	#1,objoff_32(a0)
 		clr.w	obY+2(a0)
 
 locret_C1F0:
@@ -281,7 +281,7 @@ loc_C1F2:
 		andi.w	#$C,d0
 		bne.w	locret_C2E4
 		andi.w	#-$10,obX(a0)
-		move.w	obVelX(a0),$30(a0)
+		move.w	obVelX(a0),objoff_30(a0)
 		clr.w	obVelX(a0)
 		subq.b	#2,ob2ndRout(a0)
 		rts	
@@ -292,7 +292,7 @@ loc_C218:
 		tst.w	d4
 		beq.w	locret_C2E4
 		bmi.w	locret_C2E4
-		tst.b	$32(a0)
+		tst.b	objoff_32(a0)
 		beq.s	loc_C230
 		bra.w	locret_C2E4
 ; ===========================================================================

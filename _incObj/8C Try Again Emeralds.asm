@@ -28,10 +28,10 @@ TCha_Main:	; Routine 0
 		move.b	#0,obRender(a1)
 		move.b	#1,obPriority(a1)
 		move.w	#$104,obX(a1)
-		move.w	#$120,$38(a1)
+		move.w	#$120,objoff_38(a1)
 		move.w	#$EC,obScreenY(a1)
-		move.w	obScreenY(a1),$3A(a1)
-		move.b	#$1C,$3C(a1)
+		move.w	obScreenY(a1),objoff_3A(a1)
+		move.b	#$1C,objoff_3C(a1)
 		lea	(v_emldlist).w,a3
 
 .chkemerald:
@@ -58,11 +58,11 @@ TCha_Main:	; Routine 0
 		move.b	d3,obTimeFrame(a1)
 		move.b	d3,obDelayAni(a1)
 		addi.w	#10,d3
-		lea	$40(a1),a1
+		lea	object_size(a1),a1
 		dbf	d1,.makeemerald	; repeat 5 times
 
 TCha_Move:	; Routine 2
-		tst.w	$3E(a0)
+		tst.w	objoff_3E(a0)
 		beq.s	locret_5BBA
 		tst.b	obTimeFrame(a0)
 		beq.s	loc_5B78
@@ -70,7 +70,7 @@ TCha_Move:	; Routine 2
 		bne.s	loc_5B80
 
 loc_5B78:
-		move.w	$3E(a0),d0
+		move.w	objoff_3E(a0),d0
 		add.w	d0,obAngle(a0)
 
 loc_5B80:
@@ -80,19 +80,19 @@ loc_5B80:
 		bne.s	loc_5B96
 
 loc_5B8C:
-		clr.w	$3E(a0)
+		clr.w	objoff_3E(a0)
 		move.b	obDelayAni(a0),obTimeFrame(a0)
 
 loc_5B96:
 		jsr	(CalcSine).l
 		moveq	#0,d4
-		move.b	$3C(a0),d4
+		move.b	objoff_3C(a0),d4
 		muls.w	d4,d1
 		asr.l	#8,d1
 		muls.w	d4,d0
 		asr.l	#8,d0
-		add.w	$38(a0),d1
-		add.w	$3A(a0),d0
+		add.w	objoff_38(a0),d1
+		add.w	objoff_3A(a0),d0
 		move.w	d1,obX(a0)
 		move.w	d0,obScreenY(a0)
 

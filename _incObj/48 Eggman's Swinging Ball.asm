@@ -18,7 +18,7 @@ GBall_Index:	dc.w GBall_Main-GBall_Index
 GBall_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.w	#$4080,obAngle(a0)
-		move.w	#-$200,$3E(a0)
+		move.w	#-$200,objoff_3E(a0)
 		move.l	#Map_BossItems,obMap(a0)
 		move.w	#$46C,obGfx(a0)
 		lea	obSubtype(a0),a2
@@ -49,7 +49,7 @@ loc_17B60:
 		move.b	#4,obRender(a1)
 		move.b	#8,obActWid(a1)
 		move.b	#6,obPriority(a1)
-		move.l	$34(a0),$34(a1)
+		move.l	objoff_34(a0),objoff_34(a1)
 		dbf	d1,GBall_MakeLinks ; repeat sequence 5 more times
 
 GBall_MakeBall:
@@ -79,24 +79,24 @@ loc_17BC6:
 		addi.l	#v_objspace&$FFFFFF,d4
 		movea.l	d4,a1
 		move.b	(a3)+,d0
-		cmp.b	$3C(a1),d0
+		cmp.b	objoff_3C(a1),d0
 		beq.s	loc_17BE0
-		addq.b	#1,$3C(a1)
+		addq.b	#1,objoff_3C(a1)
 
 loc_17BE0:
 		dbf	d6,loc_17BC6
 
-		cmp.b	$3C(a1),d0
+		cmp.b	objoff_3C(a1),d0
 		bne.s	loc_17BFA
-		movea.l	$34(a0),a1
+		movea.l	objoff_34(a0),a1
 		cmpi.b	#6,ob2ndRout(a1)
 		bne.s	loc_17BFA
 		addq.b	#2,obRoutine(a0)
 
 loc_17BFA:
-		cmpi.w	#$20,$32(a0)
+		cmpi.w	#$20,objoff_32(a0)
 		beq.s	GBall_Display
-		addq.w	#1,$32(a0)
+		addq.w	#1,objoff_32(a0)
 
 GBall_Display:
 		bsr.w	sub_17C2A
@@ -114,16 +114,16 @@ GBall_Display2:	; Routine 4
 
 
 sub_17C2A:
-		movea.l	$34(a0),a1
+		movea.l	objoff_34(a0),a1
 		addi.b	#$20,obAniFrame(a0)
 		bcc.s	loc_17C3C
 		bchg	#0,obFrame(a0)
 
 loc_17C3C:
-		move.w	obX(a1),$3A(a0)
+		move.w	obX(a1),objoff_3A(a0)
 		move.w	obY(a1),d0
-		add.w	$32(a0),d0
-		move.w	d0,$38(a0)
+		add.w	objoff_32(a0),d0
+		move.w	d0,objoff_38(a0)
 		move.b	obStatus(a1),obStatus(a0)
 		tst.b	obStatus(a1)
 		bpl.s	locret_17C66
@@ -137,7 +137,7 @@ locret_17C66:
 ; ===========================================================================
 
 loc_17C68:	; Routine 6
-		movea.l	$34(a0),a1
+		movea.l	objoff_34(a0),a1
 		tst.b	obStatus(a1)
 		bpl.s	GBall_Display3
 		_move.b	#id_ExplosionBomb,obID(a0)
@@ -155,12 +155,12 @@ GBall_ChkVanish:; Routine 8
 
 GBall_Vanish:
 		move.b	d0,obFrame(a0)
-		movea.l	$34(a0),a1
+		movea.l	objoff_34(a0),a1
 		tst.b	obStatus(a1)
 		bpl.s	GBall_Display4
 		move.b	#0,obColType(a0)
 		bsr.w	BossDefeated
-		subq.b	#1,$3C(a0)
+		subq.b	#1,objoff_3C(a0)
 		bpl.s	GBall_Display4
 		move.b	#id_ExplosionBomb,(a0)
 		move.b	#0,obRoutine(a0)

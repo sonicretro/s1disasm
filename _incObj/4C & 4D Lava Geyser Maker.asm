@@ -116,7 +116,7 @@ Geyser_Speeds:	dc.w $FB00, 0
 
 Geyser_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
-		move.w	obY(a0),$30(a0)
+		move.w	obY(a0),objoff_30(a0)
 		tst.b	obSubtype(a0)
 		beq.s	.isgeyser
 		subi.w	#$250,obY(a0)
@@ -158,13 +158,13 @@ Geyser_Main:	; Routine 0
 
 .activate:
 		addi.w	#$60,obY(a1)
-		move.w	$30(a0),$30(a1)
-		addi.w	#$60,$30(a1)
+		move.w	objoff_30(a0),objoff_30(a1)
+		addi.w	#$60,objoff_30(a1)
 		move.b	#$93,obColType(a1)
 		move.b	#$80,obHeight(a1)
 		bset	#4,obRender(a1)
 		addq.b	#4,obRoutine(a1)
-		move.l	a0,$3C(a1)
+		move.l	a0,objoff_3C(a1)
 		tst.b	obSubtype(a0)
 		beq.s	.sound
 		moveq	#0,d1
@@ -173,8 +173,8 @@ Geyser_Main:	; Routine 0
 		bset	#4,obGfx(a1)
 		addi.w	#$100,obY(a1)
 		move.b	#0,obPriority(a1)
-		move.w	$30(a0),$30(a1)
-		move.l	$3C(a0),$3C(a1)
+		move.w	objoff_30(a0),objoff_30(a1)
+		move.l	objoff_3C(a0),objoff_3C(a1)
 		move.b	#0,obSubtype(a0)
 
 .sound:
@@ -201,11 +201,11 @@ Geyser_Types:	dc.w Geyser_Type00-Geyser_Types
 
 Geyser_Type00:
 		addi.w	#$18,obVelY(a0)	; increase object's falling speed
-		move.w	$30(a0),d0
+		move.w	objoff_30(a0),d0
 		cmp.w	obY(a0),d0
 		bcc.s	locret_EFDA
 		addq.b	#4,obRoutine(a0)
-		movea.l	$3C(a0),a1
+		movea.l	objoff_3C(a0),a1
 		move.b	#3,obAnim(a1)
 
 locret_EFDA:
@@ -214,11 +214,11 @@ locret_EFDA:
 
 Geyser_Type01:
 		addi.w	#$18,obVelY(a0)	; increase object's falling speed
-		move.w	$30(a0),d0
+		move.w	objoff_30(a0),d0
 		cmp.w	obY(a0),d0
 		bcc.s	locret_EFFA
 		addq.b	#4,obRoutine(a0)
-		movea.l	$3C(a0),a1
+		movea.l	objoff_3C(a0),a1
 		move.b	#1,obAnim(a1)
 
 locret_EFFA:
@@ -226,13 +226,13 @@ locret_EFFA:
 ; ===========================================================================
 
 loc_EFFC:	; Routine 4
-		movea.l	$3C(a0),a1
+		movea.l	objoff_3C(a0),a1
 		cmpi.b	#6,obRoutine(a1)
 		beq.w	Geyser_Delete
 		move.w	obY(a1),d0
 		addi.w	#$60,d0
 		move.w	d0,obY(a0)
-		sub.w	$30(a0),d0
+		sub.w	objoff_30(a0),d0
 		neg.w	d0
 		moveq	#8,d1
 		cmpi.w	#$40,d0

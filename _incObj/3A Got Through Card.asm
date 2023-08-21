@@ -50,7 +50,7 @@ loc_C5CA:
 		move.l	#Map_Got,obMap(a1)
 		move.w	#$8580,obGfx(a1)
 		move.b	#0,obRender(a1)
-		lea	$40(a1),a1
+		lea	object_size(a1),a1
 		dbf	d1,Got_Loop	; repeat 6 times
 
 Got_Move:	; Routine 2

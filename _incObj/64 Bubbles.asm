@@ -87,8 +87,8 @@ Bub_ChkWater:	; Routine 4
 		clr.w	obVelY(a1)
 		clr.w	obInertia(a1)	; stop Sonic
 		move.b	#id_GetAir,obAnim(a1) ; use bubble-collecting animation
-		move.w	#$23,$3E(a1)
-		move.b	#0,$3C(a1)
+		move.w	#$23,objoff_3E(a1)
+		move.b	#0,objoff_3C(a1)
 		bclr	#5,obStatus(a1)
 		bclr	#4,obStatus(a1)
 		btst	#2,obStatus(a1)
@@ -126,16 +126,16 @@ Bub_Delete:	; Routine 8
 ; ===========================================================================
 
 Bub_BblMaker:	; Routine $A
-		tst.w	$36(a0)
+		tst.w	objoff_36(a0)
 		bne.s	.loc_12874
 		move.w	(v_waterpos1).w,d0
 		cmp.w	obY(a0),d0	; is bubble maker underwater?
 		bcc.w	.chkdel		; if not, branch
 		tst.b	obRender(a0)
 		bpl.w	.chkdel
-		subq.w	#1,$38(a0)
+		subq.w	#1,objoff_38(a0)
 		bpl.w	.loc_12914
-		move.w	#1,$36(a0)
+		move.w	#1,objoff_36(a0)
 
 .tryagain:
 		jsr	(RandomNumber).l
@@ -144,28 +144,28 @@ Bub_BblMaker:	; Routine $A
 		cmpi.w	#6,d0		; random number over 6?
 		bcc.s	.tryagain	; if yes, branch
 
-		move.b	d0,$34(a0)
+		move.b	d0,objoff_34(a0)
 		andi.w	#$C,d1
 		lea	(Bub_BblTypes).l,a1
 		adda.w	d1,a1
-		move.l	a1,$3C(a0)
+		move.l	a1,objoff_3C(a0)
 		subq.b	#1,bub_time(a0)
 		bpl.s	.loc_12872
 		move.b	bub_freq(a0),bub_time(a0)
-		bset	#7,$36(a0)
+		bset	#7,objoff_36(a0)
 
 .loc_12872:
 		bra.s	.loc_1287C
 ; ===========================================================================
 
 .loc_12874:
-		subq.w	#1,$38(a0)
+		subq.w	#1,objoff_38(a0)
 		bpl.w	.loc_12914
 
 .loc_1287C:
 		jsr	(RandomNumber).l
 		andi.w	#$1F,d0
-		move.w	d0,$38(a0)
+		move.w	d0,objoff_38(a0)
 		bsr.w	FindFreeObj
 		bne.s	.fail
 		_move.b	#id_Bubble,obID(a1) ; load bubble object
@@ -176,33 +176,33 @@ Bub_BblMaker:	; Routine $A
 		add.w	d0,obX(a1)
 		move.w	obY(a0),obY(a1)
 		moveq	#0,d0
-		move.b	$34(a0),d0
-		movea.l	$3C(a0),a2
+		move.b	objoff_34(a0),d0
+		movea.l	objoff_3C(a0),a2
 		move.b	(a2,d0.w),obSubtype(a1)
-		btst	#7,$36(a0)
+		btst	#7,objoff_36(a0)
 		beq.s	.fail
 		jsr	(RandomNumber).l
 		andi.w	#3,d0
 		bne.s	.loc_buh
-		bset	#6,$36(a0)
+		bset	#6,objoff_36(a0)
 		bne.s	.fail
 		move.b	#2,obSubtype(a1)
 
 .loc_buh:
-		tst.b	$34(a0)
+		tst.b	objoff_34(a0)
 		bne.s	.fail
-		bset	#6,$36(a0)
+		bset	#6,objoff_36(a0)
 		bne.s	.fail
 		move.b	#2,obSubtype(a1)
 
 .fail:
-		subq.b	#1,$34(a0)
+		subq.b	#1,objoff_34(a0)
 		bpl.s	.loc_12914
 		jsr	(RandomNumber).l
 		andi.w	#$7F,d0
 		addi.w	#$80,d0
-		add.w	d0,$38(a0)
-		clr.w	$36(a0)
+		add.w	d0,objoff_38(a0)
+		clr.w	objoff_36(a0)
 
 .loc_12914:
 		lea	(Ani_Bub).l,a1

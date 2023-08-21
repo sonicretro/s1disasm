@@ -20,11 +20,11 @@ Bri_WalkOff:
 		bsr.s	ExitPlatform2
 		bcc.s	locret_75BE
 		lsr.w	#4,d0
-		move.b	d0,$3F(a0)
-		move.b	$3E(a0),d0
+		move.b	d0,objoff_3F(a0)
+		move.b	objoff_3E(a0),d0
 		cmpi.b	#$40,d0
 		beq.s	loc_75B6
-		addq.b	#4,$3E(a0)
+		addq.b	#4,objoff_3E(a0)
 
 loc_75B6:
 		bsr.w	Bri_Bend

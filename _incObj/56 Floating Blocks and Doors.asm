@@ -135,7 +135,7 @@ FBlock_Action:	; Routine 2
 .chkdel2:
 			cmpi.b	#$37,obSubtype(a0)
 			bne.s	.delete
-			tst.b	$38(a0)
+			tst.b	objoff_38(a0)
 			bne.s	.display
 .delete:
 			jmp	(DeleteObject).l
@@ -211,7 +211,7 @@ FBlock_Action:	; Routine 2
 
 .type05:
 ; moves up when a switch is pressed
-		tst.b	$38(a0)
+		tst.b	objoff_38(a0)
 		bne.s	.loc_104A4
 		cmpi.w	#(id_LZ<<8)+0,(v_zone).w ; is level LZ1 ?
 		bne.s	.aaa		; if not, branch
@@ -236,7 +236,7 @@ FBlock_Action:	; Routine 2
 		clr.b	(f_wtunnelallow).w
 
 .loc_1049E:
-		move.b	#1,$38(a0)
+		move.b	#1,objoff_38(a0)
 
 .loc_104A4:
 		tst.w	fb_height(a0)
@@ -245,7 +245,7 @@ FBlock_Action:	; Routine 2
 
 .loc_104AE:
 		move.w	fb_height(a0),d0
-		btst	#0,$22(a0)
+		btst	#0,obStatus(a0)
 		beq.s	.loc_104BC
 		neg.w	d0
 
@@ -257,8 +257,8 @@ FBlock_Action:	; Routine 2
 ; ===========================================================================
 
 .loc_104C8:
-		addq.b	#1,$28(a0)
-		clr.b	$38(a0)
+		addq.b	#1,obSubtype(a0)
+		clr.b	objoff_38(a0)
 		lea	(v_objstate).w,a2
 		moveq	#0,d0
 		move.b	obRespawnNo(a0),d0
@@ -268,14 +268,14 @@ FBlock_Action:	; Routine 2
 ; ===========================================================================
 
 .type06:
-		tst.b	$38(a0)
+		tst.b	objoff_38(a0)
 		bne.s	.loc_10500
 		lea	(f_switch).w,a2
 		moveq	#0,d0
 		move.b	fb_type(a0),d0
 		tst.b	(a2,d0.w)
 		bpl.s	.loc_10512
-		move.b	#1,$38(a0)
+		move.b	#1,objoff_38(a0)
 
 .loc_10500:
 		moveq	#0,d0
@@ -300,7 +300,7 @@ FBlock_Action:	; Routine 2
 
 .loc_1052C:
 		subq.b	#1,obSubtype(a0)
-		clr.b	$38(a0)
+		clr.b	objoff_38(a0)
 		lea	(v_objstate).w,a2
 		moveq	#0,d0
 		move.b	obRespawnNo(a0),d0
@@ -310,11 +310,11 @@ FBlock_Action:	; Routine 2
 ; ===========================================================================
 
 .type07:
-		tst.b	$38(a0)
+		tst.b	objoff_38(a0)
 		bne.s	.loc_1055E
 		tst.b	(f_switch+$F).w	; has switch number $F been pressed?
 		beq.s	.locret_10578
-		move.b	#1,$38(a0)
+		move.b	#1,objoff_38(a0)
 		clr.w	fb_height(a0)
 
 .loc_1055E:
@@ -325,7 +325,7 @@ FBlock_Action:	; Routine 2
 		bne.s	.locret_10578
 		if Revision<>0
 			move.b	#1,($FFFFF7CE).w
-			clr.b	$38(a0)
+			clr.b	objoff_38(a0)
 		endif
 		clr.b	obSubtype(a0)
 
@@ -334,14 +334,14 @@ FBlock_Action:	; Routine 2
 ; ===========================================================================
 
 .type0C:
-		tst.b	$38(a0)
+		tst.b	objoff_38(a0)
 		bne.s	.loc_10598
 		lea	(f_switch).w,a2
 		moveq	#0,d0
 		move.b	fb_type(a0),d0
 		btst	#0,(a2,d0.w)
 		beq.s	.loc_105A2
-		move.b	#1,$38(a0)
+		move.b	#1,objoff_38(a0)
 
 .loc_10598:
 		tst.w	fb_height(a0)
@@ -364,7 +364,7 @@ FBlock_Action:	; Routine 2
 
 .loc_105C0:
 		addq.b	#1,obSubtype(a0)
-		clr.b	$38(a0)
+		clr.b	objoff_38(a0)
 		lea	(v_objstate).w,a2
 		moveq	#0,d0
 		move.b	obRespawnNo(a0),d0
@@ -374,14 +374,14 @@ FBlock_Action:	; Routine 2
 ; ===========================================================================
 
 .type0D:
-		tst.b	$38(a0)
+		tst.b	objoff_38(a0)
 		bne.s	.loc_105F8
 		lea	(f_switch).w,a2
 		moveq	#0,d0
 		move.b	fb_type(a0),d0
 		tst.b	(a2,d0.w)
 		bpl.s	.wtf
-		move.b	#1,$38(a0)
+		move.b	#1,objoff_38(a0)
 
 .loc_105F8:
 		move.w	#$80,d0
@@ -405,7 +405,7 @@ FBlock_Action:	; Routine 2
 
 .loc_10624:
 		subq.b	#1,obSubtype(a0)
-		clr.b	$38(a0)
+		clr.b	objoff_38(a0)
 		lea	(v_objstate).w,a2
 		moveq	#0,d0
 		move.b	obRespawnNo(a0),d0

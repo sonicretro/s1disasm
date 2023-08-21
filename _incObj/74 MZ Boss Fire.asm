@@ -22,7 +22,7 @@ Obj74_Main:	; Routine 0
 		move.w	#$345,obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#5,obPriority(a0)
-		move.w	obY(a0),$38(a0)
+		move.w	obY(a0),objoff_38(a0)
 		move.b	#8,obActWid(a0)
 		addq.b	#2,obRoutine(a0)
 		tst.b	obSubtype(a0)
@@ -33,7 +33,7 @@ Obj74_Main:	; Routine 0
 ; ===========================================================================
 
 loc_1870A:
-		move.b	#$1E,$29(a0)
+		move.b	#$1E,objoff_29(a0)
 		move.w	#sfx_Fireball,d0
 		jsr	(PlaySound_Special).l	; play lava sound
 
@@ -61,7 +61,7 @@ Obj74_Index2:	dc.w Obj74_Drop-Obj74_Index2
 
 Obj74_Drop:
 		bset	#1,obStatus(a0)
-		subq.b	#1,$29(a0)
+		subq.b	#1,objoff_29(a0)
 		bpl.s	locret_18780
 		move.b	#$8B,obColType(a0)
 		clr.b	obSubtype(a0)
@@ -81,9 +81,9 @@ Obj74_MakeFlame:
 		bset	#7,obGfx(a0)
 		move.w	#$A0,obVelX(a0)
 		clr.w	obVelY(a0)
-		move.w	obX(a0),$30(a0)
-		move.w	obY(a0),$38(a0)
-		move.b	#3,$29(a0)
+		move.w	obX(a0),objoff_30(a0)
+		move.w	obY(a0),objoff_38(a0)
+		move.b	#3,objoff_29(a0)
 		jsr	(FindNextFreeObj).l
 		bne.s	loc_187CA
 		lea	(a1),a3
@@ -128,7 +128,7 @@ Obj74_Duplicate:
 		move.w	obX(a0),d0
 		cmpi.w	#boss_mz_x+$140,d0
 		bgt.s	loc_1882C
-		move.w	$30(a0),d1
+		move.w	objoff_30(a0),d1
 		cmp.w	d0,d1
 		beq.s	loc_1881E
 		andi.w	#$10,d0
@@ -136,10 +136,10 @@ Obj74_Duplicate:
 		cmp.w	d0,d1
 		beq.s	loc_1881E
 		bsr.s	Obj74_Duplicate2
-		move.w	obX(a0),$32(a0)
+		move.w	obX(a0),objoff_32(a0)
 
 loc_1881E:
-		move.w	obX(a0),$30(a0)
+		move.w	obX(a0),objoff_30(a0)
 		rts	
 ; ===========================================================================
 
@@ -157,7 +157,7 @@ Obj74_FallEdge:
 		bclr	#1,obStatus(a0)
 		addi.w	#$24,obVelY(a0)	; make flame fall
 		move.w	obX(a0),d0
-		sub.w	$32(a0),d0
+		sub.w	objoff_32(a0),d0
 		bpl.s	loc_1884A
 		neg.w	d0
 
@@ -170,11 +170,11 @@ loc_18856:
 		bsr.w	ObjFloorDist
 		tst.w	d1
 		bpl.s	locret_1887E
-		subq.b	#1,$29(a0)
+		subq.b	#1,objoff_29(a0)
 		beq.s	Obj74_Delete2
 		clr.w	obVelY(a0)
-		move.w	$32(a0),obX(a0)
-		move.w	$38(a0),obY(a0)
+		move.w	objoff_32(a0),obX(a0)
+		move.w	objoff_38(a0),obY(a0)
 		bset	#7,obGfx(a0)
 		subq.b	#2,ob2ndRout(a0)
 
@@ -188,7 +188,7 @@ Obj74_Delete2:
 
 loc_18886:	; Routine 4
 		bset	#7,obGfx(a0)
-		subq.b	#1,$29(a0)
+		subq.b	#1,objoff_29(a0)
 		bne.s	Obj74_Animate
 		move.b	#1,obAnim(a0)
 		subq.w	#4,obY(a0)

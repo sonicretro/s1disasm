@@ -42,7 +42,7 @@ Bas_Action:	; Routine 2
 		bsr.w	.chkdistance	; is Sonic < $80 pixels from basaran?
 		bcc.s	.nodrop		; if not, branch
 		move.w	(v_player+obY).w,d0
-		move.w	d0,$36(a0)
+		move.w	d0,objoff_36(a0)
 		sub.w	obY(a0),d0
 		bcs.s	.nodrop
 		cmpi.w	#$80,d0		; is Sonic < $80 pixels from basaran?
@@ -66,7 +66,7 @@ Bas_Action:	; Routine 2
 		addi.w	#$18,obVelY(a0)	; make basaran fall
 		move.w	#$80,d2
 		bsr.w	.chkdistance
-		move.w	$36(a0),d0
+		move.w	objoff_36(a0),d0
 		sub.w	obY(a0),d0
 		bcs.s	.chkdel
 		cmpi.w	#$10,d0		; is basaran close to Sonic vertically?

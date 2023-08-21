@@ -40,12 +40,12 @@ BGHZ_LoadBoss:
 		move.b	#$20,obActWid(a1)
 		move.b	#3,obPriority(a1)
 		move.b	(a2)+,obAnim(a1)
-		move.l	a0,$34(a1)
+		move.l	a0,objoff_34(a1)
 		dbf	d1,BGHZ_Loop	; repeat sequence 2 more times
 
 loc_17772:
-		move.w	obX(a0),$30(a0)
-		move.w	obY(a0),$38(a0)
+		move.w	obX(a0),objoff_30(a0)
+		move.w	obY(a0),objoff_38(a0)
 		move.b	#$F,obColType(a0)
 		move.b	#8,obColProp(a0) ; set number of hits to 8
 
@@ -74,28 +74,28 @@ BGHZ_ShipIndex:	dc.w BGHZ_ShipStart-BGHZ_ShipIndex
 BGHZ_ShipStart:
 		move.w	#$100,obVelY(a0) ; move ship down
 		bsr.w	BossMove
-		cmpi.w	#boss_ghz_y+$38,$38(a0)
+		cmpi.w	#boss_ghz_y+$38,objoff_38(a0)
 		bne.s	loc_177E6
 		move.w	#0,obVelY(a0)	; stop ship
 		addq.b	#2,ob2ndRout(a0) ; goto next routine
 
 loc_177E6:
-		move.b	$3F(a0),d0
+		move.b	objoff_3F(a0),d0
 		jsr	(CalcSine).l
 		asr.w	#6,d0
-		add.w	$38(a0),d0
+		add.w	objoff_38(a0),d0
 		move.w	d0,obY(a0)
-		move.w	$30(a0),obX(a0)
-		addq.b	#2,$3F(a0)
+		move.w	objoff_30(a0),obX(a0)
+		addq.b	#2,objoff_3F(a0)
 		cmpi.b	#8,ob2ndRout(a0)
 		bcc.s	locret_1784A
 		tst.b	obStatus(a0)
 		bmi.s	loc_1784C
 		tst.b	obColType(a0)
 		bne.s	locret_1784A
-		tst.b	$3E(a0)
+		tst.b	objoff_3E(a0)
 		bne.s	BGHZ_ShipFlash
-		move.b	#$20,$3E(a0)	; set number of	times for ship to flash
+		move.b	#$20,objoff_3E(a0)	; set number of	times for ship to flash
 		move.w	#sfx_HitBoss,d0
 		jsr	(PlaySound_Special).l	; play boss damage sound
 
@@ -108,7 +108,7 @@ BGHZ_ShipFlash:
 
 loc_1783C:
 		move.w	d0,(a1)		; load colour stored in	d0
-		subq.b	#1,$3E(a0)
+		subq.b	#1,objoff_3E(a0)
 		bne.s	locret_1784A
 		move.b	#$F,obColType(a0)
 
@@ -120,5 +120,5 @@ loc_1784C:
 		moveq	#100,d0
 		bsr.w	AddPoints
 		move.b	#8,ob2ndRout(a0)
-		move.w	#$B3,$3C(a0)
+		move.w	#$B3,objoff_3C(a0)
 		rts	

@@ -18,7 +18,7 @@ msl_parent = objoff_3C
 ; ===========================================================================
 
 Msl_Main:	; Routine 0
-		subq.w	#1,$32(a0)
+		subq.w	#1,objoff_32(a0)
 		bpl.s	Msl_ChkCancel
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Missile,obMap(a0)

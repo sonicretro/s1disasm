@@ -61,7 +61,7 @@ Burro_Move:
 		subq.w	#1,burro_timedelay(a0)
 		bmi.s	loc_AD84
 		bsr.w	SpeedToPos
-		bchg	#0,$32(a0)
+		bchg	#0,objoff_32(a0)
 		bne.s	loc_AD78
 		move.w	obX(a0),d3
 		addi.w	#$C,d3

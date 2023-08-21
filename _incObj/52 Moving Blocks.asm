@@ -203,21 +203,21 @@ MBlock_Type0A:
 		neg.w	d3
 
 loc_10004:
-		tst.w	$36(a0)		; is platform set to move back?
+		tst.w	objoff_36(a0)		; is platform set to move back?
 		bne.s	MBlock_0A_Back	; if yes, branch
 		move.w	obX(a0),d0
 		sub.w	mblock_origX(a0),d0
 		cmp.w	d3,d0
 		beq.s	MBlock_0A_Wait
 		add.w	d1,obX(a0)	; move platform
-		move.w	#300,$34(a0)	; set time delay to 5 seconds
+		move.w	#300,objoff_34(a0)	; set time delay to 5 seconds
 		rts	
 ; ===========================================================================
 
 MBlock_0A_Wait:
-		subq.w	#1,$34(a0)	; subtract 1 from time delay
+		subq.w	#1,objoff_34(a0)	; subtract 1 from time delay
 		bne.s	locret_1002E	; if time remains, branch
-		move.w	#1,$36(a0)	; set platform to move back to its original position
+		move.w	#1,objoff_36(a0)	; set platform to move back to its original position
 
 locret_1002E:
 		rts	
@@ -232,6 +232,6 @@ MBlock_0A_Back:
 ; ===========================================================================
 
 MBlock_0A_Reset:
-		clr.w	$36(a0)
+		clr.w	objoff_36(a0)
 		subq.b	#1,obSubtype(a0)
 		rts	

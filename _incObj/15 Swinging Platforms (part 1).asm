@@ -59,7 +59,7 @@ Swing_Main:	; Routine 0
 		move.w	d1,d3
 		lsl.w	#4,d3
 		addq.b	#8,d3
-		move.b	d3,$3C(a0)
+		move.b	d3,objoff_3C(a0)
 		subq.b	#8,d3
 		tst.b	obFrame(a0)
 		beq.s	.makechain
@@ -84,7 +84,7 @@ Swing_Main:	; Routine 0
 		move.b	#4,obPriority(a1)
 		move.b	#8,obActWid(a1)
 		move.b	#1,obFrame(a1)
-		move.b	d3,$3C(a1)
+		move.b	d3,objoff_3C(a1)
 		subi.b	#$10,d3
 		bcc.s	.notanchor
 		move.b	#2,obFrame(a1)
@@ -101,7 +101,7 @@ Swing_Main:	; Routine 0
 		andi.w	#$7F,d5
 		move.b	d5,(a2)+
 		move.w	#$4080,obAngle(a0)
-		move.w	#-$200,$3E(a0)
+		move.w	#-$200,objoff_3E(a0)
 		move.w	(sp)+,d1
 		btst	#4,d1		; is object type $1X ?
 		beq.s	.not1X	; if not, branch

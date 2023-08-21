@@ -4,7 +4,7 @@
 
 ContScrItem:
 		moveq	#0,d0
-		move.b	$24(a0),d0
+		move.b	obRoutine(a0),d0
 		move.w	CSI_Index(pc,d0.w),d1
 		jmp	CSI_Index(pc,d1.w)
 ; ===========================================================================
@@ -68,10 +68,10 @@ CSI_Even:
 		move.l	#Map_ContScr,obMap(a1)
 		move.w	#$8551,obGfx(a1)
 		move.b	#0,obRender(a1)
-		lea	$40(a1),a1
+		lea	object_size(a1),a1
 		dbf	d1,CSI_MiniSonicLoop ; repeat for number of continues
 
-		lea	-$40(a1),a1
+		lea	-object_size(a1),a1
 		move.b	d3,obSubtype(a1)
 
 CSI_ChkDel:	; Routine 6

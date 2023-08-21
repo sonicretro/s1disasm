@@ -136,9 +136,9 @@ Newt_Action:	; Routine 2
 .firemissile:
 		cmpi.b	#2,obFrame(a0)
 		bne.s	.fail
-		tst.b	$32(a0)
+		tst.b	objoff_32(a0)
 		bne.s	.fail
-		move.b	#1,$32(a0)
+		move.b	#1,objoff_32(a0)
 		bsr.w	FindFreeObj
 		bne.s	.fail
 		_move.b	#id_Missile,obID(a1) ; load missile object

@@ -159,20 +159,31 @@ shoetime:	equ $34	; time left for speed shoes
 standonobject:	equ $3D	; object Sonic stands on
 
 ; Miscellaneous object scratch-RAM
+objoff_25:	equ $25
+objoff_26:	equ $26
 objoff_29:	equ $29
 objoff_2A:	equ $2A
+objoff_2B:	equ $2B
 objoff_2C:	equ $2C
 objoff_2E:	equ $2E
+objoff_2F:	equ $2F
 objoff_30:	equ $30
 objoff_32:	equ $32
 objoff_33:	equ $33
 objoff_34:	equ $34
+objoff_35:	equ $35
 objoff_36:	equ $36
+objoff_37:	equ $37
 objoff_38:	equ $38
+objoff_39:	equ $39
 objoff_3A:	equ $3A
+objoff_3B:	equ $3B
 objoff_3C:	equ $3C
 objoff_3D:	equ $3D
 objoff_3E:	equ $3E
+objoff_3F:	equ $3F
+
+object_size:	equ $40
 
 ; Object variables (Sonic 2 disassembly nomenclature)
 id:		equ obID		; object ID number

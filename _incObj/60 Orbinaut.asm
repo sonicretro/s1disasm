@@ -35,7 +35,7 @@ Orb_Main:	; Routine 0
 		move.b	#$B,obColType(a0)
 		move.b	#$C,obActWid(a0)
 		moveq	#0,d2
-		lea	$37(a0),a2
+		lea	objoff_37(a0),a2
 		movea.l	a2,a3
 		addq.w	#1,a2
 		moveq	#3,d1
@@ -70,7 +70,7 @@ Orb_Main:	; Routine 0
 		neg.w	d0
 
 .noflip:
-		move.b	d0,$36(a0)
+		move.b	d0,objoff_36(a0)
 		move.b	obSubtype(a0),obRoutine(a0) ; if type is 02, skip Orb_ChkSonic
 		addq.b	#2,obRoutine(a0)
 		move.w	#-$40,obVelX(a0) ; move orbinaut to the left
@@ -124,7 +124,7 @@ Orb_ChkDel:
 		bclr	#7,2(a2,d0.w)
 
 loc_11E34:
-		lea	$37(a0),a2
+		lea	objoff_37(a0),a2
 		moveq	#0,d2
 		move.b	(a2)+,d2
 		subq.w	#1,d2
@@ -152,7 +152,7 @@ Orb_MoveOrb:	; Routine 6
 		cmpi.b	#$40,obAngle(a0) ; is spikeorb directly under the orbinaut?
 		bne.s	.circle		; if not, branch
 		addq.b	#2,obRoutine(a0)
-		subq.b	#1,$37(a1)
+		subq.b	#1,objoff_37(a1)
 		bne.s	.fire
 		addq.b	#2,obRoutine(a1)
 
@@ -175,7 +175,7 @@ Orb_MoveOrb:	; Routine 6
 		asr.w	#4,d0
 		add.w	obY(a1),d0
 		move.w	d0,obY(a0)
-		move.b	$36(a1),d0
+		move.b	objoff_36(a1),d0
 		add.b	d0,obAngle(a0)
 		bra.w	DisplaySprite
 ; ===========================================================================

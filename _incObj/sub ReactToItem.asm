@@ -32,7 +32,7 @@ ReactToItem:
 		bne.s	.proximity	; if nonzero, branch
 
 .next:
-		lea	$40(a1),a1	; next object RAM
+		lea	object_size(a1),a1	; next object RAM
 		dbf	d6,.loop	; repeat $5F more times
 
 		moveq	#0,d0
@@ -130,7 +130,7 @@ ReactToItem:
 		andi.b	#$3F,d0
 		cmpi.b	#6,d0		; is collision type $46	?
 		beq.s	React_Monitor	; if yes, branch
-		cmpi.w	#90,$30(a0)	; is Sonic invincible?
+		cmpi.w	#90,flashtime(a0)	; is Sonic invincible?
 		bcc.w	.invincible	; if yes, branch
 		addq.b	#2,obRoutine(a1) ; advance the object's routine counter
 
@@ -197,12 +197,12 @@ React_Enemy:
 		moveq	#6,d0		; max bonus is lvl6
 
 .bonusokay:
-		move.w	d0,$3E(a1)
+		move.w	d0,objoff_3E(a1)
 		move.w	.points(pc,d0.w),d0
 		cmpi.w	#$20,(v_itembonus).w ; have 16 enemies been destroyed?
 		bcs.s	.lessthan16	; if not, branch
 		move.w	#1000,d0	; fix bonus to 10000
-		move.w	#$A,$3E(a1)
+		move.w	#$A,objoff_3E(a1)
 
 .lessthan16:
 		bsr.w	AddPoints
@@ -243,7 +243,7 @@ React_ChkHurt:
 
 .notinvincible:
 		nop	
-		tst.w	$30(a0)		; is Sonic flashing?
+		tst.w	flashtime(a0)		; is Sonic flashing?
 		bne.s	.isflashing	; if yes, branch
 		movea.l	a1,a2
 
@@ -291,7 +291,7 @@ HurtSonic:
 .isleft:
 		move.w	#0,obInertia(a0)
 		move.b	#id_Hurt,obAnim(a0)
-		move.w	#120,$30(a0)	; set temp invincible time to 2 seconds
+		move.w	#120,flashtime(a0)	; set temp invincible time to 2 seconds
 		move.w	#sfx_Death,d0	; load normal damage sound
 		cmpi.b	#id_Spikes,(a2)	; was damage caused by spikes?
 		bne.s	.sound		; if not, branch
@@ -326,7 +326,7 @@ KillSonic:
 		move.w	#-$700,obVelY(a0)
 		move.w	#0,obVelX(a0)
 		move.w	#0,obInertia(a0)
-		move.w	obY(a0),$38(a0)
+		move.w	obY(a0),objoff_38(a0)
 		move.b	#id_Death,obAnim(a0)
 		bset	#7,obGfx(a0)
 		move.w	#sfx_Death,d0	; play normal death sound

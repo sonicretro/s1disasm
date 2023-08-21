@@ -160,7 +160,7 @@ loc_117FC:
 		beq.s	loc_11822
 		move.w	#-$AF0,d1
 		move.w	#-$CC,d2
-		cmpi.w	#$A00,$38(a1)
+		cmpi.w	#$A00,objoff_38(a1)
 		blt.s	loc_11822
 		move.w	#-$E00,d1
 		move.w	#-$A0,d2
@@ -239,7 +239,7 @@ loc_118BA:
 		moveq	#0,d1
 
 See_Spring:
-		move.b	d1,$3A(a1)
+		move.b	d1,objoff_3A(a1)
 		move.b	d1,see_frame(a0)
 		cmp.b	obFrame(a1),d1
 		beq.s	loc_1192C
@@ -252,7 +252,7 @@ See_Spring:
 		neg.w	obVelY(a2)
 		bset	#1,obStatus(a2)
 		bclr	#3,obStatus(a2)
-		clr.b	$3C(a2)
+		clr.b	objoff_3C(a2)
 		move.b	#id_Spring,obAnim(a2) ; change Sonic's animation to "spring" ($10)
 		move.b	#2,obRoutine(a2)
 		move.w	#sfx_Spring,d0

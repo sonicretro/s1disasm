@@ -145,7 +145,7 @@ Pri_Explosion:	; Routine 6, 8, $A
 		move.w	obY(a0),obY(a1)
 		add.w	d4,obX(a1)
 		addq.w	#7,d4
-		move.w	d5,$36(a1)
+		move.w	d5,objoff_36(a1)
 		subq.w	#8,d5
 		dbf	d6,.loop	; repeat 7 more	times
 
@@ -171,7 +171,7 @@ Pri_Animals:	; Routine $C
 
 .ispositive:
 		add.w	d0,obX(a1)
-		move.w	#$C,$36(a1)
+		move.w	#$C,objoff_36(a1)
 
 .noanimal:
 		subq.w	#1,obTimeFrame(a0)

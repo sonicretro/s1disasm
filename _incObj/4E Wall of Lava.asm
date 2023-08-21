@@ -39,7 +39,7 @@ LWall_Main:	; Routine 0
 		move.b	#1,obPriority(a1)
 		move.b	#0,obAnim(a1)
 		move.b	#$94,obColType(a1)
-		move.l	a0,$3C(a1)
+		move.l	a0,objoff_3C(a1)
 
 .fail:
 		dbf	d1,.loop	; repeat sequence once
@@ -72,7 +72,7 @@ LWall_Action:	; Routine 4
 		tst.b	lwall_flag(a0)	; is object set	to move?
 		beq.s	LWall_Solid	; if not, branch
 		move.w	#$180,obVelX(a0) ; set object speed
-		subq.b	#2,$24(a0)
+		subq.b	#2,obRoutine(a0)
 
 LWall_Solid:	; Routine 2
 		move.w	#$2B,d1
@@ -117,7 +117,7 @@ LWall_Solid:	; Routine 2
 ; ===========================================================================
 
 LWall_Move:	; Routine 6
-		movea.l	$3C(a0),a1
+		movea.l	objoff_3C(a0),a1
 		cmpi.b	#8,obRoutine(a1)
 		beq.s	LWall_Delete
 		move.w	obX(a1),obX(a0)	; move rest of lava wall

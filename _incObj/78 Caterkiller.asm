@@ -88,7 +88,7 @@ Cat_Loop:
 .fail:
 		dbf	d1,Cat_Loop	; repeat sequence 2 more times
 
-		move.b	#7,$2A(a0)
+		move.b	#7,objoff_2A(a0)
 		clr.b	cat_parent(a0)
 
 Cat_Head:	; Routine 2
@@ -98,7 +98,7 @@ Cat_Head:	; Routine 2
 		move.b	ob2ndRout(a0),d0
 		move.w	Cat_Index2(pc,d0.w),d1
 		jsr	Cat_Index2(pc,d1.w)
-		move.b	$2B(a0),d1
+		move.b	objoff_2B(a0),d1
 		bpl.s	.display
 		lea	(Ani_Cat).l,a1
 		move.b	obAngle(a0),d0
@@ -106,7 +106,7 @@ Cat_Head:	; Routine 2
 		addq.b	#4,obAngle(a0)
 		move.b	(a1,d0.w),d0
 		bpl.s	.animate
-		bclr	#7,$2B(a0)
+		bclr	#7,objoff_2B(a0)
 		bra.s	.display
 
 .animate:
@@ -138,26 +138,26 @@ Cat_Index2:	dc.w .wait-Cat_Index2
 ; ===========================================================================
 
 .wait:
-		subq.b	#1,$2A(a0)
+		subq.b	#1,objoff_2A(a0)
 		bmi.s	.move
 		rts	
 ; ===========================================================================
 
 .move:
 		addq.b	#2,ob2ndRout(a0)
-		move.b	#$10,$2A(a0)
+		move.b	#$10,objoff_2A(a0)
 		move.w	#-$C0,obVelX(a0)
 		move.w	#$40,obInertia(a0)
-		bchg	#4,$2B(a0)
+		bchg	#4,objoff_2B(a0)
 		bne.s	loc_16AFC
 		clr.w	obVelX(a0)
 		neg.w	obInertia(a0)
 
 loc_16AFC:
-		bset	#7,$2B(a0)
+		bset	#7,objoff_2B(a0)
 
 loc_16B02:
-		subq.b	#1,$2A(a0)
+		subq.b	#1,objoff_2A(a0)
 		bmi.s	.loc_16B5E
 		if Revision=0
 		move.l	obX(a0),-(sp)
@@ -204,7 +204,7 @@ loc_16B02:
 		move.b	cat_parent(a0),d0
 		addq.b	#1,cat_parent(a0)
 		andi.b	#$F,cat_parent(a0)
-		move.b	d1,$2C(a0,d0.w)
+		move.b	d1,objoff_2C(a0,d0.w)
 
 .notmoving:
 		rts	
@@ -212,7 +212,7 @@ loc_16B02:
 
 .loc_16B5E:
 		subq.b	#2,ob2ndRout(a0)
-		move.b	#7,$2A(a0)
+		move.b	#7,objoff_2A(a0)
 		if Revision=0
 		move.w	#0,obVelX(a0)
 		else
@@ -229,11 +229,11 @@ loc_16B02:
 		move.b	obStatus(a0),obRender(a0)
 		moveq	#0,d0
 		move.b	cat_parent(a0),d0
-		move.b	#$80,$2C(a0,d0.w)
+		move.b	#$80,objoff_2C(a0,d0.w)
 		else
 			moveq	#0,d0
 			move.b	cat_parent(a0),d0
-			move.b	#$80,$2C(a0,d0.w)
+			move.b	#$80,objoff_2C(a0,d0.w)
 			neg.w	obX+2(a0)
 			beq.s	.loc_1730A
 			btst	#0,obStatus(a0)
@@ -242,7 +242,7 @@ loc_16B02:
 			addq.b	#1,cat_parent(a0)
 			moveq	#0,d0
 			move.b	cat_parent(a0),d0
-			clr.b	$2C(a0,d0.w)
+			clr.b	objoff_2C(a0,d0.w)
 .loc_1730A:
 			bchg	#0,obStatus(a0)
 			move.b	obStatus(a0),obRender(a0)
@@ -254,7 +254,7 @@ loc_16B02:
 
 Cat_BodySeg2:	; Routine 6
 		movea.l	cat_parent(a0),a1
-		move.b	$2B(a1),$2B(a0)
+		move.b	objoff_2B(a1),objoff_2B(a0)
 		bpl.s	Cat_BodySeg1
 		lea	(Ani_Cat).l,a1
 		move.b	obAngle(a0),d0
@@ -273,7 +273,7 @@ Cat_BodySeg1:	; Routine 4, 8
 		movea.l	cat_parent(a0),a1
 		tst.b	obStatus(a0)
 		bmi.w	loc_16C90
-		move.b	$2B(a1),$2B(a0)
+		move.b	objoff_2B(a1),objoff_2B(a0)
 		move.b	ob2ndRout(a1),ob2ndRout(a0)
 		beq.w	loc_16C64
 		move.w	obInertia(a1),obInertia(a0)
@@ -301,15 +301,15 @@ loc_16C0C:
 		beq.s	loc_16C64
 		moveq	#0,d0
 		move.b	cat_parent(a0),d0
-		move.b	$2C(a1,d0.w),d1
+		move.b	objoff_2C(a1,d0.w),d1
 		cmpi.b	#$80,d1
 		bne.s	loc_16C50
 		if Revision=0
 		swap	d3
 		move.l	d3,obX(a0)
-		move.b	d1,$2C(a0,d0.w)
+		move.b	d1,objoff_2C(a0,d0.w)
 		else
-			move.b	d1,$2C(a0,d0.w)
+			move.b	d1,objoff_2C(a0,d0.w)
 			neg.w	obX+2(a0)
 			beq.s	locj_173E4
 			btst	#0,obStatus(a0)
@@ -320,7 +320,7 @@ loc_16C0C:
 			addq.b	#1,cat_parent(a0)
 			moveq	#0,d0
 			move.b	cat_parent(a0),d0
-			clr.b	$2C(a0,d0.w)
+			clr.b	objoff_2C(a0,d0.w)
 locj_173E4:
 		endif
 		bchg	#0,obStatus(a0)
@@ -335,7 +335,7 @@ loc_16C50:
 		add.w	d1,obY(a0)
 		addq.b	#1,cat_parent(a0)
 		andi.b	#$F,cat_parent(a0)
-		move.b	d1,$2C(a0,d0.w)
+		move.b	d1,objoff_2C(a0,d0.w)
 
 loc_16C64:
 		cmpi.b	#$C,obRoutine(a1)

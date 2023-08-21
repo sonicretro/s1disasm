@@ -46,7 +46,7 @@ Obj76_ExitLoop:
 ; ===========================================================================
 
 Obj76_Action:	; Routine 2
-		move.b	$29(a0),d0
+		move.b	objoff_29(a0),d0
 		cmp.b	obSubtype(a0),d0
 		beq.s	Obj76_Solid
 		tst.b	d0
@@ -58,7 +58,7 @@ loc_19712:
 ; ===========================================================================
 
 loc_19718:
-		movea.l	$34(a0),a1
+		movea.l	objoff_34(a0),a1
 		tst.b	obColProp(a1)
 		beq.s	loc_19712
 		move.w	obX(a1),obX(a0)

@@ -31,8 +31,8 @@ LBall_Main:	; Routine 0
 		move.b	#4,obRender(a0)
 		move.b	#3,obPriority(a0)
 		move.b	#$8B,obColType(a0)
-		move.w	obY(a0),$30(a0)
-		tst.b	$29(a0)
+		move.w	obY(a0),objoff_30(a0)
+		tst.b	objoff_29(a0)
 		beq.s	.speed
 		addq.b	#2,obPriority(a0)
 
@@ -78,7 +78,7 @@ LBall_TypeIndex:dc.w LBall_Type00-LBall_TypeIndex, LBall_Type00-LBall_TypeIndex
 
 LBall_Type00:
 		addi.w	#$18,obVelY(a0)	; increase object's downward speed
-		move.w	$30(a0),d0
+		move.w	objoff_30(a0),d0
 		cmp.w	obY(a0),d0	; has object fallen back to its	original position?
 		bcc.s	loc_E41E	; if not, branch
 		addq.b	#2,obRoutine(a0)	; goto "LBall_Delete" routine

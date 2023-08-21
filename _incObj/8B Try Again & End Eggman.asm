@@ -51,11 +51,11 @@ EEgg_Juggle:	; Routine 4
 		moveq	#5,d1
 
 .emeraldloop:
-		move.b	d0,$3E(a1)
+		move.b	d0,objoff_3E(a1)
 		move.w	d0,d2
 		asl.w	#3,d2
 		add.b	d2,obAngle(a1)
-		lea	$40(a1),a1
+		lea	object_size(a1),a1
 		dbf	d1,.emeraldloop
 		addq.b	#1,obFrame(a0)
 		move.w	#112,eegg_time(a0)

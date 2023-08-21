@@ -130,7 +130,7 @@ Spik_Type00:
 Spik_Type01:
 		bsr.w	Spik_Wait
 		moveq	#0,d0
-		move.b	$34(a0),d0
+		move.b	objoff_34(a0),d0
 		add.w	spik_origY(a0),d0
 		move.w	d0,obY(a0)	; move the object vertically
 		rts	
@@ -139,16 +139,16 @@ Spik_Type01:
 Spik_Type02:
 		bsr.w	Spik_Wait
 		moveq	#0,d0
-		move.b	$34(a0),d0
+		move.b	objoff_34(a0),d0
 		add.w	spik_origX(a0),d0
 		move.w	d0,obX(a0)	; move the object horizontally
 		rts	
 ; ===========================================================================
 
 Spik_Wait:
-		tst.w	$38(a0)		; is time delay	= zero?
+		tst.w	objoff_38(a0)		; is time delay	= zero?
 		beq.s	loc_CFA4	; if yes, branch
-		subq.w	#1,$38(a0)	; subtract 1 from time delay
+		subq.w	#1,objoff_38(a0)	; subtract 1 from time delay
 		bne.s	locret_CFE6
 		tst.b	obRender(a0)
 		bpl.s	locret_CFE6
@@ -158,23 +158,23 @@ Spik_Wait:
 ; ===========================================================================
 
 loc_CFA4:
-		tst.w	$36(a0)
+		tst.w	objoff_36(a0)
 		beq.s	loc_CFC6
-		subi.w	#$800,$34(a0)
+		subi.w	#$800,objoff_34(a0)
 		bcc.s	locret_CFE6
-		move.w	#0,$34(a0)
-		move.w	#0,$36(a0)
-		move.w	#60,$38(a0)	; set time delay to 1 second
+		move.w	#0,objoff_34(a0)
+		move.w	#0,objoff_36(a0)
+		move.w	#60,objoff_38(a0)	; set time delay to 1 second
 		bra.s	locret_CFE6
 ; ===========================================================================
 
 loc_CFC6:
-		addi.w	#$800,$34(a0)
-		cmpi.w	#$2000,$34(a0)
+		addi.w	#$800,objoff_34(a0)
+		cmpi.w	#$2000,objoff_34(a0)
 		bcs.s	locret_CFE6
-		move.w	#$2000,$34(a0)
-		move.w	#1,$36(a0)
-		move.w	#60,$38(a0)	; set time delay to 1 second
+		move.w	#$2000,objoff_34(a0)
+		move.w	#1,objoff_36(a0)
+		move.w	#60,objoff_38(a0)	; set time delay to 1 second
 
 locret_CFE6:
 		rts	

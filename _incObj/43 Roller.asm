@@ -85,7 +85,7 @@ loc_E0D2:
 Roll_RollNoChk:
 		cmpi.b	#2,obAnim(a0)
 		beq.s	loc_E0F8
-		subq.w	#1,$30(a0)
+		subq.w	#1,objoff_30(a0)
 		bpl.s	locret_E0F6
 		move.b	#1,obAnim(a0)
 		move.w	#$700,obVelX(a0)
@@ -114,7 +114,7 @@ Roll_ChkJump:
 
 Roll_Jump:
 		addq.b	#2,ob2ndRout(a0)
-		bset	#0,$32(a0)
+		bset	#0,objoff_32(a0)
 		beq.s	locret_E12E
 		move.w	#-$600,obVelY(a0)	; move Roller vertically
 
@@ -140,7 +140,7 @@ locret_E150:
 
 
 Roll_Stop:
-		tst.b	$32(a0)
+		tst.b	objoff_32(a0)
 		bmi.s	locret_E188
 		move.w	(v_player+obX).w,d0
 		subi.w	#$30,d0
@@ -149,9 +149,9 @@ Roll_Stop:
 		move.b	#0,obAnim(a0)
 		move.b	#$E,obColType(a0)
 		clr.w	obVelX(a0)
-		move.w	#120,$30(a0)	; set waiting time to 2	seconds
+		move.w	#120,objoff_30(a0)	; set waiting time to 2	seconds
 		move.b	#2,ob2ndRout(a0)
-		bset	#7,$32(a0)
+		bset	#7,objoff_32(a0)
 
 locret_E188:
 		rts	

@@ -38,7 +38,7 @@ Sonic_HurtStop:
 		move.w	d0,obInertia(a0)
 		move.b	#id_Walk,obAnim(a0)
 		subq.b	#2,obRoutine(a0)
-		move.w	#$78,$30(a0)
+		move.w	#$78,objoff_30(a0)
 
 locret_13860:
 		rts	
@@ -70,7 +70,7 @@ GameOver:
 		addq.b	#1,(f_lifecount).w ; update lives counter
 		subq.b	#1,(v_lives).w	; subtract 1 from number of lives
 		bne.s	loc_138D4
-		move.w	#0,$3A(a0)
+		move.w	#0,objoff_3A(a0)
 		move.b	#id_GameOverCard,(v_gameovertext1).w ; load GAME object
 		move.b	#id_GameOverCard,(v_gameovertext2).w ; load OVER object
 		move.b	#1,(v_gameovertext2+obFrame).w ; set OVER object to correct frame
@@ -84,10 +84,10 @@ loc_138C2:
 ; ===========================================================================
 
 loc_138D4:
-		move.w	#60,$3A(a0)	; set time delay to 1 second
+		move.w	#60,objoff_3A(a0)	; set time delay to 1 second
 		tst.b	(f_timeover).w	; is TIME OVER tag set?
 		beq.s	locret_13900	; if not, branch
-		move.w	#0,$3A(a0)
+		move.w	#0,objoff_3A(a0)
 		move.b	#id_GameOverCard,(v_gameovertext1).w ; load TIME object
 		move.b	#id_GameOverCard,(v_gameovertext2).w ; load OVER object
 		move.b	#2,(v_gameovertext1+obFrame).w
@@ -104,9 +104,9 @@ locret_13900:
 ; ---------------------------------------------------------------------------
 
 Sonic_ResetLevel:; Routine 8
-		tst.w	$3A(a0)
+		tst.w	objoff_3A(a0)
 		beq.s	locret_13914
-		subq.w	#1,$3A(a0)	; subtract 1 from time delay
+		subq.w	#1,objoff_3A(a0)	; subtract 1 from time delay
 		bne.s	locret_13914
 		move.w	#1,(f_restart).w ; restart the level
 

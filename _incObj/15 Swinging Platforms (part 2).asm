@@ -18,26 +18,26 @@ loc_7B78:
 
 
 Obj48_Move:
-		tst.b	$3D(a0)
+		tst.b	objoff_3D(a0)
 		bne.s	loc_7B9C
-		move.w	$3E(a0),d0
+		move.w	objoff_3E(a0),d0
 		addq.w	#8,d0
-		move.w	d0,$3E(a0)
+		move.w	d0,objoff_3E(a0)
 		add.w	d0,obAngle(a0)
 		cmpi.w	#$200,d0
 		bne.s	loc_7BB6
-		move.b	#1,$3D(a0)
+		move.b	#1,objoff_3D(a0)
 		bra.s	loc_7BB6
 ; ===========================================================================
 
 loc_7B9C:
-		move.w	$3E(a0),d0
+		move.w	objoff_3E(a0),d0
 		subq.w	#8,d0
-		move.w	d0,$3E(a0)
+		move.w	d0,objoff_3E(a0)
 		add.w	d0,obAngle(a0)
 		cmpi.w	#-$200,d0
 		bne.s	loc_7BB6
-		move.b	#0,$3D(a0)
+		move.b	#0,objoff_3D(a0)
 
 loc_7BB6:
 		move.b	obAngle(a0),d0
@@ -49,8 +49,8 @@ loc_7BB6:
 
 Swing_Move2:
 		bsr.w	CalcSine
-		move.w	$38(a0),d2
-		move.w	$3A(a0),d3
+		move.w	objoff_38(a0),d2
+		move.w	objoff_3A(a0),d3
 		lea	obSubtype(a0),a2
 		moveq	#0,d6
 		move.b	(a2)+,d6
@@ -62,7 +62,7 @@ loc_7BCE:
 		addi.l	#v_objspace&$FFFFFF,d4
 		movea.l	d4,a1
 		moveq	#0,d4
-		move.b	$3C(a1),d4
+		move.b	objoff_3C(a1),d4
 		move.l	d4,d5
 		muls.w	d0,d4
 		asr.l	#8,d4
@@ -79,7 +79,7 @@ loc_7BCE:
 ; ===========================================================================
 
 Swing_ChkDel:
-		out_of_range.w	Swing_DelAll,$3A(a0)
+		out_of_range.w	Swing_DelAll,objoff_3A(a0)
 		rts	
 ; ===========================================================================
 

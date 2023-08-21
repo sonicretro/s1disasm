@@ -34,7 +34,7 @@ SEgg_Main:	; Routine 0
 		move.b	#$20,obActWid(a0)
 		jsr	(FindNextFreeObj).l
 		bne.s	SEgg_Eggman
-		move.l	a0,$34(a1)
+		move.l	a0,objoff_34(a1)
 		move.b	#id_ScrapEggman,(a1) ; load switch object
 		move.w	#boss_sbz2_x+$E0,obX(a1)
 		move.w	#boss_sbz2_y+$AC,obY(a1)
@@ -70,7 +70,7 @@ SEgg_ChkSonic:
 		cmpi.w	#128,d0		; is Sonic within 128 pixels of	Eggman?
 		bcc.s	loc_19934	; if not, branch
 		addq.b	#2,ob2ndRout(a0)
-		move.w	#180,$3C(a0)	; set delay to 3 seconds
+		move.w	#180,objoff_3C(a0)	; set delay to 3 seconds
 		move.b	#1,obAnim(a0)
 
 loc_19934:
@@ -78,19 +78,19 @@ loc_19934:
 ; ===========================================================================
 
 SEgg_PreLeap:
-		subq.w	#1,$3C(a0)	; subtract 1 from time delay
+		subq.w	#1,objoff_3C(a0)	; subtract 1 from time delay
 		bne.s	loc_19954	; if time remains, branch
 		addq.b	#2,ob2ndRout(a0)
 		move.b	#2,obAnim(a0)
 		addq.w	#4,obY(a0)
-		move.w	#15,$3C(a0)
+		move.w	#15,objoff_3C(a0)
 
 loc_19954:
 		bra.s	loc_19934
 ; ===========================================================================
 
 SEgg_Leap:
-		subq.w	#1,$3C(a0)
+		subq.w	#1,objoff_3C(a0)
 		bgt.s	loc_199D0
 		bne.s	loc_1996A
 		move.w	#-$FC,obVelX(a0) ; make Eggman leap
@@ -146,7 +146,7 @@ SEgg_SwIndex:	dc.w loc_199E6-SEgg_SwIndex
 ; ===========================================================================
 
 loc_199E6:
-		movea.l	$34(a0),a1
+		movea.l	objoff_34(a0),a1
 		cmpi.w	#"SW",obSubtype(a1)
 		bne.s	SEgg_SwDisplay
 		move.b	#1,obFrame(a0)

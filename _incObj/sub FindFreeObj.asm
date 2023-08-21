@@ -15,7 +15,7 @@ FindFreeObj:
 FFree_Loop:
 		tst.b	(a1)		; is object RAM	slot empty?
 		beq.s	FFree_Found	; if yes, branch
-		lea	$40(a1),a1	; goto next object RAM slot
+		lea	object_size(a1),a1	; goto next object RAM slot
 		dbf	d0,FFree_Loop	; repeat $5F times
 
 FFree_Found:
@@ -45,7 +45,7 @@ FindNextFreeObj:
 NFree_Loop:
 		tst.b	(a1)
 		beq.s	NFree_Found
-		lea	$40(a1),a1
+		lea	object_size(a1),a1
 		dbf	d0,NFree_Loop
 
 NFree_Found:

@@ -61,11 +61,11 @@ Shi_Stars:	; Routine 4
 		lsl.b	#4,d1
 		addq.b	#4,d1
 		sub.b	d1,d0
-		move.b	$30(a0),d1
+		move.b	objoff_30(a0),d1
 		sub.b	d1,d0
 		addq.b	#4,d1
 		andi.b	#$F,d1
-		move.b	d1,$30(a0)
+		move.b	d1,objoff_30(a0)
 		bra.s	.b
 ; ===========================================================================
 
@@ -76,7 +76,7 @@ Shi_Stars:	; Routine 4
 		add.b	d2,d1		; multiply by 3
 		addq.b	#4,d1
 		sub.b	d1,d0
-		move.b	$30(a0),d1
+		move.b	objoff_30(a0),d1
 		sub.b	d1,d0		; use earlier tracking data to create trail
 		addq.b	#4,d1
 		cmpi.b	#$18,d1
@@ -84,7 +84,7 @@ Shi_Stars:	; Routine 4
 		moveq	#0,d1
 
 .a:
-		move.b	d1,$30(a0)
+		move.b	d1,objoff_30(a0)
 
 .b:
 		lea	(v_tracksonic).w,a1

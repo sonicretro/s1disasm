@@ -6254,7 +6254,7 @@ loc_D348:
 		moveq	#0,d0
 
 loc_D358:
-		lea	$40(a0),a0	; next object
+		lea	object_size(a0),a0	; next object
 		dbf	d7,loc_D348
 		rts	
 ; ===========================================================================
@@ -6273,7 +6273,7 @@ loc_D368:
 		bsr.w	DisplaySprite
 
 loc_D378:
-		lea	$40(a0),a0
+		lea	object_size(a0),a0
 
 loc_D37C:
 		dbf	d7,loc_D368
@@ -6991,8 +6991,8 @@ loc_12C7E:
 		bsr.s	Sonic_Display
 		bsr.w	Sonic_RecordPosition
 		bsr.w	Sonic_Water
-		move.b	(v_anglebuffer).w,$36(a0)
-		move.b	($FFFFF76A).w,$37(a0)
+		move.b	(v_anglebuffer).w,objoff_36(a0)
+		move.b	($FFFFF76A).w,objoff_37(a0)
 		tst.b	(f_wtunnelmode).w
 		beq.s	loc_12CA6
 		tst.b	obAnim(a0)
@@ -7803,8 +7803,8 @@ locret_178A2:
 
 
 BossMove:
-		move.l	$30(a0),d2
-		move.l	$38(a0),d3
+		move.l	objoff_30(a0),d2
+		move.l	objoff_38(a0),d3
 		move.w	obVelX(a0),d0
 		ext.l	d0
 		asl.l	#8,d0
@@ -7813,8 +7813,8 @@ BossMove:
 		ext.l	d0
 		asl.l	#8,d0
 		add.l	d0,d3
-		move.l	d2,$30(a0)
-		move.l	d3,$38(a0)
+		move.l	d2,objoff_30(a0)
+		move.l	d3,objoff_38(a0)
 		rts	
 ; End of function BossMove
 

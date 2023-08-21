@@ -61,9 +61,9 @@ Anml_Ending:	; Routine 0
 		add.w	d0,d0
 		move.l	Anml_EndMap(pc,d0.w),obMap(a0)
 		lea	Anml_EndSpeed(pc),a1
-		move.w	(a1,d0.w),$32(a0) ; load horizontal speed
+		move.w	(a1,d0.w),objoff_32(a0) ; load horizontal speed
 		move.w	(a1,d0.w),obVelX(a0)
-		move.w	2(a1,d0.w),$34(a0) ; load vertical speed
+		move.w	2(a1,d0.w),objoff_34(a0) ; load vertical speed
 		move.w	2(a1,d0.w),obVelY(a0)
 		move.b	#$C,obHeight(a0)
 		move.b	#4,obRender(a0)
@@ -84,15 +84,15 @@ Anml_FromEnemy:
 		add.w	d0,d1
 		lea	Anml_VarIndex(pc),a1
 		move.b	(a1,d1.w),d0
-		move.b	d0,$30(a0)
+		move.b	d0,objoff_30(a0)
 		lsl.w	#3,d0
 		lea	Anml_Variables(pc),a1
 		adda.w	d0,a1
-		move.w	(a1)+,$32(a0)	; load horizontal speed
-		move.w	(a1)+,$34(a0)	; load vertical	speed
+		move.w	(a1)+,objoff_32(a0)	; load horizontal speed
+		move.w	(a1)+,objoff_34(a0)	; load vertical	speed
 		move.l	(a1)+,obMap(a0)	; load mappings
 		move.w	#$580,obGfx(a0)	; VRAM setting for 1st animal
-		btst	#0,$30(a0)	; is 1st animal	used?
+		btst	#0,objoff_30(a0)	; is 1st animal	used?
 		beq.s	loc_90C0	; if yes, branch
 		move.w	#$592,obGfx(a0)	; VRAM setting for 2nd animal
 
@@ -112,7 +112,7 @@ loc_90C0:
 		_move.b	#id_Points,obID(a1) ; load points object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
-		move.w	$3E(a0),d0
+		move.w	objoff_3E(a0),d0
 		lsr.w	#1,d0
 		move.b	d0,obFrame(a1)
 
@@ -136,10 +136,10 @@ loc_912A:
 		tst.w	d1
 		bpl.s	loc_9180
 		add.w	d1,obY(a0)
-		move.w	$32(a0),obVelX(a0)
-		move.w	$34(a0),obVelY(a0)
+		move.w	objoff_32(a0),obVelX(a0)
+		move.w	objoff_34(a0),obVelY(a0)
 		move.b	#1,obFrame(a0)
-		move.b	$30(a0),d0
+		move.b	objoff_30(a0),d0
 		add.b	d0,d0
 		addq.b	#4,d0
 		move.b	d0,obRoutine(a0)
@@ -164,7 +164,7 @@ loc_9184:
 		tst.w	d1
 		bpl.s	loc_91AE
 		add.w	d1,obY(a0)
-		move.w	$34(a0),obVelY(a0)
+		move.w	objoff_34(a0),obVelY(a0)
 
 loc_91AE:
 		tst.b	obSubtype(a0)
@@ -183,7 +183,7 @@ loc_91C0:
 		tst.w	d1
 		bpl.s	loc_91FC
 		add.w	d1,obY(a0)
-		move.w	$34(a0),obVelY(a0)
+		move.w	objoff_34(a0),obVelY(a0)
 		tst.b	obSubtype(a0)
 		beq.s	loc_91FC
 		cmpi.b	#$A,obSubtype(a0)
@@ -222,7 +222,7 @@ loc_923C:
 loc_9240:
 		tst.b	obRender(a0)
 		bpl.w	DeleteObject
-		subq.w	#1,$36(a0)
+		subq.w	#1,objoff_36(a0)
 		bne.w	loc_925C
 		move.b	#2,obRoutine(a0)
 		move.b	#3,obPriority(a0)
@@ -234,8 +234,8 @@ loc_925C:
 loc_9260:
 		bsr.w	sub_9404
 		bcc.s	loc_927C
-		move.w	$32(a0),obVelX(a0)
-		move.w	$34(a0),obVelY(a0)
+		move.w	objoff_32(a0),obVelX(a0)
+		move.w	objoff_34(a0),obVelY(a0)
 		move.b	#$E,obRoutine(a0)
 		bra.w	loc_91C0
 ; ===========================================================================
@@ -248,7 +248,7 @@ loc_9280:
 		bsr.w	sub_9404
 		bpl.s	loc_92B6
 		clr.w	obVelX(a0)
-		clr.w	$32(a0)
+		clr.w	objoff_32(a0)
 		bsr.w	SpeedToPos
 		addi.w	#$18,obVelY(a0)
 		bsr.w	loc_93C4
@@ -266,8 +266,8 @@ loc_92B6:
 loc_92BA:
 		bsr.w	sub_9404
 		bpl.s	loc_9310
-		move.w	$32(a0),obVelX(a0)
-		move.w	$34(a0),obVelY(a0)
+		move.w	objoff_32(a0),obVelX(a0)
+		move.w	objoff_34(a0),obVelY(a0)
 		move.b	#4,obRoutine(a0)
 		bra.w	loc_9184
 ; ===========================================================================
@@ -281,14 +281,14 @@ loc_92D6:
 		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.s	loc_9310
-		not.b	$29(a0)
+		not.b	objoff_29(a0)
 		bne.s	loc_9306
 		neg.w	obVelX(a0)
 		bchg	#0,obRender(a0)
 
 loc_9306:
 		add.w	d1,obY(a0)
-		move.w	$34(a0),obVelY(a0)
+		move.w	objoff_34(a0),obVelY(a0)
 
 loc_9310:
 		bra.w	loc_9224
@@ -298,7 +298,7 @@ loc_9314:
 		bsr.w	sub_9404
 		bpl.s	loc_932E
 		clr.w	obVelX(a0)
-		clr.w	$32(a0)
+		clr.w	objoff_32(a0)
 		bsr.w	ObjectFall
 		bsr.w	loc_93C4
 		bsr.w	loc_93EC
@@ -321,7 +321,7 @@ loc_9332:
 		neg.w	obVelX(a0)
 		bchg	#0,obRender(a0)
 		add.w	d1,obY(a0)
-		move.w	$34(a0),obVelY(a0)
+		move.w	objoff_34(a0),obVelY(a0)
 
 loc_936C:
 		bra.w	loc_9224
@@ -337,14 +337,14 @@ loc_9370:
 		jsr	(ObjFloorDist).l
 		tst.w	d1
 		bpl.s	loc_93AA
-		not.b	$29(a0)
+		not.b	objoff_29(a0)
 		bne.s	loc_93A0
 		neg.w	obVelX(a0)
 		bchg	#0,obRender(a0)
 
 loc_93A0:
 		add.w	d1,obY(a0)
-		move.w	$34(a0),obVelY(a0)
+		move.w	objoff_34(a0),obVelY(a0)
 
 loc_93AA:
 		subq.b	#1,obTimeFrame(a0)
@@ -366,7 +366,7 @@ loc_93C4:
 		tst.w	d1
 		bpl.s	locret_93EA
 		add.w	d1,obY(a0)
-		move.w	$34(a0),obVelY(a0)
+		move.w	objoff_34(a0),obVelY(a0)
 
 locret_93EA:
 		rts	

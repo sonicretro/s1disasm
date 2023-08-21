@@ -39,14 +39,14 @@ VanP_Main:	; Routine 0
 		addi.w	#$80,d1
 		mulu.w	d1,d0
 		lsr.l	#8,d0
-		move.w	d0,$36(a0)
+		move.w	d0,objoff_36(a0)
 		subq.w	#1,d1
-		move.w	d1,$38(a0)
+		move.w	d1,objoff_38(a0)
 
 loc_16068:	; Routine 6
 		move.w	(v_framecount).w,d0
-		sub.w	$36(a0),d0
-		and.w	$38(a0),d0
+		sub.w	objoff_36(a0),d0
+		and.w	objoff_38(a0),d0
 		bne.s	.animate
 		subq.b	#4,obRoutine(a0) ; goto VanP_Vanish next
 		bra.s	VanP_Vanish

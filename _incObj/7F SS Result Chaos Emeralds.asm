@@ -39,7 +39,7 @@ SSRC_Loop:
 		move.l	#Map_SSRC,obMap(a1)
 		move.w	#$8541,obGfx(a1)
 		move.b	#0,obRender(a1)
-		lea	$40(a1),a1	; next object
+		lea	object_size(a1),a1	; next object
 		dbf	d1,SSRC_Loop	; loop for d1 number of	emeralds
 
 SSRC_Flash:	; Routine 2

@@ -46,7 +46,7 @@ Drown_Main:	; Routine 0
 		move.l	#Map_Drown,obMap(a0)
 		move.w	#$440,obGfx(a0)
 		andi.w	#$7F,d0
-		move.b	d0,$33(a0)
+		move.b	d0,objoff_33(a0)
 		bra.w	Drown_Countdown
 ; ===========================================================================
 
@@ -182,7 +182,7 @@ Drown_WobbleData:
 ; ===========================================================================
 
 Drown_Countdown:; Routine $A
-		tst.w	$2C(a0)
+		tst.w	objoff_2C(a0)
 		bne.w	.loc_13F86
 		cmpi.b	#6,(v_player+obRoutine).w
 		bcc.w	.nocountdown
@@ -192,10 +192,10 @@ Drown_Countdown:; Routine $A
 		subq.w	#1,drown_time(a0)	; decrement timer
 		bpl.w	.nochange	; branch if time remains
 		move.w	#59,drown_time(a0)
-		move.w	#1,$36(a0)
+		move.w	#1,objoff_36(a0)
 		jsr	(RandomNumber).l
 		andi.w	#1,d0
-		move.b	d0,$34(a0)
+		move.b	d0,objoff_34(a0)
 		move.w	(v_air).w,d0	; check air remaining
 		cmpi.w	#25,d0
 		beq.s	.warnsound	; play sound if	air is 25
@@ -211,10 +211,10 @@ Drown_Countdown:; Routine $A
 		jsr	(PlaySound).l	; play countdown music
 
 .skipmusic:
-		subq.b	#1,$32(a0)
+		subq.b	#1,objoff_32(a0)
 		bpl.s	.reduceair
-		move.b	$33(a0),$32(a0)
-		bset	#7,$36(a0)
+		move.b	objoff_33(a0),objoff_32(a0)
+		bset	#7,objoff_36(a0)
 		bra.s	.reduceair
 ; ===========================================================================
 
@@ -231,9 +231,9 @@ Drown_Countdown:; Routine $A
 		move.b	#$81,(f_playerctrl).w ; lock controls and disable object interaction
 		move.w	#sfx_Drown,d0
 		jsr	(PlaySound_Special).l	; play drowning sound
-		move.b	#$A,$34(a0)
-		move.w	#1,$36(a0)
-		move.w	#$78,$2C(a0)
+		move.b	#$A,objoff_34(a0)
+		move.w	#1,objoff_36(a0)
+		move.w	#$78,objoff_2C(a0)
 		move.l	a0,-(sp)
 		lea	(v_player).w,a0
 		bsr.w	Sonic_ResetOnFloor
@@ -249,7 +249,7 @@ Drown_Countdown:; Routine $A
 ; ===========================================================================
 
 .loc_13F86:
-		subq.w	#1,$2C(a0)
+		subq.w	#1,objoff_2C(a0)
 		bne.s	.loc_13F94
 		move.b	#6,(v_player+obRoutine).w
 		rts	
@@ -269,15 +269,15 @@ Drown_Countdown:; Routine $A
 ; ===========================================================================
 
 .nochange:
-		tst.w	$36(a0)
+		tst.w	objoff_36(a0)
 		beq.w	.nocountdown
-		subq.w	#1,$3A(a0)
+		subq.w	#1,objoff_3A(a0)
 		bpl.w	.nocountdown
 
 .makenum:
 		jsr	(RandomNumber).l
 		andi.w	#$F,d0
-		move.w	d0,$3A(a0)
+		move.w	d0,objoff_3A(a0)
 		jsr	(FindFreeObj).l
 		bne.w	.nocountdown
 		_move.b	#id_DrownCount,obID(a1) ; load object
@@ -292,10 +292,10 @@ Drown_Countdown:; Routine $A
 		add.w	d0,obX(a1)
 		move.w	(v_player+obY).w,obY(a1)
 		move.b	#6,obSubtype(a1)
-		tst.w	$2C(a0)
+		tst.w	objoff_2C(a0)
 		beq.w	.loc_1403E
-		andi.w	#7,$3A(a0)
-		addi.w	#0,$3A(a0)
+		andi.w	#7,objoff_3A(a0)
+		addi.w	#0,objoff_3A(a0)
 		move.w	(v_player+obY).w,d0
 		subi.w	#$C,d0
 		move.w	d0,obY(a1)
@@ -309,30 +309,30 @@ Drown_Countdown:; Routine $A
 ; ===========================================================================
 
 .loc_1403E:
-		btst	#7,$36(a0)
+		btst	#7,objoff_36(a0)
 		beq.s	.loc_14082
 		move.w	(v_air).w,d2
 		lsr.w	#1,d2
 		jsr	(RandomNumber).l
 		andi.w	#3,d0
 		bne.s	.loc_1406A
-		bset	#6,$36(a0)
+		bset	#6,objoff_36(a0)
 		bne.s	.loc_14082
 		move.b	d2,obSubtype(a1)
 		move.w	#$1C,drown_time(a1)
 
 .loc_1406A:
-		tst.b	$34(a0)
+		tst.b	objoff_34(a0)
 		bne.s	.loc_14082
-		bset	#6,$36(a0)
+		bset	#6,objoff_36(a0)
 		bne.s	.loc_14082
 		move.b	d2,obSubtype(a1)
 		move.w	#$1C,drown_time(a1)
 
 .loc_14082:
-		subq.b	#1,$34(a0)
+		subq.b	#1,objoff_34(a0)
 		bpl.s	.nocountdown
-		clr.w	$36(a0)
+		clr.w	objoff_36(a0)
 
 .nocountdown:
 		rts	

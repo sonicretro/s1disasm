@@ -39,7 +39,7 @@ Flash_Collect:
 		bcc.s	Flash_End	; if yes, branch
 		cmpi.b	#3,obFrame(a0)	; is 3rd frame displayed?
 		bne.s	locret_9F76	; if not, branch
-		movea.l	$3C(a0),a1	; get parent object address
+		movea.l	objoff_3C(a0),a1	; get parent object address
 		move.b	#6,obRoutine(a1) ; delete parent object
 		move.b	#id_Null,(v_player+obAnim).w ; make Sonic invisible
 		move.b	#1,(f_bigring).w ; stop	Sonic getting bonuses

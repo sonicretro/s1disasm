@@ -47,7 +47,7 @@ Elev_Main:	; Routine 0
 		andi.w	#$7F,d0
 		mulu.w	#6,d0
 		move.w	d0,elev_dist(a0)
-		move.w	d0,$3E(a0)
+		move.w	d0,objoff_3E(a0)
 		addq.l	#4,sp
 		rts	
 ; ===========================================================================
@@ -126,7 +126,7 @@ Elev_Types:
 
 .type02:
 		bsr.w	Elev_Move
-		move.w	$34(a0),d0
+		move.w	objoff_34(a0),d0
 		neg.w	d0
 		add.w	elev_origY(a0),d0
 		move.w	d0,obY(a0)
@@ -135,7 +135,7 @@ Elev_Types:
 
 .type04:
 		bsr.w	Elev_Move
-		move.w	$34(a0),d0
+		move.w	objoff_34(a0),d0
 		add.w	elev_origY(a0),d0
 		move.w	d0,obY(a0)
 		rts	
@@ -143,12 +143,12 @@ Elev_Types:
 
 .type06:
 		bsr.w	Elev_Move
-		move.w	$34(a0),d0
+		move.w	objoff_34(a0),d0
 		asr.w	#1,d0
 		neg.w	d0
 		add.w	elev_origY(a0),d0
 		move.w	d0,obY(a0)
-		move.w	$34(a0),d0
+		move.w	objoff_34(a0),d0
 		add.w	elev_origX(a0),d0
 		move.w	d0,obX(a0)
 		rts	
@@ -156,11 +156,11 @@ Elev_Types:
 
 .type08:
 		bsr.w	Elev_Move
-		move.w	$34(a0),d0
+		move.w	objoff_34(a0),d0
 		asr.w	#1,d0
 		add.w	elev_origY(a0),d0
 		move.w	d0,obY(a0)
-		move.w	$34(a0),d0
+		move.w	objoff_34(a0),d0
 		neg.w	d0
 		add.w	elev_origX(a0),d0
 		move.w	d0,obX(a0)
@@ -169,7 +169,7 @@ Elev_Types:
 
 .type09:
 		bsr.w	Elev_Move
-		move.w	$34(a0),d0
+		move.w	objoff_34(a0),d0
 		neg.w	d0
 		add.w	elev_origY(a0),d0
 		move.w	d0,obY(a0)
@@ -192,8 +192,8 @@ Elev_Types:
 
 
 Elev_Move:
-		move.w	$38(a0),d0
-		tst.b	$3A(a0)
+		move.w	objoff_38(a0),d0
+		tst.b	objoff_3A(a0)
 		bne.s	loc_10CC8
 		cmpi.w	#$800,d0
 		bcc.s	loc_10CD0
@@ -207,16 +207,16 @@ loc_10CC8:
 		subi.w	#$10,d0
 
 loc_10CD0:
-		move.w	d0,$38(a0)
+		move.w	d0,objoff_38(a0)
 		ext.l	d0
 		asl.l	#8,d0
-		add.l	$34(a0),d0
-		move.l	d0,$34(a0)
+		add.l	objoff_34(a0),d0
+		move.l	d0,objoff_34(a0)
 		swap	d0
 		move.w	elev_dist(a0),d2
 		cmp.w	d2,d0
 		bls.s	loc_10CF0
-		move.b	#1,$3A(a0)
+		move.b	#1,objoff_3A(a0)
 
 loc_10CF0:
 		add.w	d2,d2
@@ -233,7 +233,7 @@ locret_10CFA:
 Elev_MakeMulti:	; Routine 6
 		subq.w	#1,elev_dist(a0)
 		bne.s	.chkdel
-		move.w	$3E(a0),elev_dist(a0)
+		move.w	objoff_3E(a0),elev_dist(a0)
 		bsr.w	FindFreeObj
 		bne.s	.chkdel
 		_move.b	#id_Elevator,obID(a1) ; duplicate the object

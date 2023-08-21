@@ -14,7 +14,7 @@ Sonic_RollSpeed:
 		asr.w	#2,d4
 		tst.b	(f_slidemode).w
 		bne.w	loc_131CC
-		tst.w	$3E(a0)
+		tst.w	objoff_3E(a0)
 		bne.s	.notright
 		btst	#bitL,(v_jpadhold2).w ; is left being pressed?
 		beq.s	.notleft	; if not, branch

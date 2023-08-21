@@ -107,7 +107,7 @@ But_MZLoop:
 		beq.s	loc_BE5E	; if yes, branch
 
 loc_BE4E:
-		lea	$40(a1),a1	; check	next object
+		lea	object_size(a1),a1	; check	next object
 		dbf	d6,But_MZLoop	; repeat $5F times
 
 		move.w	(sp)+,d3

@@ -7,7 +7,7 @@ BossSpikeball:
 		move.b	obRoutine(a0),d0
 		move.w	Obj7B_Index(pc,d0.w),d0
 		jsr	Obj7B_Index(pc,d0.w)
-		move.w	$30(a0),d0
+		move.w	objoff_30(a0),d0
 		andi.w	#$FF80,d0
 		move.w	(v_screenposx).w,d1
 		subi.w	#$80,d1
@@ -34,37 +34,37 @@ Obj7B_Main:	; Routine 0
 		move.b	#4,obPriority(a0)
 		move.b	#$8B,obColType(a0)
 		move.b	#$C,obActWid(a0)
-		movea.l	$3C(a0),a1
-		move.w	obX(a1),$30(a0)
-		move.w	obY(a1),$34(a0)
+		movea.l	objoff_3C(a0),a1
+		move.w	obX(a1),objoff_30(a0)
+		move.w	obY(a1),objoff_34(a0)
 		bset	#0,obStatus(a0)
 		move.w	obX(a0),d0
 		cmp.w	obX(a1),d0
 		bgt.s	loc_18D68
 		bclr	#0,obStatus(a0)
-		move.b	#2,$3A(a0)
+		move.b	#2,objoff_3A(a0)
 
 loc_18D68:
 		addq.b	#2,obRoutine(a0)
 
 Obj7B_Fall:	; Routine 2
 		jsr	(ObjectFall).l
-		movea.l	$3C(a0),a1
+		movea.l	objoff_3C(a0),a1
 		lea	(word_19018).l,a2
 		moveq	#0,d0
 		move.b	obFrame(a1),d0
 		move.w	8(a0),d1
-		sub.w	$30(a0),d1
+		sub.w	objoff_30(a0),d1
 		bcc.s	loc_18D8E
 		addq.w	#2,d0
 
 loc_18D8E:
 		add.w	d0,d0
-		move.w	$34(a0),d1
+		move.w	objoff_34(a0),d1
 		add.w	(a2,d0.w),d1
 		cmp.w	obY(a0),d1
 		bgt.s	locret_18DC4
-		movea.l	$3C(a0),a1
+		movea.l	objoff_3C(a0),a1
 		moveq	#2,d1
 		btst	#0,obStatus(a0)
 		beq.s	loc_18DAE
@@ -82,10 +82,10 @@ locret_18DC4:
 ; ===========================================================================
 
 loc_18DC6:	; Routine 4
-		movea.l	$3C(a0),a1
+		movea.l	objoff_3C(a0),a1
 		moveq	#0,d0
-		move.b	$3A(a0),d0
-		sub.b	$3A(a1),d0
+		move.b	objoff_3A(a0),d0
+		sub.b	objoff_3A(a1),d0
 		beq.s	loc_18E2A
 		bcc.s	loc_18DDA
 		neg.b	d0
@@ -97,7 +97,7 @@ loc_18DDA:
 		beq.s	loc_18E00
 		move.w	#-$960,d1
 		move.w	#-$F4,d2
-		cmpi.w	#$9C0,$38(a1)
+		cmpi.w	#$9C0,objoff_38(a1)
 		blt.s	loc_18E00
 		move.w	#-$A20,d1
 		move.w	#-$80,d2
@@ -106,7 +106,7 @@ loc_18E00:
 		move.w	d1,obVelY(a0)
 		move.w	d2,obVelX(a0)
 		move.w	obX(a0),d0
-		sub.w	$30(a0),d0
+		sub.w	objoff_30(a0),d0
 		bcc.s	loc_18E16
 		neg.w	obVelX(a0)
 
@@ -123,17 +123,17 @@ loc_18E2A:
 		move.b	obFrame(a1),d0
 		move.w	#$28,d2
 		move.w	obX(a0),d1
-		sub.w	$30(a0),d1
+		sub.w	objoff_30(a0),d1
 		bcc.s	loc_18E48
 		neg.w	d2
 		addq.w	#2,d0
 
 loc_18E48:
 		add.w	d0,d0
-		move.w	$34(a0),d1
+		move.w	objoff_34(a0),d1
 		add.w	(a2,d0.w),d1
 		move.w	d1,obY(a0)
-		add.w	$30(a0),d2
+		add.w	objoff_30(a0),d2
 		move.w	d2,obX(a0)
 		clr.w	obY+2(a0)
 		clr.w	obX+2(a0)
@@ -231,7 +231,7 @@ loc_18F38:
 		tst.w	obVelY(a0)
 		bpl.s	loc_18F5C
 		jsr	(ObjectFall).l
-		move.w	$34(a0),d0
+		move.w	objoff_34(a0),d0
 		subi.w	#$2F,d0
 		cmp.w	obY(a0),d0
 		bgt.s	loc_18F58
@@ -243,22 +243,22 @@ loc_18F58:
 
 loc_18F5C:
 		jsr	(ObjectFall).l
-		movea.l	$3C(a0),a1
+		movea.l	objoff_3C(a0),a1
 		lea	(word_19018).l,a2
 		moveq	#0,d0
 		move.b	obFrame(a1),d0
 		move.w	obX(a0),d1
-		sub.w	$30(a0),d1
+		sub.w	objoff_30(a0),d1
 		bcc.s	loc_18F7E
 		addq.w	#2,d0
 
 loc_18F7E:
 		add.w	d0,d0
-		move.w	$34(a0),d1
+		move.w	objoff_34(a0),d1
 		add.w	(a2,d0.w),d1
 		cmp.w	obY(a0),d1
 		bgt.s	loc_18F58
-		movea.l	$3C(a0),a1
+		movea.l	objoff_3C(a0),a1
 		moveq	#2,d1
 		tst.w	obVelX(a0)
 		bmi.s	loc_18F9C
@@ -268,8 +268,8 @@ loc_18F9C:
 		move.w	#0,obSubtype(a0)
 
 loc_18FA2:
-		move.b	d1,$3A(a1)
-		move.b	d1,$3A(a0)
+		move.b	d1,objoff_3A(a1)
+		move.b	d1,objoff_3A(a0)
 		cmp.b	obFrame(a1),d1
 		beq.s	loc_19008
 		bclr	#3,obStatus(a1)
@@ -286,7 +286,7 @@ loc_18FA2:
 loc_18FDC:
 		bset	#1,obStatus(a2)
 		bclr	#3,obStatus(a2)
-		clr.b	$3C(a2)
+		clr.b	objoff_3C(a2)
 		move.l	a0,-(sp)
 		lea	(a2),a0
 		jsr	(Sonic_ChkRoll).l
@@ -322,7 +322,7 @@ Obj7B_Explode:	; Routine 8
 ; ===========================================================================
 
 Obj7B_MakeFrag:
-		move.w	$34(a0),obY(a0)
+		move.w	objoff_34(a0),obY(a0)
 		moveq	#3,d1
 		lea	Obj7B_FragSpeed(pc),a2
 
@@ -356,8 +356,8 @@ Obj7B_FragSpeed:dc.w -$100, -$340	; horizontal, vertical
 
 Obj7B_MoveFrag:	; Routine $A
 		jsr	(SpeedToPos).l
-		move.w	obX(a0),$30(a0)
-		move.w	obY(a0),$34(a0)
+		move.w	obX(a0),objoff_30(a0)
+		move.w	obY(a0),objoff_34(a0)
 		addi.w	#$18,obVelY(a0)
 		moveq	#4,d0
 		and.w	(v_vbla_word).w,d0

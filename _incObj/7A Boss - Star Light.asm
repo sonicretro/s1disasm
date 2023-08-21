@@ -23,8 +23,8 @@ Obj7A_ObjData:	dc.b 2,	0, 4		; routine number, animation, priority
 Obj7A_Main:
 		move.w	#boss_slz_x+$188,obX(a0)
 		move.w	#boss_slz_y+$18,obY(a0)
-		move.w	obX(a0),$30(a0)
-		move.w	obY(a0),$38(a0)
+		move.w	obX(a0),objoff_30(a0)
+		move.w	obY(a0),objoff_38(a0)
 		move.b	#$F,obColType(a0)
 		move.b	#8,obColProp(a0) ; set number of hits to 8
 		lea	Obj7A_ObjData(pc),a2
@@ -50,12 +50,12 @@ Obj7A_LoadBoss:
 		move.w	#$400,obGfx(a1)
 		move.b	#4,obRender(a1)
 		move.b	#$20,obActWid(a1)
-		move.l	a0,$34(a1)
+		move.l	a0,objoff_34(a1)
 		dbf	d1,Obj7A_Loop	; repeat sequence 3 more times
 
 loc_1895C:
 		lea	(v_objspace+$40).w,a1
-		lea	$2A(a0),a2
+		lea	objoff_2A(a0),a2
 		moveq	#$5E,d0
 		moveq	#$3E,d1
 
@@ -93,26 +93,26 @@ Obj7A_ShipIndex:dc.w loc_189B8-Obj7A_ShipIndex
 
 loc_189B8:
 		move.w	#-$100,obVelX(a0)
-		cmpi.w	#boss_slz_x+$120,$30(a0)
+		cmpi.w	#boss_slz_x+$120,objoff_30(a0)
 		bcc.s	loc_189CA
 		addq.b	#2,ob2ndRout(a0)
 
 loc_189CA:
 		bsr.w	BossMove
-		move.b	$3F(a0),d0
-		addq.b	#2,$3F(a0)
+		move.b	objoff_3F(a0),d0
+		addq.b	#2,objoff_3F(a0)
 		jsr	(CalcSine).l
 		asr.w	#6,d0
-		add.w	$38(a0),d0
+		add.w	objoff_38(a0),d0
 		move.w	d0,obY(a0)
-		move.w	$30(a0),obX(a0)
+		move.w	objoff_30(a0),obX(a0)
 		bra.s	loc_189FE
 ; ===========================================================================
 
 loc_189EE:
 		bsr.w	BossMove
-		move.w	$38(a0),obY(a0)
-		move.w	$30(a0),obX(a0)
+		move.w	objoff_38(a0),obY(a0)
+		move.w	objoff_30(a0),obX(a0)
 
 loc_189FE:
 		cmpi.b	#6,ob2ndRout(a0)
@@ -121,9 +121,9 @@ loc_189FE:
 		bmi.s	loc_18A46
 		tst.b	obColType(a0)
 		bne.s	locret_18A44
-		tst.b	$3E(a0)
+		tst.b	objoff_3E(a0)
 		bne.s	loc_18A28
-		move.b	#$20,$3E(a0)
+		move.b	#$20,objoff_3E(a0)
 		move.w	#sfx_HitBoss,d0
 		jsr	(PlaySound_Special).l	; play boss damage sound
 
@@ -136,7 +136,7 @@ loc_18A28:
 
 loc_18A36:
 		move.w	d0,(a1)
-		subq.b	#1,$3E(a0)
+		subq.b	#1,objoff_3E(a0)
 		bne.s	locret_18A44
 		move.b	#$F,obColType(a0)
 
@@ -148,13 +148,13 @@ loc_18A46:
 		moveq	#100,d0
 		bsr.w	AddPoints
 		move.b	#6,ob2ndRout(a0)
-		move.b	#$78,$3C(a0)
+		move.b	#$78,objoff_3C(a0)
 		clr.w	obVelX(a0)
 		rts	
 ; ===========================================================================
 
 loc_18A5E:
-		move.w	$30(a0),d0
+		move.w	objoff_30(a0),d0
 		move.w	#$200,obVelX(a0)
 		btst	#0,obStatus(a0)
 		bne.s	loc_18A7C
@@ -175,7 +175,7 @@ loc_18A88:
 		move.w	8(a0),d0
 		moveq	#-1,d1
 		moveq	#2,d2
-		lea	$2A(a0),a2
+		lea	objoff_2A(a0),a2
 		moveq	#$28,d4
 		tst.w	obVelX(a0)
 		bpl.s	loc_18A9E
@@ -201,12 +201,12 @@ loc_18AB4:
 loc_18AC0:
 		move.b	d2,obSubtype(a0)
 		addq.b	#2,ob2ndRout(a0)
-		move.b	#$28,$3C(a0)
+		move.b	#$28,objoff_3C(a0)
 		bra.w	loc_189CA
 ; ===========================================================================
 
 Obj7A_MakeBall:
-		cmpi.b	#$28,$3C(a0)
+		cmpi.b	#$28,objoff_3C(a0)
 		bne.s	loc_18B36
 		moveq	#-1,d0
 		move.b	obSubtype(a0),d0
@@ -215,14 +215,14 @@ Obj7A_MakeBall:
 		subq.w	#2,d0
 		neg.w	d0
 		add.w	d0,d0
-		lea	$2A(a0),a1
+		lea	objoff_2A(a0),a1
 		move.w	(a1,d0.w),d0
 		movea.l	d0,a2
 		lea	(v_objspace+$40).w,a1
 		moveq	#$3E,d1
 
 loc_18AFA:
-		cmp.l	$3C(a1),d0
+		cmp.l	objoff_3C(a1),d0
 		beq.s	loc_18B40
 		adda.w	#$40,a1
 		dbf	d1,loc_18AFA
@@ -237,10 +237,10 @@ loc_18AFA:
 		move.w	obY(a0),obY(a1)
 		addi.w	#$20,obY(a1)
 		move.b	obStatus(a2),obStatus(a1)
-		move.l	a2,$3C(a1)
+		move.l	a2,objoff_3C(a1)
 
 loc_18B36:
-		subq.b	#1,$3C(a0)
+		subq.b	#1,objoff_3C(a0)
 		beq.s	loc_18B40
 		bra.w	loc_189FE
 ; ===========================================================================
@@ -251,7 +251,7 @@ loc_18B40:
 ; ===========================================================================
 
 loc_18B48:
-		subq.b	#1,$3C(a0)
+		subq.b	#1,objoff_3C(a0)
 		bmi.s	loc_18B52
 		bra.w	BossDefeated
 ; ===========================================================================
@@ -262,7 +262,7 @@ loc_18B52:
 		bset	#0,obStatus(a0)
 		bclr	#7,obStatus(a0)
 		clr.w	obVelX(a0)
-		move.b	#-$18,$3C(a0)
+		move.b	#-$18,objoff_3C(a0)
 		tst.b	(v_bossstatus).w
 		bne.s	loc_18B7C
 		move.b	#1,(v_bossstatus).w
@@ -272,7 +272,7 @@ loc_18B7C:
 ; ===========================================================================
 
 loc_18B80:
-		addq.b	#1,$3C(a0)
+		addq.b	#1,objoff_3C(a0)
 		beq.s	loc_18B90
 		bpl.s	loc_18B96
 		addi.w	#$18,obVelY(a0)
@@ -285,10 +285,10 @@ loc_18B90:
 ; ===========================================================================
 
 loc_18B96:
-		cmpi.b	#$20,$3C(a0)
+		cmpi.b	#$20,objoff_3C(a0)
 		bcs.s	loc_18BAE
 		beq.s	loc_18BB4
-		cmpi.b	#$2A,$3C(a0)
+		cmpi.b	#$2A,objoff_3C(a0)
 		bcs.s	loc_18BC2
 		addq.b	#2,ob2ndRout(a0)
 		bra.s	loc_18BC2
@@ -329,7 +329,7 @@ loc_18BE8:
 Obj7A_FaceMain:	; Routine 4
 		moveq	#0,d0
 		moveq	#1,d1
-		movea.l	$34(a0),a1
+		movea.l	objoff_34(a0),a1
 		move.b	ob2ndRout(a1),d0
 		cmpi.b	#6,d0
 		bmi.s	loc_18C06
@@ -363,7 +363,7 @@ loc_18C32:
 
 Obj7A_FlameMain:; Routine 6
 		move.b	#8,obAnim(a0)
-		movea.l	$34(a0),a1
+		movea.l	objoff_34(a0),a1
 		cmpi.b	#$A,ob2ndRout(a1)
 		bne.s	loc_18C56
 		tst.b	obRender(a0)
@@ -384,7 +384,7 @@ loc_18C6C:
 		jsr	(AnimateSprite).l
 
 loc_18C78:
-		movea.l	$34(a0),a1
+		movea.l	objoff_34(a0),a1
 		move.w	obX(a1),obX(a0)
 		move.w	obY(a1),obY(a0)
 		move.b	obStatus(a1),obStatus(a0)
@@ -396,7 +396,7 @@ loc_18C78:
 ; ===========================================================================
 
 Obj7A_TubeMain:	; Routine 8
-		movea.l	$34(a0),a1
+		movea.l	objoff_34(a0),a1
 		cmpi.b	#$A,ob2ndRout(a1)
 		bne.s	loc_18CB8
 		tst.b	obRender(a0)

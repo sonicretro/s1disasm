@@ -65,7 +65,7 @@ LBlk_Action:	; Routine 2
 		move.w	d2,d3
 		addq.w	#1,d3
 		bsr.w	SolidObject
-		move.b	d4,$3F(a0)
+		move.b	d4,objoff_3F(a0)
 		bsr.w	loc_12180
 
 .chkdel:
@@ -133,7 +133,7 @@ LBlk_Action:	; Routine 2
 ; ===========================================================================
 
 .type05:
-		cmpi.b	#1,$3F(a0)	; is Sonic touching the	block?
+		cmpi.b	#1,objoff_3F(a0)	; is Sonic touching the	block?
 		bne.s	.notouch05	; if not, branch
 		addq.b	#1,obSubtype(a0) ; goto .type06
 		clr.b	lblk_untouched(a0)
@@ -184,19 +184,19 @@ loc_12180:
 		beq.s	locret_121C0	; if yes, branch
 		btst	#3,obStatus(a0)	; is Sonic standing on it now?
 		bne.s	loc_1219A	; if yes, branch
-		tst.b	$3E(a0)
+		tst.b	objoff_3E(a0)
 		beq.s	locret_121C0
-		subq.b	#4,$3E(a0)
+		subq.b	#4,objoff_3E(a0)
 		bra.s	loc_121A6
 ; ===========================================================================
 
 loc_1219A:
-		cmpi.b	#$40,$3E(a0)
+		cmpi.b	#$40,objoff_3E(a0)
 		beq.s	locret_121C0
-		addq.b	#4,$3E(a0)
+		addq.b	#4,objoff_3E(a0)
 
 loc_121A6:
-		move.b	$3E(a0),d0
+		move.b	objoff_3E(a0),d0
 		jsr	(CalcSine).l
 		move.w	#$400,d1
 		muls.w	d1,d0

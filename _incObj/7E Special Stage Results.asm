@@ -47,7 +47,7 @@ SSR_Loop:
 		move.l	#Map_SSR,obMap(a1)
 		move.w	#$8580,obGfx(a1)
 		move.b	#0,obRender(a1)
-		lea	$40(a1),a1
+		lea	object_size(a1),a1
 		dbf	d1,SSR_Loop	; repeat sequence 3 or 4 times
 
 		moveq	#7,d0

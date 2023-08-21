@@ -46,7 +46,7 @@ Spin_Main:	; Routine 0
 		addi.w	#$10,d1
 		lsl.w	#2,d1
 		subq.w	#1,d1
-		move.w	d1,$36(a0)
+		move.w	d1,objoff_36(a0)
 		bra.s	Spin_Spinner
 ; ===========================================================================
 
@@ -89,17 +89,17 @@ Spin_Trapdoor:	; Routine 2
 
 Spin_Spinner:	; Routine 4
 		move.w	(v_framecount).w,d0
-		and.w	$36(a0),d0
+		and.w	objoff_36(a0),d0
 		bne.s	.delay
-		move.b	#1,$34(a0)
+		move.b	#1,objoff_34(a0)
 
 .delay:
-		tst.b	$34(a0)
+		tst.b	objoff_34(a0)
 		beq.s	.animate
 		subq.w	#1,spin_timer(a0)
 		bpl.s	.animate
 		move.w	spin_timelen(a0),spin_timer(a0)
-		clr.b	$34(a0)
+		clr.b	objoff_34(a0)
 		bchg	#0,obAnim(a0)
 
 .animate:

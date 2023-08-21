@@ -23,8 +23,8 @@ Obj75_ObjData:	dc.b 2,	0, 5		; routine number, animation, priority
 Obj75_Main:	; Routine 0
 		move.w	#boss_syz_x+$1B0,obX(a0)
 		move.w	#boss_syz_y+$E,obY(a0)
-		move.w	obX(a0),$30(a0)
-		move.w	obY(a0),$38(a0)
+		move.w	obX(a0),objoff_30(a0)
+		move.w	obY(a0),objoff_38(a0)
 		move.b	#$F,obColType(a0)
 		move.b	#8,obColProp(a0) ; set number of hits to 8
 		lea	Obj75_ObjData(pc),a2
@@ -50,7 +50,7 @@ Obj75_LoadBoss:
 		move.w	#$400,obGfx(a1)
 		move.b	#4,obRender(a1)
 		move.b	#$20,obActWid(a1)
-		move.l	a0,$34(a1)
+		move.l	a0,objoff_34(a1)
 		dbf	d1,Obj75_Loop	; repeat sequence 3 more times
 
 Obj75_ShipMain:	; Routine 2
@@ -73,36 +73,36 @@ Obj75_ShipIndex:dc.w loc_191CC-Obj75_ShipIndex,	loc_19270-Obj75_ShipIndex
 
 loc_191CC:
 		move.w	#-$100,obVelX(a0)
-		cmpi.w	#boss_syz_x+$138,$30(a0)
+		cmpi.w	#boss_syz_x+$138,objoff_30(a0)
 		bcc.s	loc_191DE
 		addq.b	#2,ob2ndRout(a0)
 
 loc_191DE:
-		move.b	$3F(a0),d0
-		addq.b	#2,$3F(a0)
+		move.b	objoff_3F(a0),d0
+		addq.b	#2,objoff_3F(a0)
 		jsr	(CalcSine).l
 		asr.w	#2,d0
 		move.w	d0,obVelY(a0)
 
 loc_191F2:
 		bsr.w	BossMove
-		move.w	$38(a0),obY(a0)
-		move.w	$30(a0),obX(a0)
+		move.w	objoff_38(a0),obY(a0)
+		move.w	objoff_30(a0),obX(a0)
 
 loc_19202:
 		move.w	obX(a0),d0
 		subi.w	#boss_syz_x,d0
 		lsr.w	#5,d0
-		move.b	d0,$34(a0)
+		move.b	d0,objoff_34(a0)
 		cmpi.b	#6,ob2ndRout(a0)
 		bcc.s	locret_19256
 		tst.b	obStatus(a0)
 		bmi.s	loc_19258
 		tst.b	obColType(a0)
 		bne.s	locret_19256
-		tst.b	$3E(a0)
+		tst.b	objoff_3E(a0)
 		bne.s	loc_1923A
-		move.b	#$20,$3E(a0)
+		move.b	#$20,objoff_3E(a0)
 		move.w	#sfx_HitBoss,d0
 		jsr	(PlaySound_Special).l	; play boss damage sound
 
@@ -115,7 +115,7 @@ loc_1923A:
 
 loc_19248:
 		move.w	d0,(a1)
-		subq.b	#1,$3E(a0)
+		subq.b	#1,objoff_3E(a0)
 		bne.s	locret_19256
 		move.b	#$F,obColType(a0)
 
@@ -127,13 +127,13 @@ loc_19258:
 		moveq	#100,d0
 		bsr.w	AddPoints
 		move.b	#6,ob2ndRout(a0)
-		move.w	#$B4,$3C(a0)
+		move.w	#$B4,objoff_3C(a0)
 		clr.w	obVelX(a0)
 		rts	
 ; ===========================================================================
 
 loc_19270:
-		move.w	$30(a0),d0
+		move.w	objoff_30(a0),d0
 		move.w	#$140,obVelX(a0)
 		btst	#0,obStatus(a0)
 		bne.s	loc_1928E
@@ -166,13 +166,13 @@ loc_192AE:
 		move.w	(v_player+obX).w,d1
 		subi.w	#boss_syz_x,d1
 		asr.w	#5,d1
-		cmp.b	$34(a0),d1
+		cmp.b	objoff_34(a0),d1
 		bne.s	loc_192E8
 		moveq	#0,d0
-		move.b	$34(a0),d0
+		move.b	objoff_34(a0),d0
 		asl.w	#5,d0
 		addi.w	#boss_syz_x+$10,d0
-		move.w	d0,$30(a0)
+		move.w	d0,objoff_30(a0)
 		bsr.w	Obj75_FindBlocks
 		addq.b	#2,ob2ndRout(a0)
 		clr.w	obSubtype(a0)
@@ -196,19 +196,19 @@ off_192FA:	dc.w loc_19302-off_192FA
 
 loc_19302:
 		move.w	#$180,obVelY(a0)
-		move.w	$38(a0),d0
+		move.w	objoff_38(a0),d0
 		cmpi.w	#boss_syz_y+$8A,d0
 		bcs.s	loc_19344
-		move.w	#boss_syz_y+$8A,$38(a0)
-		clr.w	$3C(a0)
+		move.w	#boss_syz_y+$8A,objoff_38(a0)
+		clr.w	objoff_3C(a0)
 		moveq	#-1,d0
-		move.w	$36(a0),d0
+		move.w	objoff_36(a0),d0
 		beq.s	loc_1933C
 		movea.l	d0,a1
-		move.b	#-1,$29(a1)
-		move.b	#-1,$29(a0)
-		move.l	a0,$34(a1)
-		move.w	#$32,$3C(a0)
+		move.b	#-1,objoff_29(a1)
+		move.b	#-1,objoff_29(a0)
+		move.l	a0,objoff_34(a1)
+		move.w	#$32,objoff_3C(a0)
 
 loc_1933C:
 		clr.w	obVelY(a0)
@@ -219,11 +219,11 @@ loc_19344:
 ; ===========================================================================
 
 loc_19348:
-		subq.w	#1,$3C(a0)
+		subq.w	#1,objoff_3C(a0)
 		bpl.s	loc_19366
 		addq.b	#2,obSubtype(a0)
 		move.w	#-$800,obVelY(a0)
-		tst.w	$36(a0)
+		tst.w	objoff_36(a0)
 		bne.s	loc_19362
 		asr	obVelY(a0)
 
@@ -234,7 +234,7 @@ loc_19362:
 
 loc_19366:
 		moveq	#0,d0
-		cmpi.w	#$1E,$3C(a0)
+		cmpi.w	#$1E,objoff_3C(a0)
 		bgt.s	loc_1937C
 		moveq	#2,d0
 		btst	#1,standonobject(a0)
@@ -242,25 +242,25 @@ loc_19366:
 		neg.w	d0
 
 loc_1937C:
-		add.w	$38(a0),d0
+		add.w	objoff_38(a0),d0
 		move.w	d0,obY(a0)
-		move.w	$30(a0),obX(a0)
+		move.w	objoff_30(a0),obX(a0)
 		bra.w	loc_19202
 ; ===========================================================================
 
 loc_1938E:
 		move.w	#boss_syz_y+$E,d0
-		tst.w	$36(a0)
+		tst.w	objoff_36(a0)
 		beq.s	loc_1939C
 		subi.w	#$18,d0
 
 loc_1939C:
-		cmp.w	$38(a0),d0
+		cmp.w	objoff_38(a0),d0
 		blt.s	loc_193BE
-		move.w	#8,$3C(a0)
-		tst.w	$36(a0)
+		move.w	#8,objoff_3C(a0)
+		tst.w	objoff_36(a0)
 		beq.s	loc_193B4
-		move.w	#$2D,$3C(a0)
+		move.w	#$2D,objoff_3C(a0)
 
 loc_193B4:
 		addq.b	#2,obSubtype(a0)
@@ -278,24 +278,24 @@ loc_193CC:
 ; ===========================================================================
 
 loc_193D0:
-		subq.w	#1,$3C(a0)
+		subq.w	#1,objoff_3C(a0)
 		bgt.s	loc_19406
 		bmi.s	loc_193EE
 		moveq	#-1,d0
-		move.w	$36(a0),d0
+		move.w	objoff_36(a0),d0
 		beq.s	loc_193E8
 		movea.l	d0,a1
-		move.b	#$A,$29(a1)
+		move.b	#$A,objoff_29(a1)
 
 loc_193E8:
-		clr.w	$36(a0)
+		clr.w	objoff_36(a0)
 		bra.s	loc_19406
 ; ===========================================================================
 
 loc_193EE:
-		cmpi.w	#-$1E,$3C(a0)
+		cmpi.w	#-$1E,objoff_3C(a0)
 		bne.s	loc_19406
-		clr.b	$29(a0)
+		clr.b	objoff_29(a0)
 		subq.b	#2,ob2ndRout(a0)
 		move.b	#-1,standonobject(a0)
 		bra.s	loc_19446
@@ -303,23 +303,23 @@ loc_193EE:
 
 loc_19406:
 		moveq	#1,d0
-		tst.w	$36(a0)
+		tst.w	objoff_36(a0)
 		beq.s	loc_19410
 		moveq	#2,d0
 
 loc_19410:
-		cmpi.w	#boss_syz_y+$E,$38(a0)
+		cmpi.w	#boss_syz_y+$E,objoff_38(a0)
 		beq.s	loc_19424
 		blt.s	loc_1941C
 		neg.w	d0
 
 loc_1941C:
-		tst.w	$36(a0)
-		add.w	d0,$38(a0)
+		tst.w	objoff_36(a0)
+		add.w	d0,objoff_38(a0)
 
 loc_19424:
 		moveq	#0,d0
-		tst.w	$36(a0)
+		tst.w	objoff_36(a0)
 		beq.s	loc_19438
 		moveq	#2,d0
 		btst	#0,standonobject(a0)
@@ -327,9 +327,9 @@ loc_19424:
 		neg.w	d0
 
 loc_19438:
-		add.w	$38(a0),d0
+		add.w	objoff_38(a0),d0
 		move.w	d0,obY(a0)
-		move.w	$30(a0),8(a0)
+		move.w	objoff_30(a0),8(a0)
 
 loc_19446:
 		bra.w	loc_19202
@@ -338,23 +338,23 @@ loc_19446:
 
 
 Obj75_FindBlocks:
-		clr.w	$36(a0)
+		clr.w	objoff_36(a0)
 		lea	(v_objspace+$40).w,a1
 		moveq	#$3E,d0
 		moveq	#$76,d1
-		move.b	$34(a0),d2
+		move.b	objoff_34(a0),d2
 
 Obj75_FindLoop:
 		cmp.b	(a1),d1		; is object a SYZ boss block?
 		bne.s	loc_1946A	; if not, branch
 		cmp.b	obSubtype(a1),d2
 		bne.s	loc_1946A
-		move.w	a1,$36(a0)
+		move.w	a1,objoff_36(a0)
 		bra.s	locret_19472
 ; ===========================================================================
 
 loc_1946A:
-		lea	$40(a1),a1	; next object RAM entry
+		lea	object_size(a1),a1	; next object RAM entry
 		dbf	d0,Obj75_FindLoop
 
 locret_19472:
@@ -364,7 +364,7 @@ locret_19472:
 ; ===========================================================================
 
 loc_19474:
-		subq.w	#1,$3C(a0)
+		subq.w	#1,objoff_3C(a0)
 		bmi.s	loc_1947E
 		bra.w	BossDefeated
 ; ===========================================================================
@@ -375,7 +375,7 @@ loc_1947E:
 		bset	#0,obStatus(a0)
 		bclr	#7,obStatus(a0)
 		clr.w	obVelX(a0)
-		move.w	#-1,$3C(a0)
+		move.w	#-1,objoff_3C(a0)
 		tst.b	(v_bossstatus).w
 		bne.s	loc_194A8
 		move.b	#1,(v_bossstatus).w
@@ -385,7 +385,7 @@ loc_194A8:
 ; ===========================================================================
 
 loc_194AC:
-		addq.w	#1,$3C(a0)
+		addq.w	#1,objoff_3C(a0)
 		beq.s	loc_194BC
 		bpl.s	loc_194C2
 		addi.w	#$18,obVelY(a0)
@@ -398,10 +398,10 @@ loc_194BC:
 ; ===========================================================================
 
 loc_194C2:
-		cmpi.w	#$20,$3C(a0)
+		cmpi.w	#$20,objoff_3C(a0)
 		bcs.s	loc_194DA
 		beq.s	loc_194E0
-		cmpi.w	#$2A,$3C(a0)
+		cmpi.w	#$2A,objoff_3C(a0)
 		bcs.s	loc_194EE
 		addq.b	#2,ob2ndRout(a0)
 		bra.s	loc_194EE
@@ -445,7 +445,7 @@ Obj75_ShipDelete:
 
 Obj75_FaceMain:	; Routine 4
 		moveq	#1,d1
-		movea.l	$34(a0),a1
+		movea.l	objoff_34(a0),a1
 		moveq	#0,d0
 		move.b	ob2ndRout(a1),d0
 		move.w	off_19546(pc,d0.w),d0
@@ -510,7 +510,7 @@ locret_19588:
 
 Obj75_FlameMain:; Routine 6
 		move.b	#7,obAnim(a0)
-		movea.l	$34(a0),a1
+		movea.l	objoff_34(a0),a1
 		cmpi.b	#$A,ob2ndRout(a1)
 		bne.s	loc_195AA
 		move.b	#$B,obAnim(a0)
@@ -535,7 +535,7 @@ Obj75_FlameDelete:
 loc_195BE:
 		lea	(Ani_Eggman).l,a1
 		jsr	(AnimateSprite).l
-		movea.l	$34(a0),a1
+		movea.l	objoff_34(a0),a1
 		move.w	obX(a1),obX(a0)
 		move.w	obY(a1),obY(a0)
 
@@ -552,7 +552,7 @@ Obj75_SpikeMain:; Routine 8
 		move.l	#Map_BossItems,obMap(a0)
 		move.w	#$246C,obGfx(a0)
 		move.b	#5,obFrame(a0)
-		movea.l	$34(a0),a1
+		movea.l	objoff_34(a0),a1
 		cmpi.b	#$A,ob2ndRout(a1)
 		bne.s	loc_1961C
 		tst.b	obRender(a0)
@@ -561,7 +561,7 @@ Obj75_SpikeMain:; Routine 8
 loc_1961C:
 		move.w	obX(a1),obX(a0)
 		move.w	obY(a1),obY(a0)
-		move.w	$3C(a0),d0
+		move.w	objoff_3C(a0),d0
 		cmpi.b	#4,ob2ndRout(a1)
 		bne.s	loc_19652
 		cmpi.b	#6,obSubtype(a1)
@@ -575,7 +575,7 @@ loc_1961C:
 ; ===========================================================================
 
 loc_1964C:
-		tst.w	$3C(a1)
+		tst.w	objoff_3C(a1)
 		bpl.s	loc_19658
 
 loc_19652:
@@ -584,16 +584,16 @@ loc_19652:
 		subq.w	#5,d0
 
 loc_19658:
-		move.w	d0,$3C(a0)
+		move.w	d0,objoff_3C(a0)
 		asr.w	#2,d0
 		add.w	d0,obY(a0)
 		move.b	#8,obActWid(a0)
 		move.b	#$C,obHeight(a0)
 		clr.b	obColType(a0)
-		movea.l	$34(a0),a1
+		movea.l	objoff_34(a0),a1
 		tst.b	obColType(a1)
 		beq.s	loc_19688
-		tst.b	$29(a1)
+		tst.b	objoff_29(a1)
 		bne.s	loc_19688
 		move.b	#$84,obColType(a0)
 

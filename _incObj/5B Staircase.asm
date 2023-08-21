@@ -55,7 +55,7 @@ Stair_Main:	; Routine 0
 		move.w	obX(a0),stair_origX(a1)
 		move.w	obY(a1),stair_origY(a1)
 		addi.w	#$20,d2
-		move.b	d3,$37(a1)
+		move.b	d3,objoff_37(a1)
 		move.l	a0,stair_parent(a1)
 		add.b	d4,d3
 		dbf	d1,.loop	; repeat sequence 3 times
@@ -73,7 +73,7 @@ Stair_Move:	; Routine 2
 Stair_Solid:	; Routine 4
 		movea.l	stair_parent(a0),a2
 		moveq	#0,d0
-		move.b	$37(a0),d0
+		move.b	objoff_37(a0),d0
 		move.b	(a2,d0.w),d0
 		add.w	stair_origY(a0),d0
 		move.w	d0,obY(a0)
@@ -86,12 +86,12 @@ Stair_Solid:	; Routine 4
 		bsr.w	SolidObject
 		tst.b	d4
 		bpl.s	loc_10F92
-		move.b	d4,$36(a2)
+		move.b	d4,objoff_36(a2)
 
 loc_10F92:
 		btst	#3,obStatus(a0)
 		beq.s	locret_10FA0
-		move.b	#1,$36(a2)
+		move.b	#1,objoff_36(a2)
 
 locret_10FA0:
 		rts	
@@ -103,44 +103,44 @@ Stair_TypeIndex:dc.w Stair_Type00-Stair_TypeIndex
 ; ===========================================================================
 
 Stair_Type00:
-		tst.w	$34(a0)
+		tst.w	objoff_34(a0)
 		bne.s	loc_10FC0
-		cmpi.b	#1,$36(a0)
+		cmpi.b	#1,objoff_36(a0)
 		bne.s	locret_10FBE
-		move.w	#$1E,$34(a0)
+		move.w	#$1E,objoff_34(a0)
 
 locret_10FBE:
 		rts	
 ; ===========================================================================
 
 loc_10FC0:
-		subq.w	#1,$34(a0)
+		subq.w	#1,objoff_34(a0)
 		bne.s	locret_10FBE
 		addq.b	#1,obSubtype(a0) ; add 1 to type
 		rts	
 ; ===========================================================================
 
 Stair_Type02:
-		tst.w	$34(a0)
+		tst.w	objoff_34(a0)
 		bne.s	loc_10FE0
-		tst.b	$36(a0)
+		tst.b	objoff_36(a0)
 		bpl.s	locret_10FDE
-		move.w	#$3C,$34(a0)
+		move.w	#$3C,objoff_34(a0)
 
 locret_10FDE:
 		rts	
 ; ===========================================================================
 
 loc_10FE0:
-		subq.w	#1,$34(a0)
+		subq.w	#1,objoff_34(a0)
 		bne.s	loc_10FEC
 		addq.b	#1,obSubtype(a0) ; add 1 to type
 		rts	
 ; ===========================================================================
 
 loc_10FEC:
-		lea	$38(a0),a1
-		move.w	$34(a0),d0
+		lea	objoff_38(a0),a1
+		move.w	objoff_34(a0),d0
 		lsr.b	#2,d0
 		andi.b	#1,d0
 		move.b	d0,(a1)+
@@ -154,7 +154,7 @@ loc_10FEC:
 ; ===========================================================================
 
 Stair_Type01:
-		lea	$38(a0),a1
+		lea	objoff_38(a0),a1
 		cmpi.b	#$80,(a1)
 		beq.s	locret_11038
 		addq.b	#1,(a1)

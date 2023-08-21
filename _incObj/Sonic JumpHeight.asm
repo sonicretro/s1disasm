@@ -6,7 +6,7 @@
 
 
 Sonic_JumpHeight:
-		tst.b	$3C(a0)
+		tst.b	objoff_3C(a0)
 		beq.s	loc_134C4
 		move.w	#-$400,d1
 		btst	#6,obStatus(a0)

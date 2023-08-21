@@ -43,7 +43,7 @@ Bri_Main:	; Routine 0
 
 		addi.w	#$10,d3
 		move.w	d2,obY(a0)
-		move.w	d2,$3C(a0)
+		move.w	d2,objoff_3C(a0)
 		move.w	a0,d5
 		subi.w	#v_objspace&$FFFF,d5
 		lsr.w	#6,d5
@@ -60,7 +60,7 @@ Bri_Main:	; Routine 0
 		move.b	#$A,obRoutine(a1)
 		_move.b	d4,obID(a1)	; load bridge object (d4 = $11)
 		move.w	d2,obY(a1)
-		move.w	d2,$3C(a1)
+		move.w	d2,objoff_3C(a1)
 		move.w	d3,obX(a1)
 		move.l	#Map_Bri,obMap(a1)
 		move.w	#$438E,obGfx(a1)
@@ -72,9 +72,9 @@ Bri_Main:	; Routine 0
 
 Bri_Action:	; Routine 2
 		bsr.s	Bri_Solid
-		tst.b	$3E(a0)
+		tst.b	objoff_3E(a0)
 		beq.s	.display
-		subq.b	#4,$3E(a0)
+		subq.b	#4,objoff_3E(a0)
 		bsr.w	Bri_Bend
 
 .display:

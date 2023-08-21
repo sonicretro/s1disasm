@@ -37,7 +37,7 @@ LGrass_Main:	; Routine 0
 		lea	LGrass_Data(pc,d0.w),a1
 		move.w	(a1)+,d0
 		lea	LGrass_Data(pc,d0.w),a2
-		move.l	a2,$30(a0)
+		move.l	a2,objoff_30(a0)
 		move.b	(a1)+,obFrame(a0)
 		move.b	(a1),obActWid(a0)
 		andi.b	#$F,obSubtype(a0)
@@ -62,7 +62,7 @@ LGrass_Slope:
 		moveq	#0,d1
 		move.b	obActWid(a0),d1
 		addi.w	#$B,d1
-		movea.l	$30(a0),a2
+		movea.l	objoff_30(a0),a2
 		move.w	obX(a0),d2
 		bsr.w	SlopeObject2
 		bra.s	LGrass_Display
@@ -78,7 +78,7 @@ LGrass_Solid:
 		move.w	#$30,d2
 
 loc_AF8E:
-		movea.l	$30(a0),a2
+		movea.l	objoff_30(a0),a2
 		bsr.w	SolidObject2F
 
 LGrass_Display:
@@ -146,7 +146,7 @@ loc_AFF2:
 ; ===========================================================================
 
 LGrass_Type05:
-		move.b	$34(a0),d0
+		move.b	objoff_34(a0),d0
 		tst.b	obSolid(a0)
 		bne.s	loc_B010
 		subq.b	#2,d0
@@ -162,17 +162,17 @@ loc_B010:
 		move.b	#$40,d0
 
 loc_B01C:
-		move.b	d0,$34(a0)
+		move.b	d0,objoff_34(a0)
 		jsr	(CalcSine).l
 		lsr.w	#4,d0
 		move.w	d0,d1
 		add.w	lgrass_origY(a0),d0
 		move.w	d0,obY(a0)
-		cmpi.b	#$20,$34(a0)
+		cmpi.b	#$20,objoff_34(a0)
 		bne.s	loc_B07A
-		tst.b	$35(a0)
+		tst.b	objoff_35(a0)
 		bne.s	loc_B07A
-		move.b	#1,$35(a0)
+		move.b	#1,objoff_35(a0)
 		bsr.w	FindNextFreeObj
 		bne.s	loc_B07A
 		_move.b	#id_GrassFire,obID(a1) ; load sitting flame object
@@ -181,14 +181,14 @@ loc_B01C:
 		addq.w	#8,lgrass_origY(a1)
 		subq.w	#3,lgrass_origY(a1)
 		subi.w	#$40,obX(a1)
-		move.l	$30(a0),$30(a1)
-		move.l	a0,$38(a1)
+		move.l	objoff_30(a0),objoff_30(a1)
+		move.l	a0,objoff_38(a1)
 		movea.l	a0,a2
 		bsr.s	sub_B09C
 
 loc_B07A:
 		moveq	#0,d2
-		lea	$36(a0),a2
+		lea	objoff_36(a0),a2
 		move.b	(a2)+,d2
 		subq.b	#1,d2
 		bcs.s	locret_B09A
@@ -199,7 +199,7 @@ loc_B086:
 		lsl.w	#6,d0
 		addi.w	#v_objspace&$FFFF,d0
 		movea.w	d0,a1
-		move.w	d1,$3C(a1)
+		move.w	d1,objoff_3C(a1)
 		dbf	d2,loc_B086
 
 locret_B09A:
@@ -209,7 +209,7 @@ locret_B09A:
 
 
 sub_B09C:
-		lea	$36(a2),a2
+		lea	objoff_36(a2),a2
 		moveq	#0,d0
 		move.b	(a2),d0
 		addq.b	#1,(a2)
@@ -225,7 +225,7 @@ sub_B09C:
 ; ===========================================================================
 
 LGrass_ChkDel:
-		tst.b	$35(a0)
+		tst.b	objoff_35(a0)
 		beq.s	loc_B0C6
 		tst.b	obRender(a0)
 		bpl.s	LGrass_DelFlames
@@ -239,7 +239,7 @@ LGrass_DelFlames:
 		moveq	#0,d2
 
 loc_B0E8:
-		lea	$36(a0),a2
+		lea	objoff_36(a0),a2
 		move.b	(a2),d2
 		clr.b	(a2)+
 		subq.b	#1,d2
@@ -254,8 +254,8 @@ loc_B0F4:
 		movea.w	d0,a1
 		bsr.w	DeleteChild
 		dbf	d2,loc_B0F4
-		move.b	#0,$35(a0)
-		move.b	#0,$34(a0)
+		move.b	#0,objoff_35(a0)
+		move.b	#0,objoff_34(a0)
 
 locret_B116:
 		rts	

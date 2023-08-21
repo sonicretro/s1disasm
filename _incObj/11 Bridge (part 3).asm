@@ -3,8 +3,8 @@
 
 Bri_MoveSonic:
 		moveq	#0,d0
-		move.b	$3F(a0),d0
-		move.b	$29(a0,d0.w),d0
+		move.b	objoff_3F(a0),d0
+		move.b	objoff_29(a0,d0.w),d0
 		lsl.w	#6,d0
 		addi.l	#v_objspace&$FFFFFF,d0
 		movea.l	d0,a2
@@ -23,7 +23,7 @@ Bri_MoveSonic:
 
 
 Bri_Bend:
-		move.b	$3E(a0),d0
+		move.b	objoff_3E(a0),d0
 		bsr.w	CalcSine
 		move.w	d0,d4
 		lea	(Obj11_BendData2).l,a4
@@ -31,7 +31,7 @@ Bri_Bend:
 		move.b	obSubtype(a0),d0
 		lsl.w	#4,d0
 		moveq	#0,d3
-		move.b	$3F(a0),d3
+		move.b	objoff_3F(a0),d3
 		move.w	d3,d2
 		add.w	d0,d3
 		moveq	#0,d5
@@ -40,7 +40,7 @@ Bri_Bend:
 		andi.w	#$F,d3
 		lsl.w	#4,d3
 		lea	(a4,d3.w),a3
-		lea	$29(a0),a2
+		lea	objoff_29(a0),a2
 
 loc_765C:
 		moveq	#0,d0
@@ -54,13 +54,13 @@ loc_765C:
 		mulu.w	d5,d0
 		mulu.w	d4,d0
 		swap	d0
-		add.w	$3C(a1),d0
+		add.w	objoff_3C(a1),d0
 		move.w	d0,obY(a1)
 		dbf	d2,loc_765C
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0
 		moveq	#0,d3
-		move.b	$3F(a0),d3
+		move.b	objoff_3F(a0),d3
 		addq.b	#1,d3
 		sub.b	d0,d3
 		neg.b	d3
@@ -84,7 +84,7 @@ loc_76A4:
 		mulu.w	d5,d0
 		mulu.w	d4,d0
 		swap	d0
-		add.w	$3C(a1),d0
+		add.w	objoff_3C(a1),d0
 		move.w	d0,obY(a1)
 		dbf	d2,loc_76A4
 
