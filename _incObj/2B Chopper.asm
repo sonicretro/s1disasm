@@ -18,7 +18,7 @@ chop_origY = objoff_30
 Chop_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Chop,obMap(a0)
-		move.w	#$47B,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Chopper,0,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#9,obColType(a0)
@@ -48,4 +48,4 @@ Chop_ChgSpeed:	; Routine 2
 		move.b	#2,obAnim(a0)	; use stationary animation
 
 .nochg:
-		rts	
+		rts

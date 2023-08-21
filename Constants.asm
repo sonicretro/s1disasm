@@ -427,3 +427,9 @@ boss_sbz2_y:	equ $510
 boss_fz_x:	equ $2450		; Final Zone
 boss_fz_y:	equ $510
 boss_fz_end:	equ boss_fz_x+$2B0
+
+; Tile VRAM locations
+ArtTile_LevelArt:	equ $0000
+ArtTile_Eggman:		equ $0400
+ArtTile_Crabmeat:	equ $0400
+ArtTile_Chopper:	equ $047B
