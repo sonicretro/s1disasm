@@ -16,7 +16,7 @@ Moto_Index:	dc.w Moto_Main-Moto_Index
 
 Moto_Main:	; Routine 0
 		move.l	#Map_Moto,obMap(a0)
-		move.w	#$4F0,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Moto_Bug,0,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#$14,obActWid(a0)

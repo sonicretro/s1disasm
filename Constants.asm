@@ -430,6 +430,16 @@ boss_fz_end:	equ boss_fz_x+$2B0
 
 ; Tile VRAM locations
 ArtTile_LevelArt:	equ $0000
+ArtTile_Fireball:	equ $0345
+ArtTile_GHZ_Edge_Wall:	equ $034C
+ArtTile_Swing_GHZ_MZ:	equ $0380
+ArtTile_Swing_SBZ:	equ $0391
+ArtTile_Swing_SLZ:	equ $03DC
 ArtTile_Eggman:		equ $0400
 ArtTile_Crabmeat:	equ $0400
+ArtTile_Buzz_Bomber:	equ $0444
+ArtTile_Wrecking_Ball:	equ $03AA
+ArtTile_Eggman_Weapons:	equ $046C
 ArtTile_Chopper:	equ $047B
+ArtTile_Newtron:	equ $049B
+ArtTile_Moto_Bug:	equ $04F0

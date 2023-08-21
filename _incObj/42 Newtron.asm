@@ -16,7 +16,7 @@ Newt_Index:	dc.w Newt_Main-Newt_Index
 Newt_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Newt,obMap(a0)
-		move.w	#$49B,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Newtron,0,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#$14,obActWid(a0)
@@ -55,7 +55,7 @@ Newt_Action:	; Routine 2
 		tst.b	obSubtype(a0)	; check	object type
 		beq.s	.istype00	; if type is 00, branch
 
-		move.w	#$249B,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Newtron,1,0),obGfx(a0)
 		move.b	#8,ob2ndRout(a0) ; goto .type01 next
 		move.b	#4,obAnim(a0)	; use different	animation
 

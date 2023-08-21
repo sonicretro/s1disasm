@@ -22,7 +22,7 @@ Msl_Main:	; Routine 0
 		bpl.s	Msl_ChkCancel
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Missile,obMap(a0)
-		move.w	#$2444,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Buzz_Bomber,1,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#3,obPriority(a0)
 		move.b	#8,obActWid(a0)
@@ -84,14 +84,27 @@ Msl_FromBuzz:	; Routine 4
 		move.b	#$87,obColType(a0)
 		move.b	#1,obAnim(a0)
 		bsr.w	SpeedToPos
+
+	if ~~FixBugs
+		; Object should not call DisplaySprite and DeleteObject on
+		; the same frame, or else cause a null-pointer dereference.
 		lea	(Ani_Missile).l,a1
 		bsr.w	AnimateSprite
 		bsr.w	DisplaySprite
+	endif
+
 		move.w	(v_limitbtm2).w,d0
 		addi.w	#$E0,d0
 		cmp.w	obY(a0),d0	; has object moved below the level boundary?
 		blo.s	Msl_Delete	; if yes, branch
+
+	if FixBugs
+		lea	(Ani_Missile).l,a1
+		bsr.w	AnimateSprite
+		bra.w	DisplaySprite
+	else
 		rts	
+	endif
 ; ===========================================================================
 
 .explode:

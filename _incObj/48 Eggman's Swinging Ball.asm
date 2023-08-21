@@ -20,7 +20,7 @@ GBall_Main:	; Routine 0
 		move.w	#$4080,obAngle(a0)
 		move.w	#-$200,objoff_3E(a0)
 		move.l	#Map_BossItems,obMap(a0)
-		move.w	#$46C,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Eggman_Weapons,0,0),obGfx(a0)
 		lea	obSubtype(a0),a2
 		move.b	#0,(a2)+
 		moveq	#5,d1
@@ -36,7 +36,7 @@ GBall_MakeLinks:
 		_move.b	#id_BossBall,obID(a1) ; load chain link object
 		move.b	#6,obRoutine(a1)
 		move.l	#Map_Swing_GHZ,obMap(a1)
-		move.w	#$380,obGfx(a1)
+		move.w	#make_art_tile(ArtTile_Swing_GHZ_MZ,0,0),obGfx(a1)
 		move.b	#1,obFrame(a1)
 		addq.b	#1,obSubtype(a0)
 
@@ -55,7 +55,7 @@ loc_17B60:
 GBall_MakeBall:
 		move.b	#8,obRoutine(a1)
 		move.l	#Map_GBall,obMap(a1) ; load different mappings for final link
-		move.w	#$43AA,obGfx(a1) ; use different graphics
+		move.w	#make_art_tile(ArtTile_Wrecking_Ball,2,0),obGfx(a1) ; use different graphics
 		move.b	#1,obFrame(a1)
 		move.b	#5,obPriority(a1)
 		move.b	#$81,obColType(a1) ; make object hurt Sonic
@@ -162,7 +162,7 @@ GBall_Vanish:
 		bsr.w	BossDefeated
 		subq.b	#1,objoff_3C(a0)
 		bpl.s	GBall_Display4
-		move.b	#id_ExplosionBomb,(a0)
+		move.b	#id_ExplosionBomb,obID(a0)
 		move.b	#0,obRoutine(a0)
 
 GBall_Display4:
