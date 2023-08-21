@@ -28,6 +28,8 @@ Revision	  = 1
 
 ZoneCount	  = 6	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, and SBZ
 
+FixBugs		  = 0	; change to 1 to enable bugfixes
+
 ; ===========================================================================
 
 StartOfRom:
