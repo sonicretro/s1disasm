@@ -324,7 +324,7 @@ loc_16C0C:
 locj_173E4:
 		endif
 		bchg	#0,obStatus(a0)
-		move.b	obStatus(a0),1(a0)
+		move.b	obStatus(a0),obRender(a0)
 		addq.b	#1,cat_parent(a0)
 		andi.b	#$F,cat_parent(a0)
 		bra.s	loc_16C64

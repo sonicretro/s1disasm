@@ -517,7 +517,7 @@ loc_1A2E4:
 ; ===========================================================================
 
 loc_1A312:
-		tst.b	1(a0)
+		tst.b	obRender(a0)
 		bpl.w	Obj85_Delete
 		bsr.w	BossDefeated
 		move.b	#2,obPriority(a0)

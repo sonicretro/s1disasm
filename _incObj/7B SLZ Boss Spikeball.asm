@@ -53,7 +53,7 @@ Obj7B_Fall:	; Routine 2
 		lea	(word_19018).l,a2
 		moveq	#0,d0
 		move.b	obFrame(a1),d0
-		move.w	8(a0),d1
+		move.w	obX(a0),d1
 		sub.w	objoff_30(a0),d1
 		bcc.s	loc_18D8E
 		addq.w	#2,d0
@@ -363,6 +363,6 @@ Obj7B_MoveFrag:	; Routine $A
 		and.w	(v_vbla_word).w,d0
 		lsr.w	#2,d0
 		move.b	d0,obFrame(a0)
-		tst.b	1(a0)
+		tst.b	obRender(a0)
 		bpl.w	Obj7A_Delete
 		rts	

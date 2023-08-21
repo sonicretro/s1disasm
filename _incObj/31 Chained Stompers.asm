@@ -190,7 +190,7 @@ loc_B872:
 		move.b	(v_vbla_byte).w,d0
 		andi.b	#$F,d0
 		bne.s	loc_B892
-		tst.b	1(a0)
+		tst.b	obRender(a0)
 		bpl.s	loc_B892
 		move.w	#sfx_ChainRise,d0
 		jsr	(PlaySound_Special).l	; play rising chain sound

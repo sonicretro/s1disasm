@@ -172,7 +172,7 @@ loc_18A82:
 		bchg	#0,obStatus(a0)
 
 loc_18A88:
-		move.w	8(a0),d0
+		move.w	obX(a0),d0
 		moveq	#-1,d1
 		moveq	#2,d2
 		lea	objoff_2A(a0),a2
@@ -186,7 +186,7 @@ loc_18A9E:
 		movea.l	d1,a3
 		btst	#3,obStatus(a3)
 		bne.s	loc_18AB4
-		move.w	8(a3),d3
+		move.w	obX(a3),d3
 		add.w	d4,d3
 		sub.w	d0,d3
 		beq.s	loc_18AC0

@@ -368,7 +368,7 @@ Obj77_FlameMain:; Routine 6
 		cmpi.b	#$E,ob2ndRout(a1)
 		bne.s	loc_181F0
 		move.b	#$B,obAnim(a0)
-		tst.b	1(a0)
+		tst.b	obRender(a0)
 		bpl.s	Obj77_FlameDel
 		bra.s	loc_181F0
 ; ===========================================================================

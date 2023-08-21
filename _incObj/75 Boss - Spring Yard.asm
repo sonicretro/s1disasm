@@ -329,7 +329,7 @@ loc_19424:
 loc_19438:
 		add.w	objoff_38(a0),d0
 		move.w	d0,obY(a0)
-		move.w	objoff_30(a0),8(a0)
+		move.w	objoff_30(a0),obX(a0)
 
 loc_19446:
 		bra.w	loc_19202
@@ -514,7 +514,7 @@ Obj75_FlameMain:; Routine 6
 		cmpi.b	#$A,ob2ndRout(a1)
 		bne.s	loc_195AA
 		move.b	#$B,obAnim(a0)
-		tst.b	1(a0)
+		tst.b	obRender(a0)
 		bpl.s	Obj75_FlameDelete
 		bra.s	loc_195B6
 ; ===========================================================================
