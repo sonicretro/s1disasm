@@ -13,7 +13,7 @@ GFire_Index:	dc.w GFire_Main-GFire_Index
 		dc.w loc_B238-GFire_Index
 		dc.w GFire_Move-GFire_Index
 
-gfire_origX = $2A
+gfire_origX = objoff_2A
 ; ===========================================================================
 
 GFire_Main:	; Routine 0

@@ -14,7 +14,7 @@ Msl_Index:	dc.w Msl_Main-Msl_Index
 		dc.w Msl_Delete-Msl_Index
 		dc.w Msl_FromNewt-Msl_Index
 
-msl_parent = $3C
+msl_parent = objoff_3C
 ; ===========================================================================
 
 Msl_Main:	; Routine 0

@@ -13,9 +13,9 @@ Buzz_Index:	dc.w Buzz_Main-Buzz_Index
 		dc.w Buzz_Action-Buzz_Index
 		dc.w Buzz_Delete-Buzz_Index
 
-buzz_timedelay = $32
-buzz_buzzstatus = $34
-buzz_parent = $3C
+buzz_timedelay = objoff_32
+buzz_buzzstatus = objoff_34
+buzz_parent = objoff_3C
 ; ===========================================================================
 
 Buzz_Main:	; Routine 0

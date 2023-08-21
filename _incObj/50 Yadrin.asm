@@ -44,7 +44,7 @@ Yadrin:
 Yad_Index:	dc.w Yad_Main-Yad_Index
 		dc.w Yad_Action-Yad_Index
 
-yad_timedelay = $30
+yad_timedelay = objoff_30
 ; ===========================================================================
 
 Yad_Main:	; Routine 0

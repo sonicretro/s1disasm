@@ -11,8 +11,8 @@ WaterSurface:
 Surf_Index:	dc.w Surf_Main-Surf_Index
 		dc.w Surf_Action-Surf_Index
 
-surf_origX = $30		; original x-axis position
-surf_freeze = $32		; flag to freeze animation
+surf_origX = objoff_30		; original x-axis position
+surf_freeze = objoff_32		; flag to freeze animation
 ; ===========================================================================
 
 Surf_Main:	; Routine 0

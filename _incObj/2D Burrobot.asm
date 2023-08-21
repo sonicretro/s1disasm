@@ -11,7 +11,7 @@ Burrobot:
 Burro_Index:	dc.w Burro_Main-Burro_Index
 		dc.w Burro_Action-Burro_Index
 
-burro_timedelay = $30		; time between direction changes
+burro_timedelay = objoff_30		; time between direction changes
 ; ===========================================================================
 
 Burro_Main:	; Routine 0

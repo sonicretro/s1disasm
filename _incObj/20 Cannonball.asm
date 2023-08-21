@@ -11,7 +11,7 @@ Cannonball:
 Cbal_Index:	dc.w Cbal_Main-Cbal_Index
 		dc.w Cbal_Bounce-Cbal_Index
 
-cbal_time = $30		; time until the cannonball explodes (2 bytes)
+cbal_time = objoff_30		; time until the cannonball explodes (2 bytes)
 ; ===========================================================================
 
 Cbal_Main:	; Routine 0

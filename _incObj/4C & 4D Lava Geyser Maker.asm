@@ -16,9 +16,9 @@ GMake_Index:	dc.w GMake_Main-GMake_Index
 		dc.w GMake_Display-GMake_Index
 		dc.w GMake_Delete-GMake_Index
 
-gmake_time = $34		; time delay (2 bytes)
-gmake_timer = $32		; current time remaining (2 bytes)
-gmake_parent = $3C		; address of parent object
+gmake_time = objoff_34		; time delay (2 bytes)
+gmake_timer = objoff_32		; current time remaining (2 bytes)
+gmake_parent = objoff_3C		; address of parent object
 ; ===========================================================================
 
 GMake_Main:	; Routine 0

@@ -12,8 +12,8 @@ CFlo_Index:	dc.w CFlo_Main-CFlo_Index, CFlo_Touch-CFlo_Index
 		dc.w CFlo_Collapse-CFlo_Index, CFlo_Display-CFlo_Index
 		dc.w CFlo_Delete-CFlo_Index, CFlo_WalkOff-CFlo_Index
 
-cflo_timedelay = $38
-cflo_collapse_flag = $3A
+cflo_timedelay = objoff_38
+cflo_collapse_flag = objoff_3A
 ; ===========================================================================
 
 CFlo_Main:	; Routine 0

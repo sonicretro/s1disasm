@@ -13,8 +13,8 @@ VanP_Index:	dc.w VanP_Main-VanP_Index
 		dc.w VanP_Appear-VanP_Index
 		dc.w loc_16068-VanP_Index
 
-vanp_timer = $30		; counter for time until event
-vanp_timelen = $32		; time between events (general)
+vanp_timer = objoff_30		; counter for time until event
+vanp_timelen = objoff_32	; time between events (general)
 ; ===========================================================================
 
 VanP_Main:	; Routine 0

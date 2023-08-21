@@ -11,7 +11,7 @@ Electro:
 Elec_Index:	dc.w Elec_Main-Elec_Index
 		dc.w Elec_Shock-Elec_Index
 
-elec_freq = $34		; frequency
+elec_freq = objoff_34		; frequency
 ; ===========================================================================
 
 Elec_Main:	; Routine 0

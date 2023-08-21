@@ -11,8 +11,8 @@ LargeGrass:
 LGrass_Index:	dc.w LGrass_Main-LGrass_Index
 		dc.w LGrass_Action-LGrass_Index
 
-lgrass_origX = $2A
-lgrass_origY = $2C
+lgrass_origX = objoff_2A
+lgrass_origY = objoff_2C
 
 LGrass_Data:	dc.w LGrass_Data1-LGrass_Data 	; collision angle data
 		dc.b 0,	$40			; frame	number,	platform width

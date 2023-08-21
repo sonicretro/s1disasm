@@ -11,7 +11,7 @@ HiddenBonus:
 Bonus_Index:	dc.w Bonus_Main-Bonus_Index
 		dc.w Bonus_Display-Bonus_Index
 
-bonus_timelen = $30		; length of time to display bonus sprites
+bonus_timelen = objoff_30		; length of time to display bonus sprites
 ; ===========================================================================
 
 Bonus_Main:	; Routine 0

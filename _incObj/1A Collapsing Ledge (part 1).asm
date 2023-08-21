@@ -12,8 +12,8 @@ Ledge_Index:	dc.w Ledge_Main-Ledge_Index, Ledge_Touch-Ledge_Index
 		dc.w Ledge_Collapse-Ledge_Index, Ledge_Display-Ledge_Index
 		dc.w Ledge_Delete-Ledge_Index, Ledge_WalkOff-Ledge_Index
 
-ledge_timedelay = $38		; time between touching the ledge and it collapsing
-ledge_collapse_flag = $3A		; collapse flag
+ledge_timedelay = objoff_38		; time between touching the ledge and it collapsing
+ledge_collapse_flag = objoff_3A		; collapse flag
 ; ===========================================================================
 
 Ledge_Main:	; Routine 0

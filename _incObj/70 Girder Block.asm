@@ -11,12 +11,11 @@ Girder:
 Gird_Index:	dc.w Gird_Main-Gird_Index
 		dc.w Gird_Action-Gird_Index
 
-gird_height = $16
-gird_origX = $32		; original x-axis position
-gird_origY = $30		; original y-axis position
-gird_time = $34		; duration for movement in a direction
-gird_set = $38		; which movement settings to use (0/8/16/24)
-gird_delay = $3A		; delay for movement
+gird_origX = objoff_32		; original x-axis position
+gird_origY = objoff_30		; original y-axis position
+gird_time = objoff_34		; duration for movement in a direction
+gird_set = objoff_38		; which movement settings to use (0/8/16/24)
+gird_delay = objoff_3A		; delay for movement
 ; ===========================================================================
 
 Gird_Main:	; Routine 0
@@ -26,7 +25,7 @@ Gird_Main:	; Routine 0
 		ori.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#$60,obActWid(a0)
-		move.b	#$18,gird_height(a0)
+		move.b	#$18,obHeight(a0)
 		move.w	obX(a0),gird_origX(a0)
 		move.w	obY(a0),gird_origY(a0)
 		bsr.w	Gird_ChgMove
@@ -52,7 +51,7 @@ Gird_Action:	; Routine 2
 		move.b	obActWid(a0),d1
 		addi.w	#$B,d1
 		moveq	#0,d2
-		move.b	gird_height(a0),d2
+		move.b	obHeight(a0),d2
 		move.w	d2,d3
 		addq.w	#1,d3
 		bsr.w	SolidObject

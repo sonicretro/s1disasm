@@ -11,10 +11,9 @@ ScrapStomp:
 Sto_Index:	dc.w Sto_Main-Sto_Index
 		dc.w Sto_Action-Sto_Index
 
-sto_height = $16
-sto_origX = $34		; original x-axis position
-sto_origY = $30		; original y-axis position
-sto_active = $38		; flag set when a switch is pressed
+sto_origX = objoff_34		; original x-axis position
+sto_origY = objoff_30		; original y-axis position
+sto_active = objoff_38		; flag set when a switch is pressed
 
 Sto_Var:	dc.b  $40,  $C,	$80,   1 ; width, height, ????,	type number
 		dc.b  $1C, $20,	$38,   3
@@ -31,7 +30,7 @@ Sto_Main:	; Routine 0
 		andi.w	#$1C,d0
 		lea	Sto_Var(pc,d0.w),a3
 		move.b	(a3)+,obActWid(a0)
-		move.b	(a3)+,sto_height(a0)
+		move.b	(a3)+,obHeight(a0)
 		lsr.w	#2,d0
 		move.b	d0,obFrame(a0)
 		move.l	#Map_Stomp,obMap(a0)
@@ -106,7 +105,7 @@ Sto_Action:	; Routine 2
 		move.b	obActWid(a0),d1
 		addi.w	#$B,d1
 		moveq	#0,d2
-		move.b	sto_height(a0),d2
+		move.b	obHeight(a0),d2
 		move.w	d2,d3
 		addq.w	#1,d3
 		bsr.w	SolidObject

@@ -16,11 +16,10 @@ LBlk_Var:	dc.b $10, $10		; width, height
 		dc.b $10, $10
 		dc.b $10, $10
 
-lblk_height = $16		; block height
-lblk_origX = $34		; original x-axis position
-lblk_origY = $30		; original y-axis position
-lblk_time = $36		; time delay for block movement
-lblk_untouched = $38		; flag block as untouched
+lblk_origX = objoff_34		; original x-axis position
+lblk_origY = objoff_30		; original y-axis position
+lblk_time = objoff_36		; time delay for block movement
+lblk_untouched = objoff_38	; flag block as untouched
 ; ===========================================================================
 
 LBlk_Main:	; Routine 0
@@ -35,7 +34,7 @@ LBlk_Main:	; Routine 0
 		andi.w	#$E,d0
 		lea	LBlk_Var(pc,d0.w),a2
 		move.b	(a2)+,obActWid(a0) ; set width
-		move.b	(a2),lblk_height(a0) ; set height
+		move.b	(a2),obHeight(a0) ; set height
 		lsr.w	#1,d0
 		move.b	d0,obFrame(a0)
 		move.w	obX(a0),lblk_origX(a0)
@@ -62,7 +61,7 @@ LBlk_Action:	; Routine 2
 		move.b	obActWid(a0),d1
 		addi.w	#$B,d1
 		moveq	#0,d2
-		move.b	lblk_height(a0),d2
+		move.b	obHeight(a0),d2
 		move.w	d2,d3
 		addq.w	#1,d3
 		bsr.w	SolidObject

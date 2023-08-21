@@ -20,8 +20,8 @@ ptr_Drown_AirLeft:	dc.w Drown_AirLeft-Drown_Index
 			dc.w Drown_Display-Drown_Index
 			dc.w Drown_Delete-Drown_Index
 
-drown_origX = $30		; original x-axis position
-drown_time = $38		; time between each number changes
+drown_origX = objoff_30		; original x-axis position
+drown_time = objoff_38		; time between each number changes
 
 id_Drown_Main = ptr_Drown_Main-Drown_Index		; 0
 id_Drown_Animate = ptr_Drown_Animate-Drown_Index		; 2

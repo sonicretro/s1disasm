@@ -15,10 +15,10 @@ Bub_Index:	dc.w Bub_Main-Bub_Index
 		dc.w Bub_Delete-Bub_Index
 		dc.w Bub_BblMaker-Bub_Index
 
-bub_inhalable = $2E		; flag set when bubble is collectable
-bub_origX = $30		; original x-axis position
-bub_time = $32		; time until next bubble spawn
-bub_freq = $33		; frequency of bubble spawn
+bub_inhalable = objoff_2E	; flag set when bubble is collectable
+bub_origX = objoff_30		; original x-axis position
+bub_time = objoff_32		; time until next bubble spawn
+bub_freq = objoff_33		; frequency of bubble spawn
 ; ===========================================================================
 
 Bub_Main:	; Routine 0

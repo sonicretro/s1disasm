@@ -13,7 +13,7 @@ Swi_Index:	dc.w Swi_Main-Swi_Index
 		dc.w Swi_Action-Swi_Index
 		dc.w Swi_Delete-Swi_Index
 
-swi_origY = $30		; original y-axis position
+swi_origY = objoff_30		; original y-axis position
 ; ===========================================================================
 
 Swi_Main:	; Routine 0

@@ -20,7 +20,7 @@ SSR_Index:	dc.w SSR_ChkPLC-SSR_Index
 		dc.w SSR_Exit-SSR_Index
 		dc.w loc_C91A-SSR_Index
 
-ssr_mainX = $30		; position for card to display on
+ssr_mainX = objoff_30		; position for card to display on
 ; ===========================================================================
 
 SSR_ChkPLC:	; Routine 0

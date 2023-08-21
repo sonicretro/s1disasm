@@ -21,8 +21,8 @@ id_Crab_Delete = ptr_Crab_Delete-Crab_Index	; 4
 id_Crab_BallMain = ptr_Crab_BallMain-Crab_Index	; 6
 id_Crab_BallMove = ptr_Crab_BallMove-Crab_Index	; 8
 
-crab_timedelay = $30
-crab_mode = $32
+crab_timedelay = objoff_30
+crab_mode = objoff_32
 ; ===========================================================================
 
 Crab_Main:	; Routine 0

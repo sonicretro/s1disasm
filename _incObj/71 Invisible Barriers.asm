@@ -10,8 +10,6 @@ Invisibarrier:
 ; ===========================================================================
 Invis_Index:	dc.w Invis_Main-Invis_Index
 		dc.w Invis_Solid-Invis_Index
-
-invis_height = $16		; height in pixels
 ; ===========================================================================
 
 Invis_Main:	; Routine 0
@@ -28,7 +26,7 @@ Invis_Main:	; Routine 0
 		andi.w	#$F,d1		; read only the	2nd byte
 		addq.w	#1,d1
 		lsl.w	#3,d1
-		move.b	d1,invis_height(a0) ; set object height
+		move.b	d1,obHeight(a0) ; set object height
 
 Invis_Solid:	; Routine 2
 		bsr.w	ChkObjectVisible
@@ -37,7 +35,7 @@ Invis_Solid:	; Routine 2
 		move.b	obActWid(a0),d1
 		addi.w	#$B,d1
 		moveq	#0,d2
-		move.b	invis_height(a0),d2
+		move.b	obHeight(a0),d2
 		move.w	d2,d3
 		addq.w	#1,d3
 		move.w	obX(a0),d4

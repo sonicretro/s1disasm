@@ -11,9 +11,9 @@ Saws:
 Saw_Index:	dc.w Saw_Main-Saw_Index
 		dc.w Saw_Action-Saw_Index
 
-saw_origX = $3A		; original x-axis position
-saw_origY = $38		; original y-axis position
-saw_here = $3D		; flag set when the ground saw appears
+saw_origX = objoff_3A		; original x-axis position
+saw_origY = objoff_38		; original y-axis position
+saw_here = objoff_3D		; flag set when the ground saw appears
 ; ===========================================================================
 
 Saw_Main:	; Routine 0

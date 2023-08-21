@@ -13,7 +13,7 @@ Smash_Index:	dc.w Smash_Main-Smash_Index
 		dc.w Smash_Solid-Smash_Index
 		dc.w Smash_FragMove-Smash_Index
 
-smash_speed = $30		; Sonic's horizontal speed
+smash_speed = objoff_30		; Sonic's horizontal speed
 ; ===========================================================================
 
 Smash_Main:	; Routine 0

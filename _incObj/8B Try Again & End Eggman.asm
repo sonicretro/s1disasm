@@ -14,7 +14,7 @@ EEgg_Index:	dc.w EEgg_Main-EEgg_Index
 		dc.w EEgg_Juggle-EEgg_Index
 		dc.w EEgg_Wait-EEgg_Index
 
-eegg_time = $30		; time between juggle motions
+eegg_time = objoff_30		; time between juggle motions
 ; ===========================================================================
 
 EEgg_Main:	; Routine 0

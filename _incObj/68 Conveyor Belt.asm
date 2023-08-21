@@ -11,8 +11,8 @@ Conveyor:
 Conv_Index:	dc.w Conv_Main-Conv_Index
 		dc.w Conv_Action-Conv_Index
 
-conv_speed = $36
-conv_width = $38
+conv_speed = objoff_36
+conv_width = objoff_38
 ; ===========================================================================
 
 Conv_Main:	; Routine 0

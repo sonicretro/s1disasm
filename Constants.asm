@@ -184,6 +184,21 @@ routine_secondary: equ $25 ; secondary routine number
 angle:		equ $26	; angle
 subtype:	equ $28	; object subtype
 
+objoff_29:	equ $29
+objoff_2A:	equ $2A
+objoff_2C:	equ $2C
+objoff_2E:	equ $2E
+objoff_30:	equ $30
+objoff_32:	equ $32
+objoff_33:	equ $33
+objoff_34:	equ $34
+objoff_36:	equ $36
+objoff_38:	equ $38
+objoff_3A:	equ $3A
+objoff_3C:	equ $3C
+objoff_3D:	equ $3D
+objoff_3E:	equ $3E
+
 ; Animation flags
 afEnd:		equ $FF	; return to beginning of animation
 afBack:		equ $FE	; go back (specified number) bytes

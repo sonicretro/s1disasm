@@ -14,8 +14,8 @@ Swing_Index:	dc.w Swing_Main-Swing_Index, Swing_SetSolid-Swing_Index
 		dc.w Swing_Delete-Swing_Index, Swing_Display-Swing_Index
 		dc.w Swing_Action-Swing_Index
 
-swing_origX = $3A		; original x-axis position
-swing_origY = $38		; original y-axis position
+swing_origX = objoff_3A		; original x-axis position
+swing_origY = objoff_38		; original y-axis position
 ; ===========================================================================
 
 Swing_Main:	; Routine 0

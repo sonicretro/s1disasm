@@ -25,8 +25,8 @@ Smab_Main:	; Routine 0
 
 Smab_Solid:	; Routine 2
 
-sonicAniFrame = $32		; Sonic's current animation number
-.count = $34		; number of blocks hit + previous stuff
+sonicAniFrame = objoff_32		; Sonic's current animation number
+.count = objoff_34		; number of blocks hit + previous stuff
 
 		move.w	(v_itembonus).w,$34(a0)
 		move.b	(v_player+obAnim).w,sonicAniFrame(a0) ; load Sonic's animation number

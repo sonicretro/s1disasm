@@ -11,8 +11,8 @@ RunningDisc:
 Disc_Index:	dc.w Disc_Main-Disc_Index
 		dc.w Disc_Action-Disc_Index
 
-disc_origX = $32		; original x-axis position
-disc_origY = $30		; original y-axis position
+disc_origX = objoff_32		; original x-axis position
+disc_origY = objoff_30		; original y-axis position
 ; ===========================================================================
 
 Disc_Main:	; Routine 0

@@ -20,8 +20,8 @@ Glass_Index:	dc.w Glass_Main-Glass_Index
 		dc.w Glass_Block34-Glass_Index
 		dc.w Glass_Reflect34-Glass_Index
 
-glass_dist = $32		; distance block moves when switch is pressed
-glass_parent = $3C		; address of parent object
+glass_dist = objoff_32		; distance block moves when switch is pressed
+glass_parent = objoff_3C		; address of parent object
 
 Glass_Vars1:	dc.b 2,	0, 0	; routine num, y-axis dist from	origin,	frame num
 		dc.b 4,	0, 1

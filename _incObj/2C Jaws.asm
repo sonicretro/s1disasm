@@ -11,8 +11,8 @@ Jaws:
 Jaws_Index:	dc.w Jaws_Main-Jaws_Index
 		dc.w Jaws_Turn-Jaws_Index
 
-jaws_timecount = $30
-jaws_timedelay = $32
+jaws_timecount = objoff_30
+jaws_timedelay = objoff_32
 ; ===========================================================================
 
 Jaws_Main:	; Routine 0

@@ -11,7 +11,7 @@ MarbleBrick:
 Brick_Index:	dc.w Brick_Main-Brick_Index
 		dc.w Brick_Action-Brick_Index
 
-brick_origY = $30
+brick_origY = objoff_30
 ; ===========================================================================
 
 Brick_Main:	; Routine 0

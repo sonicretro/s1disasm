@@ -2,11 +2,11 @@
 ; Object 5E - seesaws (SLZ)
 ; ---------------------------------------------------------------------------
 
-see_origX = $30		; original x-axis position
-see_origY = $34		; original y-axis position
-see_speed = $38		; speed of collision
-see_frame = $3A		; 
-see_parent = $3C		; RAM address of parent object
+see_origX = objoff_30		; original x-axis position
+see_origY = objoff_34		; original y-axis position
+see_speed = objoff_38		; speed of collision
+see_frame = objoff_3A		; 
+see_parent = objoff_3C		; RAM address of parent object
 
 Seesaw:
 		moveq	#0,d0

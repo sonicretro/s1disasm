@@ -13,9 +13,9 @@ Jun_Index:	dc.w Jun_Main-Jun_Index
 		dc.w Jun_Display-Jun_Index
 		dc.w Jun_Release-Jun_Index
 
-jun_frame = $34		; current frame
-jun_reverse = $36		; flag set when switch is pressed
-jun_switch = $38		; which switch will reverse the disc
+jun_frame = objoff_34		; current frame
+jun_reverse = objoff_36		; flag set when switch is pressed
+jun_switch = objoff_38		; which switch will reverse the disc
 ; ===========================================================================
 
 Jun_Main:	; Routine 0

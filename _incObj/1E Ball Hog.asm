@@ -11,7 +11,7 @@ BallHog:
 Hog_Index:	dc.w Hog_Main-Hog_Index
 		dc.w Hog_Action-Hog_Index
 
-hog_launchflag = $32		; 0 to launch a cannonball
+hog_launchflag = objoff_32		; 0 to launch a cannonball
 ; ===========================================================================
 
 Hog_Main:	; Routine 0

@@ -12,8 +12,8 @@ Spin_Index:	dc.w Spin_Main-Spin_Index
 		dc.w Spin_Trapdoor-Spin_Index
 		dc.w Spin_Spinner-Spin_Index
 
-spin_timer = $30		; time counter until change
-spin_timelen = $32		; time between changes (general)
+spin_timer = objoff_30		; time counter until change
+spin_timelen = objoff_32	; time between changes (general)
 ; ===========================================================================
 
 Spin_Main:	; Routine 0

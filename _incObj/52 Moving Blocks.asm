@@ -12,8 +12,8 @@ MBlock_Index:	dc.w MBlock_Main-MBlock_Index
 		dc.w MBlock_Platform-MBlock_Index
 		dc.w MBlock_StandOn-MBlock_Index
 
-mblock_origX = $30
-mblock_origY = $32
+mblock_origX = objoff_30
+mblock_origY = objoff_32
 
 MBlock_Var:	dc.b $10, 0		; object width,	frame number
 		dc.b $20, 1
