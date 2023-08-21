@@ -158,32 +158,7 @@ invtime:	equ $32	; time left for invincibility
 shoetime:	equ $34	; time left for speed shoes
 standonobject:	equ $3D	; object Sonic stands on
 
-; Object variables (Sonic 2 disassembly nomenclature)
-render_flags:	equ 1	; bitfield for x/y flip, display mode
-art_tile:	equ 2	; palette line & VRAM setting (2 bytes)
-mappings:	equ 4	; mappings address (4 bytes)
-x_pos:		equ 8	; x-axis position (2-4 bytes)
-y_pos:		equ $C	; y-axis position (2-4 bytes)
-x_vel:		equ $10	; x-axis velocity (2 bytes)
-y_vel:		equ $12	; y-axis velocity (2 bytes)
-y_radius:	equ $16	; height/2
-x_radius:	equ $17	; width/2
-priority:	equ $18	; sprite stack priority -- 0 is front
-width_pixels:	equ $19	; action width
-mapping_frame:	equ $1A	; current frame displayed
-anim_frame:	equ $1B	; current frame in animation script
-anim:		equ $1C	; current animation
-next_anim:	equ $1D	; next animation
-anim_frame_duration: equ $1E ; time to next frame
-collision_flags: equ $20 ; collision response type
-collision_property: equ $21 ; collision extra property
-status:		equ $22	; orientation or mode
-respawn_index:	equ $23	; respawn list index number
-routine:	equ $24	; routine number
-routine_secondary: equ $25 ; secondary routine number
-angle:		equ $26	; angle
-subtype:	equ $28	; object subtype
-
+; Miscellaneous object scratch-RAM
 objoff_29:	equ $29
 objoff_2A:	equ $2A
 objoff_2C:	equ $2C
@@ -198,6 +173,33 @@ objoff_3A:	equ $3A
 objoff_3C:	equ $3C
 objoff_3D:	equ $3D
 objoff_3E:	equ $3E
+
+; Object variables (Sonic 2 disassembly nomenclature)
+id:		equ obID		; object ID number
+render_flags:	equ obRender		; bitfield for x/y flip, display mode
+art_tile:	equ obGfx		; palette line & VRAM setting (2 bytes)
+mappings:	equ obMap		; mappings address (4 bytes)
+x_pos:		equ obX			; x-axis position (2-4 bytes)
+y_pos:		equ obY			; y-axis position (2-4 bytes)
+x_vel:		equ obVelX		; x-axis velocity (2 bytes)
+y_vel:		equ obVelY		; y-axis velocity (2 bytes)
+y_radius:	equ obHeight		; height/2
+x_radius:	equ obWidth		; width/2
+priority:	equ obPriority		; sprite stack priority -- 0 is front
+width_pixels:	equ obActWid		; action width
+mapping_frame:	equ obFrame		; current frame displayed
+anim_frame:	equ obAniFrame		; current frame in animation script
+anim:		equ obAnim		; current animation
+next_anim:	equ obNextAni		; next animation
+anim_frame_duration: equ obTimeFrame	; time to next frame
+collision_flags: equ obColType		; collision response type
+collision_property: equ obColProp	; collision extra property
+status:		equ obStatus		; orientation or mode
+respawn_index:	equ obRespawnNo		; respawn list index number
+routine:	equ obRoutine		; routine number
+routine_secondary: equ ob2ndRout	; secondary routine number
+angle:		equ obAngle		; angle
+subtype:	equ obSubtype		; object subtype
 
 ; Animation flags
 afEnd:		equ $FF	; return to beginning of animation
