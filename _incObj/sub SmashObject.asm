@@ -37,7 +37,7 @@ SmashObject:
 		move.w	(a4)+,obVelX(a1)
 		move.w	(a4)+,obVelY(a1)
 		cmpa.l	a0,a1
-		bcc.s	.loc_D268
+		bhs.s	.loc_D268
 		move.l	a0,-(sp)
 		movea.l	a1,a0
 		bsr.w	SpeedToPos

@@ -56,7 +56,7 @@ Surf_Action:	; Routine 2
 		move.b	#7,obTimeFrame(a0)
 		addq.b	#1,obFrame(a0)
 		cmpi.b	#3,obFrame(a0)
-		bcs.s	.display
+		blo.s	.display
 		move.b	#0,obFrame(a0)
 
 .display:

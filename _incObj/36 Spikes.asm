@@ -85,7 +85,7 @@ Spik_Hurt:
 		movea.l	a0,a2
 		lea	(v_player).w,a0
 		cmpi.b	#4,obRoutine(a0)
-		bcc.s	loc_CF20
+		bhs.s	loc_CF20
 	if Revision<>2
 		move.l	obY(a0),d3
 		move.w	obVelY(a0),d0
@@ -171,7 +171,7 @@ loc_CFA4:
 loc_CFC6:
 		addi.w	#$800,objoff_34(a0)
 		cmpi.w	#$2000,objoff_34(a0)
-		bcs.s	locret_CFE6
+		blo.s	locret_CFE6
 		move.w	#$2000,objoff_34(a0)
 		move.w	#1,objoff_36(a0)
 		move.w	#60,objoff_38(a0)	; set time delay to 1 second

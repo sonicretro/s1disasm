@@ -74,7 +74,7 @@ Obj75_ShipIndex:dc.w loc_191CC-Obj75_ShipIndex,	loc_19270-Obj75_ShipIndex
 loc_191CC:
 		move.w	#-$100,obVelX(a0)
 		cmpi.w	#boss_syz_x+$138,objoff_30(a0)
-		bcc.s	loc_191DE
+		bhs.s	loc_191DE
 		addq.b	#2,ob2ndRout(a0)
 
 loc_191DE:
@@ -95,7 +95,7 @@ loc_19202:
 		lsr.w	#5,d0
 		move.b	d0,objoff_34(a0)
 		cmpi.b	#6,ob2ndRout(a0)
-		bcc.s	locret_19256
+		bhs.s	locret_19256
 		tst.b	obStatus(a0)
 		bmi.s	loc_19258
 		tst.b	obColType(a0)
@@ -198,7 +198,7 @@ loc_19302:
 		move.w	#$180,obVelY(a0)
 		move.w	objoff_38(a0),d0
 		cmpi.w	#boss_syz_y+$8A,d0
-		bcs.s	loc_19344
+		blo.s	loc_19344
 		move.w	#boss_syz_y+$8A,objoff_38(a0)
 		clr.w	objoff_3C(a0)
 		moveq	#-1,d0
@@ -399,10 +399,10 @@ loc_194BC:
 
 loc_194C2:
 		cmpi.w	#$20,objoff_3C(a0)
-		bcs.s	loc_194DA
+		blo.s	loc_194DA
 		beq.s	loc_194E0
 		cmpi.w	#$2A,objoff_3C(a0)
-		bcs.s	loc_194EE
+		blo.s	loc_194EE
 		addq.b	#2,ob2ndRout(a0)
 		bra.s	loc_194EE
 ; ===========================================================================
@@ -425,7 +425,7 @@ loc_194F2:
 		move.w	#$400,obVelX(a0)
 		move.w	#-$40,obVelY(a0)
 		cmpi.w	#boss_syz_end,(v_limitright2).w
-		bcc.s	loc_1950C
+		bhs.s	loc_1950C
 		addq.w	#2,(v_limitright2).w
 		bra.s	loc_19512
 ; ===========================================================================
@@ -501,7 +501,7 @@ loc_19574:
 
 loc_1957E:
 		cmpi.b	#4,(v_player+obRoutine).w
-		bcs.s	locret_19588
+		blo.s	locret_19588
 		moveq	#4,d1
 
 locret_19588:

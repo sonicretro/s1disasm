@@ -193,7 +193,7 @@ loc_18EC0:
 		ext.w	d4
 		add.w	d4,d2
 		cmp.w	d0,d2
-		bcs.s	loc_18F38
+		blo.s	loc_18F38
 		move.b	(a2)+,d4
 		ext.w	d4
 		add.w	d4,d0
@@ -201,7 +201,7 @@ loc_18EC0:
 		ext.w	d4
 		add.w	d4,d2
 		cmp.w	d2,d0
-		bcs.s	loc_18F38
+		blo.s	loc_18F38
 		move.b	(a2)+,d4
 		ext.w	d4
 		add.w	d4,d1
@@ -209,7 +209,7 @@ loc_18EC0:
 		ext.w	d4
 		add.w	d4,d3
 		cmp.w	d1,d3
-		bcs.s	loc_18F38
+		blo.s	loc_18F38
 		move.b	(a2)+,d4
 		ext.w	d4
 		add.w	d4,d1
@@ -217,7 +217,7 @@ loc_18EC0:
 		ext.w	d4
 		add.w	d4,d3
 		cmp.w	d3,d1
-		bcs.s	loc_18F38
+		blo.s	loc_18F38
 		addq.b	#2,obRoutine(a0)
 		clr.w	obSubtype(a0)
 		clr.b	obColType(a1)

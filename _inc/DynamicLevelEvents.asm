@@ -36,7 +36,7 @@ loc_6DAC:
 		move.w	(v_screenposy).w,d0
 		addq.w	#8,d0
 		cmp.w	(v_limitbtm2).w,d0
-		bcs.s	loc_6DC4
+		blo.s	loc_6DC4
 		btst	#1,(v_player+obStatus).w
 		beq.s	loc_6DC4
 		add.w	d1,d1
@@ -77,7 +77,7 @@ DLE_GHZx:	dc.w DLE_GHZ1-DLE_GHZx
 DLE_GHZ1:
 		move.w	#$300,(v_limitbtm1).w ; set lower y-boundary
 		cmpi.w	#$1780,(v_screenposx).w ; has the camera reached $1780 on x-axis?
-		bcs.s	locret_6E08	; if not, branch
+		blo.s	locret_6E08	; if not, branch
 		move.w	#$400,(v_limitbtm1).w ; set lower y-boundary
 
 locret_6E08:
@@ -87,13 +87,13 @@ locret_6E08:
 DLE_GHZ2:
 		move.w	#$300,(v_limitbtm1).w
 		cmpi.w	#$ED0,(v_screenposx).w
-		bcs.s	locret_6E3A
+		blo.s	locret_6E3A
 		move.w	#$200,(v_limitbtm1).w
 		cmpi.w	#$1600,(v_screenposx).w
-		bcs.s	locret_6E3A
+		blo.s	locret_6E3A
 		move.w	#$400,(v_limitbtm1).w
 		cmpi.w	#$1D60,(v_screenposx).w
-		bcs.s	locret_6E3A
+		blo.s	locret_6E3A
 		move.w	#$300,(v_limitbtm1).w
 
 locret_6E3A:
@@ -114,21 +114,21 @@ off_6E4A:	dc.w DLE_GHZ3main-off_6E4A
 DLE_GHZ3main:
 		move.w	#$300,(v_limitbtm1).w
 		cmpi.w	#$380,(v_screenposx).w
-		bcs.s	locret_6E96
+		blo.s	locret_6E96
 		move.w	#$310,(v_limitbtm1).w
 		cmpi.w	#$960,(v_screenposx).w
-		bcs.s	locret_6E96
+		blo.s	locret_6E96
 		cmpi.w	#$280,(v_screenposy).w
-		bcs.s	loc_6E98
+		blo.s	loc_6E98
 		move.w	#$400,(v_limitbtm1).w
 		cmpi.w	#$1380,(v_screenposx).w
-		bcc.s	loc_6E8E
+		bhs.s	loc_6E8E
 		move.w	#$4C0,(v_limitbtm1).w
 		move.w	#$4C0,(v_limitbtm2).w
 
 loc_6E8E:
 		cmpi.w	#$1700,(v_screenposx).w
-		bcc.s	loc_6E98
+		bhs.s	loc_6E98
 
 locret_6E96:
 		rts	
@@ -142,12 +142,12 @@ loc_6E98:
 
 DLE_GHZ3boss:
 		cmpi.w	#$960,(v_screenposx).w
-		bcc.s	loc_6EB0
+		bhs.s	loc_6EB0
 		subq.b	#2,(v_dle_routine).w
 
 loc_6EB0:
 		cmpi.w	#boss_ghz_x,(v_screenposx).w
-		bcs.s	locret_6EE8
+		blo.s	locret_6EE8
 		bsr.w	FindFreeObj
 		bne.s	loc_6ED0
 		_move.b	#id_BossGreenHill,obID(a1) ; load GHZ boss	object
@@ -206,9 +206,9 @@ loc_6F28:
 		tst.b	(v_dle_routine).w
 		bne.s	locret_6F64
 		cmpi.w	#boss_lz_x-$140,(v_screenposx).w
-		bcs.s	locret_6F62
+		blo.s	locret_6F62
 		cmpi.w	#boss_lz_y+$540,(v_screenposy).w
-		bcc.s	locret_6F62
+		bhs.s	locret_6F62
 		bsr.w	FindFreeObj
 		bne.s	loc_6F4A
 		_move.b	#id_BossLabyrinth,obID(a1) ; load LZ boss object
@@ -232,9 +232,9 @@ locret_6F64:
 
 DLE_SBZ3:
 		cmpi.w	#$D00,(v_screenposx).w
-		bcs.s	locret_6F8C
+		blo.s	locret_6F8C
 		cmpi.w	#$18,(v_player+obY).w ; has Sonic reached the top of the level?
-		bcc.s	locret_6F8C	; if not, branch
+		bhs.s	locret_6F8C	; if not, branch
 		clr.b	(v_lastlamp).w
 		move.w	#1,(f_restart).w ; restart level
 		move.w	#(id_SBZ<<8)+2,(v_zone).w ; set level number to 0502 (FZ)
@@ -274,13 +274,13 @@ off_6FB2:	dc.w loc_6FBA-off_6FB2
 loc_6FBA:
 		move.w	#$1D0,(v_limitbtm1).w
 		cmpi.w	#$700,(v_screenposx).w
-		bcs.s	locret_6FE8
+		blo.s	locret_6FE8
 		move.w	#$220,(v_limitbtm1).w
 		cmpi.w	#$D00,(v_screenposx).w
-		bcs.s	locret_6FE8
+		blo.s	locret_6FE8
 		move.w	#$340,(v_limitbtm1).w
 		cmpi.w	#$340,(v_screenposy).w
-		bcs.s	locret_6FE8
+		blo.s	locret_6FE8
 		addq.b	#2,(v_dle_routine).w
 
 locret_6FE8:
@@ -289,7 +289,7 @@ locret_6FE8:
 
 loc_6FEA:
 		cmpi.w	#$340,(v_screenposy).w
-		bcc.s	loc_6FF8
+		bhs.s	loc_6FF8
 		subq.b	#2,(v_dle_routine).w
 		rts	
 ; ===========================================================================
@@ -297,14 +297,14 @@ loc_6FEA:
 loc_6FF8:
 		move.w	#0,(v_limittop2).w
 		cmpi.w	#$E00,(v_screenposx).w
-		bcc.s	locret_702C
+		bhs.s	locret_702C
 		move.w	#$340,(v_limittop2).w
 		move.w	#$340,(v_limitbtm1).w
 		cmpi.w	#$A90,(v_screenposx).w
-		bcc.s	locret_702C
+		bhs.s	locret_702C
 		move.w	#$500,(v_limitbtm1).w
 		cmpi.w	#$370,(v_screenposy).w
-		bcs.s	locret_702C
+		blo.s	locret_702C
 		addq.b	#2,(v_dle_routine).w
 
 locret_702C:
@@ -313,14 +313,14 @@ locret_702C:
 
 loc_702E:
 		cmpi.w	#$370,(v_screenposy).w
-		bcc.s	loc_703C
+		bhs.s	loc_703C
 		subq.b	#2,(v_dle_routine).w
 		rts	
 ; ===========================================================================
 
 loc_703C:
 		cmpi.w	#$500,(v_screenposy).w
-		bcs.s	locret_704E
+		blo.s	locret_704E
 		if Revision<>0
 			cmpi.w	#$B80,(v_screenposx).w
 			bcs.s	locret_704E
@@ -350,11 +350,11 @@ locj_76CE:
 		endif
 
 		cmpi.w	#$E70,(v_screenposx).w
-		bcs.s	locret_7072
+		blo.s	locret_7072
 		move.w	#0,(v_limittop2).w
 		move.w	#$500,(v_limitbtm1).w
 		cmpi.w	#$1430,(v_screenposx).w
-		bcs.s	locret_7072
+		blo.s	locret_7072
 		move.w	#$210,(v_limitbtm1).w
 
 locret_7072:
@@ -364,7 +364,7 @@ locret_7072:
 DLE_MZ2:
 		move.w	#$520,(v_limitbtm1).w
 		cmpi.w	#$1700,(v_screenposx).w
-		bcs.s	locret_7088
+		blo.s	locret_7088
 		move.w	#$200,(v_limitbtm1).w
 
 locret_7088:
@@ -384,10 +384,10 @@ off_7098:	dc.w DLE_MZ3boss-off_7098
 DLE_MZ3boss:
 		move.w	#$720,(v_limitbtm1).w
 		cmpi.w	#boss_mz_x-$2A0,(v_screenposx).w
-		bcs.s	locret_70E8
+		blo.s	locret_70E8
 		move.w	#boss_mz_y,(v_limitbtm1).w
 		cmpi.w	#boss_mz_x-$10,(v_screenposx).w
-		bcs.s	locret_70E8
+		blo.s	locret_70E8
 		bsr.w	FindFreeObj
 		bne.s	loc_70D0
 		_move.b	#id_BossMarble,obID(a1) ; load MZ boss object
@@ -444,7 +444,7 @@ off_7118:	dc.w DLE_SLZ3main-off_7118
 
 DLE_SLZ3main:
 		cmpi.w	#boss_slz_x-$190,(v_screenposx).w
-		bcs.s	locret_7130
+		blo.s	locret_7130
 		move.w	#boss_slz_y,(v_limitbtm1).w
 		addq.b	#2,(v_dle_routine).w
 
@@ -454,7 +454,7 @@ locret_7130:
 
 DLE_SLZ3boss:
 		cmpi.w	#boss_slz_x,(v_screenposx).w
-		bcs.s	locret_715C
+		blo.s	locret_715C
 		bsr.w	FindFreeObj
 		bne.s	loc_7144
 		move.b	#id_BossStarLight,(a1) ; load SLZ boss object
@@ -500,10 +500,10 @@ DLE_SYZ1:
 DLE_SYZ2:
 		move.w	#$520,(v_limitbtm1).w
 		cmpi.w	#$25A0,(v_screenposx).w
-		bcs.s	locret_71A2
+		blo.s	locret_71A2
 		move.w	#$420,(v_limitbtm1).w
 		cmpi.w	#$4D0,(v_player+obY).w
-		bcs.s	locret_71A2
+		blo.s	locret_71A2
 		move.w	#$520,(v_limitbtm1).w
 
 locret_71A2:
@@ -523,7 +523,7 @@ off_71B2:	dc.w DLE_SYZ3main-off_71B2
 
 DLE_SYZ3main:
 		cmpi.w	#boss_syz_x-$140,(v_screenposx).w
-		bcs.s	locret_71CE
+		blo.s	locret_71CE
 		bsr.w	FindFreeObj
 		bne.s	locret_71CE
 		move.b	#id_BossBlock,(a1) ; load blocks that boss picks up
@@ -535,7 +535,7 @@ locret_71CE:
 
 DLE_SYZ3boss:
 		cmpi.w	#boss_syz_x,(v_screenposx).w
-		bcs.s	locret_7200
+		blo.s	locret_7200
 		move.w	#boss_syz_y,(v_limitbtm1).w
 		bsr.w	FindFreeObj
 		bne.s	loc_71EC
@@ -577,10 +577,10 @@ DLE_SBZx:	dc.w DLE_SBZ1-DLE_SBZx
 DLE_SBZ1:
 		move.w	#$720,(v_limitbtm1).w
 		cmpi.w	#$1880,(v_screenposx).w
-		bcs.s	locret_7242
+		blo.s	locret_7242
 		move.w	#$620,(v_limitbtm1).w
 		cmpi.w	#$2000,(v_screenposx).w
-		bcs.s	locret_7242
+		blo.s	locret_7242
 		move.w	#$2A0,(v_limitbtm1).w
 
 locret_7242:
@@ -602,10 +602,10 @@ off_7252:	dc.w DLE_SBZ2main-off_7252
 DLE_SBZ2main:
 		move.w	#$800,(v_limitbtm1).w
 		cmpi.w	#$1800,(v_screenposx).w
-		bcs.s	locret_727A
+		blo.s	locret_727A
 		move.w	#boss_sbz2_y,(v_limitbtm1).w
 		cmpi.w	#$1E00,(v_screenposx).w
-		bcs.s	locret_727A
+		blo.s	locret_727A
 		addq.b	#2,(v_dle_routine).w
 
 locret_727A:
@@ -614,7 +614,7 @@ locret_727A:
 
 DLE_SBZ2boss:
 		cmpi.w	#boss_sbz2_x-$1A0,(v_screenposx).w
-		bcs.s	locret_7298
+		blo.s	locret_7298
 		bsr.w	FindFreeObj
 		bne.s	locret_7298
 		move.b	#id_FalseFloor,(a1) ; load collapsing block object
@@ -629,7 +629,7 @@ locret_7298:
 
 DLE_SBZ2boss2:
 		cmpi.w	#boss_sbz2_x-$F0,(v_screenposx).w
-		bcs.s	loc_72B6
+		blo.s	loc_72B6
 		bsr.w	FindFreeObj
 		bne.s	loc_72B0
 		move.b	#id_ScrapEggman,(a1) ; load SBZ2 Eggman object
@@ -644,7 +644,7 @@ loc_72B6:
 
 DLE_SBZ2end:
 		cmpi.w	#boss_sbz2_x,(v_screenposx).w
-		bcs.s	loc_72C2
+		blo.s	loc_72C2
 		rts	
 ; ===========================================================================
 
@@ -666,7 +666,7 @@ off_72D8:	dc.w DLE_FZmain-off_72D8, DLE_FZboss-off_72D8
 
 DLE_FZmain:
 		cmpi.w	#boss_fz_x-$308,(v_screenposx).w
-		bcs.s	loc_72F4
+		blo.s	loc_72F4
 		addq.b	#2,(v_dle_routine).w
 		moveq	#plcid_FZBoss,d0
 		bsr.w	AddPLC		; load FZ boss patterns
@@ -677,7 +677,7 @@ loc_72F4:
 
 DLE_FZboss:
 		cmpi.w	#boss_fz_x-$150,(v_screenposx).w
-		bcs.s	loc_7312
+		blo.s	loc_7312
 		bsr.w	FindFreeObj
 		bne.s	loc_7312
 		move.b	#id_BossFinal,(a1) ; load FZ boss object
@@ -690,7 +690,7 @@ loc_7312:
 
 DLE_FZend:
 		cmpi.w	#boss_fz_x,(v_screenposx).w
-		bcs.s	loc_7320
+		blo.s	loc_7320
 		addq.b	#2,(v_dle_routine).w
 
 loc_7320:

@@ -88,7 +88,7 @@ loc_177E6:
 		move.w	objoff_30(a0),obX(a0)
 		addq.b	#2,objoff_3F(a0)
 		cmpi.b	#8,ob2ndRout(a0)
-		bcc.s	locret_1784A
+		bhs.s	locret_1784A
 		tst.b	obStatus(a0)
 		bmi.s	loc_1784C
 		tst.b	obColType(a0)

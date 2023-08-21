@@ -45,7 +45,7 @@ loc_132A0:
 
 loc_132A4:
 		cmpi.w	#-$400,obVelY(a0) ; is Sonic moving faster than -$400 upwards?
-		bcs.s	locret_132D2	; if yes, branch
+		blo.s	locret_132D2	; if yes, branch
 		move.w	obVelX(a0),d0
 		move.w	d0,d1
 		asr.w	#5,d1

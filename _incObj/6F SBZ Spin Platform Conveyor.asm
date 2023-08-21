@@ -17,7 +17,7 @@ loc_1629A:
 		cmpi.b	#2,(v_act).w	; check if act is 3
 		bne.s	SpinC_Act1or2	; if not, branch
 		cmpi.w	#-$80,d0
-		bcc.s	SpinC_Display
+		bhs.s	SpinC_Display
 
 SpinC_Act1or2:
 		move.b	objoff_2F(a0),d0
@@ -64,7 +64,7 @@ SpinC_Main:	; Routine 0
 		move.b	objoff_38(a0),d1
 		add.b	objoff_3A(a0),d1
 		cmp.b	objoff_39(a0),d1
-		bcs.s	loc_16352
+		blo.s	loc_16352
 		move.b	d1,d0
 		moveq	#0,d1
 		tst.b	d0
@@ -167,7 +167,7 @@ loc_16424:
 		move.b	objoff_38(a0),d1
 		add.b	objoff_3A(a0),d1
 		cmp.b	objoff_39(a0),d1
-		bcs.s	loc_16456
+		blo.s	loc_16456
 		move.b	d1,d0
 		moveq	#0,d1
 		tst.b	d0

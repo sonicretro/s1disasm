@@ -115,7 +115,7 @@ loc_1D03C:
 		beq.s	loc_1D052	; if not, branch
 		add.l	d1,d2
 		cmpi.l	#$7FF0000,d2
-		bcs.s	loc_1D052
+		blo.s	loc_1D052
 		move.l	#$7FF0000,d2
 
 loc_1D052:

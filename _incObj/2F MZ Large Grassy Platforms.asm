@@ -158,7 +158,7 @@ LGrass_Type05:
 loc_B010:
 		addq.b	#4,d0
 		cmpi.b	#$40,d0
-		bcs.s	loc_B01C
+		blo.s	loc_B01C
 		move.b	#$40,d0
 
 loc_B01C:

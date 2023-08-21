@@ -98,7 +98,7 @@ Buzz_Action:	; Routine 2
 
 .isleft:
 		cmpi.w	#$60,d0		; is Buzz Bomber within	$60 pixels of Sonic?
-		bcc.s	.keepgoing	; if not, branch
+		bhs.s	.keepgoing	; if not, branch
 		tst.b	obRender(a0)
 		bpl.s	.keepgoing
 		move.b	#2,buzz_buzzstatus(a0) ; set Buzz Bomber to "near Sonic"

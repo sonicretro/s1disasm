@@ -45,7 +45,7 @@ CSI_MakeMiniSonic:
 CSI_MoreThan1:
 		moveq	#1,d3
 		cmpi.b	#14,d1		; do you have fewer than 16 continues
-		bcs.s	CSI_FewerThan16	; if yes, branch
+		blo.s	CSI_FewerThan16	; if yes, branch
 
 		moveq	#0,d3
 		moveq	#14,d1		; cap at 15 mini-Sonics
@@ -78,7 +78,7 @@ CSI_ChkDel:	; Routine 6
 		tst.b	obSubtype(a0)	; do you have 16 or more continues?
 		beq.s	CSI_Animate	; if yes, branch
 		cmpi.b	#6,(v_player+obRoutine).w ; is Sonic running?
-		bcs.s	CSI_Animate	; if not, branch
+		blo.s	CSI_Animate	; if not, branch
 		move.b	(v_vbla_byte).w,d0
 		andi.b	#1,d0
 		bne.s	CSI_Animate

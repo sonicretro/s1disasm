@@ -75,5 +75,5 @@ Cbal_Display:
 		move.w	(v_limitbtm2).w,d0
 		addi.w	#$E0,d0
 		cmp.w	obY(a0),d0	; has object fallen off	the level?
-		bcs.w	DeleteObject	; if yes, branch
+		blo.w	DeleteObject	; if yes, branch
 		rts	

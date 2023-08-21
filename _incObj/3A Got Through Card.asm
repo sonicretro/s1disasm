@@ -68,7 +68,7 @@ loc_C5FE:
 		move.w	obX(a0),d0
 		bmi.s	locret_C60E
 		cmpi.w	#$200,d0	; has item moved beyond	$200 on	x-axis?
-		bcc.s	locret_C60E	; if yes, branch
+		bhs.s	locret_C60E	; if yes, branch
 		bra.w	DisplaySprite
 ; ===========================================================================
 
@@ -225,7 +225,7 @@ Got_ChgPos2:
 		move.w	obX(a0),d0
 		bmi.s	locret_C748
 		cmpi.w	#$200,d0	; has item moved beyond	$200 on	x-axis?
-		bcc.s	locret_C748	; if yes, branch
+		bhs.s	locret_C748	; if yes, branch
 		bra.w	DisplaySprite
 ; ===========================================================================
 

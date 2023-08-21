@@ -220,7 +220,7 @@ FBlock_Action:	; Routine 2
 		clr.b	(f_wtunnelallow).w
 		move.w	(v_player+obX).w,d0
 		cmp.w	obX(a0),d0
-		bcc.s	.aaa
+		bhs.s	.aaa
 		move.b	#1,(f_wtunnelallow).w
 
 .aaa:

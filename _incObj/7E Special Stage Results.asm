@@ -34,7 +34,7 @@ SSR_Main:
 		lea	(SSR_Config).l,a2
 		moveq	#3,d1
 		cmpi.w	#50,(v_rings).w	; do you have 50 or more rings?
-		bcs.s	SSR_Loop	; if no, branch
+		blo.s	SSR_Loop	; if no, branch
 		addq.w	#1,d1		; if yes, add 1	to d1 (number of sprites)
 
 SSR_Loop:
@@ -78,7 +78,7 @@ loc_C85A:
 		move.w	obX(a0),d0
 		bmi.s	locret_C86A
 		cmpi.w	#$200,d0	; has item moved beyond	$200 on	x-axis?
-		bcc.s	locret_C86A	; if yes, branch
+		bhs.s	locret_C86A	; if yes, branch
 		bra.w	DisplaySprite
 ; ===========================================================================
 
@@ -123,7 +123,7 @@ loc_C8C4:
 		addq.b	#2,obRoutine(a0)
 		move.w	#180,obTimeFrame(a0) ; set time delay to 3 seconds
 		cmpi.w	#50,(v_rings).w	; do you have at least 50 rings?
-		bcs.s	locret_C8EA	; if not, branch
+		blo.s	locret_C8EA	; if not, branch
 		move.w	#60,obTimeFrame(a0) ; set time delay to 1 second
 		addq.b	#4,obRoutine(a0) ; goto "SSR_Continue" routine
 

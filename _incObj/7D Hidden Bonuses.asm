@@ -23,12 +23,12 @@ Bonus_Main:	; Routine 0
 		sub.w	obX(a0),d0
 		add.w	d2,d0
 		cmp.w	d3,d0
-		bcc.s	.chkdel
+		bhs.s	.chkdel
 		move.w	obY(a1),d1
 		sub.w	obY(a0),d1
 		add.w	d2,d1
 		cmp.w	d3,d1
-		bcc.s	.chkdel
+		bhs.s	.chkdel
 		tst.w	(v_debuguse).w
 		bne.s	.chkdel
 		tst.b	(f_bigring).w

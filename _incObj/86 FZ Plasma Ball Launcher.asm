@@ -183,7 +183,7 @@ locret_1AA1C:
 loc_1AA1E:
 		jsr	(SpeedToPos).l
 		cmpi.w	#boss_fz_y+$D0,obY(a0)
-		bcc.s	loc_1AA34
+		bhs.s	loc_1AA34
 		subq.w	#1,obSubtype(a0)
 		beq.s	loc_1AA34
 		rts	

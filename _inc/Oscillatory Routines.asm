@@ -43,7 +43,7 @@ OscillateNumInit:
 
 OscillateNumDo:
 		cmpi.b	#6,(v_player+obRoutine).w ; has Sonic just died?
-		bcc.s	.end		; if yes, branch
+		bhs.s	.end		; if yes, branch
 		lea	(v_oscillate).w,a1
 		lea	(.settings).l,a2
 		move.w	(a1)+,d3	; get oscillation direction bitfield

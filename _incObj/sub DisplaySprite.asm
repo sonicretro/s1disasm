@@ -12,7 +12,7 @@ DisplaySprite:
 		andi.w	#$380,d0
 		adda.w	d0,a1		; jump to position in queue
 		cmpi.w	#$7E,(a1)	; is this part of the queue full?
-		bcc.s	DSpr_Full	; if yes, branch
+		bhs.s	DSpr_Full	; if yes, branch
 		addq.w	#2,(a1)		; increment sprite count
 		adda.w	(a1),a1		; jump to empty position
 		move.w	a0,(a1)		; insert RAM address for object
@@ -37,7 +37,7 @@ DisplaySprite1:
 		andi.w	#$380,d0
 		adda.w	d0,a2
 		cmpi.w	#$7E,(a2)
-		bcc.s	DSpr1_Full
+		bhs.s	DSpr1_Full
 		addq.w	#2,(a2)
 		adda.w	(a2),a2
 		move.w	a1,(a2)

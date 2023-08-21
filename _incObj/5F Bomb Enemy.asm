@@ -99,7 +99,7 @@ Bom_Action:	; Routine 2
 
 .isleft:
 		cmpi.w	#$60,d0		; is Sonic within $60 pixels?
-		bcc.s	.outofrange	; if not, branch
+		bhs.s	.outofrange	; if not, branch
 		move.w	(v_player+obY).w,d0
 		sub.w	obY(a0),d0
 		bcc.s	.isabove
@@ -107,7 +107,7 @@ Bom_Action:	; Routine 2
 
 .isabove:
 		cmpi.w	#$60,d0
-		bcc.s	.outofrange
+		bhs.s	.outofrange
 		tst.w	(v_debuguse).w
 		bne.s	.outofrange
 

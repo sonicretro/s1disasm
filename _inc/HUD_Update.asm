@@ -39,15 +39,15 @@ HUD_Update:
 
 		addq.b	#1,-(a1)	; increment 1/60s counter
 		cmpi.b	#60,(a1)	; check if passed 60
-		bcs.s	.chklives
+		blo.s	.chklives
 		move.b	#0,(a1)
 		addq.b	#1,-(a1)	; increment second counter
 		cmpi.b	#60,(a1)	; check if passed 60
-		bcs.s	.updatetime
+		blo.s	.updatetime
 		move.b	#0,(a1)
 		addq.b	#1,-(a1)	; increment minute counter
 		cmpi.b	#9,(a1)		; check if passed 9
-		bcs.s	.updatetime
+		blo.s	.updatetime
 		move.b	#9,(a1)		; keep as 9
 
 .updatetime:
@@ -221,7 +221,7 @@ HudDb_XYLoop:
 		move.w	d1,d2
 		andi.w	#$F,d2
 		cmpi.w	#$A,d2
-		bcs.s	loc_1C8B2
+		blo.s	loc_1C8B2
 		addq.w	#7,d2
 
 loc_1C8B2:

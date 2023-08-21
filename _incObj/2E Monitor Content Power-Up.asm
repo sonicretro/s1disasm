@@ -119,11 +119,11 @@ Pow_ChkRings:
 		addi.w	#10,(v_rings).w	; add 10 rings to the number of rings you have
 		ori.b	#1,(f_ringcount).w ; update the ring counter
 		cmpi.w	#100,(v_rings).w ; check if you have 100 rings
-		bcs.s	Pow_RingSound
+		blo.s	Pow_RingSound
 		bset	#1,(v_lifecount).w
 		beq.w	ExtraLife
 		cmpi.w	#200,(v_rings).w ; check if you have 200 rings
-		bcs.s	Pow_RingSound
+		blo.s	Pow_RingSound
 		bset	#2,(v_lifecount).w
 		beq.w	ExtraLife
 

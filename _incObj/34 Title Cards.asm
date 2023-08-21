@@ -84,7 +84,7 @@ Card_NoMove:
 		move.w	obX(a0),d0
 		bmi.s	locret_C3D8
 		cmpi.w	#$200,d0	; has item moved beyond	$200 on	x-axis?
-		bcc.s	locret_C3D8	; if yes, branch
+		bhs.s	locret_C3D8	; if yes, branch
 		bra.w	DisplaySprite
 ; ===========================================================================
 
@@ -114,7 +114,7 @@ Card_Move2:
 		move.w	obX(a0),d0
 		bmi.s	locret_C412
 		cmpi.w	#$200,d0	; has item moved beyond	$200 on	x-axis?
-		bcc.s	locret_C412	; if yes, branch
+		bhs.s	locret_C412	; if yes, branch
 		bra.w	DisplaySprite
 ; ===========================================================================
 

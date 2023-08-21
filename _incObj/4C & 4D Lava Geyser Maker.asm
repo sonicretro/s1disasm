@@ -38,10 +38,10 @@ GMake_Wait:	; Routine 2
 		move.w	(v_player+obY).w,d0
 		move.w	obY(a0),d1
 		cmp.w	d1,d0
-		bcc.s	.cancel
+		bhs.s	.cancel
 		subi.w	#$170,d1
 		cmp.w	d1,d0
-		bcs.s	.cancel
+		blo.s	.cancel
 		addq.b	#2,obRoutine(a0) ; if Sonic is within range, goto GMake_ChkType
 
 .cancel:
@@ -203,7 +203,7 @@ Geyser_Type00:
 		addi.w	#$18,obVelY(a0)	; increase object's falling speed
 		move.w	objoff_30(a0),d0
 		cmp.w	obY(a0),d0
-		bcc.s	locret_EFDA
+		bhs.s	locret_EFDA
 		addq.b	#4,obRoutine(a0)
 		movea.l	objoff_3C(a0),a1
 		move.b	#3,obAnim(a1)
@@ -216,7 +216,7 @@ Geyser_Type01:
 		addi.w	#$18,obVelY(a0)	; increase object's falling speed
 		move.w	objoff_30(a0),d0
 		cmp.w	obY(a0),d0
-		bcc.s	locret_EFFA
+		bhs.s	locret_EFFA
 		addq.b	#4,obRoutine(a0)
 		movea.l	objoff_3C(a0),a1
 		move.b	#1,obAnim(a1)
@@ -250,7 +250,7 @@ loc_F02E:
 		move.b	#7,obTimeFrame(a0)
 		addq.b	#1,obAniFrame(a0)
 		cmpi.b	#2,obAniFrame(a0)
-		bcs.s	loc_F04C
+		blo.s	loc_F04C
 		move.b	#0,obAniFrame(a0)
 
 loc_F04C:

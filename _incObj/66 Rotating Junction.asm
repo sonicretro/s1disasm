@@ -67,7 +67,7 @@ Jun_Action:	; Routine 2
 		moveq	#$E,d1
 		move.w	obX(a1),d0
 		cmp.w	obX(a0),d0	; is Sonic to the left of the disc?
-		bcs.s	.isleft		; if yes, branch
+		blo.s	.isleft		; if yes, branch
 		moveq	#7,d1		
 
 .isleft:

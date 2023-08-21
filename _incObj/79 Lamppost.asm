@@ -37,7 +37,7 @@ Lamp_Main:	; Routine 0
 		move.b	obSubtype(a0),d2 ; get lamppost number
 		andi.b	#$7F,d2
 		cmp.b	d2,d1		; is this a "new" lamppost?
-		bcs.s	Lamp_Blue	; if yes, branch
+		blo.s	Lamp_Blue	; if yes, branch
 
 .red:
 		bset	#0,2(a2,d0.w)
@@ -56,7 +56,7 @@ Lamp_Blue:	; Routine 2
 		move.b	obSubtype(a0),d2
 		andi.b	#$7F,d2
 		cmp.b	d2,d1		; is this a "new" lamppost?
-		bcs.s	.chkhit		; if yes, branch
+		blo.s	.chkhit		; if yes, branch
 		lea	(v_objstate).w,a2
 		moveq	#0,d0
 		move.b	obRespawnNo(a0),d0
@@ -71,12 +71,12 @@ Lamp_Blue:	; Routine 2
 		sub.w	obX(a0),d0
 		addq.w	#8,d0
 		cmpi.w	#$10,d0
-		bcc.w	.donothing
+		bhs.w	.donothing
 		move.w	(v_player+obY).w,d0
 		sub.w	obY(a0),d0
 		addi.w	#$40,d0
 		cmpi.w	#$68,d0
-		bcc.s	.donothing
+		bhs.s	.donothing
 
 		move.w	#sfx_Lamppost,d0
 		jsr	(PlaySound_Special).l	; play lamppost sound

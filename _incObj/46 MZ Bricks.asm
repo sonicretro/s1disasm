@@ -70,7 +70,7 @@ Brick_Type02:
 
 loc_E888:
 		cmpi.w	#$90,d0		; is Sonic within $90 pixels of	the block?
-		bcc.s	Brick_Type01	; if not, resume wobbling
+		bhs.s	Brick_Type01	; if not, resume wobbling
 		move.b	#3,obSubtype(a0)	; if yes, make the block fall
 
 Brick_Type01:

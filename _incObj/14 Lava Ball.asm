@@ -43,7 +43,7 @@ LBall_Main:	; Routine 0
 		move.w	LBall_Speeds(pc,d0.w),obVelY(a0) ; load object speed (vertical)
 		move.b	#8,obActWid(a0)
 		cmpi.b	#6,obSubtype(a0) ; is object type below $6 ?
-		bcs.s	.sound		; if yes, branch
+		blo.s	.sound		; if yes, branch
 
 		move.b	#$10,obActWid(a0)
 		move.b	#2,obAnim(a0)	; use horizontal animation
@@ -80,7 +80,7 @@ LBall_Type00:
 		addi.w	#$18,obVelY(a0)	; increase object's downward speed
 		move.w	objoff_30(a0),d0
 		cmp.w	obY(a0),d0	; has object fallen back to its	original position?
-		bcc.s	loc_E41E	; if not, branch
+		bhs.s	loc_E41E	; if not, branch
 		addq.b	#2,obRoutine(a0)	; goto "LBall_Delete" routine
 
 loc_E41E:

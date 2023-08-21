@@ -414,7 +414,7 @@ MoveScreenHoriz:
 
 SH_AheadOfMid:
 		cmpi.w	#16,d0		; is Sonic within 16px of middle area?
-		bcs.s	SH_Ahead16	; if yes, branch
+		blo.s	SH_Ahead16	; if yes, branch
 		move.w	#16,d0		; set to 16 if greater
 
 SH_Ahead16:
@@ -499,7 +499,7 @@ loc_665C:
 
 loc_666C:
 		cmpi.w	#$800,d1
-		bcc.s	loc_6696
+		bhs.s	loc_6696
 		move.w	#$600,d1
 		cmpi.w	#6,d0
 		bgt.s	loc_66F6

@@ -26,7 +26,7 @@ Saw_Main:	; Routine 0
 		move.w	obX(a0),saw_origX(a0)
 		move.w	obY(a0),saw_origY(a0)
 		cmpi.b	#3,obSubtype(a0) ; is object a ground saw?
-		bcc.s	Saw_Action	; if yes, branch
+		bhs.s	Saw_Action	; if yes, branch
 		move.b	#$A2,obColType(a0)
 
 Saw_Action:	; Routine 2
@@ -125,10 +125,10 @@ Saw_Action:	; Routine 2
 		move.w	(v_player+obY).w,d0
 		subi.w	#$80,d0
 		cmp.w	obY(a0),d0
-		bcc.s	.nosaw03y
+		bhs.s	.nosaw03y
 		addi.w	#$100,d0
 		cmp.w	obY(a0),d0
-		bcs.s	.nosaw03y
+		blo.s	.nosaw03y
 		move.b	#1,saw_here(a0)
 		move.w	#$600,obVelX(a0) ; move object to the right
 		move.b	#$A2,obColType(a0)
@@ -165,10 +165,10 @@ Saw_Action:	; Routine 2
 		move.w	(v_player+obY).w,d0
 		subi.w	#$80,d0
 		cmp.w	obY(a0),d0
-		bcc.s	.nosaw04y
+		bhs.s	.nosaw04y
 		addi.w	#$100,d0
 		cmp.w	obY(a0),d0
-		bcs.s	.nosaw04y
+		blo.s	.nosaw04y
 		move.b	#1,saw_here(a0)
 		move.w	#-$600,obVelX(a0) ; move object to the left
 		move.b	#$A2,obColType(a0)

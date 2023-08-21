@@ -102,7 +102,7 @@ Sonic_Animate:
 .nomodspeed:
 		lea	(SonAni_Run).l,a1 ; use	running	animation
 		cmpi.w	#$600,d2	; is Sonic at running speed?
-		bcc.s	.running	; if yes, branch
+		bhs.s	.running	; if yes, branch
 
 		lea	(SonAni_Walk).l,a1 ; use walking animation
 		move.b	d0,d1
@@ -135,7 +135,7 @@ Sonic_Animate:
 .nomodspeed2:
 		lea	(SonAni_Roll2).l,a1 ; use fast animation
 		cmpi.w	#$600,d2	; is Sonic moving fast?
-		bcc.s	.rollfast	; if yes, branch
+		bhs.s	.rollfast	; if yes, branch
 		lea	(SonAni_Roll).l,a1 ; use slower	animation
 
 .rollfast:

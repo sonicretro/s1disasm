@@ -141,11 +141,11 @@ CollectRing:
 		ori.b	#1,(f_ringcount).w ; update the rings counter
 		move.w	#sfx_Ring,d0	; play ring sound
 		cmpi.w	#100,(v_rings).w ; do you have < 100 rings?
-		bcs.s	.playsnd	; if yes, branch
+		blo.s	.playsnd	; if yes, branch
 		bset	#1,(v_lifecount).w ; update lives counter
 		beq.s	.got100
 		cmpi.w	#200,(v_rings).w ; do you have < 200 rings?
-		bcs.s	.playsnd	; if yes, branch
+		blo.s	.playsnd	; if yes, branch
 		bset	#2,(v_lifecount).w ; update lives counter
 		bne.s	.playsnd
 
@@ -182,7 +182,7 @@ RLoss_Count:	; Routine 0
 		move.w	(v_rings).w,d5	; check number of rings you have
 		moveq	#32,d0
 		cmp.w	d0,d5		; do you have 32 or more?
-		bcs.s	.belowmax	; if not, branch
+		blo.s	.belowmax	; if not, branch
 		move.w	d0,d5		; if yes, set d5 to 32
 
 .belowmax:
@@ -263,7 +263,7 @@ RLoss_Bounce:	; Routine 2
 		move.w	(v_limitbtm2).w,d0
 		addi.w	#$E0,d0
 		cmp.w	obY(a0),d0	; has object moved below level boundary?
-		bcs.s	RLoss_Delete	; if yes, branch
+		blo.s	RLoss_Delete	; if yes, branch
 		bra.w	DisplaySprite
 ; ===========================================================================
 

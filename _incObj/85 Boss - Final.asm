@@ -116,7 +116,7 @@ loc_19E90:
 		tst.l	(v_plc_buffer).w
 		bne.s	loc_19EA2
 		cmpi.w	#boss_fz_x,(v_screenposx).w
-		bcs.s	loc_19EA2
+		blo.s	loc_19EA2
 		addq.b	#2,objoff_34(a0)
 
 loc_19EA2:
@@ -278,7 +278,7 @@ loc_1A02A:
 		move.b	#6,obFrame(a0)
 		addi.w	#$10,obVelY(a0)
 		cmpi.w	#boss_fz_y+$8C,obY(a0)
-		bcs.s	loc_1A070
+		blo.s	loc_1A070
 		move.w	#boss_fz_y+$8C,obY(a0)
 		addq.b	#2,objoff_34(a0)
 		if Revision=0
@@ -300,7 +300,7 @@ loc_1A074:
 		jsr	(SpeedToPos).l
 		addi.w	#$10,obVelY(a0)
 		cmpi.w	#boss_fz_y+$93,obY(a0)
-		bcs.s	loc_1A09A
+		blo.s	loc_1A09A
 		move.w	#-$40,obVelY(a0)
 
 loc_1A09A:
@@ -334,7 +334,7 @@ loc_1A0B4:
 
 loc_1A0F2:
 		cmpi.w	#boss_fz_x+$250,obX(a0)
-		bcs.s	loc_1A110
+		blo.s	loc_1A110
 		move.w	#boss_fz_x+$250,obX(a0)
 		move.w	#$240,obVelX(a0)
 		move.w	#-$4C0,obVelY(a0)
@@ -347,7 +347,7 @@ loc_1A110:
 loc_1A112:
 		jsr	(SpeedToPos).l
 		cmpi.w	#boss_fz_x+$290,obX(a0)
-		bcs.s	loc_1A124
+		blo.s	loc_1A124
 		clr.w	obVelX(a0)
 
 loc_1A124:
@@ -355,7 +355,7 @@ loc_1A124:
 		tst.w	obVelY(a0)
 		bmi.s	loc_1A142
 		cmpi.w	#boss_fz_y+$82,obY(a0)
-		bcs.s	loc_1A142
+		blo.s	loc_1A142
 		move.w	#boss_fz_y+$82,obY(a0)
 		clr.w	obVelY(a0)
 
@@ -397,7 +397,7 @@ loc_1A192:
 		bset	#0,obStatus(a0)
 		jsr	(SpeedToPos).l
 		cmpi.w	#boss_fz_y+$34,obY(a0)
-		bcc.s	loc_1A1D0
+		bhs.s	loc_1A1D0
 		move.w	#$180,obVelX(a0)
 		move.w	#-$18,obVelY(a0)
 		move.b	#$F,obColType(a0)
@@ -447,7 +447,7 @@ loc_1A23A:
 
 loc_1A248:
 		cmpi.w	#boss_fz_end+$200,obX(a0)
-		bcs.s	loc_1A260
+		blo.s	loc_1A260
 		tst.b	obRender(a0)
 		bmi.s	loc_1A260
 		move.b	#id_Ending,(v_gamemode).w

@@ -47,10 +47,10 @@ loc_B238:	; Routine 2
 		add.w	objoff_3C(a0),d0
 		move.w	d0,obY(a0)
 		cmpi.w	#$84,d1
-		bcc.s	loc_B2B0
+		bhs.s	loc_B2B0
 		addi.l	#$10000,obX(a0)
 		cmpi.w	#$80,d1
-		bcc.s	loc_B2B0
+		bhs.s	loc_B2B0
 		move.l	obX(a0),d0
 		addi.l	#$80000,d0
 		andi.l	#$FFFFF,d0

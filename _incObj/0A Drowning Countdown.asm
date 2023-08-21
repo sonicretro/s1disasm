@@ -62,7 +62,7 @@ Drown_Animate:	; Routine 2
 Drown_ChkWater:	; Routine 4
 		move.w	(v_waterpos1).w,d0
 		cmp.w	obY(a0),d0	; has bubble reached the water surface?
-		bcs.s	.wobble		; if not, branch
+		blo.s	.wobble		; if not, branch
 
 		move.b	#id_Drown_Display,obRoutine(a0) ; goto Drown_Display next
 		addq.b	#7,obAnim(a0)
@@ -133,7 +133,7 @@ Drown_ShowNumber:
 		subq.w	#1,drown_time(a0)	; decrement timer
 		bne.s	.nonumber	; if time remains, branch
 		cmpi.b	#7,obAnim(a0)
-		bcc.s	.nonumber
+		bhs.s	.nonumber
 
 		move.w	#15,drown_time(a0)
 		clr.w	obVelY(a0)
@@ -185,7 +185,7 @@ Drown_Countdown:; Routine $A
 		tst.w	objoff_2C(a0)
 		bne.w	.loc_13F86
 		cmpi.b	#6,(v_player+obRoutine).w
-		bcc.w	.nocountdown
+		bhs.w	.nocountdown
 		btst	#6,(v_player+obStatus).w ; is Sonic underwater?
 		beq.w	.nocountdown	; if not, branch
 

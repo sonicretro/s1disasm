@@ -57,7 +57,7 @@ Bub_Animate:	; Routine 2
 Bub_ChkWater:	; Routine 4
 		move.w	(v_waterpos1).w,d0
 		cmp.w	obY(a0),d0	; is bubble underwater?
-		bcs.s	.wobble		; if yes, branch
+		blo.s	.wobble		; if yes, branch
 
 .burst:
 		move.b	#6,obRoutine(a0) ; goto Bub_Display next
@@ -130,7 +130,7 @@ Bub_BblMaker:	; Routine $A
 		bne.s	.loc_12874
 		move.w	(v_waterpos1).w,d0
 		cmp.w	obY(a0),d0	; is bubble maker underwater?
-		bcc.w	.chkdel		; if not, branch
+		bhs.w	.chkdel		; if not, branch
 		tst.b	obRender(a0)
 		bpl.w	.chkdel
 		subq.w	#1,objoff_38(a0)
@@ -142,7 +142,7 @@ Bub_BblMaker:	; Routine $A
 		move.w	d0,d1
 		andi.w	#7,d0
 		cmpi.w	#6,d0		; random number over 6?
-		bcc.s	.tryagain	; if yes, branch
+		bhs.s	.tryagain	; if yes, branch
 
 		move.b	d0,objoff_34(a0)
 		andi.w	#$C,d1
@@ -212,7 +212,7 @@ Bub_BblMaker:	; Routine $A
 		out_of_range.w	DeleteObject
 		move.w	(v_waterpos1).w,d0
 		cmp.w	obY(a0),d0
-		bcs.w	DisplaySprite
+		blo.w	DisplaySprite
 		rts	
 ; ===========================================================================
 ; bubble production sequence
@@ -231,17 +231,17 @@ Bub_ChkSonic:
 		move.w	obX(a0),d1
 		subi.w	#$10,d1
 		cmp.w	d0,d1
-		bcc.s	.loc_12998
+		bhs.s	.loc_12998
 		addi.w	#$20,d1
 		cmp.w	d0,d1
-		bcs.s	.loc_12998
+		blo.s	.loc_12998
 		move.w	obY(a1),d0
 		move.w	obY(a0),d1
 		cmp.w	d0,d1
-		bcc.s	.loc_12998
+		bhs.s	.loc_12998
 		addi.w	#$10,d1
 		cmp.w	d0,d1
-		bcs.s	.loc_12998
+		blo.s	.loc_12998
 		moveq	#1,d0
 		rts	
 ; ===========================================================================

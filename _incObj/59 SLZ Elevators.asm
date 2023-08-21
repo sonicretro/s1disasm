@@ -196,7 +196,7 @@ Elev_Move:
 		tst.b	objoff_3A(a0)
 		bne.s	loc_10CC8
 		cmpi.w	#$800,d0
-		bcc.s	loc_10CD0
+		bhs.s	loc_10CD0
 		addi.w	#$10,d0
 		bra.s	loc_10CD0
 ; ===========================================================================

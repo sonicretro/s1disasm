@@ -9,7 +9,7 @@ Sonic_SlopeResist:
 		move.b	obAngle(a0),d0
 		addi.b	#$60,d0
 		cmpi.b	#$C0,d0
-		bcc.s	locret_13508
+		bhs.s	locret_13508
 		move.b	obAngle(a0),d0
 		jsr	(CalcSine).l
 		muls.w	#$20,d0

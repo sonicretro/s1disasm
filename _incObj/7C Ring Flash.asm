@@ -36,7 +36,7 @@ Flash_Collect:
 		move.b	#1,obTimeFrame(a0)
 		addq.b	#1,obFrame(a0)
 		cmpi.b	#8,obFrame(a0)	; has animation	finished?
-		bcc.s	Flash_End	; if yes, branch
+		bhs.s	Flash_End	; if yes, branch
 		cmpi.b	#3,obFrame(a0)	; is 3rd frame displayed?
 		bne.s	locret_9F76	; if not, branch
 		movea.l	objoff_3C(a0),a1	; get parent object address

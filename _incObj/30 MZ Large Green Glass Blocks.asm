@@ -34,7 +34,7 @@ Glass_Main:	; Routine 0
 		moveq	#1,d1
 		move.b	#$48,obHeight(a0)
 		cmpi.b	#3,obSubtype(a0) ; is object type 0/1/2 ?
-		bcs.s	.IsType012	; if yes, branch
+		blo.s	.IsType012	; if yes, branch
 
 		lea	(Glass_Vars2).l,a2
 		moveq	#1,d1

@@ -80,7 +80,7 @@ Shi_Stars:	; Routine 4
 		sub.b	d1,d0		; use earlier tracking data to create trail
 		addq.b	#4,d1
 		cmpi.b	#$18,d1
-		bcs.s	.a
+		blo.s	.a
 		moveq	#0,d1
 
 .a:

@@ -131,7 +131,7 @@ ReactToItem:
 		cmpi.b	#6,d0		; is collision type $46	?
 		beq.s	React_Monitor	; if yes, branch
 		cmpi.w	#90,flashtime(a0)	; is Sonic invincible?
-		bcc.w	.invincible	; if yes, branch
+		bhs.w	.invincible	; if yes, branch
 		addq.b	#2,obRoutine(a1) ; advance the object's routine counter
 
 .invincible:
@@ -145,7 +145,7 @@ React_Monitor:
 		move.w	obY(a0),d0
 		subi.w	#$10,d0
 		cmp.w	obY(a1),d0
-		bcs.s	.donothing
+		blo.s	.donothing
 		neg.w	obVelY(a0)	; reverse Sonic's vertical speed
 		move.w	#-$180,obVelY(a1)
 		tst.b	ob2ndRout(a1)
@@ -193,14 +193,14 @@ React_Enemy:
 		move.w	(v_itembonus).w,d0
 		addq.w	#2,(v_itembonus).w ; add 2 to item bonus counter
 		cmpi.w	#6,d0
-		bcs.s	.bonusokay
+		blo.s	.bonusokay
 		moveq	#6,d0		; max bonus is lvl6
 
 .bonusokay:
 		move.w	d0,objoff_3E(a1)
 		move.w	.points(pc,d0.w),d0
 		cmpi.w	#$20,(v_itembonus).w ; have 16 enemies been destroyed?
-		bcs.s	.lessthan16	; if not, branch
+		blo.s	.lessthan16	; if not, branch
 		move.w	#1000,d0	; fix bonus to 10000
 		move.w	#$A,objoff_3E(a1)
 
@@ -212,7 +212,7 @@ React_Enemy:
 		bmi.s	.bouncedown
 		move.w	obY(a0),d0
 		cmp.w	obY(a1),d0
-		bcc.s	.bounceup
+		bhs.s	.bounceup
 		neg.w	obVelY(a0)
 		rts	
 ; ===========================================================================
@@ -285,7 +285,7 @@ HurtSonic:
 .isdry:
 		move.w	obX(a0),d0
 		cmp.w	obX(a2),d0
-		bcs.s	.isleft		; if Sonic is left of the object, branch
+		blo.s	.isleft		; if Sonic is left of the object, branch
 		neg.w	obVelX(a0)	; if Sonic is right of the object, reverse
 
 .isleft:
@@ -367,7 +367,7 @@ React_Special:
 .yadrin:
 		sub.w	d0,d5
 		cmpi.w	#8,d5
-		bcc.s	.normalenemy
+		bhs.s	.normalenemy
 		move.w	obX(a1),d0
 		subq.w	#4,d0
 		btst	#0,obStatus(a1)

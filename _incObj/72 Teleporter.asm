@@ -41,18 +41,18 @@ loc_166C8:	; Routine 2
 
 loc_166E0:
 		cmpi.w	#$10,d0
-		bcc.s	locret_1675C
+		bhs.s	locret_1675C
 		move.w	obY(a1),d1
 		sub.w	obY(a0),d1
 		addi.w	#$20,d1
 		cmpi.w	#$40,d1
-		bcc.s	locret_1675C
+		bhs.s	locret_1675C
 		tst.b	(f_playerctrl).w
 		bne.s	locret_1675C
 		cmpi.b	#7,obSubtype(a0)
 		bne.s	loc_1670E
 		cmpi.w	#50,(v_rings).w
-		bcs.s	locret_1675C
+		blo.s	locret_1675C
 
 loc_1670E:
 		addq.b	#2,obRoutine(a0)
@@ -105,7 +105,7 @@ loc_16798:	; Routine 6
 		move.b	objoff_3A(a0),d1
 		addq.b	#4,d1
 		cmp.b	objoff_3B(a0),d1
-		bcs.s	loc_167C2
+		blo.s	loc_167C2
 		moveq	#0,d1
 		bra.s	loc_16800
 ; ===========================================================================
@@ -165,7 +165,7 @@ loc_16830:
 
 loc_16844:
 		cmp.w	d0,d1
-		bcs.s	loc_1687A
+		blo.s	loc_1687A
 		moveq	#0,d1
 		move.w	objoff_38(a0),d1
 		sub.w	obY(a1),d1

@@ -94,10 +94,10 @@ loc_179BC:
 
 loc_179C2:
 		cmpi.w	#$30,objoff_3C(a0)
-		bcs.s	loc_179DA
+		blo.s	loc_179DA
 		beq.s	loc_179E0
 		cmpi.w	#$38,objoff_3C(a0)
-		bcs.s	loc_179EE
+		blo.s	loc_179EE
 		addq.b	#2,ob2ndRout(a0)
 		bra.s	loc_179EE
 ; ===========================================================================
@@ -166,7 +166,7 @@ loc_17A46:
 
 loc_17A50:
 		cmpi.b	#4,(v_player+obRoutine).w
-		bcs.s	loc_17A5A
+		blo.s	loc_17A5A
 		moveq	#4,d1
 
 loc_17A5A:

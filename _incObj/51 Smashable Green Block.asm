@@ -69,14 +69,14 @@ sonicAniFrame = objoff_32		; Sonic's current animation number
 		move.w	(v_itembonus).w,d2
 		addq.w	#2,(v_itembonus).w ; increment bonus counter
 		cmpi.w	#6,d2		; have fewer than 3 blocks broken?
-		bcs.s	.bonus		; if yes, branch
+		blo.s	.bonus		; if yes, branch
 		moveq	#6,d2		; set cap for points
 
 .bonus:
 		moveq	#0,d0
 		move.w	Smab_Scores(pc,d2.w),d0
 		cmpi.w	#$20,(v_itembonus).w ; have 16 blocks been smashed?
-		bcs.s	.givepoints	; if not, branch
+		blo.s	.givepoints	; if not, branch
 		move.w	#1000,d0	; give higher points for 16th block
 		moveq	#10,d2
 

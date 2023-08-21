@@ -21,7 +21,7 @@ PSB_Main:	; Routine 0
 		move.l	#Map_PSB,obMap(a0)
 		move.w	#$200,obGfx(a0)
 		cmpi.b	#2,obFrame(a0)	; is object "PRESS START"?
-		bcs.s	PSB_PrsStart	; if yes, branch
+		blo.s	PSB_PrsStart	; if yes, branch
 
 		addq.b	#2,obRoutine(a0)
 		cmpi.b	#3,obFrame(a0)	; is the object	"TM"?

@@ -122,7 +122,7 @@ loc_B798:	; Routine 2
 		btst	#3,obStatus(a0)
 		beq.s	CStom_Display
 		cmpi.b	#$10,objoff_32(a0)
-		bcc.s	CStom_Display
+		bhs.s	CStom_Display
 		movea.l	a0,a2
 		lea	(v_player).w,a0
 		jsr	(KillSonic).l
@@ -286,7 +286,7 @@ CStom_Type03:
 
 loc_B98C:
 		cmpi.w	#$90,d0
-		bcc.s	loc_B996
+		bhs.s	loc_B996
 		addq.b	#1,obSubtype(a0)
 
 loc_B996:

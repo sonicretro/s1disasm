@@ -59,12 +59,12 @@ Disc_MoveSonic:
 		sub.w	disc_origX(a0),d0
 		add.w	d2,d0
 		cmp.w	d3,d0
-		bcc.s	loc_155A8
+		bhs.s	loc_155A8
 		move.w	obY(a1),d1
 		sub.w	disc_origY(a0),d1
 		add.w	d2,d1
 		cmp.w	d3,d1
-		bcc.s	loc_155A8
+		bhs.s	loc_155A8
 		btst	#1,obStatus(a1)
 		beq.s	loc_155B8
 		clr.b	objoff_3A(a0)

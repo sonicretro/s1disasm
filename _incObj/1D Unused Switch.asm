@@ -60,7 +60,7 @@ Swi_ChkTouch:
 		bmi.s	Swi_NoTouch
 		add.w	d1,d1
 		cmp.w	d1,d0
-		bcc.s	Swi_NoTouch
+		bhs.s	Swi_NoTouch
 		move.w	obY(a1),d2
 		move.b	obHeight(a1),d1
 		ext.w	d1
@@ -70,7 +70,7 @@ Swi_ChkTouch:
 		sub.w	d1,d0
 		bhi.s	Swi_NoTouch
 		cmpi.w	#-$10,d0
-		bcs.s	Swi_NoTouch
+		blo.s	Swi_NoTouch
 		moveq	#-1,d0		; Sonic has touched it
 		rts	
 ; ===========================================================================

@@ -90,7 +90,7 @@ Orb_ChkSonic:	; Routine 2
 
 .isright:
 		cmpi.w	#$A0,d0		; is Sonic within $A0 pixels of	orbinaut?
-		bcc.s	.animate	; if not, branch
+		bhs.s	.animate	; if not, branch
 		move.w	(v_player+obY).w,d0
 		sub.w	obY(a0),d0	; is Sonic above the orbinaut?
 		bcc.s	.isabove	; if yes, branch
@@ -98,7 +98,7 @@ Orb_ChkSonic:	; Routine 2
 
 .isabove:
 		cmpi.w	#$50,d0		; is Sonic within $50 pixels of	orbinaut?
-		bcc.s	.animate	; if not, branch
+		bhs.s	.animate	; if not, branch
 		tst.w	(v_debuguse).w	; is debug mode	on?
 		bne.s	.animate	; if yes, branch
 		move.b	#1,obAnim(a0)	; use "angry" animation

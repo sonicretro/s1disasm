@@ -32,7 +32,7 @@ loc_2CC2:
 
 loc_2CCA:
 		cmp.w	d3,d4
-		bcc.w	loc_2CDC
+		bhs.w	loc_2CDC
 		lsl.l	#8,d4
 		divu.w	d3,d4
 		moveq	#0,d0

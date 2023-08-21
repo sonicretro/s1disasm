@@ -160,7 +160,7 @@ Crab_SetAni:
 		move.b	obAngle(a0),d3
 		bmi.s	loc_96A4
 		cmpi.b	#6,d3
-		bcs.s	locret_96A2
+		blo.s	locret_96A2
 		moveq	#1,d0
 		btst	#0,obStatus(a0)
 		bne.s	locret_96A2

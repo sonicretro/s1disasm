@@ -9,7 +9,7 @@ Sonic_RollRepel:
 		move.b	obAngle(a0),d0
 		addi.b	#$60,d0
 		cmpi.b	#-$40,d0
-		bcc.s	locret_13544
+		bhs.s	locret_13544
 		move.b	obAngle(a0),d0
 		jsr	(CalcSine).l
 		muls.w	#$50,d0

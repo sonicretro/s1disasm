@@ -46,7 +46,7 @@ Bas_Action:	; Routine 2
 		sub.w	obY(a0),d0
 		bcs.s	.nodrop
 		cmpi.w	#$80,d0		; is Sonic < $80 pixels from basaran?
-		bcc.s	.nodrop		; if not, branch
+		bhs.s	.nodrop		; if not, branch
 		tst.w	(v_debuguse).w	; is debug mode	on?
 		bne.s	.nodrop		; if yes, branch
 
@@ -70,7 +70,7 @@ Bas_Action:	; Routine 2
 		sub.w	obY(a0),d0
 		bcs.s	.chkdel
 		cmpi.w	#$10,d0		; is basaran close to Sonic vertically?
-		bcc.s	.dropmore	; if not, branch
+		bhs.s	.dropmore	; if not, branch
 		move.w	d1,obVelX(a0)	; make basaran fly horizontally
 		move.w	#0,obVelY(a0)	; stop basaran falling
 		move.b	#2,obAnim(a0)
@@ -101,7 +101,7 @@ Bas_Action:	; Routine 2
 
 .isright:
 		cmpi.w	#$80,d0		; is Sonic within $80 pixels of basaran?
-		bcs.s	.dontflyup	; if yes, branch
+		blo.s	.dontflyup	; if yes, branch
 		move.b	(v_vbla_byte).w,d0
 		add.b	d7,d0
 		andi.b	#7,d0

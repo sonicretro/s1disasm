@@ -65,7 +65,7 @@ loc_19718:
 		move.w	obY(a1),obY(a0)
 		addi.w	#$2C,obY(a0)
 		cmpa.w	a0,a1
-		bcs.s	Obj76_Display
+		blo.s	Obj76_Display
 		move.w	obVelY(a1),d0
 		ext.l	d0
 		asr.l	#8,d0

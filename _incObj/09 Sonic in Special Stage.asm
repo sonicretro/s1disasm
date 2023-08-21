@@ -420,9 +420,9 @@ sub_1BD30:
 		cmpi.b	#$28,d4
 		beq.s	locret_1BD44
 		cmpi.b	#$3A,d4
-		bcs.s	loc_1BD46
+		blo.s	loc_1BD46
 		cmpi.b	#$4B,d4
-		bcc.s	loc_1BD46
+		bhs.s	loc_1BD46
 
 locret_1BD44:
 		rts	
@@ -471,7 +471,7 @@ Obj09_ChkCont:
 Obj09_GetCont:
 		jsr	(CollectRing).l
 		cmpi.w	#50,(v_rings).w	; check if you have 50 rings
-		bcs.s	Obj09_NoCont
+		blo.s	Obj09_NoCont
 		bset	#0,(v_lifecount).w
 		bne.s	Obj09_NoCont
 		addq.b	#1,(v_continues).w ; add 1 to number of continues
@@ -502,7 +502,7 @@ Obj09_Get1Up:
 
 Obj09_ChkEmer:
 		cmpi.b	#$3B,d4		; is the item an emerald?
-		bcs.s	Obj09_ChkGhost
+		blo.s	Obj09_ChkGhost
 		cmpi.b	#$40,d4
 		bhi.s	Obj09_ChkGhost
 		bsr.w	SS_RemoveCollectedItem

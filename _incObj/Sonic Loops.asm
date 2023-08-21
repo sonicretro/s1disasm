@@ -45,7 +45,7 @@ Sonic_Loops:
 .chkifleft:
 		move.w	obX(a0),d2
 		cmpi.b	#$2C,d2
-		bcc.s	.chkifright
+		bhs.s	.chkifright
 
 		bclr	#6,obRender(a0)	; return Sonic to high plane
 		rts	
@@ -53,7 +53,7 @@ Sonic_Loops:
 
 .chkifright:
 		cmpi.b	#$E0,d2
-		bcs.s	.chkangle1
+		blo.s	.chkangle1
 
 		bset	#6,obRender(a0)	; send Sonic to	low plane
 		rts	

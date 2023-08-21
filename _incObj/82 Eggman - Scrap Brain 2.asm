@@ -68,7 +68,7 @@ SEgg_ChkSonic:
 		move.w	obX(a0),d0
 		sub.w	(v_player+obX).w,d0
 		cmpi.w	#128,d0		; is Sonic within 128 pixels of	Eggman?
-		bcc.s	loc_19934	; if not, branch
+		bhs.s	loc_19934	; if not, branch
 		addq.b	#2,ob2ndRout(a0)
 		move.w	#180,objoff_3C(a0)	; set delay to 3 seconds
 		move.b	#1,obAnim(a0)
@@ -106,10 +106,10 @@ loc_19976:
 		tst.w	obVelY(a0)
 		bmi.s	SEgg_FindBlocks
 		cmpi.w	#boss_sbz2_y+$85,obY(a0)
-		bcs.s	SEgg_FindBlocks
+		blo.s	SEgg_FindBlocks
 		move.w	#"SW",obSubtype(a0)
 		cmpi.w	#boss_sbz2_y+$8B,obY(a0)
-		bcs.s	SEgg_FindBlocks
+		blo.s	SEgg_FindBlocks
 		move.w	#boss_sbz2_y+$8B,obY(a0)
 		clr.w	obVelY(a0)
 

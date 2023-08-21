@@ -37,7 +37,7 @@ Sign_Touch:	; Routine 2
 		sub.w	obX(a0),d0
 		bcs.s	.notouch
 		cmpi.w	#$20,d0		; is Sonic within $20 pixels of	the signpost?
-		bcc.s	.notouch	; if not, branch
+		bhs.s	.notouch	; if not, branch
 		move.w	#sfx_Signpost,d0
 		jsr	(PlaySound).l	; play signpost sound
 		clr.b	(f_timecount).w	; stop time counter
@@ -112,7 +112,7 @@ loc_EC70:
 		move.w	(v_limitright2).w,d1
 		addi.w	#$128,d1
 		cmp.w	d1,d0
-		bcs.s	locret_ECEE
+		blo.s	locret_ECEE
 
 loc_EC86:
 		addq.b	#2,obRoutine(a0)
@@ -144,7 +144,7 @@ GotThroughAct:
 		divu.w	#15,d0		; divide by 15
 		moveq	#$14,d1
 		cmp.w	d1,d0		; is time 5 minutes or higher?
-		bcs.s	.hastimebonus	; if not, branch
+		blo.s	.hastimebonus	; if not, branch
 		move.w	d1,d0		; use minimum time bonus (0)
 
 .hastimebonus:

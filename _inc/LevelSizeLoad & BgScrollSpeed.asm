@@ -124,7 +124,7 @@ LevSz_SkipStartPos:
 SetScr_WithinLeft:
 		move.w	(v_limitright2).w,d2
 		cmp.w	d2,d1		; is Sonic inside the right edge?
-		bcs.s	SetScr_WithinRight ; if yes, branch
+		blo.s	SetScr_WithinRight ; if yes, branch
 		move.w	d2,d1
 
 SetScr_WithinRight:

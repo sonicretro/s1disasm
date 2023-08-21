@@ -26,7 +26,7 @@ Light_Animate:	; Routine 2
 		move.b	#7,obTimeFrame(a0)
 		addq.b	#1,obFrame(a0)
 		cmpi.b	#6,obFrame(a0)
-		bcs.s	.chkdel
+		blo.s	.chkdel
 		move.b	#0,obFrame(a0)
 
 .chkdel:

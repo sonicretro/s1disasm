@@ -24,7 +24,7 @@ GRing_Main:	; Routine 0
 		cmpi.b	#6,(v_emeralds).w ; do you have 6 emeralds?
 		beq.w	GRing_Delete	; if yes, branch
 		cmpi.w	#50,(v_rings).w	; do you have at least 50 rings?
-		bcc.s	GRing_Okay	; if yes, branch
+		bhs.s	GRing_Okay	; if yes, branch
 		rts	
 ; ===========================================================================
 
@@ -51,7 +51,7 @@ GRing_Collect:	; Routine 4
 		move.l	a0,objoff_3C(a1)
 		move.w	(v_player+obX).w,d0
 		cmp.w	obX(a0),d0	; has Sonic come from the left?
-		bcs.s	GRing_PlaySnd	; if yes, branch
+		blo.s	GRing_PlaySnd	; if yes, branch
 		bset	#0,obRender(a1)	; reverse flash	object
 
 GRing_PlaySnd:

@@ -236,7 +236,7 @@ Plat_Move:
 		move.w	(v_limitbtm2).w,d0
 		addi.w	#$E0,d0
 		cmp.w	objoff_2C(a0),d0
-		bcc.s	.locret_8074
+		bhs.s	.locret_8074
 		move.b	#6,obRoutine(a0)
 
 .locret_8074:

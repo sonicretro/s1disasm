@@ -21,7 +21,7 @@ Sonic_SlopeRepel:
 
 loc_1356A:
 		cmpi.w	#$280,d0
-		bcc.s	locret_13580
+		bhs.s	locret_13580
 		clr.w	obInertia(a0)
 		bset	#1,obStatus(a0)
 		move.w	#$1E,objoff_3E(a0)

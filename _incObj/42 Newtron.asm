@@ -49,7 +49,7 @@ Newt_Action:	; Routine 2
 
 .sonicisright:
 		cmpi.w	#$80,d0		; is Sonic within $80 pixels of	the newtron?
-		bcc.s	.outofrange	; if not, branch
+		bhs.s	.outofrange	; if not, branch
 		addq.b	#2,ob2ndRout(a0) ; goto .type00 next
 		move.b	#1,obAnim(a0)
 		tst.b	obSubtype(a0)	; check	object type
@@ -66,7 +66,7 @@ Newt_Action:	; Routine 2
 
 .type00:
 		cmpi.b	#4,obFrame(a0)	; has "appearing" animation finished?
-		bcc.s	.fall		; is yes, branch
+		bhs.s	.fall		; is yes, branch
 		bset	#0,obStatus(a0)
 		move.w	(v_player+obX).w,d0
 		sub.w	obX(a0),d0

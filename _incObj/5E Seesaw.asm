@@ -104,7 +104,7 @@ See_ChkSide:
 
 .leftside:
 		cmpi.w	#8,d0
-		bcc.s	See_ChgFrame
+		bhs.s	See_ChgFrame
 		moveq	#1,d1
 
 See_ChgFrame:

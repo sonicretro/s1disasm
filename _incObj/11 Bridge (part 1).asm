@@ -99,6 +99,6 @@ Bri_Solid:
 		add.w	d1,d0
 		bmi.w	Plat_Exit
 		cmp.w	d2,d0
-		bcc.w	Plat_Exit
+		bhs.w	Plat_Exit
 		bra.s	Plat_NoXCheck
 ; End of function Bri_Solid

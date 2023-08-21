@@ -99,7 +99,7 @@ PCycLZ_NoRev:
 		andi.w	#3,d0
 		add.w	d1,d0
 		cmpi.w	#3,d0
-		bcs.s	loc_1A0A
+		blo.s	loc_1A0A
 		move.w	d0,d1
 		moveq	#0,d0
 		tst.w	d1
@@ -142,7 +142,7 @@ PalCycle_SLZ:
 		move.w	(v_pcyc_num).w,d0
 		addq.w	#1,d0
 		cmpi.w	#6,d0
-		bcs.s	loc_1A60
+		blo.s	loc_1A60
 		moveq	#0,d0
 
 loc_1A60:
@@ -214,7 +214,7 @@ loc_1AEA:
 		move.b	(a1),d0
 		addq.b	#1,d0
 		cmp.b	(a2)+,d0
-		bcs.s	loc_1AF6
+		blo.s	loc_1AF6
 		moveq	#0,d0
 
 loc_1AF6:
@@ -247,7 +247,7 @@ loc_1B38:
 		andi.w	#3,d0
 		add.w	d1,d0
 		cmpi.w	#3,d0
-		bcs.s	loc_1B52
+		blo.s	loc_1B52
 		move.w	d0,d1
 		moveq	#0,d0
 		tst.w	d1

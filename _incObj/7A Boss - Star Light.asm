@@ -94,7 +94,7 @@ Obj7A_ShipIndex:dc.w loc_189B8-Obj7A_ShipIndex
 loc_189B8:
 		move.w	#-$100,obVelX(a0)
 		cmpi.w	#boss_slz_x+$120,objoff_30(a0)
-		bcc.s	loc_189CA
+		bhs.s	loc_189CA
 		addq.b	#2,ob2ndRout(a0)
 
 loc_189CA:
@@ -116,7 +116,7 @@ loc_189EE:
 
 loc_189FE:
 		cmpi.b	#6,ob2ndRout(a0)
-		bcc.s	locret_18A44
+		bhs.s	locret_18A44
 		tst.b	obStatus(a0)
 		bmi.s	loc_18A46
 		tst.b	obColType(a0)
@@ -286,10 +286,10 @@ loc_18B90:
 
 loc_18B96:
 		cmpi.b	#$20,objoff_3C(a0)
-		bcs.s	loc_18BAE
+		blo.s	loc_18BAE
 		beq.s	loc_18BB4
 		cmpi.b	#$2A,objoff_3C(a0)
-		bcs.s	loc_18BC2
+		blo.s	loc_18BC2
 		addq.b	#2,ob2ndRout(a0)
 		bra.s	loc_18BC2
 ; ===========================================================================
@@ -312,7 +312,7 @@ loc_18BC6:
 		move.w	#$400,obVelX(a0)
 		move.w	#-$40,obVelY(a0)
 		cmpi.w	#boss_slz_end,(v_limitright2).w
-		bcc.s	loc_18BE0
+		bhs.s	loc_18BE0
 		addq.w	#2,(v_limitright2).w
 		bra.s	loc_18BE8
 ; ===========================================================================
@@ -346,7 +346,7 @@ loc_18C06:
 
 loc_18C10:
 		cmpi.b	#4,(v_player+obRoutine).w
-		bcs.s	loc_18C1A
+		blo.s	loc_18C1A
 		moveq	#4,d1
 
 loc_18C1A:

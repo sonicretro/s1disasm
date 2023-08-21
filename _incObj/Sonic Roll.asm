@@ -14,7 +14,7 @@ Sonic_Roll:
 
 .ispositive:
 		cmpi.w	#$80,d0		; is Sonic moving at $80 speed or faster?
-		bcs.s	.noroll		; if not, branch
+		blo.s	.noroll		; if not, branch
 		move.b	(v_jpadhold2).w,d0
 		andi.b	#btnL+btnR,d0	; is left/right	being pressed?
 		bne.s	.noroll		; if yes, branch

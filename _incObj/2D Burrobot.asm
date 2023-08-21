@@ -126,7 +126,7 @@ Burro_ChkSonic:
 		sub.w	obY(a0),d0
 		bcc.s	locret_AE20
 		cmpi.w	#-$80,d0
-		bcs.s	locret_AE20
+		blo.s	locret_AE20
 		tst.w	(v_debuguse).w
 		bne.s	locret_AE20
 		subq.b	#2,ob2ndRout(a0)

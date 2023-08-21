@@ -93,7 +93,7 @@ loc_1833E:
 		move.w	objoff_38(a0),obY(a0)
 		move.w	objoff_30(a0),obX(a0)
 		cmpi.b	#4,ob2ndRout(a0)
-		bcc.s	locret_18390
+		bhs.s	locret_18390
 		tst.b	obStatus(a0)
 		bmi.s	loc_18392
 		tst.b	obColType(a0)
@@ -167,7 +167,7 @@ loc_183E6:
 
 loc_183FE:
 		cmpi.b	#$18,objoff_3E(a0)
-		bcc.s	Obj73_MakeLava
+		bhs.s	Obj73_MakeLava
 		bsr.w	BossMove
 		subq.w	#4,obVelY(a0)
 
@@ -211,7 +211,7 @@ loc_18482:
 		clr.w	obVelX(a0)
 		move.w	#-$180,obVelY(a0)
 		cmpi.w	#boss_mz_y+$1C,objoff_38(a0)
-		bcc.s	loc_18498
+		bhs.s	loc_18498
 		neg.w	obVelY(a0)
 
 loc_18498:
@@ -275,7 +275,7 @@ loc_1852C:
 		beq.s	loc_18544
 		bpl.s	loc_1854E
 		cmpi.w	#boss_mz_y+$60,objoff_38(a0)
-		bcc.s	loc_18544
+		bhs.s	loc_18544
 		addi.w	#$18,obVelY(a0)
 		bra.s	loc_1857A
 ; ===========================================================================
@@ -288,10 +288,10 @@ loc_18544:
 
 loc_1854E:
 		cmpi.w	#$30,objoff_3C(a0)
-		bcs.s	loc_18566
+		blo.s	loc_18566
 		beq.s	loc_1856C
 		cmpi.w	#$38,objoff_3C(a0)
-		bcs.s	loc_1857A
+		blo.s	loc_1857A
 		addq.b	#2,ob2ndRout(a0)
 		bra.s	loc_1857A
 ; ===========================================================================
@@ -315,7 +315,7 @@ loc_18582:
 		move.w	#$500,obVelX(a0)
 		move.w	#-$40,obVelY(a0)
 		cmpi.w	#boss_mz_end,(v_limitright2).w
-		bcc.s	loc_1859C
+		bhs.s	loc_1859C
 		addq.w	#2,(v_limitright2).w
 		bra.s	loc_185A2
 ; ===========================================================================
@@ -364,7 +364,7 @@ loc_185DA:
 
 loc_185E4:
 		cmpi.b	#4,(v_player+obRoutine).w
-		bcs.s	loc_185EE
+		blo.s	loc_185EE
 		moveq	#4,d1
 
 loc_185EE:

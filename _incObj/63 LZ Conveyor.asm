@@ -17,7 +17,7 @@ loc_1236A:
 		cmpi.b	#2,(v_act).w
 		bne.s	loc_12378
 		cmpi.w	#-$80,d0
-		bcc.s	LCon_Display
+		bhs.s	LCon_Display
 
 loc_12378:
 		move.b	objoff_2F(a0),d0
@@ -74,7 +74,7 @@ loc_123E2:
 		move.b	objoff_38(a0),d1
 		add.b	objoff_3A(a0),d1
 		cmp.b	objoff_39(a0),d1
-		bcs.s	loc_12448
+		blo.s	loc_12448
 		move.b	d1,d0
 		moveq	#0,d1
 		tst.b	d0
@@ -187,7 +187,7 @@ loc_12534:
 		move.b	objoff_38(a0),d1
 		add.b	objoff_3A(a0),d1
 		cmp.b	objoff_39(a0),d1
-		bcs.s	loc_12552
+		blo.s	loc_12552
 		move.b	d1,d0
 		moveq	#0,d1
 		tst.b	d0
@@ -231,7 +231,7 @@ loc_12584:
 
 loc_12598:
 		cmp.w	d0,d1
-		bcs.s	loc_125C2
+		blo.s	loc_125C2
 		move.w	obX(a0),d0
 		sub.w	objoff_34(a0),d0
 		beq.s	loc_125AE

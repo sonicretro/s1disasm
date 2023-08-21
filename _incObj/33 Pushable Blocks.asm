@@ -66,9 +66,9 @@ loc_BF6E:	; Routine 2
 		bclr	#7,obSubtype(a0)
 		move.w	obX(a0),d0
 		cmpi.w	#$A20,d0
-		bcs.s	loc_BFC6
+		blo.s	loc_BFC6
 		cmpi.w	#$AA1,d0
-		bcc.s	loc_BFC6
+		bhs.s	loc_BFC6
 		move.w	(v_obj31ypos).w,d0
 		subi.w	#$1C,d0
 		move.w	d0,obY(a0)
@@ -114,7 +114,7 @@ locret_C044:
 loc_C046:
 		move.w	obX(a0),-(sp)
 		cmpi.b	#4,ob2ndRout(a0)
-		bcc.s	loc_C056
+		bhs.s	loc_C056
 		bsr.w	SpeedToPos
 
 loc_C056:
@@ -130,7 +130,7 @@ loc_C056:
 		move.w	(a1),d0
 		andi.w	#$3FF,d0
 		cmpi.w	#$16A,d0
-		bcs.s	loc_C09E
+		blo.s	loc_C09E
 		move.w	objoff_30(a0),d0
 		asr.w	#3,d0
 		move.w	d0,obVelX(a0)
@@ -171,7 +171,7 @@ PushB_StopPush:
 loc_C0D6:
 		addi.l	#$2001,obY(a0)
 		cmpi.b	#$A0,obY+3(a0)
-		bcc.s	loc_C104
+		bhs.s	loc_C104
 
 loc_C0E6:
 		moveq	#0,d1
@@ -264,7 +264,7 @@ loc_C1AA:
 		move.w	(a1),d0
 		andi.w	#$3FF,d0
 		cmpi.w	#$16A,d0
-		bcs.s	locret_C1F0
+		blo.s	locret_C1F0
 		move.w	objoff_30(a0),d0
 		asr.w	#3,d0
 		move.w	d0,obVelX(a0)
