@@ -20,7 +20,7 @@ Gar_SpitRate:	dc.b 30, 60, 90, 120, 150, 180,	210, 240
 Gar_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Gar,obMap(a0)
-		move.w	#make_art_tile(ArtTile_Gargoyle,2,0),obGfx(a0)
+		move.w	#make_art_tile(ArtTile_LZ_Gargoyle,2,0),obGfx(a0)
 		ori.b	#4,obRender(a0)
 		move.b	#3,obPriority(a0)
 		move.b	#$10,obActWid(a0)
@@ -55,7 +55,7 @@ Gar_FireBall:	; Routine 4
 		move.b	#8,obHeight(a0)
 		move.b	#8,obWidth(a0)
 		move.l	#Map_Gar,obMap(a0)
-		move.w	#make_art_tile(ArtTile_Gargoyle,0,0),obGfx(a0)
+		move.w	#make_art_tile(ArtTile_LZ_Gargoyle,0,0),obGfx(a0)
 		ori.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#$98,obColType(a0)

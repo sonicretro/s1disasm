@@ -69,7 +69,7 @@ CStom_MakeStomper:
 		add.w	obY(a0),d0
 		move.w	d0,obY(a1)
 		move.l	#Map_CStom,obMap(a1)
-		move.w	#make_art_tile(ArtTile_Chain_Stomp,0,0),obGfx(a1)
+		move.w	#make_art_tile(ArtTile_MZ_Spike_Stomper,0,0),obGfx(a1)
 		move.b	#4,obRender(a1)
 		move.w	obY(a1),objoff_30(a1)
 		move.b	obSubtype(a0),obSubtype(a1)

@@ -38,14 +38,14 @@ LCon_Main:	; Routine 0
 		bmi.w	loc_12460
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_LConv,obMap(a0)
-		move.w	#make_art_tile(ArtTile_Conveyor_Belt,2,0),obGfx(a0)
+		move.w	#make_art_tile(ArtTile_LZ_Conveyor_Belt,2,0),obGfx(a0)
 		ori.b	#4,obRender(a0)
 		move.b	#$10,obActWid(a0)
 		move.b	#4,obPriority(a0)
 		cmpi.b	#$7F,obSubtype(a0)
 		bne.s	loc_123E2
 		addq.b	#4,obRoutine(a0)
-		move.w	#make_art_tile(ArtTile_Conveyor_Belt,0,0),obGfx(a0)
+		move.w	#make_art_tile(ArtTile_LZ_Conveyor_Belt,0,0),obGfx(a0)
 		move.b	#1,obPriority(a0)
 		bra.w	loc_124DE
 ; ===========================================================================

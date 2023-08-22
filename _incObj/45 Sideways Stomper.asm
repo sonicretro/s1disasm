@@ -50,7 +50,7 @@ SStom_Main:	; Routine 0
 		add.w	obX(a0),d0
 		move.w	d0,obX(a1)
 		move.l	#Map_SStom,obMap(a1)
-		move.w	#make_art_tile(ArtTile_Chain_Stomp,0,0),obGfx(a1)
+		move.w	#make_art_tile(ArtTile_MZ_Spike_Stomper,0,0),obGfx(a1)
 		move.b	#4,obRender(a1)
 		move.w	obX(a1),objoff_30(a1)
 		move.w	obX(a0),objoff_3A(a1)

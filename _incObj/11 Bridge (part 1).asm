@@ -16,7 +16,7 @@ Bri_Index:	dc.w Bri_Main-Bri_Index, Bri_Action-Bri_Index
 Bri_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Bri,obMap(a0)
-		move.w	#make_art_tile(ArtTile_Bridge,2,0),obGfx(a0)
+		move.w	#make_art_tile(ArtTile_GHZ_Bridge,2,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#3,obPriority(a0)
 		move.b	#$80,obActWid(a0)
@@ -63,7 +63,7 @@ Bri_Main:	; Routine 0
 		move.w	d2,objoff_3C(a1)
 		move.w	d3,obX(a1)
 		move.l	#Map_Bri,obMap(a1)
-		move.w	#make_art_tile(ArtTile_Bridge,2,0),obGfx(a1)
+		move.w	#make_art_tile(ArtTile_GHZ_Bridge,2,0),obGfx(a1)
 		move.b	#4,obRender(a1)
 		move.b	#3,obPriority(a1)
 		move.b	#8,obActWid(a1)

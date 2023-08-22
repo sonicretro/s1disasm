@@ -19,15 +19,15 @@ orb_parent = objoff_3C		; address of parent object
 
 Orb_Main:	; Routine 0
 		move.l	#Map_Orb,obMap(a0)
-		move.w	#make_art_tile(ArtTile_Orbinaut_SLZ_SBZ,0,0),obGfx(a0)	; SBZ specific code
+		move.w	#make_art_tile(ArtTile_SBZ_Orbinaut,0,0),obGfx(a0)	; SBZ specific code
 		cmpi.b	#id_SBZ,(v_zone).w ; check if level is SBZ
 		beq.s	.isscrap
-		move.w	#make_art_tile(ArtTile_Orbinaut_SLZ_SBZ,1,0),obGfx(a0) ; SLZ specific code
+		move.w	#make_art_tile(ArtTile_SLZ_Orbinaut,1,0),obGfx(a0) ; SLZ specific code
 
 .isscrap:
 		cmpi.b	#id_LZ,(v_zone).w ; check if level is LZ
 		bne.s	.notlabyrinth
-		move.w	#make_art_tile(ArtTile_Orbinaut_LZ,0,0),obGfx(a0)	; LZ specific code
+		move.w	#make_art_tile(ArtTile_LZ_Orbinaut,0,0),obGfx(a0)	; LZ specific code
 
 .notlabyrinth:
 		ori.b	#4,obRender(a0)

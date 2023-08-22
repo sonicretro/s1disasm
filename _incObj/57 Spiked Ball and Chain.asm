@@ -23,7 +23,7 @@ sball_speed = objoff_3E		; rate of spin (2 bytes)
 SBall_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_SBall,obMap(a0)
-		move.w	#make_art_tile(ArtTile_Spikeball_Chain_SLZ,0,0),obGfx(a0)
+		move.w	#make_art_tile(ArtTile_SLZ_Spikeball_Chain,0,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#8,obActWid(a0)
@@ -34,7 +34,7 @@ SBall_Main:	; Routine 0
 		bne.s	.notlz
 
 		move.b	#0,obColType(a0) ; LZ specific code (chain doesn't hurt)
-		move.w	#make_art_tile(ArtTile_Spikeball_Chain_LZ,0,0),obGfx(a0)
+		move.w	#make_art_tile(ArtTile_LZ_Spikeball_Chain,0,0),obGfx(a0)
 		move.l	#Map_SBall2,obMap(a0)
 
 .notlz:

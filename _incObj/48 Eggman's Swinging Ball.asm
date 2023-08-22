@@ -36,7 +36,7 @@ GBall_MakeLinks:
 		_move.b	#id_BossBall,obID(a1) ; load chain link object
 		move.b	#6,obRoutine(a1)
 		move.l	#Map_Swing_GHZ,obMap(a1)
-		move.w	#make_art_tile(ArtTile_Swing_GHZ_MZ,0,0),obGfx(a1)
+		move.w	#make_art_tile(ArtTile_GHZ_MZ_Swing,0,0),obGfx(a1)
 		move.b	#1,obFrame(a1)
 		addq.b	#1,obSubtype(a0)
 
@@ -55,7 +55,7 @@ loc_17B60:
 GBall_MakeBall:
 		move.b	#8,obRoutine(a1)
 		move.l	#Map_GBall,obMap(a1) ; load different mappings for final link
-		move.w	#make_art_tile(ArtTile_Wrecking_Ball,2,0),obGfx(a1) ; use different graphics
+		move.w	#make_art_tile(ArtTile_GHZ_Giant_Ball,2,0),obGfx(a1) ; use different graphics
 		move.b	#1,obFrame(a1)
 		move.b	#5,obPriority(a1)
 		move.b	#$81,obColType(a1) ; make object hurt Sonic

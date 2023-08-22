@@ -19,7 +19,7 @@ gfire_origX = objoff_2A
 GFire_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Fire,obMap(a0)
-		move.w	#make_art_tile(ArtTile_Fireball_MZ,0,0),obGfx(a0)
+		move.w	#make_art_tile(ArtTile_MZ_Fireball,0,0),obGfx(a0)
 		move.w	obX(a0),gfire_origX(a0)
 		move.b	#4,obRender(a0)
 		move.b	#1,obPriority(a0)

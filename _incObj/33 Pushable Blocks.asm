@@ -24,7 +24,7 @@ PushB_Main:	; Routine 0
 		move.w	#make_art_tile(ArtTile_MZ_Block,2,0),obGfx(a0) ; MZ specific code
 		cmpi.b	#id_LZ,(v_zone).w
 		bne.s	.notLZ
-		move.w	#make_art_tile(ArtTile_Push_Block_LZ,2,0),obGfx(a0) ; LZ specific code
+		move.w	#make_art_tile(ArtTile_LZ_Push_Block,2,0),obGfx(a0) ; LZ specific code
 
 .notLZ:
 		move.b	#4,obRender(a0)
