@@ -52,7 +52,7 @@ loc_BDB2:
 		bne.s	loc_BDC8
 
 loc_BDBE:
-		tst.b	ob2ndRout(a0)
+		tst.b	obSolid(a0)
 		bne.s	loc_BDC8
 		bclr	d3,(a3)
 		bra.s	loc_BDDE
@@ -77,9 +77,16 @@ loc_BDDE:
 		bchg	#1,obFrame(a0)
 
 But_Display:
+	if FixBugs
+		; Objects shouldn't call DisplaySprite and DeleteObject on
+		; the same frame or else cause a null-pointer dereference.
+		out_of_range.w	But_Delete
+		bra.w	DisplaySprite
+	else
 		bsr.w	DisplaySprite
 		out_of_range.w	But_Delete
 		rts	
+	endif
 ; ===========================================================================
 
 But_Delete:
@@ -98,12 +105,12 @@ But_MZBlock:
 		move.w	#$20,d4
 		move.w	#$10,d5
 		lea	(v_lvlobjspace).w,a1 ; begin checking object RAM
-		move.w	#$5F,d6
+		move.w	#(v_lvlobjend-v_lvlobjspace)/object_size-1,d6
 
 But_MZLoop:
 		tst.b	obRender(a1)
 		bpl.s	loc_BE4E
-		cmpi.b	#id_PushBlock,(a1) ; is the object a green MZ block?
+		cmpi.b	#id_PushBlock,obID(a1) ; is the object a green MZ block?
 		beq.s	loc_BE5E	; if yes, branch
 
 loc_BE4E:

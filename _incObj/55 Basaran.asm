@@ -15,7 +15,7 @@ Bas_Index:	dc.w Bas_Main-Bas_Index
 Bas_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Bas,obMap(a0)
-		move.w	#$84B8,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Basaran,0,1),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#$C,obHeight(a0)
 		move.b	#2,obPriority(a0)
@@ -81,7 +81,16 @@ Bas_Action:	; Routine 2
 
 .chkdel:
 		tst.b	obRender(a0)
+	if FixBugs
+		; Objects shouldn't call DisplaySprite and DeleteObject on
+		; the same frame or else cause a null-pointer dereference.
+		bmi.s	.return
+		addq.l	#4,sp
+		bra.w	DeleteObject
+.return:
+	else
 		bpl.w	DeleteObject
+	endif
 		rts	
 ; ===========================================================================
 

@@ -6,8 +6,12 @@ LavaBall:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	LBall_Index(pc,d0.w),d1
+	if FixBugs
+		jmp	LBall_Index(pc,d1.w)
+	else
 		jsr	LBall_Index(pc,d1.w)
 		bra.w	DisplaySprite
+	endif
 ; ===========================================================================
 LBall_Index:	dc.w LBall_Main-LBall_Index
 		dc.w LBall_Action-LBall_Index
@@ -22,10 +26,10 @@ LBall_Main:	; Routine 0
 		move.b	#8,obHeight(a0)
 		move.b	#8,obWidth(a0)
 		move.l	#Map_Fire,obMap(a0)
-		move.w	#$345,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Fireball_MZ,0,0),obGfx(a0)
 		cmpi.b	#3,(v_zone).w	; check if level is SLZ
 		bne.s	.notSLZ
-		move.w	#$480,obGfx(a0)	; SLZ specific code
+		move.w	#make_art_tile(ArtTile_Fireball_SLZ,0,0),obGfx(a0)	; SLZ specific code
 
 .notSLZ:
 		move.b	#4,obRender(a0)
@@ -66,7 +70,11 @@ LBall_Action:	; Routine 2
 
 LBall_ChkDel:
 		out_of_range.w	DeleteObject
+	if FixBugs
+		bra.w	DisplaySprite
+	else
 		rts	
+	endif
 ; ===========================================================================
 LBall_TypeIndex:dc.w LBall_Type00-LBall_TypeIndex, LBall_Type00-LBall_TypeIndex
 		dc.w LBall_Type00-LBall_TypeIndex, LBall_Type00-LBall_TypeIndex

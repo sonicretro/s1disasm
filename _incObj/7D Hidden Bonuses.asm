@@ -60,7 +60,11 @@ Bonus_Main:	; Routine 0
 .points:	dc.w 0			; Bonus	points array
 		dc.w 1000
 		dc.w 100
-		dc.w 1
+	if FixBugs
+		dc.w 10
+	else
+		dc.w 1 ; This is the wrong number of points.
+	endif
 ; ===========================================================================
 
 Bonus_Display:	; Routine 2

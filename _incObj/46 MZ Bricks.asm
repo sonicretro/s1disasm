@@ -19,7 +19,7 @@ Brick_Main:	; Routine 0
 		move.b	#$F,obHeight(a0)
 		move.b	#$F,obWidth(a0)
 		move.l	#Map_Brick,obMap(a0)
-		move.w	#$4000,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_LevelArt,2,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#3,obPriority(a0)
 		move.b	#$10,obActWid(a0)

@@ -69,7 +69,7 @@ CStom_MakeStomper:
 		add.w	obY(a0),d0
 		move.w	d0,obY(a1)
 		move.l	#Map_CStom,obMap(a1)
-		move.w	#$300,obGfx(a1)
+		move.w	#make_art_tile(ArtTile_Chain_Stomp,0,0),obGfx(a1)
 		move.b	#4,obRender(a1)
 		move.w	obY(a1),objoff_30(a1)
 		move.b	obSubtype(a0),obSubtype(a1)
@@ -129,7 +129,9 @@ loc_B798:	; Routine 2
 		movea.l	a2,a0
 
 CStom_Display:
+	if ~~FixBugs
 		bsr.w	DisplaySprite
+	endif
 		bra.w	CStom_ChkDel
 ; ===========================================================================
 
@@ -150,11 +152,19 @@ loc_B7FE:	; Routine 4
 		move.w	d0,obY(a0)
 
 CStom_Display2:	; Routine 6
+	if ~~FixBugs
 		bsr.w	DisplaySprite
+	endif
 
 CStom_ChkDel:
 		out_of_range.w	DeleteObject
+	if FixBugs
+		; Objects shouldn't call DisplaySprite and DeleteObject on
+		; the same frame or else cause a null-pointer dereference.
+		bra.w	DisplaySprite
+	else
 		rts	
+	endif
 ; ===========================================================================
 
 CStom_Types:
