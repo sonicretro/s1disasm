@@ -16,7 +16,7 @@ Poi_Index:	dc.w Poi_Main-Poi_Index
 Poi_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Poi,obMap(a0)
-		move.w	#$2797,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Points,1,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#1,obPriority(a0)
 		move.b	#8,obActWid(a0)

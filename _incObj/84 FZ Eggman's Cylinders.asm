@@ -31,7 +31,7 @@ Obj84_Main:	; Routine
 		move.b	#4,obRender(a0)
 		bset	#7,obRender(a0)
 		bset	#4,obRender(a0)
-		move.w	#$300,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_FZ_Boss,0,0),obGfx(a0)
 		move.l	#Map_EggCyl,obMap(a0)
 		move.w	(a1)+,obX(a0)
 		move.w	(a1),obY(a0)

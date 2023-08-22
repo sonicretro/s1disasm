@@ -37,7 +37,7 @@ SSRC_Loop:
 		addq.b	#1,d2
 		addq.b	#2,obRoutine(a1)
 		move.l	#Map_SSRC,obMap(a1)
-		move.w	#$8541,obGfx(a1)
+		move.w	#make_art_tile(ArtTile_SS_Results_Emeralds,0,1),obGfx(a1)
 		move.b	#0,obRender(a1)
 		lea	object_size(a1),a1	; next object
 		dbf	d1,SSRC_Loop	; loop for d1 number of	emeralds

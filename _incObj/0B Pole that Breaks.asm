@@ -19,7 +19,7 @@ pole_grabbed = objoff_32		; flag set when Sonic grabs the pole
 Pole_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Pole,obMap(a0)
-		move.w	#$43DE,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Pole,2,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#8,obActWid(a0)
 		move.b	#4,obPriority(a0)

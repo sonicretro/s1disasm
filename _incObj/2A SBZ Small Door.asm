@@ -15,7 +15,7 @@ ADoor_Index:	dc.w ADoor_Main-ADoor_Index
 ADoor_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_ADoor,obMap(a0)
-		move.w	#$42E8,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_SBZ_Door,2,0),obGfx(a0)
 		ori.b	#4,obRender(a0)
 		move.b	#8,obActWid(a0)
 		move.b	#4,obPriority(a0)

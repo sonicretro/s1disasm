@@ -35,7 +35,7 @@ id_Drown_AirLeft = ptr_Drown_AirLeft-Drown_Index		; $C
 Drown_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Bub,obMap(a0)
-		move.w	#$8348,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Bubbles,0,1),obGfx(a0)
 		move.b	#$84,obRender(a0)
 		move.b	#$10,obActWid(a0)
 		move.b	#1,obPriority(a0)
@@ -44,7 +44,7 @@ Drown_Main:	; Routine 0
 
 		addq.b	#8,obRoutine(a0) ; goto Drown_Countdown next
 		move.l	#Map_Drown,obMap(a0)
-		move.w	#$440,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Countdown,0,0),obGfx(a0)
 		andi.w	#$7F,d0
 		move.b	d0,objoff_33(a0)
 		bra.w	Drown_Countdown

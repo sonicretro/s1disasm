@@ -15,7 +15,7 @@ Invis_Index:	dc.w Invis_Main-Invis_Index
 Invis_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Invis,obMap(a0)
-		move.w	#$8680,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Monitor,0,1),obGfx(a0)
 		ori.b	#4,obRender(a0)
 		move.b	obSubtype(a0),d0 ; get object type
 		move.b	d0,d1

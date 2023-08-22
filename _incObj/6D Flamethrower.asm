@@ -15,7 +15,7 @@ Flame_Index:	dc.w Flame_Main-Flame_Index
 Flame_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Flame,obMap(a0)
-		move.w	#$83D9,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Flamethrower,0,1),obGfx(a0)
 		ori.b	#4,obRender(a0)
 		move.b	#1,obPriority(a0)
 		move.w	obY(a0),objoff_30(a0)	; store obY (gets overwritten later though)

@@ -34,7 +34,7 @@ FFloor_MakeBlock:
 		move.w	a1,(a2)+
 		move.b	#id_FalseFloor,(a1) ; load block object
 		move.l	#Map_FFloor,obMap(a1)
-		move.w	#$4518,obGfx(a1)
+		move.w	#make_art_tile(ArtTile_Eggman_Trap_Floor,2,0),obGfx(a1)
 		move.b	#4,obRender(a1)
 		move.b	#$10,obActWid(a1)
 		move.b	#$10,obHeight(a1)

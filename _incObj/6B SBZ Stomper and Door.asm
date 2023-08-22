@@ -34,7 +34,7 @@ Sto_Main:	; Routine 0
 		lsr.w	#2,d0
 		move.b	d0,obFrame(a0)
 		move.l	#Map_Stomp,obMap(a0)
-		move.w	#$22C0,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Moving_Block_SBZ_Short,1,0),obGfx(a0)
 		cmpi.b	#id_LZ,(v_zone).w ; check if level is LZ/SBZ3
 		bne.s	.isSBZ12	; if not, branch
 		bset	#0,(v_obj6B).w
@@ -52,7 +52,7 @@ Sto_Main:	; Routine 0
 ; ===========================================================================
 
 .isSBZ3:
-		move.w	#$41F0,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Level+$1F0,2,0),obGfx(a0)
 		cmpi.w	#$A80,obX(a0)
 		bne.s	.isSBZ12
 		lea	(v_objstate).w,a2

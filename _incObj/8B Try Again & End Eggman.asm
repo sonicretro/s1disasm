@@ -22,7 +22,7 @@ EEgg_Main:	; Routine 0
 		move.w	#$120,obX(a0)
 		move.w	#$F4,obScreenY(a0)
 		move.l	#Map_EEgg,obMap(a0)
-		move.w	#$3E1,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Try_Again_Eggman,0,0),obGfx(a0)
 		move.b	#0,obRender(a0)
 		move.b	#2,obPriority(a0)
 		move.b	#2,obAnim(a0)	; use "END" animation

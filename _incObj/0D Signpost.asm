@@ -27,7 +27,7 @@ sparkle_id = objoff_34		; counter to keep track of sparkles
 Sign_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Sign,obMap(a0)
-		move.w	#$680,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Signpost,0,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#$18,obActWid(a0)
 		move.b	#4,obPriority(a0)
@@ -79,7 +79,7 @@ Sign_Spin:	; Routine 4
 		add.w	obY(a0),d0
 		move.w	d0,obY(a1)
 		move.l	#Map_Ring,obMap(a1)
-		move.w	#$27B2,obGfx(a1)
+		move.w	#make_art_tile(ArtTile_Ring,1,0),obGfx(a1)
 		move.b	#4,obRender(a1)
 		move.b	#2,obPriority(a1)
 		move.b	#8,obActWid(a1)

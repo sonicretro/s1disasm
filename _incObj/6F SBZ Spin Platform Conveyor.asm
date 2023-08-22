@@ -38,7 +38,7 @@ SpinC_Main:	; Routine 0
 		bmi.w	loc_16380
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Spin,obMap(a0)
-		move.w	#$4DF,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_SBZ_Spinning_Platform,0,0),obGfx(a0)
 		move.b	#$10,obActWid(a0)
 		ori.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)

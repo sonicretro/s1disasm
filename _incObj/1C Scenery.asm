@@ -33,16 +33,16 @@ Scen_ChkDel:	; Routine 2
 ; ---------------------------------------------------------------------------
 ; Variables for	object $1C are stored in an array
 ; ---------------------------------------------------------------------------
-Scen_Values:	dc.l Map_Scen		; mappings address
-		dc.w $44D8		; VRAM setting
-		dc.b 0,	8, 2, 0		; frame, width,	priority, collision response
+Scen_Values:	dc.l Map_Scen                                     ; mappings address
+		dc.w make_art_tile(ArtTile_Fireball_Launcher,2,0) ; VRAM setting
+		dc.b 0,	8, 2, 0                                   ; frame, width, priority, collision response
 		dc.l Map_Scen
-		dc.w $44D8
+		dc.w make_art_tile(ArtTile_Fireball_Launcher,2,0)
 		dc.b 0,	8, 2, 0
 		dc.l Map_Scen
-		dc.w $44D8
+		dc.w make_art_tile(ArtTile_Fireball_Launcher,2,0)
 		dc.b 0,	8, 2, 0
 		dc.l Map_Bri
-		dc.w $438E
+		dc.w make_art_tile(ArtTile_Bridge,2,0)
 		dc.b 1,	$10, 1,	0
 		even

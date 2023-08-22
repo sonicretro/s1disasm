@@ -17,7 +17,7 @@ CSI_Index:	dc.w CSI_Main-CSI_Index
 CSI_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_ContScr,obMap(a0)
-		move.w	#$8500,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Continue_Sonic,0,1),obGfx(a0)
 		move.b	#0,obRender(a0)
 		move.b	#$3C,obActWid(a0)
 		move.w	#$120,obX(a0)
@@ -66,7 +66,7 @@ CSI_Even:
 		move.b	#6,obFrame(a1)
 		move.b	#6,obRoutine(a1)
 		move.l	#Map_ContScr,obMap(a1)
-		move.w	#$8551,obGfx(a1)
+		move.w	#make_art_tile(ArtTile_Mini_Sonic,0,1),obGfx(a1)
 		move.b	#0,obRender(a1)
 		lea	object_size(a1),a1
 		dbf	d1,CSI_MiniSonicLoop ; repeat for number of continues

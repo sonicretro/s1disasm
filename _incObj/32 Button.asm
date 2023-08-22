@@ -1,3 +1,4 @@
+
 ; ---------------------------------------------------------------------------
 ; Object 32 - buttons (MZ, SYZ, LZ, SBZ)
 ; ---------------------------------------------------------------------------
@@ -15,11 +16,11 @@ But_Index:	dc.w But_Main-But_Index
 But_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_But,obMap(a0)
-		move.w	#$4513,obGfx(a0) ; MZ specific code
+		move.w	#make_art_tile(ArtTile_Button+4,2,0),obGfx(a0) ; MZ specific code
 		cmpi.b	#id_MZ,(v_zone).w ; is level Marble Zone?
 		beq.s	But_IsMZ	; if yes, branch
 
-		move.w	#$513,obGfx(a0)	; SYZ, LZ and SBZ specific code
+		move.w	#make_art_tile(ArtTile_Button+4,0,0),obGfx(a0)	; SYZ, LZ and SBZ specific code
 
 But_IsMZ:
 		move.b	#4,obRender(a0)

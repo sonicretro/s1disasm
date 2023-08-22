@@ -20,33 +20,47 @@ Anml_Index:	dc.w Anml_Ending-Anml_Index, loc_912A-Anml_Index
 		dc.w loc_9314-Anml_Index, loc_9370-Anml_Index
 		dc.w loc_92D6-Anml_Index
 
-Anml_VarIndex:	dc.b 0,	5, 2, 3, 6, 3, 4, 5, 4,	1, 0, 1
+Anml_VarIndex:	dc.b 0,	5 ; Green Hill Zone
+		dc.b 2, 3 ; Labyrinth Zone
+		dc.b 6, 3 ; Marble Zone
+		dc.b 4, 5 ; Star Light Zone
+		dc.b 4, 1 ; Spring Yard Zone
+		dc.b 0, 1 ; Scrap Brain Zone
 
-Anml_Variables:	dc.w $FE00, $FC00
+Anml_Variables:	dc.w -$200, -$400
 		dc.l Map_Animal1
-		dc.w $FE00, $FD00	; horizontal speed, vertical speed
+		dc.w -$200, -$300	; horizontal speed, vertical speed
 		dc.l Map_Animal2	; mappings address
-		dc.w $FE80, $FD00
+		dc.w -$180, -$300
 		dc.l Map_Animal1
-		dc.w $FEC0, $FE80
+		dc.w -$140, -$180
 		dc.l Map_Animal2
-		dc.w $FE40, $FD00
+		dc.w -$1C0, -$300
 		dc.l Map_Animal3
-		dc.w $FD00, $FC00
+		dc.w -$300, -$400
 		dc.l Map_Animal2
-		dc.w $FD80, $FC80
+		dc.w -$280, -$380
 		dc.l Map_Animal3
 
-Anml_EndSpeed:	dc.w $FBC0, $FC00, $FBC0, $FC00, $FBC0,	$FC00, $FD00, $FC00
-		dc.w $FD00, $FC00, $FE80, $FD00, $FE80,	$FD00, $FEC0, $FE80
-		dc.w $FE40, $FD00, $FE00, $FD00, $FD80,	$FC80
+Anml_EndSpeed:	dc.w -$440, -$400, -$440, -$400, -$440, -$400, -$300, -$400
+		dc.w -$300, -$400, -$180, -$300, -$180, -$300, -$140, -$180
+		dc.w -$1C0, -$300, -$200, -$300, -$280, -$380
 
 Anml_EndMap:	dc.l Map_Animal2, Map_Animal2, Map_Animal2, Map_Animal1, Map_Animal1
 		dc.l Map_Animal1, Map_Animal1, Map_Animal2, Map_Animal3, Map_Animal2
 		dc.l Map_Animal3
 
-Anml_EndVram:	dc.w $5A5, $5A5, $5A5, $553, $553, $573, $573, $585, $593
-		dc.w $565, $5B3
+Anml_EndVram:	dc.w make_art_tile(ArtTile_Ending_Flicky,0,0)
+		dc.w make_art_tile(ArtTile_Ending_Flicky,0,0)
+		dc.w make_art_tile(ArtTile_Ending_Flicky,0,0)
+		dc.w make_art_tile(ArtTile_Ending_Rabbit,0,0)
+		dc.w make_art_tile(ArtTile_Ending_Rabbit,0,0)
+		dc.w make_art_tile(ArtTile_Ending_Penguin,0,0)
+		dc.w make_art_tile(ArtTile_Ending_Penguin,0,0)
+		dc.w make_art_tile(ArtTile_Ending_Seal,0,0)
+		dc.w make_art_tile(ArtTile_Ending_Pig,0,0)
+		dc.w make_art_tile(ArtTile_Ending_Chicken,0,0)
+		dc.w make_art_tile(ArtTile_Ending_Squirrel,0,0)
 ; ===========================================================================
 
 Anml_Ending:	; Routine 0
@@ -91,10 +105,10 @@ Anml_FromEnemy:
 		move.w	(a1)+,objoff_32(a0)	; load horizontal speed
 		move.w	(a1)+,objoff_34(a0)	; load vertical	speed
 		move.l	(a1)+,obMap(a0)	; load mappings
-		move.w	#$580,obGfx(a0)	; VRAM setting for 1st animal
+		move.w	#make_art_tile(ArtTile_Animal_1,0,0),obGfx(a0)	; VRAM setting for 1st animal
 		btst	#0,objoff_30(a0)	; is 1st animal	used?
 		beq.s	loc_90C0	; if yes, branch
-		move.w	#$592,obGfx(a0)	; VRAM setting for 2nd animal
+		move.w	#make_art_tile(ArtTile_Animal_2,0,0),obGfx(a0)	; VRAM setting for 2nd animal
 
 loc_90C0:
 		move.b	#$C,obHeight(a0)

@@ -19,17 +19,17 @@ cflo_collapse_flag = objoff_3A
 CFlo_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_CFlo,obMap(a0)
-		move.w	#$42B8,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_MZ_Block,2,0),obGfx(a0)
 		cmpi.b	#id_SLZ,(v_zone).w ; check if level is SLZ
 		bne.s	.notSLZ
 
-		move.w	#$44E0,obGfx(a0) ; SLZ specific code
+		move.w	#make_art_tile(ArtTile_Collapsing_Floor_SLZ,2,0),obGfx(a0) ; SLZ specific code
 		addq.b	#2,obFrame(a0)
 
 .notSLZ:
 		cmpi.b	#id_SBZ,(v_zone).w ; check if level is SBZ
 		bne.s	.notSBZ
-		move.w	#$43F5,obGfx(a0) ; SBZ specific code
+		move.w	#make_art_tile(ArtTile_Collapsing_Floor_SBZ,2,0),obGfx(a0) ; SBZ specific code
 
 .notSBZ:
 		ori.b	#4,obRender(a0)

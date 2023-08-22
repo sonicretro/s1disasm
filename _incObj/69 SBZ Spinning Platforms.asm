@@ -19,7 +19,7 @@ spin_timelen = objoff_32	; time between changes (general)
 Spin_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Trap,obMap(a0)
-		move.w	#$4492,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_SBZ_Trap_Door,2,0),obGfx(a0)
 		ori.b	#4,obRender(a0)
 		move.b	#$80,obActWid(a0)
 		moveq	#0,d0
@@ -32,7 +32,7 @@ Spin_Main:	; Routine 0
 
 		addq.b	#2,obRoutine(a0) ; goto Spin_Spinner next
 		move.l	#Map_Spin,obMap(a0)
-		move.w	#$4DF,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_SBZ_Spinning_Platform,0,0),obGfx(a0)
 		move.b	#$10,obActWid(a0)
 		move.b	#2,obAnim(a0)
 		moveq	#0,d0

@@ -21,7 +21,7 @@ PushB_Main:	; Routine 0
 		move.b	#$F,obHeight(a0)
 		move.b	#$F,obWidth(a0)
 		move.l	#Map_Push,obMap(a0)
-		move.w	#make_art_tile(ArtTile_Push_Block_MZ,2,0),obGfx(a0) ; MZ specific code
+		move.w	#make_art_tile(ArtTile_MZ_Block,2,0),obGfx(a0) ; MZ specific code
 		cmpi.b	#id_LZ,(v_zone).w
 		bne.s	.notLZ
 		move.w	#make_art_tile(ArtTile_Push_Block_LZ,2,0),obGfx(a0) ; LZ specific code
@@ -40,7 +40,7 @@ PushB_Main:	; Routine 0
 		move.b	(a2)+,obFrame(a0)
 		tst.b	obSubtype(a0)
 		beq.s	.chkgone
-		move.w	#make_art_tile(ArtTile_Push_Block_MZ,2,1),obGfx(a0)
+		move.w	#make_art_tile(ArtTile_MZ_Block,2,1),obGfx(a0)
 
 .chkgone:
 		lea	(v_objstate).w,a2

@@ -18,7 +18,7 @@ Cbal_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.b	#7,obHeight(a0)
 		move.l	#Map_Hog,obMap(a0)
-		move.w	#$2302,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Ball_Hog,1,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#3,obPriority(a0)
 		move.b	#$87,obColType(a0)

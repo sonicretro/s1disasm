@@ -25,7 +25,7 @@ lblk_untouched = objoff_38	; flag block as untouched
 LBlk_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_LBlock,obMap(a0)
-		move.w	#$43E6,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_LZ_Blocks,2,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#3,obPriority(a0)
 		moveq	#0,d0

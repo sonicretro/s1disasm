@@ -36,7 +36,7 @@ See_Index:	dc.w See_Main-See_Index
 See_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Seesaw,obMap(a0)
-		move.w	#$374,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Seesaw,0,0),obGfx(a0)
 		ori.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#$30,obActWid(a0)
@@ -130,7 +130,7 @@ See_ChgFrame:
 See_Spikeball:	; Routine 6
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_SSawBall,obMap(a0)
-		move.w	#$4F0,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Spikeball,0,0),obGfx(a0)
 		ori.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#$8B,obColType(a0)

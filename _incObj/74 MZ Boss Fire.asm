@@ -19,7 +19,7 @@ Obj74_Main:	; Routine 0
 		move.b	#8,obHeight(a0)
 		move.b	#8,obWidth(a0)
 		move.l	#Map_Fire,obMap(a0)
-		move.w	#$345,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Fireball_MZ,0,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#5,obPriority(a0)
 		move.w	obY(a0),objoff_38(a0)

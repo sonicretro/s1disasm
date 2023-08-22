@@ -19,7 +19,7 @@ swi_origY = objoff_30		; original y-axis position
 Swi_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Swi,obMap(a0)
-		move.w	#$4000,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Level,2,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.w	obY(a0),swi_origY(a0) ; save position on y-axis
 		move.b	#$10,obActWid(a0)

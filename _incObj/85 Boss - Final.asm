@@ -22,15 +22,15 @@ Obj85_Index:	dc.w Obj85_Main-Obj85_Index
 
 Obj85_ObjData:	dc.w $100, $100, $470	; X pos, Y pos,	VRAM setting
 		dc.l Map_SEgg		; mappings pointer
-		dc.w boss_fz_x+$160, boss_fz_y+$80, $300
+		dc.w boss_fz_x+$160, boss_fz_y+$80, make_art_tile(ArtTile_FZ_Boss,0,0)
 		dc.l Map_EggCyl
-		dc.w boss_fz_x+$290, boss_fz_y+$86, $3A0
+		dc.w boss_fz_x+$290, boss_fz_y+$86, make_art_tile(ArtTile_FZ_Eggman_Fleeing,0,0)
 		dc.l Map_FZLegs
-		dc.w boss_fz_x+$290, boss_fz_y+$86, $470
+		dc.w boss_fz_x+$290, boss_fz_y+$86, make_art_tile(ArtTile_Eggman_Outside_Vehicle,0,0)
 		dc.l Map_SEgg
-		dc.w boss_fz_x+$290, boss_fz_y+$86, $400
+		dc.w boss_fz_x+$290, boss_fz_y+$86, make_art_tile(ArtTile_Eggman,0,0)
 		dc.l Map_Eggman
-		dc.w boss_fz_x+$290, boss_fz_y+$86, $400
+		dc.w boss_fz_x+$290, boss_fz_y+$86, make_art_tile(ArtTile_Eggman,0,0)
 		dc.l Map_Eggman
 
 Obj85_ObjData2:	dc.b 2,	0, 4, $20, $19	; routine num, animation, sprite priority, width, height
@@ -392,7 +392,7 @@ locret_1A190:
 
 loc_1A192:
 		move.l	#Map_Eggman,obMap(a0)
-		move.w	#$400,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Eggman,0,0),obGfx(a0)
 		move.b	#0,obAnim(a0)
 		bset	#0,obStatus(a0)
 		jsr	(SpeedToPos).l
@@ -510,7 +510,7 @@ loc_1A2E4:
 		ble.s	loc_1A312
 		move.b	#6,obAnim(a0)
 		move.l	#Map_Eggman,obMap(a0)
-		move.w	#$400,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Eggman,0,0),obGfx(a0)
 		lea	Ani_Eggman(pc),a1
 		jsr	(AnimateSprite).l
 		bra.w	loc_1A296
@@ -523,7 +523,7 @@ loc_1A312:
 		move.b	#2,obPriority(a0)
 		move.b	#0,obAnim(a0)
 		move.l	#Map_FZDamaged,obMap(a0)
-		move.w	#$3A0,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_FZ_Eggman_Fleeing,0,0),obGfx(a0)
 		lea	Ani_FZEgg(pc),a1
 		jsr	(AnimateSprite).l
 		bra.w	loc_1A296

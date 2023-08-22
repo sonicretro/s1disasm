@@ -37,7 +37,7 @@ ECha_LoadLoop:
 		move.b	#id_EndChaos,(a1) ; load chaos emerald object
 		addq.b	#2,obRoutine(a1)
 		move.l	#Map_ECha,obMap(a1)
-		move.w	#$3C5,obGfx(a1)
+		move.w	#make_art_tile(ArtTile_Ending_Emeralds,0,0),obGfx(a1)
 		move.b	#4,obRender(a1)
 		move.b	#1,obPriority(a1)
 		move.w	obX(a0),echa_origX(a1)

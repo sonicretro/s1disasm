@@ -32,7 +32,7 @@ Pri_Var:	dc.b 2,	$20, 4,	0	; routine, width, priority, frame
 
 Pri_Main:	; Routine 0
 		move.l	#Map_Pri,obMap(a0)
-		move.w	#$49D,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Prison_Capsule,0,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.w	obY(a0),pri_origY(a0)
 		moveq	#0,d0

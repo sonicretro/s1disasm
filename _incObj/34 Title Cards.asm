@@ -61,7 +61,7 @@ Card_ActNumber:
 Card_MakeSprite:
 		move.b	d0,obFrame(a1)	; display frame	number d0
 		move.l	#Map_Card,obMap(a1)
-		move.w	#$8580,obGfx(a1)
+		move.w	#make_art_tile(ArtTile_Title_Card,0,1),obGfx(a1)
 		move.b	#$78,obActWid(a1)
 		move.b	#0,obRender(a1)
 		move.b	#0,obPriority(a1)

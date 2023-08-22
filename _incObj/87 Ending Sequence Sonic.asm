@@ -29,7 +29,7 @@ ESon_Main:	; Routine 0
 ESon_Main2:
 		addq.b	#2,ob2ndRout(a0)
 		move.l	#Map_ESon,obMap(a0)
-		move.w	#$3E1,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Ending_Sonic,0,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		clr.b	obStatus(a0)
 		move.b	#2,obPriority(a0)
@@ -100,7 +100,7 @@ Obj87_Leap:	; Routine $10
 		bne.s	ESon_Wait4
 		addq.b	#2,ob2ndRout(a0)
 		move.l	#Map_ESon,obMap(a0)
-		move.w	#$3E1,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Ending_Sonic,0,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		clr.b	obStatus(a0)
 		move.b	#2,obPriority(a0)

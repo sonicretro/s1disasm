@@ -11,7 +11,7 @@ HUD_Update:
 		beq.s	.chkrings	; if not, branch
 
 		clr.b	(f_scorecount).w
-		locVRAM	$DC80,d0	; set VRAM address
+		locVRAM	(ArtTile_HUD+$1A)*$20,d0	; set VRAM address
 		move.l	(v_score).w,d1	; load score
 		bsr.w	Hud_Score
 
@@ -23,7 +23,7 @@ HUD_Update:
 
 .notzero:
 		clr.b	(f_ringcount).w
-		locVRAM	$DF40,d0	; set VRAM address
+		locVRAM	(ArtTile_HUD+$30)*$20,d0	; set VRAM address
 		moveq	#0,d1
 		move.w	(v_rings).w,d1	; load number of rings
 		bsr.w	Hud_Rings
@@ -51,11 +51,11 @@ HUD_Update:
 		move.b	#9,(a1)		; keep as 9
 
 .updatetime:
-		locVRAM	$DE40,d0
+		locVRAM	(ArtTile_HUD+$28)*$20,d0
 		moveq	#0,d1
 		move.b	(v_timemin).w,d1 ; load	minutes
 		bsr.w	Hud_Mins
-		locVRAM	$DEC0,d0
+		locVRAM	(ArtTile_HUD+$2C)*$20,d0
 		moveq	#0,d1
 		move.b	(v_timesec).w,d1 ; load	seconds
 		bsr.w	Hud_Secs
@@ -70,7 +70,7 @@ HUD_Update:
 		tst.b	(f_endactbonus).w ; do time/ring bonus counters need updating?
 		beq.s	.finish		; if not, branch
 		clr.b	(f_endactbonus).w
-		locVRAM	$AE00
+		locVRAM	ArtTile_Bonuses*$20
 		moveq	#0,d1
 		move.w	(v_timebonus).w,d1 ; load time bonus
 		bsr.w	Hud_TimeRingBonus
@@ -100,13 +100,13 @@ HudDebug:
 
 .notzero:
 		clr.b	(f_ringcount).w
-		locVRAM	$DF40,d0	; set VRAM address
+		locVRAM	(ArtTile_HUD+$30)*$20,d0	; set VRAM address
 		moveq	#0,d1
 		move.w	(v_rings).w,d1	; load number of rings
 		bsr.w	Hud_Rings
 
 .objcounter:
-		locVRAM	$DEC0,d0	; set VRAM address
+		locVRAM	(ArtTile_HUD+$2C)*$20,d0	; set VRAM address
 		moveq	#0,d1
 		move.b	(v_spritecount).w,d1 ; load "number of objects" counter
 		bsr.w	Hud_Secs
@@ -119,7 +119,7 @@ HudDebug:
 		tst.b	(f_endactbonus).w ; does the ring/time bonus counter need updating?
 		beq.s	.finish		; if not, branch
 		clr.b	(f_endactbonus).w
-		locVRAM	$AE00		; set VRAM address
+		locVRAM	ArtTile_Bonuses*$20		; set VRAM address
 		moveq	#0,d1
 		move.w	(v_timebonus).w,d1 ; load time bonus
 		bsr.w	Hud_TimeRingBonus
@@ -139,7 +139,7 @@ HudDebug:
 
 
 Hud_LoadZero:
-		locVRAM	$DF40
+		locVRAM	(ArtTile_HUD+$30)*$20
 		lea	Hud_TilesZero(pc),a2
 		move.w	#2,d2
 		bra.s	loc_1C83E
@@ -155,7 +155,7 @@ Hud_LoadZero:
 Hud_Base:
 		lea	($C00000).l,a6
 		bsr.w	Hud_Lives
-		locVRAM	$DC40
+		locVRAM	(ArtTile_HUD+$18)*$20
 		lea	Hud_TilesBase(pc),a2
 		move.w	#$E,d2
 
@@ -198,7 +198,7 @@ Hud_TilesZero:	dc.b $FF, $FF, 0, 0
 
 
 HudDb_XY:
-		locVRAM	$DC40		; set VRAM address
+		locVRAM	(ArtTile_HUD+$18)*$20		; set VRAM address
 		move.w	(v_screenposx).w,d1 ; load camera x-position
 		swap	d1
 		move.w	(v_player+obX).w,d1 ; load Sonic's x-position

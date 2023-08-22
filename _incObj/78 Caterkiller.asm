@@ -37,7 +37,7 @@ Cat_Main:	; Routine 0
 		move.w	#make_art_tile(ArtTile_Caterkiller_SBZ,1,0),obGfx(a0)
 		cmpi.b	#id_SBZ,(v_zone).w ; if level is SBZ, branch
 		beq.s	.isscrapbrain
-		move.w	#make_art_tile(ArtTile_Caterkiller_MZ,1,0),obGfx(a0) ; MZ specific code
+		move.w	#make_art_tile(ArtTile_Caterkiller_MZ_SYZ,1,0),obGfx(a0) ; MZ/SYZ specific code
 
 .isscrapbrain:
 		andi.b	#3,obRender(a0)

@@ -68,7 +68,7 @@ Elev_Main:	; Routine 0
 		move.w	d0,elev_dist(a0)	; set distance to move
 		move.b	(a2)+,obSubtype(a0)	; set type
 		move.l	#Map_Elev,obMap(a0)
-		move.w	#$4000,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Level,2,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.w	obX(a0),elev_origX(a0)

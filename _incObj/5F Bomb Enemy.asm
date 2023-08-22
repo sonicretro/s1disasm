@@ -21,7 +21,7 @@ bom_parent = objoff_3C		; address of parent object
 Bom_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Bomb,obMap(a0)
-		move.w	#$400,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Bomb,0,0),obGfx(a0)
 		ori.b	#4,obRender(a0)
 		move.b	#3,obPriority(a0)
 		move.b	#$C,obActWid(a0)

@@ -19,7 +19,7 @@ ledge_collapse_flag = objoff_3A		; collapse flag
 Ledge_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Ledge,obMap(a0)
-		move.w	#$4000,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Level,2,0),obGfx(a0)
 		ori.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#7,ledge_timedelay(a0) ; set time delay for collapse

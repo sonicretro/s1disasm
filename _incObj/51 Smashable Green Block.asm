@@ -17,7 +17,7 @@ Smab_Index:	dc.w Smab_Main-Smab_Index
 Smab_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Smab,obMap(a0)
-		move.w	#$42B8,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_MZ_Block,2,0),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#$10,obActWid(a0)
 		move.b	#4,obPriority(a0)
@@ -88,10 +88,18 @@ sonicAniFrame = objoff_32		; Sonic's current animation number
 Smab_Points:	; Routine 4
 		bsr.w	SpeedToPos
 		addi.w	#$38,obVelY(a0)
+	if ~~FixBugs
+		; Objects should not call DisplaySprite and DeleteObject on
+		; the same frame or else cause a null-pointer dereference.
 		bsr.w	DisplaySprite
+	endif
 		tst.b	obRender(a0)
 		bpl.w	DeleteObject
-		rts	
+	if FixBugs
+		bra.w	DisplaySprite
+	else
+		rts
+	endif
 ; ===========================================================================
 Smab_Speeds:	dc.w -$200, -$200	; x-speed, y-speed
 		dc.w -$100, -$100

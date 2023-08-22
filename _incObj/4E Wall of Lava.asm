@@ -31,7 +31,7 @@ LWall_Main:	; Routine 0
 .make:
 		_move.b	#id_LavaWall,obID(a1)	; load object
 		move.l	#Map_LWall,obMap(a1)
-		move.w	#$63A8,obGfx(a1)
+		move.w	#make_art_tile(ArtTile_MZ_Lava,3,0),obGfx(a1)
 		move.b	#4,obRender(a1)
 		move.b	#$50,obActWid(a1)
 		move.w	obX(a0),obX(a1)

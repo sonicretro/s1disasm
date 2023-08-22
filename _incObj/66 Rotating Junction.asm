@@ -37,7 +37,7 @@ Jun_Main:	; Routine 0
 
 .makeitem:
 		move.l	#Map_Jun,obMap(a1)
-		move.w	#$4348,obGfx(a1)
+		move.w	#make_art_tile(ArtTile_SBZ_Junction,2,0),obGfx(a1)
 		ori.b	#4,obRender(a1)
 		move.b	#$38,obActWid(a1)
 

@@ -1,159 +1,86 @@
 ; ---------------------------------------------------------------------------
 ; Special stage	mappings and VRAM pointers
 ; ---------------------------------------------------------------------------
-	dc.l Map_SSWalls	; address of mappings
-	dc.w $142		; VRAM setting
-	dc.l Map_SSWalls
-	dc.w $142
-	dc.l Map_SSWalls
-	dc.w $142
-	dc.l Map_SSWalls
-	dc.w $142
-	dc.l Map_SSWalls
-	dc.w $142
-	dc.l Map_SSWalls
-	dc.w $142
-	dc.l Map_SSWalls
-	dc.w $142
-	dc.l Map_SSWalls
-	dc.w $142
-	dc.l Map_SSWalls
-	dc.w $142
-	dc.l Map_SSWalls
-	dc.w $2142
-	dc.l Map_SSWalls
-	dc.w $2142
-	dc.l Map_SSWalls
-	dc.w $2142
-	dc.l Map_SSWalls
-	dc.w $2142
-	dc.l Map_SSWalls
-	dc.w $2142
-	dc.l Map_SSWalls
-	dc.w $2142
-	dc.l Map_SSWalls
-	dc.w $2142
-	dc.l Map_SSWalls
-	dc.w $2142
-	dc.l Map_SSWalls
-	dc.w $2142
-	dc.l Map_SSWalls
-	dc.w $4142
-	dc.l Map_SSWalls
-	dc.w $4142
-	dc.l Map_SSWalls
-	dc.w $4142
-	dc.l Map_SSWalls
-	dc.w $4142
-	dc.l Map_SSWalls
-	dc.w $4142
-	dc.l Map_SSWalls
-	dc.w $4142
-	dc.l Map_SSWalls
-	dc.w $4142
-	dc.l Map_SSWalls
-	dc.w $4142
-	dc.l Map_SSWalls
-	dc.w $4142
-	dc.l Map_SSWalls
-	dc.w $6142
-	dc.l Map_SSWalls
-	dc.w $6142
-	dc.l Map_SSWalls
-	dc.w $6142
-	dc.l Map_SSWalls
-	dc.w $6142
-	dc.l Map_SSWalls
-	dc.w $6142
-	dc.l Map_SSWalls
-	dc.w $6142
-	dc.l Map_SSWalls
-	dc.w $6142
-	dc.l Map_SSWalls
-	dc.w $6142
-	dc.l Map_SSWalls
-	dc.w $6142
-	dc.l Map_Bump
-	dc.w $23B
-	dc.l Map_SS_R
-	dc.w $570
-	dc.l Map_SS_R
-	dc.w $251
-	dc.l Map_SS_R
-	dc.w $370
-	dc.l Map_SS_Up
-	dc.w $263
-	dc.l Map_SS_Down
-	dc.w $263
-	dc.l Map_SS_R
-	dc.w $22F0
-	dc.l Map_SS_Glass
-	dc.w $470
-	dc.l Map_SS_Glass
-	dc.w $5F0
-	dc.l Map_SS_Glass
-	dc.w $65F0
-	dc.l Map_SS_Glass
-	dc.w $25F0
-	dc.l Map_SS_Glass
-	dc.w $45F0
-	dc.l Map_SS_R
-	dc.w $2F0
-	dc.l Map_Bump+$1000000	; add frame no.	* $1000000
-	dc.w $23B
-	dc.l Map_Bump+$2000000
-	dc.w $23B
-	dc.l Map_SS_R
-	dc.w $797
-	dc.l Map_SS_R
-	dc.w $7A0
-	dc.l Map_SS_R
-	dc.w $7A9
-	dc.l Map_SS_R
-	dc.w $797
-	dc.l Map_SS_R
-	dc.w $7A0
-	dc.l Map_SS_R
-	dc.w $7A9
-	dc.l Map_Ring
-	dc.w $27B2
-	dc.l Map_SS_Chaos3
-	dc.w $770
-	dc.l Map_SS_Chaos3
-	dc.w $2770
-	dc.l Map_SS_Chaos3
-	dc.w $4770
-	dc.l Map_SS_Chaos3
-	dc.w $6770
-	dc.l Map_SS_Chaos1
-	dc.w $770
-	dc.l Map_SS_Chaos2
-	dc.w $770
-	dc.l Map_SS_R
-	dc.w $4F0
-	dc.l Map_Ring+$4000000
-	dc.w $27B2
-	dc.l Map_Ring+$5000000
-	dc.w $27B2
-	dc.l Map_Ring+$6000000
-	dc.w $27B2
-	dc.l Map_Ring+$7000000
-	dc.w $27B2
-	dc.l Map_SS_Glass
-	dc.w $23F0
-	dc.l Map_SS_Glass+$1000000
-	dc.w $23F0
-	dc.l Map_SS_Glass+$2000000
-	dc.w $23F0
-	dc.l Map_SS_Glass+$3000000
-	dc.w $23F0
-	dc.l Map_SS_R+$2000000
-	dc.w $4F0
-	dc.l Map_SS_Glass
-	dc.w $5F0
-	dc.l Map_SS_Glass
-	dc.w $65F0
-	dc.l Map_SS_Glass
-	dc.w $25F0
-	dc.l Map_SS_Glass
-	dc.w $45F0
+specialStageData: macro frame,mappings,palette,vram
+		dc.l	mappings|(frame<<24)
+		dc.w	make_art_tile(vram,palette,0)
+		endm
+
+		specialStageData	0, Map_SSWalls,   0, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   0, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   0, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   0, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   0, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   0, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   0, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   0, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   0, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   1, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   1, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   1, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   1, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   1, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   1, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   1, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   1, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   1, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   2, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   2, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   2, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   2, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   2, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   2, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   2, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   2, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   2, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   3, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   3, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   3, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   3, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   3, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   3, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   3, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   3, ArtTile_SS_Wall
+		specialStageData	0, Map_SSWalls,   3, ArtTile_SS_Wall
+		specialStageData	0, Map_Bump,      0, ArtTile_SS_Bumper
+		specialStageData	0, Map_SS_R,      0, ArtTile_SS_W_Block
+		specialStageData	0, Map_SS_R,      0, ArtTile_SS_Goal
+		specialStageData	0, Map_SS_R,      0, ArtTile_SS_Extra_Life
+		specialStageData	0, Map_SS_Up,     0, ArtTile_SS_Up_Down
+		specialStageData	0, Map_SS_Down,   0, ArtTile_SS_Up_Down
+		specialStageData	0, Map_SS_R,      1, ArtTile_SS_R_Block
+		specialStageData	0, Map_SS_Glass,  0, ArtTile_SS_Red_White_Block
+		specialStageData	0, Map_SS_Glass,  0, ArtTile_SS_Glass
+		specialStageData	0, Map_SS_Glass,  3, ArtTile_SS_Glass
+		specialStageData	0, Map_SS_Glass,  1, ArtTile_SS_Glass
+		specialStageData	0, Map_SS_Glass,  2, ArtTile_SS_Glass
+		specialStageData	0, Map_SS_R,      0, ArtTile_SS_R_Block
+		specialStageData	1, Map_Bump,      0, ArtTile_SS_Bumper
+		specialStageData	2, Map_Bump,      0, ArtTile_SS_Bumper
+		specialStageData	0, Map_SS_R,      0, ArtTile_SS_Zone_1
+		specialStageData	0, Map_SS_R,      0, ArtTile_SS_Zone_2
+		specialStageData	0, Map_SS_R,      0, ArtTile_SS_Zone_3
+		specialStageData	0, Map_SS_R,      0, ArtTile_SS_Zone_4
+		specialStageData	0, Map_SS_R,      0, ArtTile_SS_Zone_5
+		specialStageData	0, Map_SS_R,      0, ArtTile_SS_Zone_6
+		specialStageData	0, Map_Ring,      1, ArtTile_Ring
+		specialStageData	0, Map_SS_Chaos3, 0, ArtTile_SS_Emerald
+		specialStageData	0, Map_SS_Chaos3, 1, ArtTile_SS_Emerald
+		specialStageData	0, Map_SS_Chaos3, 2, ArtTile_SS_Emerald
+		specialStageData	0, Map_SS_Chaos3, 3, ArtTile_SS_Emerald
+		specialStageData	0, Map_SS_Chaos1, 0, ArtTile_SS_Emerald
+		specialStageData	0, Map_SS_Chaos2, 0, ArtTile_SS_Emerald
+		specialStageData	0, Map_SS_R,      0, ArtTile_SS_Ghost_Block
+		specialStageData	4, Map_Ring,      1, ArtTile_Ring
+		specialStageData	5, Map_Ring,      1, ArtTile_Ring
+		specialStageData	6, Map_Ring,      1, ArtTile_Ring
+		specialStageData	7, Map_Ring,      1, ArtTile_Ring
+		specialStageData	0, Map_SS_Glass,  1, ArtTile_SS_Emerald_Sparkle
+		specialStageData	1, Map_SS_Glass,  1, ArtTile_SS_Emerald_Sparkle
+		specialStageData	2, Map_SS_Glass,  1, ArtTile_SS_Emerald_Sparkle
+		specialStageData	3, Map_SS_Glass,  1, ArtTile_SS_Emerald_Sparkle
+		specialStageData	2, Map_SS_R,      0, ArtTile_SS_Ghost_Block
+		specialStageData	0, Map_SS_Glass,  0, ArtTile_SS_Glass
+		specialStageData	0, Map_SS_Glass,  3, ArtTile_SS_Glass
+		specialStageData	0, Map_SS_Glass,  1, ArtTile_SS_Glass
+		specialStageData	0, Map_SS_Glass,  2, ArtTile_SS_Glass

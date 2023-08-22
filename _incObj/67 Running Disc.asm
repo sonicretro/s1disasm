@@ -18,7 +18,7 @@ disc_origY = objoff_30		; original y-axis position
 Disc_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Disc,obMap(a0)
-		move.w	#$C344,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_SBZ_Disc,2,1),obGfx(a0)
 		move.b	#4,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#8,obActWid(a0)

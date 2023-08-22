@@ -16,7 +16,7 @@ GRing_Index:	dc.w GRing_Main-GRing_Index
 
 GRing_Main:	; Routine 0
 		move.l	#Map_GRing,obMap(a0)
-		move.w	#$2400,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Giant_Ring,1,0),obGfx(a0)
 		ori.b	#4,obRender(a0)
 		move.b	#$40,obActWid(a0)
 		tst.b	obRender(a0)

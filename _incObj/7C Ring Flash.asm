@@ -16,7 +16,7 @@ Flash_Index:	dc.w Flash_Main-Flash_Index
 Flash_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Flash,obMap(a0)
-		move.w	#$2462,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Giant_Ring_Flash,1,0),obGfx(a0)
 		ori.b	#4,obRender(a0)
 		move.b	#0,obPriority(a0)
 		move.b	#$20,obActWid(a0)

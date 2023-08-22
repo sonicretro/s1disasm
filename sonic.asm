@@ -490,7 +490,7 @@ ShowErrorMessage:
 		move.b	(v_errortype).w,d0 ; load error code
 		move.w	ErrorText(pc,d0.w),d0
 		lea	ErrorText(pc,d0.w),a0
-		locVRAM	(vram_fg+$604)
+		locVRAM	vram_fg+$604
 		moveq	#$12,d1		; number of characters (minus 1)
 
 .showchars:
@@ -704,7 +704,7 @@ VBla_08:
 		tst.b	(f_sonframechg).w ; has Sonic's sprite changed?
 		beq.s	.nochg		; if not, branch
 
-		writeVRAM	v_sgfx_buffer,$2E0,vram_sonic ; load new Sonic gfx
+		writeVRAM	v_sgfx_buffer,$2E0,ArtTile_Sonic*$20 ; load new Sonic gfx
 		move.b	#0,(f_sonframechg).w
 
 .nochg:
@@ -753,7 +753,7 @@ VBla_0A:
 		tst.b	(f_sonframechg).w ; has Sonic's sprite changed?
 		beq.s	.nochg		; if not, branch
 
-		writeVRAM	v_sgfx_buffer,$2E0,vram_sonic ; load new Sonic gfx
+		writeVRAM	v_sgfx_buffer,$2E0,ArtTile_Sonic*$20 ; load new Sonic gfx
 		move.b	#0,(f_sonframechg).w
 
 .nochg:
@@ -784,7 +784,7 @@ VBla_0C:
 		writeVRAM	v_spritetablebuffer,$280,vram_sprites
 		tst.b	(f_sonframechg).w
 		beq.s	.nochg
-		writeVRAM	v_sgfx_buffer,$2E0,vram_sonic
+		writeVRAM	v_sgfx_buffer,$2E0,ArtTile_Sonic*$20
 		move.b	#0,(f_sonframechg).w
 
 .nochg:
@@ -823,7 +823,7 @@ VBla_16:
 		startZ80
 		tst.b	(f_sonframechg).w
 		beq.s	.nochg
-		writeVRAM	v_sgfx_buffer,$2E0,vram_sonic
+		writeVRAM	v_sgfx_buffer,$2E0,ArtTile_Sonic*$20
 		move.b	#0,(f_sonframechg).w
 
 .nochg:
@@ -2135,7 +2135,7 @@ Tit_ClrObj1:
 		locVRAM	0
 		lea	(Nem_JapNames).l,a0 ; load Japanese credits
 		bsr.w	NemDec
-		locVRAM	$14C0
+		locVRAM	ArtTile_Sonic_Team_Font*$20
 		lea	(Nem_CreditText).l,a0 ;	load alphabet
 		bsr.w	NemDec
 		lea	($FF0000).l,a1
@@ -2160,17 +2160,17 @@ Tit_ClrPal:
 		jsr	(BuildSprites).l
 		bsr.w	PaletteFadeIn
 		disable_ints
-		locVRAM	$4000
+		locVRAM	ArtTile_Title_Foreground*$20
 		lea	(Nem_TitleFg).l,a0 ; load title	screen patterns
 		bsr.w	NemDec
-		locVRAM	$6000
+		locVRAM	ArtTile_Title_Sonic*$20
 		lea	(Nem_TitleSonic).l,a0 ;	load Sonic title screen	patterns
 		bsr.w	NemDec
-		locVRAM	$A200
+		locVRAM	ArtTile_Title_Trademark*$20
 		lea	(Nem_TitleTM).l,a0 ; load "TM" patterns
 		bsr.w	NemDec
 		lea	(vdp_data_port).l,a6
-		locVRAM	$D000,4(a6)
+		locVRAM	ArtTile_Level_Select_Font*$20,4(a6)
 		lea	(Art_Text).l,a5	; load level select font
 		move.w	#$28F,d1
 
@@ -2210,7 +2210,7 @@ Tit_LoadText:
 
 		copyTilemap	$FF0000,$C206,$21,$15
 
-		locVRAM	0
+		locVRAM	ArtTile_Level*$20
 		lea	(Nem_GHZ_1st).l,a0 ; load GHZ patterns
 		bsr.w	NemDec
 		moveq	#palid_Title,d0	; load title screen palette
@@ -2788,7 +2788,7 @@ Level_NoMusicFade:
 		tst.w	(f_demo).w	; is an ending sequence demo running?
 		bmi.s	Level_ClrRam	; if yes, branch
 		disable_ints
-		locVRAM	$B000
+		locVRAM	ArtTile_Title_Card*$20
 		lea	(Nem_TitleCard).l,a0 ; load title card patterns
 		bsr.w	NemDec
 		enable_ints
@@ -3407,7 +3407,7 @@ loc_47D4:
 		move.w	#$8400+(vram_bg>>13),(a6) ; set background nametable address
 		move.w	#$9001,(a6)		; 64-cell hscroll size
 		bsr.w	ClearScreen
-		locVRAM	$B000
+		locVRAM	ArtTile_Title_Card*$20
 		lea	(Nem_TitleCard).l,a0 ; load title card patterns
 		bsr.w	NemDec
 		jsr	(Hud_Base).l
@@ -3763,13 +3763,13 @@ Cont_ClrObjRam:
 		move.l	d0,(a1)+
 		dbf	d1,Cont_ClrObjRam ; clear object RAM
 
-		locVRAM	$B000
+		locVRAM	ArtTile_Title_Card*$20
 		lea	(Nem_TitleCard).l,a0 ; load title card patterns
 		bsr.w	NemDec
-		locVRAM	$A000
+		locVRAM	ArtTile_Continue_Sonic*$20
 		lea	(Nem_ContSonic).l,a0 ; load Sonic patterns
 		bsr.w	NemDec
-		locVRAM	$AA20
+		locVRAM	ArtTile_Mini_Sonic*$20
 		lea	(Nem_MiniSonic).l,a0 ; load continue screen patterns
 		bsr.w	NemDec
 		moveq	#10,d1
@@ -4109,7 +4109,7 @@ Cred_ClrObjRam:
 		move.l	d0,(a1)+
 		dbf	d1,Cred_ClrObjRam ; clear object RAM
 
-		locVRAM	$B400
+		locVRAM	ArtTile_Credits_Font*$20
 		lea	(Nem_CreditText).l,a0 ;	load credits alphabet patterns
 		bsr.w	NemDec
 
@@ -6957,7 +6957,7 @@ Sonic_Main:	; Routine 0
 		move.b	#$13,obHeight(a0)
 		move.b	#9,obWidth(a0)
 		move.l	#Map_Sonic,obMap(a0)
-		move.w	#$780,obGfx(a0)
+		move.w	#make_art_tile(ArtTile_Sonic,0,0),obGfx(a0)
 		move.b	#2,obPriority(a0)
 		move.b	#$18,obActWid(a0)
 		move.b	#4,obRender(a0)

@@ -25,7 +25,7 @@ MBlock_Var:	dc.b $10, 0		; object width,	frame number
 MBlock_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_MBlock,obMap(a0)
-		move.w	#make_art_tile(ArtTile_Moving_Block_MZ,2,0),obGfx(a0)
+		move.w	#make_art_tile(ArtTile_MZ_Block,2,0),obGfx(a0)
 		cmpi.b	#id_LZ,(v_zone).w ; check if level is LZ
 		bne.s	loc_FE44
 		move.l	#Map_MBlockLZ,obMap(a0) ; LZ specific code
