@@ -267,7 +267,7 @@ BgScroll_End:
 		clr.l	(v_bgscreenposy).w
 		clr.l	(v_bg2screenposy).w
 		clr.l	(v_bg3screenposy).w
-		lea	($FFFFA800).w,a2
+		lea	(v_bgscroll_buffer).w,a2
 		clr.l	(a2)+
 		clr.l	(a2)+
 		clr.l	(a2)+

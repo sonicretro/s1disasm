@@ -575,7 +575,7 @@ AniArt_GiantRing:
 		move.w	(v_gfxbigring).w,d0
 		lea	(a1,d0.w),a1
 		; Turn VRAM address into VDP command
-		addi.w	#$8000,d0
+		addi.w	#ArtTile_Giant_Ring*$20,d0
 		lsl.l	#2,d0
 		lsr.w	#2,d0
 		ori.w	#$4000,d0
