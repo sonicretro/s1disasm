@@ -5,40 +5,42 @@
 BossMarble:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
-		move.w	Obj73_Index(pc,d0.w),d1
-		jmp	Obj73_Index(pc,d1.w)
+		move.w	BossMarble_Index(pc,d0.w),d1
+		jmp	BossMarble_Index(pc,d1.w)
 ; ===========================================================================
-Obj73_Index:	dc.w Obj73_Main-Obj73_Index
-		dc.w Obj73_ShipMain-Obj73_Index
-		dc.w Obj73_FaceMain-Obj73_Index
-		dc.w Obj73_FlameMain-Obj73_Index
-		dc.w Obj73_TubeMain-Obj73_Index
+BossMarble_Index:
+		dc.w BossMarble_Main-BossMarble_Index
+		dc.w BossMarble_ShipMain-BossMarble_Index
+		dc.w BossMarble_FaceMain-BossMarble_Index
+		dc.w BossMarble_FlameMain-BossMarble_Index
+		dc.w BossMarble_TubeMain-BossMarble_Index
 
-Obj73_ObjData:	dc.b 2,	0, 4		; routine number, animation, priority
+BossMarble_ObjData:
+		dc.b 2,	0, 4		; routine number, animation, priority
 		dc.b 4,	1, 4
 		dc.b 6,	7, 4
 		dc.b 8,	0, 3
 ; ===========================================================================
 
-Obj73_Main:	; Routine 0
+BossMarble_Main:	; Routine 0
 		move.w	obX(a0),objoff_30(a0)
 		move.w	obY(a0),objoff_38(a0)
 		move.b	#$F,obColType(a0)
 		move.b	#8,obColProp(a0) ; set number of hits to 8
-		lea	Obj73_ObjData(pc),a2
+		lea	BossMarble_ObjData(pc),a2
 		movea.l	a0,a1
 		moveq	#3,d1
-		bra.s	Obj73_LoadBoss
+		bra.s	BossMarble_LoadBoss
 ; ===========================================================================
 
-Obj73_Loop:
+BossMarble_Loop:
 		jsr	(FindNextFreeObj).l
-		bne.s	Obj73_ShipMain
+		bne.s	BossMarble_ShipMain
 		_move.b	#id_BossMarble,obID(a1)
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 
-Obj73_LoadBoss:
+BossMarble_LoadBoss:
 		bclr	#0,obStatus(a0)
 		clr.b	ob2ndRout(a1)
 		move.b	(a2)+,obRoutine(a1)
@@ -49,13 +51,13 @@ Obj73_LoadBoss:
 		move.b	#4,obRender(a1)
 		move.b	#$20,obActWid(a1)
 		move.l	a0,objoff_34(a1)
-		dbf	d1,Obj73_Loop	; repeat sequence 3 more times
+		dbf	d1,BossMarble_Loop	; repeat sequence 3 more times
 
-Obj73_ShipMain:	; Routine 2
+BossMarble_ShipMain:	; Routine 2
 		moveq	#0,d0
 		move.b	ob2ndRout(a0),d0
-		move.w	Obj73_ShipIndex(pc,d0.w),d1
-		jsr	Obj73_ShipIndex(pc,d1.w)
+		move.w	BossMarble_ShipIndex(pc,d0.w),d1
+		jsr	BossMarble_ShipIndex(pc,d1.w)
 		lea	(Ani_Eggman).l,a1
 		jsr	(AnimateSprite).l
 		moveq	#3,d0
@@ -64,11 +66,12 @@ Obj73_ShipMain:	; Routine 2
 		or.b	d0,obRender(a0)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-Obj73_ShipIndex:dc.w loc_18302-Obj73_ShipIndex
-		dc.w loc_183AA-Obj73_ShipIndex
-		dc.w loc_184F6-Obj73_ShipIndex
-		dc.w loc_1852C-Obj73_ShipIndex
-		dc.w loc_18582-Obj73_ShipIndex
+BossMarble_ShipIndex:
+		dc.w loc_18302-BossMarble_ShipIndex
+		dc.w loc_183AA-BossMarble_ShipIndex
+		dc.w loc_184F6-BossMarble_ShipIndex
+		dc.w loc_1852C-BossMarble_ShipIndex
+		dc.w loc_18582-BossMarble_ShipIndex
 ; ===========================================================================
 
 loc_18302:
@@ -139,9 +142,9 @@ loc_183AA:
 		bra.w	loc_1833E
 ; ===========================================================================
 off_183C2:	dc.w loc_183CA-off_183C2
-		dc.w Obj73_MakeLava2-off_183C2
+		dc.w BossMarble_MakeLava2-off_183C2
 		dc.w loc_183CA-off_183C2
-		dc.w Obj73_MakeLava2-off_183C2
+		dc.w BossMarble_MakeLava2-off_183C2
 ; ===========================================================================
 
 loc_183CA:
@@ -167,11 +170,11 @@ loc_183E6:
 
 loc_183FE:
 		cmpi.b	#$18,objoff_3E(a0)
-		bhs.s	Obj73_MakeLava
+		bhs.s	BossMarble_MakeLava
 		bsr.w	BossMove
 		subq.w	#4,obVelY(a0)
 
-Obj73_MakeLava:
+BossMarble_MakeLava:
 		subq.b	#1,objoff_34(a0)
 		bcc.s	loc_1845C
 		jsr	(FindFreeObj).l
@@ -221,7 +224,7 @@ locret_1849C:
 		rts	
 ; ===========================================================================
 
-Obj73_MakeLava2:
+BossMarble_MakeLava2:
 		bsr.w	BossMove
 		move.w	objoff_38(a0),d0
 		subi.w	#boss_mz_y+$1C,d0
@@ -322,21 +325,21 @@ loc_18582:
 
 loc_1859C:
 		tst.b	obRender(a0)
-		bpl.s	Obj73_ShipDel
+		bpl.s	BossMarble_ShipDel
 
 loc_185A2:
 		bsr.w	BossMove
 		bra.w	loc_1833E
 ; ===========================================================================
 
-Obj73_ShipDel:
+BossMarble_ShipDel:
 	if FixBugs
 		addq.l	#4,sp
 	endif
 		jmp	(DeleteObject).l
 ; ===========================================================================
 
-Obj73_FaceMain:	; Routine 4
+BossMarble_FaceMain:	; Routine 4
 		moveq	#0,d0
 		moveq	#1,d1
 		movea.l	objoff_34(a0),a1
@@ -376,24 +379,24 @@ loc_185EE:
 		bne.s	loc_18602
 		move.b	#6,obAnim(a0)
 		tst.b	obRender(a0)
-		bpl.s	Obj73_FaceDel
+		bpl.s	BossMarble_FaceDel
 
 loc_18602:
-		bra.s	Obj73_Display
+		bra.s	BossMarble_Display
 ; ===========================================================================
 
-Obj73_FaceDel:
+BossMarble_FaceDel:
 		jmp	(DeleteObject).l
 ; ===========================================================================
 
-Obj73_FlameMain:; Routine 6
+BossMarble_FlameMain:; Routine 6
 		move.b	#7,obAnim(a0)
 		movea.l	objoff_34(a0),a1
 		cmpi.b	#8,ob2ndRout(a1)
 		blt.s	loc_1862A
 		move.b	#$B,obAnim(a0)
 		tst.b	obRender(a0)
-		bpl.s	Obj73_FlameDel
+		bpl.s	BossMarble_FlameDel
 		bra.s	loc_18636
 ; ===========================================================================
 
@@ -403,14 +406,14 @@ loc_1862A:
 		move.b	#8,obAnim(a0)
 
 loc_18636:
-		bra.s	Obj73_Display
+		bra.s	BossMarble_Display
 ; ===========================================================================
 
-Obj73_FlameDel:
+BossMarble_FlameDel:
 		jmp	(DeleteObject).l
 ; ===========================================================================
 
-Obj73_Display:
+BossMarble_Display:
 		lea	(Ani_Eggman).l,a1
 		jsr	(AnimateSprite).l
 
@@ -426,12 +429,12 @@ loc_1864A:
 		jmp	(DisplaySprite).l
 ; ===========================================================================
 
-Obj73_TubeMain:	; Routine 8
+BossMarble_TubeMain:	; Routine 8
 		movea.l	objoff_34(a0),a1
 		cmpi.b	#8,ob2ndRout(a1)
 		bne.s	loc_18688
 		tst.b	obRender(a0)
-		bpl.s	Obj73_TubeDel
+		bpl.s	BossMarble_TubeDel
 
 loc_18688:
 		move.l	#Map_BossItems,obMap(a0)
@@ -440,5 +443,5 @@ loc_18688:
 		bra.s	loc_1864A
 ; ===========================================================================
 
-Obj73_TubeDel:
+BossMarble_TubeDel:
 		jmp	(DeleteObject).l

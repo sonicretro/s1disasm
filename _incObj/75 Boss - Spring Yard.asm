@@ -5,42 +5,44 @@
 BossSpringYard:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
-		move.w	Obj75_Index(pc,d0.w),d1
-		jmp	Obj75_Index(pc,d1.w)
+		move.w	BossSpringYard_Index(pc,d0.w),d1
+		jmp	BossSpringYard_Index(pc,d1.w)
 ; ===========================================================================
-Obj75_Index:	dc.w Obj75_Main-Obj75_Index
-		dc.w Obj75_ShipMain-Obj75_Index
-		dc.w Obj75_FaceMain-Obj75_Index
-		dc.w Obj75_FlameMain-Obj75_Index
-		dc.w Obj75_SpikeMain-Obj75_Index
+BossSpringYard_Index:
+		dc.w BossSpringYard_Main-BossSpringYard_Index
+		dc.w BossSpringYard_ShipMain-BossSpringYard_Index
+		dc.w BossSpringYard_FaceMain-BossSpringYard_Index
+		dc.w BossSpringYard_FlameMain-BossSpringYard_Index
+		dc.w BossSpringYard_SpikeMain-BossSpringYard_Index
 
-Obj75_ObjData:	dc.b 2,	0, 5		; routine number, animation, priority
+BossSpringYard_ObjData:
+		dc.b 2,	0, 5		; routine number, animation, priority
 		dc.b 4,	1, 5
 		dc.b 6,	7, 5
 		dc.b 8,	0, 5
 ; ===========================================================================
 
-Obj75_Main:	; Routine 0
+BossSpringYard_Main:	; Routine 0
 		move.w	#boss_syz_x+$1B0,obX(a0)
 		move.w	#boss_syz_y+$E,obY(a0)
 		move.w	obX(a0),objoff_30(a0)
 		move.w	obY(a0),objoff_38(a0)
 		move.b	#$F,obColType(a0)
 		move.b	#8,obColProp(a0) ; set number of hits to 8
-		lea	Obj75_ObjData(pc),a2
+		lea	BossSpringYard_ObjData(pc),a2
 		movea.l	a0,a1
 		moveq	#3,d1
-		bra.s	Obj75_LoadBoss
+		bra.s	BossSpringYard_LoadBoss
 ; ===========================================================================
 
-Obj75_Loop:
+BossSpringYard_Loop:
 		jsr	(FindNextFreeObj).l
-		bne.s	Obj75_ShipMain
+		bne.s	BossSpringYard_ShipMain
 		move.b	#id_BossSpringYard,(a1)
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 
-Obj75_LoadBoss:
+BossSpringYard_LoadBoss:
 		bclr	#0,obStatus(a0)
 		clr.b	ob2ndRout(a1)
 		move.b	(a2)+,obRoutine(a1)
@@ -51,13 +53,13 @@ Obj75_LoadBoss:
 		move.b	#4,obRender(a1)
 		move.b	#$20,obActWid(a1)
 		move.l	a0,objoff_34(a1)
-		dbf	d1,Obj75_Loop	; repeat sequence 3 more times
+		dbf	d1,BossSpringYard_Loop	; repeat sequence 3 more times
 
-Obj75_ShipMain:	; Routine 2
+BossSpringYard_ShipMain:	; Routine 2
 		moveq	#0,d0
 		move.b	ob2ndRout(a0),d0
-		move.w	Obj75_ShipIndex(pc,d0.w),d1
-		jsr	Obj75_ShipIndex(pc,d1.w)
+		move.w	BossSpringYard_ShipIndex(pc,d0.w),d1
+		jsr	BossSpringYard_ShipIndex(pc,d1.w)
 		lea	(Ani_Eggman).l,a1
 		jsr	(AnimateSprite).l
 		moveq	#3,d0
@@ -66,9 +68,13 @@ Obj75_ShipMain:	; Routine 2
 		or.b	d0,obRender(a0)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-Obj75_ShipIndex:dc.w loc_191CC-Obj75_ShipIndex,	loc_19270-Obj75_ShipIndex
-		dc.w loc_192EC-Obj75_ShipIndex,	loc_19474-Obj75_ShipIndex
-		dc.w loc_194AC-Obj75_ShipIndex,	loc_194F2-Obj75_ShipIndex
+BossSpringYard_ShipIndex:
+		dc.w loc_191CC-BossSpringYard_ShipIndex
+		dc.w loc_19270-BossSpringYard_ShipIndex
+		dc.w loc_192EC-BossSpringYard_ShipIndex
+		dc.w loc_19474-BossSpringYard_ShipIndex
+		dc.w loc_194AC-BossSpringYard_ShipIndex
+		dc.w loc_194F2-BossSpringYard_ShipIndex
 ; ===========================================================================
 
 loc_191CC:
@@ -173,7 +179,7 @@ loc_192AE:
 		asl.w	#5,d0
 		addi.w	#boss_syz_x+$10,d0
 		move.w	d0,objoff_30(a0)
-		bsr.w	Obj75_FindBlocks
+		bsr.w	BossSpringYard_FindBlocks
 		addq.b	#2,ob2ndRout(a0)
 		clr.w	obSubtype(a0)
 		clr.w	obVelX(a0)
@@ -337,14 +343,14 @@ loc_19446:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-Obj75_FindBlocks:
+BossSpringYard_FindBlocks:
 		clr.w	objoff_36(a0)
 		lea	(v_objspace+$40).w,a1
 		moveq	#$3E,d0
 		moveq	#$76,d1
 		move.b	objoff_34(a0),d2
 
-Obj75_FindLoop:
+BossSpringYard_FindLoop:
 		cmp.b	(a1),d1		; is object a SYZ boss block?
 		bne.s	loc_1946A	; if not, branch
 		cmp.b	obSubtype(a1),d2
@@ -355,11 +361,11 @@ Obj75_FindLoop:
 
 loc_1946A:
 		lea	object_size(a1),a1	; next object RAM entry
-		dbf	d0,Obj75_FindLoop
+		dbf	d0,BossSpringYard_FindLoop
 
 locret_19472:
 		rts	
-; End of function Obj75_FindBlocks
+; End of function BossSpringYard_FindBlocks
 
 ; ===========================================================================
 
@@ -432,23 +438,23 @@ loc_194F2:
 
 loc_1950C:
 		tst.b	obRender(a0)
-		bpl.s	Obj75_ShipDelete
+		bpl.s	BossSpringYard_ShipDelete
 
 loc_19512:
 		bsr.w	BossMove
 		bra.w	loc_191DE
 ; ===========================================================================
 
-Obj75_ShipDelete:
+BossSpringYard_ShipDelete:
 	if FixBugs
-		; Avoid returning to Obj75_ShipMain to prevent a
+		; Avoid returning to BossSpringYard_ShipMain to prevent a
 		; display-and-delete bug.
 		addq.l	#4,sp
 	endif
 		jmp	(DeleteObject).l
 ; ===========================================================================
 
-Obj75_FaceMain:	; Routine 4
+BossSpringYard_FaceMain:	; Routine 4
 		moveq	#1,d1
 		movea.l	objoff_34(a0),a1
 		moveq	#0,d0
@@ -458,11 +464,11 @@ Obj75_FaceMain:	; Routine 4
 		move.b	d1,obAnim(a0)
 		move.b	(a0),d0
 		cmp.b	(a1),d0
-		bne.s	Obj75_FaceDelete
+		bne.s	BossSpringYard_FaceDelete
 		bra.s	loc_195BE
 ; ===========================================================================
 
-Obj75_FaceDelete:
+BossSpringYard_FaceDelete:
 		jmp	(DeleteObject).l
 ; ===========================================================================
 off_19546:	dc.w loc_19574-off_19546, loc_19574-off_19546
@@ -513,14 +519,14 @@ locret_19588:
 		rts	
 ; ===========================================================================
 
-Obj75_FlameMain:; Routine 6
+BossSpringYard_FlameMain:; Routine 6
 		move.b	#7,obAnim(a0)
 		movea.l	objoff_34(a0),a1
 		cmpi.b	#$A,ob2ndRout(a1)
 		bne.s	loc_195AA
 		move.b	#$B,obAnim(a0)
 		tst.b	obRender(a0)
-		bpl.s	Obj75_FlameDelete
+		bpl.s	BossSpringYard_FlameDelete
 		bra.s	loc_195B6
 ; ===========================================================================
 
@@ -533,7 +539,7 @@ loc_195B6:
 		bra.s	loc_195BE
 ; ===========================================================================
 
-Obj75_FlameDelete:
+BossSpringYard_FlameDelete:
 		jmp	(DeleteObject).l
 ; ===========================================================================
 
@@ -553,7 +559,7 @@ loc_195DA:
 		jmp	(DisplaySprite).l
 ; ===========================================================================
 
-Obj75_SpikeMain:; Routine 8
+BossSpringYard_SpikeMain:; Routine 8
 		move.l	#Map_BossItems,obMap(a0)
 		move.w	#make_art_tile(ArtTile_Eggman_Weapons,1,0),obGfx(a0)
 		move.b	#5,obFrame(a0)
@@ -561,7 +567,7 @@ Obj75_SpikeMain:; Routine 8
 		cmpi.b	#$A,ob2ndRout(a1)
 		bne.s	loc_1961C
 		tst.b	obRender(a0)
-		bpl.s	Obj75_SpikeDelete
+		bpl.s	BossSpringYard_SpikeDelete
 
 loc_1961C:
 		move.w	obX(a1),obX(a0)
@@ -606,5 +612,5 @@ loc_19688:
 		bra.w	loc_195DA
 ; ===========================================================================
 
-Obj75_SpikeDelete:
+BossSpringYard_SpikeDelete:
 		jmp	(DeleteObject).l
