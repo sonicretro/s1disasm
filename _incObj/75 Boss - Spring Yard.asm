@@ -345,13 +345,18 @@ loc_19446:
 
 BossSpringYard_FindBlocks:
 		clr.w	objoff_36(a0)
-		lea	(v_objspace+$40).w,a1
-		moveq	#$3E,d0
-		moveq	#$76,d1
+	if FixBugs
+		lea	(v_objspace+object_size).w,a1
+		moveq	#(v_objend-v_objspace)/object_size-1,d0
+	else
+		lea	(v_objspace+object_size*1).w,a1 ; Nonsensical starting point, since dynamic object allocations begin at v_lvlobjspace.
+		moveq	#(v_objend-(v_objspace+object_size*1))/object_size/2-1,d0	; Nonsensical length, it only covers the first half of object RAM.
+	endif
+		moveq	#id_BossBlock,d1
 		move.b	objoff_34(a0),d2
 
 BossSpringYard_FindLoop:
-		cmp.b	(a1),d1		; is object a SYZ boss block?
+		cmp.b	obID(a1),d1		; is object a SYZ boss block?
 		bne.s	loc_1946A	; if not, branch
 		cmp.b	obSubtype(a1),d2
 		bne.s	loc_1946A

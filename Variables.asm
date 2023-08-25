@@ -63,6 +63,7 @@ v_endcardoval	= v_endcard+object_size*6	; object variable space for the level re
 
 v_lvlobjspace	= v_objspace+object_size*32	; level object variable space ($1800 bytes)
 v_lvlobjend	= v_lvlobjspace+object_size*96
+v_objend	= v_lvlobjend
 
 ; Special Stage objects
 v_ssrescard	= v_objspace+object_size*23	; object variable space for the Special Stage results card ($140 bytes)
