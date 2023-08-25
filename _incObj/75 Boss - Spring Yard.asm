@@ -440,6 +440,11 @@ loc_19512:
 ; ===========================================================================
 
 Obj75_ShipDelete:
+	if FixBugs
+		; Avoid returning to Obj75_ShipMain to prevent a
+		; display-and-delete bug.
+		addq.l	#4,sp
+	endif
 		jmp	(DeleteObject).l
 ; ===========================================================================
 
