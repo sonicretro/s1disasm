@@ -155,7 +155,7 @@ loc_1928E:
 
 loc_19294:
 		bchg	#0,obStatus(a0)
-		clr.b	standonobject(a0)
+		clr.b	objoff_3D(a0)
 
 loc_1929E:
 		subi.w	#boss_syz_x+$10,d0
@@ -167,7 +167,7 @@ loc_1929E:
 loc_192AE:
 		subq.w	#1,d0
 		bgt.s	loc_192E8
-		tst.b	standonobject(a0)
+		tst.b	objoff_3D(a0)
 		bne.s	loc_192E8
 		move.w	(v_player+obX).w,d1
 		subi.w	#boss_syz_x,d1
@@ -243,7 +243,7 @@ loc_19366:
 		cmpi.w	#$1E,objoff_3C(a0)
 		bgt.s	loc_1937C
 		moveq	#2,d0
-		btst	#1,standonobject(a0)
+		btst	#1,objoff_3D(a0)
 		beq.s	loc_1937C
 		neg.w	d0
 
@@ -303,7 +303,7 @@ loc_193EE:
 		bne.s	loc_19406
 		clr.b	objoff_29(a0)
 		subq.b	#2,ob2ndRout(a0)
-		move.b	#-1,standonobject(a0)
+		move.b	#-1,objoff_3D(a0)
 		bra.s	loc_19446
 ; ===========================================================================
 
@@ -328,7 +328,7 @@ loc_19424:
 		tst.w	objoff_36(a0)
 		beq.s	loc_19438
 		moveq	#2,d0
-		btst	#0,standonobject(a0)
+		btst	#0,objoff_3D(a0)
 		beq.s	loc_19438
 		neg.w	d0
 

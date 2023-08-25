@@ -193,6 +193,11 @@ locret_1887E:
 ; ===========================================================================
 
 BossFire_Delete2:
+	if FixBugs
+		; Do not return to BossFire_Action, to avoid double-delete
+		; and display-and-delete bugs.
+		addq.l	#4,sp
+	endif
 		jmp	(DeleteObject).l
 ; ===========================================================================
 

@@ -457,7 +457,7 @@ DLE_SLZ3boss:
 		blo.s	locret_715C
 		bsr.w	FindFreeObj
 		bne.s	loc_7144
-		move.b	#id_BossStarLight,(a1) ; load SLZ boss object
+		move.b	#id_BossStarLight,obID(a1) ; load SLZ boss object
 
 loc_7144:
 		move.w	#bgm_Boss,d0
@@ -526,7 +526,7 @@ DLE_SYZ3main:
 		blo.s	locret_71CE
 		bsr.w	FindFreeObj
 		bne.s	locret_71CE
-		move.b	#id_BossBlock,(a1) ; load blocks that boss picks up
+		move.b	#id_BossBlock,obID(a1) ; load blocks that boss picks up
 		addq.b	#2,(v_dle_routine).w
 
 locret_71CE:
@@ -539,7 +539,7 @@ DLE_SYZ3boss:
 		move.w	#boss_syz_y,(v_limitbtm1).w
 		bsr.w	FindFreeObj
 		bne.s	loc_71EC
-		move.b	#id_BossSpringYard,(a1) ; load SYZ boss	object
+		move.b	#id_BossSpringYard,obID(a1) ; load SYZ boss object
 		addq.b	#2,(v_dle_routine).w
 
 loc_71EC:
@@ -617,7 +617,7 @@ DLE_SBZ2boss:
 		blo.s	locret_7298
 		bsr.w	FindFreeObj
 		bne.s	locret_7298
-		move.b	#id_FalseFloor,(a1) ; load collapsing block object
+		move.b	#id_FalseFloor,obID(a1) ; load collapsing block object
 		addq.b	#2,(v_dle_routine).w
 		moveq	#plcid_EggmanSBZ2,d0
 		bra.w	AddPLC		; load SBZ2 Eggman patterns
@@ -632,7 +632,7 @@ DLE_SBZ2boss2:
 		blo.s	loc_72B6
 		bsr.w	FindFreeObj
 		bne.s	loc_72B0
-		move.b	#id_ScrapEggman,(a1) ; load SBZ2 Eggman object
+		move.b	#id_ScrapEggman,obID(a1) ; load SBZ2 Eggman object
 		addq.b	#2,(v_dle_routine).w
 
 loc_72B0:
@@ -680,7 +680,7 @@ DLE_FZboss:
 		blo.s	loc_7312
 		bsr.w	FindFreeObj
 		bne.s	loc_7312
-		move.b	#id_BossFinal,(a1) ; load FZ boss object
+		move.b	#id_BossFinal,obID(a1) ; load FZ boss object
 		addq.b	#2,(v_dle_routine).w
 		move.b	#1,(f_lockscreen).w ; lock screen
 
