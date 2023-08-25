@@ -191,7 +191,7 @@ PLC_SYZ:	dc.w ((PLC_SYZ2-PLC_SYZ-2)/6)-1
 PLC_SYZ2:	dc.w ((PLC_SYZ2end-PLC_SYZ2-2)/6)-1
 		plcm	Nem_Bumper,    ArtTile_SYZ_Bumper          ; bumper
 		plcm	Nem_SyzSpike1, ArtTile_SYZ_Big_Spikeball   ; large spikeball
-		plcm	Nem_SyzSpike2, ArtTile_SLZ_Spikeball_Chain ; small spikeball
+		plcm	Nem_SyzSpike2, ArtTile_SYZ_Spikeball_Chain ; small spikeball
 		plcm	Nem_Cater,     ArtTile_MZ_SYZ_Caterkiller  ; caterkiller enemy
 		plcm	Nem_LzSwitch,  ArtTile_Button              ; switch
 		plcm	Nem_Spikes,    ArtTile_Spikes              ; spikes

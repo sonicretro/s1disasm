@@ -461,6 +461,7 @@ ArtTile_MZ_Lava:		equ $3A8
 ; Spring Yard Zone
 ArtTile_SYZ_Bumper:		equ $380
 ArtTile_SYZ_Big_Spikeball:	equ $396
+ArtTile_SYZ_Spikeball_Chain:	equ $3BA
 
 ; Labyrinth Zone
 ArtTile_LZ_Block_1:		equ $1E0
@@ -485,7 +486,6 @@ ArtTile_LZ_Cork:		equ ArtTile_LZ_Blocks+$11A
 ; Star Light Zone
 ArtTile_SLZ_Seesaw:		equ $374
 ArtTile_SLZ_Fan:		equ $3A0
-ArtTile_SLZ_Spikeball_Chain:	equ $3BA
 ArtTile_SLZ_Pylon:		equ $3CC
 ArtTile_SLZ_Swing:		equ $3DC
 ArtTile_SLZ_Orbinaut:		equ $429
