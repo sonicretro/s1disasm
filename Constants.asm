@@ -475,7 +475,7 @@ ArtTile_LZ_Moving_Block:	equ $3BC
 ArtTile_LZ_Door:		equ $3C4
 ArtTile_LZ_Harpoon:		equ $3CC
 ArtTile_LZ_Pole:		equ $3DE
-ArtTile_LZ_Push_Block:		equ $3DE ; Unused?
+ArtTile_LZ_Push_Block:		equ $3DE
 ArtTile_LZ_Blocks:		equ $3E6
 ArtTile_LZ_Conveyor_Belt:	equ $3F6
 ArtTile_LZ_Sonic_Drowning:	equ $440
