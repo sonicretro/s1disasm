@@ -82,7 +82,10 @@ loc_AF8E:
 		bsr.w	SolidObject2F
 
 LGrass_Display:
+	if ~~FixBugs
+		; This has been moved to prevent a display-after-free bug.
 		bsr.w	DisplaySprite
+	endif
 		bra.w	LGrass_ChkDel
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
@@ -232,7 +235,12 @@ LGrass_ChkDel:
 
 loc_B0C6:
 		out_of_range.w	DeleteObject,lgrass_origX(a0)
+	if FixBugs
+		; This has been moved to prevent a display-after-free bug.
+		bra.w	DisplaySprite
+	else
 		rts	
+	endif
 ; ===========================================================================
 
 LGrass_DelFlames:
@@ -258,7 +266,12 @@ loc_B0F4:
 		move.b	#0,objoff_34(a0)
 
 locret_B116:
+	if FixBugs
+		; This has been moved to prevent a display-after-free bug.
+		bra.w	DisplaySprite
+	else
 		rts	
+	endif
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Collision data for large moving platforms (MZ)

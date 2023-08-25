@@ -303,6 +303,7 @@ f_slidemode	= ramaddr ( $FFFFF7CA )	; LZ water slide mode
 v_obj6B	= ramaddr ( $FFFFF7CB )	; object 6B (SBZ stomper) variable
 f_lockctrl	= ramaddr ( $FFFFF7CC )	; flag set to lock controls during ending sequence
 f_bigring	= ramaddr ( $FFFFF7CD )	; flag set when Sonic collects the giant ring
+f_obj56	= ramaddr ( $FFFFF7CE ) ; object 56 flag
 v_itembonus	= ramaddr ( $FFFFF7D0 )	; item bonus from broken enemies, blocks etc. (2 bytes)
 v_timebonus	= ramaddr ( $FFFFF7D2 )	; time bonus at the end of an act (2 bytes)
 v_ringbonus	= ramaddr ( $FFFFF7D4 )	; ring bonus at the end of an act (2 bytes)

@@ -6,8 +6,13 @@ BossFire:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
 		move.w	Obj74_Index(pc,d0.w),d0
+	if FixBugs
+		; DisplaySprite has been moved to avoid a display-after-free bug.
+		jmp	Obj74_Index(pc,d0.w)
+	else
 		jsr	Obj74_Index(pc,d0.w)
 		jmp	(DisplaySprite).l
+	endif
 ; ===========================================================================
 Obj74_Index:	dc.w Obj74_Main-Obj74_Index
 		dc.w Obj74_Action-Obj74_Index
@@ -47,7 +52,12 @@ Obj74_Action:	; Routine 2
 		jsr	(AnimateSprite).l
 		cmpi.w	#boss_mz_y+$D8,obY(a0)
 		bhi.s	Obj74_Delete
+	if FixBugs
+		; DisplaySprite has been moved to avoid a display-after-free bug.
+		jmp	(DisplaySprite).l
+	else
 		rts	
+	endif
 ; ===========================================================================
 
 Obj74_Delete:
@@ -196,7 +206,13 @@ loc_18886:	; Routine 4
 
 Obj74_Animate:
 		lea	(Ani_Fire).l,a1
+	if FixBugs
+		; DisplaySprite has been moved to avoid a display-after-free bug.
+		jsr	(AnimateSprite).l
+		jmp	(DisplaySprite).l
+	else
 		jmp	(AnimateSprite).l
+	endif
 ; ===========================================================================
 
 Obj74_Delete3:	; Routine 6

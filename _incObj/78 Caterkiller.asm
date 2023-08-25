@@ -340,15 +340,36 @@ loc_16C50:
 loc_16C64:
 		cmpi.b	#$C,obRoutine(a1)
 		beq.s	loc_16C90
-		_cmpi.b	#id_ExplosionItem,obID(a1)
-		beq.s	loc_16C7C
-		cmpi.b	#$A,obRoutine(a1)
-		bne.s	loc_16C82
 
-loc_16C7C:
+		; Each sub-object deletes itself when it detects that its
+		; parent is going to delete itself. This mostly works, but
+		; does cause the sub-object to linger for one frame longer
+		; than it should, which is why rolling into a Caterkiller
+		; at high speed causes Sonic to be hurt.
+
+		; Has the head been destroyed?
+		_cmpi.b	#id_ExplosionItem,obID(a1)
+		beq.s	.delete
+		; Is the parent going to delete itself?
+		cmpi.b	#$A,obRoutine(a1)
+		bne.s	.display
+
+	if FixBugs
+		; Delete the parent.
+		bsr.w	DeleteChild ; Don't mind this misnomer.
+	endif
+
+.delete:
+		; Mark self for deletion.
 		move.b	#$A,obRoutine(a0)
 
-loc_16C82:
+	if FixBugs
+		; Do not queue self for display, since it will be deleted by
+		; its child later.
+		rts
+	endif
+
+.display:
 		jmp	(DisplaySprite).l
 
 ; ===========================================================================
