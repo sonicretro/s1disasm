@@ -58,12 +58,12 @@ FBlock_Main:	; Routine 0
 			bne.s	.dontdelete
 			cmpi.w	#$1BB8,obX(a0)
 			bne.s	.notatpos
-			tst.b	($FFFFF7CE).w
+			tst.b	(f_obj56).w
 			beq.s	.dontdelete
 			jmp	(DeleteObject).l
 .notatpos:
 			clr.b	obSubtype(a0)
-			tst.b	($FFFFF7CE).w
+			tst.b	(f_obj56).w
 			bne.s	.dontdelete
 			jmp	(DeleteObject).l
 .dontdelete:
@@ -324,7 +324,7 @@ FBlock_Action:	; Routine 2
 		cmpi.w	#$380,fb_height(a0)
 		bne.s	.locret_10578
 		if Revision<>0
-			move.b	#1,($FFFFF7CE).w
+			move.b	#1,(f_obj56).w
 			clr.b	objoff_38(a0)
 		endif
 		clr.b	obSubtype(a0)
