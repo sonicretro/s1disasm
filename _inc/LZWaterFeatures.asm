@@ -169,7 +169,7 @@ DynWater_LZ3:
 		bhs.s	.setwaterlz3	; if not, branch
 
 		move.w	#$4C8,d1	; set new water height
-		move.b	#$4B,(v_lvllayout+$106).w ; update level layout
+		move.b	#$4B,(v_lvllayout+$80*2+6).w ; update level layout
 		move.b	#1,(v_wtr_routine).w ; use second routine next
 		move.w	#sfx_Rumbling,d0
 		bsr.w	PlaySound_Special ; play sound $B7 (rumbling)
@@ -436,7 +436,7 @@ locret_3FBE:
 ; ===========================================================================
 ; byte_3FC0:
 Slide_Speeds:
-		dc.b $A, $F5, $A, $F6, $F5, $F4, $B
+		dc.b 10, -11, 10, -10, -11, -12, 11
 		even
 
 Slide_Chunks:
