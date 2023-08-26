@@ -122,7 +122,7 @@ BossFire_Duplicate2:
 		bne.s	locret_187EE
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
-		move.b	#id_BossFire,(a1)
+		move.b	#id_BossFire,obID(a1)
 		move.w	#$67,obSubtype(a1)
 
 locret_187EE:

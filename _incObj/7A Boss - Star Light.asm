@@ -232,7 +232,7 @@ loc_18AFA:
 		jsr	(FindNextFreeObj).l
 		movea.l	(sp)+,a0
 		bne.s	loc_18B40
-		move.b	#id_BossSpikeball,(a1) ; load spiked ball object
+		move.b	#id_BossSpikeball,obID(a1) ; load spiked ball object
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		addi.w	#$20,obY(a1)

@@ -32,7 +32,7 @@ Obj86_Generator:; Routine 2
 		movea.l	objoff_34(a0),a1
 		cmpi.b	#6,objoff_34(a1)
 		bne.s	loc_1A850
-		move.b	#id_ExplosionBomb,(a0)
+		move.b	#id_ExplosionBomb,obID(a0)
 		move.b	#0,obRoutine(a0)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -79,7 +79,7 @@ Obj86_MakeBalls:; Routine 4
 Obj86_Loop:
 		jsr	(FindNextFreeObj).l
 		bne.w	loc_1A954
-		move.b	#id_BossPlasma,(a1)
+		move.b	#id_BossPlasma,obID(a1)
 		move.w	obX(a0),obX(a1)
 		move.w	#boss_fz_y+$2C,obY(a1)
 		move.b	#8,obRoutine(a1)

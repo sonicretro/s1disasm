@@ -54,7 +54,7 @@ Obj85_Loop:
 		bne.s	loc_19E20
 
 Obj85_LoadBoss:
-		move.b	#id_BossFinal,(a1)
+		move.b	#id_BossFinal,obID(a1)
 		move.w	(a2)+,obX(a1)
 		move.w	(a2)+,obY(a1)
 		move.w	(a2)+,obGfx(a1)
@@ -77,7 +77,7 @@ loc_19E20:
 		lea	objoff_36(a0),a2
 		jsr	(FindFreeObj).l
 		bne.s	loc_19E5A
-		move.b	#id_BossPlasma,(a1) ; load energy ball object
+		move.b	#id_BossPlasma,obID(a1) ; load energy ball object
 		move.w	a1,(a2)
 		move.l	a0,objoff_34(a1)
 		lea	objoff_38(a0),a2
@@ -88,7 +88,7 @@ loc_19E3E:
 		jsr	(FindNextFreeObj).l
 		bne.s	loc_19E5A
 		move.w	a1,(a2)+
-		move.b	#id_EggmanCylinder,(a1) ; load crushing	cylinder object
+		move.b	#id_EggmanCylinder,obID(a1) ; load crushing cylinder object
 		move.l	a0,objoff_34(a1)
 		move.b	d2,obSubtype(a1)
 		addq.w	#2,d2

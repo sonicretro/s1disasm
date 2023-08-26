@@ -27,7 +27,7 @@ BossBlock_Loop:
 		bne.s	BossBlock_ExitLoop
 
 BossBlock_MakeBlock:
-		move.b	#id_BossBlock,(a1)
+		move.b	#id_BossBlock,obID(a1)
 		move.l	#Map_BossBlock,obMap(a1)
 		move.w	#make_art_tile(ArtTile_Level,2,0),obGfx(a1)
 		move.b	#4,obRender(a1)

@@ -240,7 +240,7 @@ BossMarble_MakeLava2:
 		move.w	objoff_30(a0),obX(a1)
 		move.w	objoff_38(a0),obY(a1)
 		addi.w	#$18,obY(a1)
-		move.b	#id_BossFire,(a1)	; load lava ball object
+		move.b	#id_BossFire,obID(a1)	; load lava ball object
 		move.b	#1,obSubtype(a1)
 
 loc_184EA:

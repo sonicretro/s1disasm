@@ -314,7 +314,7 @@ Obj7B_BallHitbox:
 ; ===========================================================================
 
 Obj7B_Explode:	; Routine 8
-		move.b	#id_ExplosionBomb,(a0)
+		move.b	#id_ExplosionBomb,obID(a0)
 		clr.b	obRoutine(a0)
 		cmpi.w	#$20,obSubtype(a0)
 		beq.s	Obj7B_MakeFrag
@@ -329,7 +329,7 @@ Obj7B_MakeFrag:
 Obj7B_Loop:
 		jsr	(FindFreeObj).l
 		bne.s	loc_1909A
-		move.b	#id_BossSpikeball,(a1) ; load shrapnel object
+		move.b	#id_BossSpikeball,obID(a1) ; load shrapnel object
 		move.b	#$A,obRoutine(a1)
 		move.l	#Map_BSBall,obMap(a1)
 		move.b	#3,obPriority(a1)
