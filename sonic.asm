@@ -2126,7 +2126,7 @@ GM_Title:
 
 		lea	(v_objspace).w,a1
 		moveq	#0,d0
-		move.w	#$7FF,d1
+		move.w	#(v_objend-v_objspace)/4-1,d1
 
 Tit_ClrObj1:
 		move.l	d0,(a1)+
@@ -2265,9 +2265,9 @@ Tit_MainLoop:
 		jsr	(BuildSprites).l
 		bsr.w	PCycle_Title
 		bsr.w	RunPLC
-		move.w	(v_objspace+obX).w,d0
+		move.w	(v_player+obX).w,d0
 		addq.w	#2,d0
-		move.w	d0,(v_objspace+obX).w ; move Sonic to the right
+		move.w	d0,(v_player+obX).w ; move Sonic to the right
 		cmpi.w	#$1C00,d0	; has Sonic object passed $1C00 on x-axis?
 		blo.s	Tit_ChkRegion	; if not, branch
 
@@ -2529,9 +2529,9 @@ loc_33B6:
 		bsr.w	DeformLayers
 		bsr.w	PaletteCycle
 		bsr.w	RunPLC
-		move.w	(v_objspace+obX).w,d0
+		move.w	(v_player+obX).w,d0
 		addq.w	#2,d0
-		move.w	d0,(v_objspace+obX).w
+		move.w	d0,(v_player+obX).w
 		cmpi.w	#$1C00,d0
 		blo.s	loc_33E4
 		move.b	#id_Sega,(v_gamemode).w
@@ -2809,7 +2809,7 @@ loc_37FC:
 Level_ClrRam:
 		lea	(v_objspace).w,a1
 		moveq	#0,d0
-		move.w	#$7FF,d1
+		move.w	#(v_objend-v_objspace)/4-1,d1
 
 Level_ClrObjRam:
 		move.l	d0,(a1)+
@@ -3282,7 +3282,7 @@ SS_WaitForDMA:
 
 		lea	(v_objspace).w,a1
 		moveq	#0,d0
-		move.w	#$7FF,d1
+		move.w	#(v_objend-v_objspace)/4-1,d1
 SS_ClrObjRam:
 		move.l	d0,(a1)+
 		dbf	d1,SS_ClrObjRam	; clear	the object RAM
@@ -3428,7 +3428,7 @@ loc_47D4:
 
 		lea	(v_objspace).w,a1
 		moveq	#0,d0
-		move.w	#$7FF,d1
+		move.w	#(v_objend-v_objspace)/4-1,d1
 SS_EndClrObjRam:
 		move.l	d0,(a1)+
 		dbf	d1,SS_EndClrObjRam ; clear object RAM
@@ -3758,7 +3758,7 @@ GM_Continue:
 
 		lea	(v_objspace).w,a1
 		moveq	#0,d0
-		move.w	#$7FF,d1
+		move.w	#(v_objend-v_objspace)/4-1,d1
 Cont_ClrObjRam:
 		move.l	d0,(a1)+
 		dbf	d1,Cont_ClrObjRam ; clear object RAM
@@ -3853,7 +3853,7 @@ GM_Ending:
 
 		lea	(v_objspace).w,a1
 		moveq	#0,d0
-		move.w	#$7FF,d1
+		move.w	#(v_objend-v_objspace)/4-1,d1
 End_ClrObjRam:
 		move.l	d0,(a1)+
 		dbf	d1,End_ClrObjRam ; clear object	RAM
@@ -4104,7 +4104,7 @@ GM_Credits:
 
 		lea	(v_objspace).w,a1
 		moveq	#0,d0
-		move.w	#$7FF,d1
+		move.w	#(v_objend-v_objspace)/4-1,d1
 Cred_ClrObjRam:
 		move.l	d0,(a1)+
 		dbf	d1,Cred_ClrObjRam ; clear object RAM
@@ -4233,7 +4233,7 @@ TryAgainEnd:
 
 		lea	(v_objspace).w,a1
 		moveq	#0,d0
-		move.w	#$7FF,d1
+		move.w	#(v_objend-v_objspace)/4-1,d1
 TryAg_ClrObjRam:
 		move.l	d0,(a1)+
 		dbf	d1,TryAg_ClrObjRam ; clear object RAM
@@ -6241,13 +6241,13 @@ Map_Smash:	include	"_maps/Smashable Walls.asm"
 
 ExecuteObjects:
 		lea	(v_objspace).w,a0 ; set address for object RAM
-		moveq	#$7F,d7
+		moveq	#(v_objend-v_objspace)/object_size-1,d7
 		moveq	#0,d0
 		cmpi.b	#6,(v_player+obRoutine).w
 		bhs.s	loc_D362
 
 loc_D348:
-		move.b	(a0),d0		; load object number from RAM
+		move.b	obID(a0),d0		; load object number from RAM
 		beq.s	loc_D358
 		add.w	d0,d0
 		add.w	d0,d0
@@ -6262,13 +6262,13 @@ loc_D358:
 ; ===========================================================================
 
 loc_D362:
-		moveq	#$1F,d7
+		moveq	#(v_lvlobjspace-v_objspace)/object_size-1,d7
 		bsr.s	loc_D348
-		moveq	#$5F,d7
+		moveq	#(v_lvlobjend-v_lvlobjspace)/object_size-1,d7
 
 loc_D368:
 		moveq	#0,d0
-		move.b	(a0),d0
+		move.b	obID(a0),d0
 		beq.s	loc_D378
 		tst.b	obRender(a0)
 		bpl.s	loc_D378

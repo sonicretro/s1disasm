@@ -49,7 +49,7 @@ ESon_Wait:
 ; ===========================================================================
 
 Obj87_LookUp:	; Routine 6
-		cmpi.w	#$2000,((v_objspace&$FFFFFF)+$400+$3C).l
+		cmpi.w	#$2000,((v_endemeralds+echa_radius)&$FFFFFF).l
 		bne.s	locret_5480
 		move.w	#1,(f_restart).w ; set level to	restart	(causes	flash)
 		move.w	#90,eson_time(a0)
