@@ -182,7 +182,8 @@ objoff_3D:	equ $3D
 objoff_3E:	equ $3E
 objoff_3F:	equ $3F
 
-object_size:	equ $40
+object_size_bits:	equ 6
+object_size:	equ 1<<object_size_bits
 
 ; Object variables (Sonic 2 disassembly nomenclature)
 id:		equ obID		; object ID number

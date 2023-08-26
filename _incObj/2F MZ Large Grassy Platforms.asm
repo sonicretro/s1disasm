@@ -199,7 +199,7 @@ loc_B07A:
 loc_B086:
 		moveq	#0,d0
 		move.b	(a2)+,d0
-		lsl.w	#6,d0
+		lsl.w	#object_size_bits,d0
 		addi.w	#v_objspace&$FFFF,d0
 		movea.w	d0,a1
 		move.w	d1,objoff_3C(a1)
@@ -219,7 +219,7 @@ sub_B09C:
 		lea	1(a2,d0.w),a2
 		move.w	a1,d0
 		subi.w	#v_objspace&$FFFF,d0
-		lsr.w	#6,d0
+		lsr.w	#object_size_bits,d0
 		andi.w	#$7F,d0
 		move.b	d0,(a2)
 		rts	
@@ -257,7 +257,7 @@ loc_B0F4:
 		moveq	#0,d0
 		move.b	(a2),d0
 		clr.b	(a2)+
-		lsl.w	#6,d0
+		lsl.w	#object_size_bits,d0
 		addi.w	#v_objspace&$FFFF,d0
 		movea.w	d0,a1
 		bsr.w	DeleteChild

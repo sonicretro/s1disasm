@@ -286,7 +286,7 @@ Solid_ResetFloor:
 
 		moveq	#0,d0
 		move.b	standonobject(a1),d0	; get object being stood on
-		lsl.w	#6,d0
+		lsl.w	#object_size_bits,d0
 		addi.l	#(v_objspace&$FFFFFF),d0
 		movea.l	d0,a2
 		bclr	#3,obStatus(a2)	; clear object's standing flags
@@ -295,7 +295,7 @@ Solid_ResetFloor:
 .notonobj:
 		move.w	a0,d0
 		subi.w	#v_objspace&$FFFF,d0
-		lsr.w	#6,d0
+		lsr.w	#object_size_bits,d0
 		andi.w	#$7F,d0
 		move.b	d0,standonobject(a1)	; set object being stood on
 		move.b	#0,obAngle(a1)	; clear Sonic's angle

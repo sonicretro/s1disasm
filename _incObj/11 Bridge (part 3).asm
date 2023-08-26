@@ -5,7 +5,7 @@ Bri_MoveSonic:
 		moveq	#0,d0
 		move.b	objoff_3F(a0),d0
 		move.b	objoff_29(a0,d0.w),d0
-		lsl.w	#6,d0
+		lsl.w	#object_size_bits,d0
 		addi.l	#v_objspace&$FFFFFF,d0
 		movea.l	d0,a2
 		lea	(v_player).w,a1
@@ -45,7 +45,7 @@ Bri_Bend:
 loc_765C:
 		moveq	#0,d0
 		move.b	(a2)+,d0
-		lsl.w	#6,d0
+		lsl.w	#object_size_bits,d0
 		addi.l	#v_objspace&$FFFFFF,d0
 		movea.l	d0,a1
 		moveq	#0,d0
@@ -75,7 +75,7 @@ loc_765C:
 loc_76A4:
 		moveq	#0,d0
 		move.b	(a2)+,d0
-		lsl.w	#6,d0
+		lsl.w	#object_size_bits,d0
 		addi.l	#v_objspace&$FFFFFF,d0
 		movea.l	d0,a1
 		moveq	#0,d0
@@ -119,7 +119,7 @@ Bri_ChkDel:
 .loop:
 		moveq	#0,d0
 		move.b	(a2)+,d0
-		lsl.w	#6,d0
+		lsl.w	#object_size_bits,d0
 		addi.l	#v_objspace&$FFFFFF,d0
 		movea.l	d0,a1
 		cmp.w	a0,d0

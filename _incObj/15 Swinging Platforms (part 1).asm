@@ -72,7 +72,7 @@ Swing_Main:	; Routine 0
 		addq.b	#1,obSubtype(a0)
 		move.w	a1,d5
 		subi.w	#v_objspace&$FFFF,d5
-		lsr.w	#6,d5
+		lsr.w	#object_size_bits,d5
 		andi.w	#$7F,d5
 		move.b	d5,(a2)+
 		move.b	#$A,obRoutine(a1) ; goto Swing_Display next
@@ -97,7 +97,7 @@ Swing_Main:	; Routine 0
 .fail:
 		move.w	a0,d5
 		subi.w	#v_objspace&$FFFF,d5
-		lsr.w	#6,d5
+		lsr.w	#object_size_bits,d5
 		andi.w	#$7F,d5
 		move.b	d5,(a2)+
 		move.w	#$4080,obAngle(a0)

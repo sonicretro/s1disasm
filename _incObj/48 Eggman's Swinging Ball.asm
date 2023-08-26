@@ -43,7 +43,7 @@ GBall_MakeLinks:
 loc_17B60:
 		move.w	a1,d5
 		subi.w	#v_objspace&$FFFF,d5
-		lsr.w	#6,d5
+		lsr.w	#object_size_bits,d5
 		andi.w	#$7F,d5
 		move.b	d5,(a2)+
 		move.b	#4,obRender(a1)
@@ -75,7 +75,7 @@ GBall_Base:	; Routine 2
 loc_17BC6:
 		moveq	#0,d4
 		move.b	(a2)+,d4
-		lsl.w	#6,d4
+		lsl.w	#object_size_bits,d4
 		addi.l	#v_objspace&$FFFFFF,d4
 		movea.l	d4,a1
 		move.b	(a3)+,d0

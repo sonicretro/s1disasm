@@ -46,7 +46,7 @@ Bri_Main:	; Routine 0
 		move.w	d2,objoff_3C(a0)
 		move.w	a0,d5
 		subi.w	#v_objspace&$FFFF,d5
-		lsr.w	#6,d5
+		lsr.w	#object_size_bits,d5
 		andi.w	#$7F,d5
 		move.b	d5,(a2)+
 		addq.b	#1,obSubtype(a0)
@@ -54,7 +54,7 @@ Bri_Main:	; Routine 0
 .notleftmost:
 		move.w	a1,d5
 		subi.w	#v_objspace&$FFFF,d5
-		lsr.w	#6,d5
+		lsr.w	#object_size_bits,d5
 		andi.w	#$7F,d5
 		move.b	d5,(a2)+
 		move.b	#$A,obRoutine(a1)

@@ -46,7 +46,7 @@ Orb_Main:	; Routine 0
 		addq.b	#1,(a3)
 		move.w	a1,d5
 		subi.w	#v_objspace&$FFFF,d5
-		lsr.w	#6,d5
+		lsr.w	#object_size_bits,d5
 		andi.w	#$7F,d5
 		move.b	d5,(a2)+
 		_move.b	obID(a0),obID(a1)	; load spiked orb object
@@ -133,7 +133,7 @@ loc_11E34:
 loc_11E40:
 		moveq	#0,d0
 		move.b	(a2)+,d0
-		lsl.w	#6,d0
+		lsl.w	#object_size_bits,d0
 		addi.l	#v_objspace&$FFFFFF,d0
 		movea.l	d0,a1
 		bsr.w	DeleteChild
