@@ -292,12 +292,22 @@ HurtSonic:
 		move.w	#0,obInertia(a0)
 		move.b	#id_Hurt,obAnim(a0)
 		move.w	#120,flashtime(a0)	; set temp invincible time to 2 seconds
-		move.w	#sfx_Death,d0	; load normal damage sound
-		cmpi.b	#id_Spikes,(a2)	; was damage caused by spikes?
-		bne.s	.sound		; if not, branch
-		cmpi.b	#id_Harpoon,(a2) ; was damage caused by LZ harpoon?
-		bne.s	.sound		; if not, branch
-		move.w	#sfx_HitSpikes,d0 ; load spikes damage sound
+	if FixBugs
+		move.w	#sfx_HitSpikes,d0
+		cmpi.b	#id_Spikes,obID(a2)	; was damage caused by spikes?
+		beq.s	.sound
+		cmpi.b	#id_Harpoon,obID(a2)	; was damage caused by LZ harpoon?
+		beq.s	.sound
+		move.w	#sfx_Death,d0
+	else
+		; This is bugged: the harpoon will never play the spike sound!
+		move.w	#sfx_Death,d0
+		cmpi.b	#id_Spikes,obID(a2)	; was damage caused by spikes?
+		bne.s	.sound
+		cmpi.b	#id_Harpoon,obID(a2)	; was damage caused by LZ harpoon?
+		bne.s	.sound
+		move.w	#sfx_HitSpikes,d0
+	endif
 
 .sound:
 		jsr	(PlaySound_Special).l

@@ -356,7 +356,7 @@ loc_16C64:
 
 	if FixBugs
 		; Delete the parent.
-		bsr.w	DeleteChild ; Don't mind this misnomer.
+		jsr	(DeleteChild).l ; Don't mind this misnomer.
 	endif
 
 .delete:
