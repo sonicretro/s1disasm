@@ -339,10 +339,20 @@ KillSonic:
 		move.w	obY(a0),objoff_38(a0)
 		move.b	#id_Death,obAnim(a0)
 		bset	#7,obGfx(a0)
+	if FixBugs
+		move.w	#sfx_HitSpikes,d0 ; play spikes death sound
+		cmpi.b	#id_Spikes,obID(a2)	; check	if you were killed by spikes
+		beq.s	.sound
+		cmpi.b	#id_Harpoon,obID(a2)	; check	if you were killed by a harpoon
+		beq.s	.sound
 		move.w	#sfx_Death,d0	; play normal death sound
-		cmpi.b	#id_Spikes,(a2)	; check	if you were killed by spikes
+	else
+		; This fails to check for the harpoon object.
+		move.w	#sfx_Death,d0	; play normal death sound
+		cmpi.b	#id_Spikes,obID(a2)	; check	if you were killed by spikes
 		bne.s	.sound
 		move.w	#sfx_HitSpikes,d0 ; play spikes death sound
+	endif
 
 .sound:
 		jsr	(PlaySound_Special).l
