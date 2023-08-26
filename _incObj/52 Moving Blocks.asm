@@ -66,9 +66,20 @@ MBlock_StandOn:	; Routine 4
 		moveq	#0,d1
 		move.b	obActWid(a0),d1
 		jsr	(ExitPlatform).l
+	if FixBugs
+		; MBlock_Move manipulates the stack pointer, potentially
+		; resulting in a crash. To avoid this, don't store data on
+		; the stack. We can use obejct scratch RAM instead.
+		move.w	obX(a0),objoff_38(a0)
+	else
 		move.w	obX(a0),-(sp)
+	endif
 		bsr.w	MBlock_Move
+	if FixBugs
+		move.w	objoff_38(a0),d2
+	else
 		move.w	(sp)+,d2
+	endif
 		jsr	(MvSonicOnPtfm2).l
 
 MBlock_ChkDel:
@@ -172,7 +183,10 @@ MBlock_Type07:
 		subq.b	#3,obSubtype(a0) ; if yes, change object type to 04
 
 MBlock_07_ChkDel:
+		; This line, combined with the coordinate being pushed to
+		; the stack in MBlock_StandOn, can be disasterous.
 		addq.l	#4,sp
+
 		out_of_range.w	DeleteObject,mblock_origX(a0)
 		rts	
 ; ===========================================================================
