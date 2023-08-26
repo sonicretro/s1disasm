@@ -346,8 +346,8 @@ loc_19446:
 BossSpringYard_FindBlocks:
 		clr.w	objoff_36(a0)
 	if FixBugs
-		lea	(v_objspace+object_size).w,a1
-		moveq	#(v_objend-v_objspace)/object_size-1,d0
+		lea	(v_lvlobjspace).w,a1
+		moveq	#(v_lvlobjend-v_lvlobjspace)/object_size-1,d0
 	else
 		lea	(v_objspace+object_size*1).w,a1 ; Nonsensical starting point, since dynamic object allocations begin at v_lvlobjspace.
 		moveq	#(v_objend-(v_objspace+object_size*1))/object_size/2-1,d0	; Nonsensical length, it only covers the first half of object RAM.
