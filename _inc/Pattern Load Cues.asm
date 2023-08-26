@@ -107,7 +107,7 @@ PLC_LZ:		dc.w ((PLC_LZ2-PLC_LZ-2)/6)-1
 		plcm	Nem_LZ,          ArtTile_Level              ; LZ main patterns
 		plcm	Nem_LzBlock1,    ArtTile_LZ_Block_1         ; block
 		plcm	Nem_LzBlock2,    ArtTile_LZ_Block_2         ; blocks
-		plcm	Nem_Splash,      ArtTile_Splash             ; waterfalls and splash
+		plcm	Nem_Splash,      ArtTile_LZ_Splash          ; waterfalls and splash
 		plcm	Nem_Water,       ArtTile_LZ_Water_Surface   ; water surface
 		plcm	Nem_LzSpikeBall, ArtTile_LZ_Spikeball_Chain ; spiked ball
 		plcm	Nem_FlapDoor,    ArtTile_LZ_Flapping_Door   ; flapping door

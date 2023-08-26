@@ -466,6 +466,7 @@ ArtTile_SYZ_Spikeball_Chain:	equ $3BA
 ; Labyrinth Zone
 ArtTile_LZ_Block_1:		equ $1E0
 ArtTile_LZ_Block_2:		equ $1F0
+ArtTile_LZ_Splash:		equ $259
 ArtTile_LZ_Gargoyle:		equ $2E9
 ArtTile_LZ_Water_Surface:	equ $300
 ArtTile_LZ_Spikeball_Chain:	equ $310
@@ -522,7 +523,6 @@ ArtTile_FZ_Eggman_No_Vehicle:	equ $470
 
 ; General Level Art
 ArtTile_Level:			equ $000
-ArtTile_Splash:			equ $259
 ArtTile_Ball_Hog:		equ $302
 ArtTile_Bomb:			equ $400
 ArtTile_Crabmeat:		equ $400
