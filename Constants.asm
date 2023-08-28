@@ -185,33 +185,6 @@ objoff_3F:	equ $3F
 object_size_bits:	equ 6
 object_size:	equ 1<<object_size_bits
 
-; Object variables (Sonic 2 disassembly nomenclature)
-id:		equ obID		; object ID number
-render_flags:	equ obRender		; bitfield for x/y flip, display mode
-art_tile:	equ obGfx		; palette line & VRAM setting (2 bytes)
-mappings:	equ obMap		; mappings address (4 bytes)
-x_pos:		equ obX			; x-axis position (2-4 bytes)
-y_pos:		equ obY			; y-axis position (2-4 bytes)
-x_vel:		equ obVelX		; x-axis velocity (2 bytes)
-y_vel:		equ obVelY		; y-axis velocity (2 bytes)
-y_radius:	equ obHeight		; height/2
-x_radius:	equ obWidth		; width/2
-priority:	equ obPriority		; sprite stack priority -- 0 is front
-width_pixels:	equ obActWid		; action width
-mapping_frame:	equ obFrame		; current frame displayed
-anim_frame:	equ obAniFrame		; current frame in animation script
-anim:		equ obAnim		; current animation
-next_anim:	equ obNextAni		; next animation
-anim_frame_duration: equ obTimeFrame	; time to next frame
-collision_flags: equ obColType		; collision response type
-collision_property: equ obColProp	; collision extra property
-status:		equ obStatus		; orientation or mode
-respawn_index:	equ obRespawnNo		; respawn list index number
-routine:	equ obRoutine		; routine number
-routine_secondary: equ ob2ndRout	; secondary routine number
-angle:		equ obAngle		; angle
-subtype:	equ obSubtype		; object subtype
-
 ; Animation flags
 afEnd:		equ $FF	; return to beginning of animation
 afBack:		equ $FE	; go back (specified number) bytes
