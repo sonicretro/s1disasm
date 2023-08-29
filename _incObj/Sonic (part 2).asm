@@ -26,7 +26,18 @@ loc_1380C:
 
 Sonic_HurtStop:
 		move.w	(v_limitbtm2).w,d0
-		addi.w	#$E0,d0
+	if FixBugs
+		; The original code does not consider that the camera boundary
+		; may be in the middle of lowering itself, which is why going
+		; down the S-tunnel in Green Hill Zone Act 1 fast enough can
+		; kill Sonic.
+		move.w	(v_limitbtm1).w,d1
+		cmp.w	d0,d1
+		blo.s	.skip
+		move.w	d1,d0
+.skip:
+	endif
+		addi.w	#224,d0
 		cmp.w	obY(a0),d0
 		blo.w	KillSonic
 		bsr.w	Sonic_Floor
