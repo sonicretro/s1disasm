@@ -105,9 +105,11 @@ v_fadeout_delay:	= $006
 v_communication_byte:	= $007	; used in Ristar to sync with a boss' attacks; unused here
 f_updating_dac:		= $008	; $80 if updating DAC, $00 otherwise
 v_sound_id:		= $009	; sound or music copied from below
-v_soundqueue0:		= $00A	; sound or music to play
-v_soundqueue1:		= $00B	; special sound to play
-v_soundqueue2:		= $00C	; unused sound to play
+v_soundqueue_start:	= $00A
+v_soundqueue0:		= v_soundqueue_start+0	; sound or music to play
+v_soundqueue1:		= v_soundqueue_start+1	; special sound to play
+v_soundqueue2:		= v_soundqueue_start+2	; unused sound to play
+v_soundqueue_end:	= v_soundqueue_start+3
 
 f_voice_selector:	= $00E	; $00 = use music voice pointer; $40 = use special voice pointer; $80 = use track voice pointer
 
