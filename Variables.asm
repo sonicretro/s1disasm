@@ -208,9 +208,11 @@ f_wtr_state	= ramaddr ( $FFFFF64E )	; water palette state when water is above/be
 
 v_pal_buffer	= ramaddr ( $FFFFF650 )	; palette data buffer (used for palette cycling) ($30 bytes)
 v_plc_buffer	= ramaddr ( $FFFFF680 )	; pattern load cues buffer (maximum $10 PLCs) ($60 bytes)
+v_plc_buffer_only_end	= ramaddr ( $FFFFF680+6*16 )
 v_ptrnemcode	= ramaddr ( $FFFFF6E0 )	; pointer for nemesis decompression code ($1502 or $150C) (4 bytes)
 
 f_plc_execute	= ramaddr ( $FFFFF6F8 )	; flag set for pattern load cue execution (2 bytes)
+v_plc_buffer_end	= ramaddr ( $FFFFF700 )
 
 v_screenposx	= ramaddr ( $FFFFF700 )	; screen position x (2 bytes)
 v_screenposy	= ramaddr ( $FFFFF704 )	; screen position y (2 bytes)
