@@ -84,12 +84,28 @@ Gar_AniFire:	; Routine 6
 		moveq	#-8,d3
 		bsr.w	ObjHitWallLeft
 		tst.w	d1
+	if FixBugs
+		bmi.w	.delete
+	else
 		bmi.w	DeleteObject	; delete if the	fireball hits a	wall
+	endif
 		rts	
 
 .isright:
 		moveq	#8,d3
 		bsr.w	ObjHitWallRight
 		tst.w	d1
+	if FixBugs
+		bmi.s	.delete
+	else
 		bmi.w	DeleteObject
+	endif
 		rts	
+
+	if FixBugs
+		; Avoid returning to Gargoyle to prevent display-and-delete
+		; and double-delete bugs.
+.delete:
+		addq.l	#4,sp
+		bra.w	DeleteObject
+	endif

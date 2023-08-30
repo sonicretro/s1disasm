@@ -97,7 +97,11 @@ loc_12460:
 		andi.w	#$7F,d0
 		lea	(v_obj63).w,a2
 		bset	#0,(a2,d0.w)
+	if FixBugs
+		bne.s	.delete
+	else
 		bne.w	DeleteObject
+	endif
 		add.w	d0,d0
 		andi.w	#$1E,d0
 		addi.w	#ObjPosLZPlatform_Index-ObjPos_Index,d0
@@ -106,6 +110,14 @@ loc_12460:
 		move.w	(a2)+,d1
 		movea.l	a0,a1
 		bra.s	LCon_MakePtfms
+
+	if FixBugs
+		; Avoid returning to LabyrinthConvey to prevent a
+		; display-and-delete bug.
+.delete:
+		addq.l	#4,sp
+		bra.w	DeleteObject
+	endif
 ; ===========================================================================
 
 LCon_Loop:
