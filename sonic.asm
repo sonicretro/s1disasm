@@ -6949,7 +6949,7 @@ Map_LConv:	include	"_maps/LZ Conveyor.asm"
 Map_Bub:	include	"_maps/Bubbles.asm"
 		include	"_incObj/65 Waterfalls.asm"
 		include	"_anim/Waterfalls.asm"
-Map_WFall	include	"_maps/Waterfalls.asm"
+Map_WFall:	include	"_maps/Waterfalls.asm"
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
