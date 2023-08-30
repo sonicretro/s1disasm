@@ -5343,7 +5343,14 @@ LevelDataLoad:
 
 LevelLayoutLoad:
 		lea	(v_lvllayout).w,a3
-		move.w	#$1FF,d1
+	if FixBugs
+		move.w	#(v_lvllayout_end-v_lvllayout)/4-1,d1
+	else
+		; ; v_lvllayout is only $400 bytes, but this clears $800...
+		; In Sonic 2, this function was corrected to only clear the
+		; layout buffer.
+		move.w	#(v_lvllayout_end-v_lvllayout)/2-1,d1
+	endif
 		moveq	#0,d0
 
 LevLoad_ClrRam:
