@@ -7022,7 +7022,7 @@ loc_12C7E:
 		beq.s	loc_12CA6
 		tst.b	obAnim(a0)
 		bne.s	loc_12CA6
-		move.b	obNextAni(a0),obAnim(a0)
+		move.b	obPrevAni(a0),obAnim(a0)
 
 loc_12CA6:
 		bsr.w	Sonic_Animate

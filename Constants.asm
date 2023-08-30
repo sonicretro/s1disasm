@@ -138,7 +138,7 @@ obActWid:	equ $19	; action width
 obFrame:	equ $1A	; current frame displayed
 obAniFrame:	equ $1B	; current frame in animation script
 obAnim:		equ $1C	; current animation
-obNextAni:	equ $1D	; next animation
+obPrevAni:	equ $1D	; previous animation
 obTimeFrame:	equ $1E	; time to next frame
 obDelayAni:	equ $1F	; time to delay animation
 obColType:	equ $20	; collision response type

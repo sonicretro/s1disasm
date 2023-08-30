@@ -205,7 +205,7 @@ loc_13086:
 		bset	#0,obStatus(a0)
 		bne.s	loc_1309A
 		bclr	#5,obStatus(a0)
-		move.b	#1,obNextAni(a0)
+		move.b	#id_Run,obPrevAni(a0) ; restart Sonic's animation
 
 loc_1309A:
 		sub.w	d5,d0
@@ -253,7 +253,7 @@ Sonic_MoveRight:
 		bclr	#0,obStatus(a0)
 		beq.s	loc_13104
 		bclr	#5,obStatus(a0)
-		move.b	#1,obNextAni(a0)
+		move.b	#id_Run,obPrevAni(a0) ; restart Sonic's animation
 
 loc_13104:
 		add.w	d5,d0

@@ -99,7 +99,7 @@ loc_8402:
 		bne.s	locret_843A
 		bclr	#3,obStatus(a1)
 		bclr	#5,obStatus(a1)
-		move.b	#1,obNextAni(a1)
+		move.b	#id_Run,obPrevAni(a1) ; restart Sonic's animation
 
 loc_842E:
 		move.b	#0,cflo_collapse_flag(a0)

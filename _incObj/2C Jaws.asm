@@ -40,7 +40,7 @@ Jaws_Turn:	; Routine 2
 		move.w	jaws_timedelay(a0),jaws_timecount(a0) ; reset turn delay time
 		neg.w	obVelX(a0)	; change speed direction
 		bchg	#0,obStatus(a0)	; change Jaws facing direction
-		move.b	#1,obNextAni(a0) ; reset animation
+		move.b	#1,obPrevAni(a0) ; reset animation
 
 .animate:
 		lea	(Ani_Jaws).l,a1
