@@ -189,7 +189,7 @@ Lamp_LoadInfo:
 		move.w	($FFFFFE4A).w,(v_bg2screenposy).w
 		move.w	($FFFFFE4C).w,(v_bg3screenposx).w
 		move.w	($FFFFFE4E).w,(v_bg3screenposy).w
-		cmpi.b	#1,(v_zone).w	; is this Labyrinth Zone?
+		cmpi.b	#id_LZ,(v_zone).w	; is this Labyrinth Zone?
 		bne.s	.notlabyrinth	; if not, branch
 
 		move.w	($FFFFFE50).w,(v_waterpos2).w
