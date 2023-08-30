@@ -10,33 +10,33 @@ PaletteCycle:
 		moveq	#0,d0
 		move.b	(v_zone).w,d0	; get level number
 		add.w	d0,d0
-		move.w	PCycle_Index(pc,d0.w),d0
-		jmp	PCycle_Index(pc,d0.w) ; jump to relevant palette routine
+		move.w	PalCycle_Index(pc,d0.w),d0
+		jmp	PalCycle_Index(pc,d0.w) ; jump to relevant palette routine
 ; End of function PaletteCycle
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Palette cycling routines
 ; ---------------------------------------------------------------------------
-PCycle_Index:	dc.w PCycle_GHZ-PCycle_Index
-		dc.w PCycle_LZ-PCycle_Index
-		dc.w PCycle_MZ-PCycle_Index
-		dc.w PalCycle_SLZ-PCycle_Index
-		dc.w PalCycle_SYZ-PCycle_Index
-		dc.w PalCycle_SBZ-PCycle_Index
-		zonewarning PCycle_Index,2
-		dc.w PCycle_GHZ-PCycle_Index	; Ending
+PalCycle_Index:	dc.w PalCycle_GHZ-PalCycle_Index
+		dc.w PalCycle_LZ-PalCycle_Index
+		dc.w PalCycle_MZ-PalCycle_Index
+		dc.w PalCycle_SLZ-PalCycle_Index
+		dc.w PalCycle_SYZ-PalCycle_Index
+		dc.w PalCycle_SBZ-PalCycle_Index
+		zonewarning PalCycle_Index,2
+		dc.w PalCycle_GHZ-PalCycle_Index	; Ending
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-PCycle_Title:
+PalCycle_Title:
 		lea	(Pal_TitleCyc).l,a0
 		bra.s	PCycGHZ_Go
 ; ===========================================================================
 
-PCycle_GHZ:
+PalCycle_GHZ:
 		lea	(Pal_GHZCyc).l,a0
 
 PCycGHZ_Go:
@@ -54,13 +54,13 @@ PCycGHZ_Go:
 
 PCycGHZ_Skip:
 		rts	
-; End of function PCycle_GHZ
+; End of function PalCycle_GHZ
 
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-PCycle_LZ:
+PalCycle_LZ:
 ; Waterfalls
 		subq.w	#1,(v_pcyc_time).w ; decrement timer
 		bpl.s	PCycLZ_Skip1	; if time remains, branch
@@ -123,13 +123,13 @@ loc_1A0A:
 
 PCycLZ_Skip2:
 		rts	
-; End of function PCycle_LZ
+; End of function PalCycle_LZ
 
 ; ===========================================================================
 PCycLZ_Seq:	dc.b 1,	0, 0, 1, 0, 0, 1, 0
 ; ===========================================================================
 
-PCycle_MZ:
+PalCycle_MZ:
 		rts	
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||

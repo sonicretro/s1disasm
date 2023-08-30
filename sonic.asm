@@ -2279,7 +2279,7 @@ Tit_MainLoop:
 		jsr	(ExecuteObjects).l
 		bsr.w	DeformLayers
 		jsr	(BuildSprites).l
-		bsr.w	PCycle_Title
+		bsr.w	PalCycle_Title
 		bsr.w	RunPLC
 		move.w	(v_player+obX).w,d0
 		addq.w	#2,d0
