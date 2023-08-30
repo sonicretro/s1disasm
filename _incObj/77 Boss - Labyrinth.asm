@@ -5,20 +5,22 @@
 BossLabyrinth:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
-		move.w	Obj77_Index(pc,d0.w),d1
-		jmp	Obj77_Index(pc,d1.w)
+		move.w	BossLabyrinth_Index(pc,d0.w),d1
+		jmp	BossLabyrinth_Index(pc,d1.w)
 ; ===========================================================================
-Obj77_Index:	dc.w Obj77_Main-Obj77_Index
-		dc.w Obj77_ShipMain-Obj77_Index
-		dc.w Obj77_FaceMain-Obj77_Index
-		dc.w Obj77_FlameMain-Obj77_Index
+BossLabyrinth_Index:
+		dc.w BossLabyrinth_Main-BossLabyrinth_Index
+		dc.w BossLabyrinth_ShipMain-BossLabyrinth_Index
+		dc.w BossLabyrinth_FaceMain-BossLabyrinth_Index
+		dc.w BossLabyrinth_FlameMain-BossLabyrinth_Index
 
-Obj77_ObjData:	dc.b 2,	0		; routine number, animation
+BossLabyrinth_ObjData:
+		dc.b 2,	0		; routine number, animation
 		dc.b 4,	1
 		dc.b 6,	7
 ; ===========================================================================
 
-Obj77_Main:	; Routine 0
+BossLabyrinth_Main:	; Routine 0
 		move.w	#boss_lz_x+$30,obX(a0)
 		move.w	#boss_lz_y+$500,obY(a0)
 		move.w	obX(a0),objoff_30(a0)
@@ -26,20 +28,20 @@ Obj77_Main:	; Routine 0
 		move.b	#$F,obColType(a0)
 		move.b	#8,obColProp(a0) ; set number of hits to 8
 		move.b	#4,obPriority(a0)
-		lea	Obj77_ObjData(pc),a2
+		lea	BossLabyrinth_ObjData(pc),a2
 		movea.l	a0,a1
 		moveq	#2,d1
-		bra.s	Obj77_LoadBoss
+		bra.s	BossLabyrinth_LoadBoss
 ; ===========================================================================
 
-Obj77_Loop:
+BossLabyrinth_Loop:
 		jsr	(FindNextFreeObj).l
-		bne.s	Obj77_ShipMain
+		bne.s	BossLabyrinth_ShipMain
 		_move.b	#id_BossLabyrinth,obID(a1)
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 
-Obj77_LoadBoss:
+BossLabyrinth_LoadBoss:
 		bclr	#0,obStatus(a0)
 		clr.b	ob2ndRout(a1)
 		move.b	(a2)+,obRoutine(a1)
@@ -50,14 +52,14 @@ Obj77_LoadBoss:
 		move.b	#4,obRender(a1)
 		move.b	#$20,obActWid(a1)
 		move.l	a0,objoff_34(a1)
-		dbf	d1,Obj77_Loop
+		dbf	d1,BossLabyrinth_Loop
 
-Obj77_ShipMain:	; Routine 2
+BossLabyrinth_ShipMain:	; Routine 2
 		lea	(v_player).w,a1
 		moveq	#0,d0
 		move.b	ob2ndRout(a0),d0
-		move.w	Obj77_ShipIndex(pc,d0.w),d1
-		jsr	Obj77_ShipIndex(pc,d1.w)
+		move.w	BossLabyrinth_ShipIndex(pc,d0.w),d1
+		jsr	BossLabyrinth_ShipIndex(pc,d1.w)
 		lea	(Ani_Eggman).l,a1
 		jsr	(AnimateSprite).l
 		moveq	#3,d0
@@ -66,10 +68,11 @@ Obj77_ShipMain:	; Routine 2
 		or.b	d0,obRender(a0)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-Obj77_ShipIndex:dc.w loc_17F1E-Obj77_ShipIndex,	loc_17FA0-Obj77_ShipIndex
-		dc.w loc_17FE0-Obj77_ShipIndex,	loc_1801E-Obj77_ShipIndex
-		dc.w loc_180BC-Obj77_ShipIndex,	loc_180F6-Obj77_ShipIndex
-		dc.w loc_1812A-Obj77_ShipIndex,	loc_18152-Obj77_ShipIndex
+BossLabyrinth_ShipIndex:
+		dc.w loc_17F1E-BossLabyrinth_ShipIndex,	loc_17FA0-BossLabyrinth_ShipIndex
+		dc.w loc_17FE0-BossLabyrinth_ShipIndex,	loc_1801E-BossLabyrinth_ShipIndex
+		dc.w loc_180BC-BossLabyrinth_ShipIndex,	loc_180F6-BossLabyrinth_ShipIndex
+		dc.w loc_1812A-BossLabyrinth_ShipIndex,	loc_18152-BossLabyrinth_ShipIndex
 ; ===========================================================================
 
 loc_17F1E:
@@ -307,21 +310,21 @@ loc_18152:
 
 loc_18160:
 		tst.b	obRender(a0)
-		bpl.s	Obj77_ShipDel
+		bpl.s	BossLabyrinth_ShipDel
 
 loc_18166:
 		bra.w	loc_17F38
 ; ===========================================================================
 
-Obj77_ShipDel:
+BossLabyrinth_ShipDel:
 		jmp	(DeleteObject).l
 ; ===========================================================================
 
-Obj77_FaceMain:	; Routine 4
+BossLabyrinth_FaceMain:	; Routine 4
 		movea.l	objoff_34(a0),a1
 		move.b	(a1),d0
 		cmp.b	(a0),d0
-		bne.s	Obj77_FaceDel
+		bne.s	BossLabyrinth_FaceDel
 		moveq	#0,d0
 		move.b	ob2ndRout(a1),d0
 		moveq	#1,d1
@@ -349,27 +352,27 @@ loc_181A0:
 		bne.s	loc_181B6
 		move.b	#6,obAnim(a0)
 		tst.b	obRender(a0)
-		bpl.s	Obj77_FaceDel
+		bpl.s	BossLabyrinth_FaceDel
 
 loc_181B6:
-		bra.s	Obj77_Display
+		bra.s	BossLabyrinth_Display
 ; ===========================================================================
 
-Obj77_FaceDel:
+BossLabyrinth_FaceDel:
 		jmp	(DeleteObject).l
 ; ===========================================================================
 
-Obj77_FlameMain:; Routine 6
+BossLabyrinth_FlameMain:; Routine 6
 		move.b	#7,obAnim(a0)
 		movea.l	objoff_34(a0),a1
 		move.b	(a1),d0
 		cmp.b	(a0),d0
-		bne.s	Obj77_FlameDel
+		bne.s	BossLabyrinth_FlameDel
 		cmpi.b	#$E,ob2ndRout(a1)
 		bne.s	loc_181F0
 		move.b	#$B,obAnim(a0)
 		tst.b	obRender(a0)
-		bpl.s	Obj77_FlameDel
+		bpl.s	BossLabyrinth_FlameDel
 		bra.s	loc_181F0
 ; ===========================================================================
 		tst.w	obVelX(a1)
@@ -377,14 +380,14 @@ Obj77_FlameMain:; Routine 6
 		move.b	#8,obAnim(a0)
 
 loc_181F0:
-		bra.s	Obj77_Display
+		bra.s	BossLabyrinth_Display
 ; ===========================================================================
 
-Obj77_FlameDel:
+BossLabyrinth_FlameDel:
 		jmp	(DeleteObject).l
 ; ===========================================================================
 
-Obj77_Display:
+BossLabyrinth_Display:
 		lea	(Ani_Eggman).l,a1
 		jsr	(AnimateSprite).l
 		movea.l	objoff_34(a0),a1
