@@ -76,7 +76,7 @@ AniArt_GHZ_Bigflower:
 
 AniArt_GHZ_Smallflower:
 
-.size:		equ 12	; number of tiles per frame
+.size		= 12	; number of tiles per frame
 
 		subq.b	#1,(v_lani2_time).w
 		bpl.s	.end
@@ -303,7 +303,7 @@ AniArt_Ending_BigFlower:
 
 AniArt_Ending_SmallFlower:
 
-.size:		= 12	; number of tiles per frame
+.size		= 12	; number of tiles per frame
 
 		subq.b	#1,(v_lani2_time).w ; decrement timer
 		bpl.s	AniArt_Ending_Flower3 ; branch if not 0
@@ -561,7 +561,7 @@ loc_1C4FA:
 
 AniArt_GiantRing:
 
-.size:		equ 14
+.size		= 14
 
 		tst.w	(v_gfxbigring).w	; Is there any of the art left to load?
 		bne.s	.loadTiles		; If so, get to work
