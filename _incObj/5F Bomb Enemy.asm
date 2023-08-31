@@ -152,6 +152,11 @@ loc_11B70:
 ; ===========================================================================
 
 loc_11B7C:
+	if FixBugs
+		; Avoid returning to Bom_Display to prevent display-and-delete
+		; and double-delete bugs.
+		addq.l	#4,sp
+	endif
 		clr.w	bom_time(a0)
 		clr.b	obRoutine(a0)
 		move.w	bom_origY(a0),obY(a0)
