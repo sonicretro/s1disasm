@@ -5,28 +5,29 @@
 BossSpikeball:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
-		move.w	Obj7B_Index(pc,d0.w),d0
-		jsr	Obj7B_Index(pc,d0.w)
+		move.w	BossSpikeball_Index(pc,d0.w),d0
+		jsr	BossSpikeball_Index(pc,d0.w)
 		move.w	objoff_30(a0),d0
 		andi.w	#$FF80,d0
 		move.w	(v_screenposx).w,d1
 		subi.w	#$80,d1
 		andi.w	#$FF80,d1
 		sub.w	d1,d0
-		bmi.w	Obj7A_Delete
+		bmi.w	BossStarLight_Delete
 		cmpi.w	#$280,d0
-		bhi.w	Obj7A_Delete
+		bhi.w	BossStarLight_Delete
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-Obj7B_Index:	dc.w Obj7B_Main-Obj7B_Index
-		dc.w Obj7B_Fall-Obj7B_Index
-		dc.w loc_18DC6-Obj7B_Index
-		dc.w loc_18EAA-Obj7B_Index
-		dc.w Obj7B_Explode-Obj7B_Index
-		dc.w Obj7B_MoveFrag-Obj7B_Index
+BossSpikeball_Index:
+		dc.w BossSpikeball_Main-BossSpikeball_Index
+		dc.w BossSpikeball_Fall-BossSpikeball_Index
+		dc.w loc_18DC6-BossSpikeball_Index
+		dc.w loc_18EAA-BossSpikeball_Index
+		dc.w BossSpikeball_Explode-BossSpikeball_Index
+		dc.w BossSpikeball_MoveFrag-BossSpikeball_Index
 ; ===========================================================================
 
-Obj7B_Main:	; Routine 0
+BossSpikeball_Main:	; Routine 0
 		move.l	#Map_SSawBall,obMap(a0)
 		move.w	#make_art_tile(ArtTile_Eggman_Spikeball,0,0),obGfx(a0)
 		move.b	#1,obFrame(a0)
@@ -47,7 +48,7 @@ Obj7B_Main:	; Routine 0
 loc_18D68:
 		addq.b	#2,obRoutine(a0)
 
-Obj7B_Fall:	; Routine 2
+BossSpikeball_Fall:	; Routine 2
 		jsr	(ObjectFall).l
 		movea.l	objoff_3C(a0),a1
 		lea	(word_19018).l,a2
@@ -192,8 +193,8 @@ loc_18EC0:
 		move.w	obY(a1),d1
 		move.w	obX(a0),d2
 		move.w	obY(a0),d3
-		lea	Obj7B_BossHitbox(pc),a2
-		lea	Obj7B_BallHitbox(pc),a3
+		lea	BossSpikeball_BossHitbox(pc),a2
+		lea	BossSpikeball_BallHitbox(pc),a3
 		move.b	(a2)+,d4
 		ext.w	d4
 		add.w	d4,d0
@@ -311,30 +312,30 @@ loc_19008:
 ; ===========================================================================
 word_19018:	dc.w -8, -$1C, -$2F, -$1C, -8
 		even
-Obj7B_BossHitbox:
+BossSpikeball_BossHitbox:
 		dc.b -$18, $18+$18		; left to right
 		dc.b -$18, $18+$18		; top to bottom
 		even
-Obj7B_BallHitbox:
+BossSpikeball_BallHitbox:
 		dc.b 8,	-8-8			; right to left
 		dc.b 8, -8-8			; bottom to top
 		even
 ; ===========================================================================
 
-Obj7B_Explode:	; Routine 8
+BossSpikeball_Explode:	; Routine 8
 		move.b	#id_ExplosionBomb,obID(a0)
 		clr.b	obRoutine(a0)
 		cmpi.w	#$20,obSubtype(a0)
-		beq.s	Obj7B_MakeFrag
+		beq.s	BossSpikeball_MakeFrag
 		rts	
 ; ===========================================================================
 
-Obj7B_MakeFrag:
+BossSpikeball_MakeFrag:
 		move.w	objoff_34(a0),obY(a0)
 		moveq	#3,d1
-		lea	Obj7B_FragSpeed(pc),a2
+		lea	BossSpikeball_FragSpeed(pc),a2
 
-Obj7B_Loop:
+BossSpikeball_Loop:
 		jsr	(FindFreeObj).l
 		bne.s	loc_1909A
 		move.b	#id_BossSpikeball,obID(a1) ; load shrapnel object
@@ -352,17 +353,18 @@ Obj7B_Loop:
 		move.b	#$C,obActWid(a1)
 
 loc_1909A:
-		dbf	d1,Obj7B_Loop	; repeat sequence 3 more times
+		dbf	d1,BossSpikeball_Loop	; repeat sequence 3 more times
 
 		rts	
 ; ===========================================================================
-Obj7B_FragSpeed:dc.w -$100, -$340	; horizontal, vertical
+BossSpikeball_FragSpeed:
+		dc.w -$100, -$340	; horizontal, vertical
 		dc.w -$A0, -$240
 		dc.w $100, -$340
 		dc.w $A0, -$240
 ; ===========================================================================
 
-Obj7B_MoveFrag:	; Routine $A
+BossSpikeball_MoveFrag:	; Routine $A
 		jsr	(SpeedToPos).l
 		move.w	obX(a0),objoff_30(a0)
 		move.w	obY(a0),objoff_34(a0)
@@ -372,5 +374,5 @@ Obj7B_MoveFrag:	; Routine $A
 		lsr.w	#2,d0
 		move.b	d0,obFrame(a0)
 		tst.b	obRender(a0)
-		bpl.w	Obj7A_Delete
+		bpl.w	BossStarLight_Delete
 		rts	

@@ -7854,7 +7854,7 @@ Map_BossItems:	include	"_maps/Boss Items.asm"
 		include	"_incObj/73 Boss - Marble.asm"
 		include	"_incObj/74 MZ Boss Fire.asm"
 
-Obj7A_Delete:
+BossStarLight_Delete:
 		jmp	(DeleteObject).l
 
 		include	"_incObj/7A Boss - Star Light.asm"

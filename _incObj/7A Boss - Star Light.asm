@@ -5,42 +5,43 @@
 BossStarLight:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
-		move.w	Obj7A_Index(pc,d0.w),d1
-		jmp	Obj7A_Index(pc,d1.w)
+		move.w	BossStarLight_Index(pc,d0.w),d1
+		jmp	BossStarLight_Index(pc,d1.w)
 ; ===========================================================================
-Obj7A_Index:	dc.w Obj7A_Main-Obj7A_Index
-		dc.w Obj7A_ShipMain-Obj7A_Index
-		dc.w Obj7A_FaceMain-Obj7A_Index
-		dc.w Obj7A_FlameMain-Obj7A_Index
-		dc.w Obj7A_TubeMain-Obj7A_Index
+BossStarLight_Index:
+		dc.w BossStarLight_Main-BossStarLight_Index
+		dc.w BossStarLight_ShipMain-BossStarLight_Index
+		dc.w BossStarLight_FaceMain-BossStarLight_Index
+		dc.w BossStarLight_FlameMain-BossStarLight_Index
+		dc.w BossStarLight_TubeMain-BossStarLight_Index
 
-Obj7A_ObjData:	dc.b 2,	0, 4		; routine number, animation, priority
+BossStarLight_ObjData:	dc.b 2,	0, 4		; routine number, animation, priority
 		dc.b 4,	1, 4
 		dc.b 6,	7, 4
 		dc.b 8,	0, 3
 ; ===========================================================================
 
-Obj7A_Main:
+BossStarLight_Main:
 		move.w	#boss_slz_x+$188,obX(a0)
 		move.w	#boss_slz_y+$18,obY(a0)
 		move.w	obX(a0),objoff_30(a0)
 		move.w	obY(a0),objoff_38(a0)
 		move.b	#$F,obColType(a0)
 		move.b	#8,obColProp(a0) ; set number of hits to 8
-		lea	Obj7A_ObjData(pc),a2
+		lea	BossStarLight_ObjData(pc),a2
 		movea.l	a0,a1
 		moveq	#3,d1
-		bra.s	Obj7A_LoadBoss
+		bra.s	BossStarLight_LoadBoss
 ; ===========================================================================
 
-Obj7A_Loop:
+BossStarLight_Loop:
 		jsr	(FindNextFreeObj).l
 		bne.s	loc_1895C
 		_move.b	#id_BossStarLight,obID(a1)
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 
-Obj7A_LoadBoss:
+BossStarLight_LoadBoss:
 		bclr	#0,obStatus(a0)
 		clr.b	ob2ndRout(a1)
 		move.b	(a2)+,obRoutine(a1)
@@ -51,7 +52,7 @@ Obj7A_LoadBoss:
 		move.b	#4,obRender(a1)
 		move.b	#$20,obActWid(a1)
 		move.l	a0,objoff_34(a1)
-		dbf	d1,Obj7A_Loop	; repeat sequence 3 more times
+		dbf	d1,BossStarLight_Loop	; repeat sequence 3 more times
 
 loc_1895C:
 	if FixBugs
@@ -78,11 +79,11 @@ loc_18974:
 		adda.w	#object_size,a1
 		dbf	d1,loc_18968
 
-Obj7A_ShipMain:	; Routine 2
+BossStarLight_ShipMain:	; Routine 2
 		moveq	#0,d0
 		move.b	ob2ndRout(a0),d0
-		move.w	Obj7A_ShipIndex(pc,d0.w),d0
-		jsr	Obj7A_ShipIndex(pc,d0.w)
+		move.w	BossStarLight_ShipIndex(pc,d0.w),d0
+		jsr	BossStarLight_ShipIndex(pc,d0.w)
 		lea	(Ani_Eggman).l,a1
 		jsr	(AnimateSprite).l
 		moveq	#3,d0
@@ -91,12 +92,13 @@ Obj7A_ShipMain:	; Routine 2
 		or.b	d0,obRender(a0)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-Obj7A_ShipIndex:dc.w loc_189B8-Obj7A_ShipIndex
-		dc.w loc_18A5E-Obj7A_ShipIndex
-		dc.w Obj7A_MakeBall-Obj7A_ShipIndex
-		dc.w loc_18B48-Obj7A_ShipIndex
-		dc.w loc_18B80-Obj7A_ShipIndex
-		dc.w loc_18BC6-Obj7A_ShipIndex
+BossStarLight_ShipIndex:
+		dc.w loc_189B8-BossStarLight_ShipIndex
+		dc.w loc_18A5E-BossStarLight_ShipIndex
+		dc.w BossStarLight_MakeBall-BossStarLight_ShipIndex
+		dc.w loc_18B48-BossStarLight_ShipIndex
+		dc.w loc_18B80-BossStarLight_ShipIndex
+		dc.w loc_18BC6-BossStarLight_ShipIndex
 ; ===========================================================================
 
 loc_189B8:
@@ -213,7 +215,7 @@ loc_18AC0:
 		bra.w	loc_189CA
 ; ===========================================================================
 
-Obj7A_MakeBall:
+BossStarLight_MakeBall:
 		cmpi.b	#$28,objoff_3C(a0)
 		bne.s	loc_18B36
 		moveq	#-1,d0
@@ -332,14 +334,14 @@ loc_18BC6:
 
 loc_18BE0:
 		tst.b	obRender(a0)
-		bpl.w	Obj7A_Delete
+		bpl.w	BossStarLight_Delete
 
 loc_18BE8:
 		bsr.w	BossMove
 		bra.w	loc_189CA
 ; ===========================================================================
 
-Obj7A_FaceMain:	; Routine 4
+BossStarLight_FaceMain:	; Routine 4
 		moveq	#0,d0
 		moveq	#1,d1
 		movea.l	objoff_34(a0),a1
@@ -368,19 +370,19 @@ loc_18C1A:
 		bne.s	loc_18C32
 		move.b	#6,obAnim(a0)
 		tst.b	obRender(a0)
-		bpl.w	Obj7A_Delete
+		bpl.w	BossStarLight_Delete
 
 loc_18C32:
 		bra.s	loc_18C6C
 ; ===========================================================================
 
-Obj7A_FlameMain:; Routine 6
+BossStarLight_FlameMain:; Routine 6
 		move.b	#8,obAnim(a0)
 		movea.l	objoff_34(a0),a1
 		cmpi.b	#$A,ob2ndRout(a1)
 		bne.s	loc_18C56
 		tst.b	obRender(a0)
-		bpl.w	Obj7A_Delete
+		bpl.w	BossStarLight_Delete
 		move.b	#$B,obAnim(a0)
 		bra.s	loc_18C6C
 ; ===========================================================================
@@ -408,12 +410,12 @@ loc_18C78:
 		jmp	(DisplaySprite).l
 ; ===========================================================================
 
-Obj7A_TubeMain:	; Routine 8
+BossStarLight_TubeMain:	; Routine 8
 		movea.l	objoff_34(a0),a1
 		cmpi.b	#$A,ob2ndRout(a1)
 		bne.s	loc_18CB8
 		tst.b	obRender(a0)
-		bpl.w	Obj7A_Delete
+		bpl.w	BossStarLight_Delete
 
 loc_18CB8:
 		move.l	#Map_BossItems,obMap(a0)
