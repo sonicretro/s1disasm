@@ -334,11 +334,23 @@ loc_18BC6:
 
 loc_18BE0:
 		tst.b	obRender(a0)
+	if FixBugs
+		bpl.s	BossStarLight_PopAndDelete
+	else
 		bpl.w	BossStarLight_Delete
+	endif
 
 loc_18BE8:
 		bsr.w	BossMove
 		bra.w	loc_189CA
+
+	if FixBugs
+BossStarLight_PopAndDelete:
+		; Avoid returning to BossStarLight_ShipMain to prevent a
+		; display-and-delete bug.
+		addq.l	#4,sp
+		bra.w	BossStarLight_Delete
+	endif
 ; ===========================================================================
 
 BossStarLight_FaceMain:	; Routine 4
