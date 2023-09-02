@@ -135,7 +135,7 @@ loc_C056:
 		asr.w	#3,d0
 		move.w	d0,obVelX(a0)
 		move.b	#1,objoff_32(a0)
-		clr.w	$E(a0)
+		clr.w	obY+2(a0)
 
 loc_C09E:
 		bra.s	loc_C0E6
