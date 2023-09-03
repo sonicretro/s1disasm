@@ -2,25 +2,27 @@
 ; Object 85 - Eggman (FZ)
 ; ---------------------------------------------------------------------------
 
-Obj85_Delete:
+BossFinal_Delete:
 		jmp	(DeleteObject).l
 ; ===========================================================================
 
 BossFinal:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
-		move.w	Obj85_Index(pc,d0.w),d0
-		jmp	Obj85_Index(pc,d0.w)
+		move.w	BossFinal_Index(pc,d0.w),d0
+		jmp	BossFinal_Index(pc,d0.w)
 ; ===========================================================================
-Obj85_Index:	dc.w Obj85_Main-Obj85_Index
-		dc.w Obj85_Eggman-Obj85_Index
-		dc.w loc_1A38E-Obj85_Index
-		dc.w loc_1A346-Obj85_Index
-		dc.w loc_1A2C6-Obj85_Index
-		dc.w loc_1A3AC-Obj85_Index
-		dc.w loc_1A264-Obj85_Index
+BossFinal_Index:
+		dc.w BossFinal_Main-BossFinal_Index
+		dc.w BossFinal_Eggman-BossFinal_Index
+		dc.w loc_1A38E-BossFinal_Index
+		dc.w loc_1A346-BossFinal_Index
+		dc.w loc_1A2C6-BossFinal_Index
+		dc.w loc_1A3AC-BossFinal_Index
+		dc.w loc_1A264-BossFinal_Index
 
-Obj85_ObjData:	dc.w $100, $100, $470	; X pos, Y pos,	VRAM setting
+BossFinal_ObjData:
+		dc.w $100, $100, $470	; X pos, Y pos,	VRAM setting
 		dc.l Map_SEgg		; mappings pointer
 		dc.w boss_fz_x+$160, boss_fz_y+$80, make_art_tile(ArtTile_FZ_Boss,0,0)
 		dc.l Map_EggCyl
@@ -33,7 +35,8 @@ Obj85_ObjData:	dc.w $100, $100, $470	; X pos, Y pos,	VRAM setting
 		dc.w boss_fz_x+$290, boss_fz_y+$86, make_art_tile(ArtTile_Eggman,0,0)
 		dc.l Map_Eggman
 
-Obj85_ObjData2:	dc.b 2,	0, 4, $20, $19	; routine num, animation, sprite priority, width, height
+BossFinal_ObjData2:
+		dc.b 2,	0, 4, $20, $19	; routine num, animation, sprite priority, width, height
 		dc.b 4,	0, 1, $12, 8
 		dc.b 6,	0, 3, 0, 0
 		dc.b 8,	0, 3, 0, 0
@@ -41,19 +44,19 @@ Obj85_ObjData2:	dc.b 2,	0, 4, $20, $19	; routine num, animation, sprite priority
 		dc.b $C, 0, 3, 0, 0
 ; ===========================================================================
 
-Obj85_Main:	; Routine 0
-		lea	Obj85_ObjData(pc),a2
-		lea	Obj85_ObjData2(pc),a3
+BossFinal_Main:	; Routine 0
+		lea	BossFinal_ObjData(pc),a2
+		lea	BossFinal_ObjData2(pc),a3
 		movea.l	a0,a1
 		moveq	#5,d1
-		bra.s	Obj85_LoadBoss
+		bra.s	BossFinal_LoadBoss
 ; ===========================================================================
 
-Obj85_Loop:
+BossFinal_Loop:
 		jsr	(FindNextFreeObj).l
 		bne.s	loc_19E20
 
-Obj85_LoadBoss:
+BossFinal_LoadBoss:
 		move.b	#id_BossFinal,obID(a1)
 		move.w	(a2)+,obX(a1)
 		move.w	(a2)+,obY(a1)
@@ -71,7 +74,7 @@ Obj85_LoadBoss:
 		move.b	#4,obRender(a1)
 		bset	#7,obRender(a0)
 		move.l	a0,objoff_34(a1)
-		dbf	d1,Obj85_Loop
+		dbf	d1,BossFinal_Loop
 
 loc_19E20:
 		lea	objoff_36(a0),a2
@@ -99,7 +102,7 @@ loc_19E5A:
 		move.b	#8,obColProp(a0) ; set number of hits to 8
 		move.w	#-1,objoff_30(a0)
 
-Obj85_Eggman:	; Routine 2
+BossFinal_Eggman:	; Routine 2
 		moveq	#0,d0
 		move.b	objoff_34(a0),d0
 		move.w	off_19E80(pc,d0.w),d0
@@ -451,7 +454,7 @@ loc_1A248:
 		tst.b	obRender(a0)
 		bmi.s	loc_1A260
 		move.b	#id_Ending,(v_gamemode).w
-		bra.w	Obj85_Delete
+		bra.w	BossFinal_Delete
 ; ===========================================================================
 
 loc_1A260:
@@ -462,7 +465,7 @@ loc_1A264:	; Routine 4
 		movea.l	objoff_34(a0),a1
 		move.b	(a1),d0
 		cmp.b	(a0),d0
-		bne.w	Obj85_Delete
+		bne.w	BossFinal_Delete
 		move.b	#7,obAnim(a0)
 		cmpi.b	#$C,objoff_34(a1)
 		bge.s	loc_1A280
@@ -497,7 +500,7 @@ loc_1A2C6:	; Routine 6
 		movea.l	objoff_34(a0),a1
 		move.b	(a1),d0
 		cmp.b	(a0),d0
-		bne.w	Obj85_Delete
+		bne.w	BossFinal_Delete
 		cmpi.l	#Map_Eggman,obMap(a1)
 		beq.s	loc_1A2E4
 		move.b	#$A,obFrame(a0)
@@ -518,7 +521,7 @@ loc_1A2E4:
 
 loc_1A312:
 		tst.b	obRender(a0)
-		bpl.w	Obj85_Delete
+		bpl.w	BossFinal_Delete
 		bsr.w	BossDefeated
 		move.b	#2,obPriority(a0)
 		move.b	#0,obAnim(a0)
@@ -549,7 +552,7 @@ loc_1A376:
 		bgt.s	loc_1A38A
 		addq.b	#1,obFrame(a0)
 		cmpi.b	#2,obFrame(a0)
-		bgt.w	Obj85_Delete
+		bgt.w	BossFinal_Delete
 
 loc_1A38A:
 		bra.w	loc_1A296
@@ -561,7 +564,7 @@ loc_1A38E:	; Routine $A
 		sub.w	obX(a0),d0
 		bcs.s	loc_1A3A6
 		tst.b	obRender(a0)
-		bpl.w	Obj85_Delete
+		bpl.w	BossFinal_Delete
 
 loc_1A3A6:
 		jmp	(DisplaySprite).l
@@ -574,7 +577,7 @@ loc_1A3AC:	; Routine $C
 		cmpi.b	#$C,objoff_34(a1)
 		bne.s	loc_1A3D0
 		cmpi.l	#Map_Eggman,obMap(a1)
-		beq.w	Obj85_Delete
+		beq.w	BossFinal_Delete
 
 loc_1A3D0:
 		bra.w	loc_1A2A6

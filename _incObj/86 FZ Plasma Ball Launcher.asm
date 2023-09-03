@@ -5,17 +5,18 @@
 BossPlasma:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
-		move.w	Obj86_Index(pc,d0.w),d0
-		jmp	Obj86_Index(pc,d0.w)
+		move.w	BossPlasma_Index(pc,d0.w),d0
+		jmp	BossPlasma_Index(pc,d0.w)
 ; ===========================================================================
-Obj86_Index:	dc.w Obj86_Main-Obj86_Index
-		dc.w Obj86_Generator-Obj86_Index
-		dc.w Obj86_MakeBalls-Obj86_Index
-		dc.w loc_1A962-Obj86_Index
-		dc.w loc_1A982-Obj86_Index
+BossPlasma_Index:
+		dc.w BossPlasma_Main-BossPlasma_Index
+		dc.w BossPlasma_Generator-BossPlasma_Index
+		dc.w BossPlasma_MakeBalls-BossPlasma_Index
+		dc.w loc_1A962-BossPlasma_Index
+		dc.w loc_1A982-BossPlasma_Index
 ; ===========================================================================
 
-Obj86_Main:	; Routine 0
+BossPlasma_Main:	; Routine 0
 		move.w	#boss_fz_x+$138,obX(a0)
 		move.w	#boss_fz_y+$2C,obY(a0)
 		move.w	#make_art_tile(ArtTile_FZ_Boss,0,0),obGfx(a0)
@@ -28,7 +29,7 @@ Obj86_Main:	; Routine 0
 		bset	#7,obRender(a0)
 		addq.b	#2,obRoutine(a0)
 
-Obj86_Generator:; Routine 2
+BossPlasma_Generator:; Routine 2
 		movea.l	objoff_34(a0),a1
 		cmpi.b	#6,objoff_34(a1)
 		bne.s	loc_1A850
@@ -57,7 +58,7 @@ loc_1A86C:
 		subi.w	#$140,d0
 		bmi.s	loc_1A89A
 		tst.b	obRender(a0)
-		bpl.w	Obj84_Delete
+		bpl.w	EggmanCylinder_Delete
 
 loc_1A89A:
 		lea	Ani_PLaunch(pc),a1
@@ -65,7 +66,7 @@ loc_1A89A:
 		jmp	(DisplaySprite).l
 ; ===========================================================================
 
-Obj86_MakeBalls:; Routine 4
+BossPlasma_MakeBalls:; Routine 4
 		tst.b	objoff_29(a0)
 		beq.w	loc_1A954
 		clr.b	objoff_29(a0)
@@ -76,7 +77,7 @@ Obj86_MakeBalls:; Routine 4
 		clr.w	objoff_32(a0)
 		moveq	#3,d2
 
-Obj86_Loop:
+BossPlasma_Loop:
 		jsr	(FindNextFreeObj).l
 		bne.w	loc_1A954
 		move.b	#id_BossPlasma,obID(a1)
@@ -103,7 +104,7 @@ Obj86_Loop:
 		move.w	d0,objoff_30(a1)
 		addq.w	#1,objoff_32(a0)
 		move.w	objoff_32(a0),objoff_38(a0)
-		dbf	d2,Obj86_Loop	; repeat sequence 3 more times
+		dbf	d2,BossPlasma_Loop	; repeat sequence 3 more times
 
 loc_1A954:
 		tst.w	objoff_32(a0)
@@ -129,15 +130,16 @@ loc_1A97E:
 loc_1A982:	; Routine 8
 		moveq	#0,d0
 		move.b	ob2ndRout(a0),d0
-		move.w	Obj86_Index2(pc,d0.w),d0
-		jsr	Obj86_Index2(pc,d0.w)
+		move.w	BossPlasma_Index2(pc,d0.w),d0
+		jsr	BossPlasma_Index2(pc,d0.w)
 		lea	Ani_Plasma(pc),a1
 		jsr	(AnimateSprite).l
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-Obj86_Index2:	dc.w loc_1A9A6-Obj86_Index2
-		dc.w loc_1A9C0-Obj86_Index2
-		dc.w loc_1AA1E-Obj86_Index2
+BossPlasma_Index2:
+		dc.w loc_1A9A6-BossPlasma_Index2
+		dc.w loc_1A9C0-BossPlasma_Index2
+		dc.w loc_1AA1E-BossPlasma_Index2
 ; ===========================================================================
 
 loc_1A9A6:
@@ -192,4 +194,4 @@ loc_1AA1E:
 loc_1AA34:
 		movea.l	objoff_34(a0),a1
 		subq.w	#1,objoff_38(a1)
-		bra.w	Obj84_Delete
+		bra.w	EggmanCylinder_Delete

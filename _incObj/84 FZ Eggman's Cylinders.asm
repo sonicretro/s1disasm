@@ -2,28 +2,30 @@
 ; Object 84 - cylinder Eggman hides in (FZ)
 ; ---------------------------------------------------------------------------
 
-Obj84_Delete:
+EggmanCylinder_Delete:
 		jmp	(DeleteObject).l
 ; ===========================================================================
 
 EggmanCylinder:
 		moveq	#0,d0
 		move.b	obRoutine(a0),d0
-		move.w	Obj84_Index(pc,d0.w),d0
-		jmp	Obj84_Index(pc,d0.w)
+		move.w	EggmanCylinder_Index(pc,d0.w),d0
+		jmp	EggmanCylinder_Index(pc,d0.w)
 ; ===========================================================================
-Obj84_Index:	dc.w Obj84_Main-Obj84_Index
-		dc.w loc_1A4CE-Obj84_Index
-		dc.w loc_1A57E-Obj84_Index
+EggmanCylinder_Index:
+		dc.w EggmanCylinder_Main-EggmanCylinder_Index
+		dc.w loc_1A4CE-EggmanCylinder_Index
+		dc.w loc_1A57E-EggmanCylinder_Index
 
-Obj84_PosData:	dc.w boss_fz_x+$80,  boss_fz_y+$110
+EggmanCylinder_PosData:
+		dc.w boss_fz_x+$80,  boss_fz_y+$110
 		dc.w boss_fz_x+$100, boss_fz_y+$110
 		dc.w boss_fz_x+$40,  boss_fz_y-$50
 		dc.w boss_fz_x+$C0,  boss_fz_y-$50
 ; ===========================================================================
 
-Obj84_Main:	; Routine
-		lea	Obj84_PosData(pc),a1
+EggmanCylinder_Main:	; Routine
+		lea	EggmanCylinder_PosData(pc),a1
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0
 		add.w	d0,d0
@@ -108,7 +110,7 @@ loc_1A55C:
 		subi.w	#$140,d0
 		bmi.s	loc_1A578
 		tst.b	obRender(a0)
-		bpl.w	Obj84_Delete
+		bpl.w	EggmanCylinder_Delete
 
 loc_1A578:
 		jmp	(DisplaySprite).l
