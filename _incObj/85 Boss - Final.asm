@@ -22,7 +22,7 @@ BossFinal_Index:
 		dc.w loc_1A264-BossFinal_Index
 
 BossFinal_ObjData:
-		dc.w $100, $100, $470	; X pos, Y pos,	VRAM setting
+		dc.w $100, $100, make_art_tile(ArtTile_FZ_Eggman_No_Vehicle,0,0)	; X pos, Y pos,	VRAM setting
 		dc.l Map_SEgg		; mappings pointer
 		dc.w boss_fz_x+$160, boss_fz_y+$80, make_art_tile(ArtTile_FZ_Boss,0,0)
 		dc.l Map_EggCyl
