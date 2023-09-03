@@ -7,7 +7,7 @@
 
 Sonic_SlopeRepel:
 		nop	
-		tst.b	objoff_38(a0)
+		tst.b	stick_to_convex(a0)
 		bne.s	locret_13580
 		tst.w	objoff_3E(a0)
 		bne.s	loc_13582
