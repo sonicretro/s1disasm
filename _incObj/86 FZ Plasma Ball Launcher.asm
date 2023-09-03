@@ -194,4 +194,8 @@ loc_1AA1E:
 loc_1AA34:
 		movea.l	objoff_34(a0),a1
 		subq.w	#1,objoff_38(a1)
+	if FixBugs
+		; Avoid returning to loc_1A982 to prevent a display-and-delete bug.
+		addq.l	#4,sp
+	endif
 		bra.w	EggmanCylinder_Delete
