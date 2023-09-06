@@ -1229,10 +1229,17 @@ StopSFX:
 .trackpsg:
 		jsr	PSGNoteOff(pc)
 		lea	v_spcsfx_psg3_track(a6),a0
+	if FixBugs
+		; cfStopTrack does this check but this function oddly lacks it.
+		tst.b	TrackPlaybackControl(a0)	; Is track playing?
+		bpl.s	.getchannelptr			; Branch if not
+	endif
 		cmpi.b	#$E0,d3			; Is this a noise channel:
 		beq.s	.gotpsgpointer		; Branch if yes
 		cmpi.b	#$C0,d3			; Is this PSG 3?
 		beq.s	.gotpsgpointer		; Branch if yes
+
+.getchannelptr:
 		lsr.b	#3,d3
 		lea	SFX_BGMChannelRAM(pc),a0
 		movea.l	(a0,d3.w),a0
