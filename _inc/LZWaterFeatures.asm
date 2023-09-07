@@ -304,6 +304,10 @@ LZWindTunnels:
 		blo.s	.chknext
 		cmp.w	6(a2),d2
 		bhs.s	.chknext	; branch if Sonic is outside a range
+	if FixBugs
+		; d0 is overwritten but later used as if it wasn't!
+		move.w	d0,d1
+	endif
 		move.b	(v_vbla_byte).w,d0
 		andi.b	#$3F,d0		; does VInt counter fall on 0, $40, $80 or $C0?
 		bne.s	.skipsound	; if not, branch
@@ -316,6 +320,10 @@ LZWindTunnels:
 		cmpi.b	#4,obRoutine(a1) ; is Sonic hurt/dying?
 		bhs.s	.clrquit	; if yes, branch
 		move.b	#1,(f_wtunnelmode).w
+	if FixBugs
+		; See above.
+		move.w	d1,d0
+	endif
 		subi.w	#$80,d0
 		cmp.w	(a2),d0
 		bhs.s	.movesonic
