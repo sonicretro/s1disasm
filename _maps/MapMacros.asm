@@ -61,9 +61,9 @@ spritePiece2P macro xpos,ypos,width,height,tile,xflip,yflip,pal,pri,tile2,xflip2
 
 dplcHeader macro {INTLABEL}
 __LABEL__ label *
-	if SonicMappingsVer=1
+	if SonicDplcVer=1
 	dc.b ((__LABEL___End - __LABEL___Begin) / 2)
-	elseif SonicMappingsVer=2
+	elseif SonicDplcVer=2
 	dc.w ((__LABEL___End - __LABEL___Begin) / 2)
 	else
 	dc.w (((__LABEL___End - __LABEL___Begin) / 2)-1)
@@ -72,7 +72,7 @@ __LABEL___Begin label *
     endm
 
 dplcEntry macro tiles,offset
-	if SonicMappingsVer=3
+	if SonicDplcVer=3
 	dc.w	((offset&$FFF)<<4)|((tiles-1)&$F)
 	else
 	dc.w	(((tiles-1)&$F)<<12)|(offset&$FFF)

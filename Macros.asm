@@ -262,4 +262,5 @@ make_art_tile function addr,pal,pri,((pri&1)<<15)|((pal&3)<<13)|addr
 ; ---------------------------------------------------------------------------
 
 SonicMappingsVer = 1
+SonicDplcVer = 1
 		include	"_maps/MapMacros.asm"
