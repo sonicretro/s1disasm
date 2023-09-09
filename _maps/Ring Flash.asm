@@ -1,49 +1,66 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - flash effect when you collect the giant ring
 ; ---------------------------------------------------------------------------
-Map_Flash_internal:
-		dc.w byte_A084-Map_Flash_internal
-		dc.w byte_A08F-Map_Flash_internal
-		dc.w byte_A0A4-Map_Flash_internal
-		dc.w byte_A0B9-Map_Flash_internal
-		dc.w byte_A0CE-Map_Flash_internal
-		dc.w byte_A0E3-Map_Flash_internal
-		dc.w byte_A0F8-Map_Flash_internal
-		dc.w byte_A103-Map_Flash_internal
-byte_A084:	dc.b 2
-		dc.b $E0, $F, 0, 0, 0
-		dc.b 0,	$F, $10, 0, 0
-byte_A08F:	dc.b 4
-		dc.b $E0, $F, 0, $10, $F0
-		dc.b $E0, 7, 0,	$20, $10
-		dc.b 0,	$F, $10, $10, $F0
-		dc.b 0,	7, $10,	$20, $10
-byte_A0A4:	dc.b 4
-		dc.b $E0, $F, 0, $28, $E8
-		dc.b $E0, $B, 0, $38, 8
-		dc.b 0,	$F, $10, $28, $E8
-		dc.b 0,	$B, $10, $38, 8
-byte_A0B9:	dc.b 4
-		dc.b $E0, $F, 8, $34, $E0
-		dc.b $E0, $F, 0, $34, 0
-		dc.b 0,	$F, $18, $34, $E0
-		dc.b 0,	$F, $10, $34, 0
-byte_A0CE:	dc.b 4
-		dc.b $E0, $B, 8, $38, $E0
-		dc.b $E0, $F, 8, $28, $F8
-		dc.b 0,	$B, $18, $38, $E0
-		dc.b 0,	$F, $18, $28, $F8
-byte_A0E3:	dc.b 4
-		dc.b $E0, 7, 8,	$20, $E0
-		dc.b $E0, $F, 8, $10, $F0
-		dc.b 0,	7, $18,	$20, $E0
-		dc.b 0,	$F, $18, $10, $F0
-byte_A0F8:	dc.b 2
-		dc.b $E0, $F, 8, 0, $E0
-		dc.b 0,	$F, $18, 0, $E0
-byte_A103:	dc.b 4
-		dc.b $E0, $F, 0, $44, $E0
-		dc.b $E0, $F, 8, $44, 0
-		dc.b 0,	$F, $10, $44, $E0
-		dc.b 0,	$F, $18, $44, 0
-		even
+Map_Flash_internal:	mappingsTable
+	mappingsTableEntry.w	byte_A084
+	mappingsTableEntry.w	byte_A08F
+	mappingsTableEntry.w	byte_A0A4
+	mappingsTableEntry.w	byte_A0B9
+	mappingsTableEntry.w	byte_A0CE
+	mappingsTableEntry.w	byte_A0E3
+	mappingsTableEntry.w	byte_A0F8
+	mappingsTableEntry.w	byte_A103
+
+byte_A084:	spriteHeader
+	spritePiece	0, -$20, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	0, 0, 4, 4, 0, 0, 1, 0, 0
+byte_A084_End
+
+byte_A08F:	spriteHeader
+	spritePiece	-$10, -$20, 4, 4, $10, 0, 0, 0, 0
+	spritePiece	$10, -$20, 2, 4, $20, 0, 0, 0, 0
+	spritePiece	-$10, 0, 4, 4, $10, 0, 1, 0, 0
+	spritePiece	$10, 0, 2, 4, $20, 0, 1, 0, 0
+byte_A08F_End
+
+byte_A0A4:	spriteHeader
+	spritePiece	-$18, -$20, 4, 4, $28, 0, 0, 0, 0
+	spritePiece	8, -$20, 3, 4, $38, 0, 0, 0, 0
+	spritePiece	-$18, 0, 4, 4, $28, 0, 1, 0, 0
+	spritePiece	8, 0, 3, 4, $38, 0, 1, 0, 0
+byte_A0A4_End
+
+byte_A0B9:	spriteHeader
+	spritePiece	-$20, -$20, 4, 4, $34, 1, 0, 0, 0
+	spritePiece	0, -$20, 4, 4, $34, 0, 0, 0, 0
+	spritePiece	-$20, 0, 4, 4, $34, 1, 1, 0, 0
+	spritePiece	0, 0, 4, 4, $34, 0, 1, 0, 0
+byte_A0B9_End
+
+byte_A0CE:	spriteHeader
+	spritePiece	-$20, -$20, 3, 4, $38, 1, 0, 0, 0
+	spritePiece	-8, -$20, 4, 4, $28, 1, 0, 0, 0
+	spritePiece	-$20, 0, 3, 4, $38, 1, 1, 0, 0
+	spritePiece	-8, 0, 4, 4, $28, 1, 1, 0, 0
+byte_A0CE_End
+
+byte_A0E3:	spriteHeader
+	spritePiece	-$20, -$20, 2, 4, $20, 1, 0, 0, 0
+	spritePiece	-$10, -$20, 4, 4, $10, 1, 0, 0, 0
+	spritePiece	-$20, 0, 2, 4, $20, 1, 1, 0, 0
+	spritePiece	-$10, 0, 4, 4, $10, 1, 1, 0, 0
+byte_A0E3_End
+
+byte_A0F8:	spriteHeader
+	spritePiece	-$20, -$20, 4, 4, 0, 1, 0, 0, 0
+	spritePiece	-$20, 0, 4, 4, 0, 1, 1, 0, 0
+byte_A0F8_End
+
+byte_A103:	spriteHeader
+	spritePiece	-$20, -$20, 4, 4, $44, 0, 0, 0, 0
+	spritePiece	0, -$20, 4, 4, $44, 1, 0, 0, 0
+	spritePiece	-$20, 0, 4, 4, $44, 0, 1, 0, 0
+	spritePiece	0, 0, 4, 4, $44, 1, 1, 0, 0
+byte_A103_End
+
+	even

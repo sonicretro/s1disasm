@@ -1,48 +1,73 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - waterfalls (LZ)
 ; ---------------------------------------------------------------------------
-Map_WFall_internal:
-		dc.w .vertnarrow-Map_WFall_internal
-		dc.w .cornerwide-Map_WFall_internal
-		dc.w .cornermedium-Map_WFall_internal
-		dc.w .cornernarrow-Map_WFall_internal
-		dc.w .cornermedium2-Map_WFall_internal
-		dc.w .cornernarrow2-Map_WFall_internal
-		dc.w .cornernarrow3-Map_WFall_internal
-		dc.w .vertwide-Map_WFall_internal
-		dc.w .diagonal-Map_WFall_internal
-		dc.w .splash1-Map_WFall_internal
-		dc.w .splash2-Map_WFall_internal
-		dc.w .splash3-Map_WFall_internal
-.vertnarrow:	dc.b 1
-		dc.b $F0, 7, 0,	0, $F8
-.cornerwide:	dc.b 2
-		dc.b $F8, 4, 0,	8, $FC
-		dc.b 0,	8, 0, $A, $F4
-.cornermedium:	dc.b 2
-		dc.b $F8, 0, 0,	8, 0
-		dc.b 0,	4, 0, $D, $F8
-.cornernarrow:	dc.b 1
-		dc.b $F8, 1, 0,	$F, 0
-.cornermedium2:	dc.b 2
-		dc.b $F8, 0, 0,	8, 0
-		dc.b 0,	4, 0, $D, $F8
-.cornernarrow2:	dc.b 1
-		dc.b $F8, 1, 0,	$11, 0
-.cornernarrow3:	dc.b 1
-		dc.b $F8, 1, 0,	$13, 0
-.vertwide:	dc.b 1
-		dc.b $F0, 7, 0,	$15, $F8
-.diagonal:	dc.b 2
-		dc.b $F8, $C, 0, $1D, $F6
-		dc.b 0,	$C, 0, $21, $E8
-.splash1:	dc.b 2
-		dc.b $F0, $B, 0, $25, $E8
-		dc.b $F0, $B, 0, $31, 0
-.splash2:	dc.b 2
-		dc.b $F0, $B, 0, $3D, $E8
-		dc.b $F0, $B, 0, $49, 0
-.splash3:	dc.b 2
-		dc.b $F0, $B, 0, $55, $E8
-		dc.b $F0, $B, 0, $61, 0
-		even
+Map_WFall_internal:	mappingsTable
+	mappingsTableEntry.w	.vertnarrow
+	mappingsTableEntry.w	.cornerwide
+	mappingsTableEntry.w	.cornermedium
+	mappingsTableEntry.w	.cornernarrow
+	mappingsTableEntry.w	.cornermedium2
+	mappingsTableEntry.w	.cornernarrow2
+	mappingsTableEntry.w	.cornernarrow3
+	mappingsTableEntry.w	.vertwide
+	mappingsTableEntry.w	.diagonal
+	mappingsTableEntry.w	.splash1
+	mappingsTableEntry.w	.splash2
+	mappingsTableEntry.w	.splash3
+
+.vertnarrow:	spriteHeader
+	spritePiece	-8, -$10, 2, 4, 0, 0, 0, 0, 0
+.vertnarrow_End
+
+.cornerwide:	spriteHeader
+	spritePiece	-4, -8, 2, 1, 8, 0, 0, 0, 0
+	spritePiece	-$C, 0, 3, 1, $A, 0, 0, 0, 0
+.cornerwide_End
+
+.cornermedium:	spriteHeader
+	spritePiece	0, -8, 1, 1, 8, 0, 0, 0, 0
+	spritePiece	-8, 0, 2, 1, $D, 0, 0, 0, 0
+.cornermedium_End
+
+.cornernarrow:	spriteHeader
+	spritePiece	0, -8, 1, 2, $F, 0, 0, 0, 0
+.cornernarrow_End
+
+.cornermedium2:	spriteHeader
+	spritePiece	0, -8, 1, 1, 8, 0, 0, 0, 0
+	spritePiece	-8, 0, 2, 1, $D, 0, 0, 0, 0
+.cornermedium2_End
+
+.cornernarrow2:	spriteHeader
+	spritePiece	0, -8, 1, 2, $11, 0, 0, 0, 0
+.cornernarrow2_End
+
+.cornernarrow3:	spriteHeader
+	spritePiece	0, -8, 1, 2, $13, 0, 0, 0, 0
+.cornernarrow3_End
+
+.vertwide:	spriteHeader
+	spritePiece	-8, -$10, 2, 4, $15, 0, 0, 0, 0
+.vertwide_End
+
+.diagonal:	spriteHeader
+	spritePiece	-$A, -8, 4, 1, $1D, 0, 0, 0, 0
+	spritePiece	-$18, 0, 4, 1, $21, 0, 0, 0, 0
+.diagonal_End
+
+.splash1:	spriteHeader
+	spritePiece	-$18, -$10, 3, 4, $25, 0, 0, 0, 0
+	spritePiece	0, -$10, 3, 4, $31, 0, 0, 0, 0
+.splash1_End
+
+.splash2:	spriteHeader
+	spritePiece	-$18, -$10, 3, 4, $3D, 0, 0, 0, 0
+	spritePiece	0, -$10, 3, 4, $49, 0, 0, 0, 0
+.splash2_End
+
+.splash3:	spriteHeader
+	spritePiece	-$18, -$10, 3, 4, $55, 0, 0, 0, 0
+	spritePiece	0, -$10, 3, 4, $61, 0, 0, 0, 0
+.splash3_End
+
+	even

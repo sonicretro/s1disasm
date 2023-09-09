@@ -1,17 +1,26 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - buzz bomber missile vanishing
 ; ---------------------------------------------------------------------------
-Map_MisDissolve_internal:
-		dc.w byte_8EAE-Map_MisDissolve_internal
-		dc.w byte_8EB4-Map_MisDissolve_internal
-		dc.w byte_8EBA-Map_MisDissolve_internal
-		dc.w byte_8EC0-Map_MisDissolve_internal
-byte_8EAE:	dc.b 1
-		dc.b $F4, $A, 0, 0, $F4
-byte_8EB4:	dc.b 1
-		dc.b $F4, $A, 0, 9, $F4
-byte_8EBA:	dc.b 1
-		dc.b $F4, $A, 0, $12, $F4
-byte_8EC0:	dc.b 1
-		dc.b $F4, $A, 0, $1B, $F4
-		even
+Map_MisDissolve_internal:	mappingsTable
+	mappingsTableEntry.w	byte_8EAE
+	mappingsTableEntry.w	byte_8EB4
+	mappingsTableEntry.w	byte_8EBA
+	mappingsTableEntry.w	byte_8EC0
+
+byte_8EAE:	spriteHeader
+	spritePiece	-$C, -$C, 3, 3, 0, 0, 0, 0, 0
+byte_8EAE_End
+
+byte_8EB4:	spriteHeader
+	spritePiece	-$C, -$C, 3, 3, 9, 0, 0, 0, 0
+byte_8EB4_End
+
+byte_8EBA:	spriteHeader
+	spritePiece	-$C, -$C, 3, 3, $12, 0, 0, 0, 0
+byte_8EBA_End
+
+byte_8EC0:	spriteHeader
+	spritePiece	-$C, -$C, 3, 3, $1B, 0, 0, 0, 0
+byte_8EC0_End
+
+	even

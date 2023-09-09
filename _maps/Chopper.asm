@@ -1,11 +1,16 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Chopper enemy (GHZ)
 ; ---------------------------------------------------------------------------
-Map_Chop_internal:
-		dc.w .mouthshut-Map_Chop_internal
-		dc.w .mouthopen-Map_Chop_internal
-.mouthshut:	dc.b 1
-		dc.b $F0, $F, 0, 0, $F0
-.mouthopen:	dc.b 1
-		dc.b $F0, $F, 0, $10, $F0
-		even
+Map_Chop_internal:	mappingsTable
+	mappingsTableEntry.w	.mouthshut
+	mappingsTableEntry.w	.mouthopen
+
+.mouthshut:	spriteHeader
+	spritePiece	-$10, -$10, 4, 4, 0, 0, 0, 0, 0
+.mouthshut_End
+
+.mouthopen:	spriteHeader
+	spritePiece	-$10, -$10, 4, 4, $10, 0, 0, 0, 0
+.mouthopen_End
+
+	even

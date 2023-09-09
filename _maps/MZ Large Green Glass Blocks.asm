@@ -1,35 +1,42 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - large green	glassy blocks (MZ)
 ; ---------------------------------------------------------------------------
-Map_Glass_internal:
-		dc.w .tall-Map_Glass_internal
-		dc.w .shine-Map_Glass_internal
-		dc.w .short-Map_Glass_internal
-.tall:		dc.b $C
-		dc.b $B8, $C, 0, 0, $E0	; tall block
-		dc.b $B8, $C, 8, 0, 0
-		dc.b $C0, $F, 0, 4, $E0
-		dc.b $C0, $F, 8, 4, 0
-		dc.b $E0, $F, 0, 4, $E0
-		dc.b $E0, $F, 8, 4, 0
-		dc.b 0,	$F, 0, 4, $E0
-		dc.b 0,	$F, 8, 4, 0
-		dc.b $20, $F, 0, 4, $E0
-		dc.b $20, $F, 8, 4, 0
-		dc.b $40, $C, $10, 0, $E0
-		dc.b $40, $C, $18, 0, 0
-.shine:		dc.b 2
-		dc.b 8,	6, 0, $14, $F0	; reflected shine on block
-		dc.b 0,	6, 0, $14, 0
-.short:		dc.b $A
-		dc.b $C8, $C, 0, 0, $E0	; short block
-		dc.b $C8, $C, 8, 0, 0
-		dc.b $D0, $F, 0, 4, $E0
-		dc.b $D0, $F, 8, 4, 0
-		dc.b $F0, $F, 0, 4, $E0
-		dc.b $F0, $F, 8, 4, 0
-		dc.b $10, $F, 0, 4, $E0
-		dc.b $10, $F, 8, 4, 0
-		dc.b $30, $C, $10, 0, $E0
-		dc.b $30, $C, $18, 0, 0
-		even
+Map_Glass_internal:	mappingsTable
+	mappingsTableEntry.w	.tall
+	mappingsTableEntry.w	.shine
+	mappingsTableEntry.w	.short
+
+.tall:	spriteHeader
+	spritePiece	-$20, -$48, 4, 1, 0, 0, 0, 0, 0	; tall block
+	spritePiece	0, -$48, 4, 1, 0, 1, 0, 0, 0
+	spritePiece	-$20, -$40, 4, 4, 4, 0, 0, 0, 0
+	spritePiece	0, -$40, 4, 4, 4, 1, 0, 0, 0
+	spritePiece	-$20, -$20, 4, 4, 4, 0, 0, 0, 0
+	spritePiece	0, -$20, 4, 4, 4, 1, 0, 0, 0
+	spritePiece	-$20, 0, 4, 4, 4, 0, 0, 0, 0
+	spritePiece	0, 0, 4, 4, 4, 1, 0, 0, 0
+	spritePiece	-$20, $20, 4, 4, 4, 0, 0, 0, 0
+	spritePiece	0, $20, 4, 4, 4, 1, 0, 0, 0
+	spritePiece	-$20, $40, 4, 1, 0, 0, 1, 0, 0
+	spritePiece	0, $40, 4, 1, 0, 1, 1, 0, 0
+.tall_End
+
+.shine:	spriteHeader
+	spritePiece	-$10, 8, 2, 3, $14, 0, 0, 0, 0	; reflected shine on block
+	spritePiece	0, 0, 2, 3, $14, 0, 0, 0, 0
+.shine_End
+
+.short:	spriteHeader
+	spritePiece	-$20, -$38, 4, 1, 0, 0, 0, 0, 0	; short block
+	spritePiece	0, -$38, 4, 1, 0, 1, 0, 0, 0
+	spritePiece	-$20, -$30, 4, 4, 4, 0, 0, 0, 0
+	spritePiece	0, -$30, 4, 4, 4, 1, 0, 0, 0
+	spritePiece	-$20, -$10, 4, 4, 4, 0, 0, 0, 0
+	spritePiece	0, -$10, 4, 4, 4, 1, 0, 0, 0
+	spritePiece	-$20, $10, 4, 4, 4, 0, 0, 0, 0
+	spritePiece	0, $10, 4, 4, 4, 1, 0, 0, 0
+	spritePiece	-$20, $30, 4, 1, 0, 0, 1, 0, 0
+	spritePiece	0, $30, 4, 1, 0, 1, 1, 0, 0
+.short_End
+
+	even

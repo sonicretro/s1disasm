@@ -1,181 +1,222 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - lava geyser / lava that falls from the ceiling (MZ)
 ; ---------------------------------------------------------------------------
-Map_Geyser_internal:
-		dc.w .bubble1-Map_Geyser_internal
-		dc.w .bubble2-Map_Geyser_internal
-		dc.w .bubble3-Map_Geyser_internal
-		dc.w .bubble4-Map_Geyser_internal
-		dc.w .bubble5-Map_Geyser_internal
-		dc.w .bubble6-Map_Geyser_internal
-		dc.w .end1-Map_Geyser_internal
-		dc.w .end2-Map_Geyser_internal
-		dc.w .medcolumn1-Map_Geyser_internal
-		dc.w .medcolumn2-Map_Geyser_internal
-		dc.w .medcolumn3-Map_Geyser_internal
-		dc.w .shortcolumn1-Map_Geyser_internal
-		dc.w .shortcolumn2-Map_Geyser_internal
-		dc.w .shortcolumn3-Map_Geyser_internal
-		dc.w .longcolumn1-Map_Geyser_internal
-		dc.w .longcolumn2-Map_Geyser_internal
-		dc.w .longcolumn3-Map_Geyser_internal
-		dc.w .bubble7-Map_Geyser_internal
-		dc.w .bubble8-Map_Geyser_internal
-		dc.w .blank-Map_Geyser_internal
-.bubble1:	dc.b 2
-		dc.b $EC, $B, 0, 0, $E8
-		dc.b $EC, $B, 8, 0, 0
-.bubble2:	dc.b 2
-		dc.b $EC, $B, 0, $18, $E8
-		dc.b $EC, $B, 8, $18, 0
-.bubble3:	dc.b 4
-		dc.b $EC, $B, 0, 0, $C8
-		dc.b $F4, $E, 0, $C, $E0
-		dc.b $F4, $E, 8, $C, 0
-		dc.b $EC, $B, 8, 0, $20
-.bubble4:	dc.b 4
-		dc.b $EC, $B, 0, $18, $C8
-		dc.b $F4, $E, 0, $24, $E0
-		dc.b $F4, $E, 8, $24, 0
-		dc.b $EC, $B, 8, $18, $20
-.bubble5:	dc.b 6
-		dc.b $EC, $B, 0, 0, $C8
-		dc.b $F4, $E, 0, $C, $E0
-		dc.b $F4, $E, 8, $C, 0
-		dc.b $EC, $B, 8, 0, $20
-		dc.b $E8, $E, 0, $90, $E0
-		dc.b $E8, $E, 8, $90, 0
-.bubble6:	dc.b 6
-		dc.b $EC, $B, 0, $18, $C8
-		dc.b $F4, $E, 0, $24, $E0
-		dc.b $F4, $E, 8, $24, 0
-		dc.b $EC, $B, 8, $18, $20
-		dc.b $E8, $E, 8, $90, $E0
-		dc.b $E8, $E, 0, $90, 0
-.end1:		dc.b 2
-		dc.b $E0, $F, 0, $30, $E0
-		dc.b $E0, $F, 8, $30, 0
-.end2:		dc.b 2
-		dc.b $E0, $F, 8, $30, $E0
-		dc.b $E0, $F, 0, $30, 0
-.medcolumn1:	dc.b $A
-		dc.b $90, $F, 0, $40, $E0
-		dc.b $90, $F, 8, $40, 0
-		dc.b $B0, $F, 0, $40, $E0
-		dc.b $B0, $F, 8, $40, 0
-		dc.b $D0, $F, 0, $40, $E0
-		dc.b $D0, $F, 8, $40, 0
-		dc.b $F0, $F, 0, $40, $E0
-		dc.b $F0, $F, 8, $40, 0
-		dc.b $10, $F, 0, $40, $E0
-		dc.b $10, $F, 8, $40, 0
-.medcolumn2:	dc.b $A
-		dc.b $90, $F, 0, $50, $E0
-		dc.b $90, $F, 8, $50, 0
-		dc.b $B0, $F, 0, $50, $E0
-		dc.b $B0, $F, 8, $50, 0
-		dc.b $D0, $F, 0, $50, $E0
-		dc.b $D0, $F, 8, $50, 0
-		dc.b $F0, $F, 0, $50, $E0
-		dc.b $F0, $F, 8, $50, 0
-		dc.b $10, $F, 0, $50, $E0
-		dc.b $10, $F, 8, $50, 0
-.medcolumn3:	dc.b $A
-		dc.b $90, $F, 0, $60, $E0
-		dc.b $90, $F, 8, $60, 0
-		dc.b $B0, $F, 0, $60, $E0
-		dc.b $B0, $F, 8, $60, 0
-		dc.b $D0, $F, 0, $60, $E0
-		dc.b $D0, $F, 8, $60, 0
-		dc.b $F0, $F, 0, $60, $E0
-		dc.b $F0, $F, 8, $60, 0
-		dc.b $10, $F, 0, $60, $E0
-		dc.b $10, $F, 8, $60, 0
-.shortcolumn1:	dc.b 6
-		dc.b $90, $F, 0, $40, $E0
-		dc.b $90, $F, 8, $40, 0
-		dc.b $B0, $F, 0, $40, $E0
-		dc.b $B0, $F, 8, $40, 0
-		dc.b $D0, $F, 0, $40, $E0
-		dc.b $D0, $F, 8, $40, 0
-.shortcolumn2:	dc.b 6
-		dc.b $90, $F, 0, $50, $E0
-		dc.b $90, $F, 8, $50, 0
-		dc.b $B0, $F, 0, $50, $E0
-		dc.b $B0, $F, 8, $50, 0
-		dc.b $D0, $F, 0, $50, $E0
-		dc.b $D0, $F, 8, $50, 0
-.shortcolumn3:	dc.b 6
-		dc.b $90, $F, 0, $60, $E0
-		dc.b $90, $F, 8, $60, 0
-		dc.b $B0, $F, 0, $60, $E0
-		dc.b $B0, $F, 8, $60, 0
-		dc.b $D0, $F, 0, $60, $E0
-		dc.b $D0, $F, 8, $60, 0
-.longcolumn1:	dc.b $10
-		dc.b $90, $F, 0, $40, $E0
-		dc.b $90, $F, 8, $40, 0
-		dc.b $B0, $F, 0, $40, $E0
-		dc.b $B0, $F, 8, $40, 0
-		dc.b $D0, $F, 0, $40, $E0
-		dc.b $D0, $F, 8, $40, 0
-		dc.b $F0, $F, 0, $40, $E0
-		dc.b $F0, $F, 8, $40, 0
-		dc.b $10, $F, 0, $40, $E0
-		dc.b $10, $F, 8, $40, 0
-		dc.b $30, $F, 0, $40, $E0
-		dc.b $30, $F, 8, $40, 0
-		dc.b $50, $F, 0, $40, $E0
-		dc.b $50, $F, 8, $40, 0
-		dc.b $70, $F, 0, $40, $E0
-		dc.b $70, $F, 8, $40, 0
-.longcolumn2:	dc.b $10
-		dc.b $90, $F, 0, $50, $E0
-		dc.b $90, $F, 8, $50, 0
-		dc.b $B0, $F, 0, $50, $E0
-		dc.b $B0, $F, 8, $50, 0
-		dc.b $D0, $F, 0, $50, $E0
-		dc.b $D0, $F, 8, $50, 0
-		dc.b $F0, $F, 0, $50, $E0
-		dc.b $F0, $F, 8, $50, 0
-		dc.b $10, $F, 0, $50, $E0
-		dc.b $10, $F, 8, $50, 0
-		dc.b $30, $F, 0, $50, $E0
-		dc.b $30, $F, 8, $50, 0
-		dc.b $50, $F, 0, $50, $E0
-		dc.b $50, $F, 8, $50, 0
-		dc.b $70, $F, 0, $50, $E0
-		dc.b $70, $F, 8, $50, 0
-.longcolumn3:	dc.b $10
-		dc.b $90, $F, 0, $60, $E0
-		dc.b $90, $F, 8, $60, 0
-		dc.b $B0, $F, 0, $60, $E0
-		dc.b $B0, $F, 8, $60, 0
-		dc.b $D0, $F, 0, $60, $E0
-		dc.b $D0, $F, 8, $60, 0
-		dc.b $F0, $F, 0, $60, $E0
-		dc.b $F0, $F, 8, $60, 0
-		dc.b $10, $F, 0, $60, $E0
-		dc.b $10, $F, 8, $60, 0
-		dc.b $30, $F, 0, $60, $E0
-		dc.b $30, $F, 8, $60, 0
-		dc.b $50, $F, 0, $60, $E0
-		dc.b $50, $F, 8, $60, 0
-		dc.b $70, $F, 0, $60, $E0
-		dc.b $70, $F, 8, $60, 0
-.bubble7:	dc.b 6
-		dc.b $E0, $B, 0, 0, $C8
-		dc.b $E8, $E, 0, $C, $E0
-		dc.b $E8, $E, 8, $C, 0
-		dc.b $E0, $B, 8, 0, $20
-		dc.b $D8, $E, 0, $90, $E0
-		dc.b $D8, $E, 8, $90, 0
-.bubble8:	dc.b 6
-		dc.b $E0, $B, 0, $18, $C8
-		dc.b $E8, $E, 0, $24, $E0
-		dc.b $E8, $E, 8, $24, 0
-		dc.b $E0, $B, 8, $18, $20
-		dc.b $D8, $E, 8, $90, $E0
-		dc.b $D8, $E, 0, $90, 0
-.blank:	dc.b 0
-		even
+Map_Geyser_internal:	mappingsTable
+	mappingsTableEntry.w	.bubble1
+	mappingsTableEntry.w	.bubble2
+	mappingsTableEntry.w	.bubble3
+	mappingsTableEntry.w	.bubble4
+	mappingsTableEntry.w	.bubble5
+	mappingsTableEntry.w	.bubble6
+	mappingsTableEntry.w	.end1
+	mappingsTableEntry.w	.end2
+	mappingsTableEntry.w	.medcolumn1
+	mappingsTableEntry.w	.medcolumn2
+	mappingsTableEntry.w	.medcolumn3
+	mappingsTableEntry.w	.shortcolumn1
+	mappingsTableEntry.w	.shortcolumn2
+	mappingsTableEntry.w	.shortcolumn3
+	mappingsTableEntry.w	.longcolumn1
+	mappingsTableEntry.w	.longcolumn2
+	mappingsTableEntry.w	.longcolumn3
+	mappingsTableEntry.w	.bubble7
+	mappingsTableEntry.w	.bubble8
+	mappingsTableEntry.w	.blank
+
+.bubble1:	spriteHeader
+	spritePiece	-$18, -$14, 3, 4, 0, 0, 0, 0, 0
+	spritePiece	0, -$14, 3, 4, 0, 1, 0, 0, 0
+.bubble1_End
+
+.bubble2:	spriteHeader
+	spritePiece	-$18, -$14, 3, 4, $18, 0, 0, 0, 0
+	spritePiece	0, -$14, 3, 4, $18, 1, 0, 0, 0
+.bubble2_End
+
+.bubble3:	spriteHeader
+	spritePiece	-$38, -$14, 3, 4, 0, 0, 0, 0, 0
+	spritePiece	-$20, -$C, 4, 3, $C, 0, 0, 0, 0
+	spritePiece	0, -$C, 4, 3, $C, 1, 0, 0, 0
+	spritePiece	$20, -$14, 3, 4, 0, 1, 0, 0, 0
+.bubble3_End
+
+.bubble4:	spriteHeader
+	spritePiece	-$38, -$14, 3, 4, $18, 0, 0, 0, 0
+	spritePiece	-$20, -$C, 4, 3, $24, 0, 0, 0, 0
+	spritePiece	0, -$C, 4, 3, $24, 1, 0, 0, 0
+	spritePiece	$20, -$14, 3, 4, $18, 1, 0, 0, 0
+.bubble4_End
+
+.bubble5:	spriteHeader
+	spritePiece	-$38, -$14, 3, 4, 0, 0, 0, 0, 0
+	spritePiece	-$20, -$C, 4, 3, $C, 0, 0, 0, 0
+	spritePiece	0, -$C, 4, 3, $C, 1, 0, 0, 0
+	spritePiece	$20, -$14, 3, 4, 0, 1, 0, 0, 0
+	spritePiece	-$20, -$18, 4, 3, $90, 0, 0, 0, 0
+	spritePiece	0, -$18, 4, 3, $90, 1, 0, 0, 0
+.bubble5_End
+
+.bubble6:	spriteHeader
+	spritePiece	-$38, -$14, 3, 4, $18, 0, 0, 0, 0
+	spritePiece	-$20, -$C, 4, 3, $24, 0, 0, 0, 0
+	spritePiece	0, -$C, 4, 3, $24, 1, 0, 0, 0
+	spritePiece	$20, -$14, 3, 4, $18, 1, 0, 0, 0
+	spritePiece	-$20, -$18, 4, 3, $90, 1, 0, 0, 0
+	spritePiece	0, -$18, 4, 3, $90, 0, 0, 0, 0
+.bubble6_End
+
+.end1:	spriteHeader
+	spritePiece	-$20, -$20, 4, 4, $30, 0, 0, 0, 0
+	spritePiece	0, -$20, 4, 4, $30, 1, 0, 0, 0
+.end1_End
+
+.end2:	spriteHeader
+	spritePiece	-$20, -$20, 4, 4, $30, 1, 0, 0, 0
+	spritePiece	0, -$20, 4, 4, $30, 0, 0, 0, 0
+.end2_End
+
+.medcolumn1:	spriteHeader
+	spritePiece	-$20, -$70, 4, 4, $40, 0, 0, 0, 0
+	spritePiece	0, -$70, 4, 4, $40, 1, 0, 0, 0
+	spritePiece	-$20, -$50, 4, 4, $40, 0, 0, 0, 0
+	spritePiece	0, -$50, 4, 4, $40, 1, 0, 0, 0
+	spritePiece	-$20, -$30, 4, 4, $40, 0, 0, 0, 0
+	spritePiece	0, -$30, 4, 4, $40, 1, 0, 0, 0
+	spritePiece	-$20, -$10, 4, 4, $40, 0, 0, 0, 0
+	spritePiece	0, -$10, 4, 4, $40, 1, 0, 0, 0
+	spritePiece	-$20, $10, 4, 4, $40, 0, 0, 0, 0
+	spritePiece	0, $10, 4, 4, $40, 1, 0, 0, 0
+.medcolumn1_End
+
+.medcolumn2:	spriteHeader
+	spritePiece	-$20, -$70, 4, 4, $50, 0, 0, 0, 0
+	spritePiece	0, -$70, 4, 4, $50, 1, 0, 0, 0
+	spritePiece	-$20, -$50, 4, 4, $50, 0, 0, 0, 0
+	spritePiece	0, -$50, 4, 4, $50, 1, 0, 0, 0
+	spritePiece	-$20, -$30, 4, 4, $50, 0, 0, 0, 0
+	spritePiece	0, -$30, 4, 4, $50, 1, 0, 0, 0
+	spritePiece	-$20, -$10, 4, 4, $50, 0, 0, 0, 0
+	spritePiece	0, -$10, 4, 4, $50, 1, 0, 0, 0
+	spritePiece	-$20, $10, 4, 4, $50, 0, 0, 0, 0
+	spritePiece	0, $10, 4, 4, $50, 1, 0, 0, 0
+.medcolumn2_End
+
+.medcolumn3:	spriteHeader
+	spritePiece	-$20, -$70, 4, 4, $60, 0, 0, 0, 0
+	spritePiece	0, -$70, 4, 4, $60, 1, 0, 0, 0
+	spritePiece	-$20, -$50, 4, 4, $60, 0, 0, 0, 0
+	spritePiece	0, -$50, 4, 4, $60, 1, 0, 0, 0
+	spritePiece	-$20, -$30, 4, 4, $60, 0, 0, 0, 0
+	spritePiece	0, -$30, 4, 4, $60, 1, 0, 0, 0
+	spritePiece	-$20, -$10, 4, 4, $60, 0, 0, 0, 0
+	spritePiece	0, -$10, 4, 4, $60, 1, 0, 0, 0
+	spritePiece	-$20, $10, 4, 4, $60, 0, 0, 0, 0
+	spritePiece	0, $10, 4, 4, $60, 1, 0, 0, 0
+.medcolumn3_End
+
+.shortcolumn1:	spriteHeader
+	spritePiece	-$20, -$70, 4, 4, $40, 0, 0, 0, 0
+	spritePiece	0, -$70, 4, 4, $40, 1, 0, 0, 0
+	spritePiece	-$20, -$50, 4, 4, $40, 0, 0, 0, 0
+	spritePiece	0, -$50, 4, 4, $40, 1, 0, 0, 0
+	spritePiece	-$20, -$30, 4, 4, $40, 0, 0, 0, 0
+	spritePiece	0, -$30, 4, 4, $40, 1, 0, 0, 0
+.shortcolumn1_End
+
+.shortcolumn2:	spriteHeader
+	spritePiece	-$20, -$70, 4, 4, $50, 0, 0, 0, 0
+	spritePiece	0, -$70, 4, 4, $50, 1, 0, 0, 0
+	spritePiece	-$20, -$50, 4, 4, $50, 0, 0, 0, 0
+	spritePiece	0, -$50, 4, 4, $50, 1, 0, 0, 0
+	spritePiece	-$20, -$30, 4, 4, $50, 0, 0, 0, 0
+	spritePiece	0, -$30, 4, 4, $50, 1, 0, 0, 0
+.shortcolumn2_End
+
+.shortcolumn3:	spriteHeader
+	spritePiece	-$20, -$70, 4, 4, $60, 0, 0, 0, 0
+	spritePiece	0, -$70, 4, 4, $60, 1, 0, 0, 0
+	spritePiece	-$20, -$50, 4, 4, $60, 0, 0, 0, 0
+	spritePiece	0, -$50, 4, 4, $60, 1, 0, 0, 0
+	spritePiece	-$20, -$30, 4, 4, $60, 0, 0, 0, 0
+	spritePiece	0, -$30, 4, 4, $60, 1, 0, 0, 0
+.shortcolumn3_End
+
+.longcolumn1:	spriteHeader
+	spritePiece	-$20, -$70, 4, 4, $40, 0, 0, 0, 0
+	spritePiece	0, -$70, 4, 4, $40, 1, 0, 0, 0
+	spritePiece	-$20, -$50, 4, 4, $40, 0, 0, 0, 0
+	spritePiece	0, -$50, 4, 4, $40, 1, 0, 0, 0
+	spritePiece	-$20, -$30, 4, 4, $40, 0, 0, 0, 0
+	spritePiece	0, -$30, 4, 4, $40, 1, 0, 0, 0
+	spritePiece	-$20, -$10, 4, 4, $40, 0, 0, 0, 0
+	spritePiece	0, -$10, 4, 4, $40, 1, 0, 0, 0
+	spritePiece	-$20, $10, 4, 4, $40, 0, 0, 0, 0
+	spritePiece	0, $10, 4, 4, $40, 1, 0, 0, 0
+	spritePiece	-$20, $30, 4, 4, $40, 0, 0, 0, 0
+	spritePiece	0, $30, 4, 4, $40, 1, 0, 0, 0
+	spritePiece	-$20, $50, 4, 4, $40, 0, 0, 0, 0
+	spritePiece	0, $50, 4, 4, $40, 1, 0, 0, 0
+	spritePiece	-$20, $70, 4, 4, $40, 0, 0, 0, 0
+	spritePiece	0, $70, 4, 4, $40, 1, 0, 0, 0
+.longcolumn1_End
+
+.longcolumn2:	spriteHeader
+	spritePiece	-$20, -$70, 4, 4, $50, 0, 0, 0, 0
+	spritePiece	0, -$70, 4, 4, $50, 1, 0, 0, 0
+	spritePiece	-$20, -$50, 4, 4, $50, 0, 0, 0, 0
+	spritePiece	0, -$50, 4, 4, $50, 1, 0, 0, 0
+	spritePiece	-$20, -$30, 4, 4, $50, 0, 0, 0, 0
+	spritePiece	0, -$30, 4, 4, $50, 1, 0, 0, 0
+	spritePiece	-$20, -$10, 4, 4, $50, 0, 0, 0, 0
+	spritePiece	0, -$10, 4, 4, $50, 1, 0, 0, 0
+	spritePiece	-$20, $10, 4, 4, $50, 0, 0, 0, 0
+	spritePiece	0, $10, 4, 4, $50, 1, 0, 0, 0
+	spritePiece	-$20, $30, 4, 4, $50, 0, 0, 0, 0
+	spritePiece	0, $30, 4, 4, $50, 1, 0, 0, 0
+	spritePiece	-$20, $50, 4, 4, $50, 0, 0, 0, 0
+	spritePiece	0, $50, 4, 4, $50, 1, 0, 0, 0
+	spritePiece	-$20, $70, 4, 4, $50, 0, 0, 0, 0
+	spritePiece	0, $70, 4, 4, $50, 1, 0, 0, 0
+.longcolumn2_End
+
+.longcolumn3:	spriteHeader
+	spritePiece	-$20, -$70, 4, 4, $60, 0, 0, 0, 0
+	spritePiece	0, -$70, 4, 4, $60, 1, 0, 0, 0
+	spritePiece	-$20, -$50, 4, 4, $60, 0, 0, 0, 0
+	spritePiece	0, -$50, 4, 4, $60, 1, 0, 0, 0
+	spritePiece	-$20, -$30, 4, 4, $60, 0, 0, 0, 0
+	spritePiece	0, -$30, 4, 4, $60, 1, 0, 0, 0
+	spritePiece	-$20, -$10, 4, 4, $60, 0, 0, 0, 0
+	spritePiece	0, -$10, 4, 4, $60, 1, 0, 0, 0
+	spritePiece	-$20, $10, 4, 4, $60, 0, 0, 0, 0
+	spritePiece	0, $10, 4, 4, $60, 1, 0, 0, 0
+	spritePiece	-$20, $30, 4, 4, $60, 0, 0, 0, 0
+	spritePiece	0, $30, 4, 4, $60, 1, 0, 0, 0
+	spritePiece	-$20, $50, 4, 4, $60, 0, 0, 0, 0
+	spritePiece	0, $50, 4, 4, $60, 1, 0, 0, 0
+	spritePiece	-$20, $70, 4, 4, $60, 0, 0, 0, 0
+	spritePiece	0, $70, 4, 4, $60, 1, 0, 0, 0
+.longcolumn3_End
+
+.bubble7:	spriteHeader
+	spritePiece	-$38, -$20, 3, 4, 0, 0, 0, 0, 0
+	spritePiece	-$20, -$18, 4, 3, $C, 0, 0, 0, 0
+	spritePiece	0, -$18, 4, 3, $C, 1, 0, 0, 0
+	spritePiece	$20, -$20, 3, 4, 0, 1, 0, 0, 0
+	spritePiece	-$20, -$28, 4, 3, $90, 0, 0, 0, 0
+	spritePiece	0, -$28, 4, 3, $90, 1, 0, 0, 0
+.bubble7_End
+
+.bubble8:	spriteHeader
+	spritePiece	-$38, -$20, 3, 4, $18, 0, 0, 0, 0
+	spritePiece	-$20, -$18, 4, 3, $24, 0, 0, 0, 0
+	spritePiece	0, -$18, 4, 3, $24, 1, 0, 0, 0
+	spritePiece	$20, -$20, 3, 4, $18, 1, 0, 0, 0
+	spritePiece	-$20, -$28, 4, 3, $90, 1, 0, 0, 0
+	spritePiece	0, -$28, 4, 3, $90, 0, 0, 0, 0
+.bubble8_End
+
+.blank:	spriteHeader
+.blank_End
+
+	even

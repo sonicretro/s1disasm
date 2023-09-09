@@ -1,28 +1,43 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - points that	appear when you	destroy	something
 ; ---------------------------------------------------------------------------
-Map_Poi_internal:
-		dc.w byte_94BC-Map_Poi_internal
-		dc.w byte_94C2-Map_Poi_internal
-		dc.w byte_94C8-Map_Poi_internal
-		dc.w byte_94CE-Map_Poi_internal
-		dc.w byte_94D4-Map_Poi_internal
-		dc.w byte_94DA-Map_Poi_internal
-		dc.w byte_94E5-Map_Poi_internal
-byte_94BC:	dc.b 1
-		dc.b $FC, 4, 0,	0, $F8	; 100 points
-byte_94C2:	dc.b 1
-		dc.b $FC, 4, 0,	2, $F8	; 200 points
-byte_94C8:	dc.b 1
-		dc.b $FC, 4, 0,	4, $F8	; 500 points
-byte_94CE:	dc.b 1
-		dc.b $FC, 8, 0,	6, $F8	; 1000 points
-byte_94D4:	dc.b 1
-		dc.b $FC, 0, 0,	6, $FC	; 10 points
-byte_94DA:	dc.b 2
-		dc.b $FC, 8, 0,	6, $F4	; 10,000 points
-		dc.b $FC, 4, 0,	7, 1
-byte_94E5:	dc.b 2
-		dc.b $FC, 8, 0,	6, $F4	; 100,000 points
-		dc.b $FC, 4, 0,	7, 6
-		even
+Map_Poi_internal:	mappingsTable
+	mappingsTableEntry.w	byte_94BC
+	mappingsTableEntry.w	byte_94C2
+	mappingsTableEntry.w	byte_94C8
+	mappingsTableEntry.w	byte_94CE
+	mappingsTableEntry.w	byte_94D4
+	mappingsTableEntry.w	byte_94DA
+	mappingsTableEntry.w	byte_94E5
+
+byte_94BC:	spriteHeader
+	spritePiece	-8, -4, 2, 1, 0, 0, 0, 0, 0	; 100 points
+byte_94BC_End
+
+byte_94C2:	spriteHeader
+	spritePiece	-8, -4, 2, 1, 2, 0, 0, 0, 0	; 200 points
+byte_94C2_End
+
+byte_94C8:	spriteHeader
+	spritePiece	-8, -4, 2, 1, 4, 0, 0, 0, 0	; 500 points
+byte_94C8_End
+
+byte_94CE:	spriteHeader
+	spritePiece	-8, -4, 3, 1, 6, 0, 0, 0, 0	; 1000 points
+byte_94CE_End
+
+byte_94D4:	spriteHeader
+	spritePiece	-4, -4, 1, 1, 6, 0, 0, 0, 0	; 10 points
+byte_94D4_End
+
+byte_94DA:	spriteHeader
+	spritePiece	-$C, -4, 3, 1, 6, 0, 0, 0, 0	; 10,000 points
+	spritePiece	1, -4, 2, 1, 7, 0, 0, 0, 0
+byte_94DA_End
+
+byte_94E5:	spriteHeader
+	spritePiece	-$C, -4, 3, 1, 6, 0, 0, 0, 0	; 100,000 points
+	spritePiece	6, -4, 2, 1, 7, 0, 0, 0, 0
+byte_94E5_End
+
+	even

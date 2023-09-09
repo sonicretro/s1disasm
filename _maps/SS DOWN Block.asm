@@ -1,11 +1,16 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - special stage "DOWN" block
 ; ---------------------------------------------------------------------------
-Map_SS_Down_internal:
-		dc.w byte_1B954-Map_SS_Down_internal
-		dc.w byte_1B95A-Map_SS_Down_internal
-byte_1B954:	dc.b 1
-		dc.b $F4, $A, 0, 9, $F4
-byte_1B95A:	dc.b 1
-		dc.b $F4, $A, 0, $12, $F4
-		even
+Map_SS_Down_internal:	mappingsTable
+	mappingsTableEntry.w	byte_1B954
+	mappingsTableEntry.w	byte_1B95A
+
+byte_1B954:	spriteHeader
+	spritePiece	-$C, -$C, 3, 3, 9, 0, 0, 0, 0
+byte_1B954_End
+
+byte_1B95A:	spriteHeader
+	spritePiece	-$C, -$C, 3, 3, $12, 0, 0, 0, 0
+byte_1B95A_End
+
+	even

@@ -1,231 +1,254 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - "SONIC TEAM	PRESENTS" and credits
 ; ---------------------------------------------------------------------------
-Map_Cred_internal:
-		dc.w .staff-Map_Cred_internal
-		dc.w .gameplan-Map_Cred_internal
-		dc.w .program-Map_Cred_internal
-		dc.w .character-Map_Cred_internal
-		dc.w .design-Map_Cred_internal
-		dc.w .soundproduce-Map_Cred_internal
-		dc.w .soundprogram-Map_Cred_internal
-		dc.w .thanks-Map_Cred_internal
-		dc.w .presentedby-Map_Cred_internal
-		dc.w .tryagain-Map_Cred_internal
-		dc.w .sonicteam-Map_Cred_internal
-.staff:		dc.b $E			 ; SONIC TEAM STAFF
-		dc.b $F8, 5, 0,	$2E, $88
-		dc.b $F8, 5, 0,	$26, $98
-		dc.b $F8, 5, 0,	$1A, $A8
-		dc.b $F8, 1, 0,	$46, $B8
-		dc.b $F8, 5, 0,	$1E, $C0
-		dc.b $F8, 5, 0,	$3E, $D8
-		dc.b $F8, 5, 0,	$E, $E8
-		dc.b $F8, 5, 0,	4, $F8
-		dc.b $F8, 9, 0,	8, 8
-		dc.b $F8, 5, 0,	$2E, $28
-		dc.b $F8, 5, 0,	$3E, $38
-		dc.b $F8, 5, 0,	4, $48
-		dc.b $F8, 5, 0,	$5C, $58
-		dc.b $F8, 5, 0,	$5C, $68
-.gameplan:	dc.b $10		; GAME PLAN CAROL YAS
-		dc.b $D8, 5, 0,	0, $80
-		dc.b $D8, 5, 0,	4, $90
-		dc.b $D8, 9, 0,	8, $A0
-		dc.b $D8, 5, 0,	$E, $B4
-		dc.b $D8, 5, 0,	$12, $D0
-		dc.b $D8, 5, 0,	$16, $E0
-		dc.b $D8, 5, 0,	4, $F0
-		dc.b $D8, 5, 0,	$1A, 0
-		dc.b 8,	5, 0, $1E, $C8
-		dc.b 8,	5, 0, 4, $D8
-		dc.b 8,	5, 0, $22, $E8
-		dc.b 8,	5, 0, $26, $F8
-		dc.b 8,	5, 0, $16, 8
-		dc.b 8,	5, 0, $2A, $20
-		dc.b 8,	5, 0, 4, $30
-		dc.b 8,	5, 0, $2E, $44
-.program:	dc.b $A			 ; PROGRAM YU 2
-		dc.b $D8, 5, 0,	$12, $80
-		dc.b $D8, 5, 0,	$22, $90
-		dc.b $D8, 5, 0,	$26, $A0
-		dc.b $D8, 5, 0,	0, $B0
-		dc.b $D8, 5, 0,	$22, $C0
-		dc.b $D8, 5, 0,	4, $D0
-		dc.b $D8, 9, 0,	8, $E0
-		dc.b 8,	5, 0, $2A, $E8
-		dc.b 8,	5, 0, $32, $F8
-		dc.b 8,	5, 0, $36, 8
-.character:	dc.b $18		 ; CHARACTER DESIGN BIGISLAND
-		dc.b $D8, 5, 0,	$1E, $88
-		dc.b $D8, 5, 0,	$3A, $98
-		dc.b $D8, 5, 0,	4, $A8
-		dc.b $D8, 5, 0,	$22, $B8
-		dc.b $D8, 5, 0,	4, $C8
-		dc.b $D8, 5, 0,	$1E, $D8
-		dc.b $D8, 5, 0,	$3E, $E8
-		dc.b $D8, 5, 0,	$E, $F8
-		dc.b $D8, 5, 0,	$22, 8
-		dc.b $D8, 5, 0,	$42, $20
-		dc.b $D8, 5, 0,	$E, $30
-		dc.b $D8, 5, 0,	$2E, $40
-		dc.b $D8, 1, 0,	$46, $50
-		dc.b $D8, 5, 0,	0, $58
-		dc.b $D8, 5, 0,	$1A, $68
-		dc.b 8,	5, 0, $48, $C0
-		dc.b 8,	1, 0, $46, $D0
-		dc.b 8,	5, 0, 0, $D8
-		dc.b 8,	1, 0, $46, $E8
-		dc.b 8,	5, 0, $2E, $F0
-		dc.b 8,	5, 0, $16, 0
-		dc.b 8,	5, 0, 4, $10
-		dc.b 8,	5, 0, $1A, $20
-		dc.b 8,	5, 0, $42, $30
-.design:	dc.b $14		 ; DESIGN JINYA	PHENIX RIE
-		dc.b $D0, 5, 0,	$42, $A0
-		dc.b $D0, 5, 0,	$E, $B0
-		dc.b $D0, 5, 0,	$2E, $C0
-		dc.b $D0, 1, 0,	$46, $D0
-		dc.b $D0, 5, 0,	0, $D8
-		dc.b $D0, 5, 0,	$1A, $E8
-		dc.b 0,	5, 0, $4C, $E8
-		dc.b 0,	1, 0, $46, $F8
-		dc.b 0,	5, 0, $1A, 4
-		dc.b 0,	5, 0, $2A, $14
-		dc.b 0,	5, 0, 4, $24
-		dc.b $20, 5, 0,	$12, $D0
-		dc.b $20, 5, 0,	$3A, $E0
-		dc.b $20, 5, 0,	$E, $F0
-		dc.b $20, 5, 0,	$1A, 0
-		dc.b $20, 1, 0,	$46, $10
-		dc.b $20, 5, 0,	$50, $18
-		dc.b $20, 5, 0,	$22, $30
-		dc.b $20, 1, 0,	$46, $40
-		dc.b $20, 5, 0,	$E, $48
-.soundproduce:	dc.b $1A		 ; SOUND PRODUCE MASATO	NAKAMURA
-		dc.b $D8, 5, 0,	$2E, $98
-		dc.b $D8, 5, 0,	$26, $A8
-		dc.b $D8, 5, 0,	$32, $B8
-		dc.b $D8, 5, 0,	$1A, $C8
-		dc.b $D8, 5, 0,	$54, $D8
-		dc.b $D8, 5, 0,	$12, $F8
-		dc.b $D8, 5, 0,	$22, 8
-		dc.b $D8, 5, 0,	$26, $18
-		dc.b $D8, 5, 0,	$42, $28
-		dc.b $D8, 5, 0,	$32, $38
-		dc.b $D8, 5, 0,	$1E, $48
-		dc.b $D8, 5, 0,	$E, $58
-		dc.b 8,	9, 0, 8, $88
-		dc.b 8,	5, 0, 4, $9C
-		dc.b 8,	5, 0, $2E, $AC
-		dc.b 8,	5, 0, 4, $BC
-		dc.b 8,	5, 0, $3E, $CC
-		dc.b 8,	5, 0, $26, $DC
-		dc.b 8,	5, 0, $1A, $F8
-		dc.b 8,	5, 0, 4, 8
-		dc.b 8,	5, 0, $58, $18
-		dc.b 8,	5, 0, 4, $28
-		dc.b 8,	9, 0, 8, $38
-		dc.b 8,	5, 0, $32, $4C
-		dc.b 8,	5, 0, $22, $5C
-		dc.b 8,	5, 0, 4, $6C
-.soundprogram:	dc.b $17		 ; SOUND PROGRAM JIMITA	MACKY
-		dc.b $D0, 5, 0,	$2E, $98
-		dc.b $D0, 5, 0,	$26, $A8
-		dc.b $D0, 5, 0,	$32, $B8
-		dc.b $D0, 5, 0,	$1A, $C8
-		dc.b $D0, 5, 0,	$54, $D8
-		dc.b $D0, 5, 0,	$12, $F8
-		dc.b $D0, 5, 0,	$22, 8
-		dc.b $D0, 5, 0,	$26, $18
-		dc.b $D0, 5, 0,	0, $28
-		dc.b $D0, 5, 0,	$22, $38
-		dc.b $D0, 5, 0,	4, $48
-		dc.b $D0, 9, 0,	8, $58
-		dc.b 0,	5, 0, $4C, $D0
-		dc.b 0,	1, 0, $46, $E0
-		dc.b 0,	9, 0, 8, $E8
-		dc.b 0,	1, 0, $46, $FC
-		dc.b 0,	5, 0, $3E, 4
-		dc.b 0,	5, 0, 4, $14
-		dc.b $20, 9, 0,	8, $D0
-		dc.b $20, 5, 0,	4, $E4
-		dc.b $20, 5, 0,	$1E, $F4
-		dc.b $20, 5, 0,	$58, 4
-		dc.b $20, 5, 0,	$2A, $14
-.thanks:	dc.b $1F		 ; SPECIAL THANKS FUJIO	MINEGISHI PAPA
-		dc.b $D8, 5, 0,	$2E, $80
-		dc.b $D8, 5, 0,	$12, $90
-		dc.b $D8, 5, 0,	$E, $A0
-		dc.b $D8, 5, 0,	$1E, $B0
-		dc.b $D8, 1, 0,	$46, $C0
-		dc.b $D8, 5, 0,	4, $C8
-		dc.b $D8, 5, 0,	$16, $D8
-		dc.b $D8, 5, 0,	$3E, $F8
-		dc.b $D8, 5, 0,	$3A, 8
-		dc.b $D8, 5, 0,	4, $18
-		dc.b $D8, 5, 0,	$1A, $28
-		dc.b $D8, 5, 0,	$58, $38
-		dc.b $D8, 5, 0,	$2E, $48
-		dc.b 0,	5, 0, $5C, $B0
-		dc.b 0,	5, 0, $32, $C0
-		dc.b 0,	5, 0, $4C, $D0
-		dc.b 0,	1, 0, $46, $E0
-		dc.b 0,	5, 0, $26, $E8
-		dc.b 0,	9, 0, 8, 0
-		dc.b 0,	1, 0, $46, $14
-		dc.b 0,	5, 0, $1A, $1C
-		dc.b 0,	5, 0, $E, $2C
-		dc.b 0,	5, 0, 0, $3C
-		dc.b 0,	1, 0, $46, $4C
-		dc.b 0,	5, 0, $2E, $54
-		dc.b 0,	5, 0, $3A, $64
-		dc.b 0,	1, 0, $46, $74
-		dc.b $20, 5, 0,	$12, $F8
-		dc.b $20, 5, 0,	4, 8
-		dc.b $20, 5, 0,	$12, $18
-		dc.b $20, 5, 0,	4, $28
-.presentedby:	dc.b $F			 ; PRESENTED BY	SEGA
-		dc.b $F8, 5, 0,	$12, $80
-		dc.b $F8, 5, 0,	$22, $90
-		dc.b $F8, 5, 0,	$E, $A0
-		dc.b $F8, 5, 0,	$2E, $B0
-		dc.b $F8, 5, 0,	$E, $C0
-		dc.b $F8, 5, 0,	$1A, $D0
-		dc.b $F8, 5, 0,	$3E, $E0
-		dc.b $F8, 5, 0,	$E, $F0
-		dc.b $F8, 5, 0,	$42, 0
-		dc.b $F8, 5, 0,	$48, $18
-		dc.b $F8, 5, 0,	$2A, $28
-		dc.b $F8, 5, 0,	$2E, $40
-		dc.b $F8, 5, 0,	$E, $50
-		dc.b $F8, 5, 0,	0, $60
-		dc.b $F8, 5, 0,	4, $70
-.tryagain:	dc.b 8			 ; TRY AGAIN
-		dc.b $30, 5, 0,	$3E, $C0
-		dc.b $30, 5, 0,	$22, $D0
-		dc.b $30, 5, 0,	$2A, $E0
-		dc.b $30, 5, 0,	4, $F8
-		dc.b $30, 5, 0,	0, 8
-		dc.b $30, 5, 0,	4, $18
-		dc.b $30, 1, 0,	$46, $28
-		dc.b $30, 5, 0,	$1A, $30
-.sonicteam:	dc.b $11		 ; SONIC TEAM PRESENTS
-		dc.b $E8, 5, 0,	$2E, $B4
-		dc.b $E8, 5, 0,	$26, $C4
-		dc.b $E8, 5, 0,	$1A, $D4
-		dc.b $E8, 1, 0,	$46, $E4
-		dc.b $E8, 5, 0,	$1E, $EC
-		dc.b $E8, 5, 0,	$3E, 4
-		dc.b $E8, 5, 0,	$E, $14
-		dc.b $E8, 5, 0,	4, $24
-		dc.b $E8, 9, 0,	8, $34
-		dc.b 0,	5, 0, $12, $C0
-		dc.b 0,	5, 0, $22, $D0
-		dc.b 0,	5, 0, $E, $E0
-		dc.b 0,	5, 0, $2E, $F0
-		dc.b 0,	5, 0, $E, 0
-		dc.b 0,	5, 0, $1A, $10
-		dc.b 0,	5, 0, $3E, $20
-		dc.b 0,	5, 0, $2E, $30
-		even
+Map_Cred_internal:	mappingsTable
+	mappingsTableEntry.w	.staff
+	mappingsTableEntry.w	.gameplan
+	mappingsTableEntry.w	.program
+	mappingsTableEntry.w	.character
+	mappingsTableEntry.w	.design
+	mappingsTableEntry.w	.soundproduce
+	mappingsTableEntry.w	.soundprogram
+	mappingsTableEntry.w	.thanks
+	mappingsTableEntry.w	.presentedby
+	mappingsTableEntry.w	.tryagain
+	mappingsTableEntry.w	.sonicteam
+
+.staff:	spriteHeader
+	spritePiece	-$78, -8, 2, 2, $2E, 0, 0, 0, 0 ; SONIC TEAM STAFF
+	spritePiece	-$68, -8, 2, 2, $26, 0, 0, 0, 0
+	spritePiece	-$58, -8, 2, 2, $1A, 0, 0, 0, 0
+	spritePiece	-$48, -8, 1, 2, $46, 0, 0, 0, 0
+	spritePiece	-$40, -8, 2, 2, $1E, 0, 0, 0, 0
+	spritePiece	-$28, -8, 2, 2, $3E, 0, 0, 0, 0
+	spritePiece	-$18, -8, 2, 2, $E, 0, 0, 0, 0
+	spritePiece	-8, -8, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	8, -8, 3, 2, 8, 0, 0, 0, 0
+	spritePiece	$28, -8, 2, 2, $2E, 0, 0, 0, 0
+	spritePiece	$38, -8, 2, 2, $3E, 0, 0, 0, 0
+	spritePiece	$48, -8, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	$58, -8, 2, 2, $5C, 0, 0, 0, 0
+	spritePiece	$68, -8, 2, 2, $5C, 0, 0, 0, 0
+.staff_End
+
+.gameplan:	spriteHeader
+	spritePiece	-$80, -$28, 2, 2, 0, 0, 0, 0, 0	; GAME PLAN CAROL YAS
+	spritePiece	-$70, -$28, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$60, -$28, 3, 2, 8, 0, 0, 0, 0
+	spritePiece	-$4C, -$28, 2, 2, $E, 0, 0, 0, 0
+	spritePiece	-$30, -$28, 2, 2, $12, 0, 0, 0, 0
+	spritePiece	-$20, -$28, 2, 2, $16, 0, 0, 0, 0
+	spritePiece	-$10, -$28, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	0, -$28, 2, 2, $1A, 0, 0, 0, 0
+	spritePiece	-$38, 8, 2, 2, $1E, 0, 0, 0, 0
+	spritePiece	-$28, 8, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$18, 8, 2, 2, $22, 0, 0, 0, 0
+	spritePiece	-8, 8, 2, 2, $26, 0, 0, 0, 0
+	spritePiece	8, 8, 2, 2, $16, 0, 0, 0, 0
+	spritePiece	$20, 8, 2, 2, $2A, 0, 0, 0, 0
+	spritePiece	$30, 8, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	$44, 8, 2, 2, $2E, 0, 0, 0, 0
+.gameplan_End
+
+.program:	spriteHeader
+	spritePiece	-$80, -$28, 2, 2, $12, 0, 0, 0, 0 ; PROGRAM YU 2
+	spritePiece	-$70, -$28, 2, 2, $22, 0, 0, 0, 0
+	spritePiece	-$60, -$28, 2, 2, $26, 0, 0, 0, 0
+	spritePiece	-$50, -$28, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	-$40, -$28, 2, 2, $22, 0, 0, 0, 0
+	spritePiece	-$30, -$28, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$20, -$28, 3, 2, 8, 0, 0, 0, 0
+	spritePiece	-$18, 8, 2, 2, $2A, 0, 0, 0, 0
+	spritePiece	-8, 8, 2, 2, $32, 0, 0, 0, 0
+	spritePiece	8, 8, 2, 2, $36, 0, 0, 0, 0
+.program_End
+
+.character:	spriteHeader
+	spritePiece	-$78, -$28, 2, 2, $1E, 0, 0, 0, 0 ; CHARACTER DESIGN BIGISLAND
+	spritePiece	-$68, -$28, 2, 2, $3A, 0, 0, 0, 0
+	spritePiece	-$58, -$28, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$48, -$28, 2, 2, $22, 0, 0, 0, 0
+	spritePiece	-$38, -$28, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$28, -$28, 2, 2, $1E, 0, 0, 0, 0
+	spritePiece	-$18, -$28, 2, 2, $3E, 0, 0, 0, 0
+	spritePiece	-8, -$28, 2, 2, $E, 0, 0, 0, 0
+	spritePiece	8, -$28, 2, 2, $22, 0, 0, 0, 0
+	spritePiece	$20, -$28, 2, 2, $42, 0, 0, 0, 0
+	spritePiece	$30, -$28, 2, 2, $E, 0, 0, 0, 0
+	spritePiece	$40, -$28, 2, 2, $2E, 0, 0, 0, 0
+	spritePiece	$50, -$28, 1, 2, $46, 0, 0, 0, 0
+	spritePiece	$58, -$28, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	$68, -$28, 2, 2, $1A, 0, 0, 0, 0
+	spritePiece	-$40, 8, 2, 2, $48, 0, 0, 0, 0
+	spritePiece	-$30, 8, 1, 2, $46, 0, 0, 0, 0
+	spritePiece	-$28, 8, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	-$18, 8, 1, 2, $46, 0, 0, 0, 0
+	spritePiece	-$10, 8, 2, 2, $2E, 0, 0, 0, 0
+	spritePiece	0, 8, 2, 2, $16, 0, 0, 0, 0
+	spritePiece	$10, 8, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	$20, 8, 2, 2, $1A, 0, 0, 0, 0
+	spritePiece	$30, 8, 2, 2, $42, 0, 0, 0, 0
+.character_End
+
+.design:	spriteHeader
+	spritePiece	-$60, -$30, 2, 2, $42, 0, 0, 0, 0 ; DESIGN JINYA PHENIX RIE
+	spritePiece	-$50, -$30, 2, 2, $E, 0, 0, 0, 0
+	spritePiece	-$40, -$30, 2, 2, $2E, 0, 0, 0, 0
+	spritePiece	-$30, -$30, 1, 2, $46, 0, 0, 0, 0
+	spritePiece	-$28, -$30, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	-$18, -$30, 2, 2, $1A, 0, 0, 0, 0
+	spritePiece	-$18, 0, 2, 2, $4C, 0, 0, 0, 0
+	spritePiece	-8, 0, 1, 2, $46, 0, 0, 0, 0
+	spritePiece	4, 0, 2, 2, $1A, 0, 0, 0, 0
+	spritePiece	$14, 0, 2, 2, $2A, 0, 0, 0, 0
+	spritePiece	$24, 0, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$30, $20, 2, 2, $12, 0, 0, 0, 0
+	spritePiece	-$20, $20, 2, 2, $3A, 0, 0, 0, 0
+	spritePiece	-$10, $20, 2, 2, $E, 0, 0, 0, 0
+	spritePiece	0, $20, 2, 2, $1A, 0, 0, 0, 0
+	spritePiece	$10, $20, 1, 2, $46, 0, 0, 0, 0
+	spritePiece	$18, $20, 2, 2, $50, 0, 0, 0, 0
+	spritePiece	$30, $20, 2, 2, $22, 0, 0, 0, 0
+	spritePiece	$40, $20, 1, 2, $46, 0, 0, 0, 0
+	spritePiece	$48, $20, 2, 2, $E, 0, 0, 0, 0
+.design_End
+
+.soundproduce:	spriteHeader
+	spritePiece	-$68, -$28, 2, 2, $2E, 0, 0, 0, 0 ; SOUND PRODUCE MASATO NAKAMURA
+	spritePiece	-$58, -$28, 2, 2, $26, 0, 0, 0, 0
+	spritePiece	-$48, -$28, 2, 2, $32, 0, 0, 0, 0
+	spritePiece	-$38, -$28, 2, 2, $1A, 0, 0, 0, 0
+	spritePiece	-$28, -$28, 2, 2, $54, 0, 0, 0, 0
+	spritePiece	-8, -$28, 2, 2, $12, 0, 0, 0, 0
+	spritePiece	8, -$28, 2, 2, $22, 0, 0, 0, 0
+	spritePiece	$18, -$28, 2, 2, $26, 0, 0, 0, 0
+	spritePiece	$28, -$28, 2, 2, $42, 0, 0, 0, 0
+	spritePiece	$38, -$28, 2, 2, $32, 0, 0, 0, 0
+	spritePiece	$48, -$28, 2, 2, $1E, 0, 0, 0, 0
+	spritePiece	$58, -$28, 2, 2, $E, 0, 0, 0, 0
+	spritePiece	-$78, 8, 3, 2, 8, 0, 0, 0, 0
+	spritePiece	-$64, 8, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$54, 8, 2, 2, $2E, 0, 0, 0, 0
+	spritePiece	-$44, 8, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$34, 8, 2, 2, $3E, 0, 0, 0, 0
+	spritePiece	-$24, 8, 2, 2, $26, 0, 0, 0, 0
+	spritePiece	-8, 8, 2, 2, $1A, 0, 0, 0, 0
+	spritePiece	8, 8, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	$18, 8, 2, 2, $58, 0, 0, 0, 0
+	spritePiece	$28, 8, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	$38, 8, 3, 2, 8, 0, 0, 0, 0
+	spritePiece	$4C, 8, 2, 2, $32, 0, 0, 0, 0
+	spritePiece	$5C, 8, 2, 2, $22, 0, 0, 0, 0
+	spritePiece	$6C, 8, 2, 2, 4, 0, 0, 0, 0
+.soundproduce_End
+
+.soundprogram:	spriteHeader
+	spritePiece	-$68, -$30, 2, 2, $2E, 0, 0, 0, 0 ; SOUND PROGRAM JIMITA MACKY
+	spritePiece	-$58, -$30, 2, 2, $26, 0, 0, 0, 0
+	spritePiece	-$48, -$30, 2, 2, $32, 0, 0, 0, 0
+	spritePiece	-$38, -$30, 2, 2, $1A, 0, 0, 0, 0
+	spritePiece	-$28, -$30, 2, 2, $54, 0, 0, 0, 0
+	spritePiece	-8, -$30, 2, 2, $12, 0, 0, 0, 0
+	spritePiece	8, -$30, 2, 2, $22, 0, 0, 0, 0
+	spritePiece	$18, -$30, 2, 2, $26, 0, 0, 0, 0
+	spritePiece	$28, -$30, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	$38, -$30, 2, 2, $22, 0, 0, 0, 0
+	spritePiece	$48, -$30, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	$58, -$30, 3, 2, 8, 0, 0, 0, 0
+	spritePiece	-$30, 0, 2, 2, $4C, 0, 0, 0, 0
+	spritePiece	-$20, 0, 1, 2, $46, 0, 0, 0, 0
+	spritePiece	-$18, 0, 3, 2, 8, 0, 0, 0, 0
+	spritePiece	-4, 0, 1, 2, $46, 0, 0, 0, 0
+	spritePiece	4, 0, 2, 2, $3E, 0, 0, 0, 0
+	spritePiece	$14, 0, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$30, $20, 3, 2, 8, 0, 0, 0, 0
+	spritePiece	-$1C, $20, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$C, $20, 2, 2, $1E, 0, 0, 0, 0
+	spritePiece	4, $20, 2, 2, $58, 0, 0, 0, 0
+	spritePiece	$14, $20, 2, 2, $2A, 0, 0, 0, 0
+.soundprogram_End
+
+.thanks:	spriteHeader
+	spritePiece	-$80, -$28, 2, 2, $2E, 0, 0, 0, 0 ; SPECIAL THANKS FUJIO MINEGISHI PAPA
+	spritePiece	-$70, -$28, 2, 2, $12, 0, 0, 0, 0
+	spritePiece	-$60, -$28, 2, 2, $E, 0, 0, 0, 0
+	spritePiece	-$50, -$28, 2, 2, $1E, 0, 0, 0, 0
+	spritePiece	-$40, -$28, 1, 2, $46, 0, 0, 0, 0
+	spritePiece	-$38, -$28, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$28, -$28, 2, 2, $16, 0, 0, 0, 0
+	spritePiece	-8, -$28, 2, 2, $3E, 0, 0, 0, 0
+	spritePiece	8, -$28, 2, 2, $3A, 0, 0, 0, 0
+	spritePiece	$18, -$28, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	$28, -$28, 2, 2, $1A, 0, 0, 0, 0
+	spritePiece	$38, -$28, 2, 2, $58, 0, 0, 0, 0
+	spritePiece	$48, -$28, 2, 2, $2E, 0, 0, 0, 0
+	spritePiece	-$50, 0, 2, 2, $5C, 0, 0, 0, 0
+	spritePiece	-$40, 0, 2, 2, $32, 0, 0, 0, 0
+	spritePiece	-$30, 0, 2, 2, $4C, 0, 0, 0, 0
+	spritePiece	-$20, 0, 1, 2, $46, 0, 0, 0, 0
+	spritePiece	-$18, 0, 2, 2, $26, 0, 0, 0, 0
+	spritePiece	0, 0, 3, 2, 8, 0, 0, 0, 0
+	spritePiece	$14, 0, 1, 2, $46, 0, 0, 0, 0
+	spritePiece	$1C, 0, 2, 2, $1A, 0, 0, 0, 0
+	spritePiece	$2C, 0, 2, 2, $E, 0, 0, 0, 0
+	spritePiece	$3C, 0, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	$4C, 0, 1, 2, $46, 0, 0, 0, 0
+	spritePiece	$54, 0, 2, 2, $2E, 0, 0, 0, 0
+	spritePiece	$64, 0, 2, 2, $3A, 0, 0, 0, 0
+	spritePiece	$74, 0, 1, 2, $46, 0, 0, 0, 0
+	spritePiece	-8, $20, 2, 2, $12, 0, 0, 0, 0
+	spritePiece	8, $20, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	$18, $20, 2, 2, $12, 0, 0, 0, 0
+	spritePiece	$28, $20, 2, 2, 4, 0, 0, 0, 0
+.thanks_End
+
+.presentedby:	spriteHeader
+	spritePiece	-$80, -8, 2, 2, $12, 0, 0, 0, 0 ; PRESENTED BY SEGA
+	spritePiece	-$70, -8, 2, 2, $22, 0, 0, 0, 0
+	spritePiece	-$60, -8, 2, 2, $E, 0, 0, 0, 0
+	spritePiece	-$50, -8, 2, 2, $2E, 0, 0, 0, 0
+	spritePiece	-$40, -8, 2, 2, $E, 0, 0, 0, 0
+	spritePiece	-$30, -8, 2, 2, $1A, 0, 0, 0, 0
+	spritePiece	-$20, -8, 2, 2, $3E, 0, 0, 0, 0
+	spritePiece	-$10, -8, 2, 2, $E, 0, 0, 0, 0
+	spritePiece	0, -8, 2, 2, $42, 0, 0, 0, 0
+	spritePiece	$18, -8, 2, 2, $48, 0, 0, 0, 0
+	spritePiece	$28, -8, 2, 2, $2A, 0, 0, 0, 0
+	spritePiece	$40, -8, 2, 2, $2E, 0, 0, 0, 0
+	spritePiece	$50, -8, 2, 2, $E, 0, 0, 0, 0
+	spritePiece	$60, -8, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	$70, -8, 2, 2, 4, 0, 0, 0, 0
+.presentedby_End
+
+.tryagain:	spriteHeader
+	spritePiece	-$40, $30, 2, 2, $3E, 0, 0, 0, 0 ; TRY AGAIN
+	spritePiece	-$30, $30, 2, 2, $22, 0, 0, 0, 0
+	spritePiece	-$20, $30, 2, 2, $2A, 0, 0, 0, 0
+	spritePiece	-8, $30, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	8, $30, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	$18, $30, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	$28, $30, 1, 2, $46, 0, 0, 0, 0
+	spritePiece	$30, $30, 2, 2, $1A, 0, 0, 0, 0
+.tryagain_End
+
+.sonicteam:	spriteHeader
+	spritePiece	-$4C, -$18, 2, 2, $2E, 0, 0, 0, 0 ; SONIC TEAM PRESENTS
+	spritePiece	-$3C, -$18, 2, 2, $26, 0, 0, 0, 0
+	spritePiece	-$2C, -$18, 2, 2, $1A, 0, 0, 0, 0
+	spritePiece	-$1C, -$18, 1, 2, $46, 0, 0, 0, 0
+	spritePiece	-$14, -$18, 2, 2, $1E, 0, 0, 0, 0
+	spritePiece	4, -$18, 2, 2, $3E, 0, 0, 0, 0
+	spritePiece	$14, -$18, 2, 2, $E, 0, 0, 0, 0
+	spritePiece	$24, -$18, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	$34, -$18, 3, 2, 8, 0, 0, 0, 0
+	spritePiece	-$40, 0, 2, 2, $12, 0, 0, 0, 0
+	spritePiece	-$30, 0, 2, 2, $22, 0, 0, 0, 0
+	spritePiece	-$20, 0, 2, 2, $E, 0, 0, 0, 0
+	spritePiece	-$10, 0, 2, 2, $2E, 0, 0, 0, 0
+	spritePiece	0, 0, 2, 2, $E, 0, 0, 0, 0
+	spritePiece	$10, 0, 2, 2, $1A, 0, 0, 0, 0
+	spritePiece	$20, 0, 2, 2, $3E, 0, 0, 0, 0
+	spritePiece	$30, 0, 2, 2, $2E, 0, 0, 0, 0
+.sonicteam_End
+
+	even

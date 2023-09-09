@@ -1,22 +1,33 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Roller enemy (SYZ)
 ; ---------------------------------------------------------------------------
-Map_Roll_internal:
-		dc.w M_Roll_Stand-Map_Roll_internal
-		dc.w M_Roll_Fold-Map_Roll_internal
-		dc.w M_Roll_Roll1-Map_Roll_internal
-		dc.w M_Roll_Roll2-Map_Roll_internal
-		dc.w M_Roll_Roll3-Map_Roll_internal
-M_Roll_Stand:	dc.b 2
-		dc.b $DE, $E, 0, 0, $F0	; standing
-		dc.b $F6, $E, 0, $C, $F0
-M_Roll_Fold:	dc.b 2
-		dc.b $E6, $E, 0, 0, $F0	; folding
-		dc.b $FE, $D, 0, $18, $F0
-M_Roll_Roll1:	dc.b 1
-		dc.b $F0, $F, 0, $20, $F0 ; rolling
-M_Roll_Roll2:	dc.b 1
-		dc.b $F0, $F, 0, $30, $F0 ; rolling
-M_Roll_Roll3:	dc.b 1
-		dc.b $F0, $F, 0, $40, $F0 ; rolling
-		even
+Map_Roll_internal:	mappingsTable
+	mappingsTableEntry.w	M_Roll_Stand
+	mappingsTableEntry.w	M_Roll_Fold
+	mappingsTableEntry.w	M_Roll_Roll1
+	mappingsTableEntry.w	M_Roll_Roll2
+	mappingsTableEntry.w	M_Roll_Roll3
+
+M_Roll_Stand:	spriteHeader
+	spritePiece	-$10, -$22, 4, 3, 0, 0, 0, 0, 0	; standing
+	spritePiece	-$10, -$A, 4, 3, $C, 0, 0, 0, 0
+M_Roll_Stand_End
+
+M_Roll_Fold:	spriteHeader
+	spritePiece	-$10, -$1A, 4, 3, 0, 0, 0, 0, 0	; folding
+	spritePiece	-$10, -2, 4, 2, $18, 0, 0, 0, 0
+M_Roll_Fold_End
+
+M_Roll_Roll1:	spriteHeader
+	spritePiece	-$10, -$10, 4, 4, $20, 0, 0, 0, 0 ; rolling
+M_Roll_Roll1_End
+
+M_Roll_Roll2:	spriteHeader
+	spritePiece	-$10, -$10, 4, 4, $30, 0, 0, 0, 0 ; rolling
+M_Roll_Roll2_End
+
+M_Roll_Roll3:	spriteHeader
+	spritePiece	-$10, -$10, 4, 4, $40, 0, 0, 0, 0 ; rolling
+M_Roll_Roll3_End
+
+	even

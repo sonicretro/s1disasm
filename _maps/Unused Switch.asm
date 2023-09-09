@@ -1,11 +1,14 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Unused switch thingy
 ; ---------------------------------------------------------------------------
-Map_Swi_internal:
-		dc.w byte_891E-Map_Swi_internal
-byte_891E:	dc.b 4
-		dc.b $E8, 7, 0,	$54, $F0
-		dc.b 8,	5, 0, $5C, $F0
-		dc.b $E8, 7, 0,	$54, 0
-		dc.b 8,	5, 0, $5C, 0
-		even
+Map_Swi_internal:	mappingsTable
+	mappingsTableEntry.w	byte_891E
+
+byte_891E:	spriteHeader
+	spritePiece	-$10, -$18, 2, 4, $54, 0, 0, 0, 0
+	spritePiece	-$10, 8, 2, 2, $5C, 0, 0, 0, 0
+	spritePiece	0, -$18, 2, 4, $54, 0, 0, 0, 0
+	spritePiece	0, 8, 2, 2, $5C, 0, 0, 0, 0
+byte_891E_End
+
+	even

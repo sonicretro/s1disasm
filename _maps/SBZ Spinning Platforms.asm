@@ -1,25 +1,36 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - spinning platforms (SBZ)
 ; ---------------------------------------------------------------------------
-Map_Spin_internal:
-		dc.w .flat-Map_Spin_internal
-		dc.w .spin1-Map_Spin_internal
-		dc.w .spin2-Map_Spin_internal
-		dc.w .spin3-Map_Spin_internal
-		dc.w .spin4-Map_Spin_internal
-.flat:		dc.b 2
-		dc.b $F8, 5, 0,	0, $F0
-		dc.b $F8, 5, 8,	0, 0
-.spin1:		dc.b 2
-		dc.b $F0, $D, 0, $14, $F0
-		dc.b 0,	$D, 0, $1C, $F0
-.spin2:		dc.b 2
-		dc.b $F0, 9, 0,	4, $F0
-		dc.b 0,	9, 0, $A, $F8
-.spin3:		dc.b 2
-		dc.b $F0, 9, 0,	$24, $F0
-		dc.b 0,	9, 0, $2A, $F8
-.spin4:		dc.b 2
-		dc.b $F0, 5, 0,	$10, $F8
-		dc.b 0,	5, $10,	$10, $F8
-		even
+Map_Spin_internal:	mappingsTable
+	mappingsTableEntry.w	.flat
+	mappingsTableEntry.w	.spin1
+	mappingsTableEntry.w	.spin2
+	mappingsTableEntry.w	.spin3
+	mappingsTableEntry.w	.spin4
+
+.flat:	spriteHeader
+	spritePiece	-$10, -8, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	0, -8, 2, 2, 0, 1, 0, 0, 0
+.flat_End
+
+.spin1:	spriteHeader
+	spritePiece	-$10, -$10, 4, 2, $14, 0, 0, 0, 0
+	spritePiece	-$10, 0, 4, 2, $1C, 0, 0, 0, 0
+.spin1_End
+
+.spin2:	spriteHeader
+	spritePiece	-$10, -$10, 3, 2, 4, 0, 0, 0, 0
+	spritePiece	-8, 0, 3, 2, $A, 0, 0, 0, 0
+.spin2_End
+
+.spin3:	spriteHeader
+	spritePiece	-$10, -$10, 3, 2, $24, 0, 0, 0, 0
+	spritePiece	-8, 0, 3, 2, $2A, 0, 0, 0, 0
+.spin3_End
+
+.spin4:	spriteHeader
+	spritePiece	-8, -$10, 2, 2, $10, 0, 0, 0, 0
+	spritePiece	-8, 0, 2, 2, $10, 0, 1, 0, 0
+.spin4_End
+
+	even

@@ -1,17 +1,26 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - energy ball	launcher (FZ)
 ; ---------------------------------------------------------------------------
-Map_PLaunch_internal:
-		dc.w .red-Map_PLaunch_internal
-		dc.w .white-Map_PLaunch_internal
-		dc.w .sparking1-Map_PLaunch_internal
-		dc.w .sparking2-Map_PLaunch_internal
-.red:		dc.b 1
-		dc.b $F8, 5, 0,	$6E, $F8
-.white:		dc.b 1
-		dc.b $F8, 5, 0,	$76, $F8
-.sparking1:	dc.b 1
-		dc.b $F8, 5, 0,	$72, $F8
-.sparking2:	dc.b 1
-		dc.b $F8, 5, $10, $72, $F8
-		even
+Map_PLaunch_internal:	mappingsTable
+	mappingsTableEntry.w	.red
+	mappingsTableEntry.w	.white
+	mappingsTableEntry.w	.sparking1
+	mappingsTableEntry.w	.sparking2
+
+.red:	spriteHeader
+	spritePiece	-8, -8, 2, 2, $6E, 0, 0, 0, 0
+.red_End
+
+.white:	spriteHeader
+	spritePiece	-8, -8, 2, 2, $76, 0, 0, 0, 0
+.white_End
+
+.sparking1:	spriteHeader
+	spritePiece	-8, -8, 2, 2, $72, 0, 0, 0, 0
+.sparking1_End
+
+.sparking2:	spriteHeader
+	spritePiece	-8, -8, 2, 2, $72, 0, 1, 0, 0
+.sparking2_End
+
+	even

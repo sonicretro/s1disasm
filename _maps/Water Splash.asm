@@ -1,16 +1,23 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - water splash (LZ)
 ; ---------------------------------------------------------------------------
-Map_Splash_internal:
-		dc.w .splash1-Map_Splash_internal
-		dc.w .splash2-Map_Splash_internal
-		dc.w .splash3-Map_Splash_internal
-.splash1:	dc.b 2
-		dc.b $F2, 4, 0,	$6D, $F8
-		dc.b $FA, $C, 0, $6F, $F0
-.splash2:	dc.b 2
-		dc.b $E2, 0, 0,	$73, $F8
-		dc.b $EA, $E, 0, $74, $F0
-.splash3:	dc.b 1
-		dc.b $E2, $F, 0, $80, $F0
-		even
+Map_Splash_internal:	mappingsTable
+	mappingsTableEntry.w	.splash1
+	mappingsTableEntry.w	.splash2
+	mappingsTableEntry.w	.splash3
+
+.splash1:	spriteHeader
+	spritePiece	-8, -$E, 2, 1, $6D, 0, 0, 0, 0
+	spritePiece	-$10, -6, 4, 1, $6F, 0, 0, 0, 0
+.splash1_End
+
+.splash2:	spriteHeader
+	spritePiece	-8, -$1E, 1, 1, $73, 0, 0, 0, 0
+	spritePiece	-$10, -$16, 4, 3, $74, 0, 0, 0, 0
+.splash2_End
+
+.splash3:	spriteHeader
+	spritePiece	-$10, -$1E, 4, 4, $80, 0, 0, 0, 0
+.splash3_End
+
+	even

@@ -1,73 +1,94 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - metal stomping blocks on chains (MZ)
 ; ---------------------------------------------------------------------------
-Map_CStom_internal:
-		dc.w .wideblock-Map_CStom_internal
-		dc.w .spikes-Map_CStom_internal
-		dc.w .ceiling-Map_CStom_internal
-		dc.w .chain1-Map_CStom_internal
-		dc.w .chain2-Map_CStom_internal
-		dc.w .chain3-Map_CStom_internal
-		dc.w .chain4-Map_CStom_internal
-		dc.w .chain5-Map_CStom_internal
-		dc.w .chain5-Map_CStom_internal
-		dc.w .mediumblock-Map_CStom_internal
-		dc.w .smallblock-Map_CStom_internal
-.wideblock:	dc.b 5
-		dc.b $F4, 6, 0,	0, $C8
-		dc.b $F4, $A, 0, 6, $D8
-		dc.b $EC, $F, 0, $F, $F0
-		dc.b $F4, $A, 8, 6, $10
-		dc.b $F4, 6, 8,	0, $28
-.spikes:	dc.b 5
-		dc.b $F0, 3, $12, $1F, $D4
-		dc.b $F0, 3, $12, $1F, $E8
-		dc.b $F0, 3, $12, $1F, $FC
-		dc.b $F0, 3, $12, $1F, $10
-		dc.b $F0, 3, $12, $1F, $24
-.ceiling:	dc.b 1
-		dc.b $DC, $F, $10, $F, $F0
-.chain1:	dc.b 2
-		dc.b 0,	1, 0, $3F, $FC
-		dc.b $10, 1, 0,	$3F, $FC
-.chain2:	dc.b 4
-		dc.b $E0, 1, 0,	$3F, $FC
-		dc.b $F0, 1, 0,	$3F, $FC
-		dc.b 0,	1, 0, $3F, $FC
-		dc.b $10, 1, 0,	$3F, $FC
-.chain3:	dc.b 6
-		dc.b $C0, 1, 0,	$3F, $FC
-		dc.b $D0, 1, 0,	$3F, $FC
-		dc.b $E0, 1, 0,	$3F, $FC
-		dc.b $F0, 1, 0,	$3F, $FC
-		dc.b 0,	1, 0, $3F, $FC
-		dc.b $10, 1, 0,	$3F, $FC
-.chain4:	dc.b 8
-		dc.b $A0, 1, 0,	$3F, $FC
-		dc.b $B0, 1, 0,	$3F, $FC
-		dc.b $C0, 1, 0,	$3F, $FC
-		dc.b $D0, 1, 0,	$3F, $FC
-		dc.b $E0, 1, 0,	$3F, $FC
-		dc.b $F0, 1, 0,	$3F, $FC
-		dc.b 0,	1, 0, $3F, $FC
-		dc.b $10, 1, 0,	$3F, $FC
-.chain5:	dc.b $A
-		dc.b $80, 1, 0,	$3F, $FC
-		dc.b $90, 1, 0,	$3F, $FC
-		dc.b $A0, 1, 0,	$3F, $FC
-		dc.b $B0, 1, 0,	$3F, $FC
-		dc.b $C0, 1, 0,	$3F, $FC
-		dc.b $D0, 1, 0,	$3F, $FC
-		dc.b $E0, 1, 0,	$3F, $FC
-		dc.b $F0, 1, 0,	$3F, $FC
-		dc.b 0,	1, 0, $3F, $FC
-		dc.b $10, 1, 0,	$3F, $FC
-.mediumblock:	dc.b 5
-		dc.b $F4, 6, 0,	0, $D0
-		dc.b $F4, $A, 0, 6, $E0
-		dc.b $F4, $A, 8, 6, 8
-		dc.b $F4, 6, 8,	0, $20
-		dc.b $EC, $F, 0, $F, $F0
-.smallblock:	dc.b 1
-		dc.b $EC, $F, 0, $2F, $F0
-		even
+Map_CStom_internal:	mappingsTable
+	mappingsTableEntry.w	.wideblock
+	mappingsTableEntry.w	.spikes
+	mappingsTableEntry.w	.ceiling
+	mappingsTableEntry.w	.chain1
+	mappingsTableEntry.w	.chain2
+	mappingsTableEntry.w	.chain3
+	mappingsTableEntry.w	.chain4
+	mappingsTableEntry.w	.chain5
+	mappingsTableEntry.w	.chain5
+	mappingsTableEntry.w	.mediumblock
+	mappingsTableEntry.w	.smallblock
+
+.wideblock:	spriteHeader
+	spritePiece	-$38, -$C, 2, 3, 0, 0, 0, 0, 0
+	spritePiece	-$28, -$C, 3, 3, 6, 0, 0, 0, 0
+	spritePiece	-$10, -$14, 4, 4, $F, 0, 0, 0, 0
+	spritePiece	$10, -$C, 3, 3, 6, 1, 0, 0, 0
+	spritePiece	$28, -$C, 2, 3, 0, 1, 0, 0, 0
+.wideblock_End
+
+.spikes:	spriteHeader
+	spritePiece	-$2C, -$10, 1, 4, $21F, 0, 1, 0, 0
+	spritePiece	-$18, -$10, 1, 4, $21F, 0, 1, 0, 0
+	spritePiece	-4, -$10, 1, 4, $21F, 0, 1, 0, 0
+	spritePiece	$10, -$10, 1, 4, $21F, 0, 1, 0, 0
+	spritePiece	$24, -$10, 1, 4, $21F, 0, 1, 0, 0
+.spikes_End
+
+.ceiling:	spriteHeader
+	spritePiece	-$10, -$24, 4, 4, $F, 0, 1, 0, 0
+.ceiling_End
+
+.chain1:	spriteHeader
+	spritePiece	-4, 0, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, $10, 1, 2, $3F, 0, 0, 0, 0
+.chain1_End
+
+.chain2:	spriteHeader
+	spritePiece	-4, -$20, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, -$10, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, 0, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, $10, 1, 2, $3F, 0, 0, 0, 0
+.chain2_End
+
+.chain3:	spriteHeader
+	spritePiece	-4, -$40, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, -$30, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, -$20, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, -$10, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, 0, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, $10, 1, 2, $3F, 0, 0, 0, 0
+.chain3_End
+
+.chain4:	spriteHeader
+	spritePiece	-4, -$60, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, -$50, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, -$40, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, -$30, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, -$20, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, -$10, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, 0, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, $10, 1, 2, $3F, 0, 0, 0, 0
+.chain4_End
+
+.chain5:	spriteHeader
+	spritePiece	-4, -$80, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, -$70, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, -$60, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, -$50, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, -$40, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, -$30, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, -$20, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, -$10, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, 0, 1, 2, $3F, 0, 0, 0, 0
+	spritePiece	-4, $10, 1, 2, $3F, 0, 0, 0, 0
+.chain5_End
+
+.mediumblock:	spriteHeader
+	spritePiece	-$30, -$C, 2, 3, 0, 0, 0, 0, 0
+	spritePiece	-$20, -$C, 3, 3, 6, 0, 0, 0, 0
+	spritePiece	8, -$C, 3, 3, 6, 1, 0, 0, 0
+	spritePiece	$20, -$C, 2, 3, 0, 1, 0, 0, 0
+	spritePiece	-$10, -$14, 4, 4, $F, 0, 0, 0, 0
+.mediumblock_End
+
+.smallblock:	spriteHeader
+	spritePiece	-$10, -$14, 4, 4, $2F, 0, 0, 0, 0
+.smallblock_End
+
+	even

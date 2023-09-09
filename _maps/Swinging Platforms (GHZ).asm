@@ -1,15 +1,22 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - GHZ	and MZ swinging	platforms
 ; ---------------------------------------------------------------------------
-Map_Swing_GHZ_internal:
-		dc.w .block-Map_Swing_GHZ_internal
-		dc.w .chain-Map_Swing_GHZ_internal
-		dc.w .anchor-Map_Swing_GHZ_internal
-.block:		dc.b 2
-		dc.b $F8, 9, 0,	4, $E8
-		dc.b $F8, 9, 0,	4, 0
-.chain:		dc.b 1
-		dc.b $F8, 5, 0,	0, $F8
-.anchor:	dc.b 1
-		dc.b $F8, 5, 0,	$A, $F8
-		even
+Map_Swing_GHZ_internal:	mappingsTable
+	mappingsTableEntry.w	.block
+	mappingsTableEntry.w	.chain
+	mappingsTableEntry.w	.anchor
+
+.block:	spriteHeader
+	spritePiece	-$18, -8, 3, 2, 4, 0, 0, 0, 0
+	spritePiece	0, -8, 3, 2, 4, 0, 0, 0, 0
+.block_End
+
+.chain:	spriteHeader
+	spritePiece	-8, -8, 2, 2, 0, 0, 0, 0, 0
+.chain_End
+
+.anchor:	spriteHeader
+	spritePiece	-8, -8, 2, 2, $A, 0, 0, 0, 0
+.anchor_End
+
+	even

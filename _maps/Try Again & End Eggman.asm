@@ -1,97 +1,114 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Robotnik on	the "TRY AGAIN"	and "END" screens
 ; ---------------------------------------------------------------------------
-Map_EEgg_internal:
-		dc.w M_EEgg_Try1-Map_EEgg_internal
-		dc.w M_EEgg_Try2-Map_EEgg_internal
-		dc.w M_EEgg_Try3-Map_EEgg_internal
-		dc.w M_EEgg_Try4-Map_EEgg_internal
-		dc.w M_EEgg_End1-Map_EEgg_internal
-		dc.w M_EEgg_End2-Map_EEgg_internal
-		dc.w M_EEgg_End3-Map_EEgg_internal
-		dc.w M_EEgg_End4-Map_EEgg_internal
-M_EEgg_Try1:	dc.b 8
-		dc.b $E9, 5, 0,	0, $F0
-		dc.b $F9, $C, 0, 4, $E0
-		dc.b $E9, 4, 0,	8, 0
-		dc.b $F1, $D, 0, $A, 0
-		dc.b 1,	6, 0, $23, $F0
-		dc.b 1,	6, 8, $23, 0
-		dc.b $18, 4, 0,	$29, $EC
-		dc.b $18, 4, 8,	$29, 4
-M_EEgg_Try2:	dc.b 8
-		dc.b $E8, $D, 0, $12, $E0
-		dc.b $F8, 8, 0,	$1A, $E8
-		dc.b $E8, 5, 8,	0, 0
-		dc.b $F8, $C, 8, 4, 0
-		dc.b 0,	6, 0, $1D, $F0
-		dc.b 0,	6, 8, $1D, 0
-		dc.b $18, 4, 0,	$29, $EC
-		dc.b $18, 4, 8,	$29, 4
-M_EEgg_Try3:	dc.b 8
-		dc.b $E9, 4, 8,	8, $F0
-		dc.b $F1, $D, 8, $A, $E0
-		dc.b $E9, 5, 8,	0, 0
-		dc.b $F9, $C, 8, 4, 0
-		dc.b 1,	6, 0, $23, $F0
-		dc.b 1,	6, 8, $23, 0
-		dc.b $18, 4, 0,	$29, $EC
-		dc.b $18, 4, 8,	$29, 4
-M_EEgg_Try4:	dc.b 8
-		dc.b $E8, 5, 0,	0, $F0
-		dc.b $F8, $C, 0, 4, $E0
-		dc.b $E8, $D, 8, $12, 0
-		dc.b $F8, 8, 8,	$1A, 0
-		dc.b 0,	6, 0, $1D, $F0
-		dc.b 0,	6, 8, $1D, 0
-		dc.b $18, 4, 0,	$29, $EC
-		dc.b $18, 4, 8,	$29, 4
-M_EEgg_End1:	dc.b $C
-		dc.b $ED, $A, 0, $2B, $E8
-		dc.b $F5, 0, 0,	$34, $E0
-		dc.b 5,	4, 0, $35, $F0
-		dc.b $D, 8, 0, $37, $E8
-		dc.b $ED, $A, 8, $2B, 0
-		dc.b $F5, 0, 8,	$34, $18
-		dc.b 5,	4, 8, $35, 0
-		dc.b $D, 8, 8, $37, 0
-		dc.b $10, $D, 0, $73, $E0
-		dc.b $10, $D, 0, $7B, 0
-		dc.b $1C, $C, 0, $5B, $E0
-		dc.b $1C, $C, 8, $5B, 0
-M_EEgg_End2:	dc.b $A
-		dc.b $D2, 7, 0,	$3A, $F0
-		dc.b $DA, 0, 0,	$42, $E8
-		dc.b $F2, 7, 0,	$43, $F0
-		dc.b $D2, 7, 8,	$3A, 0
-		dc.b $DA, 0, 8,	$42, $10
-		dc.b $F2, 7, 8,	$43, 0
-		dc.b $10, $D, 0, $67, $E8
-		dc.b $10, 5, 0,	$6F, 8
-		dc.b $1C, $C, 0, $5F, $E0
-		dc.b $1C, $C, 8, $5F, 0
-M_EEgg_End3:	dc.b $A
-		dc.b $C4, $B, 0, $4B, $E8
-		dc.b $E4, 8, 0,	$57, $E8
-		dc.b $EC, 0, 0,	$5A, $F0
-		dc.b $C4, $B, 8, $4B, 0
-		dc.b $E4, 8, 8,	$57, 0
-		dc.b $EC, 0, 8,	$5A, 8
-		dc.b $10, $D, 0, $67, $E8
-		dc.b $10, 5, 0,	$6F, 8
-		dc.b $1C, $C, 0, $63, $E0
-		dc.b $1C, $C, 8, $63, 0
-M_EEgg_End4:	dc.b $C
-		dc.b $F4, $A, 0, $2B, $E8
-		dc.b $FC, 0, 0,	$34, $E0
-		dc.b $C, 4, 0, $35, $F0
-		dc.b $14, 8, 0,	$37, $E8
-		dc.b $F4, $A, 8, $2B, 0
-		dc.b $FC, 0, 8,	$34, $18
-		dc.b $C, 4, 8, $35, 0
-		dc.b $14, 8, 8,	$37, 0
-		dc.b $18, $C, 0, $83, $E0
-		dc.b $18, $C, 0, $87, 0
-		dc.b $1C, $C, 0, $5B, $E0
-		dc.b $1C, $C, 8, $5B, 0
-		even
+Map_EEgg_internal:	mappingsTable
+	mappingsTableEntry.w	M_EEgg_Try1
+	mappingsTableEntry.w	M_EEgg_Try2
+	mappingsTableEntry.w	M_EEgg_Try3
+	mappingsTableEntry.w	M_EEgg_Try4
+	mappingsTableEntry.w	M_EEgg_End1
+	mappingsTableEntry.w	M_EEgg_End2
+	mappingsTableEntry.w	M_EEgg_End3
+	mappingsTableEntry.w	M_EEgg_End4
+
+M_EEgg_Try1:	spriteHeader
+	spritePiece	-$10, -$17, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	-$20, -7, 4, 1, 4, 0, 0, 0, 0
+	spritePiece	0, -$17, 2, 1, 8, 0, 0, 0, 0
+	spritePiece	0, -$F, 4, 2, $A, 0, 0, 0, 0
+	spritePiece	-$10, 1, 2, 3, $23, 0, 0, 0, 0
+	spritePiece	0, 1, 2, 3, $23, 1, 0, 0, 0
+	spritePiece	-$14, $18, 2, 1, $29, 0, 0, 0, 0
+	spritePiece	4, $18, 2, 1, $29, 1, 0, 0, 0
+M_EEgg_Try1_End
+
+M_EEgg_Try2:	spriteHeader
+	spritePiece	-$20, -$18, 4, 2, $12, 0, 0, 0, 0
+	spritePiece	-$18, -8, 3, 1, $1A, 0, 0, 0, 0
+	spritePiece	0, -$18, 2, 2, 0, 1, 0, 0, 0
+	spritePiece	0, -8, 4, 1, 4, 1, 0, 0, 0
+	spritePiece	-$10, 0, 2, 3, $1D, 0, 0, 0, 0
+	spritePiece	0, 0, 2, 3, $1D, 1, 0, 0, 0
+	spritePiece	-$14, $18, 2, 1, $29, 0, 0, 0, 0
+	spritePiece	4, $18, 2, 1, $29, 1, 0, 0, 0
+M_EEgg_Try2_End
+
+M_EEgg_Try3:	spriteHeader
+	spritePiece	-$10, -$17, 2, 1, 8, 1, 0, 0, 0
+	spritePiece	-$20, -$F, 4, 2, $A, 1, 0, 0, 0
+	spritePiece	0, -$17, 2, 2, 0, 1, 0, 0, 0
+	spritePiece	0, -7, 4, 1, 4, 1, 0, 0, 0
+	spritePiece	-$10, 1, 2, 3, $23, 0, 0, 0, 0
+	spritePiece	0, 1, 2, 3, $23, 1, 0, 0, 0
+	spritePiece	-$14, $18, 2, 1, $29, 0, 0, 0, 0
+	spritePiece	4, $18, 2, 1, $29, 1, 0, 0, 0
+M_EEgg_Try3_End
+
+M_EEgg_Try4:	spriteHeader
+	spritePiece	-$10, -$18, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	-$20, -8, 4, 1, 4, 0, 0, 0, 0
+	spritePiece	0, -$18, 4, 2, $12, 1, 0, 0, 0
+	spritePiece	0, -8, 3, 1, $1A, 1, 0, 0, 0
+	spritePiece	-$10, 0, 2, 3, $1D, 0, 0, 0, 0
+	spritePiece	0, 0, 2, 3, $1D, 1, 0, 0, 0
+	spritePiece	-$14, $18, 2, 1, $29, 0, 0, 0, 0
+	spritePiece	4, $18, 2, 1, $29, 1, 0, 0, 0
+M_EEgg_Try4_End
+
+M_EEgg_End1:	spriteHeader
+	spritePiece	-$18, -$13, 3, 3, $2B, 0, 0, 0, 0
+	spritePiece	-$20, -$B, 1, 1, $34, 0, 0, 0, 0
+	spritePiece	-$10, 5, 2, 1, $35, 0, 0, 0, 0
+	spritePiece	-$18, $D, 3, 1, $37, 0, 0, 0, 0
+	spritePiece	0, -$13, 3, 3, $2B, 1, 0, 0, 0
+	spritePiece	$18, -$B, 1, 1, $34, 1, 0, 0, 0
+	spritePiece	0, 5, 2, 1, $35, 1, 0, 0, 0
+	spritePiece	0, $D, 3, 1, $37, 1, 0, 0, 0
+	spritePiece	-$20, $10, 4, 2, $73, 0, 0, 0, 0
+	spritePiece	0, $10, 4, 2, $7B, 0, 0, 0, 0
+	spritePiece	-$20, $1C, 4, 1, $5B, 0, 0, 0, 0
+	spritePiece	0, $1C, 4, 1, $5B, 1, 0, 0, 0
+M_EEgg_End1_End
+
+M_EEgg_End2:	spriteHeader
+	spritePiece	-$10, -$2E, 2, 4, $3A, 0, 0, 0, 0
+	spritePiece	-$18, -$26, 1, 1, $42, 0, 0, 0, 0
+	spritePiece	-$10, -$E, 2, 4, $43, 0, 0, 0, 0
+	spritePiece	0, -$2E, 2, 4, $3A, 1, 0, 0, 0
+	spritePiece	$10, -$26, 1, 1, $42, 1, 0, 0, 0
+	spritePiece	0, -$E, 2, 4, $43, 1, 0, 0, 0
+	spritePiece	-$18, $10, 4, 2, $67, 0, 0, 0, 0
+	spritePiece	8, $10, 2, 2, $6F, 0, 0, 0, 0
+	spritePiece	-$20, $1C, 4, 1, $5F, 0, 0, 0, 0
+	spritePiece	0, $1C, 4, 1, $5F, 1, 0, 0, 0
+M_EEgg_End2_End
+
+M_EEgg_End3:	spriteHeader
+	spritePiece	-$18, -$3C, 3, 4, $4B, 0, 0, 0, 0
+	spritePiece	-$18, -$1C, 3, 1, $57, 0, 0, 0, 0
+	spritePiece	-$10, -$14, 1, 1, $5A, 0, 0, 0, 0
+	spritePiece	0, -$3C, 3, 4, $4B, 1, 0, 0, 0
+	spritePiece	0, -$1C, 3, 1, $57, 1, 0, 0, 0
+	spritePiece	8, -$14, 1, 1, $5A, 1, 0, 0, 0
+	spritePiece	-$18, $10, 4, 2, $67, 0, 0, 0, 0
+	spritePiece	8, $10, 2, 2, $6F, 0, 0, 0, 0
+	spritePiece	-$20, $1C, 4, 1, $63, 0, 0, 0, 0
+	spritePiece	0, $1C, 4, 1, $63, 1, 0, 0, 0
+M_EEgg_End3_End
+
+M_EEgg_End4:	spriteHeader
+	spritePiece	-$18, -$C, 3, 3, $2B, 0, 0, 0, 0
+	spritePiece	-$20, -4, 1, 1, $34, 0, 0, 0, 0
+	spritePiece	-$10, $C, 2, 1, $35, 0, 0, 0, 0
+	spritePiece	-$18, $14, 3, 1, $37, 0, 0, 0, 0
+	spritePiece	0, -$C, 3, 3, $2B, 1, 0, 0, 0
+	spritePiece	$18, -4, 1, 1, $34, 1, 0, 0, 0
+	spritePiece	0, $C, 2, 1, $35, 1, 0, 0, 0
+	spritePiece	0, $14, 3, 1, $37, 1, 0, 0, 0
+	spritePiece	-$20, $18, 4, 1, $83, 0, 0, 0, 0
+	spritePiece	0, $18, 4, 1, $87, 0, 0, 0, 0
+	spritePiece	-$20, $1C, 4, 1, $5B, 0, 0, 0, 0
+	spritePiece	0, $1C, 4, 1, $5B, 1, 0, 0, 0
+M_EEgg_End4_End
+
+	even

@@ -1,35 +1,50 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Moto Bug enemy (GHZ)
 ; ---------------------------------------------------------------------------
-Map_Moto_internal:
-		dc.w .moto1-Map_Moto_internal
-		dc.w .moto2-Map_Moto_internal
-		dc.w .moto3-Map_Moto_internal
-		dc.w .smoke1-Map_Moto_internal
-		dc.w .smoke2-Map_Moto_internal
-		dc.w .smoke3-Map_Moto_internal
-		dc.w .blank-Map_Moto_internal
-.moto1:		dc.b 4
-		dc.b $F0, $D, 0, 0, $EC
-		dc.b 0,	$C, 0, 8, $EC
-		dc.b $F8, 1, 0,	$C, $C
-		dc.b 8,	8, 0, $E, $F4
-.moto2:		dc.b 4
-		dc.b $F1, $D, 0, 0, $EC
-		dc.b 1,	$C, 0, 8, $EC
-		dc.b $F9, 1, 0,	$C, $C
-		dc.b 9,	8, 0, $11, $F4
-.moto3:		dc.b 5
-		dc.b $F0, $D, 0, 0, $EC
-		dc.b 0,	$C, 0, $14, $EC
-		dc.b $F8, 1, 0,	$C, $C
-		dc.b 8,	4, 0, $18, $EC
-		dc.b 8,	4, 0, $12, $FC
-.smoke1:	dc.b 1
-		dc.b $FA, 0, 0,	$1A, $10
-.smoke2:	dc.b 1
-		dc.b $FA, 0, 0,	$1B, $10
-.smoke3:	dc.b 1
-		dc.b $FA, 0, 0,	$1C, $10
-.blank:		dc.b 0
-		even
+Map_Moto_internal:	mappingsTable
+	mappingsTableEntry.w	.moto1
+	mappingsTableEntry.w	.moto2
+	mappingsTableEntry.w	.moto3
+	mappingsTableEntry.w	.smoke1
+	mappingsTableEntry.w	.smoke2
+	mappingsTableEntry.w	.smoke3
+	mappingsTableEntry.w	.blank
+
+.moto1:	spriteHeader
+	spritePiece	-$14, -$10, 4, 2, 0, 0, 0, 0, 0
+	spritePiece	-$14, 0, 4, 1, 8, 0, 0, 0, 0
+	spritePiece	$C, -8, 1, 2, $C, 0, 0, 0, 0
+	spritePiece	-$C, 8, 3, 1, $E, 0, 0, 0, 0
+.moto1_End
+
+.moto2:	spriteHeader
+	spritePiece	-$14, -$F, 4, 2, 0, 0, 0, 0, 0
+	spritePiece	-$14, 1, 4, 1, 8, 0, 0, 0, 0
+	spritePiece	$C, -7, 1, 2, $C, 0, 0, 0, 0
+	spritePiece	-$C, 9, 3, 1, $11, 0, 0, 0, 0
+.moto2_End
+
+.moto3:	spriteHeader
+	spritePiece	-$14, -$10, 4, 2, 0, 0, 0, 0, 0
+	spritePiece	-$14, 0, 4, 1, $14, 0, 0, 0, 0
+	spritePiece	$C, -8, 1, 2, $C, 0, 0, 0, 0
+	spritePiece	-$14, 8, 2, 1, $18, 0, 0, 0, 0
+	spritePiece	-4, 8, 2, 1, $12, 0, 0, 0, 0
+.moto3_End
+
+.smoke1:	spriteHeader
+	spritePiece	$10, -6, 1, 1, $1A, 0, 0, 0, 0
+.smoke1_End
+
+.smoke2:	spriteHeader
+	spritePiece	$10, -6, 1, 1, $1B, 0, 0, 0, 0
+.smoke2_End
+
+.smoke3:	spriteHeader
+	spritePiece	$10, -6, 1, 1, $1C, 0, 0, 0, 0
+.smoke3_End
+
+.blank:	spriteHeader
+.blank_End
+
+	even

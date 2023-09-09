@@ -1,85 +1,100 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - special stage entry	from beta
 ; ---------------------------------------------------------------------------
-Map_Vanish_internal:
-		dc.w .flash1-Map_Vanish_internal
-		dc.w .flash2-Map_Vanish_internal
-		dc.w .flash3-Map_Vanish_internal
-		dc.w .sparkle1-Map_Vanish_internal
-		dc.w .sparkle2-Map_Vanish_internal
-		dc.w .sparkle3-Map_Vanish_internal
-		dc.w .sparkle4-Map_Vanish_internal
-		dc.w .blank-Map_Vanish_internal
-.flash1:	dc.b 3
-		dc.b $F8, 0, 0,	0, 8
-		dc.b 0,	4, 0, 1, 0
-		dc.b 8,	0, $10,	0, 8
-.flash2:	dc.b 3
-		dc.b $F0, $D, 0, 3, $F0
-		dc.b 0,	$C, 0, $B, $F0
-		dc.b 8,	$D, $10, 3, $F0
-.flash3:	dc.b 5
-		dc.b $E4, $E, 0, $F, $F4
-		dc.b $EC, 2, 0,	$1B, $EC
-		dc.b $FC, $C, 0, $1E, $F4
-		dc.b 4,	$E, $10, $F, $F4
-		dc.b 4,	1, $10,	$1B, $EC
-.sparkle1:	dc.b 9
-		dc.b $F0, 8, 0,	$22, $F8
-		dc.b $F8, $E, 0, $25, $F0
-		dc.b $10, 8, 0,	$31, $F0
-		dc.b 0,	5, 0, $34, $10
-		dc.b $F8, 0, 8,	$25, $10
-		dc.b $F0, 0, $18, $36, $18
-		dc.b $F8, 0, $18, $25, $20
-		dc.b 0,	0, 8, $25, $28
-		dc.b $F8, 0, 0,	$25, $30
-.sparkle2:	dc.b $12
-		dc.b 0,	0, $18,	$25, $F0
-		dc.b $F8, 4, 0,	$38, $F8
-		dc.b $F0, 0, 0,	$26, 8
-		dc.b 0,	0, 0, $25, 0
-		dc.b 8,	0, $18,	$25, $F8
-		dc.b $10, 0, $10, $26, 0
-		dc.b 8,	0, $10,	$38, 8
-		dc.b $F8, 0, 0,	$29, $10
-		dc.b 0,	0, 0, $26, $10
-		dc.b 0,	0, 0, $2D, $18
-		dc.b 8,	0, 8, $26, $18
-		dc.b 8,	0, 0, $29, $20
-		dc.b $F8, 0, 0,	$26, $20
-		dc.b $F8, 0, 0,	$2D, $28
-		dc.b 0,	0, 0, $3A, $28
-		dc.b $F8, 0, $18, $26, $30
-		dc.b 0,	0, $10,	$25, $38
-		dc.b $F8, 0, $10, $25, $40
-.sparkle3:	dc.b $11
-		dc.b $F8, 0, 8,	$25, 0
-		dc.b $F0, 0, 0,	$38, $10
-		dc.b $10, 0, 8,	$25, 0
-		dc.b 0,	0, $18,	$25, $10
-		dc.b 8,	0, $10,	$25, $18
-		dc.b $F8, 0, $18, $25, $20
-		dc.b 0,	0, $10,	$26, $28
-		dc.b $F8, 0, $10, $25, $30
-		dc.b 0,	0, 0, $25, $30
-		dc.b 8,	0, 8, $25, $30
-		dc.b 0,	0, 8, $26, $38
-		dc.b 8,	0, 0, $29, $38
-		dc.b $F8, 0, 8,	$26, $40
-		dc.b 0,	0, 0, $2D, $40
-		dc.b $F8, 0, 8,	$25, $48
-		dc.b 0,	0, 0, $25, $48
-		dc.b 0,	0, $10,	$25, $50
-.sparkle4:	dc.b 9
-		dc.b $FC, 0, 8,	$26, $30
-		dc.b 4,	0, 8, $25, $28
-		dc.b 4,	0, $10,	$27, $38
-		dc.b 4,	0, 8, $26, $40
-		dc.b $FC, 0, $10, $25, $40
-		dc.b $FC, 0, $10, $26, $48
-		dc.b $C, 0, 8, $27, $48
-		dc.b 4,	0, $18,	$26, $50
-		dc.b 4
-.blank:		dc.b 0,	8, $27,	$58, 0
-		even
+Map_Vanish_internal:	mappingsTable
+	mappingsTableEntry.w	.flash1
+	mappingsTableEntry.w	.flash2
+	mappingsTableEntry.w	.flash3
+	mappingsTableEntry.w	.sparkle1
+	mappingsTableEntry.w	.sparkle2
+	mappingsTableEntry.w	.sparkle3
+	mappingsTableEntry.w	.sparkle4
+	mappingsTableEntry.w	.blank
+
+.flash1:	spriteHeader
+	spritePiece	8, -8, 1, 1, 0, 0, 0, 0, 0
+	spritePiece	0, 0, 2, 1, 1, 0, 0, 0, 0
+	spritePiece	8, 8, 1, 1, 0, 0, 1, 0, 0
+.flash1_End
+
+.flash2:	spriteHeader
+	spritePiece	-$10, -$10, 4, 2, 3, 0, 0, 0, 0
+	spritePiece	-$10, 0, 4, 1, $B, 0, 0, 0, 0
+	spritePiece	-$10, 8, 4, 2, 3, 0, 1, 0, 0
+.flash2_End
+
+.flash3:	spriteHeader
+	spritePiece	-$C, -$1C, 4, 3, $F, 0, 0, 0, 0
+	spritePiece	-$14, -$14, 1, 3, $1B, 0, 0, 0, 0
+	spritePiece	-$C, -4, 4, 1, $1E, 0, 0, 0, 0
+	spritePiece	-$C, 4, 4, 3, $F, 0, 1, 0, 0
+	spritePiece	-$14, 4, 1, 2, $1B, 0, 1, 0, 0
+.flash3_End
+
+.sparkle1:	spriteHeader
+	spritePiece	-8, -$10, 3, 1, $22, 0, 0, 0, 0
+	spritePiece	-$10, -8, 4, 3, $25, 0, 0, 0, 0
+	spritePiece	-$10, $10, 3, 1, $31, 0, 0, 0, 0
+	spritePiece	$10, 0, 2, 2, $34, 0, 0, 0, 0
+	spritePiece	$10, -8, 1, 1, $25, 1, 0, 0, 0
+	spritePiece	$18, -$10, 1, 1, $36, 1, 1, 0, 0
+	spritePiece	$20, -8, 1, 1, $25, 1, 1, 0, 0
+	spritePiece	$28, 0, 1, 1, $25, 1, 0, 0, 0
+	spritePiece	$30, -8, 1, 1, $25, 0, 0, 0, 0
+.sparkle1_End
+
+.sparkle2:	spriteHeader
+	spritePiece	-$10, 0, 1, 1, $25, 1, 1, 0, 0
+	spritePiece	-8, -8, 2, 1, $38, 0, 0, 0, 0
+	spritePiece	8, -$10, 1, 1, $26, 0, 0, 0, 0
+	spritePiece	0, 0, 1, 1, $25, 0, 0, 0, 0
+	spritePiece	-8, 8, 1, 1, $25, 1, 1, 0, 0
+	spritePiece	0, $10, 1, 1, $26, 0, 1, 0, 0
+	spritePiece	8, 8, 1, 1, $38, 0, 1, 0, 0
+	spritePiece	$10, -8, 1, 1, $29, 0, 0, 0, 0
+	spritePiece	$10, 0, 1, 1, $26, 0, 0, 0, 0
+	spritePiece	$18, 0, 1, 1, $2D, 0, 0, 0, 0
+	spritePiece	$18, 8, 1, 1, $26, 1, 0, 0, 0
+	spritePiece	$20, 8, 1, 1, $29, 0, 0, 0, 0
+	spritePiece	$20, -8, 1, 1, $26, 0, 0, 0, 0
+	spritePiece	$28, -8, 1, 1, $2D, 0, 0, 0, 0
+	spritePiece	$28, 0, 1, 1, $3A, 0, 0, 0, 0
+	spritePiece	$30, -8, 1, 1, $26, 1, 1, 0, 0
+	spritePiece	$38, 0, 1, 1, $25, 0, 1, 0, 0
+	spritePiece	$40, -8, 1, 1, $25, 0, 1, 0, 0
+.sparkle2_End
+
+.sparkle3:	spriteHeader
+	spritePiece	0, -8, 1, 1, $25, 1, 0, 0, 0
+	spritePiece	$10, -$10, 1, 1, $38, 0, 0, 0, 0
+	spritePiece	0, $10, 1, 1, $25, 1, 0, 0, 0
+	spritePiece	$10, 0, 1, 1, $25, 1, 1, 0, 0
+	spritePiece	$18, 8, 1, 1, $25, 0, 1, 0, 0
+	spritePiece	$20, -8, 1, 1, $25, 1, 1, 0, 0
+	spritePiece	$28, 0, 1, 1, $26, 0, 1, 0, 0
+	spritePiece	$30, -8, 1, 1, $25, 0, 1, 0, 0
+	spritePiece	$30, 0, 1, 1, $25, 0, 0, 0, 0
+	spritePiece	$30, 8, 1, 1, $25, 1, 0, 0, 0
+	spritePiece	$38, 0, 1, 1, $26, 1, 0, 0, 0
+	spritePiece	$38, 8, 1, 1, $29, 0, 0, 0, 0
+	spritePiece	$40, -8, 1, 1, $26, 1, 0, 0, 0
+	spritePiece	$40, 0, 1, 1, $2D, 0, 0, 0, 0
+	spritePiece	$48, -8, 1, 1, $25, 1, 0, 0, 0
+	spritePiece	$48, 0, 1, 1, $25, 0, 0, 0, 0
+	spritePiece	$50, 0, 1, 1, $25, 0, 1, 0, 0
+.sparkle3_End
+
+.sparkle4:	spriteHeader
+	spritePiece	$30, -4, 1, 1, $26, 1, 0, 0, 0
+	spritePiece	$28, 4, 1, 1, $25, 1, 0, 0, 0
+	spritePiece	$38, 4, 1, 1, $27, 0, 1, 0, 0
+	spritePiece	$40, 4, 1, 1, $26, 1, 0, 0, 0
+	spritePiece	$40, -4, 1, 1, $25, 0, 1, 0, 0
+	spritePiece	$48, -4, 1, 1, $26, 0, 1, 0, 0
+	spritePiece	$48, $C, 1, 1, $27, 1, 0, 0, 0
+	spritePiece	$50, 4, 1, 1, $26, 1, 1, 0, 0
+.blank	EQU	*+1
+	spritePiece	$58, 4, 1, 1, $27, 1, 0, 0, 0
+.sparkle4_End
+
+	even

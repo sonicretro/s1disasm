@@ -1,79 +1,126 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - bubbles (LZ)
 ; ---------------------------------------------------------------------------
-Map_Bub_internal:
-		dc.w .bubble1-Map_Bub_internal
-		dc.w .bubble2-Map_Bub_internal
-		dc.w .bubble3-Map_Bub_internal
-		dc.w .bubble4-Map_Bub_internal
-		dc.w .bubble5-Map_Bub_internal
-		dc.w .bubble6-Map_Bub_internal
-		dc.w .bubblefull-Map_Bub_internal
-		dc.w .burst1-Map_Bub_internal
-		dc.w .burst2-Map_Bub_internal
-		dc.w .zero_sm-Map_Bub_internal
-		dc.w .five_sm-Map_Bub_internal
-		dc.w .three_sm-Map_Bub_internal
-		dc.w .one_sm-Map_Bub_internal
-		dc.w .zero-Map_Bub_internal
-		dc.w .five-Map_Bub_internal
-		dc.w .four-Map_Bub_internal
-		dc.w .three-Map_Bub_internal
-		dc.w .two-Map_Bub_internal
-		dc.w .one-Map_Bub_internal
-		dc.w .bubmaker1-Map_Bub_internal
-		dc.w .bubmaker2-Map_Bub_internal
-		dc.w .bubmaker3-Map_Bub_internal
-		dc.w .blank-Map_Bub_internal
-.bubble1:	dc.b 1
-		dc.b $FC, 0, 0,	0, $FC	; bubbles, increasing in size
-.bubble2:	dc.b 1
-		dc.b $FC, 0, 0,	1, $FC
-.bubble3:	dc.b 1
-		dc.b $FC, 0, 0,	2, $FC
-.bubble4:	dc.b 1
-		dc.b $F8, 5, 0,	3, $F8
-.bubble5:	dc.b 1
-		dc.b $F8, 5, 0,	7, $F8
-.bubble6:	dc.b 1
-		dc.b $F4, $A, 0, $B, $F4
-.bubblefull:	dc.b 1
-		dc.b $F0, $F, 0, $14, $F0
-.burst1:	dc.b 4
-		dc.b $F0, 5, 0,	$24, $F0 ; large bubble bursting
-		dc.b $F0, 5, 8,	$24, 0
-		dc.b 0,	5, $10,	$24, $F0
-		dc.b 0,	5, $18,	$24, 0
-.burst2:	dc.b 4
-		dc.b $F0, 5, 0,	$28, $F0
-		dc.b $F0, 5, 8,	$28, 0
-		dc.b 0,	5, $10,	$28, $F0
-		dc.b 0,	5, $18,	$28, 0
-.zero_sm:	dc.b 1
-		dc.b $F4, 6, 0,	$2C, $F8 ; small, partially-formed countdown numbers
-.five_sm:	dc.b 1
-		dc.b $F4, 6, 0,	$32, $F8
-.three_sm:	dc.b 1
-		dc.b $F4, 6, 0,	$38, $F8
-.one_sm:	dc.b 1
-		dc.b $F4, 6, 0,	$3E, $F8
-.zero:		dc.b 1
-		dc.b $F4, 6, $20, $44, $F8 ; fully-formed countdown numbers
-.five:		dc.b 1
-		dc.b $F4, 6, $20, $4A, $F8
-.four:		dc.b 1
-		dc.b $F4, 6, $20, $50, $F8
-.three:		dc.b 1
-		dc.b $F4, 6, $20, $56, $F8
-.two:		dc.b 1
-		dc.b $F4, 6, $20, $5C, $F8
-.one:		dc.b 1
-		dc.b $F4, 6, $20, $62, $F8
-.bubmaker1:	dc.b 1
-		dc.b $F8, 5, 0,	$68, $F8
-.bubmaker2:	dc.b 1
-		dc.b $F8, 5, 0,	$6C, $F8
-.bubmaker3:	dc.b 1
-		dc.b $F8, 5, 0,	$70, $F8
-.blank:		dc.b 0
-		even
+Map_Bub_internal:	mappingsTable
+	mappingsTableEntry.w	.bubble1
+	mappingsTableEntry.w	.bubble2
+	mappingsTableEntry.w	.bubble3
+	mappingsTableEntry.w	.bubble4
+	mappingsTableEntry.w	.bubble5
+	mappingsTableEntry.w	.bubble6
+	mappingsTableEntry.w	.bubblefull
+	mappingsTableEntry.w	.burst1
+	mappingsTableEntry.w	.burst2
+	mappingsTableEntry.w	.zero_sm
+	mappingsTableEntry.w	.five_sm
+	mappingsTableEntry.w	.three_sm
+	mappingsTableEntry.w	.one_sm
+	mappingsTableEntry.w	.zero
+	mappingsTableEntry.w	.five
+	mappingsTableEntry.w	.four
+	mappingsTableEntry.w	.three
+	mappingsTableEntry.w	.two
+	mappingsTableEntry.w	.one
+	mappingsTableEntry.w	.bubmaker1
+	mappingsTableEntry.w	.bubmaker2
+	mappingsTableEntry.w	.bubmaker3
+	mappingsTableEntry.w	.blank
+
+.bubble1:	spriteHeader
+	spritePiece	-4, -4, 1, 1, 0, 0, 0, 0, 0	; bubbles, increasing in size
+.bubble1_End
+
+.bubble2:	spriteHeader
+	spritePiece	-4, -4, 1, 1, 1, 0, 0, 0, 0
+.bubble2_End
+
+.bubble3:	spriteHeader
+	spritePiece	-4, -4, 1, 1, 2, 0, 0, 0, 0
+.bubble3_End
+
+.bubble4:	spriteHeader
+	spritePiece	-8, -8, 2, 2, 3, 0, 0, 0, 0
+.bubble4_End
+
+.bubble5:	spriteHeader
+	spritePiece	-8, -8, 2, 2, 7, 0, 0, 0, 0
+.bubble5_End
+
+.bubble6:	spriteHeader
+	spritePiece	-$C, -$C, 3, 3, $B, 0, 0, 0, 0
+.bubble6_End
+
+.bubblefull:	spriteHeader
+	spritePiece	-$10, -$10, 4, 4, $14, 0, 0, 0, 0
+.bubblefull_End
+
+.burst1:	spriteHeader
+	spritePiece	-$10, -$10, 2, 2, $24, 0, 0, 0, 0 ; large bubble bursting
+	spritePiece	0, -$10, 2, 2, $24, 1, 0, 0, 0
+	spritePiece	-$10, 0, 2, 2, $24, 0, 1, 0, 0
+	spritePiece	0, 0, 2, 2, $24, 1, 1, 0, 0
+.burst1_End
+
+.burst2:	spriteHeader
+	spritePiece	-$10, -$10, 2, 2, $28, 0, 0, 0, 0
+	spritePiece	0, -$10, 2, 2, $28, 1, 0, 0, 0
+	spritePiece	-$10, 0, 2, 2, $28, 0, 1, 0, 0
+	spritePiece	0, 0, 2, 2, $28, 1, 1, 0, 0
+.burst2_End
+
+.zero_sm:	spriteHeader
+	spritePiece	-8, -$C, 2, 3, $2C, 0, 0, 0, 0 ; small, partially-formed countdown numbers
+.zero_sm_End
+
+.five_sm:	spriteHeader
+	spritePiece	-8, -$C, 2, 3, $32, 0, 0, 0, 0
+.five_sm_End
+
+.three_sm:	spriteHeader
+	spritePiece	-8, -$C, 2, 3, $38, 0, 0, 0, 0
+.three_sm_End
+
+.one_sm:	spriteHeader
+	spritePiece	-8, -$C, 2, 3, $3E, 0, 0, 0, 0
+.one_sm_End
+
+.zero:	spriteHeader
+	spritePiece	-8, -$C, 2, 3, $44, 0, 0, 1, 0 ; fully-formed countdown numbers
+.zero_End
+
+.five:	spriteHeader
+	spritePiece	-8, -$C, 2, 3, $4A, 0, 0, 1, 0
+.five_End
+
+.four:	spriteHeader
+	spritePiece	-8, -$C, 2, 3, $50, 0, 0, 1, 0
+.four_End
+
+.three:	spriteHeader
+	spritePiece	-8, -$C, 2, 3, $56, 0, 0, 1, 0
+.three_End
+
+.two:	spriteHeader
+	spritePiece	-8, -$C, 2, 3, $5C, 0, 0, 1, 0
+.two_End
+
+.one:	spriteHeader
+	spritePiece	-8, -$C, 2, 3, $62, 0, 0, 1, 0
+.one_End
+
+.bubmaker1:	spriteHeader
+	spritePiece	-8, -8, 2, 2, $68, 0, 0, 0, 0
+.bubmaker1_End
+
+.bubmaker2:	spriteHeader
+	spritePiece	-8, -8, 2, 2, $6C, 0, 0, 0, 0
+.bubmaker2_End
+
+.bubmaker3:	spriteHeader
+	spritePiece	-8, -8, 2, 2, $70, 0, 0, 0, 0
+.bubmaker3_End
+
+.blank:	spriteHeader
+.blank_End
+
+	even

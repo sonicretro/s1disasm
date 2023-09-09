@@ -1,85 +1,102 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Eggman (SBZ2)
 ; ---------------------------------------------------------------------------
-Map_SEgg_internal:
-		dc.w .stand-Map_SEgg_internal
-		dc.w .laugh1-Map_SEgg_internal
-		dc.w .laugh2-Map_SEgg_internal
-		dc.w .jump1-Map_SEgg_internal
-		dc.w .jump2-Map_SEgg_internal
-		dc.w .surprise-Map_SEgg_internal
-		dc.w .starjump-Map_SEgg_internal
-		dc.w .running1-Map_SEgg_internal
-		dc.w .running2-Map_SEgg_internal
-		dc.w .intube-Map_SEgg_internal
-		dc.w .cockpit-Map_SEgg_internal
-.stand:		dc.b 3
-		dc.b $FC, 0, 0,	$8F, $E8
-		dc.b $E8, $E, 0, 0, $F0
-		dc.b 0,	$F, 0, $6F, $F0
-.laugh1:	dc.b 4
-		dc.b $E8, $D, 0, $E, $F0
-		dc.b $E8, $E, 0, 0, $F0
-		dc.b 0,	$F, 0, $6F, $F0
-		dc.b $FC, 0, 0,	$8F, $E8
-		dc.b 0
-.laugh2:	dc.b 4
-		dc.b $E9, $D, 0, $E, $F0
-		dc.b $E9, $E, 0, 0, $F0
-		dc.b 1,	$F, 0, $7F, $F0
-		dc.b $FD, 0, 0,	$8F, $E8
-		dc.b 0
-.jump1:		dc.b 4
-		dc.b $F4, $F, 8, $20, $F0
-		dc.b $F5, 4, 8,	$30, $10
-		dc.b 8,	9, 8, $4E, $F0
-		dc.b $EC, $E, 0, 0, $F0
-		dc.b 0
-.jump2:		dc.b 4
-		dc.b $F0, $F, 8, $20, $F0
-		dc.b $F1, 4, 8,	$30, $10
-		dc.b 8,	6, 8, $3E, $F8
-		dc.b $E8, $E, 0, 0, $F0
-		dc.b 0
-.surprise:	dc.b 4
-		dc.b $E8, $D, 0, $16, $EC
-		dc.b $E8, 1, 0,	$1E, $C
-		dc.b $E8, $E, 0, 0, $F0
-		dc.b 0,	$F, 0, $6F, $F0
-		dc.b 0
-.starjump:	dc.b 7
-		dc.b $E8, $D, 0, $16, $EC
-		dc.b $E8, 1, 0,	$1E, $C
-		dc.b 4,	9, 8, $34, 0
-		dc.b 4,	5, 8, $3A, $E8
-		dc.b $F0, $F, 8, $20, $F0
-		dc.b $F1, 4, 8,	$54, $10
-		dc.b $F1, 4, 0,	$54, $E0
-.running1:	dc.b 5
-		dc.b $F0, $F, 8, $20, $F0
-		dc.b $F1, 4, 8,	$30, $10
-		dc.b 4,	9, 8, $34, 0
-		dc.b 4,	5, 8, $3A, $E8
-		dc.b $E8, $E, 0, 0, $F0
-.running2:	dc.b 6
-		dc.b $EE, $F, 8, $20, $F0
-		dc.b $EF, 4, 8,	$30, $10
-		dc.b 9,	5, 8, $44, 0
-		dc.b 3,	1, 8, $48, $F8
-		dc.b $B, 5, 8, $4A, $E8
-		dc.b $E6, $E, 0, 0, $F0
-		dc.b 0
-.intube:	dc.b 8
-		dc.b $E8, $D, 0, $16, $EC ; Eggman inside tube in Final Zone
-		dc.b $E8, 1, 0,	$1E, $C
-		dc.b $E8, $E, 0, 0, $F0
-		dc.b 0,	$F, 0, $6F, $F0
-		dc.b $E0, $D, $3E, $F0,	$F0
-		dc.b $F0, $D, $3E, $F0,	$F0
-		dc.b 0,	$D, $3E, $F0, $F0
-		dc.b $10, $D, $3E, $F0,	$F0
-.cockpit:	dc.b 3
-		dc.b $EC, $D, 0, $56, $E4 ; empty cockpit of Eggmobile in Final Zone
-		dc.b $F4, 8, 0,	$5E, 4
-		dc.b $EC, $D, 0, $61, $FC
-		even
+Map_SEgg_internal:	mappingsTable
+	mappingsTableEntry.w	.stand
+	mappingsTableEntry.w	.laugh1
+	mappingsTableEntry.w	.laugh2
+	mappingsTableEntry.w	.jump1
+	mappingsTableEntry.w	.jump2
+	mappingsTableEntry.w	.surprise
+	mappingsTableEntry.w	.starjump
+	mappingsTableEntry.w	.running1
+	mappingsTableEntry.w	.running2
+	mappingsTableEntry.w	.intube
+	mappingsTableEntry.w	.cockpit
+
+.stand:	spriteHeader
+	spritePiece	-$18, -4, 1, 1, $8F, 0, 0, 0, 0
+	spritePiece	-$10, -$18, 4, 3, 0, 0, 0, 0, 0
+	spritePiece	-$10, 0, 4, 4, $6F, 0, 0, 0, 0
+.stand_End
+
+.laugh1:	spriteHeader
+	spritePiece	-$10, -$18, 4, 2, $E, 0, 0, 0, 0
+	spritePiece	-$10, -$18, 4, 3, 0, 0, 0, 0, 0
+	spritePiece	-$10, 0, 4, 4, $6F, 0, 0, 0, 0
+	spritePiece	-$18, -4, 1, 1, $8F, 0, 0, 0, 0
+.laugh1_End
+	even
+.laugh2:	spriteHeader
+	spritePiece	-$10, -$17, 4, 2, $E, 0, 0, 0, 0
+	spritePiece	-$10, -$17, 4, 3, 0, 0, 0, 0, 0
+	spritePiece	-$10, 1, 4, 4, $7F, 0, 0, 0, 0
+	spritePiece	-$18, -3, 1, 1, $8F, 0, 0, 0, 0
+.laugh2_End
+	even
+.jump1:	spriteHeader
+	spritePiece	-$10, -$C, 4, 4, $20, 1, 0, 0, 0
+	spritePiece	$10, -$B, 2, 1, $30, 1, 0, 0, 0
+	spritePiece	-$10, 8, 3, 2, $4E, 1, 0, 0, 0
+	spritePiece	-$10, -$14, 4, 3, 0, 0, 0, 0, 0
+.jump1_End
+	even
+.jump2:	spriteHeader
+	spritePiece	-$10, -$10, 4, 4, $20, 1, 0, 0, 0
+	spritePiece	$10, -$F, 2, 1, $30, 1, 0, 0, 0
+	spritePiece	-8, 8, 2, 3, $3E, 1, 0, 0, 0
+	spritePiece	-$10, -$18, 4, 3, 0, 0, 0, 0, 0
+.jump2_End
+	even
+.surprise:	spriteHeader
+	spritePiece	-$14, -$18, 4, 2, $16, 0, 0, 0, 0
+	spritePiece	$C, -$18, 1, 2, $1E, 0, 0, 0, 0
+	spritePiece	-$10, -$18, 4, 3, 0, 0, 0, 0, 0
+	spritePiece	-$10, 0, 4, 4, $6F, 0, 0, 0, 0
+.surprise_End
+	even
+.starjump:	spriteHeader
+	spritePiece	-$14, -$18, 4, 2, $16, 0, 0, 0, 0
+	spritePiece	$C, -$18, 1, 2, $1E, 0, 0, 0, 0
+	spritePiece	0, 4, 3, 2, $34, 1, 0, 0, 0
+	spritePiece	-$18, 4, 2, 2, $3A, 1, 0, 0, 0
+	spritePiece	-$10, -$10, 4, 4, $20, 1, 0, 0, 0
+	spritePiece	$10, -$F, 2, 1, $54, 1, 0, 0, 0
+	spritePiece	-$20, -$F, 2, 1, $54, 0, 0, 0, 0
+.starjump_End
+
+.running1:	spriteHeader
+	spritePiece	-$10, -$10, 4, 4, $20, 1, 0, 0, 0
+	spritePiece	$10, -$F, 2, 1, $30, 1, 0, 0, 0
+	spritePiece	0, 4, 3, 2, $34, 1, 0, 0, 0
+	spritePiece	-$18, 4, 2, 2, $3A, 1, 0, 0, 0
+	spritePiece	-$10, -$18, 4, 3, 0, 0, 0, 0, 0
+.running1_End
+
+.running2:	spriteHeader
+	spritePiece	-$10, -$12, 4, 4, $20, 1, 0, 0, 0
+	spritePiece	$10, -$11, 2, 1, $30, 1, 0, 0, 0
+	spritePiece	0, 9, 2, 2, $44, 1, 0, 0, 0
+	spritePiece	-8, 3, 1, 2, $48, 1, 0, 0, 0
+	spritePiece	-$18, $B, 2, 2, $4A, 1, 0, 0, 0
+	spritePiece	-$10, -$1A, 4, 3, 0, 0, 0, 0, 0
+.running2_End
+	even
+.intube:	spriteHeader
+	spritePiece	-$14, -$18, 4, 2, $16, 0, 0, 0, 0 ; Eggman inside tube in Final Zone
+	spritePiece	$C, -$18, 1, 2, $1E, 0, 0, 0, 0
+	spritePiece	-$10, -$18, 4, 3, 0, 0, 0, 0, 0
+	spritePiece	-$10, 0, 4, 4, $6F, 0, 0, 0, 0
+	spritePiece	-$10, -$20, 4, 2, $6F0, 1, 1, 1, 0
+	spritePiece	-$10, -$10, 4, 2, $6F0, 1, 1, 1, 0
+	spritePiece	-$10, 0, 4, 2, $6F0, 1, 1, 1, 0
+	spritePiece	-$10, $10, 4, 2, $6F0, 1, 1, 1, 0
+.intube_End
+
+.cockpit:	spriteHeader
+	spritePiece	-$1C, -$14, 4, 2, $56, 0, 0, 0, 0 ; empty cockpit of Eggmobile in Final Zone
+	spritePiece	4, -$C, 3, 1, $5E, 0, 0, 0, 0
+	spritePiece	-4, -$14, 4, 2, $61, 0, 0, 0, 0
+.cockpit_End
+
+	even

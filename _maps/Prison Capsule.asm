@@ -1,37 +1,52 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - prison capsule
 ; ---------------------------------------------------------------------------
-Map_Pri_internal:
-		dc.w .capsule-Map_Pri_internal
-		dc.w .switch1-Map_Pri_internal
-		dc.w .broken-Map_Pri_internal
-		dc.w .switch2-Map_Pri_internal
-		dc.w .unusedthing1-Map_Pri_internal
-		dc.w .unusedthing2-Map_Pri_internal
-		dc.w .blank-Map_Pri_internal
-.capsule:	dc.b 7
-		dc.b $E0, $C, $20, 0, $F0
-		dc.b $E8, $D, $20, 4, $E0
-		dc.b $E8, $D, $20, $C, 0
-		dc.b $F8, $E, $20, $14,	$E0
-		dc.b $F8, $E, $20, $20,	0
-		dc.b $10, $D, $20, $2C,	$E0
-		dc.b $10, $D, $20, $34,	0
-.switch1:	dc.b 1
-		dc.b $F8, 9, 0,	$3C, $F4
-.broken:	dc.b 6
-		dc.b 0,	8, $20,	$42, $E0
-		dc.b 8,	$C, $20, $45, $E0
-		dc.b 0,	4, $20,	$49, $10
-		dc.b 8,	$C, $20, $4B, 0
-		dc.b $10, $D, $20, $2C,	$E0
-		dc.b $10, $D, $20, $34,	0
-.switch2:	dc.b 1
-		dc.b $F8, 9, 0,	$4F, $F4
-.unusedthing1:	dc.b 2
-		dc.b $E8, $E, $20, $55,	$F0
-		dc.b 0,	$E, $20, $61, $F0
-.unusedthing2:	dc.b 1
-		dc.b $F0, 7, $20, $6D, $F8
-.blank:		dc.b 0
-		even
+Map_Pri_internal:	mappingsTable
+	mappingsTableEntry.w	.capsule
+	mappingsTableEntry.w	.switch1
+	mappingsTableEntry.w	.broken
+	mappingsTableEntry.w	.switch2
+	mappingsTableEntry.w	.unusedthing1
+	mappingsTableEntry.w	.unusedthing2
+	mappingsTableEntry.w	.blank
+
+.capsule:	spriteHeader
+	spritePiece	-$10, -$20, 4, 1, 0, 0, 0, 1, 0
+	spritePiece	-$20, -$18, 4, 2, 4, 0, 0, 1, 0
+	spritePiece	0, -$18, 4, 2, $C, 0, 0, 1, 0
+	spritePiece	-$20, -8, 4, 3, $14, 0, 0, 1, 0
+	spritePiece	0, -8, 4, 3, $20, 0, 0, 1, 0
+	spritePiece	-$20, $10, 4, 2, $2C, 0, 0, 1, 0
+	spritePiece	0, $10, 4, 2, $34, 0, 0, 1, 0
+.capsule_End
+
+.switch1:	spriteHeader
+	spritePiece	-$C, -8, 3, 2, $3C, 0, 0, 0, 0
+.switch1_End
+
+.broken:	spriteHeader
+	spritePiece	-$20, 0, 3, 1, $42, 0, 0, 1, 0
+	spritePiece	-$20, 8, 4, 1, $45, 0, 0, 1, 0
+	spritePiece	$10, 0, 2, 1, $49, 0, 0, 1, 0
+	spritePiece	0, 8, 4, 1, $4B, 0, 0, 1, 0
+	spritePiece	-$20, $10, 4, 2, $2C, 0, 0, 1, 0
+	spritePiece	0, $10, 4, 2, $34, 0, 0, 1, 0
+.broken_End
+
+.switch2:	spriteHeader
+	spritePiece	-$C, -8, 3, 2, $4F, 0, 0, 0, 0
+.switch2_End
+
+.unusedthing1:	spriteHeader
+	spritePiece	-$10, -$18, 4, 3, $55, 0, 0, 1, 0
+	spritePiece	-$10, 0, 4, 3, $61, 0, 0, 1, 0
+.unusedthing1_End
+
+.unusedthing2:	spriteHeader
+	spritePiece	-8, -$10, 2, 4, $6D, 0, 0, 1, 0
+.unusedthing2_End
+
+.blank:	spriteHeader
+.blank_End
+
+	even

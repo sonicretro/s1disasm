@@ -1,43 +1,52 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - giant ring
 ; ---------------------------------------------------------------------------
-Map_GRing_internal:
-		dc.w byte_9FDA-Map_GRing_internal
-		dc.w byte_A00D-Map_GRing_internal
-		dc.w byte_A036-Map_GRing_internal
-		dc.w byte_A04B-Map_GRing_internal
-byte_9FDA:	dc.b $A
-		dc.b $E0, 8, 0,	0, $E8	; ring front
-		dc.b $E0, 8, 0,	3, 0
-		dc.b $E8, $C, 0, 6, $E0
-		dc.b $E8, $C, 0, $A, 0
-		dc.b $F0, 7, 0,	$E, $E0
-		dc.b $F0, 7, 0,	$16, $10
-		dc.b $10, $C, 0, $1E, $E0
-		dc.b $10, $C, 0, $22, 0
-		dc.b $18, 8, 0,	$26, $E8
-		dc.b $18, 8, 0,	$29, 0
-byte_A00D:	dc.b 8
-		dc.b $E0, $C, 0, $2C, $F0 ; ring angle
-		dc.b $E8, 8, 0,	$30, $E8
-		dc.b $E8, 9, 0,	$33, 0
-		dc.b $F0, 7, 0,	$39, $E8
-		dc.b $F8, 5, 0,	$41, 8
-		dc.b 8,	9, 0, $45, 0
-		dc.b $10, 8, 0,	$4B, $E8
-		dc.b $18, $C, 0, $4E, $F0
-byte_A036:	dc.b 4
-		dc.b $E0, 7, 0,	$52, $F4 ; ring perpendicular
-		dc.b $E0, 3, 8,	$52, 4
-		dc.b 0,	7, 0, $5A, $F4
-		dc.b 0,	3, 8, $5A, 4
-byte_A04B:	dc.b 8
-		dc.b $E0, $C, 8, $2C, $F0 ; ring angle
-		dc.b $E8, 8, 8,	$30, 0
-		dc.b $E8, 9, 8,	$33, $E8
-		dc.b $F0, 7, 8,	$39, 8
-		dc.b $F8, 5, 8,	$41, $E8
-		dc.b 8,	9, 8, $45, $E8
-		dc.b $10, 8, 8,	$4B, 0
-		dc.b $18, $C, 8, $4E, $F0
-		even
+Map_GRing_internal:	mappingsTable
+	mappingsTableEntry.w	byte_9FDA
+	mappingsTableEntry.w	byte_A00D
+	mappingsTableEntry.w	byte_A036
+	mappingsTableEntry.w	byte_A04B
+
+byte_9FDA:	spriteHeader
+	spritePiece	-$18, -$20, 3, 1, 0, 0, 0, 0, 0	; ring front
+	spritePiece	0, -$20, 3, 1, 3, 0, 0, 0, 0
+	spritePiece	-$20, -$18, 4, 1, 6, 0, 0, 0, 0
+	spritePiece	0, -$18, 4, 1, $A, 0, 0, 0, 0
+	spritePiece	-$20, -$10, 2, 4, $E, 0, 0, 0, 0
+	spritePiece	$10, -$10, 2, 4, $16, 0, 0, 0, 0
+	spritePiece	-$20, $10, 4, 1, $1E, 0, 0, 0, 0
+	spritePiece	0, $10, 4, 1, $22, 0, 0, 0, 0
+	spritePiece	-$18, $18, 3, 1, $26, 0, 0, 0, 0
+	spritePiece	0, $18, 3, 1, $29, 0, 0, 0, 0
+byte_9FDA_End
+
+byte_A00D:	spriteHeader
+	spritePiece	-$10, -$20, 4, 1, $2C, 0, 0, 0, 0 ; ring angle
+	spritePiece	-$18, -$18, 3, 1, $30, 0, 0, 0, 0
+	spritePiece	0, -$18, 3, 2, $33, 0, 0, 0, 0
+	spritePiece	-$18, -$10, 2, 4, $39, 0, 0, 0, 0
+	spritePiece	8, -8, 2, 2, $41, 0, 0, 0, 0
+	spritePiece	0, 8, 3, 2, $45, 0, 0, 0, 0
+	spritePiece	-$18, $10, 3, 1, $4B, 0, 0, 0, 0
+	spritePiece	-$10, $18, 4, 1, $4E, 0, 0, 0, 0
+byte_A00D_End
+
+byte_A036:	spriteHeader
+	spritePiece	-$C, -$20, 2, 4, $52, 0, 0, 0, 0 ; ring perpendicular
+	spritePiece	4, -$20, 1, 4, $52, 1, 0, 0, 0
+	spritePiece	-$C, 0, 2, 4, $5A, 0, 0, 0, 0
+	spritePiece	4, 0, 1, 4, $5A, 1, 0, 0, 0
+byte_A036_End
+
+byte_A04B:	spriteHeader
+	spritePiece	-$10, -$20, 4, 1, $2C, 1, 0, 0, 0 ; ring angle
+	spritePiece	0, -$18, 3, 1, $30, 1, 0, 0, 0
+	spritePiece	-$18, -$18, 3, 2, $33, 1, 0, 0, 0
+	spritePiece	8, -$10, 2, 4, $39, 1, 0, 0, 0
+	spritePiece	-$18, -8, 2, 2, $41, 1, 0, 0, 0
+	spritePiece	-$18, 8, 3, 2, $45, 1, 0, 0, 0
+	spritePiece	0, $10, 3, 1, $4B, 1, 0, 0, 0
+	spritePiece	-$10, $18, 4, 1, $4E, 1, 0, 0, 0
+byte_A04B_End
+
+	even

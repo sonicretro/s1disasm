@@ -1,25 +1,34 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Basaran enemy (MZ)
 ; ---------------------------------------------------------------------------
-Map_Bas_internal:
-		dc.w .still-Map_Bas_internal
-		dc.w .fly1-Map_Bas_internal
-		dc.w .fly2-Map_Bas_internal
-		dc.w .fly3-Map_Bas_internal
-.still:		dc.b 1
-		dc.b $F4, 6, 0,	0, $F8
-.fly1:		dc.b 3
-		dc.b $F2, $E, 0, 6, $F4
-		dc.b $A, 4, 0, $12, $FC
-		dc.b 2,	0, 0, $27, $C
-.fly2:		dc.b 4
-		dc.b $F8, 4, 0,	$14, $F8
-		dc.b 0,	$C, 0, $16, $F0
-		dc.b 8,	4, 0, $1A, 0
-		dc.b 0,	0, 0, $28, $C
-.fly3:		dc.b 4
-		dc.b $F6, 9, 0,	$1C, $F5
-		dc.b 6,	8, 0, $22, $F4
-		dc.b $E, 4, 0, $25, $F4
-		dc.b $FE, 0, 0,	$27, $C
-		even
+Map_Bas_internal:	mappingsTable
+	mappingsTableEntry.w	.still
+	mappingsTableEntry.w	.fly1
+	mappingsTableEntry.w	.fly2
+	mappingsTableEntry.w	.fly3
+
+.still:	spriteHeader
+	spritePiece	-8, -$C, 2, 3, 0, 0, 0, 0, 0
+.still_End
+
+.fly1:	spriteHeader
+	spritePiece	-$C, -$E, 4, 3, 6, 0, 0, 0, 0
+	spritePiece	-4, $A, 2, 1, $12, 0, 0, 0, 0
+	spritePiece	$C, 2, 1, 1, $27, 0, 0, 0, 0
+.fly1_End
+
+.fly2:	spriteHeader
+	spritePiece	-8, -8, 2, 1, $14, 0, 0, 0, 0
+	spritePiece	-$10, 0, 4, 1, $16, 0, 0, 0, 0
+	spritePiece	0, 8, 2, 1, $1A, 0, 0, 0, 0
+	spritePiece	$C, 0, 1, 1, $28, 0, 0, 0, 0
+.fly2_End
+
+.fly3:	spriteHeader
+	spritePiece	-$B, -$A, 3, 2, $1C, 0, 0, 0, 0
+	spritePiece	-$C, 6, 3, 1, $22, 0, 0, 0, 0
+	spritePiece	-$C, $E, 2, 1, $25, 0, 0, 0, 0
+	spritePiece	$C, -2, 1, 1, $27, 0, 0, 0, 0
+.fly3_End
+
+	even

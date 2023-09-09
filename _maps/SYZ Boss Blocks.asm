@@ -1,22 +1,32 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - blocks that	Robotnik picks up (SYZ)
 ; ---------------------------------------------------------------------------
-Map_BossBlock_internal:
-		dc.w .wholeblock-Map_BossBlock_internal
-		dc.w .topleft-Map_BossBlock_internal
-		dc.w .topright-Map_BossBlock_internal
-		dc.w .bottomleft-Map_BossBlock_internal
-		dc.w .bottomright-Map_BossBlock_internal
-.wholeblock:	dc.b 2
-		dc.b $F0, $D, 0, $71, $F0
-		dc.b 0,	$D, 0, $79, $F0
-		dc.b 0
-.topleft:	dc.b 1
-		dc.b $F8, 5, 0,	$71, $F8
-.topright:	dc.b 1
-		dc.b $F8, 5, 0,	$75, $F8
-.bottomleft:	dc.b 1
-		dc.b $F8, 5, 0,	$79, $F8
-.bottomright:	dc.b 1
-		dc.b $F8, 5, 0,	$7D, $F8
-		even
+Map_BossBlock_internal:	mappingsTable
+	mappingsTableEntry.w	.wholeblock
+	mappingsTableEntry.w	.topleft
+	mappingsTableEntry.w	.topright
+	mappingsTableEntry.w	.bottomleft
+	mappingsTableEntry.w	.bottomright
+
+.wholeblock:	spriteHeader
+	spritePiece	-$10, -$10, 4, 2, $71, 0, 0, 0, 0
+	spritePiece	-$10, 0, 4, 2, $79, 0, 0, 0, 0
+.wholeblock_End
+	even
+.topleft:	spriteHeader
+	spritePiece	-8, -8, 2, 2, $71, 0, 0, 0, 0
+.topleft_End
+
+.topright:	spriteHeader
+	spritePiece	-8, -8, 2, 2, $75, 0, 0, 0, 0
+.topright_End
+
+.bottomleft:	spriteHeader
+	spritePiece	-8, -8, 2, 2, $79, 0, 0, 0, 0
+.bottomleft_End
+
+.bottomright:	spriteHeader
+	spritePiece	-8, -8, 2, 2, $7D, 0, 0, 0, 0
+.bottomright_End
+
+	even

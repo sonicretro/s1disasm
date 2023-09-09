@@ -1,21 +1,30 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Jaws enemy (LZ)
 ; ---------------------------------------------------------------------------
-Map_Jaws_internal:
-		dc.w .open1-Map_Jaws_internal
-		dc.w .shut1-Map_Jaws_internal
-		dc.w .open2-Map_Jaws_internal
-		dc.w .shut2-Map_Jaws_internal
-.open1:		dc.b 2
-		dc.b $F4, $E, 0, 0, $F0	; mouth open
-		dc.b $F5, 5, 0,	$18, $10
-.shut1:		dc.b 2
-		dc.b $F4, $E, 0, $C, $F0 ; mouth shut
-		dc.b $F5, 5, 0,	$1C, $10
-.open2:		dc.b 2
-		dc.b $F4, $E, 0, 0, $F0
-		dc.b $F5, 5, $10, $18, $10
-.shut2:		dc.b 2
-		dc.b $F4, $E, 0, $C, $F0
-		dc.b $F5, 5, $10, $1C, $10
-		even
+Map_Jaws_internal:	mappingsTable
+	mappingsTableEntry.w	.open1
+	mappingsTableEntry.w	.shut1
+	mappingsTableEntry.w	.open2
+	mappingsTableEntry.w	.shut2
+
+.open1:	spriteHeader
+	spritePiece	-$10, -$C, 4, 3, 0, 0, 0, 0, 0	; mouth open
+	spritePiece	$10, -$B, 2, 2, $18, 0, 0, 0, 0
+.open1_End
+
+.shut1:	spriteHeader
+	spritePiece	-$10, -$C, 4, 3, $C, 0, 0, 0, 0 ; mouth shut
+	spritePiece	$10, -$B, 2, 2, $1C, 0, 0, 0, 0
+.shut1_End
+
+.open2:	spriteHeader
+	spritePiece	-$10, -$C, 4, 3, 0, 0, 0, 0, 0
+	spritePiece	$10, -$B, 2, 2, $18, 0, 1, 0, 0
+.open2_End
+
+.shut2:	spriteHeader
+	spritePiece	-$10, -$C, 4, 3, $C, 0, 0, 0, 0
+	spritePiece	$10, -$B, 2, 2, $1C, 0, 1, 0, 0
+.shut2_End
+
+	even

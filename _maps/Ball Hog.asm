@@ -1,27 +1,40 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Ball Hog enemy (SBZ)
 ; ---------------------------------------------------------------------------
-Map_Hog_internal:
-		dc.w M_Hog_Stand-Map_Hog_internal
-		dc.w M_Hog_Open-Map_Hog_internal
-		dc.w M_Hog_Squat-Map_Hog_internal
-		dc.w M_Hog_Leap-Map_Hog_internal
-		dc.w M_Hog_Ball1-Map_Hog_internal
-		dc.w M_Hog_Ball2-Map_Hog_internal
-M_Hog_Stand:	dc.b 2
-		dc.b $EF, 9, 0,	0, $F4
-		dc.b $FF, $A, 0, 6, $F4	; Ball hog standing
-M_Hog_Open:	dc.b 2
-		dc.b $EF, 9, 0,	0, $F4
-		dc.b $FF, $A, 0, $F, $F4 ; Ball hog with hatch open
-M_Hog_Squat:	dc.b 2
-		dc.b $F4, 9, 0,	0, $F4
-		dc.b 4,	9, 0, $18, $F4	; Ball hog squatting
-M_Hog_Leap:	dc.b 2
-		dc.b $E4, 9, 0,	0, $F4
-		dc.b $F4, $A, 0, $1E, $F4 ; Ball hog leaping
-M_Hog_Ball1:	dc.b 1
-		dc.b $F8, 5, 0,	$27, $F8 ; Ball (black)
-M_Hog_Ball2:	dc.b 1
-		dc.b $F8, 5, 0,	$2B, $F8 ; Ball (red)
-		even
+Map_Hog_internal:	mappingsTable
+	mappingsTableEntry.w	M_Hog_Stand
+	mappingsTableEntry.w	M_Hog_Open
+	mappingsTableEntry.w	M_Hog_Squat
+	mappingsTableEntry.w	M_Hog_Leap
+	mappingsTableEntry.w	M_Hog_Ball1
+	mappingsTableEntry.w	M_Hog_Ball2
+
+M_Hog_Stand:	spriteHeader
+	spritePiece	-$C, -$11, 3, 2, 0, 0, 0, 0, 0
+	spritePiece	-$C, -1, 3, 3, 6, 0, 0, 0, 0	; Ball hog standing
+M_Hog_Stand_End
+
+M_Hog_Open:	spriteHeader
+	spritePiece	-$C, -$11, 3, 2, 0, 0, 0, 0, 0
+	spritePiece	-$C, -1, 3, 3, $F, 0, 0, 0, 0	; Ball hog with hatch open
+M_Hog_Open_End
+
+M_Hog_Squat:	spriteHeader
+	spritePiece	-$C, -$C, 3, 2, 0, 0, 0, 0, 0
+	spritePiece	-$C, 4, 3, 2, $18, 0, 0, 0, 0	; Ball hog squatting
+M_Hog_Squat_End
+
+M_Hog_Leap:	spriteHeader
+	spritePiece	-$C, -$1C, 3, 2, 0, 0, 0, 0, 0
+	spritePiece	-$C, -$C, 3, 3, $1E, 0, 0, 0, 0	; Ball hog leaping
+M_Hog_Leap_End
+
+M_Hog_Ball1:	spriteHeader
+	spritePiece	-8, -8, 2, 2, $27, 0, 0, 0, 0 ; Ball (black)
+M_Hog_Ball1_End
+
+M_Hog_Ball2:	spriteHeader
+	spritePiece	-8, -8, 2, 2, $2B, 0, 0, 0, 0 ; Ball (red)
+M_Hog_Ball2_End
+
+	even

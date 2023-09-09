@@ -1,16 +1,19 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - metal pylons in foreground (SLZ)
 ; ---------------------------------------------------------------------------
-Map_Pylon_internal:
-		dc.w .pylon-Map_Pylon_internal
-.pylon:		dc.b 9
-		dc.b $80, $F, 0, 0, $F0
-		dc.b $A0, $F, $10, 0, $F0
-		dc.b $C0, $F, 0, 0, $F0
-		dc.b $E0, $F, $10, 0, $F0
-		dc.b 0,	$F, 0, 0, $F0
-		dc.b $20, $F, $10, 0, $F0
-		dc.b $40, $F, 0, 0, $F0
-		dc.b $60, $F, $10, 0, $F0
-		dc.b $7F, $F, 0, 0, $F0
-		even
+Map_Pylon_internal:	mappingsTable
+	mappingsTableEntry.w	.pylon
+
+.pylon:	spriteHeader
+	spritePiece	-$10, -$80, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$10, -$60, 4, 4, 0, 0, 1, 0, 0
+	spritePiece	-$10, -$40, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$10, -$20, 4, 4, 0, 0, 1, 0, 0
+	spritePiece	-$10, 0, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$10, $20, 4, 4, 0, 0, 1, 0, 0
+	spritePiece	-$10, $40, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$10, $60, 4, 4, 0, 0, 1, 0, 0
+	spritePiece	-$10, $7F, 4, 4, 0, 0, 0, 0, 0
+.pylon_End
+
+	even

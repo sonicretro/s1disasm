@@ -1,21 +1,26 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Eggman in broken eggmobile (FZ)
 ; ---------------------------------------------------------------------------
-Map_FZDamaged_internal:
-		dc.w .damage1-Map_FZDamaged_internal
-		dc.w .damage2-Map_FZDamaged_internal
-.damage1:	dc.b 6
-		dc.b $E4, 8, 0,	$20, $F4
-		dc.b $EC, $D, 0, $23, $E4
-		dc.b $EC, 9, 0,	$2B, 4
-		dc.b $FC, 5, $20, $3A, $E4
-		dc.b $FC, $E, $20, $3E,	4
-		dc.b $14, 4, $20, $4A, 4
-.damage2:	dc.b 6
-		dc.b $E4, $A, 0, $31, $F4
-		dc.b $EC, 5, 0,	$23, $E4
-		dc.b $EC, 9, 0,	$2B, 4
-		dc.b $FC, 5, $20, $3A, $E4
-		dc.b $FC, $E, $20, $3E,	4
-		dc.b $14, 4, $20, $4A, 4
-		even
+Map_FZDamaged_internal:	mappingsTable
+	mappingsTableEntry.w	.damage1
+	mappingsTableEntry.w	.damage2
+
+.damage1:	spriteHeader
+	spritePiece	-$C, -$1C, 3, 1, $20, 0, 0, 0, 0
+	spritePiece	-$1C, -$14, 4, 2, $23, 0, 0, 0, 0
+	spritePiece	4, -$14, 3, 2, $2B, 0, 0, 0, 0
+	spritePiece	-$1C, -4, 2, 2, $3A, 0, 0, 1, 0
+	spritePiece	4, -4, 4, 3, $3E, 0, 0, 1, 0
+	spritePiece	4, $14, 2, 1, $4A, 0, 0, 1, 0
+.damage1_End
+
+.damage2:	spriteHeader
+	spritePiece	-$C, -$1C, 3, 3, $31, 0, 0, 0, 0
+	spritePiece	-$1C, -$14, 2, 2, $23, 0, 0, 0, 0
+	spritePiece	4, -$14, 3, 2, $2B, 0, 0, 0, 0
+	spritePiece	-$1C, -4, 2, 2, $3A, 0, 0, 1, 0
+	spritePiece	4, -4, 4, 3, $3E, 0, 0, 1, 0
+	spritePiece	4, $14, 2, 1, $4A, 0, 0, 1, 0
+.damage2_End
+
+	even

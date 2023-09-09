@@ -1,37 +1,46 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - collapsing floors (MZ, SLZ,	SBZ)
 ; ---------------------------------------------------------------------------
-Map_CFlo_internal:
-		dc.w byte_874E-Map_CFlo_internal
-		dc.w byte_8763-Map_CFlo_internal
-		dc.w byte_878C-Map_CFlo_internal
-		dc.w byte_87A1-Map_CFlo_internal
-byte_874E:	dc.b 4
-		dc.b $F8, $D, 0, 0, $E0	; MZ and SBZ blocks
-		dc.b 8,	$D, 0, 0, $E0
-		dc.b $F8, $D, 0, 0, 0
-		dc.b 8,	$D, 0, 0, 0
-byte_8763:	dc.b 8
-		dc.b $F8, 5, 0,	0, $E0
-		dc.b $F8, 5, 0,	0, $F0
-		dc.b $F8, 5, 0,	0, 0
-		dc.b $F8, 5, 0,	0, $10
-		dc.b 8,	5, 0, 0, $E0
-		dc.b 8,	5, 0, 0, $F0
-		dc.b 8,	5, 0, 0, 0
-		dc.b 8,	5, 0, 0, $10
-byte_878C:	dc.b 4
-		dc.b $F8, $D, 0, 0, $E0	; SLZ blocks
-		dc.b 8,	$D, 0, 8, $E0
-		dc.b $F8, $D, 0, 0, 0
-		dc.b 8,	$D, 0, 8, 0
-byte_87A1:	dc.b 8
-		dc.b $F8, 5, 0,	0, $E0
-		dc.b $F8, 5, 0,	4, $F0
-		dc.b $F8, 5, 0,	0, 0
-		dc.b $F8, 5, 0,	4, $10
-		dc.b 8,	5, 0, 8, $E0
-		dc.b 8,	5, 0, $C, $F0
-		dc.b 8,	5, 0, 8, 0
-		dc.b 8,	5, 0, $C, $10
-		even
+Map_CFlo_internal:	mappingsTable
+	mappingsTableEntry.w	byte_874E
+	mappingsTableEntry.w	byte_8763
+	mappingsTableEntry.w	byte_878C
+	mappingsTableEntry.w	byte_87A1
+
+byte_874E:	spriteHeader
+	spritePiece	-$20, -8, 4, 2, 0, 0, 0, 0, 0	; MZ and SBZ blocks
+	spritePiece	-$20, 8, 4, 2, 0, 0, 0, 0, 0
+	spritePiece	0, -8, 4, 2, 0, 0, 0, 0, 0
+	spritePiece	0, 8, 4, 2, 0, 0, 0, 0, 0
+byte_874E_End
+
+byte_8763:	spriteHeader
+	spritePiece	-$20, -8, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	-$10, -8, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	0, -8, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	$10, -8, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	-$20, 8, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	-$10, 8, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	0, 8, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	$10, 8, 2, 2, 0, 0, 0, 0, 0
+byte_8763_End
+
+byte_878C:	spriteHeader
+	spritePiece	-$20, -8, 4, 2, 0, 0, 0, 0, 0	; SLZ blocks
+	spritePiece	-$20, 8, 4, 2, 8, 0, 0, 0, 0
+	spritePiece	0, -8, 4, 2, 0, 0, 0, 0, 0
+	spritePiece	0, 8, 4, 2, 8, 0, 0, 0, 0
+byte_878C_End
+
+byte_87A1:	spriteHeader
+	spritePiece	-$20, -8, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	-$10, -8, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	0, -8, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	$10, -8, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$20, 8, 2, 2, 8, 0, 0, 0, 0
+	spritePiece	-$10, 8, 2, 2, $C, 0, 0, 0, 0
+	spritePiece	0, 8, 2, 2, 8, 0, 0, 0, 0
+	spritePiece	$10, 8, 2, 2, $C, 0, 0, 0, 0
+byte_87A1_End
+
+	even

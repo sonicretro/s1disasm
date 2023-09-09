@@ -1,48 +1,63 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - shield and invincibility stars
 ; ---------------------------------------------------------------------------
-Map_Shield_internal:
-		dc.w .shield1-Map_Shield_internal
-		dc.w .shield2-Map_Shield_internal
-		dc.w .shield3-Map_Shield_internal
-		dc.w .shield4-Map_Shield_internal
-		dc.w .stars1-Map_Shield_internal
-		dc.w .stars2-Map_Shield_internal
-		dc.w .stars3-Map_Shield_internal
-		dc.w .stars4-Map_Shield_internal
-.shield2:	dc.b 4
-		dc.b $E8, $A, 0, 0, $E8
-		dc.b $E8, $A, 0, 9, 0
-.shield1:	dc.b 0,	$A, $10, 0, $E8
-		dc.b 0,	$A, $10, 9, 0
-.shield3:	dc.b 4
-		dc.b $E8, $A, 8, $12, $E9
-		dc.b $E8, $A, 0, $12, 0
-		dc.b 0,	$A, $18, $12, $E9
-		dc.b 0,	$A, $10, $12, 0
-.shield4:	dc.b 4
-		dc.b $E8, $A, 8, 9, $E8
-		dc.b $E8, $A, 8, 0, 0
-		dc.b 0,	$A, $18, 9, $E8
-		dc.b 0,	$A, $18, 0, 0
-.stars1:	dc.b 4
-		dc.b $E8, $A, 0, 0, $E8
-		dc.b $E8, $A, 0, 9, 0
-		dc.b 0,	$A, $18, 9, $E8
-		dc.b 0,	$A, $18, 0, 0
-.stars2:	dc.b 4
-		dc.b $E8, $A, 8, 9, $E8
-		dc.b $E8, $A, 8, 0, 0
-		dc.b 0,	$A, $10, 0, $E8
-		dc.b 0,	$A, $10, 9, 0
-.stars3:	dc.b 4
-		dc.b $E8, $A, 0, $12, $E8
-		dc.b $E8, $A, 0, $1B, 0
-		dc.b 0,	$A, $18, $1B, $E8
-		dc.b 0,	$A, $18, $12, 0
-.stars4:	dc.b 4
-		dc.b $E8, $A, 8, $1B, $E8
-		dc.b $E8, $A, 8, $12, 0
-		dc.b 0,	$A, $10, $12, $E8
-		dc.b 0,	$A, $10, $1B, 0
-		even
+Map_Shield_internal:	mappingsTable
+	mappingsTableEntry.w	.shield1
+	mappingsTableEntry.w	.shield2
+	mappingsTableEntry.w	.shield3
+	mappingsTableEntry.w	.shield4
+	mappingsTableEntry.w	.stars1
+	mappingsTableEntry.w	.stars2
+	mappingsTableEntry.w	.stars3
+	mappingsTableEntry.w	.stars4
+
+.shield2:	spriteHeader
+	spritePiece	-$18, -$18, 3, 3, 0, 0, 0, 0, 0
+	spritePiece	0, -$18, 3, 3, 9, 0, 0, 0, 0
+.shield1:spritePiece	-$18, 0, 3, 3, 0, 0, 1, 0, 0
+	spritePiece	0, 0, 3, 3, 9, 0, 1, 0, 0
+.shield2_End
+
+.shield3:	spriteHeader
+	spritePiece	-$17, -$18, 3, 3, $12, 1, 0, 0, 0
+	spritePiece	0, -$18, 3, 3, $12, 0, 0, 0, 0
+	spritePiece	-$17, 0, 3, 3, $12, 1, 1, 0, 0
+	spritePiece	0, 0, 3, 3, $12, 0, 1, 0, 0
+.shield3_End
+
+.shield4:	spriteHeader
+	spritePiece	-$18, -$18, 3, 3, 9, 1, 0, 0, 0
+	spritePiece	0, -$18, 3, 3, 0, 1, 0, 0, 0
+	spritePiece	-$18, 0, 3, 3, 9, 1, 1, 0, 0
+	spritePiece	0, 0, 3, 3, 0, 1, 1, 0, 0
+.shield4_End
+
+.stars1:	spriteHeader
+	spritePiece	-$18, -$18, 3, 3, 0, 0, 0, 0, 0
+	spritePiece	0, -$18, 3, 3, 9, 0, 0, 0, 0
+	spritePiece	-$18, 0, 3, 3, 9, 1, 1, 0, 0
+	spritePiece	0, 0, 3, 3, 0, 1, 1, 0, 0
+.stars1_End
+
+.stars2:	spriteHeader
+	spritePiece	-$18, -$18, 3, 3, 9, 1, 0, 0, 0
+	spritePiece	0, -$18, 3, 3, 0, 1, 0, 0, 0
+	spritePiece	-$18, 0, 3, 3, 0, 0, 1, 0, 0
+	spritePiece	0, 0, 3, 3, 9, 0, 1, 0, 0
+.stars2_End
+
+.stars3:	spriteHeader
+	spritePiece	-$18, -$18, 3, 3, $12, 0, 0, 0, 0
+	spritePiece	0, -$18, 3, 3, $1B, 0, 0, 0, 0
+	spritePiece	-$18, 0, 3, 3, $1B, 1, 1, 0, 0
+	spritePiece	0, 0, 3, 3, $12, 1, 1, 0, 0
+.stars3_End
+
+.stars4:	spriteHeader
+	spritePiece	-$18, -$18, 3, 3, $1B, 1, 0, 0, 0
+	spritePiece	0, -$18, 3, 3, $12, 1, 0, 0, 0
+	spritePiece	-$18, 0, 3, 3, $12, 0, 1, 0, 0
+	spritePiece	0, 0, 3, 3, $1B, 0, 1, 0, 0
+.stars4_End
+
+	even

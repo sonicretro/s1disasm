@@ -1,40 +1,47 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - large moving grass-covered platforms (MZ)
 ; ---------------------------------------------------------------------------
-Map_LGrass_internal:
-		dc.w .wide-Map_LGrass_internal
-		dc.w .sloped-Map_LGrass_internal
-		dc.w .narrow-Map_LGrass_internal
-.wide:		dc.b $D
-		dc.b $D8, 6, 0,	$57, $C0 ; wide platform
-		dc.b $F0, 5, 0,	$53, $C0
-		dc.b 0,	$F, 0, 1, $C0
-		dc.b $D0, $F, 0, $27, $D0
-		dc.b $F0, $D, 0, $37, $D0
-		dc.b $F0, $F, 0, 1, $E0
-		dc.b $D0, $F, 0, $11, $F0
-		dc.b $D0, $F, 0, $3F, $10
-		dc.b $F0, $D, 0, $4F, $10
-		dc.b $F0, $F, 0, 1, 0
-		dc.b 0,	$F, 0, 1, $20
-		dc.b $D8, 6, 0,	$57, $30
-		dc.b $F0, 5, 0,	$53, $30
-.sloped:	dc.b $A
-		dc.b $D0, $F, 0, $27, $C0 ; sloped platform (catches fire)
-		dc.b $F0, $D, 0, $37, $C0
-		dc.b 0,	$F, 0, 1, $C0
-		dc.b $C0, $F, 0, $27, $E0
-		dc.b $E0, $D, 0, $37, $E0
-		dc.b $F0, $F, 0, 1, $E0
-		dc.b $C0, $F, 0, $11, 0
-		dc.b $E0, $F, 0, 1, 0
-		dc.b $C0, $F, 0, $3F, $20
-		dc.b $E0, $D, 0, $4F, $20
-.narrow:	dc.b 6
-		dc.b $D0, $F, 0, $11, $E0 ; narrow platform
-		dc.b $F0, $F, 0, 1, $E0
-		dc.b $10, $F, 0, 1, $E0
-		dc.b $D0, $F, 0, $11, 0
-		dc.b $F0, $F, 0, 1, 0
-		dc.b $10, $F, 0, 1, 0
-		even
+Map_LGrass_internal:	mappingsTable
+	mappingsTableEntry.w	.wide
+	mappingsTableEntry.w	.sloped
+	mappingsTableEntry.w	.narrow
+
+.wide:	spriteHeader
+	spritePiece	-$40, -$28, 2, 3, $57, 0, 0, 0, 0 ; wide platform
+	spritePiece	-$40, -$10, 2, 2, $53, 0, 0, 0, 0
+	spritePiece	-$40, 0, 4, 4, 1, 0, 0, 0, 0
+	spritePiece	-$30, -$30, 4, 4, $27, 0, 0, 0, 0
+	spritePiece	-$30, -$10, 4, 2, $37, 0, 0, 0, 0
+	spritePiece	-$20, -$10, 4, 4, 1, 0, 0, 0, 0
+	spritePiece	-$10, -$30, 4, 4, $11, 0, 0, 0, 0
+	spritePiece	$10, -$30, 4, 4, $3F, 0, 0, 0, 0
+	spritePiece	$10, -$10, 4, 2, $4F, 0, 0, 0, 0
+	spritePiece	0, -$10, 4, 4, 1, 0, 0, 0, 0
+	spritePiece	$20, 0, 4, 4, 1, 0, 0, 0, 0
+	spritePiece	$30, -$28, 2, 3, $57, 0, 0, 0, 0
+	spritePiece	$30, -$10, 2, 2, $53, 0, 0, 0, 0
+.wide_End
+
+.sloped:	spriteHeader
+	spritePiece	-$40, -$30, 4, 4, $27, 0, 0, 0, 0 ; sloped platform (catches fire)
+	spritePiece	-$40, -$10, 4, 2, $37, 0, 0, 0, 0
+	spritePiece	-$40, 0, 4, 4, 1, 0, 0, 0, 0
+	spritePiece	-$20, -$40, 4, 4, $27, 0, 0, 0, 0
+	spritePiece	-$20, -$20, 4, 2, $37, 0, 0, 0, 0
+	spritePiece	-$20, -$10, 4, 4, 1, 0, 0, 0, 0
+	spritePiece	0, -$40, 4, 4, $11, 0, 0, 0, 0
+	spritePiece	0, -$20, 4, 4, 1, 0, 0, 0, 0
+	spritePiece	$20, -$40, 4, 4, $3F, 0, 0, 0, 0
+	spritePiece	$20, -$20, 4, 2, $4F, 0, 0, 0, 0
+.sloped_End
+
+.narrow:	spriteHeader
+	spritePiece	-$20, -$30, 4, 4, $11, 0, 0, 0, 0 ; narrow platform
+	spritePiece	-$20, -$10, 4, 4, 1, 0, 0, 0, 0
+	spritePiece	-$20, $10, 4, 4, 1, 0, 0, 0, 0
+	spritePiece	0, -$30, 4, 4, $11, 0, 0, 0, 0
+	spritePiece	0, -$10, 4, 4, 1, 0, 0, 0, 0
+	spritePiece	0, $10, 4, 4, 1, 0, 0, 0, 0
+.narrow_End
+
+	even

@@ -1,55 +1,68 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Buzz Bomber	enemy
 ; ---------------------------------------------------------------------------
-Map_Buzz_internal:
-		dc.w .Fly1-Map_Buzz_internal
-		dc.w .Fly2-Map_Buzz_internal
-		dc.w .Fly3-Map_Buzz_internal
-		dc.w .Fly4-Map_Buzz_internal
-		dc.w .Fire1-Map_Buzz_internal
-		dc.w .Fire2-Map_Buzz_internal
-.Fly1:		dc.b 6
-		dc.b $F4, 9, 0,	0, $E8	; flying
-		dc.b $F4, 9, 0,	$F, 0
-		dc.b 4,	8, 0, $15, $E8
-		dc.b 4,	4, 0, $18, 0
-		dc.b $F1, 8, 0,	$1A, $EC
-		dc.b $F1, 4, 0,	$1D, 4
-.Fly2:		dc.b 6
-		dc.b $F4, 9, 0,	0, $E8
-		dc.b $F4, 9, 0,	$F, 0
-		dc.b 4,	8, 0, $15, $E8
-		dc.b 4,	4, 0, $18, 0
-		dc.b $F4, 8, 0,	$1F, $EC
-		dc.b $F4, 4, 0,	$22, 4
-.Fly3:		dc.b 7
-		dc.b 4,	0, 0, $30, $C
-		dc.b $F4, 9, 0,	0, $E8
-		dc.b $F4, 9, 0,	$F, 0
-		dc.b 4,	8, 0, $15, $E8
-		dc.b 4,	4, 0, $18, 0
-		dc.b $F1, 8, 0,	$1A, $EC
-		dc.b $F1, 4, 0,	$1D, 4
-.Fly4:		dc.b 7
-		dc.b 4,	4, 0, $31, $C
-		dc.b $F4, 9, 0,	0, $E8
-		dc.b $F4, 9, 0,	$F, 0
-		dc.b 4,	8, 0, $15, $E8
-		dc.b 4,	4, 0, $18, 0
-		dc.b $F4, 8, 0,	$1F, $EC
-		dc.b $F4, 4, 0,	$22, 4
-.Fire1:		dc.b 6
-		dc.b $F4, $D, 0, 0, $EC	; stopping and firing
-		dc.b 4,	$C, 0, 8, $EC
-		dc.b 4,	0, 0, $C, $C
-		dc.b $C, 4, 0, $D, $F4
-		dc.b $F1, 8, 0,	$1A, $EC
-		dc.b $F1, 4, 0,	$1D, 4
-.Fire2:		dc.b 4
-		dc.b $F4, $D, 0, 0, $EC
-		dc.b 4,	$C, 0, 8, $EC
-		dc.b 4,	0, 0, $C, $C
-		dc.b $C, 4, 0, $D, $F4
-		dc.b $F4, 8, 0,	$1F, $EC
-		dc.b $F4, 4, 0,	$22, 4
-		even
+Map_Buzz_internal:	mappingsTable
+	mappingsTableEntry.w	.Fly1
+	mappingsTableEntry.w	.Fly2
+	mappingsTableEntry.w	.Fly3
+	mappingsTableEntry.w	.Fly4
+	mappingsTableEntry.w	.Fire1
+	mappingsTableEntry.w	.Fire2
+
+.Fly1:	spriteHeader
+	spritePiece	-$18, -$C, 3, 2, 0, 0, 0, 0, 0	; flying
+	spritePiece	0, -$C, 3, 2, $F, 0, 0, 0, 0
+	spritePiece	-$18, 4, 3, 1, $15, 0, 0, 0, 0
+	spritePiece	0, 4, 2, 1, $18, 0, 0, 0, 0
+	spritePiece	-$14, -$F, 3, 1, $1A, 0, 0, 0, 0
+	spritePiece	4, -$F, 2, 1, $1D, 0, 0, 0, 0
+.Fly1_End
+
+.Fly2:	spriteHeader
+	spritePiece	-$18, -$C, 3, 2, 0, 0, 0, 0, 0
+	spritePiece	0, -$C, 3, 2, $F, 0, 0, 0, 0
+	spritePiece	-$18, 4, 3, 1, $15, 0, 0, 0, 0
+	spritePiece	0, 4, 2, 1, $18, 0, 0, 0, 0
+	spritePiece	-$14, -$C, 3, 1, $1F, 0, 0, 0, 0
+	spritePiece	4, -$C, 2, 1, $22, 0, 0, 0, 0
+.Fly2_End
+
+.Fly3:	spriteHeader
+	spritePiece	$C, 4, 1, 1, $30, 0, 0, 0, 0
+	spritePiece	-$18, -$C, 3, 2, 0, 0, 0, 0, 0
+	spritePiece	0, -$C, 3, 2, $F, 0, 0, 0, 0
+	spritePiece	-$18, 4, 3, 1, $15, 0, 0, 0, 0
+	spritePiece	0, 4, 2, 1, $18, 0, 0, 0, 0
+	spritePiece	-$14, -$F, 3, 1, $1A, 0, 0, 0, 0
+	spritePiece	4, -$F, 2, 1, $1D, 0, 0, 0, 0
+.Fly3_End
+
+.Fly4:	spriteHeader
+	spritePiece	$C, 4, 2, 1, $31, 0, 0, 0, 0
+	spritePiece	-$18, -$C, 3, 2, 0, 0, 0, 0, 0
+	spritePiece	0, -$C, 3, 2, $F, 0, 0, 0, 0
+	spritePiece	-$18, 4, 3, 1, $15, 0, 0, 0, 0
+	spritePiece	0, 4, 2, 1, $18, 0, 0, 0, 0
+	spritePiece	-$14, -$C, 3, 1, $1F, 0, 0, 0, 0
+	spritePiece	4, -$C, 2, 1, $22, 0, 0, 0, 0
+.Fly4_End
+
+.Fire1:	spriteHeader
+	spritePiece	-$14, -$C, 4, 2, 0, 0, 0, 0, 0	; stopping and firing
+	spritePiece	-$14, 4, 4, 1, 8, 0, 0, 0, 0
+	spritePiece	$C, 4, 1, 1, $C, 0, 0, 0, 0
+	spritePiece	-$C, $C, 2, 1, $D, 0, 0, 0, 0
+	spritePiece	-$14, -$F, 3, 1, $1A, 0, 0, 0, 0
+	spritePiece	4, -$F, 2, 1, $1D, 0, 0, 0, 0
+.Fire1_End
+
+.Fire2:	spriteHeader
+	spritePiece	-$14, -$C, 4, 2, 0, 0, 0, 0, 0
+	spritePiece	-$14, 4, 4, 1, 8, 0, 0, 0, 0
+	spritePiece	$C, 4, 1, 1, $C, 0, 0, 0, 0
+	spritePiece	-$C, $C, 2, 1, $D, 0, 0, 0, 0
+.Fire2_End
+	spritePiece	-$14, -$C, 3, 1, $1F, 0, 0, 0, 0
+	spritePiece	4, -$C, 2, 1, $22, 0, 0, 0, 0
+
+	even

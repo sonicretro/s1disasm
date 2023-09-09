@@ -1,23 +1,30 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - invisible solid blocks
 ; ---------------------------------------------------------------------------
-Map_Invis_internal:
-		dc.w .solid-Map_Invis_internal
-		dc.w .unused1-Map_Invis_internal
-		dc.w .unused2-Map_Invis_internal
-.solid:		dc.b 4
-		dc.b $F0, 5, 0,	$18, $F0
-		dc.b $F0, 5, 0,	$18, 0
-		dc.b 0,	5, 0, $18, $F0
-		dc.b 0,	5, 0, $18, 0
-.unused1:	dc.b 4
-		dc.b $E0, 5, 0,	$18, $C0
-		dc.b $E0, 5, 0,	$18, $30
-		dc.b $10, 5, 0,	$18, $C0
-		dc.b $10, 5, 0,	$18, $30
-.unused2:	dc.b 4
-		dc.b $E0, 5, 0,	$18, $80
-		dc.b $E0, 5, 0,	$18, $70
-		dc.b $10, 5, 0,	$18, $80
-		dc.b $10, 5, 0,	$18, $70
-		even
+Map_Invis_internal:	mappingsTable
+	mappingsTableEntry.w	.solid
+	mappingsTableEntry.w	.unused1
+	mappingsTableEntry.w	.unused2
+
+.solid:	spriteHeader
+	spritePiece	-$10, -$10, 2, 2, $18, 0, 0, 0, 0
+	spritePiece	0, -$10, 2, 2, $18, 0, 0, 0, 0
+	spritePiece	-$10, 0, 2, 2, $18, 0, 0, 0, 0
+	spritePiece	0, 0, 2, 2, $18, 0, 0, 0, 0
+.solid_End
+
+.unused1:	spriteHeader
+	spritePiece	-$40, -$20, 2, 2, $18, 0, 0, 0, 0
+	spritePiece	$30, -$20, 2, 2, $18, 0, 0, 0, 0
+	spritePiece	-$40, $10, 2, 2, $18, 0, 0, 0, 0
+	spritePiece	$30, $10, 2, 2, $18, 0, 0, 0, 0
+.unused1_End
+
+.unused2:	spriteHeader
+	spritePiece	-$80, -$20, 2, 2, $18, 0, 0, 0, 0
+	spritePiece	$70, -$20, 2, 2, $18, 0, 0, 0, 0
+	spritePiece	-$80, $10, 2, 2, $18, 0, 0, 0, 0
+	spritePiece	$70, $10, 2, 2, $18, 0, 0, 0, 0
+.unused2_End
+
+	even

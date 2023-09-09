@@ -1,49 +1,56 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - "PRESS START BUTTON" and "TM" from title screen
 ; ---------------------------------------------------------------------------
-Map_PSB_internal:
-		dc.w byte_A7CD-Map_PSB_internal
-		dc.w M_PSB_PSB-Map_PSB_internal
-		dc.w M_PSB_Limiter-Map_PSB_internal
-		dc.w M_PSB_TM-Map_PSB_internal
-M_PSB_PSB:	dc.b 6			; "PRESS START BUTTON"
-byte_A7CD:	dc.b 0,	$C, 0, $F0, 0
-		dc.b 0,	0, 0, $F3, $20
-		dc.b 0,	0, 0, $F3, $30
-		dc.b 0,	$C, 0, $F4, $38
-		dc.b 0,	8, 0, $F8, $60
-		dc.b 0,	8, 0, $FB, $78
-M_PSB_Limiter:	dc.b $1E		; sprite line limiter
-		dc.b $B8, $F, 0, 0, $80
-		dc.b $B8, $F, 0, 0, $80
-		dc.b $B8, $F, 0, 0, $80
-		dc.b $B8, $F, 0, 0, $80
-		dc.b $B8, $F, 0, 0, $80
-		dc.b $B8, $F, 0, 0, $80
-		dc.b $B8, $F, 0, 0, $80
-		dc.b $B8, $F, 0, 0, $80
-		dc.b $B8, $F, 0, 0, $80
-		dc.b $B8, $F, 0, 0, $80
-		dc.b $D8, $F, 0, 0, $80
-		dc.b $D8, $F, 0, 0, $80
-		dc.b $D8, $F, 0, 0, $80
-		dc.b $D8, $F, 0, 0, $80
-		dc.b $D8, $F, 0, 0, $80
-		dc.b $D8, $F, 0, 0, $80
-		dc.b $D8, $F, 0, 0, $80
-		dc.b $D8, $F, 0, 0, $80
-		dc.b $D8, $F, 0, 0, $80
-		dc.b $D8, $F, 0, 0, $80
-		dc.b $F8, $F, 0, 0, $80
-		dc.b $F8, $F, 0, 0, $80
-		dc.b $F8, $F, 0, 0, $80
-		dc.b $F8, $F, 0, 0, $80
-		dc.b $F8, $F, 0, 0, $80
-		dc.b $F8, $F, 0, 0, $80
-		dc.b $F8, $F, 0, 0, $80
-		dc.b $F8, $F, 0, 0, $80
-		dc.b $F8, $F, 0, 0, $80
-		dc.b $F8, $F, 0, 0, $80
-M_PSB_TM:	dc.b 1			; "TM"
-		dc.b $FC, 4, 0,	0, $F8
-		even
+Map_PSB_internal:	mappingsTable
+	mappingsTableEntry.w	byte_A7CD
+	mappingsTableEntry.w	M_PSB_PSB
+	mappingsTableEntry.w	M_PSB_Limiter
+	mappingsTableEntry.w	M_PSB_TM
+
+M_PSB_PSB:	spriteHeader
+byte_A7CD:spritePiece	0, 0, 4, 1, $F0, 0, 0, 0, 0	; "PRESS START BUTTON"
+	spritePiece	$20, 0, 1, 1, $F3, 0, 0, 0, 0
+	spritePiece	$30, 0, 1, 1, $F3, 0, 0, 0, 0
+	spritePiece	$38, 0, 4, 1, $F4, 0, 0, 0, 0
+	spritePiece	$60, 0, 3, 1, $F8, 0, 0, 0, 0
+	spritePiece	$78, 0, 3, 1, $FB, 0, 0, 0, 0
+M_PSB_PSB_End
+
+M_PSB_Limiter:	spriteHeader
+	spritePiece	-$80, -$48, 4, 4, 0, 0, 0, 0, 0	; sprite line limiter
+	spritePiece	-$80, -$48, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$48, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$48, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$48, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$48, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$48, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$48, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$48, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$48, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$28, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$28, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$28, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$28, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$28, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$28, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$28, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$28, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$28, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -$28, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -8, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -8, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -8, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -8, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -8, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -8, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -8, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -8, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -8, 4, 4, 0, 0, 0, 0, 0
+	spritePiece	-$80, -8, 4, 4, 0, 0, 0, 0, 0
+M_PSB_Limiter_End
+
+M_PSB_TM:	spriteHeader
+	spritePiece	-8, -4, 2, 1, 0, 0, 0, 0, 0	; "TM"
+M_PSB_TM_End
+
+	even

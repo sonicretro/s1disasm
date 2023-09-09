@@ -1,57 +1,80 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - Newtron enemy (GHZ)
 ; ---------------------------------------------------------------------------
-Map_Newt_internal:
-		dc.w M_Newt_Trans-Map_Newt_internal
-		dc.w M_Newt_Norm-Map_Newt_internal
-		dc.w M_Newt_Fires-Map_Newt_internal
-		dc.w M_Newt_Drop1-Map_Newt_internal
-		dc.w M_Newt_Drop2-Map_Newt_internal
-		dc.w M_Newt_Drop3-Map_Newt_internal
-		dc.w M_Newt_Fly1a-Map_Newt_internal
-		dc.w M_Newt_Fly1b-Map_Newt_internal
-		dc.w M_Newt_Fly2a-Map_Newt_internal
-		dc.w M_Newt_Fly2b-Map_Newt_internal
-		dc.w M_Newt_Blank-Map_Newt_internal
-M_Newt_Trans:	dc.b 3
-		dc.b $EC, $D, 0, 0, $EC	; partially visible
-		dc.b $F4, 0, 0,	8, $C
-		dc.b $FC, $E, 0, 9, $F4
-M_Newt_Norm:	dc.b 3
-		dc.b $EC, 6, 0,	$15, $EC ; visible
-		dc.b $EC, 9, 0,	$1B, $FC
-		dc.b $FC, $A, 0, $21, $FC
-M_Newt_Fires:	dc.b 3
-		dc.b $EC, 6, 0,	$2A, $EC ; open mouth, firing
-		dc.b $EC, 9, 0,	$1B, $FC
-		dc.b $FC, $A, 0, $21, $FC
-M_Newt_Drop1:	dc.b 4
-		dc.b $EC, 6, 0,	$30, $EC ; dropping
-		dc.b $EC, 9, 0,	$1B, $FC
-		dc.b $FC, 9, 0,	$36, $FC
-		dc.b $C, 0, 0, $3C, $C
-M_Newt_Drop2:	dc.b 3
-		dc.b $F4, $D, 0, $3D, $EC
-		dc.b $FC, 0, 0,	$20, $C
-		dc.b 4,	8, 0, $45, $FC
-M_Newt_Drop3:	dc.b 2
-		dc.b $F8, $D, 0, $48, $EC
-		dc.b $F8, 1, 0,	$50, $C
-M_Newt_Fly1a:	dc.b 3
-		dc.b $F8, $D, 0, $48, $EC ; flying
-		dc.b $F8, 1, 0,	$50, $C
-		dc.b $FE, 0, 0,	$52, $14
-M_Newt_Fly1b:	dc.b 3
-		dc.b $F8, $D, 0, $48, $EC
-		dc.b $F8, 1, 0,	$50, $C
-		dc.b $FE, 4, 0,	$53, $14
-M_Newt_Fly2a:	dc.b 3
-		dc.b $F8, $D, 0, $48, $EC
-		dc.b $F8, 1, 0,	$50, $C
-		dc.b $FE, 0, $E0, $52, $14
-M_Newt_Fly2b:	dc.b 3
-		dc.b $F8, $D, 0, $48, $EC
-		dc.b $F8, 1, 0,	$50, $C
-		dc.b $FE, 4, $E0, $53, $14
-M_Newt_Blank:	dc.b 0
-		even
+Map_Newt_internal:	mappingsTable
+	mappingsTableEntry.w	M_Newt_Trans
+	mappingsTableEntry.w	M_Newt_Norm
+	mappingsTableEntry.w	M_Newt_Fires
+	mappingsTableEntry.w	M_Newt_Drop1
+	mappingsTableEntry.w	M_Newt_Drop2
+	mappingsTableEntry.w	M_Newt_Drop3
+	mappingsTableEntry.w	M_Newt_Fly1a
+	mappingsTableEntry.w	M_Newt_Fly1b
+	mappingsTableEntry.w	M_Newt_Fly2a
+	mappingsTableEntry.w	M_Newt_Fly2b
+	mappingsTableEntry.w	M_Newt_Blank
+
+M_Newt_Trans:	spriteHeader
+	spritePiece	-$14, -$14, 4, 2, 0, 0, 0, 0, 0	; partially visible
+	spritePiece	$C, -$C, 1, 1, 8, 0, 0, 0, 0
+	spritePiece	-$C, -4, 4, 3, 9, 0, 0, 0, 0
+M_Newt_Trans_End
+
+M_Newt_Norm:	spriteHeader
+	spritePiece	-$14, -$14, 2, 3, $15, 0, 0, 0, 0 ; visible
+	spritePiece	-4, -$14, 3, 2, $1B, 0, 0, 0, 0
+	spritePiece	-4, -4, 3, 3, $21, 0, 0, 0, 0
+M_Newt_Norm_End
+
+M_Newt_Fires:	spriteHeader
+	spritePiece	-$14, -$14, 2, 3, $2A, 0, 0, 0, 0 ; open mouth, firing
+	spritePiece	-4, -$14, 3, 2, $1B, 0, 0, 0, 0
+	spritePiece	-4, -4, 3, 3, $21, 0, 0, 0, 0
+M_Newt_Fires_End
+
+M_Newt_Drop1:	spriteHeader
+	spritePiece	-$14, -$14, 2, 3, $30, 0, 0, 0, 0 ; dropping
+	spritePiece	-4, -$14, 3, 2, $1B, 0, 0, 0, 0
+	spritePiece	-4, -4, 3, 2, $36, 0, 0, 0, 0
+	spritePiece	$C, $C, 1, 1, $3C, 0, 0, 0, 0
+M_Newt_Drop1_End
+
+M_Newt_Drop2:	spriteHeader
+	spritePiece	-$14, -$C, 4, 2, $3D, 0, 0, 0, 0
+	spritePiece	$C, -4, 1, 1, $20, 0, 0, 0, 0
+	spritePiece	-4, 4, 3, 1, $45, 0, 0, 0, 0
+M_Newt_Drop2_End
+
+M_Newt_Drop3:	spriteHeader
+	spritePiece	-$14, -8, 4, 2, $48, 0, 0, 0, 0
+	spritePiece	$C, -8, 1, 2, $50, 0, 0, 0, 0
+M_Newt_Drop3_End
+
+M_Newt_Fly1a:	spriteHeader
+	spritePiece	-$14, -8, 4, 2, $48, 0, 0, 0, 0 ; flying
+	spritePiece	$C, -8, 1, 2, $50, 0, 0, 0, 0
+	spritePiece	$14, -2, 1, 1, $52, 0, 0, 0, 0
+M_Newt_Fly1a_End
+
+M_Newt_Fly1b:	spriteHeader
+	spritePiece	-$14, -8, 4, 2, $48, 0, 0, 0, 0
+	spritePiece	$C, -8, 1, 2, $50, 0, 0, 0, 0
+	spritePiece	$14, -2, 2, 1, $53, 0, 0, 0, 0
+M_Newt_Fly1b_End
+
+M_Newt_Fly2a:	spriteHeader
+	spritePiece	-$14, -8, 4, 2, $48, 0, 0, 0, 0
+	spritePiece	$C, -8, 1, 2, $50, 0, 0, 0, 0
+	spritePiece	$14, -2, 1, 1, $52, 0, 0, 3, 1
+M_Newt_Fly2a_End
+
+M_Newt_Fly2b:	spriteHeader
+	spritePiece	-$14, -8, 4, 2, $48, 0, 0, 0, 0
+	spritePiece	$C, -8, 1, 2, $50, 0, 0, 0, 0
+	spritePiece	$14, -2, 2, 1, $53, 0, 0, 3, 1
+M_Newt_Fly2b_End
+
+M_Newt_Blank:	spriteHeader
+M_Newt_Blank_End
+
+	even

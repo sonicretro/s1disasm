@@ -1,38 +1,52 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - extra boss items (e.g. swinging ball on a chain in GHZ)
 ; ---------------------------------------------------------------------------
-Map_BossItems_internal:
-		dc.w .chainanchor1-Map_BossItems_internal
-		dc.w .chainanchor2-Map_BossItems_internal
-		dc.w .cross-Map_BossItems_internal
-		dc.w .widepipe-Map_BossItems_internal
-		dc.w .pipe-Map_BossItems_internal
-		dc.w .spike-Map_BossItems_internal
-		dc.w .legmask-Map_BossItems_internal
-		dc.w .legs-Map_BossItems_internal
-.chainanchor1:	dc.b 1
-		dc.b $F8, 5, 0,	0, $F8	; GHZ boss
-.chainanchor2:	dc.b 2
-		dc.b $FC, 4, 0,	4, $F8	; GHZ boss
-		dc.b $F8, 5, 0,	0, $F8
+Map_BossItems_internal:	mappingsTable
+	mappingsTableEntry.w	.chainanchor1
+	mappingsTableEntry.w	.chainanchor2
+	mappingsTableEntry.w	.cross
+	mappingsTableEntry.w	.widepipe
+	mappingsTableEntry.w	.pipe
+	mappingsTableEntry.w	.spike
+	mappingsTableEntry.w	.legmask
+	mappingsTableEntry.w	.legs
+
+.chainanchor1:	spriteHeader
+	spritePiece	-8, -8, 2, 2, 0, 0, 0, 0, 0	; GHZ boss
+.chainanchor1_End
+
+.chainanchor2:	spriteHeader
+	spritePiece	-8, -4, 2, 1, 4, 0, 0, 0, 0	; GHZ boss
+	spritePiece	-8, -8, 2, 2, 0, 0, 0, 0, 0
+.chainanchor2_End
 		even
-.cross:		dc.b 1
-		dc.b $FC, 0, 0,	6, $FC	; unknown
-.widepipe:	dc.b 1
-		dc.b $14, 9, 0,	7, $F4	; SLZ boss
-.pipe:		dc.b 1
-		dc.b $14, 5, 0,	$D, $F8	; MZ boss
-.spike:		dc.b 4
-		dc.b $F0, 4, 0,	$11, $F8 ; SYZ boss
-		dc.b $F8, 1, 0,	$13, $F8
-		dc.b $F8, 1, 8,	$13, 0
-		dc.b 8,	4, 0, $15, $F8
+.cross:	spriteHeader
+	spritePiece	-4, -4, 1, 1, 6, 0, 0, 0, 0	; unknown
+.cross_End
+
+.widepipe:	spriteHeader
+	spritePiece	-$C, $14, 3, 2, 7, 0, 0, 0, 0	; SLZ boss
+.widepipe_End
+
+.pipe:	spriteHeader
+	spritePiece	-8, $14, 2, 2, $D, 0, 0, 0, 0	; MZ boss
+.pipe_End
+
+.spike:	spriteHeader
+	spritePiece	-8, -$10, 2, 1, $11, 0, 0, 0, 0 ; SYZ boss
+	spritePiece	-8, -8, 1, 2, $13, 0, 0, 0, 0
+	spritePiece	0, -8, 1, 2, $13, 1, 0, 0, 0
+	spritePiece	-8, 8, 2, 1, $15, 0, 0, 0, 0
+.spike_End
 		even
-.legmask:	dc.b 2
-		dc.b 0,	5, 0, $17, 0	; FZ post-boss: sprite covering part of legs
-		dc.b 0,	0, 0, $1B, $10
+.legmask:	spriteHeader
+	spritePiece	0, 0, 2, 2, $17, 0, 0, 0, 0	; FZ post-boss: sprite covering part of legs
+	spritePiece	$10, 0, 1, 1, $1B, 0, 0, 0, 0
+.legmask_End
 		even
-.legs:		dc.b 2
-		dc.b $18, 4, 0,	$1C, 0	; FZ post-boss
-		dc.b 0,	$B, 0, $1E, $10
-		even
+.legs:	spriteHeader
+	spritePiece	0, $18, 2, 1, $1C, 0, 0, 0, 0	; FZ post-boss
+	spritePiece	$10, 0, 3, 4, $1E, 0, 0, 0, 0
+.legs_End
+
+	even

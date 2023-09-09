@@ -1,23 +1,36 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - fire balls (MZ, SLZ)
 ; ---------------------------------------------------------------------------
-Map_Fire_internal:
-		dc.w .vertical1-Map_Fire_internal
-		dc.w .vertical2-Map_Fire_internal
-		dc.w .vertcollide-Map_Fire_internal
-		dc.w .horizontal1-Map_Fire_internal
-		dc.w .horizontal2-Map_Fire_internal
-		dc.w .horicollide-Map_Fire_internal
-.vertical1:	dc.b 1
-		dc.b $E8, 7, 0,	0, $F8
-.vertical2:	dc.b 1
-		dc.b $E8, 7, 0,	8, $F8
-.vertcollide:	dc.b 1
-		dc.b $F0, 6, 0,	$10, $F8
-.horizontal1:	dc.b 1
-		dc.b $F8, $D, 0, $16, $E8
-.horizontal2:	dc.b 1
-		dc.b $F8, $D, 0, $1E, $E8
-.horicollide:	dc.b 1
-		dc.b $F8, 9, 0,	$26, $F0
-		even
+Map_Fire_internal:	mappingsTable
+	mappingsTableEntry.w	.vertical1
+	mappingsTableEntry.w	.vertical2
+	mappingsTableEntry.w	.vertcollide
+	mappingsTableEntry.w	.horizontal1
+	mappingsTableEntry.w	.horizontal2
+	mappingsTableEntry.w	.horicollide
+
+.vertical1:	spriteHeader
+	spritePiece	-8, -$18, 2, 4, 0, 0, 0, 0, 0
+.vertical1_End
+
+.vertical2:	spriteHeader
+	spritePiece	-8, -$18, 2, 4, 8, 0, 0, 0, 0
+.vertical2_End
+
+.vertcollide:	spriteHeader
+	spritePiece	-8, -$10, 2, 3, $10, 0, 0, 0, 0
+.vertcollide_End
+
+.horizontal1:	spriteHeader
+	spritePiece	-$18, -8, 4, 2, $16, 0, 0, 0, 0
+.horizontal1_End
+
+.horizontal2:	spriteHeader
+	spritePiece	-$18, -8, 4, 2, $1E, 0, 0, 0, 0
+.horizontal2_End
+
+.horicollide:	spriteHeader
+	spritePiece	-$10, -8, 3, 2, $26, 0, 0, 0, 0
+.horicollide_End
+
+	even

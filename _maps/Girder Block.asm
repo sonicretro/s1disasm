@@ -1,19 +1,22 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - large girder block (SBZ)
 ; ---------------------------------------------------------------------------
-Map_Gird_internal:
-		dc.w .girder-Map_Gird_internal
-.girder:	dc.b $C
-		dc.b $E8, $E, 0, 0, $A0
-		dc.b 0,	$E, $10, 0, $A0
-		dc.b $E8, $E, 0, 6, $C0
-		dc.b 0,	$E, $10, 6, $C0
-		dc.b $E8, $E, 0, 6, $E0
-		dc.b 0,	$E, $10, 6, $E0
-		dc.b $E8, $E, 0, 6, 0
-		dc.b 0,	$E, $10, 6, 0
-		dc.b $E8, $E, 0, 6, $20
-		dc.b 0,	$E, $10, 6, $20
-		dc.b $E8, $E, 0, 6, $40
-		dc.b 0,	$E, $10, 6, $40
-		even
+Map_Gird_internal:	mappingsTable
+	mappingsTableEntry.w	.girder
+
+.girder:	spriteHeader
+	spritePiece	-$60, -$18, 4, 3, 0, 0, 0, 0, 0
+	spritePiece	-$60, 0, 4, 3, 0, 0, 1, 0, 0
+	spritePiece	-$40, -$18, 4, 3, 6, 0, 0, 0, 0
+	spritePiece	-$40, 0, 4, 3, 6, 0, 1, 0, 0
+	spritePiece	-$20, -$18, 4, 3, 6, 0, 0, 0, 0
+	spritePiece	-$20, 0, 4, 3, 6, 0, 1, 0, 0
+	spritePiece	0, -$18, 4, 3, 6, 0, 0, 0, 0
+	spritePiece	0, 0, 4, 3, 6, 0, 1, 0, 0
+	spritePiece	$20, -$18, 4, 3, 6, 0, 0, 0, 0
+	spritePiece	$20, 0, 4, 3, 6, 0, 1, 0, 0
+	spritePiece	$40, -$18, 4, 3, 6, 0, 0, 0, 0
+	spritePiece	$40, 0, 4, 3, 6, 0, 1, 0, 0
+.girder_End
+
+	even

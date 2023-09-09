@@ -1,45 +1,68 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - energy balls (FZ)
 ; ---------------------------------------------------------------------------
-Map_Plasma_internal:
-		dc.w .fuzzy1-Map_Plasma_internal
-		dc.w .fuzzy2-Map_Plasma_internal
-		dc.w .white1-Map_Plasma_internal
-		dc.w .white2-Map_Plasma_internal
-		dc.w .white3-Map_Plasma_internal
-		dc.w .white4-Map_Plasma_internal
-		dc.w .fuzzy3-Map_Plasma_internal
-		dc.w .fuzzy4-Map_Plasma_internal
-		dc.w .fuzzy5-Map_Plasma_internal
-		dc.w .fuzzy6-Map_Plasma_internal
-		dc.w .blank-Map_Plasma_internal
-.fuzzy1:	dc.b 2
-		dc.b $F0, $D, 0, $7A, $F0
-		dc.b 0,	$D, $18, $7A, $F0
-.fuzzy2:	dc.b 2
-		dc.b $F4, 6, 0,	$82, $F4
-		dc.b $F4, 2, $18, $82, 4
-.white1:	dc.b 2
-		dc.b $F8, 4, 0,	$88, $F8
-		dc.b 0,	4, $10,	$88, $F8
-.white2:	dc.b 2
-		dc.b $F8, 4, 0,	$8A, $F8
-		dc.b 0,	4, $10,	$8A, $F8
-.white3:	dc.b 2
-		dc.b $F8, 4, 0,	$8C, $F8
-		dc.b 0,	4, $10,	$8C, $F8
-.white4:	dc.b 2
-		dc.b $F4, 6, 0,	$8E, $F4
-		dc.b $F4, 2, $18, $8E, 4
-.fuzzy3:	dc.b 1
-		dc.b $F8, 5, 0,	$94, $F8
-.fuzzy4:	dc.b 1
-		dc.b $F8, 5, 0,	$98, $F8
-.fuzzy5:	dc.b 2
-		dc.b $F0, $D, 8, $7A, $F0
-		dc.b 0,	$D, $10, $7A, $F0
-.fuzzy6:	dc.b 2
-		dc.b $F4, 6, $10, $82, $F4
-		dc.b $F4, 2, 8,	$82, 4
-.blank:		dc.b 0
-		even
+Map_Plasma_internal:	mappingsTable
+	mappingsTableEntry.w	.fuzzy1
+	mappingsTableEntry.w	.fuzzy2
+	mappingsTableEntry.w	.white1
+	mappingsTableEntry.w	.white2
+	mappingsTableEntry.w	.white3
+	mappingsTableEntry.w	.white4
+	mappingsTableEntry.w	.fuzzy3
+	mappingsTableEntry.w	.fuzzy4
+	mappingsTableEntry.w	.fuzzy5
+	mappingsTableEntry.w	.fuzzy6
+	mappingsTableEntry.w	.blank
+
+.fuzzy1:	spriteHeader
+	spritePiece	-$10, -$10, 4, 2, $7A, 0, 0, 0, 0
+	spritePiece	-$10, 0, 4, 2, $7A, 1, 1, 0, 0
+.fuzzy1_End
+
+.fuzzy2:	spriteHeader
+	spritePiece	-$C, -$C, 2, 3, $82, 0, 0, 0, 0
+	spritePiece	4, -$C, 1, 3, $82, 1, 1, 0, 0
+.fuzzy2_End
+
+.white1:	spriteHeader
+	spritePiece	-8, -8, 2, 1, $88, 0, 0, 0, 0
+	spritePiece	-8, 0, 2, 1, $88, 0, 1, 0, 0
+.white1_End
+
+.white2:	spriteHeader
+	spritePiece	-8, -8, 2, 1, $8A, 0, 0, 0, 0
+	spritePiece	-8, 0, 2, 1, $8A, 0, 1, 0, 0
+.white2_End
+
+.white3:	spriteHeader
+	spritePiece	-8, -8, 2, 1, $8C, 0, 0, 0, 0
+	spritePiece	-8, 0, 2, 1, $8C, 0, 1, 0, 0
+.white3_End
+
+.white4:	spriteHeader
+	spritePiece	-$C, -$C, 2, 3, $8E, 0, 0, 0, 0
+	spritePiece	4, -$C, 1, 3, $8E, 1, 1, 0, 0
+.white4_End
+
+.fuzzy3:	spriteHeader
+	spritePiece	-8, -8, 2, 2, $94, 0, 0, 0, 0
+.fuzzy3_End
+
+.fuzzy4:	spriteHeader
+	spritePiece	-8, -8, 2, 2, $98, 0, 0, 0, 0
+.fuzzy4_End
+
+.fuzzy5:	spriteHeader
+	spritePiece	-$10, -$10, 4, 2, $7A, 1, 0, 0, 0
+	spritePiece	-$10, 0, 4, 2, $7A, 0, 1, 0, 0
+.fuzzy5_End
+
+.fuzzy6:	spriteHeader
+	spritePiece	-$C, -$C, 2, 3, $82, 0, 1, 0, 0
+	spritePiece	4, -$C, 1, 3, $82, 1, 0, 0, 0
+.fuzzy6_End
+
+.blank:	spriteHeader
+.blank_End
+
+	even

@@ -1,17 +1,24 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - pinball bumper (SYZ)
 ; ---------------------------------------------------------------------------
-Map_Bump_internal:
-		dc.w .normal-Map_Bump_internal
-		dc.w .bumped1-Map_Bump_internal
-		dc.w .bumped2-Map_Bump_internal
-.normal:	dc.b 2
-		dc.b $F0, 7, 0,	0, $F0
-		dc.b $F0, 7, 8,	0, 0
-.bumped1:	dc.b 2
-		dc.b $F4, 6, 0,	8, $F4
-		dc.b $F4, 2, 8,	8, 4
-.bumped2:	dc.b 2
-		dc.b $F0, 7, 0,	$E, $F0
-		dc.b $F0, 7, 8,	$E, 0
-		even
+Map_Bump_internal:	mappingsTable
+	mappingsTableEntry.w	.normal
+	mappingsTableEntry.w	.bumped1
+	mappingsTableEntry.w	.bumped2
+
+.normal:	spriteHeader
+	spritePiece	-$10, -$10, 2, 4, 0, 0, 0, 0, 0
+	spritePiece	0, -$10, 2, 4, 0, 1, 0, 0, 0
+.normal_End
+
+.bumped1:	spriteHeader
+	spritePiece	-$C, -$C, 2, 3, 8, 0, 0, 0, 0
+	spritePiece	4, -$C, 1, 3, 8, 1, 0, 0, 0
+.bumped1_End
+
+.bumped2:	spriteHeader
+	spritePiece	-$10, -$10, 2, 4, $E, 0, 0, 0, 0
+	spritePiece	0, -$10, 2, 4, $E, 1, 0, 0, 0
+.bumped2_End
+
+	even

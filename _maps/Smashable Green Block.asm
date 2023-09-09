@@ -1,15 +1,20 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - smashable green block (MZ)
 ; ---------------------------------------------------------------------------
-Map_Smab_internal:
-		dc.w .two-Map_Smab_internal
-		dc.w .four-Map_Smab_internal
-.two:		dc.b 2
-		dc.b $F0, $D, 0, 0, $F0	; two fragments, arranged vertically
-		dc.b 0,	$D, 0, 0, $F0
-.four:		dc.b 4
-		dc.b $F0, 5, $80, 0, $F0 ; four fragments
-		dc.b 0,	5, $80,	0, $F0
-		dc.b $F0, 5, $80, 0, 0
-		dc.b 0,	5, $80,	0, 0
-		even
+Map_Smab_internal:	mappingsTable
+	mappingsTableEntry.w	.two
+	mappingsTableEntry.w	.four
+
+.two:	spriteHeader
+	spritePiece	-$10, -$10, 4, 2, 0, 0, 0, 0, 0	; two fragments, arranged vertically
+	spritePiece	-$10, 0, 4, 2, 0, 0, 0, 0, 0
+.two_End
+
+.four:	spriteHeader
+	spritePiece	-$10, -$10, 2, 2, 0, 0, 0, 0, 1 ; four fragments
+	spritePiece	-$10, 0, 2, 2, 0, 0, 0, 0, 1
+	spritePiece	0, -$10, 2, 2, 0, 0, 0, 0, 1
+	spritePiece	0, 0, 2, 2, 0, 0, 0, 0, 1
+.four_End
+
+	even

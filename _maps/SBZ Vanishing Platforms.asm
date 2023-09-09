@@ -1,16 +1,25 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - vanishing platforms	(SBZ)
 ; ---------------------------------------------------------------------------
-Map_VanP_internal:
-		dc.w .whole-Map_VanP_internal
-		dc.w .half-Map_VanP_internal
-		dc.w .quarter-Map_VanP_internal
-		dc.w .gone-Map_VanP_internal
-.whole:		dc.b 1
-		dc.b $F8, $F, 0, 0, $F0
-.half:		dc.b 1
-		dc.b $F8, 7, 0,	$10, $F8
-.quarter:	dc.b 1
-		dc.b $F8, 3, 0,	$18, $FC
-.gone:		dc.b 0
-		even
+Map_VanP_internal:	mappingsTable
+	mappingsTableEntry.w	.whole
+	mappingsTableEntry.w	.half
+	mappingsTableEntry.w	.quarter
+	mappingsTableEntry.w	.gone
+
+.whole:	spriteHeader
+	spritePiece	-$10, -8, 4, 4, 0, 0, 0, 0, 0
+.whole_End
+
+.half:	spriteHeader
+	spritePiece	-8, -8, 2, 4, $10, 0, 0, 0, 0
+.half_End
+
+.quarter:	spriteHeader
+	spritePiece	-4, -8, 1, 4, $18, 0, 0, 0, 0
+.quarter_End
+
+.gone:	spriteHeader
+.gone_End
+
+	even

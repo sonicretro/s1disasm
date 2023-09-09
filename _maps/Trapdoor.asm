@@ -1,27 +1,34 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - trapdoor (SBZ)
 ; ---------------------------------------------------------------------------
-Map_Trap_internal:
-		dc.w .closed-Map_Trap_internal
-		dc.w .half-Map_Trap_internal
-		dc.w .open-Map_Trap_internal
-.closed:	dc.b 4
-		dc.b $F4, $E, 0, 0, $C0
-		dc.b $F4, $E, 8, 0, $E0
-		dc.b $F4, $E, 0, 0, 0
-		dc.b $F4, $E, 8, 0, $20
-.half:		dc.b 8
-		dc.b $F2, $F, 0, $C, $B6
-		dc.b $1A, $F, $18, $C, $D6
-		dc.b 2,	$A, 0, $1C, $D6
-		dc.b $12, $A, $18, $1C,	$BE
-		dc.b $F2, $F, 8, $C, $2A
-		dc.b $1A, $F, $10, $C, $A
-		dc.b 2,	$A, 8, $1C, $12
-		dc.b $12, $A, $10, $1C,	$2A
-.open:		dc.b 4
-		dc.b 0,	$B, 0, $25, $B4
-		dc.b $20, $B, $10, $25,	$B4
-		dc.b 0,	$B, 0, $25, $34
-		dc.b $20, $B, $10, $25,	$34
-		even
+Map_Trap_internal:	mappingsTable
+	mappingsTableEntry.w	.closed
+	mappingsTableEntry.w	.half
+	mappingsTableEntry.w	.open
+
+.closed:	spriteHeader
+	spritePiece	-$40, -$C, 4, 3, 0, 0, 0, 0, 0
+	spritePiece	-$20, -$C, 4, 3, 0, 1, 0, 0, 0
+	spritePiece	0, -$C, 4, 3, 0, 0, 0, 0, 0
+	spritePiece	$20, -$C, 4, 3, 0, 1, 0, 0, 0
+.closed_End
+
+.half:	spriteHeader
+	spritePiece	-$4A, -$E, 4, 4, $C, 0, 0, 0, 0
+	spritePiece	-$2A, $1A, 4, 4, $C, 1, 1, 0, 0
+	spritePiece	-$2A, 2, 3, 3, $1C, 0, 0, 0, 0
+	spritePiece	-$42, $12, 3, 3, $1C, 1, 1, 0, 0
+	spritePiece	$2A, -$E, 4, 4, $C, 1, 0, 0, 0
+	spritePiece	$A, $1A, 4, 4, $C, 0, 1, 0, 0
+	spritePiece	$12, 2, 3, 3, $1C, 1, 0, 0, 0
+	spritePiece	$2A, $12, 3, 3, $1C, 0, 1, 0, 0
+.half_End
+
+.open:	spriteHeader
+	spritePiece	-$4C, 0, 3, 4, $25, 0, 0, 0, 0
+	spritePiece	-$4C, $20, 3, 4, $25, 0, 1, 0, 0
+	spritePiece	$34, 0, 3, 4, $25, 0, 0, 0, 0
+	spritePiece	$34, $20, 3, 4, $25, 0, 1, 0, 0
+.open_End
+
+	even

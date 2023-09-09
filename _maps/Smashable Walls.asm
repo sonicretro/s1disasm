@@ -1,35 +1,42 @@
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - smashable walls (GHZ, SLZ)
 ; ---------------------------------------------------------------------------
-Map_Smash_internal:
-		dc.w .left-Map_Smash_internal
-		dc.w .middle-Map_Smash_internal
-		dc.w .right-Map_Smash_internal
-.left:		dc.b 8
-		dc.b $E0, 5, 0,	0, $F0
-		dc.b $F0, 5, 0,	0, $F0
-		dc.b 0,	5, 0, 0, $F0
-		dc.b $10, 5, 0,	0, $F0
-		dc.b $E0, 5, 0,	4, 0
-		dc.b $F0, 5, 0,	4, 0
-		dc.b 0,	5, 0, 4, 0
-		dc.b $10, 5, 0,	4, 0
-.middle:	dc.b 8
-		dc.b $E0, 5, 0,	4, $F0
-		dc.b $F0, 5, 0,	4, $F0
-		dc.b 0,	5, 0, 4, $F0
-		dc.b $10, 5, 0,	4, $F0
-		dc.b $E0, 5, 0,	4, 0
-		dc.b $F0, 5, 0,	4, 0
-		dc.b 0,	5, 0, 4, 0
-		dc.b $10, 5, 0,	4, 0
-.right:		dc.b 8
-		dc.b $E0, 5, 0,	4, $F0
-		dc.b $F0, 5, 0,	4, $F0
-		dc.b 0,	5, 0, 4, $F0
-		dc.b $10, 5, 0,	4, $F0
-		dc.b $E0, 5, 0,	8, 0
-		dc.b $F0, 5, 0,	8, 0
-		dc.b 0,	5, 0, 8, 0
-		dc.b $10, 5, 0,	8, 0
-		even
+Map_Smash_internal:	mappingsTable
+	mappingsTableEntry.w	.left
+	mappingsTableEntry.w	.middle
+	mappingsTableEntry.w	.right
+
+.left:	spriteHeader
+	spritePiece	-$10, -$20, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	-$10, -$10, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	-$10, 0, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	-$10, $10, 2, 2, 0, 0, 0, 0, 0
+	spritePiece	0, -$20, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	0, -$10, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	0, 0, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	0, $10, 2, 2, 4, 0, 0, 0, 0
+.left_End
+
+.middle:	spriteHeader
+	spritePiece	-$10, -$20, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$10, -$10, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$10, 0, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$10, $10, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	0, -$20, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	0, -$10, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	0, 0, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	0, $10, 2, 2, 4, 0, 0, 0, 0
+.middle_End
+
+.right:	spriteHeader
+	spritePiece	-$10, -$20, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$10, -$10, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$10, 0, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	-$10, $10, 2, 2, 4, 0, 0, 0, 0
+	spritePiece	0, -$20, 2, 2, 8, 0, 0, 0, 0
+	spritePiece	0, -$10, 2, 2, 8, 0, 0, 0, 0
+	spritePiece	0, 0, 2, 2, 8, 0, 0, 0, 0
+	spritePiece	0, $10, 2, 2, 8, 0, 0, 0, 0
+.right_End
+
+	even
