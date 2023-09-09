@@ -2,15 +2,15 @@
 <ObjDef xmlns="http://www.sonicretro.org" Name="Hidden Point Bonus" Image="img100" DefaultSubtype="03">
   <Images>
     <ImageFromMappings id="img10000">
-      <ArtFile filename="../artnem/Hidden Bonuses.bin" />
+      <ArtFile filename="../artnem/Hidden Bonuses.nem" />
       <MapFile type="ASM" filename="../_maps/Hidden Bonuses.asm" frame="1" startpal="0" />
     </ImageFromMappings>
     <ImageFromMappings id="img1000">
-      <ArtFile filename="../artnem/Hidden Bonuses.bin" />
+      <ArtFile filename="../artnem/Hidden Bonuses.nem" />
       <MapFile type="ASM" filename="../_maps/Hidden Bonuses.asm" frame="2" startpal="0" />
     </ImageFromMappings>
     <ImageFromMappings id="img100">
-      <ArtFile filename="../artnem/Hidden Bonuses.bin" />
+      <ArtFile filename="../artnem/Hidden Bonuses.nem" />
       <MapFile type="ASM" filename="../_maps/Hidden Bonuses.asm" frame="3" startpal="0" />
     </ImageFromMappings>
   </Images>

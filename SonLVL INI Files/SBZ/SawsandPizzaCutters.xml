@@ -2,11 +2,11 @@
 <ObjDef xmlns="http://www.sonicretro.org" Name="Saws and Pizza Cutters" Image="frame0">
   <Images>
     <ImageFromMappings id="frame0">
-      <ArtFile filename="../artnem/SBZ Pizza Cutter.bin"/>
+      <ArtFile filename="../artnem/SBZ Pizza Cutter.nem"/>
       <MapFile type="ASM" filename="../_maps/Saws and Pizza Cutters.asm" frame="0" startpal="2"/>
     </ImageFromMappings>
     <ImageFromMappings id="frame1">
-      <ArtFile filename="../artnem/SBZ Pizza Cutter.bin"/>
+      <ArtFile filename="../artnem/SBZ Pizza Cutter.nem"/>
       <MapFile type="ASM" filename="../_maps/Saws and Pizza Cutters.asm" frame="2" startpal="2"/>
     </ImageFromMappings>
   </Images>

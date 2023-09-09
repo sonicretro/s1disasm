@@ -2,15 +2,15 @@
 <ObjDef xmlns="http://www.sonicretro.org" Name="Invisible lava marker" Image="img1" Debug="true">
   <Images>
     <ImageFromMappings id="img1">
-      <ArtFile filename="../artnem/Monitors.bin" />
+      <ArtFile filename="../artnem/Monitors.nem" />
       <MapFile type="Binary" filename="Common/Invisible lava marker map.bin" frame="0" startpal="0" />
     </ImageFromMappings>
     <ImageFromMappings id="img2">
-      <ArtFile filename="../artnem/Monitors.bin" />
+      <ArtFile filename="../artnem/Monitors.nem" />
       <MapFile type="Binary" filename="Common/Invisible lava marker map.bin" frame="1" startpal="0" />
     </ImageFromMappings>
     <ImageFromMappings id="img3">
-      <ArtFile filename="../artnem/Monitors.bin" />
+      <ArtFile filename="../artnem/Monitors.nem" />
       <MapFile type="Binary" filename="Common/Invisible lava marker map.bin" frame="2" startpal="0" />
     </ImageFromMappings>
   </Images>

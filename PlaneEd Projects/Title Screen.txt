@@ -1,6 +1,6 @@
 Palette File: ../palette/Title Screen.bin
-Mapping File: ../tilemaps/Title Screen.bin
-Art File: ../artnem/Title Screen Foreground.bin
+Mapping File: ../tilemaps/Title Screen.eni
+Art File: ../artnem/Title Screen Foreground.nem
 Mapping Compression: Enigma
 Art Compression: Nemesis
 x-Size: 0x22

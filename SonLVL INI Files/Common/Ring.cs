@@ -32,7 +32,7 @@ namespace S1ObjectDefinitions.Common
 
 		public override void Init(ObjectData data)
 		{
-			byte[] artfile = ObjectHelper.OpenArtFile("../artnem/Rings.bin", CompressionType.Nemesis);
+			byte[] artfile = ObjectHelper.OpenArtFile("../artnem/Rings.nem", CompressionType.Nemesis);
 			img = ObjectHelper.MapASMToBmp(artfile, data.CustomProperties.GetValueOrDefault("revision", "0") == "1" ? "../_maps/Rings (JP1).asm" : "../_maps/Rings.asm", 0, 1);
 		}
 

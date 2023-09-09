@@ -2,7 +2,7 @@
 <ObjDef xmlns="http://www.sonicretro.org" Name="Switch" Image="switch">
   <Images>
     <ImageFromMappings id="switch">
-      <ArtFile filename="../artnem/MZ Switch.bin"/>
+      <ArtFile filename="../artnem/MZ Switch.nem"/>
       <MapFile type="ASM" filename="../_maps/Button.asm" frame="0" startpal="2"/>
     </ImageFromMappings>
   </Images>

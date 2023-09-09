@@ -13,7 +13,7 @@ namespace S1ObjectDefinitions.GHZ
 
 		public override void Init(ObjectData data)
 		{
-			byte[] artfile = ObjectHelper.OpenArtFile("../artnem/GHZ Spiked Log.bin", CompressionType.Nemesis);
+			byte[] artfile = ObjectHelper.OpenArtFile("../artnem/GHZ Spiked Log.nem", CompressionType.Nemesis);
 			for (int i = 0; i < 8; i++)
 			{
 				imgs.Add(ObjectHelper.MapASMToBmp(artfile, "../_maps/Spiked Pole Helix.asm", i, 2));

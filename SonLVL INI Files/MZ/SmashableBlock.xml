@@ -2,7 +2,7 @@
 <ObjDef xmlns="http://www.sonicretro.org" Name="Smashable Block" Image="img1">
   <Images>
     <ImageFromMappings id="img1">
-      <ArtFile filename="../artnem/MZ Green Pushable Block.bin"/>
+      <ArtFile filename="../artnem/MZ Green Pushable Block.nem"/>
       <MapFile type="ASM" filename="../_maps/Smashable Green Block.asm" frame="0" startpal="2"/>
     </ImageFromMappings>
   </Images>

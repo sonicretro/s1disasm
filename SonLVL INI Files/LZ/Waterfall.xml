@@ -2,47 +2,47 @@
 <ObjDef xmlns="http://www.sonicretro.org" Name="Waterfall" Image="img10">
   <Images>
     <ImageFromMappings id="img1">
-      <ArtFile filename="../artnem/LZ Water &amp; Splashes.bin"/>
+      <ArtFile filename="../artnem/LZ Water &amp; Splashes.nem"/>
       <MapFile type="ASM" filename="../_maps/Waterfalls.asm" frame="0" startpal="2"/>
     </ImageFromMappings>
     <ImageFromMappings id="img2">
-      <ArtFile filename="../artnem/LZ Water &amp; Splashes.bin"/>
+      <ArtFile filename="../artnem/LZ Water &amp; Splashes.nem"/>
       <MapFile type="ASM" filename="../_maps/Waterfalls.asm" frame="1" startpal="2"/>
     </ImageFromMappings>
     <ImageFromMappings id="img3">
-      <ArtFile filename="../artnem/LZ Water &amp; Splashes.bin"/>
+      <ArtFile filename="../artnem/LZ Water &amp; Splashes.nem"/>
       <MapFile type="ASM" filename="../_maps/Waterfalls.asm" frame="2" startpal="2"/>
     </ImageFromMappings>
     <ImageFromMappings id="img4">
-      <ArtFile filename="../artnem/LZ Water &amp; Splashes.bin"/>
+      <ArtFile filename="../artnem/LZ Water &amp; Splashes.nem"/>
       <MapFile type="ASM" filename="../_maps/Waterfalls.asm" frame="3" startpal="2"/>
     </ImageFromMappings>
     <ImageFromMappings id="img5">
-      <ArtFile filename="../artnem/LZ Water &amp; Splashes.bin"/>
+      <ArtFile filename="../artnem/LZ Water &amp; Splashes.nem"/>
       <MapFile type="ASM" filename="../_maps/Waterfalls.asm" frame="4" startpal="2"/>
     </ImageFromMappings>
     <ImageFromMappings id="img6">
-      <ArtFile filename="../artnem/LZ Water &amp; Splashes.bin"/>
+      <ArtFile filename="../artnem/LZ Water &amp; Splashes.nem"/>
       <MapFile type="ASM" filename="../_maps/Waterfalls.asm" frame="5" startpal="2"/>
     </ImageFromMappings>
     <ImageFromMappings id="img7">
-      <ArtFile filename="../artnem/LZ Water &amp; Splashes.bin"/>
+      <ArtFile filename="../artnem/LZ Water &amp; Splashes.nem"/>
       <MapFile type="ASM" filename="../_maps/Waterfalls.asm" frame="6" startpal="2"/>
     </ImageFromMappings>
     <ImageFromMappings id="img8">
-      <ArtFile filename="../artnem/LZ Water &amp; Splashes.bin"/>
+      <ArtFile filename="../artnem/LZ Water &amp; Splashes.nem"/>
       <MapFile type="ASM" filename="../_maps/Waterfalls.asm" frame="7" startpal="2"/>
     </ImageFromMappings>
     <ImageFromMappings id="img9">
-      <ArtFile filename="../artnem/LZ Water &amp; Splashes.bin"/>
+      <ArtFile filename="../artnem/LZ Water &amp; Splashes.nem"/>
       <MapFile type="ASM" filename="../_maps/Waterfalls.asm" frame="8" startpal="2"/>
     </ImageFromMappings>
     <ImageFromMappings id="img10">
-      <ArtFile filename="../artnem/LZ Water &amp; Splashes.bin"/>
+      <ArtFile filename="../artnem/LZ Water &amp; Splashes.nem"/>
       <MapFile type="ASM" filename="../_maps/Waterfalls.asm" frame="9" startpal="2"/>
     </ImageFromMappings>
     <ImageFromMappings id="img11">
-      <ArtFile filename="../artnem/LZ Water &amp; Splashes.bin"/>
+      <ArtFile filename="../artnem/LZ Water &amp; Splashes.nem"/>
       <MapFile type="ASM" filename="../_maps/Waterfalls.asm" frame="10" startpal="2"/>
     </ImageFromMappings>
   </Images>

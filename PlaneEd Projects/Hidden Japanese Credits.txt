@@ -1,6 +1,6 @@
 Palette File: ../palette/Sega2.bin
-Mapping File: ../tilemaps/Hidden Japanese Credits.bin
-Art File: ../artnem/Hidden Japanese Credits.bin
+Mapping File: ../tilemaps/Hidden Japanese Credits.eni
+Art File: ../artnem/Hidden Japanese Credits.nem
 Mapping Compression: Enigma
 Art Compression: Nemesis
 x-Size: 0x28

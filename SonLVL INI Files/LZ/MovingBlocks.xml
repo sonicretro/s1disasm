@@ -2,7 +2,7 @@
 <ObjDef xmlns="http://www.sonicretro.org" Name="Moving Block Platform" Image="frame0">
   <Images>
     <ImageFromMappings id="frame0">
-      <ArtFile filename="../artnem/LZ 32x16 Block.bin"/>
+      <ArtFile filename="../artnem/LZ 32x16 Block.nem"/>
       <MapFile type="ASM" filename="../_maps/Moving Blocks (LZ).asm" frame="0" startpal="2"/>
     </ImageFromMappings>
   </Images>

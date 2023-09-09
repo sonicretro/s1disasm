@@ -2,19 +2,19 @@
 <ObjDef xmlns="http://www.sonicretro.org" Name="Spring" Image="redvert">
   <Images>
     <ImageFromMappings id="redvert">
-      <ArtFile filename="../artnem/Spring Horizontal.bin" />
+      <ArtFile filename="../artnem/Spring Horizontal.nem" />
       <MapFile type="ASM" filename="../_maps/Springs.asm" frame="0" startpal="0" />
     </ImageFromMappings>
     <ImageFromMappings id="yelvert">
-      <ArtFile filename="../artnem/Spring Horizontal.bin" />
+      <ArtFile filename="../artnem/Spring Horizontal.nem" />
       <MapFile type="ASM" filename="../_maps/Springs.asm" frame="0" startpal="1" />
     </ImageFromMappings>
     <ImageFromMappings id="redhorz">
-      <ArtFile filename="../artnem/Spring Vertical.bin" />
+      <ArtFile filename="../artnem/Spring Vertical.nem" />
       <MapFile type="ASM" filename="../_maps/Springs.asm" frame="3" startpal="0" />
     </ImageFromMappings>
     <ImageFromMappings id="yelhorz">
-      <ArtFile filename="../artnem/Spring Vertical.bin" />
+      <ArtFile filename="../artnem/Spring Vertical.nem" />
       <MapFile type="ASM" filename="../_maps/Springs.asm" frame="3" startpal="1" />
     </ImageFromMappings>
   </Images>

@@ -2,23 +2,23 @@
 <ObjDef xmlns="http://www.sonicretro.org" Name="Moving Block Platform" Image="frame0">
   <Images>
     <ImageFromMappings id="frame0">
-      <ArtFile filename="../artnem/MZ Green Pushable Block.bin"/>
+      <ArtFile filename="../artnem/MZ Green Pushable Block.nem"/>
       <MapFile type="ASM" filename="../_maps/Moving Blocks (MZ and SBZ).asm" frame="0" startpal="2"/>
     </ImageFromMappings>
     <ImageFromMappings id="frame1">
-      <ArtFile filename="../artnem/MZ Green Pushable Block.bin"/>
+      <ArtFile filename="../artnem/MZ Green Pushable Block.nem"/>
       <MapFile type="ASM" filename="../_maps/Moving Blocks (MZ and SBZ).asm" frame="1" startpal="2"/>
     </ImageFromMappings>
     <ImageFromMappings id="frame2">
-      <ArtFile filename="../artnem/MZ Green Pushable Block.bin"/>
+      <ArtFile filename="../artnem/MZ Green Pushable Block.nem"/>
       <MapFile type="ASM" filename="../_maps/Moving Blocks (MZ and SBZ).asm" frame="2" startpal="2"/>
     </ImageFromMappings>
     <ImageFromMappings id="frame3">
-      <ArtFile filename="../artnem/MZ Green Pushable Block.bin"/>
+      <ArtFile filename="../artnem/MZ Green Pushable Block.nem"/>
       <MapFile type="ASM" filename="../_maps/Moving Blocks (MZ and SBZ).asm" frame="3" startpal="2"/>
     </ImageFromMappings>
     <ImageFromMappings id="frame4">
-      <ArtFile filename="../artnem/MZ Green Pushable Block.bin"/>
+      <ArtFile filename="../artnem/MZ Green Pushable Block.nem"/>
       <MapFile type="ASM" filename="../_maps/Moving Blocks (MZ and SBZ).asm" frame="4" startpal="2"/>
     </ImageFromMappings>
   </Images>

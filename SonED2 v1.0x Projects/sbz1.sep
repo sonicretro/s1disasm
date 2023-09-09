@@ -5,11 +5,11 @@ Act ID:     0
 
 Object Def: objdef\s1obj
 
-8x8 Tiles: ..\artnem\8x8 - SBZ.bin
+8x8 Tiles: ..\artnem\8x8 - SBZ.nem
 
-16x16 Tiles:   ..\map16\SBZ.bin
+16x16 Tiles:   ..\map16\SBZ.eni
 
-256x256 Tiles: ..\map256\SBZ.bin
+256x256 Tiles: ..\map256\SBZ.kos
 
 FG Layout: ..\levels\sbz1.bin
 BG Layout: ..\levels\sbz1bg.bin

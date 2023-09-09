@@ -2,7 +2,7 @@
 <ObjDef xmlns="http://www.sonicretro.org" Name="Ball Hog" Image="ballhog" RememberState="true">
   <Images>
     <ImageFromMappings id="ballhog">
-      <ArtFile filename="../artnem/Enemy Ball Hog.bin"/>
+      <ArtFile filename="../artnem/Enemy Ball Hog.nem"/>
       <MapFile type="ASM" filename="../_maps/Ball Hog.asm" frame="0" startpal="1" />
     </ImageFromMappings>
   </Images>

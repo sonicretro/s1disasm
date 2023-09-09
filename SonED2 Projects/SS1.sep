@@ -6,7 +6,7 @@ Object Def: objdef\ssobj
 Layout Compression:  2
 Layout X Size:       64
 Layout Y Size:       64
-Layout Data:         ..\sslayout\1.bin
+Layout Data:         ..\sslayout\1.eni
 
 Num Start Positions:  1
 Start Position 0:    ..\startpos\ss1.bin

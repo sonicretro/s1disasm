@@ -2,47 +2,47 @@
 <ObjDef xmlns="http://www.sonicretro.org" Name="Monitor" Image="img" RememberState="true">
   <Images>
     <ImageFromMappings id="img">
-      <ArtFile filename="../artnem/Monitors.bin" />
+      <ArtFile filename="../artnem/Monitors.nem" />
       <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="0" startpal="0" />
     </ImageFromMappings>
     <ImageFromMappings id="static">
-      <ArtFile filename="../artnem/Monitors.bin" />
+      <ArtFile filename="../artnem/Monitors.nem" />
       <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="1" startpal="0" />
     </ImageFromMappings>
     <ImageFromMappings id="eggman">
-      <ArtFile filename="../artnem/Monitors.bin" />
+      <ArtFile filename="../artnem/Monitors.nem" />
       <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="3" startpal="0" />
     </ImageFromMappings>
     <ImageFromMappings id="sonic">
-      <ArtFile filename="../artnem/Monitors.bin" />
+      <ArtFile filename="../artnem/Monitors.nem" />
       <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="4" startpal="0" />
     </ImageFromMappings>
     <ImageFromMappings id="shoes">
-      <ArtFile filename="../artnem/Monitors.bin" />
+      <ArtFile filename="../artnem/Monitors.nem" />
       <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="5" startpal="0" />
     </ImageFromMappings>
     <ImageFromMappings id="shield">
-      <ArtFile filename="../artnem/Monitors.bin" />
+      <ArtFile filename="../artnem/Monitors.nem" />
       <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="6" startpal="0" />
     </ImageFromMappings>
     <ImageFromMappings id="invincibility">
-      <ArtFile filename="../artnem/Monitors.bin" />
+      <ArtFile filename="../artnem/Monitors.nem" />
       <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="7" startpal="0" />
     </ImageFromMappings>
     <ImageFromMappings id="rings">
-      <ArtFile filename="../artnem/Monitors.bin" />
+      <ArtFile filename="../artnem/Monitors.nem" />
       <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="8" startpal="0" />
     </ImageFromMappings>
     <ImageFromMappings id="s">
-      <ArtFile filename="../artnem/Monitors.bin" />
+      <ArtFile filename="../artnem/Monitors.nem" />
       <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="9" startpal="0" />
     </ImageFromMappings>
     <ImageFromMappings id="goggles">
-      <ArtFile filename="../artnem/Monitors.bin" />
+      <ArtFile filename="../artnem/Monitors.nem" />
       <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="10" startpal="0" />
     </ImageFromMappings>
     <ImageFromMappings id="broken">
-      <ArtFile filename="../artnem/Monitors.bin" />
+      <ArtFile filename="../artnem/Monitors.nem" />
       <MapFile type="ASM" filename="../_maps/Monitor.asm" frame="11" startpal="0" />
     </ImageFromMappings>
   </Images>

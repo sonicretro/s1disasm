@@ -2,7 +2,7 @@
 <ObjDef xmlns="http://www.sonicretro.org" Name="Flapping Door" Image="img1" RememberState="true">
   <Images>
     <ImageFromMappings id="img1">
-      <ArtFile filename="../artnem/LZ Flapping Door.bin"/>
+      <ArtFile filename="../artnem/LZ Flapping Door.nem"/>
       <MapFile type="ASM" filename="../_maps/Flapping Door.asm" frame="0" startpal="2"/>
     </ImageFromMappings>
   </Images>

@@ -8,18 +8,18 @@ Object Palette: objdef\s1obj1.pcx
 
 8x8 Compression:       3
 Num 8x8 Pages:         1
-8x8 Tiles Page 0:      ..\artnem\8x8 - LZ.bin
+8x8 Tiles Page 0:      ..\artnem\8x8 - LZ.nem
 
 16x16 Compression:     2
 Num 16x16 Pages:       1
 Page0 8x8 Page:        0
-16x16 Tiles Page 0:    ..\map16\LZ.bin
+16x16 Tiles Page 0:    ..\map16\LZ.eni
 
 Metatile Size:         256
 Metatile Compression:  1
 Num Metatile Pages:    1
 Page0 16x16 Page:      0
-Metatile Tiles Page 0: ..\map256\LZ.bin
+Metatile Tiles Page 0: ..\map256\LZ.kos
 
 Layout Format:         0
 Layout Compression:    0

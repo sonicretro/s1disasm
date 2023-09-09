@@ -2,7 +2,7 @@
 <ObjDef xmlns="http://www.sonicretro.org" Name="Fan" Image="img1">
   <Images>
     <ImageFromMappings id="img1">
-      <ArtFile filename="../artnem/SLZ Fan.bin" />
+      <ArtFile filename="../artnem/SLZ Fan.nem" />
       <MapFile type="ASM" filename="../_maps/Fan.asm" frame="0" startpal="2" />
     </ImageFromMappings>
   </Images>

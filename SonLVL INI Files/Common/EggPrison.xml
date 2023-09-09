@@ -2,11 +2,11 @@
 <ObjDef xmlns="http://www.sonicretro.org" Name="Egg Prison" Image="capsule">
   <Images>
     <ImageFromMappings id="capsule">
-      <ArtFile filename="../artnem/Prison Capsule.bin" />
+      <ArtFile filename="../artnem/Prison Capsule.nem" />
       <MapFile type="ASM" filename="../_maps/Prison Capsule.asm" frame="0" startpal="0" />
     </ImageFromMappings>
     <ImageFromMappings id="button">
-      <ArtFile filename="../artnem/Prison Capsule.bin" />
+      <ArtFile filename="../artnem/Prison Capsule.nem" />
       <MapFile type="ASM" filename="../_maps/Prison Capsule.asm" frame="1" startpal="0" />
     </ImageFromMappings>
   </Images>
