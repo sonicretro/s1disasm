@@ -1,7 +1,7 @@
 ; macro to declare a mappings table (taken from Sonic 2 Hg disassembly)
 mappingsTable macro {INTLABEL}
-__LABEL__ = *
-.current_mappings_table = __LABEL__
+__LABEL__ label *
+.current_mappings_table := __LABEL__
     endm
 
 ; macro to declare an entry in a mappings table (taken from Sonic 2 Hg disassembly)
@@ -10,14 +10,15 @@ mappingsTableEntry macro ptr
     endm
 
 spriteHeader macro {INTLABEL}
-__LABEL__ = *
+__LABEL__ label *
 	if SonicMappingsVer=1
-	dc.b ((__LABEL___End-__LABEL__-1)/5)
+	dc.b ((__LABEL___End - __LABEL___Begin) / 5)
 	elseif SonicMappingsVer=2
-	dc.w ((__LABEL___End-__LABEL__-2)/8)
+	dc.w ((__LABEL___End - __LABEL___Begin) / 8)
 	else
-	dc.w ((__LABEL___End-__LABEL__-2)/6)
+	dc.w ((__LABEL___End - __LABEL___Begin) / 6)
 	endif
+__LABEL___Begin label *
     endm
 
 spritePiece macro xpos,ypos,width,height,tile,xflip,yflip,pal,pri
@@ -59,14 +60,15 @@ spritePiece2P macro xpos,ypos,width,height,tile,xflip,yflip,pal,pri,tile2,xflip2
 	endm
 
 dplcHeader macro {INTLABEL}
-__LABEL__ = *
+__LABEL__ label *
 	if SonicMappingsVer=1
-	dc.b ((__LABEL___End-__LABEL__-1)/2)
+	dc.b ((__LABEL___End - __LABEL___Begin) / 2)
 	elseif SonicMappingsVer=2
-	dc.w ((__LABEL___End-__LABEL__-2)/2)
+	dc.w ((__LABEL___End - __LABEL___Begin) / 2)
 	else
-	dc.w ((__LABEL___End-__LABEL__-4)/2)
+	dc.w (((__LABEL___End - __LABEL___Begin) / 2)-1)
 	endif
+__LABEL___Begin label *
     endm
 
 dplcEntry macro tiles,offset
@@ -75,15 +77,4 @@ dplcEntry macro tiles,offset
 	else
 	dc.w	(((tiles-1)&$F)<<12)|(offset&$FFF)
 	endif
-	endm
-
-; I don't know why, but S3K uses Sonic 2's DPLC format for players, and its own for everything else
-; So to avoid having to set and reset SonicMappingsVer I'll just make special macros
-s3kPlayerDplcHeader macro {INTLABEL}
-__LABEL__ = *
-	dc.w ((__LABEL___End-__LABEL__-2)/2)
-    endm
-
-s3kPlayerDplcEntry macro tiles,offset
-	dc.w	(((tiles-1)&$F)<<12)|(offset&$FFF)
 	endm
