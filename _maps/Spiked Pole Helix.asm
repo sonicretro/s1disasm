@@ -8,7 +8,7 @@ Map_Hel_internal:	mappingsTable
 	mappingsTableEntry.w	byte_7E1A
 	mappingsTableEntry.w	byte_7E20
 	mappingsTableEntry.w	byte_7E26
-	mappingsTableEntry.w	byte_7E2E
+	mappingsTableEntry.w	byte_7E2C+2	; This is a nasty hack to render the sprite invisible by pointing at a random 00 byte.
 	mappingsTableEntry.w	byte_7E2C
 
 byte_7E08:	spriteHeader
@@ -36,7 +36,6 @@ byte_7E26:	spriteHeader
 byte_7E26_End
 
 byte_7E2C:	spriteHeader
-byte_7E2E EQU *+1	; reads the 0 below	; not visible
 	spritePiece	-3, -$C, 1, 1, $11, 0, 0, 0, 0 ; 45 degree
 byte_7E2C_End
 
