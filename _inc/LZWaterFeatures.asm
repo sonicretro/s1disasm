@@ -301,7 +301,11 @@ LZWindTunnels:
 		bhs.w	.chknext
 		move.w	obY(a1),d2
 		cmp.w	2(a2),d2
+	if FixBugs
+		blo.w	.chknext
+	else
 		blo.s	.chknext
+	endif
 		cmp.w	6(a2),d2
 		bhs.s	.chknext	; branch if Sonic is outside a range
 	if FixBugs
