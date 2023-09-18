@@ -85,7 +85,7 @@ Gar_AniFire:	; Routine 6
 		bsr.w	ObjHitWallLeft
 		tst.w	d1
 	if FixBugs
-		bmi.w	.delete
+		bmi.s	.delete		; delete if the	fireball hits a	wall
 	else
 		bmi.w	DeleteObject	; delete if the	fireball hits a	wall
 	endif
