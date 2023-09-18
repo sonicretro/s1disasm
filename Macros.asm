@@ -264,3 +264,10 @@ make_art_tile function addr,pal,pri,((pri&1)<<15)|((pal&3)<<13)|addr
 SonicMappingsVer = 1
 SonicDplcVer = 1
 		include	"_maps/MapMacros.asm"
+
+; ---------------------------------------------------------------------------
+; turn a sample rate into a djnz loop counter
+; ---------------------------------------------------------------------------
+
+pcmLoopCounter function sampleRate,baseCycles, 1+(53693175/15/(sampleRate)-(baseCycles)+(13/2))/13
+dpcmLoopCounter function sampleRate, pcmLoopCounter(sampleRate,301/2) ; 301 is the number of cycles zPlayPCMLoop takes.

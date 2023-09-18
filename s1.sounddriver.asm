@@ -295,7 +295,13 @@ DACUpdateTrack:
 ; Note: this only defines rates for samples $88-$8D, meaning $8E-$8F are invalid.
 ; Also, $8C-$8D are so slow you may want to skip them.
 ; byte_71CC4:
-DAC_sample_rate: dc.b $12, $15, $1C, $1D, $FF, $FF
+DAC_sample_rate:
+		dc.b dpcmLoopCounter(9750)
+		dc.b dpcmLoopCounter(8750)
+		dc.b dpcmLoopCounter(7150)
+		dc.b dpcmLoopCounter(7000)
+		dc.b $FF, $FF
+		even
 
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 

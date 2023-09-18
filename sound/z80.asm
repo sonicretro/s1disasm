@@ -10,9 +10,6 @@
 	CPU Z80
 	listing purecode
 
-zSEGA_Pitch:	equ 0Bh		; The pitch of the SEGA sound
-
-
 z80_stack:	equ 1FFCh
 zDAC_Status:	equ 1FFDh	; Bit 7 set if the driver is not accepting new samples, it is clear otherwise
 zDAC_Sample:	equ 1FFFh	; Sample to play, the 68k will move into this locatiton whatever sample that's supposed to be played.
@@ -117,71 +114,71 @@ zWaitDACLoop:
 	ld	h,(zDACDecodeTbl&0FF00h)>>8	; We set low byte of pointer below
 
 zPlayPCMLoop:
-	ld	a,(de)				; a = byte from DAC sample
-	and	0F0h				; Get upper nibble
+	ld	a,(de)			; 7	; a = byte from DAC sample
+	and	0F0h			; 7	; Get upper nibble
 	; Shift-right 4 times to rotate the nibble into place
-	rrca
-	rrca
-	rrca
-	rrca
-	add	a,zDACDecodeTbl&0FFh		; Add in low byte of offset into decode table
-	ld	l,a				; hl = pointer to nibble entry in JMan2050 table
-	ld	a,(hl)				; a = JMan2050 entry for current nibble
+	rrca				; 4
+	rrca				; 4
+	rrca				; 4
+	rrca				; 4
+	add	a,zDACDecodeTbl&0FFh	; 7	; Add in low byte of offset into decode table
+	ld	l,a			; 4	; hl = pointer to nibble entry in JMan2050 table
+	ld	a,(hl)			; 7	; a = JMan2050 entry for current nibble
 	; After the following exx, we have:
 	; bc' = size of sample, de' = location of sample, hl' = pointer to nibble entry in JMan2050 table,
 	; c = pitch of sample, d = PCM accumulator,
 	; e = command to select DAC output register, hl = pointer to DAC status
-	exx
-	add	a,d				; Add accumulator value...
-	ld	d,a				; ... then store value back into accumulator
-	ld	(hl),l				; Set flag to not accept driver input (l = FFh)
-	ld	(ix+0),e			; Select DAC output register
-	ld	(ix+1),d			; Send current data
-	ld	(hl),h				; Set flag to accept driver input (h = 1Fh)
+	exx				; 4
+	add	a,d			; 4	; Add accumulator value...
+	ld	d,a			; 4	; ... then store value back into accumulator
+	ld	(hl),l			; 7	; Set flag to not accept driver input (l = FFh)
+	ld	(ix+0),e		; 19	; Select DAC output register
+	ld	(ix+1),d		; 19	; Send current data
+	ld	(hl),h			; 7	; Set flag to accept driver input (h = 1Fh)
 
-	ld	b,c				; b = sample pitch
-	djnz	$				; Pitch loop
+	ld	b,c			; 4	; b = sample pitch
+	djnz	$			; 8	; Pitch loop
 
 	; After the following exx, we have:
 	; bc = size of sample, de = location of sample, hl = pointer to nibble entry in JMan2050 table,
 	; c' = pitch of sample, d' = PCM accumulator,
 	; e' = command to select DAC output register, hl' = pointer to DAC status
-	exx
-	ld	a,(de)				; a = byte from DAC sample
-	and	0Fh				; Want only lower nibble now
-	add	a,zDACDecodeTbl&0FFh		; Add in low byte of offset into decode table
-	ld	l,a				; hl = pointer to nibble entry in JMan2050 table
-	ld	a,(hl)				; a = JMan2050 entry for current nibble
+	exx				; 4
+	ld	a,(de)			; 7	; a = byte from DAC sample
+	and	0Fh			; 7	; Want only lower nibble now
+	add	a,zDACDecodeTbl&0FFh	; 7	; Add in low byte of offset into decode table
+	ld	l,a			; 4	; hl = pointer to nibble entry in JMan2050 table
+	ld	a,(hl)			; 7	; a = JMan2050 entry for current nibble
 	; After the following exx, we have:
 	; bc' = size of sample, de' = location of sample, hl' = pointer to nibble entry in JMan2050 table,
 	; c = pitch of sample, d = PCM accumulator,
 	; e = command to select DAC output register, hl = pointer to DAC status
-	exx
-	add	a,d				; Add accumulator value...
-	ld	d,a				; ... then store value back into accumulator
-	ld	(hl),l				; Set flag to not accept driver input (l = FFh)
-	ld	(ix+0),e			; Select DAC output register
-	ld	(ix+1),d			; Send current data
-	ld	(hl),h				; Set flag to accept driver input (h = 1Fh)
+	exx				; 4
+	add	a,d			; 4	; Add accumulator value...
+	ld	d,a			; 4	; ... then store value back into accumulator
+	ld	(hl),l			; 7	; Set flag to not accept driver input (l = FFh)
+	ld	(ix+0),e		; 19	; Select DAC output register
+	ld	(ix+1),d		; 19	; Send current data
+	ld	(hl),h			; 7	; Set flag to accept driver input (h = 1Fh)
 
-	ld	b,c				; b = sample pitch
-	djnz	$				; Pitch loop
+	ld	b,c			; 4	; b = sample pitch
+	djnz	$			; 8	; Pitch loop
 
 	; After the following exx, we have:
 	; bc = size of sample, de = location of sample, hl = pointer to nibble entry in JMan2050 table,
 	; c' = pitch of sample, d' = PCM accumulator,
 	; e' = command to select DAC output register, hl' = pointer to DAC status
-	exx
-	ld	a,(zDAC_Sample)			; a = sample we're playing (minus 81h)
-	bit	7,a				; Test bit 7 of register a
-	jp	nz,zCheckForSamples		; If it is set, we need to get a new sample
+	exx				; 4
+	ld	a,(zDAC_Sample)		; 13	; a = sample we're playing (minus 81h)
+	bit	7,a			; 8	; Test bit 7 of register a
+	jp	nz,zCheckForSamples	; 10	; If it is set, we need to get a new sample
 
-	inc	de				; Point to next byte of DAC sample
-	dec	bc				; Decrement remaining bytes on DAC sample
-	ld	a,c				; a = low byte of remainig bytes
-	or	b				; Are there any bytes left?
-	jp	nz,zPlayPCMLoop			; If yes, keep playing sample
-
+	inc	de			; 6	; Point to next byte of DAC sample
+	dec	bc			; 6	; Decrement remaining bytes on DAC sample
+	ld	a,c			; 4	; a = low byte of remainig bytes
+	or	b			; 4	; Are there any bytes left?
+	jp	nz,zPlayPCMLoop		; 10	; If yes, keep playing sample
+					; 301 in total
 	jp	zCheckForSamples		; Sample is done; wait for new samples
 ;
 ; Subroutine - Play_SegaPCM
@@ -194,19 +191,19 @@ zPlay_SegaPCM:
 	ld	c,2Ah				; c = Command to select DAC output register
 
 zPlaySEGAPCMLoop:
-	ld	a,(de)				; a = next byte from SEGA PCM
-	ld	(ix+0),c			; Select DAC output register
-	ld	(ix+1),a			; Send current data
+	ld	a,(de)			; 7	; a = next byte from SEGA PCM
+	ld	(ix+0),c		; 19	; Select DAC output register
+	ld	(ix+1),a		; 19	; Send current data
 
-	ld	b,zSEGA_Pitch			; b = pitch of the SEGA sample
-	djnz	$				; Pitch loop
+	ld	b,pcmLoopCounter(16000,90) ; 7	; b = pitch of the SEGA sample
+	djnz	$			; 8	; Pitch loop
 
-	inc	de				; Point to next byte of DAC sample
-	dec	hl				; Decrement remaining bytes on DAC sample
-	ld	a,l				; a = low byte of remainig bytes
-	or	h				; Are there any bytes left?
-	jp	nz,zPlaySEGAPCMLoop		; If yes, keep playing sample
-
+	inc	de			; 6	; Point to next byte of DAC sample
+	dec	hl			; 6	; Decrement remaining bytes on DAC sample
+	ld	a,l			; 4	; a = low byte of remainig bytes
+	or	h			; 4	; Are there any bytes left?
+	jp	nz,zPlaySEGAPCMLoop	; 10	; If yes, keep playing sample
+					; 90 in total
 	jp	zCheckForSamples		; SEGA sound is done; wait for new samples
 
 ;
@@ -217,20 +214,21 @@ zPlaySEGAPCMLoop:
 
 
 zPCM_Table:
-	dw	zDAC_Kick	; Kick sample
-	dw	(zDAC_Kick_End-zDAC_Kick)
-	dw	0017h		; Pitch = 17h
+	; Kick sample
+	dw	zDAC_Kick			; Start
+	dw	(zDAC_Kick_End-zDAC_Kick)	; Length
+	dw	dpcmLoopCounter(8250)		; Pitch
 	dw	0000h
-
-	dw	zDAC_Snare	; Snare sample
-	dw	(zDAC_Snare_End-zDAC_Snare)
-	dw	0001h		; Pitch = 1h
+	; Snare sample
+	dw	zDAC_Snare			; Start
+	dw	(zDAC_Snare_End-zDAC_Snare)	; Length
+	dw	dpcmLoopCounter(24000)		; Pitch
 	dw	0000h
-
-	dw	zDAC_Timpani	; Timpani sample
-	dw	(zDAC_Timpani_End-zDAC_Timpani)
+	; Timpani sample
+	dw	zDAC_Timpani			; Start
+	dw	(zDAC_Timpani_End-zDAC_Timpani) ; Length
 zTimpani_Pitch:
-	dw	001Bh		; Pitch = 1Bh
+	dw	dpcmLoopCounter(7250)		; Pitch
 	dw	0000h
 
 
