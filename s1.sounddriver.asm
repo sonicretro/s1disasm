@@ -286,7 +286,7 @@ DACUpdateTrack:
 		move.b	DAC_sample_rate(pc,d0.w),d0
 		; Warning: this affects the raw pitch of sample $83, meaning it will
 		; use this value from then on.
-		move.b	d0,(z80_dac3_pitch).l
+		move.b	d0,(z80_dac_timpani_pitch).l
 		move.b	#$83,(z80_dac_sample).l	; Use timpani
 		rts	
 ; End of function DACUpdateTrack

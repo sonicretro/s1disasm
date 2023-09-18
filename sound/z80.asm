@@ -217,35 +217,35 @@ zPlaySEGAPCMLoop:
 
 
 zPCM_Table:
-	dw	zDAC_Sample1	; Kick sample
-	dw	(zDAC_Sample1_End-zDAC_Sample1)
+	dw	zDAC_Kick	; Kick sample
+	dw	(zDAC_Kick_End-zDAC_Kick)
 	dw	0017h		; Pitch = 17h
 	dw	0000h
 
-	dw	zDAC_Sample2	; Snare sample
-	dw	(zDAC_Sample2_End-zDAC_Sample2)
+	dw	zDAC_Snare	; Snare sample
+	dw	(zDAC_Snare_End-zDAC_Snare)
 	dw	0001h		; Pitch = 1h
 	dw	0000h
 
-	dw	zDAC_Sample3	; Timpani sample
-	dw	(zDAC_Sample3_End-zDAC_Sample3)
-zSample3_Pitch:
+	dw	zDAC_Timpani	; Timpani sample
+	dw	(zDAC_Timpani_End-zDAC_Timpani)
+zTimpani_Pitch:
 	dw	001Bh		; Pitch = 1Bh
 	dw	0000h
 
 
 
-zDAC_Sample1:
+zDAC_Kick:
 	binclude "sound/dac/kick.dpcm"
-zDAC_Sample1_End:
+zDAC_Kick_End:
 
-zDAC_Sample2:
+zDAC_Snare:
 	binclude "sound/dac/snare.dpcm"
-zDAC_Sample2_End:
+zDAC_Snare_End:
 
-zDAC_Sample3:
+zDAC_Timpani:
 	binclude "sound/dac/timpani.dpcm"
-zDAC_Sample3_End:
+zDAC_Timpani_End:
 
 	if MOMPASS==2
 		if $ > z80_stack
