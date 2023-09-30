@@ -283,7 +283,7 @@ AniArt_Ending_BigFlower:
 		
 		move.b	#7,(v_lani1_time).w
 		lea	(Art_GhzFlower1).l,a1 ;	load big flower	patterns
-		lea	($FFFF9400).w,a2 ; load 2nd big flower from RAM
+		lea	(v_256x256_end-$1000).w,a2 ; load 2nd big flower from RAM
 		move.b	(v_lani1_frame).w,d0
 		addq.b	#1,(v_lani1_frame).w ; increment frame counter
 		andi.w	#1,d0		; only 2 frames
@@ -341,7 +341,7 @@ AniArt_Ending_Flower3:
 		lsl.w	#8,d0		; multiply by $100
 		add.w	d0,d0		; multiply by 2
 		locVRAM	ArtTile_GHZ_Flower_3*$20
-		lea	($FFFF9800).w,a1 ; load	special	flower patterns	(from RAM)
+		lea	(v_256x256_end-$1000+$400).w,a1 ; load	special	flower patterns	(from RAM)
 		lea	(a1,d0.w),a1	; jump to appropriate tile
 		move.w	#.size-1,d1
 		bra.w	LoadTiles
@@ -364,7 +364,7 @@ AniArt_Ending_Flower4:
 		lsl.w	#8,d0		; multiply by $100
 		add.w	d0,d0		; multiply by 2
 		locVRAM	ArtTile_GHZ_Flower_4*$20
-		lea	($FFFF9E00).w,a1 ; load	special	flower patterns	(from RAM)
+		lea	(v_256x256_end-$1000+$A00).w,a1 ; load	special	flower patterns	(from RAM)
 		lea	(a1,d0.w),a1	; jump to appropriate tile
 		move.w	#.size-1,d1
 		bra.w	LoadTiles

@@ -641,7 +641,7 @@ Obj09_UPblock:
 		tst.b	objoff_36(a0)
 		bne.w	Obj09_NoGlass
 		move.b	#$1E,objoff_36(a0)
-		btst	#6,($FFFFF783).w
+		btst	#6,(v_ssrotate+1).w
 		beq.s	Obj09_UPsnd
 		asl	(v_ssrotate).w	; increase stage rotation speed
 		movea.l	objoff_32(a0),a1

@@ -153,7 +153,7 @@ Hud_LoadZero:
 
 
 Hud_Base:
-		lea	($C00000).l,a6
+		lea	(vdp_data_port).l,a6
 		bsr.w	Hud_Lives
 		locVRAM	(ArtTile_HUD+$18)*$20
 		lea	Hud_TilesBase(pc),a2
