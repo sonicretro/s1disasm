@@ -21,7 +21,7 @@ v_16x16:		ds.b	$1800		; 16x16 tile mappings
 v_sgfx_buffer:		ds.b	$2E0		; buffered Sonic graphics ($17 cells)
 			ds.b	$20		; unused
 v_tracksonic:		ds.b	$100		; position tracking data for Sonic
-v_hscrolltablebuffer:	ds.b	$380		; scrolling table data (actually $380 bytes, but $400 is reserved for it)
+v_hscrolltablebuffer:	ds.b	$380		; scrolling table data
 v_hscrolltablebuffer_end:
 			ds.b	$80		; unused
 v_hscrolltablebuffer_end_padded:
@@ -226,7 +226,7 @@ f_water:		ds.b	1		; flag set for water
 v_wtr_routine:		ds.b	1		; water event - routine counter
 f_wtr_state:		ds.b	1		; water palette state when water is above/below the screen (00 = partly/all dry; 01 = all underwater)
 f_doupdatesinhblank:	ds.b	1		; defers performing various tasks to the Horizontal Interrupt (H-Blank)
-v_pal_buffer:		ds.b	$30		; palette data buffer (used for palette cycling) ($30 bytes)
+v_pal_buffer:		ds.b	$30		; palette data buffer (used for palette cycling)
 v_misc_variables_end:
 
 v_plc_buffer:		ds.b	6*16		; pattern load cues buffer (maximum $10 PLCs)
@@ -341,7 +341,7 @@ v_lani5_time:		ds.b	1		; level graphics animation 5 - time until next frame
 			ds.b	2		; unused
 v_gfxbigring:		ds.w	1		; settings for giant ring graphics loading
 f_conveyrev:		ds.b	1		; flag set to reverse conveyor belts in LZ/SBZ
-v_obj63:		ds.b	6		; object 63 (LZ/SBZ platforms) variables (6 bytes)
+v_obj63:		ds.b	6		; object 63 (LZ/SBZ platforms) variables
 f_wtunnelmode:		ds.b	1		; LZ water tunnel mode
 f_playerctrl:		ds.b	1		; Player control override flags (object ineraction, control enable)
 f_wtunnelallow:		ds.b	1		; LZ water tunnels (00 = enabled; 01 = disabled)
