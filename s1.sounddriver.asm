@@ -1,5 +1,7 @@
 ; ---------------------------------------------------------------------------
 ; Modified SMPS 68k Type 1b sound driver
+; The source code to a similar version of the driver can be found here:
+; https://hiddenpalace.org/News/Sega_of_Japan_Sound_Documents_and_Source_Code
 ; ---------------------------------------------------------------------------
 ; Go_SoundTypes:
 Go_SoundPriorities:	dc.l SoundPriorities
