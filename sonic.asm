@@ -3405,13 +3405,13 @@ SS_ToLevel:	cmpi.b	#id_Level,(v_gamemode).w
 
 
 SS_BGLoad:
-		lea	($FF0000).l,a1
+		lea	(v_ssbuffer1&$FFFFFF).l,a1
 		lea	(Eni_SSBg1).l,a0 ; load	mappings for the birds and fish
 		move.w	#$4051,d0
 		bsr.w	EniDec
 		locVRAM	$5000,d3
-		lea	($FF0080).l,a2
-		moveq	#6,d7
+		lea	((v_ssbuffer1+$80)&$FFFFFF).l,a2
+		moveq	#7-1,d7
 
 loc_48BE:
 		move.l	d3,d0
@@ -3422,7 +3422,7 @@ loc_48BE:
 		moveq	#1,d4
 
 loc_48CC:
-		moveq	#7,d5
+		moveq	#8-1,d5
 
 loc_48CE:
 		movea.l	a2,a1
@@ -3430,12 +3430,12 @@ loc_48CE:
 		bne.s	loc_48E2
 		cmpi.w	#6,d7
 		bne.s	loc_48F2
-		lea	($FF0000).l,a1
+		lea	(v_ssbuffer1&$FFFFFF).l,a1
 
 loc_48E2:
 		movem.l	d0-d4,-(sp)
-		moveq	#7,d1
-		moveq	#7,d2
+		moveq	#8-1,d1
+		moveq	#8-1,d2
 		bsr.w	TilemapToVRAM
 		movem.l	(sp)+,d0-d4
 
@@ -3454,12 +3454,12 @@ loc_48F2:
 loc_491C:
 		adda.w	#$80,a2
 		dbf	d7,loc_48BE
-		lea	($FF0000).l,a1
+		lea	(v_ssbuffer1&$FFFFFF).l,a1
 		lea	(Eni_SSBg2).l,a0 ; load	mappings for the clouds
 		move.w	#$4000,d0
 		bsr.w	EniDec
-		copyTilemap	$FF0000,$C000,$3F,$1F
-		copyTilemap	$FF0000,$D000,$3F,$3F
+		copyTilemap	v_ssbuffer1&$FFFFFF,$C000,$3F,$1F
+		copyTilemap	v_ssbuffer1&$FFFFFF,$D000,$3F,$3F
 		rts	
 ; End of function SS_BGLoad
 
@@ -3623,9 +3623,9 @@ loc_4C4E:
 		cmpi.w	#$C,d0
 		bne.s	loc_4C74
 		subq.w	#1,(v_bg3screenposx).w
-		lea	($FFFFAB00).w,a3
+		lea	(v_ssscroll_buffer).w,a3
 		move.l	#$18000,d2
-		moveq	#6,d1
+		moveq	#7-1,d1
 
 loc_4C64:
 		move.l	(a3),d0
@@ -3635,7 +3635,7 @@ loc_4C64:
 		dbf	d1,loc_4C64
 
 loc_4C74:
-		lea	($FFFFAB00).w,a3
+		lea	(v_ssscroll_buffer).w,a3
 		lea	(byte_4CC4).l,a2
 
 loc_4C7E:
@@ -7772,7 +7772,7 @@ SS_ShowLayout:
 		bsr.w	SS_AniWallsRings
 		bsr.w	SS_AniItems
 		move.w	d5,-(sp)
-		lea	($FFFF8000).w,a1
+		lea	(v_ssbuffer3).w,a1
 		move.b	(v_ssangle).w,d0
 		andi.b	#$FC,d0
 		jsr	(CalcSine).l
@@ -7792,7 +7792,7 @@ SS_ShowLayout:
 		swap	d3
 		neg.w	d3
 		addi.w	#-$B4,d3
-		move.w	#$F,d7
+		move.w	#$10-1,d7
 
 loc_1B19E:
 		movem.w	d0-d2,-(sp)
@@ -7825,7 +7825,7 @@ loc_1B1C0:
 		dbf	d7,loc_1B19E
 
 		move.w	(sp)+,d5
-		lea	($FF0000).l,a0
+		lea	(v_ssbuffer1&$FFFFFF).l,a0
 		moveq	#0,d0
 		move.w	(v_screenposy).w,d0
 		divu.w	#$18,d0
@@ -7835,8 +7835,8 @@ loc_1B1C0:
 		move.w	(v_screenposx).w,d0
 		divu.w	#$18,d0
 		adda.w	d0,a0
-		lea	($FFFF8000).w,a4
-		move.w	#$F,d7
+		lea	(v_ssbuffer3).w,a4
+		move.w	#$10-1,d7
 
 loc_1B20C:
 		move.w	#$F,d6
@@ -7859,7 +7859,7 @@ loc_1B210:
 		blo.s	loc_1B268
 		cmpi.w	#$170,d2
 		bhs.s	loc_1B268
-		lea	($FF4000).l,a5
+		lea	(v_ssblocktypes&$FFFFFF).l,a5
 		lsl.w	#3,d0
 		lea	(a5,d0.w),a5
 		movea.l	(a5)+,a1
@@ -7900,19 +7900,19 @@ loc_1B288:
 
 
 SS_AniWallsRings:
-		lea	($FF400C).l,a1
+		lea	((v_ssblocktypes+$C)&$FFFFFF).l,a1
 		moveq	#0,d0
 		move.b	(v_ssangle).w,d0
 		lsr.b	#2,d0
 		andi.w	#$F,d0
-		moveq	#$23,d1
+		moveq	#$24-1,d1
 
 loc_1B2A4:
 		move.w	d0,(a1)
 		addq.w	#8,a1
 		dbf	d1,loc_1B2A4
 
-		lea	($FF4005).l,a1
+		lea	((v_ssblocktypes+5)&$FFFFFF).l,a1
 		subq.b	#1,(v_ani1_time).w
 		bpl.s	loc_1B2C8
 		move.b	#7,(v_ani1_time).w
@@ -7958,7 +7958,7 @@ loc_1B326:
 		andi.b	#7,(v_ani0_frame).w
 
 loc_1B350:
-		lea	($FF4016).l,a1
+		lea	((v_ssblocktypes+$16)&$FFFFFF).l,a1
 		lea	(SS_WaRiVramSet).l,a0
 		moveq	#0,d0
 		move.b	(v_ani0_frame).w,d0
@@ -8024,8 +8024,8 @@ SS_WaRiVramSet:	dc.w $142, $6142, $142,	$142, $142, $142, $142,	$6142
 
 
 SS_RemoveCollectedItem:
-		lea	($FF4400).l,a2
-		move.w	#$1F,d0
+		lea	(v_ssitembuffer&$FFFFFF).l,a2
+		move.w	#(v_ssitembuffer_end-v_ssitembuffer)/8-1,d0
 
 loc_1B4C4:
 		tst.b	(a2)
@@ -8045,8 +8045,8 @@ locret_1B4CE:
 
 
 SS_AniItems:
-		lea	($FF4400).l,a0
-		move.w	#$1F,d7
+		lea	(v_ssitembuffer&$FFFFFF).l,a0
+		move.w	#(v_ssitembuffer_end-v_ssitembuffer)/8-1,d7
 
 loc_1B4DA:
 		moveq	#0,d0
@@ -8258,27 +8258,34 @@ SS_ChkEmldRepeat:
 		dbf	d1,SS_ChkEmldLoop
 
 SS_LoadData:
+		; Load player position data
 		lsl.w	#2,d0
 		lea	SS_StartLoc(pc,d0.w),a1
 		move.w	(a1)+,(v_player+obX).w
 		move.w	(a1)+,(v_player+obY).w
+
+		; Load layout data
 		movea.l	SS_LayoutIndex(pc,d0.w),a0
-		lea	($FF4000).l,a1
+		lea	(v_ssbuffer2&$FFFFFF).l,a1
 		move.w	#0,d0
 		jsr	(EniDec).l
-		lea	($FF0000).l,a1
-		move.w	#$FFF,d0
+
+		; Clear everything from v_ssbuffer1 to v_ssbuffer2
+		lea	(v_ssbuffer1&$FFFFFF).l,a1
+		move.w	#(v_ssbuffer2-v_ssbuffer1)/4-1,d0
 
 SS_ClrRAM3:
 		clr.l	(a1)+
 		dbf	d0,SS_ClrRAM3
 
-		lea	($FF1020).l,a1
-		lea	($FF4000).l,a0
-		moveq	#$3F,d1
+		; Copy $1000 of data from v_ssbuffer2 to v_ssblockbuffer,
+		; inserting $40 bytes of padding for every $40 bytes copied.
+		lea	(v_ssblockbuffer&$FFFFFF).l,a1
+		lea	(v_ssbuffer2&$FFFFFF).l,a0
+		moveq	#(v_ssblockbuffer_end-v_ssblockbuffer)/$80-1,d1
 
 loc_1B6F6:
-		moveq	#$3F,d2
+		moveq	#$40-1,d2
 
 loc_1B6F8:
 		move.b	(a0)+,(a1)+
@@ -8287,9 +8294,9 @@ loc_1B6F8:
 		lea	$40(a1),a1
 		dbf	d1,loc_1B6F6
 
-		lea	($FF4008).l,a1
+		lea	((v_ssblocktypes+8)&$FFFFFF).l,a1
 		lea	(SS_MapIndex).l,a0
-		moveq	#$4D,d1
+		moveq	#(SS_MapIndex_End-SS_MapIndex)/6-1,d1
 
 loc_1B714:
 		move.l	(a0)+,(a1)+
@@ -8298,8 +8305,8 @@ loc_1B714:
 		move.w	(a0)+,(a1)+
 		dbf	d1,loc_1B714
 
-		lea	($FF4400).l,a1
-		move.w	#($FF4500-$FF4400)/4-1,d1
+		lea	(v_ssitembuffer&$FFFFFF).l,a1
+		move.w	#(v_ssitembuffer_end-v_ssitembuffer)/4-1,d1
 
 loc_1B730:
 
@@ -8313,6 +8320,7 @@ loc_1B730:
 
 SS_MapIndex:
 		include	"_inc/Special Stage Mappings & VRAM Pointers.asm"
+SS_MapIndex_End:
 
 Map_SS_R:	include	"_maps/SS R Block.asm"
 Map_SS_Glass:	include	"_maps/SS Glass Block.asm"

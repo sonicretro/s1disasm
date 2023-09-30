@@ -1,6 +1,6 @@
 ; ---------------------------------------------------------------------------
 ; Set a VRAM address via the VDP control port.
-; input: 16-bit VRAM address, control port (default is ($C00004).l)
+; input: 16-bit VRAM address, control port (default is (vdp_control_port).l)
 ; ---------------------------------------------------------------------------
 
 locVRAM:	macro loc,controlport
@@ -246,11 +246,11 @@ out_of_range:	macro exit,pos
 ; ---------------------------------------------------------------------------
 
 gotoSRAM:	macro
-		move.b	#1,($A130F1).l
+		move.b	#1,(sram_port).l
 		endm
 
 gotoROM:	macro
-		move.b	#0,($A130F1).l
+		move.b	#0,(sram_port).l
 		endm
 
 ; ---------------------------------------------------------------------------

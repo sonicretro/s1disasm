@@ -12,11 +12,22 @@ v_errortype	= ramaddr ( $FFFFFC44 )	; error type
 
 v_256x256	= ramaddr ( $FFFF0000 )	; 256x256 tile mappings ($A400 bytes)
 v_256x256_end	= v_256x256+$A4*$100	; $A4 chunks
+
+v_ssbuffer1	= v_256x256
+v_ssblockbuffer	= v_ssbuffer1+$1020 ; ($2000 bytes)
+v_ssblockbuffer_end	= v_ssblockbuffer+$80*$40
+v_ssbuffer2	= v_256x256+$4000
+v_ssblocktypes	= v_ssbuffer2
+v_ssitembuffer	= v_ssbuffer2+$400 ; ($100 bytes)
+v_ssitembuffer_end	= v_ssitembuffer+$100
+v_ssbuffer3	= v_256x256+$8000
+
 v_lvllayout	= ramaddr ( $FFFFA400 )	; level and background layouts ($400 bytes)
 v_lvllayout_end	= ramaddr ( $FFFFA800 )
 v_bgscroll_buffer	= ramaddr( $FFFFA800 )	; background scroll buffer ($200 bytes)
 v_ngfx_buffer	= ramaddr ( $FFFFAA00 )	; Nemesis graphics decompression buffer ($200 bytes)
 v_ngfx_buffer_end	= ramaddr ( $FFFFAC00 )
+v_ssscroll_buffer	= v_ngfx_buffer+$100
 v_spritequeue	= ramaddr ( $FFFFAC00 )	; sprite display queue, in order of priority ($400 bytes)
 v_16x16	= ramaddr ( $FFFFB000 )	; 16x16 tile mappings
 
