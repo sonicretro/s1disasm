@@ -9,14 +9,6 @@
 
 	cpu 68000
 
-zeroOffsetOptimization = 0
-;	| If 1, makes a handful of zero-offset instructions smaller
-
-	include "MacroSetup.asm"
-	include	"Constants.asm"
-	include	"Variables.asm"
-	include	"Macros.asm"
-
 EnableSRAM	  = 0	; change to 1 to enable SRAM
 BackupSRAM	  = 1
 AddressSRAM	  = 3	; 0 = odd+even; 2 = even only; 3 = odd only
@@ -29,6 +21,13 @@ Revision	  = 1
 ZoneCount	  = 6	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, and SBZ
 
 FixBugs		  = 0	; change to 1 to enable bugfixes
+
+zeroOffsetOptimization = 0	; if 1, makes a handful of zero-offset instructions smaller
+
+	include "MacroSetup.asm"
+	include	"Constants.asm"
+	include	"Variables.asm"
+	include	"Macros.asm"
 
 ; ===========================================================================
 
@@ -1241,7 +1240,7 @@ ClearPLC:
 RunPLC:
 		tst.l	(v_plc_buffer).w
 		beq.s	Rplc_Exit
-		tst.w	(f_plc_execute).w
+		tst.w	(v_plc_patternsleft).w
 		bne.s	Rplc_Exit
 		movea.l	(v_plc_buffer).w,a0
 		lea	(NemPCD_WriteRowToVDP).l,a3
@@ -1252,7 +1251,7 @@ RunPLC:
 
 loc_160E:
 		andi.w	#$7FFF,d2
-		move.w	d2,(f_plc_execute).w
+		move.w	d2,(v_plc_patternsleft).w
 		bsr.w	NemDec_BuildCodeTable
 		move.b	(a0)+,d5
 		asl.w	#8,d5
@@ -1276,7 +1275,7 @@ Rplc_Exit:
 
 
 sub_1642:
-		tst.w	(f_plc_execute).w
+		tst.w	(v_plc_patternsleft).w
 		beq.w	locret_16DA
 		move.w	#9,(v_plc_framepatternsleft).w
 		moveq	#0,d0
@@ -1291,7 +1290,7 @@ sub_1642:
 
 ; sub_165E:
 ProcessDPLC2:
-		tst.w	(f_plc_execute).w
+		tst.w	(v_plc_patternsleft).w
 		beq.s	locret_16DA
 		move.w	#3,(v_plc_framepatternsleft).w
 		moveq	#0,d0
@@ -1318,7 +1317,7 @@ loc_1676:
 loc_16AA:
 		movea.w	#8,a5
 		bsr.w	NemPCD_NewRow
-		subq.w	#1,(f_plc_execute).w
+		subq.w	#1,(v_plc_patternsleft).w
 		beq.s	loc_16DC
 		subq.w	#1,(v_plc_framepatternsleft).w
 		bne.s	loc_16AA
@@ -6510,11 +6509,24 @@ OPL_Main:
 		move.l	a1,(v_opl_data+$C).w
 		lea	(v_objstate).w,a2
 		move.w	#$101,(a2)+
-		move.w	#$5E,d0
+	if FixBugs
+		move.w	#(v_objstate_end-v_objstate-2)/4-1,d0
+	else
+		; This clears longwords, but the loop counter is measured in words!
+		; This causes $17C bytes to be cleared instead of $BE.
+		move.w	#(v_objstate_end-v_objstate-2)/2-1,d0
+	endif
 
 OPL_ClrList:
 		clr.l	(a2)+
 		dbf	d0,OPL_ClrList	; clear	pre-destroyed object list
+
+	if FixBugs
+		; Clear the last word, since the above loop only does longwords.
+	if (v_objstate_end-v_objstate-2)&2
+		clr.w	(a2)+
+	endif
+	endif
 
 		lea	(v_objstate).w,a2
 		moveq	#0,d2

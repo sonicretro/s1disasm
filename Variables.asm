@@ -4,40 +4,29 @@ ramaddr function x,(-(x&$80000000)<<1)|x
 
 ; Variables (v) and Flags (f)
 
-v_ram_start	= ramaddr ( $FFFF0000 )
+	phase ramaddr ( $FFFF0000 )
+v_ram_start:
 
-v_regbuffer	= ramaddr ( $FFFFFC00 )	; stores registers d0-a7 during an error event ($40 bytes)
-v_spbuffer	= ramaddr ( $FFFFFC40 )	; stores most recent sp address (4 bytes)
-v_errortype	= ramaddr ( $FFFFFC44 )	; error type
+v_256x256:		ds.b	$A4*$100	; 256x256 tile mappings ($A4 chunks)
+v_256x256_end:
 
-v_256x256	= ramaddr ( $FFFF0000 )	; 256x256 tile mappings ($A400 bytes)
-v_256x256_end	= v_256x256+$A4*$100	; $A4 chunks
+v_lvllayout:		ds.b	$400		; level and background layouts
+v_lvllayout_end:
+v_bgscroll_buffer:	ds.b	$200		; background scroll buffer
+v_ngfx_buffer:		ds.b	$200		; Nemesis graphics decompression buffer
+v_ngfx_buffer_end:
+v_spritequeue:		ds.b	$400		; sprite display queue, in order of priority
+v_16x16:		ds.b	$1800		; 16x16 tile mappings
 
-v_ssbuffer1	= v_256x256
-v_ssblockbuffer	= v_ssbuffer1+$1020 ; ($2000 bytes)
-v_ssblockbuffer_end	= v_ssblockbuffer+$80*$40
-v_ssbuffer2	= v_256x256+$4000
-v_ssblocktypes	= v_ssbuffer2
-v_ssitembuffer	= v_ssbuffer2+$400 ; ($100 bytes)
-v_ssitembuffer_end	= v_ssitembuffer+$100
-v_ssbuffer3	= v_256x256+$8000
+v_sgfx_buffer:		ds.b	$2E0		; buffered Sonic graphics ($17 cells)
+			ds.b	$20		; unused
+v_tracksonic:		ds.b	$100		; position tracking data for Sonic
+v_hscrolltablebuffer:	ds.b	$380		; scrolling table data (actually $380 bytes, but $400 is reserved for it)
+v_hscrolltablebuffer_end:
+			ds.b	$80		; unused
+v_hscrolltablebuffer_end_padded:
 
-v_lvllayout	= ramaddr ( $FFFFA400 )	; level and background layouts ($400 bytes)
-v_lvllayout_end	= ramaddr ( $FFFFA800 )
-v_bgscroll_buffer	= ramaddr( $FFFFA800 )	; background scroll buffer ($200 bytes)
-v_ngfx_buffer	= ramaddr ( $FFFFAA00 )	; Nemesis graphics decompression buffer ($200 bytes)
-v_ngfx_buffer_end	= ramaddr ( $FFFFAC00 )
-v_ssscroll_buffer	= v_ngfx_buffer+$100
-v_spritequeue	= ramaddr ( $FFFFAC00 )	; sprite display queue, in order of priority ($400 bytes)
-v_16x16	= ramaddr ( $FFFFB000 )	; 16x16 tile mappings
-
-v_sgfx_buffer	= ramaddr ( $FFFFC800 )	; buffered Sonic graphics ($17 cells) ($2E0 bytes)
-v_tracksonic	= ramaddr ( $FFFFCB00 )	; position tracking data for Sonic ($100 bytes)
-v_hscrolltablebuffer	= ramaddr ( $FFFFCC00 )	; scrolling table data (actually $380 bytes, but $400 is reserved for it)
-v_hscrolltablebuffer_end	= ramaddr ( $FFFFCF80 )
-v_hscrolltablebuffer_end_padded	= ramaddr ( $FFFFD000 )
-
-v_objspace	= ramaddr ( $FFFFD000 )	; object variable space ($40 bytes per object) ($2000 bytes)
+v_objspace:		ds.b	object_size*$80	; object variable space ($40 bytes per object)
 
 ; Title screen objects
 v_sonicteam	= v_objspace+object_size*2	; object variable space for the "SONIC TEAM PRESENTS" text ($40 bytes)
@@ -108,7 +97,8 @@ v_endeggman	= v_objspace+object_size*2	; object variable space for Eggman after 
 v_tryagain	= v_objspace+object_size*3	; object variable space for the "TRY AGAIN" text ($40 bytes)
 v_eggmanchaos	= v_objspace+object_size*32	; object variable space for the emeralds juggled by Eggman ($180 bytes)
 
-v_snddriver_ram  = ramaddr ( $FFFFF000 )	; start of RAM for the sound driver data ($5C0 bytes)
+v_snddriver_ram:	ds.b	$5C0		; start of RAM for the sound driver data
+			ds.b	$40		; unused
 
 ; =================================================================================
 ; From here on, until otherwise stated, all offsets are relative to v_snddriver_ram
@@ -192,294 +182,354 @@ v_1up_ram_copy:		= v_spcsfx_track_ram_end
 ; From here on, no longer relative to sound driver RAM
 ; =================================================================================
 
-v_gamemode	= ramaddr ( $FFFFF600 )	; game mode (00=Sega; 04=Title; 08=Demo; 0C=Level; 10=SS; 14=Cont; 18=End; 1C=Credit; +8C=PreLevel)
-v_jpadhold2	= ramaddr ( $FFFFF602 )	; joypad input - held, duplicate
-v_jpadpress2	= ramaddr ( $FFFFF603 )	; joypad input - pressed, duplicate
-v_jpadhold1	= ramaddr ( $FFFFF604 )	; joypad input - held
-v_jpadpress1	= ramaddr ( $FFFFF605 )	; joypad input - pressed
+v_gamemode:		ds.b	1		; game mode (00=Sega; 04=Title; 08=Demo; 0C=Level; 10=SS; 14=Cont; 18=End; 1C=Credit; +8C=PreLevel)
+			ds.b	1		; unused
+v_jpadhold2:		ds.b	1		; joypad input - held, duplicate
+v_jpadpress2:		ds.b	1		; joypad input - pressed, duplicate
+v_jpadhold1:		ds.b	1		; joypad input - held
+v_jpadpress1:		ds.b	1		; joypad input - pressed
+			ds.b	6		; unused
+v_vdp_buffer1:		ds.w	1		; VDP instruction buffer
+			ds.b	6		; unused
+v_demolength:		ds.w	1		; the length of a demo in frames
+v_scrposy_vdp:		ds.w	1		; screen position y (VDP)
+v_bgscrposy_vdp:	ds.w	1		; background screen position y (VDP)
+v_scrposx_vdp:		ds.w	1		; screen position x (VDP)
+v_bgscrposx_vdp:	ds.w	1		; background screen position x (VDP)
+v_bg3scrposy_vdp:	ds.w	1
+v_bg3scrposx_vdp:	ds.w	1
+			ds.b	2		; unused
+v_hbla_hreg:		ds.w	1		; VDP H.interrupt register buffer (8Axx)
+v_hbla_line = v_hbla_hreg+1			; screen line where water starts and palette is changed by HBlank
+v_pfade_start:		ds.b	1		; palette fading - start position in bytes
+v_pfade_size:		ds.b	1		; palette fading - number of colours
 
-v_vdp_buffer1	= ramaddr ( $FFFFF60C )	; VDP instruction buffer (2 bytes)
+v_misc_variables:
+v_vbla_0e_counter:	ds.b	1		; tracks how many times vertical interrupts routine 0E occured (pretty much unused because routine 0E is unused)
+			ds.b	1		; unused
+v_vbla_routine:		ds.b	1		; VBlank - routine counter
+			ds.b	1		; unused
+v_spritecount:		ds.b	1		; number of sprites on-screen
+			ds.b	5		; unused
+v_pcyc_num:		ds.w	1		; palette cycling - current reference number
+v_pcyc_time:		ds.w	1		; palette cycling - time until the next change
+v_random:		ds.l	1		; pseudo random number buffer
+f_pause:		ds.w	1		; flag set to pause the game
+			ds.b	4		; unused
+v_vdp_buffer2:		ds.w	1		; VDP instruction buffer
+			ds.b	2		; unused
+f_hbla_pal:		ds.w	1		; flag set to change palette during HBlank (0000 = no; 0001 = change)
+v_waterpos1:		ds.w	1		; water height, actual
+v_waterpos2:		ds.w	1		; water height, ignoring sway
+v_waterpos3:		ds.w	1		; water height, next target
+f_water:		ds.b	1		; flag set for water
+v_wtr_routine:		ds.b	1		; water event - routine counter
+f_wtr_state:		ds.b	1		; water palette state when water is above/below the screen (00 = partly/all dry; 01 = all underwater)
+f_doupdatesinhblank:	ds.b	1		; defers performing various tasks to the Horizontal Interrupt (H-Blank)
+v_pal_buffer:		ds.b	$30		; palette data buffer (used for palette cycling) ($30 bytes)
+v_misc_variables_end:
 
-v_demolength	= ramaddr ( $FFFFF614 )	; the length of a demo in frames (2 bytes)
-v_scrposy_vdp	= ramaddr ( $FFFFF616 )	; screen position y (VDP) (2 bytes)
-v_bgscrposy_vdp	= ramaddr ( $FFFFF618 )	; background screen position y (VDP) (2 bytes)
-v_scrposx_vdp	= ramaddr ( $FFFFF61A )	; screen position x (VDP) (2 bytes)
-v_bgscrposx_vdp	= ramaddr ( $FFFFF61C )	; background screen position x (VDP) (2 bytes)
-v_bg3scrposy_vdp	= ramaddr ( $FFFFF61E )	; (2 bytes)
-v_bg3scrposx_vdp	= ramaddr ( $FFFFF620 )	; (2 bytes)
+v_plc_buffer:		ds.b	6*16		; pattern load cues buffer (maximum $10 PLCs)
+v_plc_buffer_only_end:
+v_plc_ptrnemcode:	ds.l	1		; pointer for nemesis decompression code ($1502 or $150C)
+v_plc_repeatcount:	ds.l	1
+v_plc_paletteindex:	ds.l	1
+v_plc_previousrow:	ds.l	1
+v_plc_dataword:		ds.l	1
+v_plc_shiftvalue:	ds.l	1
+v_plc_patternsleft:	ds.w	1
+v_plc_framepatternsleft:ds.w	1
+			ds.b	4		; unused
+v_plc_buffer_end:
 
-v_hbla_hreg	= ramaddr ( $FFFFF624 )	; VDP H.interrupt register buffer (8Axx) (2 bytes)
-v_hbla_line	= ramaddr ( $FFFFF625 )	; screen line where water starts and palette is changed by HBlank
-v_pfade_start	= ramaddr ( $FFFFF626 )	; palette fading - start position in bytes
-v_pfade_size	= ramaddr ( $FFFFF627 )	; palette fading - number of colours
+v_levelvariables:				; variables that are reset between levels
+v_screenposx:		ds.l	1		; screen position x
+v_screenposy:		ds.l	1		; screen position y
+v_bgscreenposx:		ds.l	1		; background screen position x
+v_bgscreenposy:		ds.l	1		; background screen position y
+v_bg2screenposx:	ds.l	1
+v_bg2screenposy:	ds.l	1
+v_bg3screenposx:	ds.l	1
+v_bg3screenposy:	ds.l	1
+v_limitleft1:		ds.w	1		; left level boundary (unused)
+v_limitright1:		ds.w	1		; right level boundary (unused)
+v_limittop1:		ds.w	1		; top level boundary (unused)
+v_limitbtm1:		ds.w	1		; bottom level boundary
+v_limitleft2:		ds.w	1		; left level boundary
+v_limitright2:		ds.w	1		; right level boundary
+v_limittop2:		ds.w	1		; top level boundary
+v_limitbtm2:		ds.w	1		; bottom level boundary
+v_unused11:		ds.w	1		; unused
+v_limitleft3:		ds.w	1		; left level boundary, at the end of an act
+			ds.b	6		; unused
+v_scrshiftx:		ds.w	1		; x-screen shift (new - last) * $100
+v_scrshifty:		ds.w	1		; y-screen shift (new - last) * $100
+v_lookshift:		ds.w	1		; screen shift when Sonic looks up/down
+v_unused7:		ds.b	1		; unused
+v_unused8:		ds.b	1		; unused
+v_dle_routine:		ds.b	1		; dynamic level event - routine counter
+			ds.b	1		; unused
+f_nobgscroll:		ds.b	1		; flag set to cancel background scrolling
+			ds.b	1		; unused
+v_unused9:		ds.b	1		; unused
+			ds.b	1		; unused
+v_unused10:		ds.b	1		; unused
+			ds.b	1		; unused
+v_fg_xblock:		ds.b	1		; foreground x-block parity (for redraw)
+v_fg_yblock:		ds.b	1		; foreground y-block parity (for redraw)
+v_bg1_xblock:		ds.b	1		; background x-block parity (for redraw)
+v_bg1_yblock:		ds.b	1		; background y-block parity (for redraw)
+v_bg2_xblock:		ds.b	1		; secondary background x-block parity (for redraw)
+v_bg2_yblock:		ds.b	1		; secondary background y-block parity (unused)
+v_bg3_xblock:		ds.b	1		; teritary background x-block parity (for redraw)
+v_bg3_yblock:		ds.b	1		; teritary background y-block parity (unused)
+			ds.b	2		; unused
+v_fg_scroll_flags:	ds.w	1		; screen redraw flags for foreground
+v_bg1_scroll_flags:	ds.w	1		; screen redraw flags for background 1
+v_bg2_scroll_flags:	ds.w	1		; screen redraw flags for background 2
+v_bg3_scroll_flags:	ds.w	1		; screen redraw flags for background 3
+f_bgscrollvert:		ds.b	1		; flag for vertical background scrolling
+			ds.b	3		; unused
+v_sonspeedmax:		ds.w	1		; Sonic's maximum speed
+v_sonspeedacc:		ds.w	1		; Sonic's acceleration
+v_sonspeeddec:		ds.w	1		; Sonic's deceleration
+v_sonframenum:		ds.b	1		; frame to display for Sonic
+f_sonframechg:		ds.b	1		; flag set to update Sonic's sprite frame
+v_anglebuffer:		ds.b	1		; angle of collision block that Sonic or object is standing on
+			ds.b	1		; unused
+v_anglebuffer2:		ds.b	1		; other angle of collision block that Sonic or object is standing on
+			ds.b	1		; unused
+v_opl_routine:		ds.b	1		; ObjPosLoad - routine counter
+			ds.b	1		; unused
+v_opl_screen:		ds.w	1		; ObjPosLoad - screen variable
+v_opl_data:		ds.b	$10		; ObjPosLoad - data buffer
+v_ssangle:		ds.w	1		; Special Stage angle
+v_ssrotate:		ds.w	1		; Special Stage rotation speed
+			ds.b	$C		; unused
+v_btnpushtime1:		ds.w	1		; button push duration - in level
+v_btnpushtime2:		ds.w	1		; button push duration - in demo
+v_palchgspeed:		ds.w	1		; palette fade/transition speed (0 is fastest)
+v_collindex:		ds.l	1		; ROM address for collision index of current level
+v_palss_num:		ds.w	1		; palette cycling in Special Stage - reference number
+v_palss_time:		ds.w	1		; palette cycling in Special Stage - time until next change
+v_palss_index:		ds.w	1		; palette cycling in Special Stage - index into palette cycle 2 (unused?)
+v_ssbganim:		ds.w	1		; Special Stage background animation
+			ds.b	2		; unused
+v_obj31ypos:		ds.w	1		; y-position of object 31 (MZ stomper)
+			ds.b	1		; unused
+v_bossstatus:		ds.b	1		; status of boss and prison capsule (01 = boss defeated; 02 = prison opened)
+v_trackpos:		ds.w	1		; position tracking reference number
+v_trackbyte = v_trackpos+1			; low byte for position tracking
+f_lockscreen:		ds.b	1		; flag set to lock screen during bosses
+			ds.b	1		; unused
+v_256loop1:		ds.b	1		; 256x256 level tile which contains a loop (GHZ/SLZ)
+v_256loop2:		ds.b	1		; 256x256 level tile which contains a loop (GHZ/SLZ)
+v_256roll1:		ds.b	1		; 256x256 level tile which contains a roll tunnel (GHZ)
+v_256roll2:		ds.b	1		; 256x256 level tile which contains a roll tunnel (GHZ)
+v_lani0_frame:		ds.b	1		; level graphics animation 0 - current frame
+v_lani0_time:		ds.b	1		; level graphics animation 0 - time until next frame
+v_lani1_frame:		ds.b	1		; level graphics animation 1 - current frame
+v_lani1_time:		ds.b	1		; level graphics animation 1 - time until next frame
+v_lani2_frame:		ds.b	1		; level graphics animation 2 - current frame
+v_lani2_time:		ds.b	1		; level graphics animation 2 - time until next frame
+v_lani3_frame:		ds.b	1		; level graphics animation 3 - current frame
+v_lani3_time:		ds.b	1		; level graphics animation 3 - time until next frame
+v_lani4_frame:		ds.b	1		; level graphics animation 4 - current frame
+v_lani4_time:		ds.b	1		; level graphics animation 4 - time until next frame
+v_lani5_frame:		ds.b	1		; level graphics animation 5 - current frame
+v_lani5_time:		ds.b	1		; level graphics animation 5 - time until next frame
+			ds.b	2		; unused
+v_gfxbigring:		ds.w	1		; settings for giant ring graphics loading
+f_conveyrev:		ds.b	1		; flag set to reverse conveyor belts in LZ/SBZ
+v_obj63:		ds.b	6		; object 63 (LZ/SBZ platforms) variables (6 bytes)
+f_wtunnelmode:		ds.b	1		; LZ water tunnel mode
+f_playerctrl:		ds.b	1		; Player control override flags (object ineraction, control enable)
+f_wtunnelallow:		ds.b	1		; LZ water tunnels (00 = enabled; 01 = disabled)
+f_slidemode:		ds.b	1		; LZ water slide mode
+v_obj6B:		ds.b	1		; object 6B (SBZ stomper) variable
+f_lockctrl:		ds.b	1		; flag set to lock controls during ending sequence
+f_bigring:		ds.b	1		; flag set when Sonic collects the giant ring
+f_obj56:		ds.b	1		; object 56 flag
+			ds.b	1		; unused
+v_itembonus:		ds.w	1		; item bonus from broken enemies, blocks etc.
+v_timebonus:		ds.w	1		; time bonus at the end of an act
+v_ringbonus:		ds.w	1		; ring bonus at the end of an act
+f_endactbonus:		ds.b	1		; time/ring bonus update flag at the end of an act
+v_sonicend:		ds.b	1		; routine counter for Sonic in the ending sequence
+v_lz_deform:		ds.w	1		; LZ deformation offset, in units of $80
+			ds.b	6		; unused
+f_switch:		ds.b	$10		; flags set when Sonic stands on a switch
+v_scroll_block_1_size:	ds.w	1
+v_scroll_block_2_size:	ds.w	1		; unused
+v_scroll_block_3_size:	ds.w	1		; unused
+v_scroll_block_4_size:	ds.w	1		; unused
+			ds.b	8		; unused
+v_levelvariables_end:
 
-v_misc_variables	= ramaddr ( $FFFFF628 )
-v_vbla_0e_counter	= ramaddr ( $FFFFF628 ) ; tracks how many times vertical interrupts routine 0E occured (pretty much unused because routine 0E is unused)
-v_vbla_routine	= ramaddr ( $FFFFF62A )	; VBlank - routine counter
-v_spritecount	= ramaddr ( $FFFFF62C )	; number of sprites on-screen
-v_pcyc_num	= ramaddr ( $FFFFF632 )	; palette cycling - current reference number (2 bytes)
-v_pcyc_time	= ramaddr ( $FFFFF634 )	; palette cycling - time until the next change (2 bytes)
-v_random	= ramaddr ( $FFFFF636 )	; pseudo random number buffer (4 bytes)
-f_pause	= ramaddr ( $FFFFF63A )	; flag set to pause the game (2 bytes)
-v_vdp_buffer2	= ramaddr ( $FFFFF640 )	; VDP instruction buffer (2 bytes)
-f_hbla_pal	= ramaddr ( $FFFFF644 )	; flag set to change palette during HBlank (0000 = no; 0001 = change) (2 bytes)
-v_waterpos1	= ramaddr ( $FFFFF646 )	; water height, actual (2 bytes)
-v_waterpos2	= ramaddr ( $FFFFF648 )	; water height, ignoring sway (2 bytes)
-v_waterpos3	= ramaddr ( $FFFFF64A )	; water height, next target (2 bytes)
-f_water	= ramaddr ( $FFFFF64C )	; flag set for water
-v_wtr_routine	= ramaddr ( $FFFFF64D )	; water event - routine counter
-f_wtr_state	= ramaddr ( $FFFFF64E )	; water palette state when water is above/below the screen (00 = partly/all dry; 01 = all underwater)
-f_doupdatesinhblank	= ramaddr ( $FFFFF64F )	; defers performing various tasks to the Horizontal Interrupt (H-Blank)
-v_pal_buffer	= ramaddr ( $FFFFF650 )	; palette data buffer (used for palette cycling) ($30 bytes)
-v_misc_variables_end	= ramaddr ( $FFFFF680 )
+v_spritetablebuffer:	ds.b	$280		; sprite table (last $80 bytes are overwritten by v_pal_water_dup)
+v_spritetablebuffer_end:
+v_pal_water_dup = v_spritetablebuffer_end-$80	; duplicate underwater palette, used for transitions ($80 bytes)
+v_pal_water:		ds.b	$80		; main underwater palette
+v_pal_dry:		ds.b	$80		; main palette
+v_pal_dry_dup:		ds.b	$80		; duplicate palette, used for transitions
+v_objstate:		ds.b	$C0		; object state list
+v_objstate_end:
+			ds.b	$140		; stack
+v_systemstack:
+v_crossresetram:				; RAM beyond this point is only cleared on a cold-boot
+			ds.b	2		; unused
+f_restart:		ds.w	1		; restart level flag
+v_framecount:		ds.w	1		; frame counter (adds 1 every frame)
+v_framebyte = v_framecount+1			; low byte for frame counter
+v_debugitem:		ds.b	1		; debug item currently selected (NOT the object number of the item)
+			ds.b	1		; unused
+v_debuguse:		ds.w	1		; debug mode use & routine counter (when Sonic is a ring/item)
+v_debugxspeed:		ds.b	1		; debug mode - horizontal speed
+v_debugyspeed:		ds.b	1		; debug mode - vertical speed
+v_vbla_count:		ds.l	1		; vertical interrupt counter (adds 1 every VBlank)
+v_vbla_word = v_vbla_count+2 			; low word for vertical interrupt counter (2 bytes)
+v_vbla_byte = v_vbla_word+1			; low byte for vertical interrupt counter
+v_zone:			ds.b	1		; current zone number
+v_act:			ds.b	1		; current act number
+v_lives:		ds.b	1		; number of lives
+			ds.b	1		; unused
+v_air:			ds.w	1		; air remaining while underwater
+v_airbyte = v_air+1				; low byte for air
+v_lastspecial:		ds.b	1		; last special stage number
+			ds.b	1		; unused
+v_continues:		ds.b	1		; number of continues
+			ds.b	1		; unused
+f_timeover:		ds.b	1		; time over flag
+v_lifecount:		ds.b	1		; lives counter value (for actual number, see "v_lives")
+f_lifecount:		ds.b	1		; lives counter update flag
+f_ringcount:		ds.b	1		; ring counter update flag
+f_timecount:		ds.b	1		; time counter update flag
+f_scorecount:		ds.b	1		; score counter update flag
+v_rings:		ds.w	1		; rings
+v_ringbyte = v_rings+1				; low byte for rings
+v_time:			ds.l	1		; time
+v_timemin = v_time+1				; time - minutes
+v_timesec = v_time+2				; time - seconds
+v_timecent = v_time+3				; time - centiseconds
+v_score:		ds.l	1		; score
+			ds.b	2		; unused
+v_shield:		ds.b	1		; shield status (00 = no; 01 = yes)
+v_invinc:		ds.b	1		; invinciblity status (00 = no; 01 = yes)
+v_shoes:		ds.b	1		; speed shoes status (00 = no; 01 = yes)
+v_unused1:		ds.b	1		; an unused fourth player status (Goggles?)
 
-v_plc_buffer	= ramaddr ( $FFFFF680 )	; pattern load cues buffer (maximum $10 PLCs) ($60 bytes)
-v_plc_buffer_only_end	= ramaddr ( $FFFFF680+6*16 )
-v_plc_ptrnemcode	= ramaddr ( $FFFFF6E0 )	; pointer for nemesis decompression code ($1502 or $150C) (4 bytes)
-v_plc_repeatcount	= ramaddr ( $FFFFF6E4 )	; (4 bytes)
-v_plc_paletteindex	= ramaddr ( $FFFFF6E8 )	; (4 bytes)
-v_plc_previousrow	= ramaddr ( $FFFFF6EC )	; (4 bytes)
-v_plc_dataword	= ramaddr ( $FFFFF6F0 )	; (4 bytes)
-v_plc_shiftvalue	= ramaddr ( $FFFFF6F4 )	; (4 bytes)
-v_plc_patternsleft	= ramaddr ( $FFFFF6F8 )	; (2 bytes)
-v_plc_framepatternsleft	= ramaddr ( $FFFFF6FA )	; (2 bytes)
+v_lastlamp:		ds.b	2		; number of the last lamppost you hit
+v_lamp_xpos:		ds.w	1		; x-axis for Sonic to respawn at lamppost
+v_lamp_ypos:		ds.w	1		; y-axis for Sonic to respawn at lamppost
+v_lamp_rings:		ds.w	1		; rings stored at lamppost
+v_lamp_time:		ds.l	1		; time stored at lamppost
+v_lamp_dle:		ds.b	1		; dynamic level event routine counter at lamppost
+			ds.b	1		; unused
+v_lamp_limitbtm:	ds.w	1		; level bottom boundary at lamppost
+v_lamp_scrx:		ds.w	1		; x-axis screen at lamppost
+v_lamp_scry:		ds.w	1		; y-axis screen at lamppost
+v_lamp_bgscrx:		ds.w	1		; x-axis BG screen at lamppost
+v_lamp_bgscry:		ds.w	1		; y-axis BG screen at lamppost
+v_lamp_bg2scrx:		ds.w	1		; x-axis BG2 screen at lamppost
+v_lamp_bg2scry:		ds.w	1		; y-axis BG2 screen at lamppost
+v_lamp_bg3scrx:		ds.w	1		; x-axis BG3 screen at lamppost
+v_lamp_bg3scry:		ds.w	1		; y-axis BG3 screen at lamppost
+v_lamp_wtrpos:		ds.w	1		; water position at lamppost
+v_lamp_wtrrout:		ds.b	1		; water routine at lamppost
+v_lamp_wtrstat:		ds.b	1		; water state at lamppost
+v_lamp_lives:		ds.b	1		; lives counter at lamppost
+			ds.b	2		; unused
+v_emeralds:		ds.b	1		; number of chaos emeralds
+v_emldlist:		ds.b	6		; which individual emeralds you have (00 = no; 01 = yes)
+v_oscillate:		ds.w	1		; oscillation bitfield
+v_timingandscreenvariables:
+v_timingvariables:
+			ds.b	$40		; values which oscillate - for swinging platforms, et al
+			ds.b	$20		; unused
+v_ani0_time:		ds.b	1		; synchronised sprite animation 0 - time until next frame (used for synchronised animations)
+v_ani0_frame:		ds.b	1		; synchronised sprite animation 0 - current frame
+v_ani1_time:		ds.b	1		; synchronised sprite animation 1 - time until next frame
+v_ani1_frame:		ds.b	1		; synchronised sprite animation 1 - current frame
+v_ani2_time:		ds.b	1		; synchronised sprite animation 2 - time until next frame
+v_ani2_frame:		ds.b	1		; synchronised sprite animation 2 - current frame
+v_ani3_time:		ds.b	1		; synchronised sprite animation 3 - time until next frame
+v_ani3_frame:		ds.b	1		; synchronised sprite animation 3 - current frame
+v_ani3_buf:		ds.w	1		; synchronised sprite animation 3 - info buffer
+			ds.b	$26		; unused
+v_limittopdb:		ds.w	1		; level upper boundary, buffered for debug mode
+v_limitbtmdb:		ds.w	1		; level bottom boundary, buffered for debug mode
+			ds.b	$C		; unused
+v_timingvariables_end:
 
-f_plc_execute	= ramaddr ( $FFFFF6F8 )	; flag set for pattern load cue execution (2 bytes)
-v_plc_buffer_end	= ramaddr ( $FFFFF700 )
+v_chunk0collision:	ds.w	1		; very subtly (and perhaps unintentionally) used by FindNearestTile when encountering chunk 0
+			ds.b	$E		; unused
+v_screenposx_dup:	ds.l	1		; screen position x (duplicate)
+v_screenposy_dup:	ds.l	1		; screen position y (duplicate)
+v_bgscreenposx_dup:	ds.l	1		; background screen position x (duplicate)
+v_bgscreenposy_dup:	ds.l	1		; background screen position y (duplicate)
+v_bg2screenposx_dup:	ds.l	1
+v_bg2screenposy_dup:	ds.l	1
+v_bg3screenposx_dup:	ds.l	1
+v_bg3screenposy_dup:	ds.l	1
+v_fg_scroll_flags_dup:	ds.w	1
+v_bg1_scroll_flags_dup:	ds.w	1
+v_bg2_scroll_flags_dup:	ds.w	1
+v_bg3_scroll_flags_dup:	ds.w	1
+			ds.b	$48		; unused
+v_timingandscreenvariables_end:
 
-v_levelvariables	= ramaddr ( $FFFFF700 )	; variables that are reset between levels (100 bytes)
-v_screenposx	= ramaddr ( $FFFFF700 )	; screen position x (2 bytes)
-v_screenposy	= ramaddr ( $FFFFF704 )	; screen position y (2 bytes)
-v_bgscreenposx	= ramaddr ( $FFFFF708 )	; background screen position x (2 bytes)
-v_bgscreenposy	= ramaddr ( $FFFFF70C )	; background screen position y (2 bytes)
-v_bg2screenposx	= ramaddr ( $FFFFF710 )	; 2 bytes
-v_bg2screenposy	= ramaddr ( $FFFFF714 )	; 2 bytes
-v_bg3screenposx	= ramaddr ( $FFFFF718 )	; 2 bytes
-v_bg3screenposy	= ramaddr ( $FFFFF71C )	; 2 bytes
+v_levseldelay:		ds.w	1		; level select - time until change when up/down is held
+v_levselitem:		ds.w	1		; level select - item selected
+v_levselsound:		ds.w	1		; level select - sound selected
+			ds.b	$3A		; unused
+	if Revision=0
+v_scorecopy:		ds.l	1		; score, duplicate
+	else
+v_scorelife:		ds.l	1		; points required for an extra life (JP1 only)
+	endif
+			ds.b	$1C		; unused
+f_levselcheat:		ds.b	1		; level select cheat flag
+f_slomocheat:		ds.b	1		; slow motion & frame advance cheat flag
+f_debugcheat:		ds.b	1		; debug mode cheat flag
+f_creditscheat:		ds.b	1		; hidden credits & press start cheat flag
+v_title_dcount:		ds.w	1		; number of times the d-pad is pressed on title screen
+v_title_ccount:		ds.w	1		; number of times C is pressed on title screen
+			ds.b	2		; unused
+v_unused2:		ds.w	1		; unused
+v_unused3:		ds.b	1		; unused
+v_unused4:		ds.b	1		; unused
+v_unused5:		ds.b	1		; unused
+v_unused6:		ds.b	1		; unused
+f_demo:			ds.w	1		; demo mode flag (0 = no; 1 = yes; $8001 = ending)
+v_demonum:		ds.w	1		; demo level number (not the same as the level number)
+v_creditsnum:		ds.w	1		; credits index number
+			ds.b	2		; unused
+v_megadrive:		ds.b	1		; Megadrive machine type
+			ds.b	1		; unused
+f_debugmode:		ds.w	1		; debug mode flag
+v_init:			ds.l	1		; 'init' text string
+v_ram_end:
+    if * > 0	; Don't declare more space than the RAM can contain!
+	fatal "The RAM variable declarations are too large by $\{*} bytes."
+    endif
+	dephase
 
-v_limitleft1	= ramaddr ( $FFFFF720 )	; left level boundary (2 bytes)
-v_limitright1	= ramaddr ( $FFFFF722 )	; right level boundary (2 bytes)
-v_limittop1	= ramaddr ( $FFFFF724 )	; top level boundary (2 bytes)
-v_limitbtm1	= ramaddr ( $FFFFF726 )	; bottom level boundary (2 bytes)
-v_limitleft2	= ramaddr ( $FFFFF728 )	; left level boundary (2 bytes)
-v_limitright2	= ramaddr ( $FFFFF72A )	; right level boundary (2 bytes)
-v_limittop2	= ramaddr ( $FFFFF72C )	; top level boundary (2 bytes)
-v_limitbtm2	= ramaddr ( $FFFFF72E )	; bottom level boundary (2 bytes)
-v_unused11	= ramaddr ( $FFFFF730 ) ; unused (2 bytes)
-v_limitleft3	= ramaddr ( $FFFFF732 )	; left level boundary, at the end of an act (2 bytes)
+; Special stage
+v_ssbuffer1		= v_256x256
+v_ssblockbuffer		= v_ssbuffer1+$1020 ; ($2000 bytes)
+v_ssblockbuffer_end	= v_ssblockbuffer+$80*$40
+v_ssbuffer2		= v_256x256+$4000
+v_ssblocktypes		= v_ssbuffer2
+v_ssitembuffer		= v_ssbuffer2+$400 ; ($100 bytes)
+v_ssitembuffer_end	= v_ssitembuffer+$100
+v_ssbuffer3		= v_256x256+$8000
+v_ssscroll_buffer	= v_ngfx_buffer+$100
 
-v_scrshiftx	= ramaddr ( $FFFFF73A )	; x-screen shift (new - last) * $100
-v_scrshifty	= ramaddr ( $FFFFF73C )	; y-screen shift (new - last) * $100
+; Error handler
+	phase v_objstate
+v_regbuffer:	ds.b	$40	; stores registers d0-a7 during an error event
+v_spbuffer:	ds.l	1	; stores most recent sp address
+v_errortype:	ds.b	1	; error type
+	dephase
 
-v_lookshift	= ramaddr ( $FFFFF73E )	; screen shift when Sonic looks up/down (2 bytes)
-v_unused7	= ramaddr ( $FFFFF740 )	; unused
-v_unused8	= ramaddr ( $FFFFF741 )	; unused
-v_dle_routine	= ramaddr ( $FFFFF742 )	; dynamic level event - routine counter
-f_nobgscroll	= ramaddr ( $FFFFF744 )	; flag set to cancel background scrolling
-v_unused9	= ramaddr ( $FFFFF746 )	; unused
-v_unused10	= ramaddr ( $FFFFF748 )	; unused
-
-v_fg_xblock	= ramaddr ( $FFFFF74A )	; foreground x-block parity (for redraw)
-v_fg_yblock	= ramaddr ( $FFFFF74B )	; foreground y-block parity (for redraw)
-v_bg1_xblock	= ramaddr ( $FFFFF74C )	; background x-block parity (for redraw)
-v_bg1_yblock	= ramaddr ( $FFFFF74D )	; background y-block parity (for redraw)
-v_bg2_xblock	= ramaddr ( $FFFFF74E )	; secondary background x-block parity (for redraw)
-v_bg2_yblock	= ramaddr ( $FFFFF74F )	; secondary background y-block parity (unused)
-v_bg3_xblock	= ramaddr ( $FFFFF750 )	; teritary background x-block parity (for redraw)
-v_bg3_yblock	= ramaddr ( $FFFFF751 )	; teritary background y-block parity (unused)
-
-v_fg_scroll_flags	= ramaddr ( $FFFFF754 )	; screen redraw flags for foreground
-v_bg1_scroll_flags	= ramaddr ( $FFFFF756 )	; screen redraw flags for background 1
-v_bg2_scroll_flags	= ramaddr ( $FFFFF758 )	; screen redraw flags for background 2
-v_bg3_scroll_flags	= ramaddr ( $FFFFF75A )	; screen redraw flags for background 3
-f_bgscrollvert	= ramaddr ( $FFFFF75C )	; flag for vertical background scrolling
-v_sonspeedmax	= ramaddr ( $FFFFF760 )	; Sonic's maximum speed (2 bytes)
-v_sonspeedacc	= ramaddr ( $FFFFF762 )	; Sonic's acceleration (2 bytes)
-v_sonspeeddec	= ramaddr ( $FFFFF764 )	; Sonic's deceleration (2 bytes)
-v_sonframenum	= ramaddr ( $FFFFF766 )	; frame to display for Sonic
-f_sonframechg	= ramaddr ( $FFFFF767 )	; flag set to update Sonic's sprite frame
-v_anglebuffer	= ramaddr ( $FFFFF768 )	; angle of collision block that Sonic or object is standing on
-v_anglebuffer2	= ramaddr ( $FFFFF76A )	; other angle of collision block that Sonic or object is standing on
-
-v_opl_routine	= ramaddr ( $FFFFF76C )	; ObjPosLoad - routine counter
-v_opl_screen	= ramaddr ( $FFFFF76E )	; ObjPosLoad - screen variable
-v_opl_data	= ramaddr ( $FFFFF770 )	; ObjPosLoad - data buffer ($10 bytes)
-
-v_ssangle	= ramaddr ( $FFFFF780 )	; Special Stage angle (2 bytes)
-v_ssrotate	= ramaddr ( $FFFFF782 )	; Special Stage rotation speed (2 bytes)
-v_btnpushtime1	= ramaddr ( $FFFFF790 )	; button push duration - in level (2 bytes)
-v_btnpushtime2	= ramaddr ( $FFFFF792 )	; button push duration - in demo (2 bytes)
-v_palchgspeed	= ramaddr ( $FFFFF794 )	; palette fade/transition speed (0 is fastest) (2 bytes)
-v_collindex	= ramaddr ( $FFFFF796 )	; ROM address for collision index of current level (4 bytes)
-v_palss_num	= ramaddr ( $FFFFF79A )	; palette cycling in Special Stage - reference number (2 bytes)
-v_palss_time	= ramaddr ( $FFFFF79C )	; palette cycling in Special Stage - time until next change (2 bytes)
-v_palss_index	= ramaddr ( $FFFFF79E ) ; palette cycling in Special Stage - index into palette cycle 2 (unused?) (2 bytes)
-v_ssbganim	= ramaddr ( $FFFFF7A0 ) ; Special Stage background animation (2 bytes)
-v_obj31ypos	= ramaddr ( $FFFFF7A4 )	; y-position of object 31 (MZ stomper) (2 bytes)
-v_bossstatus	= ramaddr ( $FFFFF7A7 )	; status of boss and prison capsule (01 = boss defeated; 02 = prison opened)
-v_trackpos	= ramaddr ( $FFFFF7A8 )	; position tracking reference number (2 bytes)
-v_trackbyte	= ramaddr ( $FFFFF7A9 )	; low byte for position tracking
-f_lockscreen	= ramaddr ( $FFFFF7AA )	; flag set to lock screen during bosses
-v_256loop1	= ramaddr ( $FFFFF7AC )	; 256x256 level tile which contains a loop (GHZ/SLZ)
-v_256loop2	= ramaddr ( $FFFFF7AD )	; 256x256 level tile which contains a loop (GHZ/SLZ)
-v_256roll1	= ramaddr ( $FFFFF7AE )	; 256x256 level tile which contains a roll tunnel (GHZ)
-v_256roll2	= ramaddr ( $FFFFF7AF )	; 256x256 level tile which contains a roll tunnel (GHZ)
-v_lani0_frame	= ramaddr ( $FFFFF7B0 )	; level graphics animation 0 - current frame
-v_lani0_time	= ramaddr ( $FFFFF7B1 )	; level graphics animation 0 - time until next frame
-v_lani1_frame	= ramaddr ( $FFFFF7B2 )	; level graphics animation 1 - current frame
-v_lani1_time	= ramaddr ( $FFFFF7B3 )	; level graphics animation 1 - time until next frame
-v_lani2_frame	= ramaddr ( $FFFFF7B4 )	; level graphics animation 2 - current frame
-v_lani2_time	= ramaddr ( $FFFFF7B5 )	; level graphics animation 2 - time until next frame
-v_lani3_frame	= ramaddr ( $FFFFF7B6 )	; level graphics animation 3 - current frame
-v_lani3_time	= ramaddr ( $FFFFF7B7 )	; level graphics animation 3 - time until next frame
-v_lani4_frame	= ramaddr ( $FFFFF7B8 )	; level graphics animation 4 - current frame
-v_lani4_time	= ramaddr ( $FFFFF7B9 )	; level graphics animation 4 - time until next frame
-v_lani5_frame	= ramaddr ( $FFFFF7BA )	; level graphics animation 5 - current frame
-v_lani5_time	= ramaddr ( $FFFFF7BB )	; level graphics animation 5 - time until next frame
-v_gfxbigring	= ramaddr ( $FFFFF7BE )	; settings for giant ring graphics loading (2 bytes)
-f_conveyrev	= ramaddr ( $FFFFF7C0 )	; flag set to reverse conveyor belts in LZ/SBZ
-v_obj63	= ramaddr ( $FFFFF7C1 )	; object 63 (LZ/SBZ platforms) variables (6 bytes)
-f_wtunnelmode	= ramaddr ( $FFFFF7C7 )	; LZ water tunnel mode
-f_playerctrl	= ramaddr ( $FFFFF7C8 )	; Player control override flags (object ineraction, control enable)
-f_wtunnelallow	= ramaddr ( $FFFFF7C9 )	; LZ water tunnels (00 = enabled; 01 = disabled)
-f_slidemode	= ramaddr ( $FFFFF7CA )	; LZ water slide mode
-v_obj6B	= ramaddr ( $FFFFF7CB )	; object 6B (SBZ stomper) variable
-f_lockctrl	= ramaddr ( $FFFFF7CC )	; flag set to lock controls during ending sequence
-f_bigring	= ramaddr ( $FFFFF7CD )	; flag set when Sonic collects the giant ring
-f_obj56	= ramaddr ( $FFFFF7CE ) ; object 56 flag
-v_itembonus	= ramaddr ( $FFFFF7D0 )	; item bonus from broken enemies, blocks etc. (2 bytes)
-v_timebonus	= ramaddr ( $FFFFF7D2 )	; time bonus at the end of an act (2 bytes)
-v_ringbonus	= ramaddr ( $FFFFF7D4 )	; ring bonus at the end of an act (2 bytes)
-f_endactbonus	= ramaddr ( $FFFFF7D6 )	; time/ring bonus update flag at the end of an act
-v_sonicend	= ramaddr ( $FFFFF7D7 )	; routine counter for Sonic in the ending sequence
-v_lz_deform	= ramaddr ( $FFFFF7D8 )	; LZ deformtaion offset, in units of $80 (2 bytes)
-f_switch	= ramaddr ( $FFFFF7E0 )	; flags set when Sonic stands on a switch ($10 bytes)
-v_scroll_block_1_size	= ramaddr ( $FFFFF7F0 )	; (2 bytes)
-v_scroll_block_2_size	= ramaddr ( $FFFFF7F2 )	; unused (2 bytes)
-v_scroll_block_3_size	= ramaddr ( $FFFFF7F4 )	; unused (2 bytes)
-v_scroll_block_4_size	= ramaddr ( $FFFFF7F6 )	; unused (2 bytes)
-v_levelvariables_end	= ramaddr ( $FFFFF800 )
-
-v_spritetablebuffer	= ramaddr ( $FFFFF800 ) ; sprite table ($280 bytes, last $80 bytes are overwritten by v_pal_water_dup)
-v_spritetablebuffer_end	= ramaddr ( $FFFFFA80 )
-v_pal_water_dup	= ramaddr ( $FFFFFA00 ) ; duplicate underwater palette, used for transitions ($80 bytes)
-v_pal_water	= ramaddr ( $FFFFFA80 )	; main underwater palette ($80 bytes)
-v_pal_dry	= ramaddr ( $FFFFFB00 )	; main palette ($80 bytes)
-v_pal_dry_dup	= ramaddr ( $FFFFFB80 )	; duplicate palette, used for transitions ($80 bytes)
-v_objstate	= ramaddr ( $FFFFFC00 )	; object state list ($200 bytes)
-
-v_crossresetram	= ramaddr ( $FFFFFE00 ) ; RAM beyond this point is only cleared on a cold-boot
-
-v_systemstack	= ramaddr ( $FFFFFE00 )
-f_restart	= ramaddr ( $FFFFFE02 )	; restart level flag (2 bytes)
-v_framecount	= ramaddr ( $FFFFFE04 )	; frame counter (adds 1 every frame) (2 bytes)
-v_framebyte	= v_framecount+1; low byte for frame counter
-v_debugitem	= ramaddr ( $FFFFFE06 )	; debug item currently selected (NOT the object number of the item)
-v_debuguse	= ramaddr ( $FFFFFE08 )	; debug mode use & routine counter (when Sonic is a ring/item) (2 bytes)
-v_debugxspeed	= ramaddr ( $FFFFFE0A )	; debug mode - horizontal speed
-v_debugyspeed	= ramaddr ( $FFFFFE0B )	; debug mode - vertical speed
-v_vbla_count	= ramaddr ( $FFFFFE0C )	; vertical interrupt counter (adds 1 every VBlank) (4 bytes)
-v_vbla_word	= v_vbla_count+2 ; low word for vertical interrupt counter (2 bytes)
-v_vbla_byte	= v_vbla_word+1	; low byte for vertical interrupt counter
-v_zone		= ramaddr ( $FFFFFE10 )	; current zone number
-v_act		= ramaddr ( $FFFFFE11 )	; current act number
-v_lives	= ramaddr ( $FFFFFE12 )	; number of lives
-v_air		= ramaddr ( $FFFFFE14 )	; air remaining while underwater (2 bytes)
-v_airbyte	= v_air+1	; low byte for air
-v_lastspecial	= ramaddr ( $FFFFFE16 )	; last special stage number
-v_continues	= ramaddr ( $FFFFFE18 )	; number of continues
-f_timeover	= ramaddr ( $FFFFFE1A )	; time over flag
-v_lifecount	= ramaddr ( $FFFFFE1B )	; lives counter value (for actual number, see "v_lives")
-f_lifecount	= ramaddr ( $FFFFFE1C )	; lives counter update flag
-f_ringcount	= ramaddr ( $FFFFFE1D )	; ring counter update flag
-f_timecount	= ramaddr ( $FFFFFE1E )	; time counter update flag
-f_scorecount	= ramaddr ( $FFFFFE1F )	; score counter update flag
-v_rings	= ramaddr ( $FFFFFE20 )	; rings (2 bytes)
-v_ringbyte	= v_rings+1	; low byte for rings
-v_time		= ramaddr ( $FFFFFE22 )	; time (4 bytes)
-v_timemin	= ramaddr ( $FFFFFE23 )	; time - minutes
-v_timesec	= ramaddr ( $FFFFFE24 )	; time - seconds
-v_timecent	= ramaddr ( $FFFFFE25 )	; time - centiseconds
-v_score	= ramaddr ( $FFFFFE26 )	; score (4 bytes)
-v_shield	= ramaddr ( $FFFFFE2C )	; shield status (00 = no; 01 = yes)
-v_invinc	= ramaddr ( $FFFFFE2D )	; invinciblity status (00 = no; 01 = yes)
-v_shoes	= ramaddr ( $FFFFFE2E )	; speed shoes status (00 = no; 01 = yes)
-v_unused1	= ramaddr ( $FFFFFE2F ) ; an unused fourth player status (Goggles?)
-
-v_lastlamp	= ramaddr ( $FFFFFE30 )	; number of the last lamppost you hit
-v_lamp_xpos	= v_lastlamp+2	; x-axis for Sonic to respawn at lamppost (2 bytes)
-v_lamp_ypos	= v_lastlamp+4	; y-axis for Sonic to respawn at lamppost (2 bytes)
-v_lamp_rings	= v_lastlamp+6	; rings stored at lamppost (2 bytes)
-v_lamp_time	= v_lastlamp+8	; time stored at lamppost (2 bytes)
-v_lamp_dle	= v_lastlamp+$C	; dynamic level event routine counter at lamppost
-v_lamp_limitbtm	= v_lastlamp+$E	; level bottom boundary at lamppost (2 bytes)
-v_lamp_scrx	= v_lastlamp+$10 ; x-axis screen at lamppost (2 bytes)
-v_lamp_scry	= v_lastlamp+$12 ; y-axis screen at lamppost (2 bytes)
-v_lamp_bgscrx	= v_lastlamp+$14 ; x-axis BG screen at lamppost (2 bytes)
-v_lamp_bgscry	= v_lastlamp+$16 ; y-axis BG screen at lamppost (2 bytes)
-v_lamp_bg2scrx	= v_lastlamp+$18 ; x-axis BG2 screen at lamppost (2 bytes)
-v_lamp_bg2scry	= v_lastlamp+$1A ; y-axis BG2 screen at lamppost (2 bytes)
-v_lamp_bg3scrx	= v_lastlamp+$1C ; x-axis BG3 screen at lamppost (2 bytes)
-v_lamp_bg3scry	= v_lastlamp+$1E ; y-axis BG3 screen at lamppost (2 bytes)
-v_lamp_wtrpos	= v_lastlamp+$20 ; water position at lamppost (2 bytes)
-v_lamp_wtrrout	= v_lastlamp+$22 ; water routine at lamppost
-v_lamp_wtrstat	= v_lastlamp+$23 ; water state at lamppost
-v_lamp_lives	= v_lastlamp+$24 ; lives counter at lamppost
-
-v_emeralds	= ramaddr ( $FFFFFE57 )	; number of chaos emeralds
-v_emldlist	= ramaddr ( $FFFFFE58 )	; which individual emeralds you have (00 = no; 01 = yes) (6 bytes)
-v_oscillate	= ramaddr ( $FFFFFE5E )	; values which oscillate - for swinging platforms, et al ($42 bytes)
-v_timingandscreenvariables	= ramaddr ( $FFFFFE60 ) ; ($120 bytes)
-v_timingvariables	= ramaddr ( $FFFFFE60 ) ; ($A0 bytes)
-v_ani0_time	= ramaddr ( $FFFFFEC0 )	; synchronised sprite animation 0 - time until next frame (used for synchronised animations)
-v_ani0_frame	= ramaddr ( $FFFFFEC1 )	; synchronised sprite animation 0 - current frame
-v_ani1_time	= ramaddr ( $FFFFFEC2 )	; synchronised sprite animation 1 - time until next frame
-v_ani1_frame	= ramaddr ( $FFFFFEC3 )	; synchronised sprite animation 1 - current frame
-v_ani2_time	= ramaddr ( $FFFFFEC4 )	; synchronised sprite animation 2 - time until next frame
-v_ani2_frame	= ramaddr ( $FFFFFEC5 )	; synchronised sprite animation 2 - current frame
-v_ani3_time	= ramaddr ( $FFFFFEC6 )	; synchronised sprite animation 3 - time until next frame
-v_ani3_frame	= ramaddr ( $FFFFFEC7 )	; synchronised sprite animation 3 - current frame
-v_ani3_buf	= ramaddr ( $FFFFFEC8 )	; synchronised sprite animation 3 - info buffer (2 bytes)
-v_limittopdb	= ramaddr ( $FFFFFEF0 )	; level upper boundary, buffered for debug mode (2 bytes)
-v_limitbtmdb	= ramaddr ( $FFFFFEF2 )	; level bottom boundary, buffered for debug mode (2 bytes)
-v_timingvariables_end	= ramaddr ( $FFFFFF00 )
-
-v_screenposx_dup	= ramaddr ( $FFFFFF10 )	; screen position x (duplicate) (2 bytes)
-v_screenposy_dup	= ramaddr ( $FFFFFF14 )	; screen position y (duplicate) (2 bytes)
-v_bgscreenposx_dup	= ramaddr ( $FFFFFF18 )	; background screen position x (duplicate) (2 bytes)
-v_bgscreenposy_dup	= ramaddr ( $FFFFFF1C )	; background screen position y (duplicate) (2 bytes)
-v_bg2screenposx_dup	= ramaddr ( $FFFFFF20 )	; 2 bytes
-v_bg2screenposy_dup	= ramaddr ( $FFFFFF24 )	; 2 bytes
-v_bg3screenposx_dup	= ramaddr ( $FFFFFF28 )	; 2 bytes
-v_bg3screenposy_dup	= ramaddr ( $FFFFFF2C )	; 2 bytes
-v_fg_scroll_flags_dup	= ramaddr ( $FFFFFF30 )
-v_bg1_scroll_flags_dup	= ramaddr ( $FFFFFF32 )
-v_bg2_scroll_flags_dup	= ramaddr ( $FFFFFF34 )
-v_bg3_scroll_flags_dup	= ramaddr ( $FFFFFF36 )
-v_timingandscreenvariables_end	= ramaddr ( $FFFFFF80 )
-
-v_levseldelay	= ramaddr ( $FFFFFF80 )	; level select - time until change when up/down is held (2 bytes)
-v_levselitem	= ramaddr ( $FFFFFF82 )	; level select - item selected (2 bytes)
-v_levselsound	= ramaddr ( $FFFFFF84 )	; level select - sound selected (2 bytes)
-v_scorecopy	= ramaddr ( $FFFFFFC0 )	; score, duplicate (4 bytes)
-v_scorelife	= ramaddr ( $FFFFFFC0 )	; points required for an extra life (4 bytes) (JP1 only)
-f_levselcheat	= ramaddr ( $FFFFFFE0 )	; level select cheat flag
-f_slomocheat	= ramaddr ( $FFFFFFE1 )	; slow motion & frame advance cheat flag
-f_debugcheat	= ramaddr ( $FFFFFFE2 )	; debug mode cheat flag
-f_creditscheat	= ramaddr ( $FFFFFFE3 )	; hidden credits & press start cheat flag
-v_title_dcount	= ramaddr ( $FFFFFFE4 )	; number of times the d-pad is pressed on title screen (2 bytes)
-v_title_ccount	= ramaddr ( $FFFFFFE6 )	; number of times C is pressed on title screen (2 bytes)
-v_unused2	= ramaddr ( $FFFFFFEA )	; unused (2 bytes)
-v_unused3	= ramaddr ( $FFFFFFEC )	; unused
-v_unused4	= ramaddr ( $FFFFFFED )	; unused
-v_unused5	= ramaddr ( $FFFFFFEE )	; unused
-v_unused6	= ramaddr ( $FFFFFFEF )	; unused
-
-f_demo		= ramaddr ( $FFFFFFF0 )	; demo mode flag (0 = no; 1 = yes; $8001 = ending) (2 bytes)
-v_demonum	= ramaddr ( $FFFFFFF2 )	; demo level number (not the same as the level number) (2 bytes)
-v_creditsnum	= ramaddr ( $FFFFFFF4 )	; credits index number (2 bytes)
-v_megadrive	= ramaddr ( $FFFFFFF8 )	; Megadrive machine type
-f_debugmode	= ramaddr ( $FFFFFFFA )	; debug mode flag (sometimes 2 bytes)
-v_init		= ramaddr ( $FFFFFFFC )	; 'init' text string (4 bytes)
-
-v_ram_end	= v_ram_start+$10000
+	!org 0
