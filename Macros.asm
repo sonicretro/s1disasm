@@ -68,6 +68,14 @@ clearRAM:	macro start,end
 .loop:
 		move.l	d0,(a1)+
 		dbf	d1,.loop
+
+	if (end-start)&2
+		move.w	d0,(a1)+
+	endif
+
+	if (end-start)&1
+		move.b	d0,(a1)+
+	endif
 		endm
 
 ; ---------------------------------------------------------------------------
