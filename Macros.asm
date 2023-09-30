@@ -56,6 +56,21 @@ fillVRAM:	macro value,length,loc
 		endm
 
 ; ---------------------------------------------------------------------------
+; Fill portion of RAM with 0
+; input: start, end
+; ---------------------------------------------------------------------------
+
+clearRAM:	macro start,end
+		lea	(start).w,a1
+		moveq	#0,d0
+		move.w	#((end)-(start))/4-1,d1
+
+.loop:
+		move.l	d0,(a1)+
+		dbf	d1,.loop
+		endm
+
+; ---------------------------------------------------------------------------
 ; Copy a tilemap from 68K (ROM/RAM) to the VRAM without using DMA
 ; input: source, destination, width [cells], height [cells]
 ; ---------------------------------------------------------------------------

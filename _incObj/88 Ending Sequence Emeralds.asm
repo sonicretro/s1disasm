@@ -47,7 +47,7 @@ ECha_LoadLoop:
 		addq.b	#1,d2
 		move.b	d3,obAngle(a1)
 		addi.b	#$100/6,d3	; angle between each emerald
-		lea	$40(a1),a1
+		lea	object_size(a1),a1
 		dbf	d1,ECha_LoadLoop ; repeat 5 more times
 
 ECha_Move:	; Routine 2

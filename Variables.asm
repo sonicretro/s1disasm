@@ -16,12 +16,15 @@ v_lvllayout	= ramaddr ( $FFFFA400 )	; level and background layouts ($400 bytes)
 v_lvllayout_end	= ramaddr ( $FFFFA800 )
 v_bgscroll_buffer	= ramaddr( $FFFFA800 )	; background scroll buffer ($200 bytes)
 v_ngfx_buffer	= ramaddr ( $FFFFAA00 )	; Nemesis graphics decompression buffer ($200 bytes)
+v_ngfx_buffer_end	= ramaddr ( $FFFFAC00 )
 v_spritequeue	= ramaddr ( $FFFFAC00 )	; sprite display queue, in order of priority ($400 bytes)
 v_16x16	= ramaddr ( $FFFFB000 )	; 16x16 tile mappings
 
 v_sgfx_buffer	= ramaddr ( $FFFFC800 )	; buffered Sonic graphics ($17 cells) ($2E0 bytes)
 v_tracksonic	= ramaddr ( $FFFFCB00 )	; position tracking data for Sonic ($100 bytes)
 v_hscrolltablebuffer	= ramaddr ( $FFFFCC00 )	; scrolling table data (actually $380 bytes, but $400 is reserved for it)
+v_hscrolltablebuffer_end	= ramaddr ( $FFFFCF80 )
+v_hscrolltablebuffer_end_padded	= ramaddr ( $FFFFD000 )
 
 v_objspace	= ramaddr ( $FFFFD000 )	; object variable space ($40 bytes per object) ($2000 bytes)
 
@@ -85,6 +88,7 @@ v_continueicon	= v_objspace+object_size*3	; object variable space for the contin
 
 ; Ending objects
 v_endemeralds	= v_objspace+object_size*16	; object variable space for the emeralds in the ending ($180 bytes)
+v_endemeralds_end	= v_objspace+object_size*32
 v_endlogo	= v_objspace+object_size*16	; object variable space for the logo in the ending ($40 bytes)
 
 ; Credits objects
@@ -232,6 +236,7 @@ v_plc_framepatternsleft	= ramaddr ( $FFFFF6FA )	; (2 bytes)
 f_plc_execute	= ramaddr ( $FFFFF6F8 )	; flag set for pattern load cue execution (2 bytes)
 v_plc_buffer_end	= ramaddr ( $FFFFF700 )
 
+v_levelvariables	= ramaddr ( $FFFFF700 )	; variables that are reset between levels (100 bytes)
 v_screenposx	= ramaddr ( $FFFFF700 )	; screen position x (2 bytes)
 v_screenposy	= ramaddr ( $FFFFF704 )	; screen position y (2 bytes)
 v_bgscreenposx	= ramaddr ( $FFFFF708 )	; background screen position x (2 bytes)
@@ -342,8 +347,10 @@ v_scroll_block_1_size	= ramaddr ( $FFFFF7F0 )	; (2 bytes)
 v_scroll_block_2_size	= ramaddr ( $FFFFF7F2 )	; unused (2 bytes)
 v_scroll_block_3_size	= ramaddr ( $FFFFF7F4 )	; unused (2 bytes)
 v_scroll_block_4_size	= ramaddr ( $FFFFF7F6 )	; unused (2 bytes)
+v_levelvariables_end	= ramaddr ( $FFFFF800 )
 
 v_spritetablebuffer	= ramaddr ( $FFFFF800 ) ; sprite table ($280 bytes, last $80 bytes are overwritten by v_pal_water_dup)
+v_spritetablebuffer_end	= ramaddr ( $FFFFFA80 )
 v_pal_water_dup	= ramaddr ( $FFFFFA00 ) ; duplicate underwater palette, used for transitions ($80 bytes)
 v_pal_water	= ramaddr ( $FFFFFA80 )	; main underwater palette ($80 bytes)
 v_pal_dry	= ramaddr ( $FFFFFB00 )	; main palette ($80 bytes)
@@ -411,6 +418,8 @@ v_lamp_lives	= v_lastlamp+$24 ; lives counter at lamppost
 v_emeralds	= ramaddr ( $FFFFFE57 )	; number of chaos emeralds
 v_emldlist	= ramaddr ( $FFFFFE58 )	; which individual emeralds you have (00 = no; 01 = yes) (6 bytes)
 v_oscillate	= ramaddr ( $FFFFFE5E )	; values which oscillate - for swinging platforms, et al ($42 bytes)
+v_timingandscreenvariables	= ramaddr ( $FFFFFE60 ) ; ($120 bytes)
+v_timingvariables	= ramaddr ( $FFFFFE60 ) ; ($A0 bytes)
 v_ani0_time	= ramaddr ( $FFFFFEC0 )	; synchronised sprite animation 0 - time until next frame (used for synchronised animations)
 v_ani0_frame	= ramaddr ( $FFFFFEC1 )	; synchronised sprite animation 0 - current frame
 v_ani1_time	= ramaddr ( $FFFFFEC2 )	; synchronised sprite animation 1 - time until next frame
@@ -422,6 +431,7 @@ v_ani3_frame	= ramaddr ( $FFFFFEC7 )	; synchronised sprite animation 3 - current
 v_ani3_buf	= ramaddr ( $FFFFFEC8 )	; synchronised sprite animation 3 - info buffer (2 bytes)
 v_limittopdb	= ramaddr ( $FFFFFEF0 )	; level upper boundary, buffered for debug mode (2 bytes)
 v_limitbtmdb	= ramaddr ( $FFFFFEF2 )	; level bottom boundary, buffered for debug mode (2 bytes)
+v_timingvariables_end	= ramaddr ( $FFFFFF00 )
 
 v_screenposx_dup	= ramaddr ( $FFFFFF10 )	; screen position x (duplicate) (2 bytes)
 v_screenposy_dup	= ramaddr ( $FFFFFF14 )	; screen position y (duplicate) (2 bytes)
@@ -435,6 +445,7 @@ v_fg_scroll_flags_dup	= ramaddr ( $FFFFFF30 )
 v_bg1_scroll_flags_dup	= ramaddr ( $FFFFFF32 )
 v_bg2_scroll_flags_dup	= ramaddr ( $FFFFFF34 )
 v_bg3_scroll_flags_dup	= ramaddr ( $FFFFFF36 )
+v_timingandscreenvariables_end	= ramaddr ( $FFFFFF80 )
 
 v_levseldelay	= ramaddr ( $FFFFFF80 )	; level select - time until change when up/down is held (2 bytes)
 v_levselitem	= ramaddr ( $FFFFFF82 )	; level select - item selected (2 bytes)

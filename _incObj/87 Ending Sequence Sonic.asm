@@ -64,7 +64,7 @@ Obj87_ClrObjRam:
 		subq.w	#1,eson_time(a0)
 		bne.s	ESon_Wait2
 		lea	(v_endemeralds).w,a1
-		move.w	#$FF,d1
+		move.w	#(v_endemeralds_end-v_endemeralds)/4-1,d1
 
 Obj87_ClrLoop:
 		clr.l	(a1)+
