@@ -206,33 +206,21 @@ zPlaySEGAPCMLoop:
 					; 90 in total
 	jp	zCheckForSamples		; SEGA sound is done; wait for new samples
 
-;
-; Table referencing the three PCM samples
-;
-; As documented by jman2050, first two bytes are a pointer to the sample, third and fourth are the sample size, fifth is the pitch, 6-8 are unused.
-;
+zPCMMetadata macro label,sampleRate
+	dw	label				; Start
+	dw	label_End-label			; Length
+	dw	dpcmLoopCounter(sampleRate)	; Pitch
+	dw	0				; Padding
+    endm
 
-
+; DPCM metadata
 zPCM_Table:
-	; Kick sample
-	dw	zDAC_Kick			; Start
-	dw	(zDAC_Kick_End-zDAC_Kick)	; Length
-	dw	dpcmLoopCounter(8250)		; Pitch
-	dw	0000h
-	; Snare sample
-	dw	zDAC_Snare			; Start
-	dw	(zDAC_Snare_End-zDAC_Snare)	; Length
-	dw	dpcmLoopCounter(24000)		; Pitch
-	dw	0000h
-	; Timpani sample
-	dw	zDAC_Timpani			; Start
-	dw	(zDAC_Timpani_End-zDAC_Timpani) ; Length
-zTimpani_Pitch:
-	dw	dpcmLoopCounter(7250)		; Pitch
-	dw	0000h
+	zPCMMetadata zDAC_Kick,8250
+	zPCMMetadata zDAC_Snare,24000
+zTimpani_Pitch = $+4
+	zPCMMetadata zDAC_Timpani,7250
 
-
-
+; DPCM data
 zDAC_Kick:
 	binclude "sound/dac/kick.dpcm"
 zDAC_Kick_End:
