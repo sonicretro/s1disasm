@@ -462,6 +462,9 @@ v_limitbtmdb:		ds.w	1		; level bottom boundary, buffered for debug mode
 v_timingvariables_end:
 
 v_chunk0collision:	ds.w	1		; very subtly (and perhaps unintentionally) used by FindNearestTile when encountering chunk 0
+	if v_chunk0collision<>$FFFFFF00
+		fatal "v_chunk0collision needs to be at address $FFFFFF00 so that FindNearestTile works correctly."
+	endif
 			ds.b	$E		; unused
 v_screenposx_dup:	ds.l	1		; screen position x (duplicate)
 v_screenposy_dup:	ds.l	1		; screen position y (duplicate)
