@@ -2563,9 +2563,10 @@ cfOpF9:
 		bra.w	WriteFMI
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; DAC driver
+; DAC driver (Kosinski-compressed)
 ; ---------------------------------------------------------------------------
-Kos_Z80:	include		"sound/z80.asm"
+; Kos_Z80:
+DACDriver:	include		"sound/z80.asm"
 
 ; ---------------------------------------------------------------------------
 ; SMPS2ASM - A collection of macros that make SMPS's bytecode human-readable.
