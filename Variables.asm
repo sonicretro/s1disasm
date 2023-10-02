@@ -7,7 +7,7 @@ ramaddr function x,(-(x&$80000000)<<1)|x
 	phase ramaddr ( $FFFF0000 )
 v_ram_start:
 
-v_256x256:		ds.b	$A4*$100	; 256x256 tile mappings ($A4 chunks)
+v_256x256:		ds.b	$52*$200	; 256x256 tile mappings ($52 chunks)
 v_256x256_end:
 
 v_lvllayout:		ds.b	$400		; level and background layouts
