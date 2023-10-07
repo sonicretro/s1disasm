@@ -26,7 +26,7 @@
   </Subtypes>
   <Properties>
     <BitsProperty name="Movement" type="PlatformMovement" startbit="0" length="4"/>
-    <BitsProperty name="SwitchID" displayname="Switch ID" type="byte" startbit="4" length="4"/>
+    <BitsProperty name="SwitchID" displayname="Switch ID" type="int" startbit="4" length="4"/>
   </Properties>
   <Enums>
     <Enum name="PlatformMovement">
