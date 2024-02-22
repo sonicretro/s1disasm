@@ -4,7 +4,12 @@ SndBC_Teleport_Header:
 	smpsHeaderTempoSFX  $01
 	smpsHeaderChanSFX   $02
 
+    if FixMusicAndSFXDataBugs
+	smpsHeaderSFXChannel cFM5, SndBC_Teleport_FM5,	$10, $00
+    else
+	; The transpose value is invalid, causing this SFX to sound wrong in other SMPS drivers.
 	smpsHeaderSFXChannel cFM5, SndBC_Teleport_FM5,	$90, $00
+    endif
 	smpsHeaderSFXChannel cPSG3, SndBC_Teleport_PSG3,	$00, $00
 
 ; FM5 Data

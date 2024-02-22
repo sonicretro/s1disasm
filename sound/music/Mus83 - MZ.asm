@@ -180,6 +180,9 @@ Mus83_MZ_PSG2:
 Mus83_MZ_PSG3:
 	smpsPSGform         $E7
 	smpsPSGAlterVol     $FF
+    if FixMusicAndSFXDataBugs
+	dc.b	nRst, $06, nE4, $03, $03, $06, nRst, nE3, $24
+    else
 	; These first three notes are too high when combined with this track's
 	; transposition value, causing them to overflow the PSG frequency table
 	; and play invalid notes. In the Sonic 1 prototype, this problem was
@@ -191,6 +194,7 @@ Mus83_MZ_PSG3:
 	; fourth note. So, in order to fix the bug for good, the notes on the
 	; following line have to be lowered by yet another octave.
 	dc.b	nRst, $06, nE5, $03, $03, $06, nRst, nE4, $24
+    endif
 	smpsPSGAlterVol     $01
 
 Mus83_MZ_Jump05:
