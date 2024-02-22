@@ -8554,8 +8554,6 @@ Nem_SSEmStars:	binclude	"artnem/Special Emerald Twinkle.nem" ; special stage sta
 		even
 Nem_SSRedWhite:	binclude	"artnem/Special Red-White.nem" ; special stage red/white block
 		even
-		binclude	"artnem/Empty file.nem"
-		even
 Nem_SSZone1:	binclude	"artnem/Special ZONE1.nem" ; special stage ZONE1 block
 		even
 Nem_SSZone2:	binclude	"artnem/Special ZONE2.nem" ; ZONE2 block
@@ -8577,8 +8575,6 @@ Nem_SSGhost:	binclude	"artnem/Special Ghost.nem" ; special stage ghost block
 Nem_SSWBlock:	binclude	"artnem/Special W.nem"	; special stage W block
 		even
 Nem_SSGlass:	binclude	"artnem/Special Glass.nem" ; special stage destroyable glass block
-		even
-		binclude	"artnem/Empty file.nem"
 		even
 Nem_ResultEm:	binclude	"artnem/Special Result Emeralds.nem" ; chaos emeralds on special stage results screen
 		even
@@ -8651,15 +8647,11 @@ Nem_MzSwitch:	binclude	"artnem/MZ Switch.nem"
 		even
 Nem_MzGlass:	binclude	"artnem/MZ Green Glass Block.nem"
 		even
-		binclude	"artnem/Empty file.nem"
-		even
 Nem_UnkGrass:	binclude	"artnem/Unused - Grass.nem"
 		even
 Nem_MzFire:	binclude	"artnem/Fireballs.nem"
 		even
 Nem_Lava:	binclude	"artnem/MZ Lava.nem"
-		even
-		binclude	"artnem/Empty file.nem"
 		even
 Nem_MzBlock:	binclude	"artnem/MZ Green Pushable Block.nem"
 		even
@@ -8677,8 +8669,6 @@ Nem_Fan:	binclude	"artnem/SLZ Fan.nem"
 Nem_SlzWall:	binclude	"artnem/SLZ Breakable Wall.nem"
 		even
 Nem_Pylon:	binclude	"artnem/SLZ Pylon.nem"
-		even
-		binclude	"artnem/Empty file.nem"
 		even
 Nem_SlzSwing:	binclude	"artnem/SLZ Swinging Platform.nem"
 		even
@@ -8788,8 +8778,6 @@ Nem_VSpring:	binclude	"artnem/Spring Vertical.nem"
 		even
 Nem_SignPost:	binclude	"artnem/Signpost.nem"	; end of level signpost
 		even
-		binclude	"artnem/Empty file.nem"
-		even
 Nem_Lamp:	binclude	"artnem/Lamppost.nem"
 		even
 Nem_BigFlash:	binclude	"artnem/Giant Ring Flash.nem"
@@ -8863,8 +8851,6 @@ Blk16_SBZ:	binclude	"map16/SBZ.eni"
 		even
 Nem_SBZ:	binclude	"artnem/8x8 - SBZ.nem"	; SBZ primary patterns
 		even
-		binclude	"artnem/Empty file.nem"
-		even
 Blk256_SBZ:	if Revision=0
 		binclude	"map256/SBZ.kos"
 		else
@@ -8902,13 +8888,9 @@ Kos_EndFlowers:	binclude	"artkos/Flowers at Ending.kos" ; ending sequence animat
 		even
 Nem_EndFlower:	binclude	"artnem/Ending - Flowers.nem"
 		even
-		binclude	"artnem/Empty file.nem"
-		even
 Nem_CreditText:	binclude	"artnem/Ending - Credits.nem"
 		even
 Nem_EndStH:	binclude	"artnem/Ending - StH Logo.nem"
-		even
-		binclude	"artnem/Empty file.nem"
 		even
 
 		if Revision=0
