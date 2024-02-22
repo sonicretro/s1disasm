@@ -504,6 +504,15 @@ smpsPSGAlterVol macro vol
 	dc.b	$EC,vol
 	endm
 
+smpsPSGAlterVolS2 macro vol
+	; Sonic 2's driver allows the FM command to be used on PSG channels, but others do not.
+	if SonicDriverVer==2
+		smpsAlterVol vol
+	else
+		smpsPSGAlterVol vol
+	endif
+	endm
+
 ; Clears pushing sound flag in S1
 smpsClearPush macro
 	if SonicDriverVer==1
