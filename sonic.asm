@@ -1001,14 +1001,7 @@ VDPSetupGame:
 		clr.l	(v_scrposy_vdp).w
 		clr.l	(v_scrposx_vdp).w
 		move.l	d1,-(sp)
-		fillVRAM	0,$FFFF,0
-
-.waitforDMA:
-		move.w	(a5),d1
-		btst	#1,d1		; is DMA (fillVRAM) still running?
-		bne.s	.waitforDMA	; if yes, branch
-
-		move.w	#$8F02,(a5)	; set VDP increment size
+		fillVRAM	0,$10000,0
 		move.l	(sp)+,d1
 		rts	
 ; End of function VDPSetupGame
@@ -1042,22 +1035,9 @@ VDPSetupArray:	dc.w $8004		; 8-colour mode
 
 
 ClearScreen:
-		fillVRAM	0,$FFF,vram_fg ; clear foreground namespace
+		fillVRAM	0,$1000,vram_fg ; clear foreground namespace
+		fillVRAM	0,$1000,vram_bg ; clear background namespace
 
-.wait1:
-		move.w	(a5),d1
-		btst	#1,d1
-		bne.s	.wait1
-
-		move.w	#$8F02,(a5)
-		fillVRAM	0,$FFF,vram_bg ; clear background namespace
-
-.wait2:
-		move.w	(a5),d1
-		btst	#1,d1
-		bne.s	.wait2
-
-		move.w	#$8F02,(a5)
 		if Revision=0
 		move.l	#0,(v_scrposy_vdp).w
 		move.l	#0,(v_scrposx_vdp).w
@@ -3231,13 +3211,7 @@ GM_Special:
 		move.w	d0,(vdp_control_port).l
 		bsr.w	ClearScreen
 		enable_ints
-		fillVRAM	0,$6FFF,$5000
-
-SS_WaitForDMA:
-		move.w	(a5),d1		; read control port ($C00004)
-		btst	#1,d1		; is DMA running?
-		bne.s	SS_WaitForDMA	; if yes, branch
-		move.w	#$8F02,(a5)	; set VDP increment to 2 bytes
+		fillVRAM	0,$7000,$5000
 		bsr.w	SS_BGLoad
 		moveq	#plcid_SpecialStage,d0
 		bsr.w	QuickPLC	; load special stage patterns

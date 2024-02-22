@@ -46,13 +46,17 @@ writeCRAM:	macro source,length,destination
 ; input: value, length, destination
 ; ---------------------------------------------------------------------------
 
-fillVRAM:	macro value,length,loc
+fillVRAM:	macro byte,length,loc
 		lea	(vdp_control_port).l,a5
-		move.w	#$8F01,(a5)
-		move.l	#$94000000+((length&$FF00)<<8)+$9300+(length&$FF),(a5)
+		move.w	#$8F01,(a5) ; Set increment to 1, since DMA fill writes bytes
+		move.l	#$94000000+((((length)-1)&$FF00)<<8)+$9300+(((length)-1)&$FF),(a5)
 		move.w	#$9780,(a5)
-		move.l	#$40000080+((loc&$3FFF)<<16)+((loc&$C000)>>14),(a5)
-		move.w	#value,(vdp_data_port).l
+		move.l	#$40000080+(((loc)&$3FFF)<<16)+(((loc)&$C000)>>14),(a5)
+		move.w	#(byte)|(byte)<<8,(vdp_data_port).l
+.wait:		move.w	(a5),d1
+		btst	#1,d1
+		bne.s	.wait
+		move.w	#$8F02,(a5) ; Set increment back to 2, since the VDP usually operates on words
 		endm
 
 ; ---------------------------------------------------------------------------
