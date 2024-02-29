@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ObjDef xmlns="http://www.sonicretro.org" Name="Ending Animals" Image="img1" RememberState="true">
+  <Images>
+    <ImageFromMappings id="img1">
+      <ArtFile filename="../artnem/Animal Penguin.nem"/>
+      <MapFile type="ASM" filename="../_maps/Animals 1.asm" frame="2" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="img2">
+      <ArtFile filename="../artnem/Animal Pig.nem"/>
+      <MapFile type="ASM" filename="../_maps/Animals 3.asm" frame="2" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="img3">
+      <ArtFile filename="../artnem/Animal Chicken.nem"/>
+      <MapFile type="ASM" filename="../_maps/Animals 2.asm" frame="2" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="img4">
+      <ArtFile filename="../artnem/Animal Squirrel.nem"/>
+      <MapFile type="ASM" filename="../_maps/Animals 1.asm" frame="2" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="img5">
+      <ArtFile filename="../artnem/Animal Flicky.nem"/>
+      <MapFile type="ASM" filename="../_maps/Animals 2.asm" frame="2" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="img6">
+      <ArtFile filename="../artnem/Animal Seal.nem"/>
+      <MapFile type="ASM" filename="../_maps/Animals 2.asm" frame="2" startpal="0" />
+    </ImageFromMappings>
+    <ImageFromMappings id="img7">
+      <ArtFile filename="../artnem/Animal rabbit.nem"/>
+      <MapFile type="ASM" filename="../_maps/Animals 1.asm" frame="2" startpal="0" />
+    </ImageFromMappings>
+  </Images>
+  <Subtypes>
+    <Subtype id="00" name="00 ?"/>
+	<Subtype id="10" name="10 Pecky" image="img1"/>
+    <Subtype id="12" name="12 Picky" image="img2"/>
+	<Subtype id="13" name="13 Cucky" image="img3"/>
+    <Subtype id="14" name="14 Ricky" image="img4"/>
+	<Subtype id="0A" name="03 Flicky" image="img5"/>
+	<Subtype id="0C" name="03 Rocky" image="img6"/>
+	<Subtype id="0D" name="03 Pocky" image="img7"/>
+  </Subtypes>
+</ObjDef>
