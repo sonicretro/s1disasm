@@ -61,8 +61,15 @@ Map_Buzz_internal:	mappingsTable
 	spritePiece	-$14, 4, 4, 1, 8, 0, 0, 0, 0
 	spritePiece	$C, 4, 1, 1, $C, 0, 0, 0, 0
 	spritePiece	-$C, $C, 2, 1, $D, 0, 0, 0, 0
+	if FixBugs
+	spritePiece	-$14, -$C, 3, 1, $1F, 0, 0, 0, 0
+	spritePiece	4, -$C, 2, 1, $22, 0, 0, 0, 0
+.Fire2_End
+	else
+	; Bug: The last two pieces of mappings are unused, resulting in the Buzz Bomber not having any wings for this frame.
 .Fire2_End
 	spritePiece	-$14, -$C, 3, 1, $1F, 0, 0, 0, 0
 	spritePiece	4, -$C, 2, 1, $22, 0, 0, 0, 0
+	endif
 
 	even
