@@ -114,12 +114,12 @@ SSR_RingBonus:	; Routine 6
 		andi.b	#3,d0
 		bne.s	locret_C8EA
 		move.w	#sfx_Switch,d0
-		jmp	(QueueSound2).l	; play "blip" sound
+		jmp	(QueueSoundBuf2).l	; play "blip" sound
 ; ===========================================================================
 
 loc_C8C4:
 		move.w	#sfx_Cash,d0
-		jsr	(QueueSound2).l	; play "ker-ching" sound
+		jsr	(QueueSoundBuf2).l	; play "ker-ching" sound
 		addq.b	#2,obRoutine(a0)
 		move.w	#180,obTimeFrame(a0) ; set time delay to 3 seconds
 		cmpi.w	#50,(v_rings).w	; do you have at least 50 rings?
@@ -140,7 +140,7 @@ SSR_Continue:	; Routine $E
 		move.b	#4,(v_ssrescontinue+obFrame).w
 		move.b	#$14,(v_ssrescontinue+obRoutine).w
 		move.w	#sfx_Continue,d0
-		jsr	(QueueSound2).l	; play continues jingle
+		jsr	(QueueSoundBuf2).l	; play continues jingle
 		addq.b	#2,obRoutine(a0)
 		move.w	#360,obTimeFrame(a0) ; set time delay to 6 seconds
 		bra.w	DisplaySprite

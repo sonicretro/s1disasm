@@ -8,10 +8,10 @@
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-QueueSound1:
+QueueSoundBuf1:
 		move.b	d0,(v_snddriver_ram.v_soundqueue0).w
 		rts	
-; End of function QueueSound1
+; End of function QueueSoundBuf1
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to	queue a sound into buffer 2, often used for SFX
@@ -20,10 +20,10 @@ QueueSound1:
 ; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
-QueueSound2:
+QueueSoundBuf2:
 		move.b	d0,(v_snddriver_ram.v_soundqueue1).w
 		rts	
-; End of function QueueSound2
+; End of function QueueSoundBuf2
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -31,6 +31,6 @@ QueueSound2:
 ; Enabling "FixBugs" will make this usable.
 ; ---------------------------------------------------------------------------
 
-QueueSound3:
+QueueSoundBuf3:
 		move.b	d0,(v_snddriver_ram.v_soundqueue2).w
 		rts	

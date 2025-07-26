@@ -151,7 +151,7 @@ loc_19CC4:
 
 FFloor_BreakSnd:
 		move.w	#sfx_WallSmash,d0
-		jsr	(QueueSound2).l	; play smashing sound
+		jsr	(QueueSoundBuf2).l	; play smashing sound
 		jmp	(DisplaySprite).l
 ; ===========================================================================
 FFloor_FragSpeed:dc.w $80, 0

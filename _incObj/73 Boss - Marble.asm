@@ -105,7 +105,7 @@ loc_1833E:
 		bne.s	loc_18374
 		move.b	#$28,objoff_3E(a0)
 		move.w	#sfx_HitBoss,d0
-		jsr	(QueueSound2).l	; play boss damage sound
+		jsr	(QueueSoundBuf2).l	; play boss damage sound
 
 loc_18374:
 		lea	(v_palette+$22).w,a1
@@ -307,7 +307,7 @@ loc_18566:
 loc_1856C:
 		clr.w	obVelY(a0)
 		move.w	#bgm_MZ,d0
-		jsr	(QueueSound1).l		; play MZ music
+		jsr	(QueueSoundBuf1).l		; play MZ music
 
 loc_1857A:
 		bsr.w	BossMove

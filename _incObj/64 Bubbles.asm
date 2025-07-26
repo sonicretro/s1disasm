@@ -81,7 +81,7 @@ Bub_ChkWater:	; Routine 4
 
 		bsr.w	ResumeMusic	; cancel countdown music
 		move.w	#sfx_Bubble,d0
-		jsr	(QueueSound2).l	; play collecting bubble sound
+		jsr	(QueueSoundBuf2).l	; play collecting bubble sound
 		lea	(v_player).w,a1
 		clr.w	obVelX(a1)
 		clr.w	obVelY(a1)

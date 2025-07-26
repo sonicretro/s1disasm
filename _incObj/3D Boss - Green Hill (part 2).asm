@@ -110,7 +110,7 @@ loc_179DA:
 loc_179E0:
 		clr.w	obVelY(a0)
 		move.w	#bgm_GHZ,d0
-		jsr	(QueueSound1).l		; play GHZ music
+		jsr	(QueueSoundBuf1).l		; play GHZ music
 
 loc_179EE:
 		bsr.w	BossMove
