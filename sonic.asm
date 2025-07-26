@@ -1077,7 +1077,7 @@ DACDriverLoad:
 		rts	
 ; End of function DACDriverLoad
 
-		include	"_incObj/sub PlaySound.asm"
+		include	"_inc/Queue Sound Routines.asm"
 		include	"_inc/PauseGame.asm"
 
 ; ---------------------------------------------------------------------------
@@ -2023,7 +2023,7 @@ WaitForVBla:
 
 GM_Sega:
 		move.b	#bgm_Stop,d0
-		bsr.w	PlaySound_Special ; stop music
+		bsr.w	QueueSound2 ; stop music
 		bsr.w	ClearPLC
 		bsr.w	PaletteFadeOut
 		lea	(vdp_control_port).l,a6
@@ -2073,7 +2073,7 @@ Sega_WaitPal:
 		bne.s	Sega_WaitPal
 
 		move.b	#sfx_Sega,d0
-		bsr.w	PlaySound_Special	; play "SEGA" sound
+		bsr.w	QueueSound2	; play "SEGA" sound
 		move.b	#$14,(v_vbla_routine).w
 		bsr.w	WaitForVBla
 		move.w	#30,(v_demolength).w
@@ -2097,7 +2097,7 @@ Sega_GotoTitle:
 
 GM_Title:
 		move.b	#bgm_Stop,d0
-		bsr.w	PlaySound_Special ; stop music
+		bsr.w	QueueSound2 ; stop music
 		bsr.w	ClearPLC
 		bsr.w	PaletteFadeOut
 		disable_ints
@@ -2193,7 +2193,7 @@ Tit_LoadText:
 		moveq	#palid_Title,d0	; load title screen palette
 		bsr.w	PalLoad_Fade
 		move.b	#bgm_Title,d0
-		bsr.w	PlaySound_Special	; play title screen music
+		bsr.w	QueueSound2	; play title screen music
 		move.b	#0,(f_debugmode).w ; disable debug mode
 		move.w	#376,(v_demolength).w ; run title screen for 376 frames
 		
@@ -2283,7 +2283,7 @@ Tit_EnterCheat:
 Tit_PlayRing:
 		move.b	#1,(a0,d1.w)	; activate cheat
 		move.b	#sfx_Ring,d0
-		bsr.w	PlaySound_Special	; play ring sound when code is entered
+		bsr.w	QueueSound2	; play ring sound when code is entered
 		bra.s	Tit_CountC
 ; ===========================================================================
 
@@ -2363,7 +2363,7 @@ LevSel_NoCheat:
 		blo.s	LevelSelect	; if yes, branch
 
 LevSel_PlaySnd:
-		bsr.w	PlaySound_Special
+		bsr.w	QueueSound2
 		bra.s	LevelSelect
 ; ===========================================================================
 
@@ -2376,7 +2376,7 @@ LevSel_Ending:
 LevSel_Credits:
 		move.b	#id_Credits,(v_gamemode).w ; set screen mode to $1C (Credits)
 		move.b	#bgm_Credits,d0
-		bsr.w	PlaySound_Special ; play credits music
+		bsr.w	QueueSound2 ; play credits music
 		move.w	#0,(v_creditsnum).w
 		rts	
 ; ===========================================================================
@@ -2420,7 +2420,7 @@ PlayLevel:
 			move.l	#5000,(v_scorelife).w ; extra life is awarded at 50000 points
 		endif
 		move.b	#bgm_Fade,d0
-		bsr.w	PlaySound_Special ; fade out music
+		bsr.w	QueueSound2 ; fade out music
 		rts	
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -2514,7 +2514,7 @@ loc_33E4:
 		tst.w	(v_demolength).w
 		bne.w	loc_33B6
 		move.b	#bgm_Fade,d0
-		bsr.w	PlaySound_Special ; fade out music
+		bsr.w	QueueSound2 ; fade out music
 		move.w	(v_demonum).w,d0 ; load	demo number
 		andi.w	#7,d0
 		add.w	d0,d0
@@ -2750,7 +2750,7 @@ GM_Level:
 		tst.w	(f_demo).w
 		bmi.s	Level_NoMusicFade
 		move.b	#bgm_Fade,d0
-		bsr.w	PlaySound_Special ; fade out music
+		bsr.w	QueueSound2 ; fade out music
 
 Level_NoMusicFade:
 		bsr.w	ClearPLC
@@ -2846,7 +2846,7 @@ Level_BgmNotLZ4:
 Level_PlayBgm:
 		lea	(MusicList).l,a1 ; load	music playlist
 		move.b	(a1,d0.w),d0
-		bsr.w	PlaySound	; play music
+		bsr.w	QueueSound1	; play music
 		move.b	#id_TitleCard,(v_titlecard).w ; load title card object
 
 Level_TtlCardLoop:
@@ -3199,7 +3199,7 @@ Demo_SS:	binclude	"demodata/Intro - Special Stage.bin"
 
 GM_Special:
 		move.w	#sfx_EnterSS,d0
-		bsr.w	PlaySound_Special ; play special stage entry sound
+		bsr.w	QueueSound2 ; play special stage entry sound
 		bsr.w	PaletteWhiteOut
 		disable_ints
 		lea	(vdp_control_port).l,a6
@@ -3234,7 +3234,7 @@ GM_Special:
 		clr.w	(v_ssangle).w	; set stage angle to "upright"
 		move.w	#$40,(v_ssrotate).w ; set stage rotation speed
 		move.w	#bgm_SS,d0
-		bsr.w	PlaySound	; play special stage BG	music
+		bsr.w	QueueSound1	; play special stage BG	music
 		move.w	#0,(v_btnpushtime1).w
 		lea	(DemoDataPtr).l,a1
 		moveq	#6,d0
@@ -3338,7 +3338,7 @@ loc_47D4:
 		mulu.w	#10,d0		; multiply rings by 10
 		move.w	d0,(v_ringbonus).w ; set rings bonus
 		move.w	#bgm_GotThrough,d0
-		jsr	(PlaySound_Special).l	 ; play end-of-level music
+		jsr	(QueueSound2).l	 ; play end-of-level music
 
 		clearRAM v_objspace
 
@@ -3356,7 +3356,7 @@ SS_NormalExit:
 		tst.l	(v_plc_buffer).w
 		bne.s	SS_NormalExit
 		move.w	#sfx_EnterSS,d0
-		bsr.w	PlaySound_Special ; play special stage exit sound
+		bsr.w	QueueSound2 ; play special stage exit sound
 		bsr.w	PaletteWhiteOut
 		rts	
 ; ===========================================================================
@@ -3749,7 +3749,7 @@ GM_Continue:
 		moveq	#palid_Continue,d0
 		bsr.w	PalLoad_Fade	; load continue	screen palette
 		move.b	#bgm_Continue,d0
-		bsr.w	PlaySound	; play continue	music
+		bsr.w	QueueSound1	; play continue	music
 		move.w	#659,(v_demolength).w ; set time delay to 11 seconds
 		clr.l	(v_screenposx).w
 		move.l	#$1000000,(v_screenposy).w
@@ -3820,7 +3820,7 @@ Map_ContScr:	include	"_maps/Continue Screen.asm"
 
 GM_Ending:
 		move.b	#bgm_Stop,d0
-		bsr.w	PlaySound_Special ; stop music
+		bsr.w	QueueSound2 ; stop music
 		bsr.w	PaletteFadeOut
 
 		clearRAM v_objspace
@@ -3866,7 +3866,7 @@ End_LoadData:
 		moveq	#palid_Sonic,d0
 		bsr.w	PalLoad_Fade	; load Sonic's palette
 		move.w	#bgm_Ending,d0
-		bsr.w	PlaySound	; play ending sequence music
+		bsr.w	QueueSound1	; play ending sequence music
 		btst	#bitA,(v_jpadhold1).w ; is button A pressed?
 		beq.s	End_LoadSonic	; if not, branch
 		move.b	#1,(f_debugmode).w ; enable debug mode
@@ -3927,7 +3927,7 @@ End_MainLoop:
 
 		move.b	#id_Credits,(v_gamemode).w ; goto credits
 		move.b	#bgm_Credits,d0
-		bsr.w	PlaySound_Special ; play credits music
+		bsr.w	QueueSound2 ; play credits music
 		move.w	#0,(v_creditsnum).w ; set credits index number to 0
 		rts	
 ; ===========================================================================
@@ -5599,7 +5599,7 @@ loc_84EE:
 loc_84F2:
 		bsr.w	DisplaySprite
 		move.w	#sfx_Collapse,d0
-		jmp	(PlaySound_Special).l	; play collapsing sound
+		jmp	(QueueSound2).l	; play collapsing sound
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Disintegration data for collapsing ledges (MZ, SLZ, SBZ)
@@ -7163,7 +7163,7 @@ ResumeMusic:
 .playselected:
 		endif
 
-		jsr	(PlaySound).l
+		jsr	(QueueSound1).l
 
 .over12:
 		move.w	#30,(v_air).w	; reset air to 30 seconds
@@ -8288,7 +8288,7 @@ SS_AniEmeraldSparks:
 		clr.l	4(a0)
 		move.b	#4,(v_player+obRoutine).w
 		move.w	#sfx_SSGoal,d0
-		jsr	(PlaySound_Special).l	; play special stage GOAL sound
+		jsr	(QueueSound2).l	; play special stage GOAL sound
 
 locret_1B60C:
 		rts	
@@ -8491,7 +8491,7 @@ AddPoints:
 			addq.b	#1,(v_lives).w ; give extra life
 			addq.b	#1,(f_lifecount).w
 			move.w	#bgm_ExtraLife,d0
-			jmp	(PlaySound).l
+			jmp	(QueueSound1).l
 		endif
 
 .locret_1C6B6:

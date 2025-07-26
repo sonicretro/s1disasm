@@ -37,7 +37,7 @@ loc_1341C:
 		move.b	#1,objoff_3C(a0)
 		clr.b	stick_to_convex(a0)
 		move.w	#sfx_Jump,d0
-		jsr	(PlaySound_Special).l	; play jumping sound
+		jsr	(QueueSound2).l	; play jumping sound
 		move.b	#$13,obHeight(a0)
 		move.b	#9,obWidth(a0)
 		btst	#2,obStatus(a0)

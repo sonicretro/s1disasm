@@ -32,7 +32,7 @@ Sonic_Display:
 .music:
 		lea	(MusicList2).l,a1
 		move.b	(a1,d0.w),d0
-		jsr	(PlaySound).l	; play normal music
+		jsr	(QueueSound1).l	; play normal music
 
 .removeinvincible:
 		move.b	#0,(v_invinc).w ; cancel invincibility
@@ -49,7 +49,7 @@ Sonic_Display:
 		move.w	#$80,(v_sonspeeddec).w ; restore Sonic's deceleration
 		move.b	#0,(v_shoes).w	; cancel speed shoes
 		move.w	#bgm_Slowdown,d0
-		jmp	(PlaySound).l	; run music at normal speed
+		jmp	(QueueSound1).l	; run music at normal speed
 
 .exit:
 		rts	

@@ -23,7 +23,7 @@ MDis_Main:	; Routine 0
 		move.b	#9,obTimeFrame(a0)
 		move.b	#0,obFrame(a0)
 		move.w	#sfx_A5,d0
-		jsr	(PlaySound_Special).l		 ; play sound
+		jsr	(QueueSound2).l		 ; play sound
 
 MDis_Animate:	; Routine 2
 		subq.b	#1,obTimeFrame(a0) ; subtract 1 from frame duration
@@ -72,7 +72,7 @@ ExItem_Main:	; Routine 2
 		move.b	#7,obTimeFrame(a0) ; set frame duration to 7 frames
 		move.b	#0,obFrame(a0)
 		move.w	#sfx_BreakItem,d0
-		jsr	(PlaySound_Special).l	; play breaking enemy sound
+		jsr	(QueueSound2).l	; play breaking enemy sound
 
 ExItem_Animate:	; Routine 4 (2 for ExplosionBomb)
 		subq.b	#1,obTimeFrame(a0) ; subtract 1 from frame duration
@@ -110,4 +110,4 @@ ExBom_Main:	; Routine 0
 		move.b	#7,obTimeFrame(a0)
 		move.b	#0,obFrame(a0)
 		move.w	#sfx_Bomb,d0
-		jmp	(PlaySound_Special).l	; play exploding bomb sound
+		jmp	(QueueSound2).l	; play exploding bomb sound

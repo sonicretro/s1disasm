@@ -69,7 +69,7 @@ Gar_FireBall:	; Routine 4
 
 .noflip:
 		move.w	#sfx_Fireball,d0
-		jsr	(PlaySound_Special).l	; play lava ball sound
+		jsr	(QueueSound2).l	; play lava ball sound
 
 Gar_AniFire:	; Routine 6
 		move.b	(v_framebyte).w,d0

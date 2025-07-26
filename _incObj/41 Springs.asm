@@ -85,7 +85,7 @@ Spring_BounceUp:
 		bclr	#3,obStatus(a0)
 		clr.b	obSolid(a0)
 		move.w	#sfx_Spring,d0
-		jsr	(PlaySound_Special).l	; play spring sound
+		jsr	(QueueSound2).l	; play spring sound
 
 Spring_AniUp:	; Routine 4
 		lea	(Ani_Spring).l,a1
@@ -135,7 +135,7 @@ loc_DC56:
 		bclr	#5,obStatus(a0)
 		bclr	#5,obStatus(a1)
 		move.w	#sfx_Spring,d0
-		jsr	(PlaySound_Special).l	; play spring sound
+		jsr	(QueueSound2).l	; play spring sound
 
 Spring_AniLR:	; Routine $A
 		lea	(Ani_Spring).l,a1
@@ -179,7 +179,7 @@ Spring_BounceDwn:
 		bclr	#3,obStatus(a0)
 		clr.b	obSolid(a0)
 		move.w	#sfx_Spring,d0
-		jsr	(PlaySound_Special).l	; play spring sound
+		jsr	(QueueSound2).l	; play spring sound
 
 Spring_AniDwn:	; Routine $10
 		lea	(Ani_Spring).l,a1

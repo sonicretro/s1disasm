@@ -310,7 +310,7 @@ HurtSonic:
 	endif
 
 .sound:
-		jsr	(PlaySound_Special).l
+		jsr	(QueueSound2).l
 		moveq	#-1,d0
 		rts	
 ; ===========================================================================
@@ -355,7 +355,7 @@ KillSonic:
 	endif
 
 .sound:
-		jsr	(PlaySound_Special).l
+		jsr	(QueueSound2).l
 
 .dontdie:
 		moveq	#-1,d0

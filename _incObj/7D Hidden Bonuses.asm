@@ -42,7 +42,7 @@ Bonus_Main:	; Routine 0
 		move.b	obSubtype(a0),obFrame(a0)
 		move.w	#119,bonus_timelen(a0) ; set display time to 2 seconds
 		move.w	#sfx_Bonus,d0
-		jsr	(PlaySound_Special).l	; play bonus sound
+		jsr	(QueueSound2).l	; play bonus sound
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0
 		add.w	d0,d0

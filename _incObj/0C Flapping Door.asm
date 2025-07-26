@@ -34,7 +34,7 @@ Flap_OpenClose:	; Routine 2
 		tst.b	obRender(a0)
 		bpl.s	.nosound
 		move.w	#sfx_Door,d0
-		jsr	(PlaySound_Special).l	; play door sound
+		jsr	(QueueSound2).l	; play door sound
 
 .wait:
 .nosound:

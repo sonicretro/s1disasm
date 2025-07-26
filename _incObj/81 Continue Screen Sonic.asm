@@ -57,7 +57,7 @@ CSon_GetUp:
 		clr.w	obInertia(a0)
 		subq.w	#8,obY(a0)
 		move.b	#bgm_Fade,d0
-		bsr.w	PlaySound_Special ; fade out music
+		bsr.w	QueueSound2 ; fade out music
 
 CSon_Run:	; Routine 6
 		cmpi.w	#$800,obInertia(a0) ; check Sonic's inertia

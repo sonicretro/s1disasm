@@ -44,7 +44,7 @@ Bump_Hit:	; Routine 2
 		clr.b	objoff_3C(a1)
 		move.b	#1,obAnim(a0)	; use "hit" animation
 		move.w	#sfx_Bumper,d0
-		jsr	(PlaySound_Special).l	; play bumper sound
+		jsr	(QueueSound2).l	; play bumper sound
 		lea	(v_objstate).w,a2
 		moveq	#0,d0
 		move.b	obRespawnNo(a0),d0

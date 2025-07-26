@@ -99,7 +99,7 @@ Bas_Action:	; Routine 2
 		andi.b	#$F,d0
 		bne.s	.nosound
 		move.w	#sfx_Basaran,d0
-		jsr	(PlaySound_Special).l	; play flapping sound every 16th frame
+		jsr	(QueueSound2).l	; play flapping sound every 16th frame
 
 .nosound:
 		bsr.w	SpeedToPos
