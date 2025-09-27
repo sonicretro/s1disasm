@@ -162,6 +162,11 @@ Debug_ChgItem:
 		beq.s	.backtonormal	; if not, branch
 		jsr	(FindFreeObj).l
 		bne.s	.backtonormal
+
+		; Mercury Debug Improvements
+		   move.b  #0,(v_objstate+2).w
+		; end ; Mercury Debug Improvements
+		
 		move.w	obX(a0),obX(a1)
 		move.w	obY(a0),obY(a1)
 		_move.b	obMap(a0),obID(a1)	; create object
