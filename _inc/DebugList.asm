@@ -22,7 +22,14 @@ dbug:	macro map,object,subtype,frame,vram
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug 	Map_Ring,	id_Rings,	0,	0,	make_art_tile(ArtTile_Ring,1,0)
-	dbug	Map_Monitor,	id_Monitor,	0,	0,	make_art_tile(ArtTile_Monitor,0,0)
+	dbug	Map_Monitor,	id_Monitor,	7,	9,	make_art_tile(ArtTile_Monitor,0,0) ; S Monitor
+	dbug	Map_Monitor,	id_Monitor,	4,	6,	make_art_tile(ArtTile_Monitor,0,0) ; Shield
+	dbug	Map_Monitor,	id_Monitor,	3,	5,	make_art_tile(ArtTile_Monitor,0,0) ; Speed Shoes
+	dbug	Map_Monitor,	id_Monitor,	5,	7,	make_art_tile(ArtTile_Monitor,0,0) ; Invincibility
+	dbug	Map_Monitor,	id_Monitor,	6,	8,	make_art_tile(ArtTile_Monitor,0,0) ; 10 rings
+	dbug	Map_Monitor,	id_Monitor,	2,	4,	make_art_tile(ArtTile_Monitor,0,0) ; Sonic 1UP
+	dbug	Map_Monitor,	id_Monitor,	1,	3,	make_art_tile(ArtTile_Monitor,0,0) ; Eggman
+	dbug	Map_Monitor,	id_Monitor,	8,	10,	make_art_tile(ArtTile_Monitor,0,0) ; Goggles
 	dbug	Map_Crab,	id_Crabmeat,	0,	0,	make_art_tile(ArtTile_Crabmeat,0,0)
 	dbug	Map_Buzz,	id_BuzzBomber,	0,	0,	make_art_tile(ArtTile_Buzz_Bomber,0,0)
 	dbug	Map_Chop,	id_Chopper,	0,	0,	make_art_tile(ArtTile_Chopper,0,0)
@@ -37,6 +44,12 @@ dbug:	macro map,object,subtype,frame,vram
 	dbug	Map_Lamp,	id_Lamppost,	1,	0,	make_art_tile(ArtTile_Lamppost,0,0)
 	dbug	Map_GRing,	id_GiantRing,	0,	0,	make_art_tile(ArtTile_Giant_Ring,1,0)
 	dbug	Map_Bonus,	id_HiddenBonus,	1,	1,	make_art_tile(ArtTile_Hidden_Points,0,1)
+	dbug	Map_Bonus,	id_HiddenBonus,	2,	2,	make_art_tile(ArtTile_Hidden_Points,0,1)
+	dbug	Map_Bonus,	id_HiddenBonus,	3,	3,	make_art_tile(ArtTile_Hidden_Points,0,1)
+	dbug	Map_Sign,	id_Signpost,	1,	0,	make_art_tile(ArtTile_Signpost,0,1)
+	dbug	Map_Pri,	id_Prison,	2,	2,	make_art_tile(ArtTile_Prison_Capsule,0,1)
+	dbug	Map_Pri,	id_Prison,	1,	1,	make_art_tile(ArtTile_Prison_Capsule,0,1)
+
 .GHZend:
 
 .LZ:
@@ -44,7 +57,14 @@ dbug:	macro map,object,subtype,frame,vram
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug 	Map_Ring,	id_Rings,	0,	0,	make_art_tile(ArtTile_Ring,1,0)
-	dbug	Map_Monitor,	id_Monitor,	0,	0,	make_art_tile(ArtTile_Monitor,0,0)
+	dbug	Map_Monitor,	id_Monitor,	7,	9,	make_art_tile(ArtTile_Monitor,0,0) ; S Monitor
+	dbug	Map_Monitor,	id_Monitor,	4,	6,	make_art_tile(ArtTile_Monitor,0,0) ; Shield
+	dbug	Map_Monitor,	id_Monitor,	3,	5,	make_art_tile(ArtTile_Monitor,0,0) ; Speed Shoes
+	dbug	Map_Monitor,	id_Monitor,	5,	7,	make_art_tile(ArtTile_Monitor,0,0) ; Invincibility
+	dbug	Map_Monitor,	id_Monitor,	6,	8,	make_art_tile(ArtTile_Monitor,0,0) ; 10 rings
+	dbug	Map_Monitor,	id_Monitor,	2,	4,	make_art_tile(ArtTile_Monitor,0,0) ; Sonic 1UP
+	dbug	Map_Monitor,	id_Monitor,	1,	3,	make_art_tile(ArtTile_Monitor,0,0) ; Eggman
+	dbug	Map_Monitor,	id_Monitor,	8,	10,	make_art_tile(ArtTile_Monitor,0,0) ; Goggles
 	dbug	Map_Spring,	id_Springs,	0,	0,	make_art_tile(ArtTile_Spring_Horizontal,0,0)
 	dbug	Map_Jaws,	id_Jaws,	8,	0,	make_art_tile(ArtTile_Jaws,1,0)
 	dbug	Map_Burro,	id_Burrobot,	0,	2,	make_art_tile(ArtTile_Burrobot,0,1)
@@ -72,6 +92,11 @@ dbug:	macro map,object,subtype,frame,vram
 	dbug	Map_Pole,	id_Pole,	0,	0,	make_art_tile(ArtTile_LZ_Pole,2,0)
 	dbug	Map_Flap,	id_FlapDoor,	2,	0,	make_art_tile(ArtTile_LZ_Flapping_Door,2,0)
 	dbug	Map_Lamp,	id_Lamppost,	1,	0,	make_art_tile(ArtTile_Lamppost,0,0)
+	dbug	Map_GRing,	id_GiantRing,	0,	0,	make_art_tile(ArtTile_Giant_Ring,1,0)
+	dbug	Map_Sign,	id_Signpost,	1,	0,	make_art_tile(ArtTile_Signpost,0,1)
+	dbug	Map_Pri,	id_Prison,	2,	2,	make_art_tile(ArtTile_Prison_Capsule,0,1)
+	dbug	Map_Pri,	id_Prison,	1,	1,	make_art_tile(ArtTile_Prison_Capsule,0,1)
+
 .LZend:
 
 .MZ:
@@ -79,7 +104,14 @@ dbug:	macro map,object,subtype,frame,vram
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug 	Map_Ring,	id_Rings,	0,	0,	make_art_tile(ArtTile_Ring,1,0)
-	dbug	Map_Monitor,	id_Monitor,	0,	0,	make_art_tile(ArtTile_Monitor,0,0)
+	dbug	Map_Monitor,	id_Monitor,	7,	9,	make_art_tile(ArtTile_Monitor,0,0) ; S Monitor
+	dbug	Map_Monitor,	id_Monitor,	4,	6,	make_art_tile(ArtTile_Monitor,0,0) ; Shield
+	dbug	Map_Monitor,	id_Monitor,	3,	5,	make_art_tile(ArtTile_Monitor,0,0) ; Speed Shoes
+	dbug	Map_Monitor,	id_Monitor,	5,	7,	make_art_tile(ArtTile_Monitor,0,0) ; Invincibility
+	dbug	Map_Monitor,	id_Monitor,	6,	8,	make_art_tile(ArtTile_Monitor,0,0) ; 10 rings
+	dbug	Map_Monitor,	id_Monitor,	2,	4,	make_art_tile(ArtTile_Monitor,0,0) ; Sonic 1UP
+	dbug	Map_Monitor,	id_Monitor,	1,	3,	make_art_tile(ArtTile_Monitor,0,0) ; Eggman
+	dbug	Map_Monitor,	id_Monitor,	8,	10,	make_art_tile(ArtTile_Monitor,0,0) ; Goggles
 	dbug	Map_Buzz,	id_BuzzBomber,	0,	0,	make_art_tile(ArtTile_Buzz_Bomber,0,0)
 	dbug	Map_Spike,	id_Spikes,	0,	0,	make_art_tile(ArtTile_Spikes,0,0)
 	dbug	Map_Spring,	id_Springs,	0,	0,	make_art_tile(ArtTile_Spring_Horizontal,0,0)
@@ -104,6 +136,11 @@ dbug:	macro map,object,subtype,frame,vram
 	dbug	Map_Bas,	id_Basaran,	0,	0,	make_art_tile(ArtTile_Basaran,0,0)
 	dbug	Map_Cat,	id_Caterkiller,	0,	0,	make_art_tile(ArtTile_MZ_SYZ_Caterkiller,1,0)
 	dbug	Map_Lamp,	id_Lamppost,	1,	0,	make_art_tile(ArtTile_Lamppost,0,0)
+	dbug	Map_GRing,	id_GiantRing,	0,	0,	make_art_tile(ArtTile_Giant_Ring,1,0)
+	dbug	Map_Sign,	id_Signpost,	1,	0,	make_art_tile(ArtTile_Signpost,0,1)
+	dbug	Map_Pri,	id_Prison,	2,	2,	make_art_tile(ArtTile_Prison_Capsule,0,1)
+	dbug	Map_Pri,	id_Prison,	1,	1,	make_art_tile(ArtTile_Prison_Capsule,0,1)
+
 .MZend:
 
 .SLZ:
@@ -111,7 +148,14 @@ dbug:	macro map,object,subtype,frame,vram
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug 	Map_Ring,	id_Rings,	0,	0,	make_art_tile(ArtTile_Ring,1,0)
-	dbug	Map_Monitor,	id_Monitor,	0,	0,	make_art_tile(ArtTile_Monitor,0,0)
+	dbug	Map_Monitor,	id_Monitor,	7,	9,	make_art_tile(ArtTile_Monitor,0,0) ; S Monitor
+	dbug	Map_Monitor,	id_Monitor,	4,	6,	make_art_tile(ArtTile_Monitor,0,0) ; Shield
+	dbug	Map_Monitor,	id_Monitor,	3,	5,	make_art_tile(ArtTile_Monitor,0,0) ; Speed Shoes
+	dbug	Map_Monitor,	id_Monitor,	5,	7,	make_art_tile(ArtTile_Monitor,0,0) ; Invincibility
+	dbug	Map_Monitor,	id_Monitor,	6,	8,	make_art_tile(ArtTile_Monitor,0,0) ; 10 rings
+	dbug	Map_Monitor,	id_Monitor,	2,	4,	make_art_tile(ArtTile_Monitor,0,0) ; Sonic 1UP
+	dbug	Map_Monitor,	id_Monitor,	1,	3,	make_art_tile(ArtTile_Monitor,0,0) ; Eggman
+	dbug	Map_Monitor,	id_Monitor,	8,	10,	make_art_tile(ArtTile_Monitor,0,0) ; Goggles
 	dbug	Map_Elev,	id_Elevator,	0,	0,	make_art_tile(ArtTile_Level,2,0)
 	dbug	Map_CFlo,	id_CollapseFloor, 0,	2,	make_art_tile(ArtTile_SLZ_Collapsing_Floor,2,0)
 	dbug	Map_Plat_SLZ,	id_BasicPlatform, 0,	0,	make_art_tile(ArtTile_Level,2,0)
@@ -125,6 +169,11 @@ dbug:	macro map,object,subtype,frame,vram
 	dbug	Map_Bomb,	id_Bomb,	0,	0,	make_art_tile(ArtTile_Bomb,0,0)
 	dbug	Map_Orb,	id_Orbinaut,	0,	0,	make_art_tile(ArtTile_SLZ_Orbinaut,1,0)
 	dbug	Map_Lamp,	id_Lamppost,	1,	0,	make_art_tile(ArtTile_Lamppost,0,0)
+	dbug	Map_GRing,	id_GiantRing,	0,	0,	make_art_tile(ArtTile_Giant_Ring,1,0)
+	dbug	Map_Sign,	id_Signpost,	1,	0,	make_art_tile(ArtTile_Signpost,0,1)
+	dbug	Map_Pri,	id_Prison,	2,	2,	make_art_tile(ArtTile_Prison_Capsule,0,1)
+	dbug	Map_Pri,	id_Prison,	1,	1,	make_art_tile(ArtTile_Prison_Capsule,0,1)
+
 .SLZend:
 
 .SYZ:
@@ -132,7 +181,14 @@ dbug:	macro map,object,subtype,frame,vram
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug 	Map_Ring,	id_Rings,	0,	0,	make_art_tile(ArtTile_Ring,1,0)
-	dbug	Map_Monitor,	id_Monitor,	0,	0,	make_art_tile(ArtTile_Monitor,0,0)
+	dbug	Map_Monitor,	id_Monitor,	7,	9,	make_art_tile(ArtTile_Monitor,0,0) ; S Monitor
+	dbug	Map_Monitor,	id_Monitor,	4,	6,	make_art_tile(ArtTile_Monitor,0,0) ; Shield
+	dbug	Map_Monitor,	id_Monitor,	3,	5,	make_art_tile(ArtTile_Monitor,0,0) ; Speed Shoes
+	dbug	Map_Monitor,	id_Monitor,	5,	7,	make_art_tile(ArtTile_Monitor,0,0) ; Invincibility
+	dbug	Map_Monitor,	id_Monitor,	6,	8,	make_art_tile(ArtTile_Monitor,0,0) ; 10 rings
+	dbug	Map_Monitor,	id_Monitor,	2,	4,	make_art_tile(ArtTile_Monitor,0,0) ; Sonic 1UP
+	dbug	Map_Monitor,	id_Monitor,	1,	3,	make_art_tile(ArtTile_Monitor,0,0) ; Eggman
+	dbug	Map_Monitor,	id_Monitor,	8,	10,	make_art_tile(ArtTile_Monitor,0,0) ; Goggles
 	dbug	Map_Spike,	id_Spikes,	0,	0,	make_art_tile(ArtTile_Spikes,0,0)
 	dbug	Map_Spring,	id_Springs,	0,	0,	make_art_tile(ArtTile_Spring_Horizontal,0,0)
 	dbug	Map_Roll,	id_Roller,	0,	0,	make_art_tile(ArtTile_Roller,0,0)
@@ -146,6 +202,11 @@ dbug:	macro map,object,subtype,frame,vram
 	dbug	Map_But,	id_Button,	0,	0,	make_art_tile(ArtTile_Button+4,0,0)
 	dbug	Map_Cat,	id_Caterkiller,	0,	0,	make_art_tile(ArtTile_MZ_SYZ_Caterkiller,1,0)
 	dbug	Map_Lamp,	id_Lamppost,	1,	0,	make_art_tile(ArtTile_Lamppost,0,0)
+	dbug	Map_GRing,	id_GiantRing,	0,	0,	make_art_tile(ArtTile_Giant_Ring,1,0)
+	dbug	Map_Sign,	id_Signpost,	1,	0,	make_art_tile(ArtTile_Signpost,0,1)
+	dbug	Map_Pri,	id_Prison,	2,	2,	make_art_tile(ArtTile_Prison_Capsule,0,1)
+	dbug	Map_Pri,	id_Prison,	1,	1,	make_art_tile(ArtTile_Prison_Capsule,0,1)
+
 .SYZend:
 
 .SBZ:
@@ -153,7 +214,14 @@ dbug:	macro map,object,subtype,frame,vram
 
 ;		mappings	object		subtype	frame	VRAM setting
 	dbug 	Map_Ring,	id_Rings,	0,	0,	make_art_tile(ArtTile_Ring,1,0)
-	dbug	Map_Monitor,	id_Monitor,	0,	0,	make_art_tile(ArtTile_Monitor,0,0)
+	dbug	Map_Monitor,	id_Monitor,	7,	9,	make_art_tile(ArtTile_Monitor,0,0) ; S Monitor
+	dbug	Map_Monitor,	id_Monitor,	4,	6,	make_art_tile(ArtTile_Monitor,0,0) ; Shield
+	dbug	Map_Monitor,	id_Monitor,	3,	5,	make_art_tile(ArtTile_Monitor,0,0) ; Speed Shoes
+	dbug	Map_Monitor,	id_Monitor,	5,	7,	make_art_tile(ArtTile_Monitor,0,0) ; Invincibility
+	dbug	Map_Monitor,	id_Monitor,	6,	8,	make_art_tile(ArtTile_Monitor,0,0) ; 10 rings
+	dbug	Map_Monitor,	id_Monitor,	2,	4,	make_art_tile(ArtTile_Monitor,0,0) ; Sonic 1UP
+	dbug	Map_Monitor,	id_Monitor,	1,	3,	make_art_tile(ArtTile_Monitor,0,0) ; Eggman
+	dbug	Map_Monitor,	id_Monitor,	8,	10,	make_art_tile(ArtTile_Monitor,0,0) ; Goggles
 	dbug	Map_Bomb,	id_Bomb,	0,	0,	make_art_tile(ArtTile_Bomb,0,0)
 	dbug	Map_Orb,	id_Orbinaut,	0,	0,	make_art_tile(ArtTile_SBZ_Orbinaut,0,0)
 	dbug	Map_Cat,	id_Caterkiller,	0,	0,	make_art_tile(ArtTile_SBZ_Caterkiller,1,0)
@@ -181,6 +249,11 @@ dbug:	macro map,object,subtype,frame,vram
 	dbug	Map_Invis,	id_Invisibarrier, $11,	0,	make_art_tile(ArtTile_Monitor,0,1)
 	dbug	Map_Hog,	id_BallHog,	4,	0,	make_art_tile(ArtTile_Ball_Hog,1,0)
 	dbug	Map_Lamp,	id_Lamppost,	1,	0,	make_art_tile(ArtTile_Lamppost,0,0)
+	dbug	Map_GRing,	id_GiantRing,	0,	0,	make_art_tile(ArtTile_Giant_Ring,1,0)
+	dbug	Map_Sign,	id_Signpost,	1,	0,	make_art_tile(ArtTile_Signpost,0,1)
+	dbug	Map_Pri,	id_Prison,	2,	2,	make_art_tile(ArtTile_Prison_Capsule,0,1)
+	dbug	Map_Pri,	id_Prison,	1,	1,	make_art_tile(ArtTile_Prison_Capsule,0,1)
+
 .SBZend:
 
 .Ending:
@@ -209,7 +282,9 @@ dbug:	macro map,object,subtype,frame,vram
 	dbug	Map_Animal3,	id_Animals,	$14,	0,	make_art_tile(ArtTile_Ending_Squirrel,0,0)
     else
 	dbug 	Map_Ring,	id_Rings,	0,	8,	make_art_tile(ArtTile_Ring,1,0)
+	dbug	Map_GRing,	id_GiantRing,	0,	0,	make_art_tile(ArtTile_Giant_Ring,1,0)
     endif
+
 .Endingend:
 
 	even
