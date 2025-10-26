@@ -1,7 +1,7 @@
 {
     "Flex": 2,
     "name": "Sonic 1",
-    "node": "dd2839bc-94ec-493e-bf08-a51f4897ec2c",
+    "node": "c3788e90-fdc3-4eab-b522-9389aeea486f",
     "objects": [
         {
             "name": "Common",
@@ -30,6 +30,81 @@
                         "label": ""
                     },
                     "uuid": "dd2839bc-94ec-493e-bf08-a51f4897ec2c"
+                },
+                {
+                    "format": "Sonic 1.js",
+                    "name": "Ending - Emeralds",
+                    "palettes": [
+                        {
+                            "path": "palette/Ending.bin",
+                            "length": 4
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Ending - Emeralds.nem",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Ending Sequence Emeralds.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "c3788e90-fdc3-4eab-b522-9389aeea486f"
+                },
+                {
+                    "format": "Sonic 1.js",
+                    "name": "Ending Sequence - Sonic",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Ending - Sonic.nem",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Ending Sequence Sonic.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "f1c3788e-90fd-437e-ab35-229389aeea48"
+                },
+                {
+                    "format": "Sonic 1.js",
+                    "name": "Continue Screen - Sonic",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Continue Screen Sonic.nem",
+                        "compression": "Nemesis",
+                        "offset": 0
+                    },
+                    "mappings": {
+                        "path": "_maps/Continue Screen.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "a0f1c378-8e90-4dc3-beab-35229389aeea"
                 },
                 {
                     "name": "Sonic",
@@ -241,12 +316,12 @@
                         }
                     ],
                     "art": {
-                        "path": "artnem/Monitors.nem",
+                        "path": "artnem/Continue Screen Sonic.nem",
                         "compression": "Nemesis",
                         "offset": 0
                     },
                     "mappings": {
-                        "path": "_maps/Invisible Barriers.asm",
+                        "path": "_maps/Continue Screen.asm",
                         "label": ""
                     },
                     "dplcs": {
