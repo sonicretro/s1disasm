@@ -38,6 +38,7 @@ PSG_Index:
 		dc.l PSG1, PSG2, PSG3
 		dc.l PSG4, PSG5, PSG6
 		dc.l PSG7, PSG8, PSG9
+
 PSG1:		dc.b 0,0,0,1,1,1,2,2,2,3,3,3,4,4,4,5,5,5,6,6,6,7,$80
 
 PSG2:		dc.b 0,2,4,6,8,$10,$80
