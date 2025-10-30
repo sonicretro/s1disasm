@@ -174,7 +174,7 @@ v_jpadpress1:	equ $FFFFF605	; joypad input - pressed
 
 v_vdp_buffer1:	equ $FFFFF60C	; VDP instruction buffer (2 bytes)
 
-v_demolength:	equ $FFFFF614	; the length of a demo in frames (2 bytes)
+v_generictimer:	equ $FFFFF614	; the length of a demo in frames (2 bytes)
 v_scrposy_vdp:	equ $FFFFF616	; screen position y (VDP) (2 bytes)
 v_bgscrposy_vdp:	equ $FFFFF618	; background screen position y (VDP) (2 bytes)
 v_scrposx_vdp:	equ $FFFFF61A	; screen position x (VDP) (2 bytes)
