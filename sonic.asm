@@ -168,14 +168,14 @@ SkipSecurity:
 		moveq	#$17,d1
 VDPInitLoop:
 		move.b	(a5)+,d5	; add $8000 to value
-		move.w	d5,(a4)		; move value to VDP register
+		move.w	d5,(a4)		; move value to	VDP register
 		add.w	d7,d5		; next register
 		dbf	d1,VDPInitLoop
 		
 		move.l	(a5)+,(a4)
-		move.w	d0,(a3)		; clear the VRAM
+		move.w	d0,(a3)		; clear	the VRAM
 		move.w	d7,(a1)		; stop the Z80
-		move.w	d7,(a2)		; reset the Z80
+		move.w	d7,(a2)		; reset	the Z80
 
 WaitForZ80:
 		btst	d0,(a1)		; has the Z80 stopped?
@@ -187,8 +187,8 @@ Z80InitLoop:
 		dbf	d2,Z80InitLoop
 		
 		move.w	d0,(a2)
-		move.w	d0,(a1)		; start the Z80
-		move.w	d7,(a2)		; reset the Z80
+		move.w	d0,(a1)		; start	the Z80
+		move.w	d7,(a2)		; reset	the Z80
 
 ClrRAMLoop:
 		move.l	d0,-(a6)	; clear 4 bytes of RAM
@@ -209,7 +209,7 @@ ClrVSRAMLoop:
 		moveq	#3,d5
 
 PSGInitLoop:
-		move.b	(a5)+,$11(a3)	; reset the PSG
+		move.b	(a5)+,$11(a3)	; reset	the PSG
 		dbf	d5,PSGInitLoop	; repeat for other channels
 		move.w	d0,(a2)
 		movem.l	(a6),d0-a6	; clear all registers
@@ -223,7 +223,7 @@ SetupValues:	dc.w $8000		; VDP register start number
 		dc.w $3FFF		; size of RAM/4
 		dc.w $100		; VDP register diff
 
-		dc.l z80_ram		; start of Z80 RAM
+		dc.l z80_ram		; start	of Z80 RAM
 		dc.l z80_bus_request	; Z80 bus request
 		dc.l z80_reset		; Z80 reset
 		dc.l vdp_data_port	; VDP data
@@ -295,7 +295,7 @@ GameProgram:
 		beq.w	GameInit	; if yes, branch
 
 CheckSumCheck:
-		movea.l	#EndOfHeader,a0	; start checking bytes after the header ($200)
+		movea.l	#EndOfHeader,a0	; start	checking bytes after the header	($200)
 		movea.l	#RomEndLoc,a1	; stop at end of ROM
 		move.l	(a1),d0
 		moveq	#0,d1
@@ -348,13 +348,13 @@ GameModeArray:
 
 ptr_GM_Sega:	bra.w	GM_Sega		; Sega Screen ($00)
 
-ptr_GM_Title:	bra.w	GM_Title	; Title Screen ($04)
+ptr_GM_Title:	bra.w	GM_Title	; Title	Screen ($04)
 
 ptr_GM_Demo:	bra.w	GM_Level	; Demo Mode ($08)
 
 ptr_GM_Level:	bra.w	GM_Level	; Normal Level ($0C)
 
-ptr_GM_Special:	bra.w	GM_Special	; Special Stage ($10)
+ptr_GM_Special:	bra.w	GM_Special	; Special Stage	($10)
 
 ptr_GM_Cont:	bra.w	GM_Continue	; Continue Screen ($14)
 
@@ -453,7 +453,7 @@ loc_478:
 		enable_ints
 		rte	
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ShowErrorMessage:
@@ -465,7 +465,7 @@ ShowErrorMessage:
 		move.w	(a0)+,(a6)
 		dbf	d1,@loadgfx
 
-		moveq	#0,d0		; clear d0
+		moveq	#0,d0		; clear	d0
 		move.b	(v_errortype).w,d0 ; load error code
 		move.w	ErrorText(pc,d0.w),d0
 		lea	ErrorText(pc,d0.w),a0
@@ -501,7 +501,7 @@ ErrorText:	dc.w @exception-ErrorText, @bus-ErrorText
 @line1111:	dc.b "LINE 1111 EMULATOR "
 		even
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ShowErrorValue:
@@ -516,7 +516,7 @@ ShowErrorValue:
 ; End of function ShowErrorValue
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 @shownumber:
@@ -533,7 +533,7 @@ ShowErrorValue:
 ; End of function sub_5CA
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ErrorWaitForC:
@@ -633,9 +633,9 @@ VBla_02:
 		bsr.w	sub_106E
 
 VBla_14:
-		tst.w	(v_demolength).w
+		tst.w	(v_generictimer).w
 		beq.w	@end
-		subq.w	#1,(v_demolength).w
+		subq.w	#1,(v_generictimer).w
 
 	@end:
 		rts	
@@ -645,9 +645,9 @@ VBla_04:
 		bsr.w	sub_106E
 		bsr.w	LoadTilesAsYouMove_BGOnly
 		bsr.w	sub_1642
-		tst.w	(v_demolength).w
+		tst.w	(v_generictimer).w
 		beq.w	@end
-		subq.w	#1,(v_demolength).w
+		subq.w	#1,(v_generictimer).w
 
 	@end:
 		rts	
@@ -699,10 +699,10 @@ VBla_08:
 		bra.w	VBla_Exit
 
 ; ---------------------------------------------------------------------------
-; Subroutine to run a demo for an amount of time
+; Subroutine to	run a demo for an amount of time
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 Demo_Time:
@@ -710,9 +710,9 @@ Demo_Time:
 		jsr	(AnimateLevelGfx).l
 		jsr	(HUD_Update).l
 		bsr.w	ProcessDPLC2
-		tst.w	(v_demolength).w ; is there time left on the demo?
+		tst.w	(v_generictimer).w ; is there time left on the demo?
 		beq.w	@end		; if not, branch
-		subq.w	#1,(v_demolength).w ; subtract 1 from time left
+		subq.w	#1,(v_generictimer).w ; subtract 1 from time left
 
 	@end:
 		rts	
@@ -736,9 +736,9 @@ VBla_0A:
 		move.b	#0,(f_sonframechg).w
 
 	@nochg:
-		tst.w	(v_demolength).w	; is there time left on the demo?
+		tst.w	(v_generictimer).w	; is there time left on the demo?
 		beq.w	@end	; if not, return
-		subq.w	#1,(v_demolength).w	; subtract 1 from time left in demo
+		subq.w	#1,(v_generictimer).w	; subtract 1 from time left in demo
 
 	@end:
 		rts	
@@ -806,14 +806,14 @@ VBla_16:
 		move.b	#0,(f_sonframechg).w
 
 	@nochg:
-		tst.w	(v_demolength).w
+		tst.w	(v_generictimer).w
 		beq.w	@end
-		subq.w	#1,(v_demolength).w
+		subq.w	#1,(v_generictimer).w
 
 	@end:
 		rts	
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 sub_106E:
@@ -839,7 +839,7 @@ sub_106E:
 ; Horizontal interrupt
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 HBlank:
@@ -902,10 +902,10 @@ loc_119E:
 ; End of function HBlank
 
 ; ---------------------------------------------------------------------------
-; Subroutine to initialise joypads
+; Subroutine to	initialise joypads
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 JoypadInit:
@@ -920,16 +920,16 @@ JoypadInit:
 ; End of function JoypadInit
 
 ; ---------------------------------------------------------------------------
-; Subroutine to read joypad input, and send it to the RAM
+; Subroutine to	read joypad input, and send it to the RAM
 ; ---------------------------------------------------------------------------
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ReadJoypads:
 		lea	(v_jpadhold1).w,a0 ; address where joypad states are written
-		lea	($A10003).l,a1	; first joypad port
+		lea	($A10003).l,a1	; first	joypad port
 		bsr.s	@read		; do the first joypad
-		addq.w	#2,a1		; do the second joypad
+		addq.w	#2,a1		; do the second	joypad
 
 	@read:
 		move.b	#0,(a1)
@@ -954,7 +954,7 @@ ReadJoypads:
 ; End of function ReadJoypads
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 VDPSetupGame:
@@ -976,7 +976,7 @@ VDPSetupGame:
 
 	@clrCRAM:
 		move.w	d0,(a1)
-		dbf	d7,@clrCRAM	; clear the CRAM
+		dbf	d7,@clrCRAM	; clear	the CRAM
 
 		clr.l	(v_scrposy_vdp).w
 		clr.l	(v_scrposx_vdp).w
@@ -1015,10 +1015,10 @@ VDPSetupArray:	dc.w $8004		; 8-colour mode
 		dc.w $9200		; window vertical position
 
 ; ---------------------------------------------------------------------------
-; Subroutine to clear the screen
+; Subroutine to	clear the screen
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ClearScreen:
@@ -1065,10 +1065,10 @@ ClearScreen:
 ; End of function ClearScreen
 
 ; ---------------------------------------------------------------------------
-; Subroutine to load the sound driver
+; Subroutine to	load the sound driver
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 SoundDriverLoad:
@@ -1092,7 +1092,7 @@ SoundDriverLoad:
 		include	"_inc\PauseGame.asm"
 
 ; ---------------------------------------------------------------------------
-; Subroutine to copy a tile map from RAM to VRAM namespace
+; Subroutine to	copy a tile map from RAM to VRAM namespace
 
 ; input:
 ;	a1 = tile map address
@@ -1101,7 +1101,7 @@ SoundDriverLoad:
 ;	d2 = height (cells)
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 TilemapToVRAM:
@@ -1131,7 +1131,7 @@ TilemapToVRAM:
 ; d0 = index of PLC list
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 ; LoadPLC:
 AddPLC:
@@ -1164,16 +1164,16 @@ AddPLC:
 ; End of function AddPLC
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 ; Queue pattern load requests, but clear the PLQ first
 
 ; ARGUMENTS
 ; d0 = index of PLC list (see ArtLoadCues)
 
 ; NOTICE: This subroutine does not check for buffer overruns. The programmer
-;         (or hacker) is responsible for making sure that no more than
-;         16 load requests are copied into the buffer.
-;         _________DO NOT PUT MORE THAN 16 LOAD REQUESTS IN A LIST!__________
+;	  (or hacker) is responsible for making sure that no more than
+;	  16 load requests are copied into the buffer.
+;	  _________DO NOT PUT MORE THAN 16 LOAD REQUESTS IN A LIST!__________
 ;         (or if you change the size of Plc_Buffer, the limit becomes (Plc_Buffer_Only_End-Plc_Buffer)/6)
 
 ; LoadPLC2:
@@ -1198,10 +1198,10 @@ NewPLC:
 		rts	
 ; End of function NewPLC
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 ; ---------------------------------------------------------------------------
-; Subroutine to clear the pattern load cues
+; Subroutine to	clear the pattern load cues
 ; ---------------------------------------------------------------------------
 
 ; Clear the pattern load queue ($FFF680 - $FFF700)
@@ -1218,10 +1218,10 @@ ClearPLC:
 ; End of function ClearPLC
 
 ; ---------------------------------------------------------------------------
-; Subroutine to use graphics listed in a pattern load cue
+; Subroutine to	use graphics listed in a pattern load cue
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 RunPLC:
@@ -1258,7 +1258,7 @@ Rplc_Exit:
 ; End of function RunPLC
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 sub_1642:
@@ -1272,7 +1272,7 @@ sub_1642:
 ; End of function sub_1642
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ; sub_165E:
@@ -1331,10 +1331,10 @@ loc_16E2:
 ; End of function ProcessDPLC2
 
 ; ---------------------------------------------------------------------------
-; Subroutine to execute the pattern load cue
+; Subroutine to	execute	the pattern load cue
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 QuickPLC:
@@ -1387,10 +1387,10 @@ Pal_SBZCyc8:	incbin	"palette\Cycle - SBZ 8.bin"
 Pal_SBZCyc9:	incbin	"palette\Cycle - SBZ 9.bin"
 Pal_SBZCyc10:	incbin	"palette\Cycle - SBZ 10.bin"
 ; ---------------------------------------------------------------------------
-; Subroutine to fade in from black
+; Subroutine to	fade in from black
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 PaletteFadeIn:
@@ -1420,7 +1420,7 @@ PalFadeIn_Alt:				; start position and size are already set
 ; End of function PaletteFadeIn
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 FadeIn_FromBlack:
@@ -1456,7 +1456,7 @@ FadeIn_FromBlack:
 ; End of function FadeIn_FromBlack
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 FadeIn_AddColour:
@@ -1466,7 +1466,7 @@ FadeIn_AddColour:
 		cmp.w	d2,d3		; is colour already at threshold level?
 		beq.s	@next		; if yes, branch
 		move.w	d3,d1
-		addi.w	#$200,d1	; increase blue value
+		addi.w	#$200,d1	; increase blue	value
 		cmp.w	d2,d1		; has blue reached threshold level?
 		bhi.s	@addgreen	; if yes, branch
 		move.w	d1,(a0)+	; update palette
@@ -1498,7 +1498,7 @@ FadeIn_AddColour:
 ; ---------------------------------------------------------------------------
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 PaletteFadeOut:
@@ -1515,7 +1515,7 @@ PaletteFadeOut:
 ; End of function PaletteFadeOut
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 FadeOut_ToBlack:
@@ -1542,7 +1542,7 @@ FadeOut_ToBlack:
 ; End of function FadeOut_ToBlack
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 FadeOut_DecColour:
@@ -1568,7 +1568,7 @@ FadeOut_DecColour:
 		move.w	d2,d1
 		andi.w	#$E00,d1
 		beq.s	@next
-		subi.w	#$200,(a0)+	; decrease blue value
+		subi.w	#$200,(a0)+	; decrease blue	value
 		rts	
 ; ===========================================================================
 
@@ -1578,10 +1578,10 @@ FadeOut_DecColour:
 ; End of function FadeOut_DecColour
 
 ; ---------------------------------------------------------------------------
-; Subroutine to fade in from white (Special Stage)
+; Subroutine to	fade in from white (Special Stage)
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 PaletteWhiteIn:
@@ -1609,7 +1609,7 @@ PaletteWhiteIn:
 ; End of function PaletteWhiteIn
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 WhiteIn_FromWhite:
@@ -1644,7 +1644,7 @@ WhiteIn_FromWhite:
 ; End of function WhiteIn_FromWhite
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 WhiteIn_DecColour:
@@ -1654,7 +1654,7 @@ WhiteIn_DecColour:
 		cmp.w	d2,d3
 		beq.s	@next
 		move.w	d3,d1
-		subi.w	#$200,d1	; decrease blue value
+		subi.w	#$200,d1	; decrease blue	value
 		blo.s	@degreen
 		cmp.w	d2,d1
 		blo.s	@degreen
@@ -1686,7 +1686,7 @@ WhiteIn_DecColour:
 ; Subroutine to fade to white (Special Stage)
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 PaletteWhiteOut:
@@ -1703,7 +1703,7 @@ PaletteWhiteOut:
 ; End of function PaletteWhiteOut
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 WhiteOut_ToWhite:
@@ -1730,7 +1730,7 @@ WhiteOut_ToWhite:
 ; End of function WhiteOut_ToWhite
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 WhiteOut_AddColour:
@@ -1760,7 +1760,7 @@ WhiteOut_AddColour:
 		andi.w	#$E00,d1
 		cmpi.w	#cBlue,d1
 		beq.s	@next
-		addi.w	#$200,(a0)+	; increase blue value
+		addi.w	#$200,(a0)+	; increase blue	value
 		rts	
 ; ===========================================================================
 
@@ -1773,7 +1773,7 @@ WhiteOut_AddColour:
 ; Palette cycling routine - Sega logo
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 PalCycle_Sega:
@@ -1875,10 +1875,10 @@ Pal_Sega2:	incbin	"palette\Sega2.bin"
 ; Subroutines to load palettes
 
 ; input:
-; d0 = index number for palette
+;	d0 = index number for palette
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 PalLoad1:
@@ -1897,7 +1897,7 @@ PalLoad1:
 ; End of function PalLoad1
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 PalLoad2:
@@ -1918,7 +1918,7 @@ PalLoad2:
 ; Underwater palette loading subroutine
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 PalLoad3_Water:
@@ -1937,7 +1937,7 @@ PalLoad3_Water:
 ; End of function PalLoad3_Water
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 PalLoad4_Water:
@@ -1984,10 +1984,10 @@ Pal_Continue:	incbin	"palette\Special Stage Continue Bonus.bin"
 Pal_Ending:	incbin	"palette\Ending.bin"
 
 ; ---------------------------------------------------------------------------
-; Subroutine to wait for VBlank routines to complete
+; Subroutine to	wait for VBlank routines to complete
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 WaitForVBla:
@@ -2029,10 +2029,10 @@ GM_Sega:
 		move.w	d0,(vdp_control_port).l
 		bsr.w	ClearScreen
 		locVRAM	0
-		lea	(Nem_SegaLogo).l,a0 ; load Sega logo patterns
+		lea	(Nem_SegaLogo).l,a0 ; load Sega	logo patterns
 		bsr.w	NemDec
 		lea	($FF0000).l,a1
-		lea	(Eni_SegaLogo).l,a0 ; load Sega logo mappings
+		lea	(Eni_SegaLogo).l,a0 ; load Sega	logo mappings
 		move.w	#0,d0
 		bsr.w	EniDec
 
@@ -2067,12 +2067,12 @@ Sega_WaitPal:
 		bsr.w	PlaySound_Special	; play "SEGA" sound
 		move.b	#$14,(v_vbla_routine).w
 		bsr.w	WaitForVBla
-		move.w	#$1E,(v_demolength).w
+		move.w	#$1E,(v_generictimer).w
 
 Sega_WaitEnd:
 		move.b	#2,(v_vbla_routine).w
 		bsr.w	WaitForVBla
-		tst.w	(v_demolength).w
+		tst.w	(v_generictimer).w
 		beq.s	Sega_GotoTitle
 		andi.b	#btnStart,(v_jpadpress1).w ; is Start button pressed?
 		beq.s	Sega_WaitEnd	; if not, branch
@@ -2083,7 +2083,7 @@ Sega_GotoTitle:
 ; ===========================================================================
 
 ; ---------------------------------------------------------------------------
-; Title screen
+; Title	screen
 ; ---------------------------------------------------------------------------
 
 GM_Title:
@@ -2116,10 +2116,10 @@ GM_Title:
 		lea	(Nem_JapNames).l,a0 ; load Japanese credits
 		bsr.w	NemDec
 		locVRAM	$14C0
-		lea	(Nem_CreditText).l,a0 ; load alphabet
+		lea	(Nem_CreditText).l,a0 ;	load alphabet
 		bsr.w	NemDec
 		lea	($FF0000).l,a1
-		lea	(Eni_JapNames).l,a0 ; load mappings for Japanese credits
+		lea	(Eni_JapNames).l,a0 ; load mappings for	Japanese credits
 		move.w	#0,d0
 		bsr.w	EniDec
 
@@ -2141,10 +2141,10 @@ GM_Title:
 		bsr.w	PaletteFadeIn
 		disable_ints
 		locVRAM	$4000
-		lea	(Nem_TitleFg).l,a0 ; load title screen patterns
+		lea	(Nem_TitleFg).l,a0 ; load title	screen patterns
 		bsr.w	NemDec
 		locVRAM	$6000
-		lea	(Nem_TitleSonic).l,a0 ; load Sonic title screen patterns
+		lea	(Nem_TitleSonic).l,a0 ;	load Sonic title screen	patterns
 		bsr.w	NemDec
 		locVRAM	$A200
 		lea	(Nem_TitleTM).l,a0 ; load "TM" patterns
@@ -2167,7 +2167,7 @@ GM_Title:
 		bsr.w	LevelSizeLoad
 		bsr.w	DeformLayers
 		lea	(v_16x16).w,a1
-		lea	(Blk16_GHZ).l,a0 ; load GHZ 16x16 mappings
+		lea	(Blk16_GHZ).l,a0 ; load	GHZ 16x16 mappings
 		move.w	#0,d0
 		bsr.w	EniDec
 		lea	(Blk256_GHZ).l,a0 ; load GHZ 256x256 mappings
@@ -2184,7 +2184,7 @@ GM_Title:
 		move.w	#$6000,d2
 		bsr.w	DrawChunks
 		lea	($FF0000).l,a1
-		lea	(Eni_Title).l,a0 ; load title screen mappings
+		lea	(Eni_Title).l,a0 ; load	title screen mappings
 		move.w	#0,d0
 		bsr.w	EniDec
 
@@ -2198,7 +2198,7 @@ GM_Title:
 		move.b	#bgm_Title,d0
 		bsr.w	PlaySound_Special	; play title screen music
 		move.b	#0,(f_debugmode).w ; disable debug mode
-		move.w	#$178,(v_demolength).w ; run title screen for $178 frames
+		move.w	#$178,(v_generictimer).w ; run title screen for $178 frames
 		
 		; Bug: this only clears half of the "SONIC TEAM PRESENTS" slot.
 		; This is responsible for why the "PRESS START BUTTON" text doesn't
@@ -2257,7 +2257,7 @@ Tit_MainLoop:
 ; ===========================================================================
 
 Tit_ChkRegion:
-		tst.b	(v_megadrive).w	; check if the machine is US or Japanese
+		tst.b	(v_megadrive).w	; check	if the machine is US or	Japanese
 		bpl.s	Tit_RegionJap	; if Japanese, branch
 
 		lea	(LevSelCode_US).l,a0 ; load US code
@@ -2307,7 +2307,7 @@ Tit_CountC:
 		addq.w	#1,(v_title_ccount).w ; increment C counter
 
 loc_3230:
-		tst.w	(v_demolength).w
+		tst.w	(v_generictimer).w
 		beq.w	GotoDemo
 		andi.b	#btnStart,(v_jpadpress1).w ; check if Start is pressed
 		beq.w	Tit_MainLoop	; if not, branch
@@ -2341,7 +2341,7 @@ Tit_ChkLevSel:
 		bsr.w	LevSelTextLoad
 
 ; ---------------------------------------------------------------------------
-; Level Select
+; Level	Select
 ; ---------------------------------------------------------------------------
 
 LevelSelect:
@@ -2355,7 +2355,7 @@ LevelSelect:
 		beq.s	LevelSelect	; if not, branch
 		move.w	(v_levselitem).w,d0
 		cmpi.w	#$14,d0		; have you selected item $14 (sound test)?
-		bne.s	LevSel_Level_SS	; if not, go to Level/SS subroutine
+		bne.s	LevSel_Level_SS	; if not, go to	Level/SS subroutine
 		move.w	(v_levselsound).w,d0
 		addi.w	#$80,d0
 		tst.b	(f_creditscheat).w ; is Japanese Credits cheat on?
@@ -2396,10 +2396,10 @@ LevSel_Level_SS:
 		add.w	d0,d0
 		move.w	LevSel_Ptrs(pc,d0.w),d0 ; load level number
 		bmi.w	LevelSelect
-		cmpi.w	#id_SS*$100,d0	; check if level is 0700 (Special Stage)
+		cmpi.w	#id_SS*$100,d0	; check	if level is 0700 (Special Stage)
 		bne.s	LevSel_Level	; if not, branch
 		move.b	#id_Special,(v_gamemode).w ; set screen mode to $10 (Special Stage)
-		clr.w	(v_zone).w	; clear level
+		clr.w	(v_zone).w	; clear	level
 		move.b	#3,(v_lives).w	; set lives to 3
 		moveq	#0,d0
 		move.w	d0,(v_rings).w	; clear rings
@@ -2437,7 +2437,7 @@ PlayLevel:
 		rts	
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; Level select - level pointers
+; Level	select - level pointers
 ; ---------------------------------------------------------------------------
 LevSel_Ptrs:	if Revision=0
 		; old level order
@@ -2486,7 +2486,7 @@ LevSel_Ptrs:	if Revision=0
 		dc.w $8000		; Sound Test
 		even
 ; ---------------------------------------------------------------------------
-; Level select codes
+; Level	select codes
 ; ---------------------------------------------------------------------------
 LevSelCode_J:	if Revision=0
 		dc.b btnUp,btnDn,btnL,btnR,0,$FF
@@ -2504,7 +2504,7 @@ LevSelCode_US:	dc.b btnUp,btnDn,btnL,btnR,0,$FF
 ; ---------------------------------------------------------------------------
 
 GotoDemo:
-		move.w	#$1E,(v_demolength).w
+		move.w	#$1E,(v_generictimer).w
 
 loc_33B6:
 		move.b	#4,(v_vbla_routine).w
@@ -2524,27 +2524,27 @@ loc_33B6:
 loc_33E4:
 		andi.b	#btnStart,(v_jpadpress1).w ; is Start button pressed?
 		bne.w	Tit_ChkLevSel	; if yes, branch
-		tst.w	(v_demolength).w
+		tst.w	(v_generictimer).w
 		bne.w	loc_33B6
 		move.b	#bgm_Fade,d0
 		bsr.w	PlaySound_Special ; fade out music
-		move.w	(v_demonum).w,d0 ; load demo number
+		move.w	(v_demonum).w,d0 ; load	demo number
 		andi.w	#7,d0
 		add.w	d0,d0
-		move.w	Demo_Levels(pc,d0.w),d0	; load level number for demo
+		move.w	Demo_Levels(pc,d0.w),d0	; load level number for	demo
 		move.w	d0,(v_zone).w
 		addq.w	#1,(v_demonum).w ; add 1 to demo number
 		cmpi.w	#4,(v_demonum).w ; is demo number less than 4?
 		blo.s	loc_3422	; if yes, branch
-		move.w	#0,(v_demonum).w ; reset demo number to 0
+		move.w	#0,(v_demonum).w ; reset demo number to	0
 
 loc_3422:
 		move.w	#1,(f_demo).w	; turn demo mode on
 		move.b	#id_Demo,(v_gamemode).w ; set screen mode to 08 (demo)
-		cmpi.w	#$600,d0	; is level number 0600 (special stage)?
+		cmpi.w	#$600,d0	; is level number 0600 (special	stage)?
 		bne.s	Demo_Level	; if not, branch
 		move.b	#id_Special,(v_gamemode).w ; set screen mode to $10 (Special Stage)
-		clr.w	(v_zone).w	; clear level number
+		clr.w	(v_zone).w	; clear	level number
 		clr.b	(v_lastspecial).w ; clear special stage number
 
 Demo_Level:
@@ -2566,10 +2566,10 @@ Demo_Levels:	incbin	"misc\Demo Level Order - Intro.bin"
 		even
 
 ; ---------------------------------------------------------------------------
-; Subroutine to change what you're selecting in the level select
+; Subroutine to	change what you're selecting in the level select
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 LevSelControls:
@@ -2585,11 +2585,11 @@ LevSel_UpDown:
 		andi.b	#btnUp+btnDn,d1	; is up/down pressed?
 		beq.s	LevSel_SndTest	; if not, branch
 		move.w	(v_levselitem).w,d0
-		btst	#bitUp,d1	; is up pressed?
+		btst	#bitUp,d1	; is up	pressed?
 		beq.s	LevSel_Down	; if not, branch
 		subq.w	#1,d0		; move up 1 selection
 		bhs.s	LevSel_Down
-		moveq	#$14,d0		; if selection moves below 0, jump to selection $14
+		moveq	#$14,d0		; if selection moves below 0, jump to selection	$14
 
 LevSel_Down:
 		btst	#bitDn,d1	; is down pressed?
@@ -2597,7 +2597,7 @@ LevSel_Down:
 		addq.w	#1,d0		; move down 1 selection
 		cmpi.w	#$15,d0
 		blo.s	LevSel_Refresh
-		moveq	#0,d0		; if selection moves above $14, jump to selection 0
+		moveq	#0,d0		; if selection moves above $14,	jump to	selection 0
 
 LevSel_Refresh:
 		move.w	d0,(v_levselitem).w ; set new selection
@@ -2609,22 +2609,22 @@ LevSel_SndTest:
 		cmpi.w	#$14,(v_levselitem).w ; is item $14 selected?
 		bne.s	LevSel_NoMove	; if not, branch
 		move.b	(v_jpadpress1).w,d1
-		andi.b	#btnR+btnL,d1	; is left/right pressed?
+		andi.b	#btnR+btnL,d1	; is left/right	pressed?
 		beq.s	LevSel_NoMove	; if not, branch
 		move.w	(v_levselsound).w,d0
 		btst	#bitL,d1	; is left pressed?
 		beq.s	LevSel_Right	; if not, branch
-		subq.w	#1,d0		; subtract 1 from sound test
+		subq.w	#1,d0		; subtract 1 from sound	test
 		bhs.s	LevSel_Right
-		moveq	#$4F,d0		; if sound test moves below 0, set to $4F
+		moveq	#$4F,d0		; if sound test	moves below 0, set to $4F
 
 LevSel_Right:
 		btst	#bitR,d1	; is right pressed?
 		beq.s	LevSel_Refresh2	; if not, branch
-		addq.w	#1,d0		; add 1 to sound test
+		addq.w	#1,d0		; add 1	to sound test
 		cmpi.w	#$50,d0
 		blo.s	LevSel_Refresh2
-		moveq	#0,d0		; if sound test moves above $4F, set to 0
+		moveq	#0,d0		; if sound test	moves above $4F, set to	0
 
 LevSel_Refresh2:
 		move.w	d0,(v_levselsound).w ; set sound test number
@@ -2638,7 +2638,7 @@ LevSel_NoMove:
 ; Subroutine to load level select text
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 LevSelTextLoad:
@@ -2692,7 +2692,7 @@ LevSel_DrawSnd:
 ; End of function LevSelTextLoad
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 LevSel_ChgSnd:
@@ -2708,7 +2708,7 @@ LevSel_ChgSnd:
 ; End of function LevSel_ChgSnd
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 LevSel_ChgLine:
@@ -2732,93 +2732,16 @@ LevSel_ChgLine:
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; Level select menu text
+; Level	select menu text
 ; ---------------------------------------------------------------------------
-lstxt macro textline
-	i:   = 1
-	len: = strlen(\textline)
-	if len<>24
-		inform 2, "line length must be exactly 24 characters"
-	endif
-
-	while (i<=len)
-		char:	substr i,i,\textline
-		i: = i+1
-
-		if     "\char"=' '
-			dc.b	$FF
-		elseif ("\char">='0')&("\char"<='9')
-			dc.b	$00+"\char"-'0'
-		elseif "\char"='$'
-			dc.b	$0A
-		elseif "\char"='-'
-			dc.b	$0B
-		elseif "\char"='='
-			dc.b	$0C
-		elseif "\char"=">"
-			dc.b	$0D
-		;elseif "\char"=">"
-		;	dc.b	$0E
-		elseif "\char"='Y'
-			dc.b	$0F
-		elseif "\char"='Z'
-			dc.b	$10
-		elseif ("\char">='A')&("\char"<='X')
-			dc.b	$11+"\char"-'A'
-		else
-			inform 2, "illegal char \char"
-		endif
-	endw
-	endm
-
 LevelMenuText:	if Revision=0
-		lstxt "GREEN HILL ZONE  STAGE 1"
-		lstxt "                 STAGE 2"
-		lstxt "                 STAGE 3"
-		lstxt "LABYRINTH ZONE   STAGE 1"
-		lstxt "                 STAGE 2"
-		lstxt "                 STAGE 3"
-		lstxt "MARBLE ZONE      STAGE 1"
-		lstxt "                 STAGE 2"
-		lstxt "                 STAGE 3"
-		lstxt "STAR LIGHT ZONE  STAGE 1"
-		lstxt "                 STAGE 2"
-		lstxt "                 STAGE 3"
-		lstxt "SPRING YARD ZONE STAGE 1"
-		lstxt "                 STAGE 2"
-		lstxt "                 STAGE 3"
-		lstxt "SCRAP BRAIN ZONE STAGE 1"
-		lstxt "                 STAGE 2"
-		lstxt "                 STAGE 3"
-		lstxt "FINAL ZONE              "
-		lstxt "SPECIAL STAGE           "
-		lstxt "SOUND SELECT            "
+		incbin	"misc\Level Select Text.bin"
 		else
-		lstxt "GREEN HILL ZONE  STAGE 1"
-		lstxt "                 STAGE 2"
-		lstxt "                 STAGE 3"
-		lstxt "MARBLE ZONE      STAGE 1"
-		lstxt "                 STAGE 2"
-		lstxt "                 STAGE 3"
-		lstxt "SPRING YARD ZONE STAGE 1"
-		lstxt "                 STAGE 2"
-		lstxt "                 STAGE 3"
-		lstxt "LABYRINTH ZONE   STAGE 1"
-		lstxt "                 STAGE 2"
-		lstxt "                 STAGE 3"
-		lstxt "STAR LIGHT ZONE  STAGE 1"
-		lstxt "                 STAGE 2"
-		lstxt "                 STAGE 3"
-		lstxt "SCRAP BRAIN ZONE STAGE 1"
-		lstxt "                 STAGE 2"
-		lstxt "                 STAGE 3"
-		lstxt "FINAL ZONE              "
-		lstxt "SPECIAL STAGE           "
-		lstxt "SOUND SELECT            "
+		incbin	"misc\Level Select Text (JP1).bin"
 		endc
 		even
 ; ---------------------------------------------------------------------------
-; Music playlist
+; Music	playlist
 ; ---------------------------------------------------------------------------
 MusicList:
 		dc.b bgm_GHZ	; GHZ
@@ -2865,7 +2788,7 @@ GM_Level:
 
 loc_37FC:
 		moveq	#plcid_Main2,d0
-		bsr.w	AddPLC		; load standard patterns
+		bsr.w	AddPLC		; load standard	patterns
 
 Level_ClrRam:
 		lea	(v_objspace).w,a1
@@ -2919,13 +2842,13 @@ Level_ClrRam:
 		moveq	#0,d0
 		move.b	(v_act).w,d0
 		add.w	d0,d0
-		lea	(WaterHeight).l,a1 ; load water height array
+		lea	(WaterHeight).l,a1 ; load water	height array
 		move.w	(a1,d0.w),d0
 		move.w	d0,(v_waterpos1).w ; set water heights
 		move.w	d0,(v_waterpos2).w
 		move.w	d0,(v_waterpos3).w
 		clr.b	(v_wtr_routine).w ; clear water routine counter
-		clr.b	(f_wtr_state).w	; clear water state
+		clr.b	(f_wtr_state).w	; clear	water state
 		move.b	#1,(f_water).w	; enable water
 
 Level_LoadPal:
@@ -2962,7 +2885,7 @@ Level_GetBgm:
 		moveq	#6,d0		; use 6th music (FZ)
 
 	Level_PlayBgm:
-		lea	(MusicList).l,a1 ; load music playlist
+		lea	(MusicList).l,a1 ; load	music playlist
 		move.b	(a1,d0.w),d0
 		bsr.w	PlaySound	; play music
 		move.b	#id_TitleCard,(v_titlecard).w ; load title card object
@@ -3018,7 +2941,7 @@ Level_LoadObj:
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
 		moveq	#0,d0
-		tst.b	(v_lastlamp).w	; are you starting from a lamppost?
+		tst.b	(v_lastlamp).w	; are you starting from	a lamppost?
 		bne.s	Level_SkipClr	; if yes, branch
 		move.w	d0,(v_rings).w	; clear rings
 		move.l	d0,(v_time).w	; clear time
@@ -3054,13 +2977,13 @@ Level_LoadObj:
 Level_Demo:
 		move.b	1(a1),(v_btnpushtime2).w ; load key press duration
 		subq.b	#1,(v_btnpushtime2).w ; subtract 1 from duration
-		move.w	#1800,(v_demolength).w
+		move.w	#1800,(v_generictimer).w
 		tst.w	(f_demo).w
 		bpl.s	Level_ChkWaterPal
-		move.w	#540,(v_demolength).w
+		move.w	#540,(v_generictimer).w
 		cmpi.w	#4,(v_creditsnum).w
 		bne.s	Level_ChkWaterPal
-		move.w	#510,(v_demolength).w
+		move.w	#510,(v_generictimer).w
 
 Level_ChkWaterPal:
 		cmpi.b	#id_LZ,(v_zone).w ; is level LZ/SBZ3?
@@ -3104,7 +3027,7 @@ Level_StartGame:
 		bclr	#7,(v_gamemode).w ; subtract $80 from mode to end pre-level stuff
 
 ; ---------------------------------------------------------------------------
-; Main level loop (when all title card and loading sequences are finished)
+; Main level loop (when	all title card and loading sequences are finished)
 ; ---------------------------------------------------------------------------
 
 Level_MainLoop:
@@ -3152,7 +3075,7 @@ Level_MainLoop:
 Level_ChkDemo:
 		tst.w	(f_restart).w	; is level set to restart?
 		bne.s	Level_EndDemo	; if yes, branch
-		tst.w	(v_demolength).w ; is there time left on the demo?
+		tst.w	(v_generictimer).w ; is there time left on the demo?
 		beq.s	Level_EndDemo	; if not, branch
 		cmpi.b	#id_Demo,(v_gamemode).w
 		beq.w	Level_MainLoop	; if mode is 8 (demo), branch
@@ -3169,7 +3092,7 @@ Level_EndDemo:
 		move.b	#id_Credits,(v_gamemode).w ; go to credits
 
 Level_FadeDemo:
-		move.w	#$3C,(v_demolength).w
+		move.w	#$3C,(v_generictimer).w
 		move.w	#$3F,(v_pfade_start).w
 		clr.w	(v_palchgspeed).w
 
@@ -3186,7 +3109,7 @@ Level_FadeDemo:
 		bsr.w	FadeOut_ToBlack
 
 loc_3BC8:
-		tst.w	(v_demolength).w
+		tst.w	(v_generictimer).w
 		bne.s	Level_FDLoop
 		rts	
 ; ===========================================================================
@@ -3198,7 +3121,7 @@ loc_3BC8:
 ; Collision index pointer loading subroutine
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ColIndexLoad:
@@ -3220,15 +3143,15 @@ ColPointers:	dc.l Col_GHZ
 		dc.l Col_SYZ
 		dc.l Col_SBZ
 		zonewarning ColPointers,4
-;  dc.l Col_GHZ ; Pointer for Ending is missing by default.
+;		dc.l Col_GHZ ; Pointer for Ending is missing by default.
 
 		include	"_inc\Oscillatory Routines.asm"
 
 ; ---------------------------------------------------------------------------
-; Subroutine to change synchronised animation variables (rings, giant rings)
+; Subroutine to	change synchronised animation variables (rings, giant rings)
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 SynchroAnimate:
@@ -3280,11 +3203,11 @@ SyncEnd:
 ; End-of-act signpost pattern loading subroutine
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 SignpostArtLoad:
-		tst.w	(v_debuguse).w	; is debug mode being used?
+		tst.w	(v_debuguse).w	; is debug mode	being used?
 		bne.w	@exit		; if yes, branch
 		cmpi.b	#2,(v_act).w	; is act number 02 (act 3)?
 		beq.s	@exit		; if yes, branch
@@ -3292,7 +3215,7 @@ SignpostArtLoad:
 		move.w	(v_screenposx).w,d0
 		move.w	(v_limitright2).w,d1
 		subi.w	#$100,d1
-		cmp.w	d1,d0		; has Sonic reached the edge of the level?
+		cmp.w	d1,d0		; has Sonic reached the	edge of	the level?
 		blt.s	@exit		; if not, branch
 		tst.b	(f_timecount).w
 		beq.s	@exit
@@ -3300,7 +3223,7 @@ SignpostArtLoad:
 		beq.s	@exit
 		move.w	d1,(v_limitleft2).w ; move left boundary to current screen position
 		moveq	#plcid_Signpost,d0
-		bra.w	NewPLC		; load signpost patterns
+		bra.w	NewPLC		; load signpost	patterns
 
 	@exit:
 		rts	
@@ -3348,28 +3271,28 @@ GM_Special:
 		move.w	#$7FF,d1
 	SS_ClrObjRam:
 		move.l	d0,(a1)+
-		dbf	d1,SS_ClrObjRam	; clear the object RAM
+		dbf	d1,SS_ClrObjRam	; clear	the object RAM
 
 		lea	(v_screenposx).w,a1
 		moveq	#0,d0
 		move.w	#$3F,d1
 	SS_ClrRam1:
 		move.l	d0,(a1)+
-		dbf	d1,SS_ClrRam1	; clear variables
+		dbf	d1,SS_ClrRam1	; clear	variables
 
 		lea	(v_oscillate+2).w,a1
 		moveq	#0,d0
 		move.w	#$27,d1
 	SS_ClrRam2:
 		move.l	d0,(a1)+
-		dbf	d1,SS_ClrRam2	; clear variables
+		dbf	d1,SS_ClrRam2	; clear	variables
 
 		lea	(v_ngfx_buffer).w,a1
 		moveq	#0,d0
 		move.w	#$7F,d1
 	SS_ClrNemRam:
 		move.l	d0,(a1)+
-		dbf	d1,SS_ClrNemRam	; clear Nemesis buffer
+		dbf	d1,SS_ClrNemRam	; clear	Nemesis	buffer
 
 		clr.b	(f_wtr_state).w
 		clr.w	(f_restart).w
@@ -3383,7 +3306,7 @@ GM_Special:
 		clr.w	(v_ssangle).w	; set stage angle to "upright"
 		move.w	#$40,(v_ssrotate).w ; set stage rotation speed
 		move.w	#bgm_SS,d0
-		bsr.w	PlaySound	; play special stage BG music
+		bsr.w	PlaySound	; play special stage BG	music
 		move.w	#0,(v_btnpushtime1).w
 		lea	(DemoDataPtr).l,a1
 		moveq	#6,d0
@@ -3394,7 +3317,7 @@ GM_Special:
 		clr.w	(v_rings).w
 		clr.b	(v_lifecount).w
 		move.w	#0,(v_debuguse).w
-		move.w	#1800,(v_demolength).w
+		move.w	#1800,(v_generictimer).w
 		tst.b	(f_debugcheat).w ; has debug cheat been entered?
 		beq.s	SS_NoDebug	; if not, branch
 		btst	#bitA,(v_jpadhold1).w ; is A button pressed?
@@ -3423,7 +3346,7 @@ SS_MainLoop:
 		bsr.w	SS_BGAnimate
 		tst.w	(f_demo).w	; is demo mode on?
 		beq.s	SS_ChkEnd	; if not, branch
-		tst.w	(v_demolength).w ; is there time left on the demo?
+		tst.w	(v_generictimer).w ; is there time left on the demo?
 		beq.w	SS_ToSegaScreen	; if not, branch
 
 	SS_ChkEnd:
@@ -3442,7 +3365,7 @@ SS_MainLoop:
 		clr.w	(v_zone).w	; set to GHZ1
 
 SS_Finish:
-		move.w	#60,(v_demolength).w ; set delay time to 1 second
+		move.w	#60,(v_generictimer).w ; set delay time to 1 second
 		move.w	#$3F,(v_pfade_start).w
 		clr.w	(v_palchgspeed).w
 
@@ -3461,7 +3384,7 @@ SS_Finish:
 		bsr.w	WhiteOut_ToWhite
 
 loc_47D4:
-		tst.w	(v_demolength).w
+		tst.w	(v_generictimer).w
 		bne.s	SS_FinLoop
 
 		disable_ints
@@ -3527,15 +3450,15 @@ SS_ToLevel:	cmpi.b	#id_Level,(v_gamemode).w
 		endc
 
 ; ---------------------------------------------------------------------------
-; Special stage background loading subroutine
+; Special stage	background loading subroutine
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 SS_BGLoad:
 		lea	($FF0000).l,a1
-		lea	(Eni_SSBg1).l,a0 ; load mappings for the birds and fish
+		lea	(Eni_SSBg1).l,a0 ; load	mappings for the birds and fish
 		move.w	#$4051,d0
 		bsr.w	EniDec
 		locVRAM	$5000,d3
@@ -3584,7 +3507,7 @@ loc_491C:
 		adda.w	#$80,a2
 		dbf	d7,loc_48BE
 		lea	($FF0000).l,a1
-		lea	(Eni_SSBg2).l,a0 ; load mappings for the clouds
+		lea	(Eni_SSBg2).l,a0 ; load	mappings for the clouds
 		move.w	#$4000,d0
 		bsr.w	EniDec
 		copyTilemap	$FF0000,$C000,$3F,$1F
@@ -3596,7 +3519,7 @@ loc_491C:
 ; Palette cycling routine - special stage
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 PalCycle_SS:
@@ -3701,10 +3624,10 @@ Pal_SSCyc2:	incbin	"palette\Cycle - Special Stage 2.bin"
 		even
 
 ; ---------------------------------------------------------------------------
-; Subroutine to make the special stage background animated
+; Subroutine to	make the special stage background animated
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 SS_BGAnimate:
@@ -3837,12 +3760,12 @@ GM_Continue:
 		lea	(Nem_MiniSonic).l,a0 ; load continue screen patterns
 		bsr.w	NemDec
 		moveq	#10,d1
-		jsr	(ContScrCounter).l	; run countdown (start from 10)
+		jsr	(ContScrCounter).l	; run countdown	(start from 10)
 		moveq	#palid_Continue,d0
-		bsr.w	PalLoad1	; load continue screen palette
+		bsr.w	PalLoad1	; load continue	screen palette
 		move.b	#bgm_Continue,d0
-		bsr.w	PlaySound	; play continue music
-		move.w	#659,(v_demolength).w ; set time delay to 11 seconds
+		bsr.w	PlaySound	; play continue	music
+		move.w	#659,(v_generictimer).w ; set time delay to 11 seconds
 		clr.l	(v_screenposx).w
 		move.l	#$1000000,(v_screenposy).w
 		move.b	#id_ContSonic,(v_player).w ; load Sonic object
@@ -3869,7 +3792,7 @@ Cont_MainLoop:
 		cmpi.b	#6,(v_player+obRoutine).w
 		bhs.s	loc_4DF2
 		disable_ints
-		move.w	(v_demolength).w,d1
+		move.w	(v_generictimer).w,d1
 		divu.w	#$3C,d1
 		andi.l	#$F,d1
 		jsr	(ContScrCounter).l
@@ -3882,7 +3805,7 @@ loc_4DF2:
 		bhs.s	Cont_GotoLevel	; if yes, branch
 		cmpi.b	#6,(v_player+obRoutine).w
 		bhs.s	Cont_MainLoop
-		tst.w	(v_demolength).w
+		tst.w	(v_generictimer).w
 		bne.w	Cont_MainLoop
 		move.b	#id_Sega,(v_gamemode).w ; go to Sega screen
 		rts	
@@ -3907,7 +3830,7 @@ Map_ContScr:	include	"_maps\Continue Screen.asm"
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; Ending sequence in Green Hill Zone
+; Ending sequence in Green Hill	Zone
 ; ---------------------------------------------------------------------------
 
 GM_Ending:
@@ -3920,28 +3843,28 @@ GM_Ending:
 		move.w	#$7FF,d1
 	End_ClrObjRam:
 		move.l	d0,(a1)+
-		dbf	d1,End_ClrObjRam ; clear object RAM
+		dbf	d1,End_ClrObjRam ; clear object	RAM
 
 		lea	($FFFFF628).w,a1
 		moveq	#0,d0
 		move.w	#$15,d1
 	End_ClrRam1:
 		move.l	d0,(a1)+
-		dbf	d1,End_ClrRam1	; clear variables
+		dbf	d1,End_ClrRam1	; clear	variables
 
 		lea	(v_screenposx).w,a1
 		moveq	#0,d0
 		move.w	#$3F,d1
 	End_ClrRam2:
 		move.l	d0,(a1)+
-		dbf	d1,End_ClrRam2	; clear variables
+		dbf	d1,End_ClrRam2	; clear	variables
 
 		lea	(v_oscillate+2).w,a1
 		moveq	#0,d0
 		move.w	#$47,d1
 	End_ClrRam3:
 		move.l	d0,(a1)+
-		dbf	d1,End_ClrRam3	; clear variables
+		dbf	d1,End_ClrRam3	; clear	variables
 
 		disable_ints
 		move.w	(v_vdp_buffer1).w,d0
@@ -3975,7 +3898,7 @@ End_LoadData:
 		bsr.w	LoadTilesFromStart
 		move.l	#Col_GHZ,(v_collindex).w ; load collision index
 		enable_ints
-		lea	(Kos_EndFlowers).l,a0 ; load extra flower patterns
+		lea	(Kos_EndFlowers).l,a0 ;	load extra flower patterns
 		lea	($FFFF9400).w,a1 ; RAM address to buffer the patterns
 		bsr.w	KosDec
 		moveq	#palid_Sonic,d0
@@ -4011,7 +3934,7 @@ End_LoadSonic:
 		move.b	#1,(f_scorecount).w
 		move.b	#1,(f_ringcount).w
 		move.b	#0,(f_timecount).w
-		move.w	#1800,(v_demolength).w
+		move.w	#1800,(v_generictimer).w
 		move.b	#$18,(v_vbla_routine).w
 		bsr.w	WaitForVBla
 		move.w	(v_vdp_buffer1).w,d0
@@ -4092,7 +4015,7 @@ End_ChkEmerald:
 ; Subroutine controlling Sonic on the ending sequence
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 End_MoveSonic:
@@ -4174,7 +4097,7 @@ GM_Credits:
 		dbf	d1,Cred_ClrObjRam ; clear object RAM
 
 		locVRAM	$B400
-		lea	(Nem_CreditText).l,a0 ; load credits alphabet patterns
+		lea	(Nem_CreditText).l,a0 ;	load credits alphabet patterns
 		bsr.w	NemDec
 
 		lea	(v_pal_dry_dup).w,a1
@@ -4202,15 +4125,15 @@ GM_Credits:
 
 	Cred_SkipObjGfx:
 		moveq	#plcid_Main2,d0
-		bsr.w	AddPLC		; load standard level graphics
-		move.w	#120,(v_demolength).w ; display a credit for 2 seconds
+		bsr.w	AddPLC		; load standard	level graphics
+		move.w	#120,(v_generictimer).w ; display a credit for 2 seconds
 		bsr.w	PaletteFadeIn
 
 Cred_WaitLoop:
 		move.b	#4,(v_vbla_routine).w
 		bsr.w	WaitForVBla
 		bsr.w	RunPLC
-		tst.w	(v_demolength).w ; have 2 seconds elapsed?
+		tst.w	(v_generictimer).w ; have 2 seconds elapsed?
 		bne.s	Cred_WaitLoop	; if not, branch
 		tst.l	(v_plc_buffer).w ; have level gfx finished decompressing?
 		bne.s	Cred_WaitLoop	; if not, branch
@@ -4222,14 +4145,14 @@ Cred_WaitLoop:
 ; Ending sequence demo loading subroutine
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 EndingDemoLoad:
 		move.w	(v_creditsnum).w,d0
 		andi.w	#$F,d0
 		add.w	d0,d0
-		move.w	EndDemo_Levels(pc,d0.w),d0 ; load level array
+		move.w	EndDemo_Levels(pc,d0.w),d0 ; load level	array
 		move.w	d0,(v_zone).w	; set level from level array
 		addq.w	#1,(v_creditsnum).w
 		cmpi.w	#9,(v_creditsnum).w ; have credits finished?
@@ -4278,7 +4201,7 @@ EndDemo_LampVar:
 		dc.b 1,	1		; water routine and state
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; "TRY AGAIN" and "END" screens
+; "TRY AGAIN" and "END"	screens
 ; ---------------------------------------------------------------------------
 
 TryAgainEnd:
@@ -4318,11 +4241,11 @@ TryAgainEnd:
 		move.b	#id_EndEggman,(v_endeggman).w ; load Eggman object
 		jsr	(ExecuteObjects).l
 		jsr	(BuildSprites).l
-		move.w	#1800,(v_demolength).w ; show screen for 30 seconds
+		move.w	#1800,(v_generictimer).w ; show screen for 30 seconds
 		bsr.w	PaletteFadeIn
 
 ; ---------------------------------------------------------------------------
-; "TRY AGAIN" and "END" screen main loop
+; "TRY AGAIN" and "END"	screen main loop
 ; ---------------------------------------------------------------------------
 TryAg_MainLoop:
 		bsr.w	PauseGame
@@ -4332,7 +4255,7 @@ TryAg_MainLoop:
 		jsr	(BuildSprites).l
 		andi.b	#btnStart,(v_jpadpress1).w ; is Start button pressed?
 		bne.s	TryAg_Exit	; if yes, branch
-		tst.w	(v_demolength).w ; has 30 seconds elapsed?
+		tst.w	(v_generictimer).w ; has 30 seconds elapsed?
 		beq.s	TryAg_Exit	; if yes, branch
 		cmpi.b	#id_Credits,(v_gamemode).w
 		beq.s	TryAg_MainLoop
@@ -4377,7 +4300,7 @@ Demo_EndGHZ2:	incbin	"demodata\Ending - GHZ2.bin"
 		endc
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 ; sub_6886:
 LoadTilesAsYouMove_BGOnly:
@@ -4394,10 +4317,10 @@ LoadTilesAsYouMove_BGOnly:
 ; End of function sub_6886
 
 ; ---------------------------------------------------------------------------
-; Subroutine to display correct tiles as you move
+; Subroutine to	display	correct	tiles as you move
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 LoadTilesAsYouMove:
@@ -4475,7 +4398,7 @@ locret_6952:
 ; End of function LoadTilesAsYouMove
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 ; sub_6954:
 DrawBGScrollBlock1:
@@ -4610,7 +4533,7 @@ locret_69F2:
 ; End of function DrawBGScrollBlock1
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 ; Essentially, this draws everything that isn't scroll block 1
 ; sub_69F4:
@@ -4782,7 +4705,7 @@ locret_6AD6:
 			tst.b	(a2)
 			bne.s	locj_6E78
 			rts
-;===============================================================================
+;===============================================================================			
 	locj_6E78:
 			moveq	#-16,d4
 			moveq	#-16,d5
@@ -4875,7 +4798,7 @@ locret_6AD6:
 			tst.b	(a2)
 			bne.s	locj_6FB4
 			rts
-;===============================================================================
+;===============================================================================			
 	locj_6FB4:
 			moveq	#-16,d4
 			moveq	#-16,d5
@@ -4893,7 +4816,7 @@ locret_6AD6:
 			lsr.w	#4,d0
 			lea	(a0,d0.w),a0
 			bra.w	locj_6FEC
-;===============================================================================
+;===============================================================================			
 	locj_6FE4:
 			dc.w v_bgscreenposx_dup, v_bgscreenposx_dup, v_bg2screenposx_dup, v_bg3screenposx_dup
 	locj_6FEC:
@@ -4920,7 +4843,7 @@ locret_6AD6:
 
 		endc
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 ; Don't be fooled by the name: this function's for drawing from left to right
 ; when the camera's moving up or down
@@ -4966,7 +4889,7 @@ DrawBlocks_LR_3:
 		endc
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 ; Don't be fooled by the name: this function's for drawing from top to bottom
 ; when the camera's moving left or right
@@ -4992,7 +4915,7 @@ DrawBlocks_TB_2:
 ; End of function DrawBlocks_TB_2
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 ; Draws a block's worth of tiles
 ; Parameters:
@@ -5091,7 +5014,7 @@ DrawFlipXY:
 		rts
 		endc
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 ; Gets address of block at a certain coordinate
 ; Parameters:
@@ -5151,7 +5074,7 @@ locret_6C1E:
 ; End of function GetBlockData
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 ; Produces a VRAM plane access command from coordinates
 ; Parameters:
@@ -5183,7 +5106,7 @@ Calc_VRAM_Pos:
 ; End of function Calc_VRAM_Pos
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 ; not used
 
 ; This is just like Calc_VRAM_Pos, but seemingly for an earlier
@@ -5207,10 +5130,10 @@ Calc_VRAM_Pos_Unknown:
 ; End of function Calc_VRAM_Pos_Unknown
 
 ; ---------------------------------------------------------------------------
-; Subroutine to load tiles as soon as the level appears
+; Subroutine to	load tiles as soon as the level	appears
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 LoadTilesFromStart:
@@ -5237,7 +5160,7 @@ LoadTilesFromStart:
 ; End of function LoadTilesFromStart
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 DrawChunks:
@@ -5336,7 +5259,7 @@ DrawChunks:
 ; Subroutine to load basic level data
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 LevelDataLoad:
@@ -5385,10 +5308,10 @@ LevelDataLoad:
 ; End of function LevelDataLoad
 
 ; ---------------------------------------------------------------------------
-; Level layout loading subroutine
+; Level	layout loading subroutine
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 LevelLayoutLoad:
@@ -5402,14 +5325,14 @@ LevLoad_ClrRam:
 
 		lea	(v_lvllayout).w,a3 ; RAM address for level layout
 		moveq	#0,d1
-		bsr.w	LevelLayoutLoad2 ; load level layout into RAM
+		bsr.w	LevelLayoutLoad2 ; load	level layout into RAM
 		lea	(v_lvllayout+$40).w,a3 ; RAM address for background layout
 		moveq	#2,d1
 ; End of function LevelLayoutLoad
 
-; "LevelLayoutLoad2" is run twice - for the level and the background
+; "LevelLayoutLoad2" is	run twice - for	the level and the background
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 LevelLayoutLoad2:
@@ -5426,7 +5349,7 @@ LevelLayoutLoad2:
 		moveq	#0,d1
 		move.w	d1,d2
 		move.b	(a1)+,d1	; load level width (in tiles)
-		move.b	(a1)+,d2	; load level height (in tiles)
+		move.b	(a1)+,d2	; load level height (in	tiles)
 
 LevLoad_NumRows:
 		move.w	d1,d0
@@ -5436,7 +5359,7 @@ LevLoad_Row:
 		move.b	(a1)+,(a0)+
 		dbf	d0,LevLoad_Row	; load 1 row
 		lea	$80(a3),a3	; do next row
-		dbf	d2,LevLoad_NumRows ; repeat for number of rows
+		dbf	d2,LevLoad_NumRows ; repeat for	number of rows
 		rts	
 ; End of function LevelLayoutLoad2
 
@@ -5448,7 +5371,7 @@ LevLoad_Row:
 ; Platform subroutine
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 PlatformObject:
 		lea	(v_player).w,a1
@@ -5528,10 +5451,10 @@ Plat_Exit:
 ; End of function PlatformObject
 
 ; ---------------------------------------------------------------------------
-; Sloped platform subroutine (GHZ collapsing ledges and SLZ seesaws)
+; Sloped platform subroutine (GHZ collapsing ledges and	SLZ seesaws)
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 SlopeObject:
@@ -5560,7 +5483,7 @@ loc_754A:
 ; End of function SlopeObject
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 Swing_Solid:
@@ -5584,10 +5507,10 @@ Swing_Solid:
 		include	"_incObj\11 Bridge (part 2).asm"
 
 ; ---------------------------------------------------------------------------
-; Subroutine allowing Sonic to walk or jump off a platform
+; Subroutine allowing Sonic to walk or jump off	a platform
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ExitPlatform:
@@ -5620,10 +5543,10 @@ Map_Bri:	include	"_maps\Bridge.asm"
 		include	"_incObj\15 Swinging Platforms (part 1).asm"
 
 ; ---------------------------------------------------------------------------
-; Subroutine to change Sonic's position with a platform
+; Subroutine to	change Sonic's position with a platform
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 MvSonicOnPtfm:
@@ -5634,10 +5557,10 @@ MvSonicOnPtfm:
 ; End of function MvSonicOnPtfm
 
 ; ---------------------------------------------------------------------------
-; Subroutine to change Sonic's position with a platform
+; Subroutine to	change Sonic's position with a platform
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 MvSonicOnPtfm2:
@@ -5739,10 +5662,10 @@ CFlo_Data2:	dc.b $1E, $16, $E, 6, $1A, $12,	$A, 2
 CFlo_Data3:	dc.b $16, $1E, $1A, $12, 6, $E,	$A, 2
 
 ; ---------------------------------------------------------------------------
-; Sloped platform subroutine (GHZ collapsing ledges and MZ platforms)
+; Sloped platform subroutine (GHZ collapsing ledges and	MZ platforms)
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 SlopeObject2:
@@ -5795,7 +5718,7 @@ Map_Swi:	include	"_maps\Unused Switch.asm"
 		include	"_anim\SBZ Small Door.asm"
 Map_ADoor:	include	"_maps\SBZ Small Door.asm"
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 Obj44_SolidWall:
@@ -5853,7 +5776,7 @@ locret_8AD8:
 ; End of function Obj44_SolidWall
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 Obj44_SolidWall2:
@@ -6276,9 +6199,9 @@ Map_PRock:	include	"_maps\Purple Rock.asm"
 		include	"_incObj\sub SmashObject.asm"
 
 ; ===========================================================================
-; Smashed block fragment speeds
+; Smashed block	fragment speeds
 ;
-Smash_FragSpd1:	dc.w $400, -$500	; x-move speed, y-move speed
+Smash_FragSpd1:	dc.w $400, -$500	; x-move speed,	y-move speed
 		dc.w $600, -$100
 		dc.w $600, $100
 		dc.w $400, $500
@@ -6302,7 +6225,7 @@ Map_Smash:	include	"_maps\Smashable Walls.asm"
 ; Object code execution subroutine
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ExecuteObjects:
@@ -6363,13 +6286,13 @@ Obj_Index:
 ; ===========================================================================
 BldSpr_ScrPos:	dc.l 0				; blank
 		dc.l v_screenposx&$FFFFFF	; main screen x-position
-		dc.l v_bgscreenposx&$FFFFFF	; background x-position 1
-		dc.l v_bg3screenposx&$FFFFFF	; background x-position 2
+		dc.l v_bgscreenposx&$FFFFFF	; background x-position	1
+		dc.l v_bg3screenposx&$FFFFFF	; background x-position	2
 ; ---------------------------------------------------------------------------
-; Subroutine to convert mappings (etc) to proper Megadrive sprites
+; Subroutine to	convert	mappings (etc) to proper Megadrive sprites
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 BuildSprites:
@@ -6479,7 +6402,7 @@ BuildSprites:
 ; End of function BuildSprites
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 BuildSpr_Draw:
@@ -6491,7 +6414,7 @@ BuildSpr_Draw:
 ; End of function BuildSpr_Draw
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 BuildSpr_Normal:
@@ -6649,10 +6572,10 @@ BuildSpr_FlipXY:
 		include	"_incObj\sub ChkObjectVisible.asm"
 
 ; ---------------------------------------------------------------------------
-; Subroutine to load a level's objects
+; Subroutine to	load a level's objects
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ObjPosLoad:
@@ -6686,7 +6609,7 @@ OPL_Main:
 
 OPL_ClrList:
 		clr.l	(a2)+
-		dbf	d0,OPL_ClrList	; clear pre-destroyed object list
+		dbf	d0,OPL_ClrList	; clear	pre-destroyed object list
 
 		lea	(v_objstate).w,a2
 		moveq	#0,d2
@@ -7000,7 +6923,7 @@ Map_WFall	include	"_maps\Waterfalls.asm"
 ; ---------------------------------------------------------------------------
 
 SonicPlayer:
-		tst.w	(v_debuguse).w	; is debug mode being used?
+		tst.w	(v_debuguse).w	; is debug mode	being used?
 		beq.s	Sonic_Normal	; if not, branch
 		jmp	(DebugMode).l
 ; ===========================================================================
@@ -7083,7 +7006,7 @@ Sonic_Modes:	dc.w Sonic_MdNormal-Sonic_Modes
 		dc.w Sonic_MdRoll-Sonic_Modes
 		dc.w Sonic_MdJump2-Sonic_Modes
 ; ---------------------------------------------------------------------------
-; Music to play after invincibility wears off
+; Music	to play	after invincibility wears off
 ; ---------------------------------------------------------------------------
 MusicList2:
 		dc.b bgm_GHZ
@@ -7102,7 +7025,7 @@ MusicList2:
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; Modes for controlling Sonic
+; Modes	for controlling	Sonic
 ; ---------------------------------------------------------------------------
 
 Sonic_MdNormal:
@@ -7200,10 +7123,10 @@ locret_13302:
 
 
 ; ---------------------------------------------------------------------------
-; Subroutine to play music for LZ/SBZ3 after a countdown
+; Subroutine to	play music for LZ/SBZ3 after a countdown
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ResumeMusic:
@@ -7267,7 +7190,7 @@ Map_Splash:	include	"_maps\Water Splash.asm"
 RawColBlocks		equ CollArray1
 ConvRowColBlocks	equ CollArray1
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ConvertCollisionArray:
@@ -7367,7 +7290,7 @@ ConvertCollisionArray:
 ; End of function ConvertCollisionArray
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 Sonic_WalkSpeed:
@@ -7422,7 +7345,7 @@ loc_14D3C:
 ; End of function Sonic_WalkSpeed
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 sub_14D48:
@@ -7440,10 +7363,10 @@ sub_14D48:
 ; End of function sub_14D48
 
 ; ---------------------------------------------------------------------------
-; Subroutine to make Sonic land on the floor after jumping
+; Subroutine to	make Sonic land	on the floor after jumping
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 Sonic_HitFloor:
@@ -7521,7 +7444,7 @@ locret_14E16:
 		include	"_incObj\sub ObjFloorDist.asm"
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 sub_14E50:
@@ -7561,7 +7484,7 @@ sub_14E50:
 ; End of function sub_14E50
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 sub_14EB4:
@@ -7581,10 +7504,10 @@ loc_14EBC:
 ; End of function sub_14EB4
 
 ; ---------------------------------------------------------------------------
-; Subroutine to detect when an object hits a wall to its right
+; Subroutine to	detect when an object hits a wall to its right
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ObjHitWallRight:
@@ -7607,11 +7530,11 @@ locret_14F06:
 ; End of function ObjHitWallRight
 
 ; ---------------------------------------------------------------------------
-; Subroutine preventing Sonic from running on walls and ceilings when he
+; Subroutine preventing	Sonic from running on walls and	ceilings when he
 ; touches them
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 Sonic_DontRunOnWalls:
@@ -7666,7 +7589,7 @@ loc_14F7C:
 		move.b	#-$80,d2
 		bra.w	loc_14E0A
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ObjHitCeiling:
@@ -7730,10 +7653,10 @@ loc_14FD6:
 		bra.w	loc_14DD0
 
 ; ---------------------------------------------------------------------------
-; Subroutine to stop Sonic when he jumps at a wall
+; Subroutine to	stop Sonic when	he jumps at a wall
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 Sonic_HitWall:
@@ -7753,10 +7676,10 @@ loc_1504A:
 ; End of function Sonic_HitWall
 
 ; ---------------------------------------------------------------------------
-; Subroutine to detect when an object hits a wall to its left
+; Subroutine to	detect when an object hits a wall to its left
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ObjHitWallLeft:
@@ -7834,10 +7757,10 @@ Map_Cred:	include	"_maps\Credits.asm"
 		include	"_incObj\3D Boss - Green Hill (part 1).asm"
 
 ; ---------------------------------------------------------------------------
-; Defeated boss subroutine
+; Defeated boss	subroutine
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 BossDefeated:
@@ -7865,10 +7788,10 @@ locret_178A2:
 ; End of function BossDefeated
 
 ; ---------------------------------------------------------------------------
-; Subroutine to move a boss
+; Subroutine to	move a boss
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 BossMove:
@@ -7935,10 +7858,10 @@ Map_Pri:	include	"_maps\Prison Capsule.asm"
 		include	"_incObj\sub ReactToItem.asm"
 
 ; ---------------------------------------------------------------------------
-; Subroutine to show the special stage layout
+; Subroutine to	show the special stage layout
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 SS_ShowLayout:
@@ -8066,10 +7989,10 @@ loc_1B288:
 ; End of function SS_ShowLayout
 
 ; ---------------------------------------------------------------------------
-; Subroutine to animate walls and rings in the special stage
+; Subroutine to	animate	walls and rings	in the special stage
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 SS_AniWallsRings:
@@ -8190,10 +8113,10 @@ SS_WaRiVramSet:	dc.w $142, $6142, $142,	$142, $142, $142, $142,	$6142
 		dc.w $6142, $4142, $6142, $6142, $6142,	$6142, $6142, $4142
 		dc.w $6142, $4142, $6142, $6142, $6142,	$6142, $6142, $4142
 ; ---------------------------------------------------------------------------
-; Subroutine to remove items when you collect them in the special stage
+; Subroutine to	remove items when you collect them in the special stage
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 SS_RemoveCollectedItem:
@@ -8211,10 +8134,10 @@ locret_1B4CE:
 ; End of function SS_RemoveCollectedItem
 
 ; ---------------------------------------------------------------------------
-; Subroutine to animate special stage items when you touch them
+; Subroutine to	animate	special	stage items when you touch them
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 SS_AniItems:
@@ -8381,7 +8304,7 @@ locret_1B640:
 SS_AniGlassData:dc.b $4B, $4C, $4D, $4E, $4B, $4C, $4D,	$4E, 0,	0
 
 ; ---------------------------------------------------------------------------
-; Special stage layout pointers
+; Special stage	layout pointers
 ; ---------------------------------------------------------------------------
 SS_LayoutIndex:
 		dc.l SS_1
@@ -8398,10 +8321,10 @@ SS_LayoutIndex:
 SS_StartLoc:	include	"_inc\Start Location Array - Special Stages.asm"
 
 ; ---------------------------------------------------------------------------
-; Subroutine to load special stage layout
+; Subroutine to	load special stage layout
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 SS_Load:
@@ -8506,7 +8429,7 @@ Map_HUD:	include	"_maps\HUD.asm"
 ; Add points subroutine
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 AddPoints:
@@ -8519,7 +8442,7 @@ AddPoints:
 		move.l	#999999,d1
 		cmp.l	(a3),d1		; is score below 999999?
 		bhi.w	@belowmax	; if yes, branch
-		move.l	d1,(a3)		; reset score to 999999
+		move.l	d1,(a3)		; reset	score to 999999
 		move.l	d1,(a2)
 
 	@belowmax:
@@ -8558,10 +8481,10 @@ AddPoints:
 		include	"_inc\HUD_Update.asm"
 
 ; ---------------------------------------------------------------------------
-; Subroutine to load countdown numbers on the continue screen
+; Subroutine to	load countdown numbers on the continue screen
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ContScrCounter:
@@ -8603,7 +8526,7 @@ loc_1C962:
 		move.l	(a3)+,(a6)
 		move.l	(a3)+,(a6)
 		move.l	(a3)+,(a6)
-		dbf	d6,ContScr_Loop	; repeat 1 more time
+		dbf	d6,ContScr_Loop	; repeat 1 more	time
 
 		rts	
 ; End of function ContScrCounter
@@ -8652,7 +8575,7 @@ Map_Sonic:	include	"_maps\Sonic.asm"
 SonicDynPLC:	include	"_maps\Sonic - Dynamic Gfx Script.asm"
 
 ; ---------------------------------------------------------------------------
-; Uncompressed graphics - Sonic
+; Uncompressed graphics	- Sonic
 ; ---------------------------------------------------------------------------
 Art_Sonic:	incbin	"artunc\Sonic.bin"	; Sonic
 		even
@@ -9113,7 +9036,7 @@ Art_SbzSmoke:	incbin	"artunc\SBZ Background Smoke.bin"
 		even
 
 ; ---------------------------------------------------------------------------
-; Level layout index
+; Level	layout index
 ; ---------------------------------------------------------------------------
 Level_Index:
 		; GHZ
