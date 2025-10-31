@@ -18,6 +18,8 @@ AddressSRAM	  = 3	; 0 = odd+even; 2 = even only; 3 = odd only
 ; Change to 2 to build the version from Sonic Mega Collection, dubbed REVXB, which fixes the infamous "spike bug"
 Revision	  = 1
 
+DebugBuild	  = 1	; 0 = disabled, 1 = enabled
+
 ZoneCount	  = 6	; discrete zones are: GHZ, MZ, SYZ, LZ, SLZ, and SBZ
 
 FixBugs		  = 0	; change to 1 to enable bugfixes
@@ -2199,7 +2201,11 @@ Tit_LoadText:
 		bsr.w	PalLoad_Fade
 		move.b	#bgm_Title,d0
 		bsr.w	QueueSound2	; play title screen music
+		if DebugBuild = 1
+		move.b	#1,(f_debugmode).w ; enable debug mode
+		else
 		move.b	#0,(f_debugmode).w ; disable debug mode
+		endif
 		move.w	#376,(v_generictimer).w ; run title screen for 376 frames
 		
 	if FixBugs
