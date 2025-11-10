@@ -322,7 +322,7 @@ CheckSumCheck:
 		move.l	#'init',(v_init).w ; set flag so checksum won't run again
 
 GameInit:
-		lea	($FF0000).l,a6
+		lea	(v_256x256).l,a6
 		moveq	#0,d7
 		move.w	#$3F7F,d6
 	@clearRAM:
