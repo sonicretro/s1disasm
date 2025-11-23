@@ -2,7 +2,7 @@
 ; Background layer deformation subroutines
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 DeformLayers:
@@ -34,7 +34,7 @@ DeformLayers:
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; Offset index for background layer deformation code
+; Offset index for background layer deformation	code
 ; ---------------------------------------------------------------------------
 Deform_Index:	dc.w Deform_GHZ-Deform_Index, Deform_LZ-Deform_Index
 		dc.w Deform_MZ-Deform_Index, Deform_SLZ-Deform_Index
@@ -42,10 +42,10 @@ Deform_Index:	dc.w Deform_GHZ-Deform_Index, Deform_LZ-Deform_Index
 		zonewarning Deform_Index,2
 		dc.w Deform_GHZ-Deform_Index
 ; ---------------------------------------------------------------------------
-; Green Hill Zone background layer deformation code
+; Green	Hill Zone background layer deformation code
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 Deform_GHZ:
@@ -121,7 +121,7 @@ loc_6384:
 ; Labyrinth Zone background layer deformation code
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 Deform_LZ:
@@ -153,7 +153,7 @@ loc_63C6:
 ; Marble Zone background layer deformation code
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 Deform_MZ:
@@ -197,7 +197,7 @@ loc_6426:
 ; Star Light Zone background layer deformation code
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 Deform_SLZ:
@@ -253,7 +253,7 @@ loc_6482:
 ; End of function Deform_SLZ
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 Deform_SLZ_2:
@@ -304,10 +304,10 @@ loc_64FE:
 ; End of function Deform_SLZ_2
 
 ; ---------------------------------------------------------------------------
-; Spring Yard Zone background layer deformation code
+; Spring Yard Zone background layer deformation	code
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 Deform_SYZ:
@@ -337,10 +337,10 @@ loc_653C:
 ; End of function Deform_SYZ
 
 ; ---------------------------------------------------------------------------
-; Scrap Brain Zone background layer deformation code
+; Scrap	Brain Zone background layer deformation	code
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 Deform_SBZ:
@@ -368,10 +368,10 @@ loc_6576:
 ; End of function Deform_SBZ
 
 ; ---------------------------------------------------------------------------
-; Subroutine to scroll the level horizontally as Sonic moves
+; Subroutine to	scroll the level horizontally as Sonic moves
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ScrollHoriz:
@@ -379,10 +379,10 @@ ScrollHoriz:
 		bsr.s	MoveScreenHoriz
 		move.w	(v_screenposx).w,d0
 		andi.w	#$10,d0
-		move.b	($FFFFF74A).w,d1
+		move.b	(v_fg_xblock).w,d1
 		eor.b	d1,d0
 		bne.s	locret_65B0
-		eori.b	#$10,($FFFFF74A).w
+		eori.b	#$10,(v_fg_xblock).w
 		move.w	(v_screenposx).w,d0
 		sub.w	d4,d0		; compare new with old screen position
 		bpl.s	SH_Forward
@@ -398,7 +398,7 @@ locret_65B0:
 ; End of function ScrollHoriz
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 MoveScreenHoriz:
@@ -451,10 +451,10 @@ loc_6610:
 		bra.s	SH_AheadOfMid
 
 ; ---------------------------------------------------------------------------
-; Subroutine to scroll the level vertically as Sonic moves
+; Subroutine to	scroll the level vertically as Sonic moves
 ; ---------------------------------------------------------------------------
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ScrollVertical:
@@ -593,10 +593,10 @@ loc_6724:
 		move.l	d1,(v_screenposy).w
 		move.w	(v_screenposy).w,d0
 		andi.w	#$10,d0
-		move.b	($FFFFF74B).w,d1
+		move.b	(v_fg_yblock).w,d1
 		eor.b	d1,d0
 		bne.s	locret_6766
-		eori.b	#$10,($FFFFF74B).w
+		eori.b	#$10,(v_fg_yblock).w
 		move.w	(v_screenposy).w,d0
 		sub.w	d4,d0
 		bpl.s	loc_6760
@@ -612,7 +612,7 @@ locret_6766:
 ; End of function ScrollVertical
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ScrollBlock1:
@@ -623,10 +623,10 @@ ScrollBlock1:
 		move.l	d0,d1
 		swap	d1
 		andi.w	#$10,d1
-		move.b	($FFFFF74C).w,d3
+		move.b	(v_bg1_yblock).w,d3
 		eor.b	d3,d1
 		bne.s	loc_679C
-		eori.b	#$10,($FFFFF74C).w
+		eori.b	#$10,(v_bg1_yblock).w
 		sub.l	d2,d0
 		bpl.s	loc_6796
 		bset	#2,(v_bg1_scroll_flags).w
@@ -644,10 +644,10 @@ loc_679C:
 		move.l	d0,d1
 		swap	d1
 		andi.w	#$10,d1
-		move.b	($FFFFF74D).w,d2
+		move.b	(v_bg1_yblock).w,d2
 		eor.b	d2,d1
 		bne.s	locret_67D0
-		eori.b	#$10,($FFFFF74D).w
+		eori.b	#$10,(v_bg1_yblock).w
 		sub.l	d3,d0
 		bpl.s	loc_67CA
 		bset	#0,(v_bg1_scroll_flags).w
@@ -662,7 +662,7 @@ locret_67D0:
 ; End of function ScrollBlock1
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ScrollBlock2:
@@ -677,10 +677,10 @@ ScrollBlock2:
 		move.l	d0,d1
 		swap	d1
 		andi.w	#$10,d1
-		move.b	($FFFFF74D).w,d2
+		move.b	(v_bg1_yblock).w,d2
 		eor.b	d2,d1
 		bne.s	locret_6812
-		eori.b	#$10,($FFFFF74D).w
+		eori.b	#$10,(v_bg1_yblock).w
 		sub.l	d3,d0
 		bpl.s	loc_680C
 		bset	#0,(v_bg1_scroll_flags).w
@@ -695,7 +695,7 @@ locret_6812:
 ; End of function ScrollBlock2
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ScrollBlock3:
@@ -703,10 +703,10 @@ ScrollBlock3:
 		move.w	d0,(v_bgscreenposy).w
 		move.w	d0,d1
 		andi.w	#$10,d1
-		move.b	($FFFFF74D).w,d2
+		move.b	(v_bg1_yblock).w,d2
 		eor.b	d2,d1
 		bne.s	locret_6842
-		eori.b	#$10,($FFFFF74D).w
+		eori.b	#$10,(v_bg1_yblock).w
 		sub.w	d3,d0
 		bpl.s	loc_683C
 		bset	#0,(v_bg1_scroll_flags).w
@@ -721,7 +721,7 @@ locret_6842:
 ; End of function ScrollBlock3
 
 
-; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+; ||||||||||||||| S U B	R O U T	I N E |||||||||||||||||||||||||||||||||||||||
 
 
 ScrollBlock4:
@@ -733,10 +733,10 @@ ScrollBlock4:
 		add.l	d0,(v_bg2screenposx).w
 		move.w	(v_bg2screenposx).w,d0
 		andi.w	#$10,d0
-		move.b	($FFFFF74E).w,d1
+		move.b	(v_bg2_xblock).w,d1
 		eor.b	d1,d0
 		bne.s	locret_6884
-		eori.b	#$10,($FFFFF74E).w
+		eori.b	#$10,(v_bg2_xblock).w
 		move.w	(v_bg2screenposx).w,d0
 		sub.w	d2,d0
 		bpl.s	loc_687E
