@@ -1750,6 +1750,31 @@
                     },
                     "uuid": "f96d676a-0423-4a07-96b3-511a57a1e8dd"
                 },
+                    {
+                    "format": "Sonic 1.js",
+                    "name": "FZ Eggman's Cylinders",
+                    "palettes": [
+                        {
+                            "path": "palette/FZ Eggman Cylinders.bin",
+                            "length": 3
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Boss - Final Zone.nem",
+                        "compression": "Nemesis",
+                        "offset": ""
+                    },
+                    "mappings": {
+                        "path": "_maps/FZ Eggman's Cylinders.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "b920b7c7-9bf3-44bd-9dda-d49e3ffce61d"
+                },
                 {
                     "name": "Switch",
                     "format": "Sonic 1.js",
