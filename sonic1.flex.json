@@ -364,6 +364,35 @@
                     "uuid": "0d6d9cd8-865f-4147-9299-99eaa239c304"
                 },
                 {
+                    "format": "Sonic 1.js",
+                    "name": "GHZ Eggman",
+                    "palettes": [
+                        {
+                            "path": "palette/Sonic.bin",
+                            "length": 1
+                        },
+                        {
+                            "path": "palette/Green Hill Zone.bin",
+                            "length": 1
+                        }
+                    ],
+                    "art": {
+                        "path": "artnem/Boss - Main.nem",
+                        "compression": "Uncompressed",
+                        "offset": ""
+                    },
+                    "mappings": {
+                        "path": "_maps/Eggman.asm",
+                        "label": ""
+                    },
+                    "dplcs": {
+                        "enabled": false,
+                        "path": "",
+                        "label": ""
+                    },
+                    "uuid": "01439634-7c8a-43a0-b97c-22848acdeeb0"
+                },
+                {
                     "name": "Swinging Platform",
                     "format": "Sonic 1.js",
                     "palettes": [
