@@ -85,9 +85,8 @@ copyTilemap:	macro source,destination,width,height
 ; stop the Z80
 ; ---------------------------------------------------------------------------
 
-stopZ80:	macro
+stopZ80:	macros
 		move.w	#$100,(z80_bus_request).l
-		endm
 
 ; ---------------------------------------------------------------------------
 ; wait for Z80 to stop
@@ -102,37 +101,32 @@ waitZ80:	macro
 ; reset the Z80
 ; ---------------------------------------------------------------------------
 
-resetZ80:	macro
+resetZ80:	macros
 		move.w	#$100,(z80_reset).l
-		endm
 
-resetZ80a:	macro
+resetZ80a:	macros
 		move.w	#0,(z80_reset).l
-		endm
 
 ; ---------------------------------------------------------------------------
 ; start the Z80
 ; ---------------------------------------------------------------------------
 
-startZ80:	macro
+startZ80:	macros
 		move.w	#0,(z80_bus_request).l
-		endm
 
 ; ---------------------------------------------------------------------------
 ; disable interrupts
 ; ---------------------------------------------------------------------------
 
-disable_ints:	macro
+disable_ints:	macros
 		move	#$2700,sr
-		endm
 
 ; ---------------------------------------------------------------------------
 ; enable interrupts
 ; ---------------------------------------------------------------------------
 
-enable_ints:	macro
+enable_ints:	macros
 		move	#$2300,sr
-		endm
 
 ; ---------------------------------------------------------------------------
 ; long conditional jumps
@@ -243,13 +237,11 @@ out_of_range:	macro exit,pos
 ; (remember to enable SRAM in the header first!)
 ; ---------------------------------------------------------------------------
 
-gotoSRAM:	macro
+gotoSRAM:	macros
 		move.b	#1,($A130F1).l
-		endm
 
-gotoROM:	macro
+gotoROM:	macros
 		move.b	#0,($A130F1).l
-		endm
 
 ; ---------------------------------------------------------------------------
 ; compare the size of an index with ZoneCount constant
