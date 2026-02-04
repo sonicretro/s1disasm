@@ -17,17 +17,17 @@ SonicDriverVer			= 1
 SMPS2ASMVer			= 1
 ; Set the following to non-zero to use all S2 DAC samples, or to zero otherwise.
 ; The S1 samples are a subset of this.
-use_s2_samples			= 1
+use_s2_samples			= 0
 ; Set the following to non-zero to use all S3D DAC samples, or to zero
 ; otherwise. Most of the S3D samples are also present in S3/S&K, but
 ; there are two samples specific to S3D.
-use_s3d_samples			= 1
+use_s3d_samples			= 0
 ; Set the following to non-zero to use all S3 DAC samples,
 ; or to zero otherwise.
-use_s3_samples			= 1
+use_s3_samples			= 0
 ; Set the following to non-zero to use all S&K DAC samples,
 ; or to zero otherwise.
-use_sk_samples			= 1
+use_sk_samples			= 0
 
 ; PSG conversion to S3/S&K/S3D drivers require a tone shift of 12 semi-tones.
 psgdelta	EQU 12
@@ -62,99 +62,155 @@ smpsPitch10hi		rs.b	$C
 nRst		rs.b	1
 nC0		rs.b	1
 nCs0		rs.b	1
+nDb0	= 	nCs0
 nD0		rs.b	1
 nEb0		rs.b	1
+nDs0	=	nEb0
 nE0		rs.b	1
 nF0		rs.b	1
+nEs0	=	nF0
 nFs0		rs.b	1
+nGb0	=	nFs0
 nG0		rs.b	1
 nAb0		rs.b	1
+nGs0	=	nAb0
 nA0		rs.b	1
 nBb0		rs.b	1
+nAs0	=	nBb0
 nB0		rs.b	1
 nC1		rs.b	1
+nBs0	=	nC1
 nCs1		rs.b	1
+nDb1	= 	nCs1
 nD1		rs.b	1
 nEb1		rs.b	1
+nDs1	=	nEb1
 nE1		rs.b	1
 nF1		rs.b	1
+nEs1	=	nF1
 nFs1		rs.b	1
+nGb1	=	nFs1
 nG1		rs.b	1
 nAb1		rs.b	1
+nGs1	=	nAb1
 nA1		rs.b	1
 nBb1		rs.b	1
+nAs1	=	nBb1
 nB1		rs.b	1
 nC2		rs.b	1
+nBs1	=	nC2
 nCs2		rs.b	1
+nDb2	= 	nCs2
 nD2		rs.b	1
 nEb2		rs.b	1
+nDs2	=	nEb2
 nE2		rs.b	1
 nF2		rs.b	1
+nEs2	=	nF2
 nFs2		rs.b	1
+nGb2	=	nFs2
 nG2		rs.b	1
 nAb2		rs.b	1
+nGs2	=	nAb2
 nA2		rs.b	1
 nBb2		rs.b	1
+nAs2	=	nBb2
 nB2		rs.b	1
 nC3		rs.b	1
+nBs2	=	nC3
 nCs3		rs.b	1
+nDb3	= 	nCs3
 nD3		rs.b	1
 nEb3		rs.b	1
+nDs3	=	nEb3
 nE3		rs.b	1
 nF3		rs.b	1
+nEs3	=	nF3
 nFs3		rs.b	1
+nGb3	=	nFs3
 nG3		rs.b	1
 nAb3		rs.b	1
+nGs3	=	nAb3
 nA3		rs.b	1
 nBb3		rs.b	1
+nAs3	=	nBb3
 nB3		rs.b	1
 nC4		rs.b	1
+nBs3	=	nC4
 nCs4		rs.b	1
+nDb4	= 	nCs4
 nD4		rs.b	1
 nEb4		rs.b	1
+nDs4	=	nEb4
 nE4		rs.b	1
 nF4		rs.b	1
+nEs4	=	nF4
 nFs4		rs.b	1
+nGb4	=	nFs4
 nG4		rs.b	1
 nAb4		rs.b	1
+nGs4	=	nAb4
 nA4		rs.b	1
 nBb4		rs.b	1
+nAs4	=	nBb4
 nB4		rs.b	1
 nC5		rs.b	1
+nBs4	=	nC5
 nCs5		rs.b	1
+nDb5	= 	nCs5
 nD5		rs.b	1
 nEb5		rs.b	1
+nDs5	=	nEb5
 nE5		rs.b	1
 nF5		rs.b	1
+nEs5	=	nF5
 nFs5		rs.b	1
+nGb5	=	nFs5
 nG5		rs.b	1
 nAb5		rs.b	1
+nGs5	=	nAb5
 nA5		rs.b	1
 nBb5		rs.b	1
+nAs5	=	nBb5
 nB5		rs.b	1
 nC6		rs.b	1
+nBs5	=	nC6
 nCs6		rs.b	1
+nDb6	= 	nCs6
 nD6		rs.b	1
 nEb6		rs.b	1
+nDs6	=	nEb6
 nE6		rs.b	1
 nF6		rs.b	1
+nEs6	=	nF6
 nFs6		rs.b	1
+nGb6	=	nFs6
 nG6		rs.b	1
 nAb6		rs.b	1
+nGs6	=	nAb6
 nA6		rs.b	1
 nBb6		rs.b	1
+nAs6	=	nBb6
 nB6		rs.b	1
 nC7		rs.b	1
+nBs6	=	nC7
 nCs7		rs.b	1
+nDb7	= 	nCs7
 nD7		rs.b	1
 nEb7		rs.b	1
+nDs7	=	nEb7
 nE7		rs.b	1
 nF7		rs.b	1
+nEs7	=	nF7
 nFs7		rs.b	1
+nGb7	=	nFs7
 nG7		rs.b	1
 nAb7		rs.b	1
+nGs7	=	nAb7
 nA7		rs.b	1
 nBb7		rs.b	1
+nAs7	=	nBb7
+
 ; SMPS2ASM uses nMaxPSG for songs from S1/S2 drivers.
 ; nMaxPSG1 and nMaxPSG2 are used only for songs from S3/S&K/S3D drivers.
 ; The use of psgdelta is intended to undo the effects of PSGPitchConvert
@@ -1188,12 +1244,14 @@ vcTLMask1 set 0
 vcTLMask4 set ((vcAlgorithm=7)<<7)
 vcTLMask3 set ((vcAlgorithm>=4)<<7)
 vcTLMask2 set ((vcAlgorithm>=5)<<7)
-vcTLMask1 set $80
-vcTL1 set vcTL1&$7F
-vcTL2 set vcTL2&$7F
-vcTL3 set vcTL3&$7F
-vcTL4 set vcTL4&$7F
-	endif
+vcTLMask1 set 128
+vcTL1 set vcTL1&127
+vcTL2 set vcTL2&127
+vcTL3 set vcTL3&127
+vcTL4 set vcTL4&127
+    elseif (SonicDriverVer<3)&(SourceDriver>=3)&((((vcTL1|vcTLMask1)&$80)<>$80)|(((vcTL2|vcTLMask2)&$80)<>((vcAlgorithm>=5)<<7))|(((vcTL3|vcTLMask3)&$80)<>((vcAlgorithm>=4)<<7))|(((vcTL4|vcTLMask4)&$80)<>((vcAlgorithm=7)<<7)))
+        inform 1,"Voice at 0x%h has TL bits that do not match its algorithm setting. This voice will not work in S1/S2 drivers.",*
+    endif
 
 	if SonicDriverVer=2
 		dc.b	(vcDT4<<4)+vcCF4,       (vcDT2<<4)+vcCF2,       (vcDT3<<4)+vcCF3,       (vcDT1<<4)+vcCF1
