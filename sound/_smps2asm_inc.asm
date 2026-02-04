@@ -1193,8 +1193,6 @@ vcTL1 set vcTL1&$7F
 vcTL2 set vcTL2&$7F
 vcTL3 set vcTL3&$7F
 vcTL4 set vcTL4&$7F
-	elseif (SonicDriverVer<3)&(SourceDriver>=3)&((((vcTL1|vcTLMask1)&$80)<>$80)|(((vcTL2|vcTLMask2)&$80)<>((vcAlgorithm>=5)<<7))|(((vcTL3|vcTLMask3)&$80)<>((vcAlgorithm>=4)<<7))|(((vcTL4|vcTLMask4)&$80)<>((vcAlgorithm=7)<<7)))
-		inform 1,"Voice at 0x%h has TL bits that do not match its algorithm setting. This voice will not work in S1/S2 drivers.",*
 	endif
 
 	if SonicDriverVer=2
