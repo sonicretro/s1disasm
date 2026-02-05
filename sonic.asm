@@ -60,12 +60,6 @@ ZoneCount = 6
 	include	"Variables.asm"
 
 ; ===========================================================================
-; Expressing SMPS bytecode in a portable and human-readable form
-SonicDriverVer = 1 ; Tell SMPS2ASM that we're using Sonic 1's driver
-FixMusicAndSFXDataBugs = FixBugs
-	include "sound/_smps2asm_inc.asm"
-
-; ===========================================================================
 ; Expressing sprite mappings and DPLCs in a portable and human-readable form
 SonicMappingsVer = 1
 SonicDplcVer = 1
