@@ -82,7 +82,7 @@ Spik_Hurt:
 		tst.b	(v_invinc).w	; is Sonic invincible?
 		bne.s	Spik_Display	; if yes, branch
 	if FixBugs=1
-		; Fix the spike bug
+		; (Proper) Spike Bug Fix
 		; https://info.sonicretro.org/SCHG_How-to:Change_Spike_behavior_in_Sonic_1
 		tst.w	(v_player+flashtime).w	; is Sonic invulnerable?
 		bne.s	Spik_Display		; if yes, branch
@@ -92,18 +92,24 @@ Spik_Hurt:
 		lea	(v_player).w,a0
 		cmpi.b	#4,obRoutine(a0)
 		bhs.s	loc_CF20
-	if Revision<>2
+
+	if Revision<>2|FixBugs=1
 		move.l	obY(a0),d3
 		move.w	obVelY(a0),d0
 		ext.l	d0
 		asl.l	#8,d0
 	else
-		; This (sloppily) fixes the infamous "spike bug". REVXB was a nasty hex-edit.
+		; --- REVXB ("Revision 2") Spike Bug Fix ---
+		; REVXB is a mod of REV01 created for Sonic Mega Collection (2002), and
+		; the only change made is this dirty spike bug fix. The above code was
+		; relocated to unused vector entries at the start of the ROM (see "loc_E0"). 
+		; Consider enabling "FixBugs" for a clean solution (see above).
 		tst.w	flashtime(a0)	; Is Sonic flashing after being hurt?
 		bne.s	loc_CF20	; If so, skip getting hurt
 		jmp	(loc_E0).l	; This is a copy of the above code that was pushed aside for this
 loc_D5A2:
 	endif
+
 		sub.l	d0,d3
 		move.l	d3,obY(a0)
 		jsr	(HurtSonic).l
