@@ -208,7 +208,12 @@ RLoss_Count:	; Routine 0
 		move.b	#3,obPriority(a1)
 		move.b	#$47,obColType(a1)
 		move.b	#8,obActWid(a1)
+	if FixBugs=0
+		; This resets the timer for all spilled rings,
+		; even if they were already close to getting deleted
+		; https://info.sonicretro.org/SCHG_How-to:Fix_Ring_Timers
 		move.b	#-1,(v_ani3_time).w
+	endif
 		tst.w	d4
 		bmi.s	.loc_9D62
 		move.w	d4,d0
@@ -236,6 +241,14 @@ RLoss_Count:	; Routine 0
 		move.w	#0,(v_rings).w	; reset number of rings to zero
 		move.b	#$80,(f_ringcount).w ; update ring counter
 		move.b	#0,(v_lifecount).w
+
+	if FixBugs=1
+		; Fix Ring Timers
+		; https://info.sonicretro.org/SCHG_How-to:Fix_Ring_Timers
+		moveq	#-1,d0			; Move 255 to d0
+		move.b	d0,obDelayAni(a0)	; Move d0 to new timer
+		move.b	d0,(v_ani3_time).w	; Move d0 to old timer (for animated purposes)
+	endif
 		move.w	#sfx_RingLoss,d0
 		jsr	(QueueSound2).l	; play ring loss sound
 
@@ -258,8 +271,22 @@ RLoss_Bounce:	; Routine 2
 		neg.w	obVelY(a0)
 
 .chkdel:
+	if FixBugs=1
+		; Fix Ring Timers
+		; https://info.sonicretro.org/SCHG_How-to:Fix_Ring_Timers
+		subq.b	#1,obDelayAni(a0)	; Subtract 1
+		beq.w	DeleteObject		; If 0, delete
+	else
 		tst.b	(v_ani3_time).w
 		beq.s	RLoss_Delete
+	endif
+
+	if FixBugs=1
+		; Fix Accidental Deletion of Scattered Rings
+		; https://info.sonicretro.org/SCHG_How-to:Fix_Accidental_Deletion_of_Scattered_Rings
+		tst.w	(v_limittop2).w		; is vertical wrapping enabled?
+		bmi.w	DisplaySprite		; if so, don't delete rings by boundary
+	endif
 		move.w	(v_limitbtm2).w,d0
 		addi.w	#$E0,d0
 		cmp.w	obY(a0),d0	; has object moved below level boundary?

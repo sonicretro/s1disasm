@@ -22,6 +22,11 @@ Sonic_Index:	dc.w Sonic_Main-Sonic_Index
 		dc.w Sonic_Hurt-Sonic_Index
 		dc.w Sonic_Death-Sonic_Index
 		dc.w Sonic_ResetLevel-Sonic_Index
+	if FixBugs=1
+		; Fix drowning bugs
+		; https://info.sonicretro.org/SCHG_How-to:Correct_Drowning_Bugs_in_Sonic_1
+		dc.w Sonic_Drowned-Sonic_Index
+	endif
 ; ===========================================================================
 
 ; Obj01_Main:
@@ -1472,10 +1477,19 @@ Sonic_Death:	; Routine 6
 
 
 GameOver:
+	if FixBugs=1
+		; Fix the death boundary bug
+		; https://info.sonicretro.org/SCHG_How-to:Fix_the_death_boundary_bug
+		move.w	(v_screenposy).w,d0
+		addi.w	#$100,d0
+		cmp.w	obY(a0),d0
+		bge.w	locret_13900
+	else
 		move.w	(v_limitbtm2).w,d0
 		addi.w	#$100,d0
 		cmp.w	obY(a0),d0
 		bhs.w	locret_13900
+	endif
 		move.w	#-$38,obVelY(a0)
 		addq.b	#2,obRoutine(a0)
 		clr.b	(f_timecount).w	; stop time counter
@@ -1525,6 +1539,23 @@ Sonic_ResetLevel:; Routine 8
 
 .return:
 		rts
+; End of function Sonic_ResetLevel
+
+	if FixBugs=1
+		; Fix drowning bugs
+		; https://info.sonicretro.org/SCHG_How-to:Correct_Drowning_Bugs_in_Sonic_1
+; ---------------------------------------------------------------------------
+; Sonic when he's drowning
+; ---------------------------------------------------------------------------
+Sonic_Drowned:
+		bsr.w	SpeedToPos		; Make Sonic able to move
+		addi.w	#$10,obVelY(a0)		; Apply gravity
+		bsr.w	Sonic_RecordPosition	; Record position
+		bsr.w	Sonic_Animate		; Animate Sonic
+		bsr.w	Sonic_LoadGfx		; Load Sonic's DPLCs
+		bra.w	DisplaySprite		; And finally, display Sonic
+; End of function Sonic_Drowned
+	endif
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to make Sonic run around loops (GHZ/SLZ)
@@ -1848,5 +1879,4 @@ Sonic_LoadGfx:
 
 .nochange:
 		rts
-
 ; End of function Sonic_LoadGfx

@@ -244,13 +244,25 @@ Drown_Countdown:; Routine $A
 		move.w	#0,obVelX(a0)
 		move.w	#0,obInertia(a0)
 		move.b	#1,(f_nobgscroll).w
+	if FixBugs=1
+		; Correct Drowning Bugs
+		; https://info.sonicretro.org/SCHG_How-to:Correct_Drowning_Bugs_in_Sonic_1
+		move.b	#$A,obRoutine(a0)	; Force the character to drown
+		move.b	#0,(f_timecount).w	; Stop the timer immediately 
+	endif
 		movea.l	(sp)+,a0
 		rts
 ; ===========================================================================
 
 .loc_13F86:
 		subq.w	#1,objoff_2C(a0)
+	if FixBugs=1
+		; Correct Drowning Bugs
+		; https://info.sonicretro.org/SCHG_How-to:Correct_Drowning_Bugs_in_Sonic_1
+		bne.s	.nochange
+	else
 		bne.s	.loc_13F94
+	endif
 		move.b	#6,(v_player+obRoutine).w
 		rts
 ; ===========================================================================

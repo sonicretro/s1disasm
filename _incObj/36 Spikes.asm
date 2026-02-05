@@ -81,6 +81,12 @@ Spik_Upright:
 Spik_Hurt:
 		tst.b	(v_invinc).w	; is Sonic invincible?
 		bne.s	Spik_Display	; if yes, branch
+	if FixBugs=1
+		; Fix the spike bug
+		; https://info.sonicretro.org/SCHG_How-to:Change_Spike_behavior_in_Sonic_1
+		tst.w	(v_player+flashtime).w	; is Sonic invulnerable?
+		bne.s	Spik_Display		; if yes, branch
+	endif
 		move.l	a0,-(sp)
 		movea.l	a0,a2
 		lea	(v_player).w,a0
@@ -92,7 +98,7 @@ Spik_Hurt:
 		ext.l	d0
 		asl.l	#8,d0
 	else
-		; This fixes the infamous "spike bug"
+		; This (sloppily) fixes the infamous "spike bug". REVXB was a nasty hex-edit.
 		tst.w	flashtime(a0)	; Is Sonic flashing after being hurt?
 		bne.s	loc_CF20	; If so, skip getting hurt
 		jmp	(loc_E0).l	; This is a copy of the above code that was pushed aside for this

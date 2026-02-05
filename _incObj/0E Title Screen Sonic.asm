@@ -16,7 +16,13 @@ TSon_Index:	dc.w TSon_Main-TSon_Index
 
 TSon_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
+	if FixBugs=1
+		; Fix title screen position
+		; https://info.sonicretro.org/SCHG_How-to:Fix_the_Title_Screen_position_in_Sonic_1
+		move.w	#$F0+8,obX(a0)
+	else
 		move.w	#$F0,obX(a0)
+	endif
 		move.w	#$DE,obScreenY(a0) ; position is fixed to screen
 		move.l	#Map_TSon,obMap(a0)
 		move.w	#make_art_tile(ArtTile_Title_Sonic,1,0),obGfx(a0)

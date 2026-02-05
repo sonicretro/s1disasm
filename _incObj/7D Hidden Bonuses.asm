@@ -61,6 +61,8 @@ Bonus_Main:	; Routine 0
 		dc.w 1000
 		dc.w 100
 	if FixBugs
+		; Fix the Hidden Points bug
+		; https://info.sonicretro.org/SCHG_How-to:Fix_the_Hidden_Points_bug_in_Sonic_1
 		dc.w 10
 	else
 		dc.w 1 ; This is the wrong number of points.

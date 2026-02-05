@@ -47,7 +47,14 @@ Pow_ChkEggman:
 		move.b	obAnim(a0),d0
 		cmpi.b	#1,d0		; does monitor contain Eggman?
 		bne.s	Pow_ChkSonic
+	if FixBugs=1
+		; Fix the Eggman monitor
+		; https://info.sonicretro.org/SCHG_How-to:Have_a_functional_Eggman_monitor_in_Sonic_1
+		move.w	obX(a0),spik_origX(a0)	; needed to display the icon properly
+		jmp	(Spik_Hurt).l		; use spikes to hurt Sonic
+	else
 		rts		; Eggman monitor does nothing
+	endif
 ; ===========================================================================
 
 Pow_ChkSonic:
@@ -134,9 +141,15 @@ Pow_RingSound:
 
 Pow_ChkS:
 		cmpi.b	#7,d0		; does monitor contain 'S'?
-		bne.s	Pow_ChkEnd
+		bne.s	Pow_ChkGoggles
 		nop	
 
+Pow_ChkGoggles:
+; Uncomment these lines to set up the goggles monitor to work with it
+	;	cmpi.b	#8,d0		; does monitor contain goggles?
+	;	bne.s	Pow_ChkEnd
+	;	nop	
+	
 Pow_ChkEnd:
 		rts		; 'S' and goggles monitors do nothing
 ; ===========================================================================

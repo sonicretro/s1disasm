@@ -66,11 +66,19 @@ MDemo_On:
 		move.b	(a1),d0
 		lea	(v_jpadhold1).w,a0
 		move.b	d0,d1
-	if Revision=0
-		move.b	(a0),d2
+
+	if FixBugs=1
+		; Fix demo playback
+		; https://info.sonicretro.org/SCHG_How-to:Fix_demo_playback
+		move.b	v_jpadhold2-v_jpadhold1(a0),d2
 	else
-		moveq	#0,d2
+		if Revision=0
+			move.b	(a0),d2
+		else
+			moveq	#0,d2
+		endif
 	endif
+
 		eor.b	d2,d0
 		move.b	d1,(a0)+
 		and.b	d1,d0

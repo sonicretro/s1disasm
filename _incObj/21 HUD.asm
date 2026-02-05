@@ -22,6 +22,17 @@ HUD_Main:	; Routine 0
 		move.b	#0,obPriority(a0)
 
 HUD_Flash:	; Routine 2
+	if FixBugs=1
+		; Fix the HUD blinking
+		; https://info.sonicretro.org/SCHG_How-to:Fix_the_HUD_blinking
+		moveq	#0,d0
+		btst	#3,(v_framebyte).w
+		bne.s	.display
+		tst.w	(v_rings).w	; do you have any rings?
+		bne.s	.norings	; if so, branch
+		addq.w	#1,d0		; make ring counter flash red
+.norings:
+	else
 		tst.w	(v_rings).w	; do you have any rings?
 		beq.s	.norings	; if not, branch
 		clr.b	obFrame(a0)	; make all counters yellow
@@ -33,6 +44,7 @@ HUD_Flash:	; Routine 2
 		btst	#3,(v_framebyte).w
 		bne.s	.display
 		addq.w	#1,d0		; make ring counter flash red
+	endif
 		cmpi.b	#9,(v_timemin).w ; have 9 minutes elapsed?
 		bne.s	.display	; if not, branch
 		addq.w	#2,d0		; make time counter flash red
