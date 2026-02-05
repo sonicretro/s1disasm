@@ -313,11 +313,3 @@ bincludeEndMarker macro path,{INTLABEL},{GLOBALSYMBOLS}
 __LABEL__:	binclude	path
 __LABEL___end:
 	endm
-
-; ---------------------------------------------------------------------------
-; sprite mappings and DPLCs macros
-; ---------------------------------------------------------------------------
-
-SonicMappingsVer = 1
-SonicDplcVer = 1
-		include	"_maps/MapMacros.asm"
