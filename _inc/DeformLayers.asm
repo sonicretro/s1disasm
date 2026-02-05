@@ -406,13 +406,13 @@ MoveScreenHoriz:
 		sub.w	(v_screenposx).w,d0 ; Sonic's distance from left edge of screen
 	if FixBugs=1
 		; Fix horizontal wrap bug
-		; https://info.sonicretro.org/SCHG_How-to:Fix_the_camera_follow_bug#Horizontal_Wrap_Bug_Fix_2
-		subi.w	#144,d0		; is distance less than 144px?
-		bmi.s	SH_BehindMid	; if yes, branch
+		; https://info.sonicretro.org/SCHG_How-to:Fix_the_camera_follow_bug
+		subi.w	#(320/2)-16,d0	; is distance less than 144px?
+		blt.s	SH_BehindMid	; if yes, branch
 		subi.w	#16,d0		; is distance more than 160px?
-		bpl.s	SH_AheadOfMid	; if yes, branch
+		bge.s	SH_AheadOfMid	; if yes, branch
 	else
-		subi.w	#144,d0		; is distance less than 144px?
+		subi.w	#(320/2)-16,d0	; is distance less than 144px?
 		bcs.s	SH_BehindMid	; if yes, branch
 		subi.w	#16,d0		; is distance more than 160px?
 		bcc.s	SH_AheadOfMid	; if yes, branch
