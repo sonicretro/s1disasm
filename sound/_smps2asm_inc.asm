@@ -79,6 +79,7 @@ nA0		rs.b	1
 nBb0		rs.b	1
 nAs0	=	nBb0
 nB0		rs.b	1
+nCb1	=	nB0
 nC1		rs.b	1
 nBs0	=	nC1
 nCs1		rs.b	1
