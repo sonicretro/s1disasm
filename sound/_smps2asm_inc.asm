@@ -67,6 +67,7 @@ nD0		rs.b	1
 nEb0		rs.b	1
 nDs0	=	nEb0
 nE0		rs.b	1
+nFb0	=	nE0
 nF0		rs.b	1
 nEs0	=	nF0
 nFs0		rs.b	1
@@ -86,6 +87,7 @@ nD1		rs.b	1
 nEb1		rs.b	1
 nDs1	=	nEb1
 nE1		rs.b	1
+nFb1	=	nE1
 nF1		rs.b	1
 nEs1	=	nF1
 nFs1		rs.b	1
@@ -97,6 +99,7 @@ nA1		rs.b	1
 nBb1		rs.b	1
 nAs1	=	nBb1
 nB1		rs.b	1
+nCb2	=	nB1
 nC2		rs.b	1
 nBs1	=	nC2
 nCs2		rs.b	1
@@ -105,6 +108,7 @@ nD2		rs.b	1
 nEb2		rs.b	1
 nDs2	=	nEb2
 nE2		rs.b	1
+nFb2	=	nE2
 nF2		rs.b	1
 nEs2	=	nF2
 nFs2		rs.b	1
@@ -116,6 +120,7 @@ nA2		rs.b	1
 nBb2		rs.b	1
 nAs2	=	nBb2
 nB2		rs.b	1
+nCb3	=	nB2
 nC3		rs.b	1
 nBs2	=	nC3
 nCs3		rs.b	1
@@ -124,6 +129,7 @@ nD3		rs.b	1
 nEb3		rs.b	1
 nDs3	=	nEb3
 nE3		rs.b	1
+nFb3	=	nE3
 nF3		rs.b	1
 nEs3	=	nF3
 nFs3		rs.b	1
@@ -135,6 +141,7 @@ nA3		rs.b	1
 nBb3		rs.b	1
 nAs3	=	nBb3
 nB3		rs.b	1
+nCb4	=	nB3
 nC4		rs.b	1
 nBs3	=	nC4
 nCs4		rs.b	1
@@ -143,6 +150,7 @@ nD4		rs.b	1
 nEb4		rs.b	1
 nDs4	=	nEb4
 nE4		rs.b	1
+nFb4	=	nE4
 nF4		rs.b	1
 nEs4	=	nF4
 nFs4		rs.b	1
@@ -154,6 +162,7 @@ nA4		rs.b	1
 nBb4		rs.b	1
 nAs4	=	nBb4
 nB4		rs.b	1
+nCb5	=	nB4
 nC5		rs.b	1
 nBs4	=	nC5
 nCs5		rs.b	1
@@ -162,6 +171,7 @@ nD5		rs.b	1
 nEb5		rs.b	1
 nDs5	=	nEb5
 nE5		rs.b	1
+nFb5	=	nE5
 nF5		rs.b	1
 nEs5	=	nF5
 nFs5		rs.b	1
@@ -173,6 +183,7 @@ nA5		rs.b	1
 nBb5		rs.b	1
 nAs5	=	nBb5
 nB5		rs.b	1
+nCb6	=	nB5
 nC6		rs.b	1
 nBs5	=	nC6
 nCs6		rs.b	1
@@ -181,6 +192,7 @@ nD6		rs.b	1
 nEb6		rs.b	1
 nDs6	=	nEb6
 nE6		rs.b	1
+nFb6	=	nE6
 nF6		rs.b	1
 nEs6	=	nF6
 nFs6		rs.b	1
@@ -192,6 +204,7 @@ nA6		rs.b	1
 nBb6		rs.b	1
 nAs6	=	nBb6
 nB6		rs.b	1
+nCb7	=	nB6
 nC7		rs.b	1
 nBs6	=	nC7
 nCs7		rs.b	1
@@ -200,6 +213,7 @@ nD7		rs.b	1
 nEb7		rs.b	1
 nDs7	=	nEb7
 nE7		rs.b	1
+nFb7	=	nE7
 nF7		rs.b	1
 nEs7	=	nF7
 nFs7		rs.b	1
