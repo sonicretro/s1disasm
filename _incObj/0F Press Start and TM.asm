@@ -16,7 +16,7 @@ PSB_Index:	dc.w PSB_Main-PSB_Index
 
 PSB_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
-	if FixBugs=1
+	if FixBugs
 		; Fix title screen position
 		; https://info.sonicretro.org/SCHG_How-to:Fix_the_Title_Screen_position_in_Sonic_1
 		move.w	#$D0+8,obX(a0)
@@ -34,7 +34,7 @@ PSB_Main:	; Routine 0
 		bne.s	PSB_Exit	; if not, branch
 
 		move.w	#make_art_tile(ArtTile_Title_Trademark,1,0),obGfx(a0) ; "TM" specific code
-	if FixBugs=1
+	if FixBugs
 		; Fix title screen position
 		; https://info.sonicretro.org/SCHG_How-to:Fix_the_Title_Screen_position_in_Sonic_1
 		move.w	#$170+8,obX(a0)

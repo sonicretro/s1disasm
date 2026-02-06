@@ -824,7 +824,7 @@ Sound_PlayBGM:
 		moveq	#0,d1
 		movea.l	a4,a3
 		addq.w	#6,a4			; Point past header
-	if FixBugs=1
+	if FixBugs
 		; Fix the 0FM/DAC fade-in bug
 		; https://info.sonicretro.org/SCHG_How-to:Fix_Song_Restoration_Bugs_in_Sonic_1%27s_Sound_Driver
 		move.b	4(a3),d4		; load tempo dividing timing
@@ -1672,7 +1672,7 @@ DoFadeIn:
 		bclr	#2,SMPS_RAM.v_music_dac_track.PlaybackControl(a6)	; Clear 'SFX overriding' bit
 		clr.b	SMPS_RAM.f_fadein_flag(a6)				; Stop fadein
 
-	if FixBugs=1
+	if FixBugs
 		; Fix the DAC fade-in bug
 		; https://info.sonicretro.org/SCHG_How-to:Fix_Song_Restoration_Bugs_in_Sonic_1%27s_Sound_Driver
 		tst.b	SMPS_RAM.v_music_dac_track.PlaybackControl(a6)		; is the DAC channel running?
@@ -2207,7 +2207,7 @@ cfFadeInToPrevious:
 		move.l	(a1)+,(a0)+
 		dbf	d0,.restoreramloop
 
-	if FixBugs=1
+	if FixBugs
 		; Fix the FM 6 restoration bug
 		; https://info.sonicretro.org/SCHG_How-to:Fix_Song_Restoration_Bugs_in_Sonic_1%27s_Sound_Driver
 		move.b	#$2B,d0		; Register: DAC mode (bit 7 = enable)

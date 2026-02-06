@@ -47,7 +47,7 @@ Pow_ChkEggman:
 		move.b	obAnim(a0),d0
 		cmpi.b	#1,d0		; does monitor contain Eggman?
 		bne.s	Pow_ChkSonic
-	if FixBugs=1
+	if FixBugs
 		; Fix the Eggman monitor
 		; https://info.sonicretro.org/SCHG_How-to:Have_a_functional_Eggman_monitor_in_Sonic_1
 		move.w	obX(a0),spik_origX(a0)	; needed to display the icon properly

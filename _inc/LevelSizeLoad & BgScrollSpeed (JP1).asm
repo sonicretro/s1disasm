@@ -100,7 +100,7 @@ LevSz_ChkLamp:
 ; ===========================================================================
 
 LevSz_StartLoc:
-	if FixBugs=1
+	if FixBugs
 		; Fix title screen position
 		; https://info.sonicretro.org/SCHG_How-to:Fix_the_Title_Screen_position_in_Sonic_1#Fix_vertical_position_after_editing_GHZ1
 		cmpi.b	#id_Title,(v_gamemode).w	; is this the title screen?

@@ -67,7 +67,7 @@ MDemo_On:
 		lea	(v_jpadhold1).w,a0
 		move.b	d0,d1
 
-	if FixBugs=1
+	if FixBugs
 		; Fix demo playback
 		; https://info.sonicretro.org/SCHG_How-to:Fix_demo_playback
 		move.b	v_jpadhold2-v_jpadhold1(a0),d2

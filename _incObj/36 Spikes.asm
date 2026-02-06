@@ -81,7 +81,7 @@ Spik_Upright:
 Spik_Hurt:
 		tst.b	(v_invinc).w	; is Sonic invincible?
 		bne.s	Spik_Display	; if yes, branch
-	if FixBugs=1
+	if FixBugs
 		; (Proper) Spike Bug Fix
 		; https://info.sonicretro.org/SCHG_How-to:Change_Spike_behavior_in_Sonic_1
 		tst.w	(v_player+flashtime).w	; is Sonic invulnerable?
@@ -93,7 +93,7 @@ Spik_Hurt:
 		cmpi.b	#4,obRoutine(a0)
 		bhs.s	loc_CF20
 
-	if Revision<>2|FixBugs=1
+	if Revision<>2|FixBugs
 		move.l	obY(a0),d3
 		move.w	obVelY(a0),d0
 		ext.l	d0

@@ -404,7 +404,7 @@ locret_65B0:
 MoveScreenHoriz:
 		move.w	(v_player+obX).w,d0
 		sub.w	(v_screenposx).w,d0 ; Sonic's distance from left edge of screen
-	if FixBugs=1
+	if FixBugs
 		; Fix horizontal wrap bug
 		; https://info.sonicretro.org/SCHG_How-to:Fix_the_camera_follow_bug
 		subi.w	#(320/2)-16,d0	; is distance less than 144px?
@@ -442,7 +442,7 @@ SH_SetScreen:
 ; ===========================================================================
 
 SH_BehindMid:
-	if FixBugs=1
+	if FixBugs
 		; Fix the camera follow bug
 		; https://info.sonicretro.org/SCHG_How-to:Fix_the_camera_follow_bug
 		cmpi.w	#-16,d0		; is Sonic within -16px of middle area?

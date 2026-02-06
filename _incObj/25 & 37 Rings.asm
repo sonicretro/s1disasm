@@ -242,7 +242,7 @@ RLoss_Count:	; Routine 0
 		move.b	#$80,(f_ringcount).w ; update ring counter
 		move.b	#0,(v_lifecount).w
 
-	if FixBugs=1
+	if FixBugs
 		; Fix Ring Timers
 		; https://info.sonicretro.org/SCHG_How-to:Fix_Ring_Timers
 		moveq	#-1,d0			; Move 255 to d0
@@ -271,7 +271,7 @@ RLoss_Bounce:	; Routine 2
 		neg.w	obVelY(a0)
 
 .chkdel:
-	if FixBugs=1
+	if FixBugs
 		; Fix Ring Timers
 		; https://info.sonicretro.org/SCHG_How-to:Fix_Ring_Timers
 		subq.b	#1,obDelayAni(a0)	; Subtract 1
@@ -281,7 +281,7 @@ RLoss_Bounce:	; Routine 2
 		beq.s	RLoss_Delete
 	endif
 
-	if FixBugs=1
+	if FixBugs
 		; Fix Accidental Deletion of Scattered Rings
 		; https://info.sonicretro.org/SCHG_How-to:Fix_Accidental_Deletion_of_Scattered_Rings
 		tst.w	(v_limittop2).w		; is vertical wrapping enabled?

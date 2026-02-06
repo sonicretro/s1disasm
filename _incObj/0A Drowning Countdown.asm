@@ -244,7 +244,7 @@ Drown_Countdown:; Routine $A
 		move.w	#0,obVelX(a0)
 		move.w	#0,obInertia(a0)
 		move.b	#1,(f_nobgscroll).w
-	if FixBugs=1
+	if FixBugs
 		; Correct Drowning Bugs
 		; https://info.sonicretro.org/SCHG_How-to:Correct_Drowning_Bugs_in_Sonic_1
 		move.b	#$A,obRoutine(a0)	; Force the character to drown
@@ -256,7 +256,7 @@ Drown_Countdown:; Routine $A
 
 .loc_13F86:
 		subq.w	#1,objoff_2C(a0)
-	if FixBugs=1
+	if FixBugs
 		; Correct Drowning Bugs
 		; https://info.sonicretro.org/SCHG_How-to:Correct_Drowning_Bugs_in_Sonic_1
 		bne.s	.nochange

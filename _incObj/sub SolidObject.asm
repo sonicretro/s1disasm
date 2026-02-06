@@ -205,7 +205,7 @@ Solid_SideAir:
 Solid_Ignore:
 		btst	#5,obStatus(a0)	; is Sonic pushing?
 		beq.s	Solid_Debug	; if not, branch
-	if FixBugs=1
+	if FixBugs
 		; Fix the Walk-Jump bug
 		; https://info.sonicretro.org/SCHG_How-to:Fix_the_Walk-Jump_Bug_in_Sonic_1
 		move.b	obAnim(a1),d4		; get Sonic's current animation

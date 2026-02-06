@@ -32,9 +32,9 @@ PaddingOptimization = 0|AllOptimizations
 
 EnableSRAM = 0
 ;	| If 1, enable SRAM support
-BackupSRAM = 1&EnableSRAM
+BackupSRAM = 1
 ;	| 0 = no saving (read-only SRAM); 1 = allow saving
-AddressSRAM = 3&EnableSRAM
+AddressSRAM = 3
 ;	| 0 = odd+even; 2 = even only; 3 = odd only
 ;	| (odd only is the most common)
 
@@ -130,7 +130,7 @@ Vectors:
 		dc.l ErrorTrap			; Unused (reserved)
 		dc.l ErrorTrap			; Unused (reserved)
 		dc.l ErrorTrap			; Unused (reserved)
-	if Revision<>2|FixBugs=1
+	if Revision<>2|FixBugs
 		dc.l ErrorTrap			; Unused (reserved)
 		dc.l ErrorTrap			; Unused (reserved)
 		dc.l ErrorTrap			; Unused (reserved)
@@ -1342,7 +1342,7 @@ loc_160E:
 		move.l	d0,(v_plc_previousrow).w
 		move.l	d5,(v_plc_dataword).w
 		move.l	d6,(v_plc_shiftvalue).w
-	if FixBugs=1
+	if FixBugs
 		; Fix a race condition with Pattern Load Cues
 		; https://info.sonicretro.org/SCHG_How-to:Fix_a_race_condition_with_Pattern_Load_Cues
 		move.w	d2,(v_plc_patternsleft).w
@@ -2290,7 +2290,7 @@ Tit_LoadText:
 		move.w	#0,d0
 		bsr.w	EniDec
 
-	if FixBugs=1
+	if FixBugs
 		; Fix title screen position
 		; https://info.sonicretro.org/SCHG_How-to:Fix_the_Title_Screen_position_in_Sonic_1
 		copyTilemap	v_256x256&$FFFFFF,vram_fg+$208,34,22
@@ -2423,7 +2423,7 @@ Tit_ChkLevSel:
 		btst	#bitA,(v_jpadhold1).w ; check if A is pressed
 		beq.w	PlayLevel	; if not, play level
 	
-	if FixBugs=1
+	if FixBugs
 		; Fix the level selects graphics bug
 		; https://info.sonicretro.org/SCHG_How-to:Fix_the_Level_Select_graphics_bug
 		move.b	#4,(v_vbla_routine).w
@@ -5494,7 +5494,7 @@ loc_D358:
 ; ===========================================================================
 
 loc_D362:
-	if FixBugs=1
+	if FixBugs
 		; Correct Drowning bugs
 		; https://info.sonicretro.org/SCHG_How-to:Correct_Drowning_Bugs_in_Sonic_1
 		cmpi.b	#$A,(v_player+obRoutine).w	; Has Sonic drowned?
@@ -5994,7 +5994,7 @@ loc_DA02:
 loc_DA10:
 		bsr.w	loc_DA3C
 		beq.s	loc_DA02
-	if FixBugs=1
+	if FixBugs
 		; Fix a remember sprite related bug
 		; https://info.sonicretro.org/SCHG_How-to:Fix_a_remember_sprite_related_bug
 		tst.b	4(a0)		; was this object a remember state?
@@ -6030,7 +6030,7 @@ locret_DA3A:
 loc_DA3C:
 		tst.b	4(a0)
 		bpl.s	OPL_MakeItem
-	if FixBugs=1
+	if FixBugs
 		; Fix a remember sprite related bug
 		; https://info.sonicretro.org/SCHG_How-to:Fix_a_remember_sprite_related_bug
 		btst	#7,2(a2,d2.w)
@@ -6057,7 +6057,7 @@ OPL_MakeItem:
 		move.b	d1,obStatus(a1)
 		move.b	(a0)+,d0
 		bpl.s	loc_DA80
-	if FixBugs=1
+	if FixBugs
 		; Fix a remember sprite related bug
 		; https://info.sonicretro.org/SCHG_How-to:Fix_a_remember_sprite_related_bug
 		bset	#7,2(a2,d2.w)		; set as removed

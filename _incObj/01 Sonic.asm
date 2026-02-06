@@ -22,7 +22,7 @@ Sonic_Index:	dc.w Sonic_Main-Sonic_Index
 		dc.w Sonic_Hurt-Sonic_Index
 		dc.w Sonic_Death-Sonic_Index
 		dc.w Sonic_ResetLevel-Sonic_Index
-	if FixBugs=1
+	if FixBugs
 		; Fix drowning bugs
 		; https://info.sonicretro.org/SCHG_How-to:Correct_Drowning_Bugs_in_Sonic_1
 		dc.w Sonic_Drowned-Sonic_Index
@@ -1477,7 +1477,7 @@ Sonic_Death:	; Routine 6
 
 
 GameOver:
-	if FixBugs=1
+	if FixBugs
 		; Fix the death boundary bug
 		; https://info.sonicretro.org/SCHG_How-to:Fix_the_death_boundary_bug
 		move.w	(v_screenposy).w,d0
@@ -1541,7 +1541,7 @@ Sonic_ResetLevel:; Routine 8
 		rts
 ; End of function Sonic_ResetLevel
 
-	if FixBugs=1
+	if FixBugs
 		; Fix drowning bugs
 		; https://info.sonicretro.org/SCHG_How-to:Correct_Drowning_Bugs_in_Sonic_1
 ; ---------------------------------------------------------------------------
