@@ -4409,15 +4409,9 @@ Demo_EndSBZ2:	binclude	"demodata/Ending - SBZ2.bin"
 Demo_EndGHZ2:	binclude	"demodata/Ending - GHZ2.bin"
 		even
 
-	if Revision=0
 		include	"_inc/LevelSizeLoad & BgScrollSpeed.asm"
 		include	"_inc/DeformLayers.asm"
 		include	"_inc/Level Drawing.asm"
-	else
-		include	"_inc/LevelSizeLoad & BgScrollSpeed (JP1).asm"
-		include	"_inc/DeformLayers (JP1).asm"
-		include	"_inc/Level Drawing (JP1).asm"
-	endif
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to load basic level data
@@ -5043,13 +5037,7 @@ Map_Missile:	include	"_maps/Buzz Bomber Missile.asm"
 
 		include	"_anim/Rings.asm"
 
-Map_Ring:
-	if Revision=0
-		include	"_maps/Rings.asm"
-	else
-		include	"_maps/Rings (JP1).asm"
-	endif
-
+Map_Ring:	include	"_maps/Rings.asm"
 Map_GRing:	include	"_maps/Giant Ring.asm"
 Map_Flash:	include	"_maps/Ring Flash.asm"
 		include	"_incObj/26 Monitor.asm"

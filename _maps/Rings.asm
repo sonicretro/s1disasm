@@ -10,6 +10,9 @@ Map_Ring_internal:	mappingsTable
 	mappingsTableEntry.w	.sparkle2
 	mappingsTableEntry.w	.sparkle3
 	mappingsTableEntry.w	.sparkle4
+    if Revision<>0
+	mappingsTableEntry.w	.blank
+    endif
 
 .front:	spriteHeader
 	spritePiece	-8, -8, 2, 2, 0, 0, 0, 0, 0	; ring front
@@ -42,5 +45,12 @@ Map_Ring_internal:	mappingsTable
 .sparkle4:	spriteHeader
 	spritePiece	-8, -8, 2, 2, $A, 0, 1, 0, 0	; sparkle
 .sparkle4_End
+
+    if Revision<>0
+	; rev01 added this blank frame as a dirty workaround for
+	; rings occasionally appearing on a spinning sign post
+.blank:	spriteHeader
+.blank_End
+    endif
 
 	even

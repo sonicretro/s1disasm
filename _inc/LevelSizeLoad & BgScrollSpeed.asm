@@ -163,7 +163,12 @@ SetScr_WithinBottom:
 		move.b	(v_zone).w,d0
 		lsl.b	#2,d0
 		move.l	LoopTileNums(pc,d0.w),(v_256loop1).w
+	if Revision=0
 		bra.w	LevSz_LoadScrollBlockSize
+	else
+		rts
+	endif
+
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Sonic start location array
@@ -189,6 +194,7 @@ LoopTileNums:
 
 		even
 
+	if Revision=0
 ; ===========================================================================
 ; LevSz_Unk:
 LevSz_LoadScrollBlockSize:
@@ -241,6 +247,7 @@ BGScrollBlockSizes:
 		dc.w $100
 		dc.w $100
 		dc.w $100
+	endif
 
 ; ---------------------------------------------------------------------------
 ; Subroutine to set scroll speed of some backgrounds
@@ -275,7 +282,19 @@ BgScroll_Index:	dc.w BgScroll_GHZ-BgScroll_Index, BgScroll_LZ-BgScroll_Index
 ; ===========================================================================
 
 BgScroll_GHZ:
+	if Revision=0
 		bra.w	Deform_GHZ
+	else
+		clr.l	(v_bgscreenposx).w
+		clr.l	(v_bgscreenposy).w
+		clr.l	(v_bg2screenposy).w
+		clr.l	(v_bg3screenposy).w
+		lea	(v_bgscroll_buffer).w,a2
+		clr.l	(a2)+
+		clr.l	(a2)+
+		clr.l	(a2)+
+		rts
+	endif
 ; ===========================================================================
 
 BgScroll_LZ:
@@ -292,6 +311,9 @@ BgScroll_SLZ:
 		asr.l	#1,d0
 		addi.w	#$C0,d0
 		move.w	d0,(v_bgscreenposy).w
+	if Revision<>0
+		clr.l	(v_bgscreenposx).w
+	endif
 		rts
 ; ===========================================================================
 
@@ -301,26 +323,59 @@ BgScroll_SYZ:
 		asl.l	#1,d0
 		add.l	d2,d0
 		asr.l	#8,d0
+	if Revision=0
 		move.w	d0,(v_bgscreenposy).w
 		move.w	d0,(v_bg2screenposy).w
+	else
+		addq.w	#1,d0
+		move.w	d0,(v_bgscreenposy).w
+		clr.l	(v_bgscreenposx).w
+	endif
 		rts
 ; ===========================================================================
 
 BgScroll_SBZ:
+	if Revision=0
 		asl.l	#4,d0
 		asl.l	#1,d0
 		asr.l	#8,d0
+	else
+		andi.w	#$7F8,d0
+		asr.w	#3,d0
+		addq.w	#1,d0
+	endif
 		move.w	d0,(v_bgscreenposy).w
 		rts
 ; ===========================================================================
 
 BgScroll_End:
+	if Revision=0
 		move.w	#$1E,(v_bgscreenposy).w
 		move.w	#$1E,(v_bg2screenposy).w
 		rts
-; ===========================================================================
+
+		; dead code
 		move.w	#$A8,(v_bgscreenposx).w
 		move.w	#$1E,(v_bgscreenposy).w
 		move.w	#-$40,(v_bg2screenposx).w
 		move.w	#$1E,(v_bg2screenposy).w
 		rts
+	else
+		move.w	(v_screenposx).w,d0
+		asr.w	#1,d0
+		move.w	d0,(v_bgscreenposx).w
+		move.w	d0,(v_bg2screenposx).w
+		asr.w	#2,d0
+		move.w	d0,d1
+		add.w	d0,d0
+		add.w	d1,d0
+		move.w	d0,(v_bg3screenposx).w
+		clr.l	(v_bgscreenposy).w
+		clr.l	(v_bg2screenposy).w
+		clr.l	(v_bg3screenposy).w
+		lea	(v_bgscroll_buffer).w,a2
+		clr.l	(a2)+
+		clr.l	(a2)+
+		clr.l	(a2)+
+		rts
+	endif
