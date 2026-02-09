@@ -5037,7 +5037,15 @@ Map_Missile:	include	"_maps/Buzz Bomber Missile.asm"
 
 		include	"_anim/Rings.asm"
 
-Map_Ring:	include	"_maps/Rings.asm"
+Map_Ring:
+	if Revision=0
+		include	"_maps/Rings.asm"
+	else
+		; REV01 added an extra blank frame as a dirty workaround
+		; for rings occasionally appearing on spinning sign posts
+		include	"_maps/Rings (JP1).asm"
+	endif
+
 Map_GRing:	include	"_maps/Giant Ring.asm"
 Map_Flash:	include	"_maps/Ring Flash.asm"
 		include	"_incObj/26 Monitor.asm"

@@ -10,6 +10,7 @@ Map_Ring_internal:	mappingsTable
 	mappingsTableEntry.w	.sparkle2
 	mappingsTableEntry.w	.sparkle3
 	mappingsTableEntry.w	.sparkle4
+	mappingsTableEntry.w	.blank
 
 .front:	spriteHeader
 	spritePiece	-8, -8, 2, 2, 0, 0, 0, 0, 0	; ring front
@@ -42,5 +43,8 @@ Map_Ring_internal:	mappingsTable
 .sparkle4:	spriteHeader
 	spritePiece	-8, -8, 2, 2, $A, 0, 1, 0, 0	; sparkle
 .sparkle4_End
+
+.blank:	spriteHeader
+.blank_End
 
 	even
