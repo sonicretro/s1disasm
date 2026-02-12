@@ -10,7 +10,7 @@ DeleteObject:
 
 DeleteChild:				; child objects are already in (a1)
 		moveq	#0,d1
-		moveq	#$F,d0
+		moveq	#(object_size)/4-1,d0
 
 DelObj_Loop:
 		move.l	d1,(a1)+	; clear the object RAM
