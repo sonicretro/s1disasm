@@ -1,9 +1,0 @@
-Palette File: ../palette/Special Stage.bin
-Mapping File: ../tilemaps/SS Background 1.eni
-Art File: ../artnem/Special Birds & Fish.nem
-Mapping Compression: Enigma
-Art Compression: Nemesis
-x-Size: 0x08
-y-Size: 0x08
-Palette Offset: 0x20
-Palette Length: 0x40
