@@ -1,7 +1,8 @@
-s1disasm_git
+# Sonic 1 disassembly for wla-dx compiler
+## This is a work in progress
 ============
 
-The very latest Sonic 1 Disassembly.
+A fork of the very latest Sonic 1 Disassembly made for wla-dx.
 
 See: http://info.sonicretro.org/Disassemblies
 
