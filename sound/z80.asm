@@ -1,45 +1,62 @@
-;  DZ80 V3.4.1 Z80 Disassembly of z80nodata.bin
-;  2007/09/18 15:48
-;  Sonic 1 Z80 Driver disassembly by Puto.
-;  Disassembly fixed, improved and integrated into SVN by Flamewing.
-;  Should be assembled with AS (though it should be easily portable to other assemblers if necessary).
+; DZ80 V3.4.1 Z80 Disassembly of z80nodata.bin
+; 2007/09/18 15:48
+; Sonic 1 Z80 Driver disassembly by Puto.
 ;
+; Disassembly fixed, improved and integrated into SVN by Flamewing.
+; Patched to be compiled with WLA-Z80
 
-	save
-	!org	0		; z80 Align, handled by the build process
-	CPU Z80
-	listing purecode
 
-z80_stack:	equ 1FFCh
-zDAC_Status:	equ 1FFDh	; Bit 7 set if the driver is not accepting new samples, it is clear otherwise
-zDAC_Sample:	equ 1FFFh	; Sample to play, the 68k will move into this locatiton whatever sample that's supposed to be played.
+.DEFINE	z80_stack $1FFC
+.DEFINE zDAC_Status $1FFD	; Bit 7 set if the driver is not accepting new samples, it is clear otherwise
+.DEFINE zDAC_Sample $1FFF	;  Sample to play, the 68k will move into this locatiton whatever sample that's supposed to be played.
 
-zYM2612_A0:	equ 4000h
-zBankRegister:	equ 6000h
-zROMWindow:	equ 8000h
+.DEFINE zYM2612_A0 $4000
+.DEFINE zBankRegister $6000
+.DEFINE zROMWindow $8000
 
-zmake68kPtr  function addr,zROMWindow+(addr&7FFFh)
-zmake68kBank function addr,(((addr&0FF8000h)/zROMWindow))
+.DEFINE Master_Clock 53693175
+.DEFINE Z80_Clock Master_Clock/15
 
-; function to decide whether an offset's full range won't fit in one byte
-offsetover1byte function from,maxsize, ((from&0FFh)>(100h-maxsize))
+.FUNCTION zmake68kPtr(address) zROMWindow+(address&$7FFF)
+.FUNCTION zmake68kBank(address) (address&$0FF8000)/zROMWindow
 
-; macro to make sure that ($ & 0FF00h) == (($+maxsize) & 0FF00h)
-ensure1byteoffset macro maxsize
-	if offsetover1byte($,maxsize)
-startpad := $
-		align 100h
-	    if MOMPASS=1
-endpad := $
-		if endpad-startpad>=1h
-			; warn because otherwise you'd have no clue why you're running out of space so fast
-			message "had to insert \{endpad-startpad}h   bytes of padding before improperly located data at 0\{startpad}h in Z80 code"
-		endif
-	    endif
-	endif
-    endm
+; turn a sample rate into a djnz loop counter
+.FUNCTION pcmLoopCounterBase(sampleRate,baseCycles) 1+(Z80_Clock/(sampleRate)-(baseCycles)+(13/2))/13
+.FUNCTION pcmLoopCounter(sampleRate) pcmLoopCounterBase(sampleRate,90) ; 90 is the number of cycles zPlaySEGAPCMLoop takes to deliver one sample.
+.FUNCTION dpcmLoopCounter(sampleRate) pcmLoopCounterBase(sampleRate,301/2) ; 301 is the number of cycles zPlayPCMLoop takes to deliver two samples.
 
-;Z80Driver_Start:
+.MACRO ensure_offset_fits_byte ARGS max_size
+	START:
+	.ALIGN $100
+	END:
+	.IF END-START>0
+	.PRINT "Inserted ",(END-START)," bytes of padding before data at ",START,"\n"
+	.ENDIF
+.ENDM
+
+
+.MACRO zPCMMetadata ARGS label,size,sample_rate
+	.DW	label					; Start
+	.DW	size					; Length
+	.DW	dpcmLoopCounter(sample_rate)		; Pitch
+	.DW	0					; Padding
+.ENDM
+
+
+	.ROMBANKSIZE z80_stack
+
+	.MEMORYMAP
+	DEFAULTSLOT 0
+	SLOTSIZE z80_stack
+	SLOT 0 $0000
+	.ENDME
+
+	.ROMBANKS 1
+	.BANK 0 SLOT 0
+	.ORGA $0000
+
+.SECTION "Init"
+
 	di					; Disable interrupts. Interrupts will never be reenabled
 	di					; for the z80, so that no code will be executed on V-Int.
 	di					; This means that the sample loop is all the z80 does.
@@ -61,12 +78,23 @@ zBankSwitchLoop:
 
 	jr	zCheckForSamples
 
+.ENDS ; End of section 'Init'
+
 ; ===========================================================================
 ; JMan2050's DAC decode lookup table
 ; ===========================================================================
-	ensure1byteoffset 10h
+
+	ensure_offset_fits_byte($10)
+
+
+.SECTION "DPCM Lookup Table"
+
 zDACDecodeTbl:
-	binclude "sound/dac/dpcm/deltas.bin"
+	.INCBIN "sound/dac/dpcm/deltas.bin"
+
+.ENDS ; End of section 'DPCM Lookup Table'
+
+.SECTION "DAC Processing"
 
 zCheckForSamples:
 	ld	hl,zDAC_Sample			; Load the address of next sample.
@@ -205,33 +233,31 @@ zPlaySEGAPCMLoop:
 					; 90 in total
 	jp	zCheckForSamples		; SEGA sound is done; wait for new samples
 
-zPCMMetadata macro label
-	dw	label					; Start
-	dw	label.size				; Length
-	dw	dpcmLoopCounter(label.sample_rate)	; Pitch
-	dw	0					; Padding
-    endm
+
+.ENDS ; End of section 'DAC Processing'
+
+
+
+.SECTION "PCM Data"
 
 ; DPCM metadata
 zPCM_Table:
-	zPCMMetadata zDAC_Kick
-	zPCMMetadata zDAC_Snare
-zTimpani_Pitch = $+4
-	zPCMMetadata zDAC_Timpani
+	zPCMMetadata zDAC_Kick,zDAC_Kick_Size,8250
+	zPCMMetadata zDAC_Snare,zDAC_Snare_Size,24000
+; zTimpani_Pitch = $+4
+	zPCMMetadata zDAC_Timpani,zDAC_Timpani_Size,7375
 
 ; DPCM data
-zDAC_Kick:	include "sound/dac/dpcm/generated/kick.inc"
-zDAC_Snare:	include "sound/dac/dpcm/generated/snare.inc"
-zDAC_Timpani:	include "sound/dac/dpcm/generated/timpani.inc"
+zDAC_Kick:	.INCBIN "sound/dac/dpcm/kick.dpcm" FSIZE zDAC_Kick_Size
+zDAC_Snare:	.INCBIN "sound/dac/dpcm/snare.dpcm" FSIZE zDAC_Snare_Size
+zDAC_Timpani:	.INCBIN "sound/dac/dpcm/timpani.dpcm" FSIZE zDAC_Timpani_Size
 
-	if MOMPASS==2
-		if $ > z80_stack
-			fatal "The driver is too big; the maximum size it can take is \{z80_stack}h. It currently takes \{$}h bytes. You won't be able to use this thing."
-		else
-			message "Uncompressed driver size: \{$}h bytes."
-		endif
-	endif
+.ENDS ; End of section 'PCM Data'
 
-	restore
-	padding off
-	!org (DACDriver+Size_of_DAC_driver_guess)
+; 	if MOMPASS==2
+; 		if $ > z80_stack
+; 			fatal "The driver is too big; the maximum size it can take is \{z80_stack}h. It currently takes \{$}h bytes. You won't be able to use this thing."
+; 		else
+; 			message "Uncompressed driver size: \{$}h bytes."
+; 		endif
+; 	endif
