@@ -32,7 +32,7 @@ PaddingOptimization = 0|AllOptimizations
 
 EnableSRAM = 0
 ;	| If 1, enable SRAM support
-BackupSRAM = 1
+BackupSRAM	  = 1
 ;	| 0 = no saving (read-only SRAM); 1 = allow saving
 AddressSRAM = 3
 ;	| 0 = odd+even; 2 = even only; 3 = odd only
@@ -538,7 +538,7 @@ ShowErrorMessage:
 		addi.w	#-'0'+ArtTile_Error_Handler_Font,d0 ; rebase from ASCII to a VRAM index
 		move.w	d0,(a6)
 		dbf	d1,.showchars	; repeat for number of characters
-		rts
+		rts	
 ; End of function ShowErrorMessage
 ; ===========================================================================
 
@@ -577,7 +577,7 @@ ShowErrorValue:
 		rol.l	#4,d0
 		bsr.s	.shownumber	; display 8 numbers
 		dbf	d2,.loop
-		rts
+		rts	
 ; End of function ShowErrorValue
 ; ===========================================================================
 
@@ -591,7 +591,7 @@ ShowErrorValue:
 .chars0to9:
 		addi.w	#ArtTile_Error_Handler_Font,d1
 		move.w	d1,(a6)
-		rts
+		rts	
 ; End of function sub_5CA
 ; ===========================================================================
 
@@ -599,7 +599,7 @@ ErrorWaitForC:
 		bsr.w	ReadJoypads
 		cmpi.b	#btnC,(v_jpadpress1).w ; is button C pressed?
 		bne.w	ErrorWaitForC	; if not, branch
-		rts
+		rts	
 ; End of function ErrorWaitForC
 
 
@@ -726,7 +726,7 @@ VBla_14:
 		beq.w	.end
 		subq.w	#1,(v_generictimer).w
 .end:
-		rts
+		rts	
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -742,7 +742,7 @@ VBla_04:
 		beq.w	.end
 		subq.w	#1,(v_generictimer).w
 .end:
-		rts
+		rts	
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -752,7 +752,7 @@ VBla_04:
 ; loc_C5E:
 VBla_06:
 		bsr.w	VBla_StandardTransfers
-		rts
+		rts	
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -826,10 +826,10 @@ VBla_UpdateScreen:
 		bsr.w	ProcessPLC_3Tiles	; run a bit of PLC decompression
 
 		tst.w	(v_generictimer).w	; is there time left in the generic timer left?
-		beq.w	.end			; if not, branch
+		beq.w	.end		; if not, branch
 		subq.w	#1,(v_generictimer).w	; subtract 1 from time left
 .end:
-		rts
+		rts	
 ; End of function VBla_UpdateScreen
 
 ; ===========================================================================
@@ -857,7 +857,7 @@ VBla_0A:
 		beq.w	.end	; if not, return
 		subq.w	#1,(v_generictimer).w	; subtract 1 from time left in demo
 .end:
-		rts
+		rts	
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -897,7 +897,7 @@ VBla_18:
 		jsr	(AnimateLevelGfx).l
 		jsr	(HUD_Update).l
 		bsr.w	ProcessPLC_9Tiles
-		rts
+		rts	
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -908,7 +908,7 @@ VBla_0E:
 		bsr.w	VBla_StandardTransfers
 		addq.b	#1,(v_vbla_0e_counter).w ; Unused besides this one write...
 		move.b	#$E,(v_vbla_routine).w
-		rts
+		rts	
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -945,7 +945,7 @@ VBla_16:
 		subq.w	#1,(v_generictimer).w
 
 .end:
-		rts
+		rts	
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -970,7 +970,7 @@ VBla_StandardTransfers:
 		writeVRAM	v_spritetablebuffer,vram_sprites
 		writeVRAM	v_hscrolltablebuffer,vram_hscroll
 		startZ80
-		rts
+		rts	
 ; End of function VBla_StandardTransfers
 
 ; ===========================================================================
@@ -981,14 +981,14 @@ VBla_StandardTransfers:
 ; PalToCRAM: <-- old misnomer
 HBlank:
 		disable_ints
-		tst.w	(f_hbla_pal).w		; is palette set to change?
-		beq.s	.nochg			; if not, branch
+		tst.w	(f_hbla_pal).w	; is palette set to change?
+		beq.s	.nochg		; if not, branch
 		move.w	#0,(f_hbla_pal).w	; clear palette change flag
 
 		movem.l	a0-a1,-(sp)
 		lea	(vdp_data_port).l,a1
 		lea	(v_palette_water).w,a0	; get water palette from RAM
-		move.l	#$C0000000,4(a1)	; set VDP to CRAM write
+		move.l	#$C0000000,4(a1) ; set VDP to CRAM write
 		rept (4*$10)/2			; overwrite full palette (4 rows, 2 colors per move)
 			move.l	(a0)+,(a1)	; move water palette to CRAM
 		endr
@@ -1026,7 +1026,7 @@ JoypadInit:
 		move.b	d0,(port_2_control).l		; init port 2 (joypad 2)
 		move.b	d0,(expansion_control).l	; init port 3 (expansion/extra)
 		startZ80
-		rts
+		rts	
 ; End of function JoypadInit
 
 ; ---------------------------------------------------------------------------
@@ -1034,9 +1034,9 @@ JoypadInit:
 ; ---------------------------------------------------------------------------
 
 ReadJoypads:
-		lea	(v_jpadhold1).w,a0	; address where joypad states are written
+		lea	(v_jpadhold1).w,a0 ; address where joypad states are written
 		lea	(port_1_data).l,a1	; first joypad port
-		bsr.s	.read			; do the first joypad
+		bsr.s	.read		; do the first joypad
 		addq.w	#2,a1			; do the second joypad (port_2_data)
 
 .read:
@@ -1058,7 +1058,7 @@ ReadJoypads:
 		move.b	d0,(a0)+
 		and.b	d0,d1
 		move.b	d1,(a0)+
-		rts
+		rts	
 ; End of function ReadJoypads
 
 ; ===========================================================================
@@ -1092,7 +1092,7 @@ VDPSetupGame:
 		move.l	d1,-(sp)
 		fillVRAM	0,0,$10000	; clear the entirety of VRAM
 		move.l	(sp)+,d1
-		rts
+		rts	
 ; End of function VDPSetupGame
 ; ===========================================================================
 
@@ -1142,7 +1142,7 @@ ClearScreen:
 		clearRAM v_hscrolltablebuffer,v_hscrolltablebuffer_end_padded+4 ; Clears too much RAM, clearing the first 4 bytes of v_objspace.
 	endif
 
-		rts
+		rts	
 ; End of function ClearScreen
 
 ; ===========================================================================
@@ -1165,7 +1165,7 @@ DACDriverLoad:
 		nop	
 		deassertZ80Reset
 		startZ80
-		rts
+		rts	
 ; End of function DACDriverLoad
 
 ; ===========================================================================
@@ -1202,7 +1202,7 @@ Tilemap_Cell:
 		dbf	d3,Tilemap_Cell	; next tile
 		add.l	d4,d0		; goto next line
 		dbf	d2,Tilemap_Line	; next line
-		rts
+		rts	
 ; End of function TilemapToVRAM
 ; ===========================================================================
 
@@ -1250,7 +1250,7 @@ AddPLC:
 
 .skip:
 		movem.l	(sp)+,a1-a2 ; a1=object
-		rts
+		rts	
 ; End of function AddPLC
 
 ; ===========================================================================
@@ -1278,7 +1278,7 @@ NewPLC:
 
 .skip:
 		movem.l	(sp)+,a1-a2
-		rts
+		rts	
 ; End of function NewPLC
 
 ; ===========================================================================
@@ -1294,7 +1294,7 @@ ClearPLC:
 .loop:
 		clr.l	(a2)+
 		dbf	d0,.loop
-		rts
+		rts	
 ; End of function ClearPLC
 
 ; ===========================================================================
@@ -1340,7 +1340,7 @@ loc_160E:
 	endif
 
 Rplc_Exit:
-		rts
+		rts	
 ; End of function RunPLC
 
 ; ===========================================================================
@@ -1406,7 +1406,7 @@ loc_16AA:
 		move.l	d6,(v_plc_shiftvalue).w
 
 locret_16DA:
-		rts
+		rts	
 ; ===========================================================================
 
 loc_16DC:
@@ -1432,7 +1432,7 @@ loc_16E2:
 		clr.l	(v_plc_buffer_only_end-6).w
 	endif
 
-		rts
+		rts	
 ; End of function ProcessPLC
 
 ; ===========================================================================
@@ -1460,7 +1460,7 @@ Qplc_Loop:
 		move.l	d0,(vdp_control_port).l ; converted VRAM address to VDP format
 		bsr.w	NemDec		; decompress
 		dbf	d1,Qplc_Loop	; repeat for length of PLC
-		rts
+		rts	
 ; End of function QuickPLC
 ; ===========================================================================
 
@@ -1526,7 +1526,7 @@ loc_2054:
 loc_2062:
 		move.w	d0,(v_pcyc_num).w
 		moveq	#1,d0
-		rts
+		rts	
 ; ===========================================================================
 
 loc_206A:
@@ -1538,7 +1538,7 @@ loc_206A:
 		cmpi.w	#$30,d0
 		blo.s	loc_2088
 		moveq	#0,d0
-		rts
+		rts	
 ; ===========================================================================
 
 loc_2088:
@@ -1566,7 +1566,7 @@ loc_20B2:
 
 loc_20BC:
 		moveq	#1,d0
-		rts
+		rts	
 ; End of function PalCycle_Sega
 ; ---------------------------------------------------------------------------
 
@@ -1594,7 +1594,7 @@ PalLoad_Fade:
 .loop:
 		move.l	(a2)+,(a3)+	; move data to RAM
 		dbf	d7,.loop
-		rts
+		rts	
 ; End of function PalLoad_Fade
 
 ; ---------------------------------------------------------------------------
@@ -1612,7 +1612,7 @@ PalLoad:
 .loop:
 		move.l	(a2)+,(a3)+	; move data to RAM
 		dbf	d7,.loop
-		rts
+		rts	
 ; End of function PalLoad
 
 ; ===========================================================================
@@ -1633,7 +1633,7 @@ PalLoad_Fade_Water:
 .loop:
 		move.l	(a2)+,(a3)+	; move data to RAM
 		dbf	d7,.loop
-		rts
+		rts	
 ; End of function PalLoad_Fade_Water
 
 ; ---------------------------------------------------------------------------
@@ -1652,7 +1652,7 @@ PalLoad_Water:
 .loop:
 		move.l	(a2)+,(a3)+	; move data to RAM
 		dbf	d7,.loop
-		rts
+		rts	
 ; End of function PalLoad_Water
 ; ===========================================================================
 
@@ -1862,6 +1862,7 @@ Tit_LoadText:
 		lea	(vdp_control_port).l,a5
 		lea	(vdp_data_port).l,a6
 		lea	(v_bgscreenposx).w,a3
+		lea	(v_lvllayout+$80).w,a4	; MJ: Load address of layout BG
 		lea	(v_lvllayout+$80).w,a4	; MJ: Load address of layout BG
 		move.w	#$6000,d2
 		bsr.w	DrawChunks
@@ -2110,7 +2111,7 @@ LevSel_Level_SS:
 	if Revision<>0
 		move.l	#5000,(v_scorelife).w		; extra life is awarded at 50000 points
 	endif
-		rts
+		rts	
 ; ===========================================================================
 
 LevSel_Level:
@@ -2347,7 +2348,7 @@ LevSel_Refresh2:
 		bsr.w	LevSelTextLoad			; refresh text
 
 LevSel_NoMove:
-		rts
+		rts	
 ; End of function LevSelControls
 
 ; ===========================================================================
@@ -2990,7 +2991,7 @@ Sync4:
 		subq.b	#1,(v_ani3_time).w
 
 SyncEnd:
-		rts
+		rts	
 ; End of function SynchroAnimate
 
 ; ===========================================================================
@@ -3018,7 +3019,7 @@ SignpostArtLoad:
 		bra.w	NewPLC		; load signpost patterns
 
 .exit:
-		rts
+		rts	
 ; End of function SignpostArtLoad
 ; ===========================================================================
 
@@ -3474,7 +3475,7 @@ End_MainLoop:
 		move.b	#bgm_Credits,d0
 		bsr.w	QueueSound2 ; play credits music
 		move.w	#0,(v_creditsnum).w ; set credits index number to 0
-		rts
+		rts	
 ; ===========================================================================
 
 End_ChkEmerald:
@@ -3508,6 +3509,8 @@ End_SlowFade:
 		clr.w	(f_restart).w
 		move.l	#$AAABAE9A,(v_lvllayout+$200).w ; MJ: modify level layout
 		move.l	#$ACADAFB0,(v_lvllayout+$300).w
+		move.l	#$AAABAE9A,(v_lvllayout+$200).w ; MJ: modify level layout
+		move.l	#$ACADAFB0,(v_lvllayout+$300).w
 		lea	(vdp_control_port).l,a5
 		lea	(vdp_data_port).l,a6
 		lea	(v_screenposx).w,a3
@@ -3533,7 +3536,7 @@ End_MoveSonic:
 		addq.b	#2,(v_sonicend).w
 		move.b	#1,(f_lockctrl).w ; lock player's controls
 		move.w	#(btnR<<8),(v_jpadhold2).w ; move Sonic to the right
-		rts
+		rts	
 ; ===========================================================================
 
 End_MoveSon2:
@@ -3551,7 +3554,7 @@ End_MoveSon2:
 		move.b	#fr_Wait2,(v_player+obFrame).w
 		move.w	#(id_Wait<<8)+id_Wait,(v_player+obAnim).w ; use "standing" animation
 		move.b	#3,(v_player+obTimeFrame).w
-		rts
+		rts	
 ; ===========================================================================
 
 End_MoveSon3:
@@ -3563,7 +3566,7 @@ End_MoveSon3:
 		clr.w	(v_player+obRoutine).w
 
 End_MoveSonExit:
-		rts
+		rts	
 ; End of function End_MoveSonic
 
 ; ===========================================================================
@@ -3636,7 +3639,7 @@ Cred_WaitLoop:
 		bne.s	Cred_WaitLoop	; if not, branch
 		cmpi.w	#9,(v_creditsnum).w ; have the credits finished?
 		beq.w	TryAgainEnd	; if yes, branch
-		rts
+		rts	
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -3671,7 +3674,7 @@ EndDemo_LampLoad:
 		dbf	d0,EndDemo_LampLoad
 
 EndDemo_Exit:
-		rts
+		rts	
 ; End of function EndingDemoLoad
 
 ; ===========================================================================
@@ -3761,7 +3764,7 @@ TryAg_MainLoop:
 
 TryAg_Exit:
 		move.b	#id_Sega,(v_gamemode).w ; goto Sega screen
-		rts
+		rts	
 
 ; ===========================================================================
 
@@ -3868,11 +3871,11 @@ Map_Missile:	include	"_maps/Buzz Bomber Missile.asm"
 		include	"_anim/Rings.asm"
 Map_Ring:   if Revision=0
 		include	"_maps/Rings (REV00).asm"
-	    else
+	else
 		; REV01 added an extra blank frame, possibly to mitigate
 		; rings occasionally popping up in the sign post sparkles
 		include	"_maps/Rings (REV01).asm"
-	    endif
+	endif
 Map_GRing:	include	"_maps/Giant Ring.asm"
 Map_Flash:	include	"_maps/Ring Flash.asm"
 		include	"_incObj/26 Monitor.asm"
@@ -4180,7 +4183,7 @@ Map_Pri:	include	"_maps/Prison Capsule.asm"
 		; includes the subroutines "SS_ShowLayout", "SS_AniWallsRings", 
 		; "SS_RemoveCollectedItem", "SS_AniItems", and "SS_Load"
 		include	"_inc/Special Stage Loading & Drawing.asm"
-								
+
 SS_MapIndex:	include	"_inc/Special Stage Mappings & VRAM Pointers.asm"
 SS_MapIndex_End:
 Map_SS_R:	include	"_maps/SS R Block.asm"
@@ -4202,9 +4205,9 @@ Map_HUD:	include	"_maps/HUD.asm"
 		include	"_incObj/sub AddPoints.asm"
 		include	"_inc/HUD Update.asm"	; includes "ContScrCounter" subroutine
 
-Art_Hud:	binclude "artunc/HUD Numbers.bin" ; 8x16 pixel numbers on HUD
+Art_Hud:	binclude	"artunc/HUD Numbers.bin" ; 8x16 pixel numbers on HUD
 		even
-Art_LivesNums:	binclude "artunc/Lives Counter Numbers.bin" ; 8x8 pixel numbers on lives counter
+Art_LivesNums:	binclude	"artunc/Lives Counter Numbers.bin" ; 8x8 pixel numbers on lives counter
 		even
 
 ; ===========================================================================
@@ -4596,12 +4599,14 @@ Nem_GHZ_1st:	binclude	"artnem/8x8 - GHZ1.nem"	; GHZ primary patterns
 Nem_GHZ_2nd:	binclude	"artnem/8x8 - GHZ2.nem"	; GHZ secondary patterns
 		even
 Blk128_GHZ:	binclude	"map128/GHZ.kos"
+Blk128_GHZ:	binclude	"map128/GHZ.kos"
 		even
 
 Blk16_LZ:	binclude	"map16/LZ.eni"
 		even
 Nem_LZ:		binclude	"artnem/8x8 - LZ.nem"	; LZ primary patterns
 		even
+Blk128_LZ:	binclude	"map128/LZ.kos"
 Blk128_LZ:	binclude	"map128/LZ.kos"
 		even
 
@@ -4610,10 +4615,13 @@ Blk16_MZ:	binclude	"map16/MZ.eni"
 Nem_MZ:		binclude	"artnem/8x8 - MZ.nem"	; MZ primary patterns
 		even
 Blk128_MZ:
+Blk128_MZ:
 	if Revision=0
+		binclude	"map128/MZ (REV00).kos"
 		binclude	"map128/MZ (REV00).kos"
 		even
 	else
+		binclude	"map128/MZ (REV01).kos"
 		binclude	"map128/MZ (REV01).kos"
 		even
 	endif
@@ -4623,12 +4631,14 @@ Blk16_SLZ:	binclude	"map16/SLZ.eni"
 Nem_SLZ:	binclude	"artnem/8x8 - SLZ.nem"	; SLZ primary patterns
 		even
 Blk128_SLZ:	binclude	"map128/SLZ.kos"
+Blk128_SLZ:	binclude	"map128/SLZ.kos"
 		even
 
 Blk16_SYZ:	binclude	"map16/SYZ.eni"
 		even
 Nem_SYZ:	binclude	"artnem/8x8 - SYZ.nem"	; SYZ primary patterns
 		even
+Blk128_SYZ:	binclude	"map128/SYZ.kos"
 Blk128_SYZ:	binclude	"map128/SYZ.kos"
 		even
 
@@ -4637,10 +4647,13 @@ Blk16_SBZ:	binclude	"map16/SBZ.eni"
 Nem_SBZ:	binclude	"artnem/8x8 - SBZ.nem"	; SBZ primary patterns
 		even
 Blk128_SBZ:
+Blk128_SBZ:
 	if Revision=0
+		binclude	"map128/SBZ (REV00).kos"
 		binclude	"map128/SBZ (REV00).kos"
 		even
 	else
+		binclude	"map128/SBZ (REV01).kos"
 		binclude	"map128/SBZ (REV01).kos"
 		even
 	endif
@@ -4711,7 +4724,18 @@ CollArray2:	binclude	"collide/Collision Array (Rotated).bin"
 Col_GHZ_1:	binclude	"collide/GHZ1.kos"	; GHZ index 1
 		even
 Col_GHZ_2:	binclude	"collide/GHZ2.kos"	; GHZ index 2
+
+; ---------------------------------------------------------------------------
+; MJ: Collision data for path swappers
+; ---------------------------------------------------------------------------
+Col_GHZ_1:	binclude	"collide/GHZ1.kos"	; GHZ index 1
 		even
+Col_GHZ_2:	binclude	"collide/GHZ2.kos"	; GHZ index 2
+		even
+
+Col_LZ_1:	binclude	"collide/LZ1.kos"	; LZ index 1
+		even
+Col_LZ_2:	binclude	"collide/LZ2.kos"	; LZ index 2
 
 Col_LZ_1:	binclude	"collide/LZ1.kos"	; LZ index 1
 		even
@@ -4721,7 +4745,15 @@ Col_LZ_2:	binclude	"collide/LZ2.kos"	; LZ index 2
 Col_MZ_1:	binclude	"collide/MZ1.kos"	; MZ index 1
 		even
 Col_MZ_2:	binclude	"collide/MZ2.kos"	; MZ index 2
+
+Col_MZ_1:	binclude	"collide/MZ1.kos"	; MZ index 1
 		even
+Col_MZ_2:	binclude	"collide/MZ2.kos"	; MZ index 2
+		even
+
+Col_SLZ_1:	binclude	"collide/SLZ1.kos"	; SLZ index 1
+		even
+Col_SLZ_2:	binclude	"collide/SLZ2.kos"	; SLZ index 2
 
 Col_SLZ_1:	binclude	"collide/SLZ1.kos"	; SLZ index 1
 		even
@@ -4731,7 +4763,15 @@ Col_SLZ_2:	binclude	"collide/SLZ2.kos"	; SLZ index 2
 Col_SYZ_1:	binclude	"collide/SYZ1.kos"	; SYZ index 1
 		even
 Col_SYZ_2:	binclude	"collide/SYZ2.kos"	; SYZ index 2
+
+Col_SYZ_1:	binclude	"collide/SYZ1.kos"	; SYZ index 1
 		even
+Col_SYZ_2:	binclude	"collide/SYZ2.kos"	; SYZ index 2
+		even
+
+Col_SBZ_1:	binclude	"collide/SBZ1.kos"	; SBZ index 1
+		even
+Col_SBZ_2:	binclude	"collide/SBZ2.kos"	; SBZ index 2
 
 Col_SBZ_1:	binclude	"collide/SBZ1.kos"	; SBZ index 1
 		even
@@ -4784,9 +4824,14 @@ Art_SbzSmoke:	binclude	"artunc/SBZ Background Smoke.bin"
 ; ---------------------------------------------------------------------------
 ; Level layout index
 ; MJ: unused data and BG data have been stripped out
+; MJ: unused data and BG data have been stripped out
 ; ---------------------------------------------------------------------------
 Level_Index:
 		; GHZ
+		dc.w Level_GHZ1-Level_Index
+		dc.w Level_GHZ2-Level_Index
+		dc.w Level_GHZ3-Level_Index
+		dc.w Level_Null-Level_Index
 		dc.w Level_GHZ1-Level_Index
 		dc.w Level_GHZ2-Level_Index
 		dc.w Level_GHZ3-Level_Index
@@ -4796,7 +4841,15 @@ Level_Index:
 		dc.w Level_LZ2-Level_Index
 		dc.w Level_LZ3-Level_Index
 		dc.w Level_SBZ3-Level_Index
+		dc.w Level_LZ1-Level_Index
+		dc.w Level_LZ2-Level_Index
+		dc.w Level_LZ3-Level_Index
+		dc.w Level_SBZ3-Level_Index
 		; MZ
+		dc.w Level_MZ1-Level_Index
+		dc.w Level_MZ2-Level_Index
+		dc.w Level_MZ3-Level_Index
+		dc.w Level_Null-Level_Index
 		dc.w Level_MZ1-Level_Index
 		dc.w Level_MZ2-Level_Index
 		dc.w Level_MZ3-Level_Index
@@ -4806,12 +4859,25 @@ Level_Index:
 		dc.w Level_SLZ2-Level_Index
 		dc.w Level_SLZ3-Level_Index
 		dc.w Level_Null-Level_Index
+		dc.w Level_SLZ1-Level_Index
+		dc.w Level_SLZ2-Level_Index
+		dc.w Level_SLZ3-Level_Index
+		dc.w Level_Null-Level_Index
 		; SYZ
 		dc.w Level_SYZ1-Level_Index
 		dc.w Level_SYZ2-Level_Index
 		dc.w Level_SYZ3-Level_Index
 		dc.w Level_Null-Level_Index
+		dc.w Level_SYZ1-Level_Index
+		dc.w Level_SYZ2-Level_Index
+		dc.w Level_SYZ3-Level_Index
+		dc.w Level_Null-Level_Index
 		; SBZ
+		dc.w Level_SBZ1-Level_Index
+		dc.w Level_SBZ2-Level_Index
+		dc.w Level_SBZ2-Level_Index
+		dc.w Level_Null-Level_Index
+		zonewarning Level_Index,8
 		dc.w Level_SBZ1-Level_Index
 		dc.w Level_SBZ2-Level_Index
 		dc.w Level_SBZ2-Level_Index
@@ -4824,48 +4890,77 @@ Level_Index:
 		dc.w Level_Null-Level_Index
 
 Level_Null:
+		dc.w Level_End-Level_Index
+		dc.w Level_End-Level_Index
+		dc.w Level_Null-Level_Index
+		dc.w Level_Null-Level_Index
 
+Level_Null:
+
+Level_GHZ1:	binclude	"levels/ghz1.kos"
 Level_GHZ1:	binclude	"levels/ghz1.kos"
 		even
 Level_GHZ2:	binclude	"levels/ghz2.kos"
+Level_GHZ2:	binclude	"levels/ghz2.kos"
 		even
+Level_GHZ3:	binclude	"levels/ghz3.kos"
 Level_GHZ3:	binclude	"levels/ghz3.kos"
 		even
 
 Level_LZ1:	binclude	"levels/lz1.kos"
+Level_LZ1:	binclude	"levels/lz1.kos"
 		even
+Level_LZ2:	binclude	"levels/lz2.kos"
 Level_LZ2:	binclude	"levels/lz2.kos"
 		even
 Level_LZ3:	binclude	"levels/lz3.kos"
+Level_LZ3:	binclude	"levels/lz3.kos"
 		even
+Level_SBZ3:	binclude	"levels/sbz3.kos"
 Level_SBZ3:	binclude	"levels/sbz3.kos"
 		even
 
 Level_MZ1:	binclude	"levels/mz1.kos"
+
+Level_MZ1:	binclude	"levels/mz1.kos"
 		even
 Level_MZ2:	binclude	"levels/mz2.kos"
+Level_MZ2:	binclude	"levels/mz2.kos"
 		even
+Level_MZ3:	binclude	"levels/mz3.kos"
 Level_MZ3:	binclude	"levels/mz3.kos"
 		even
 
 Level_SLZ1:	binclude	"levels/slz1.kos"
+Level_SLZ1:	binclude	"levels/slz1.kos"
 		even
 Level_SLZ2:	binclude	"levels/slz2.kos"
+Level_SLZ2:	binclude	"levels/slz2.kos"
 		even
+Level_SLZ3:	binclude	"levels/slz3.kos"
 Level_SLZ3:	binclude	"levels/slz3.kos"
 		even
 
 Level_SYZ1:	binclude	"levels/syz1.kos"
 		even
 Level_SYZ2:	binclude	"levels/syz2.kos"
+Level_SYZ1:	binclude	"levels/syz1.kos"
 		even
+Level_SYZ2:	binclude	"levels/syz2.kos"
+		even
+Level_SYZ3:	binclude	"levels/syz3.kos"
 Level_SYZ3:	binclude	"levels/syz3.kos"
 		even
 
 Level_SBZ1:	binclude	"levels/sbz1.kos"
+
+Level_SBZ1:	binclude	"levels/sbz1.kos"
 		even
 Level_SBZ2:	binclude	"levels/sbz2.kos"
+Level_SBZ2:	binclude	"levels/sbz2.kos"
 		even
+
+Level_End:	binclude	"levels/ending.kos"
 
 Level_End:	binclude	"levels/ending.kos"
 		even
@@ -5062,7 +5157,7 @@ ObjPos_Null:	dc.b $FF, $FF, 0, 0, 0,	0
 				dc.b	[$63C]$FF
 			endif
 		endif
-		
+
 ; ---------------------------------------------------------------------------
 
 SoundDriver:	include "s1.sounddriver.asm"

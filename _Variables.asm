@@ -236,7 +236,8 @@ v_ssrotate:		ds.w	1		; Special Stage rotation speed
 v_btnpushtime1:		ds.w	1		; button push duration - in level
 v_btnpushtime2:		ds.w	1		; button push duration - in demo
 v_palchgspeed:		ds.w	1		; palette fade/transition speed (0 is fastest)
-v_collindex:		ds.l	1		; ROM address for collision index of current level
+v_collindex:		ds.w	1		; RAM address for collision index of current level
+			ds.b	2		; unused
 v_palss_num:		ds.w	1		; palette cycling in Special Stage - reference number
 v_palss_time:		ds.w	1		; palette cycling in Special Stage - time until next change
 v_palss_index:		ds.w	1		; palette cycling in Special Stage - index into palette cycle 2 (unused?)
@@ -440,6 +441,9 @@ v_scorelife:		ds.l	1		; points required for an extra life (REV01 only)
 v_top_solid_bit:	ds.b	1
 v_lrb_solid_bit:	ds.b	1
 			ds.b	$1A		; unused
+v_top_solid_bit:	ds.b	1
+v_lrb_solid_bit:	ds.b	1
+			ds.b	$1A		; unused
 f_levselcheat:		ds.b	1		; level select cheat flag
 f_slomocheat:		ds.b	1		; slow motion & frame advance cheat flag
 f_debugcheat:		ds.b	1		; debug mode cheat flag
@@ -474,7 +478,7 @@ v_ssbuffer2		= v_ram_start+$4000
 v_ssblocktypes		= v_ssbuffer2
 v_ssitembuffer		= v_ssbuffer2+$400 ; ($100 bytes)
 v_ssitembuffer_end	= v_ssitembuffer+$100
-v_ssbuffer3		= v_ram_start_def+$8000
+v_ssbuffer3		= v_ssitembuffer_end
 v_ssscroll_buffer	= v_ngfx_buffer+$100
 
 ; Error handler

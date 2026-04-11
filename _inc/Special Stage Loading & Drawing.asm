@@ -7,7 +7,7 @@ SS_ShowLayout:
 		bsr.w	SS_AniWallsRings
 		bsr.w	SS_AniItems
 		move.w	d5,-(sp)
-		lea	(v_ssbuffer3).w,a1
+		lea	(v_ssbuffer3).l,a1
 		move.b	(v_ssangle).w,d0
 		andi.b	#$FC,d0
 		jsr	(CalcSine).l
@@ -70,7 +70,7 @@ loc_1B1C0:
 		move.w	(v_screenposx).w,d0
 		divu.w	#$18,d0
 		adda.w	d0,a0
-		lea	(v_ssbuffer3).w,a4
+		lea	(v_ssbuffer3).l,a4
 		move.w	#$10-1,d7
 
 loc_1B20C:
