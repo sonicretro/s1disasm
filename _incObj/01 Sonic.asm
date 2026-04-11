@@ -27,18 +27,19 @@ Sonic_Index:	dc.w Sonic_Main-Sonic_Index			; 0 - object init
 
 ; Obj01_Main:
 Sonic_Main:	; Routine 0
-		addq.b	#2,obRoutine(a0)			; set to Sonic_Control
-		move.b	#$13,obHeight(a0)			; set default height
-		move.b	#9,obWidth(a0)				; set default width
-		move.l	#Map_Sonic,obMap(a0)			; set mappings
-		move.w	#make_art_tile(ArtTile_Sonic,0,0),obGfx(a0) ; set VRAM location
-		move.b	#2,obPriority(a0)			; set sprite priority
-		move.b	#$18,obActWid(a0)			; set render width
-		move.b	#4,obRender(a0)				; set to playfield-positioned mode
-		move.w	#$600,(v_sonspeedmax).w			; set Sonic's top speed
-		move.w	#$C,(v_sonspeedacc).w			; set Sonic's acceleration
-		move.w	#$80,(v_sonspeeddec).w			; set Sonic's deceleration
-; ---------------------------------------------------------------------------
+		move.b	#$C,(v_top_solid_bit).w	; MJ: set collision to 1st
+		move.b	#$D,(v_lrb_solid_bit).w	; MJ: set collision to 1st
+		addq.b	#2,obRoutine(a0)
+		move.b	#$13,obHeight(a0)
+		move.b	#9,obWidth(a0)
+		move.l	#Map_Sonic,obMap(a0)
+		move.w	#make_art_tile(ArtTile_Sonic,0,0),obGfx(a0)
+		move.b	#2,obPriority(a0)
+		move.b	#$18,obActWid(a0)
+		move.b	#4,obRender(a0)
+		move.w	#$600,(v_sonspeedmax).w ; Sonic's top speed
+		move.w	#$C,(v_sonspeedacc).w ; Sonic's acceleration
+		move.w	#$80,(v_sonspeeddec).w ; Sonic's deceleration
 
 ; Obj01_Control:
 Sonic_Control:	; Routine 2
@@ -1018,41 +1019,27 @@ Sonic_LevelBound:
 
 ; Boundary_Bottom:
 .bottom:
-	if FixBugs
-		; See below...
-		cmpi.w	#id_SBZ_act2,(v_zone).w			; is level SBZ2?
-		bne.s	JumpTo_KillSonic			; if not, kill Sonic
-		cmpi.w	#$2000,(v_player+obX).w			; is Sonic far enough into the level?
-		blo.s	JumpTo_KillSonic			; if not, kill Sonic
-	else
-		cmpi.w	#id_SBZ_act2,(v_zone).w			; is level SBZ2?
-		bne.w	KillSonic				; if not, kill Sonic
-		cmpi.w	#$2000,(v_player+obX).w			; is Sonic far enough into the level?
-		blo.w	KillSonic				; if not, kill Sonic
-	endif
-
-		; Transition from SBZ2 to SBZ3
-		clr.b	(v_lastlamp).w				; clear lamppost counter
-		move.w	#1,(f_restart).w			; restart the level
-		move.w	#id_LZ_act4,(v_zone).w			; set level to SBZ3 (LZ4)
-		rts						; return
+		cmpi.w	#id_SBZ_act2,(v_zone).w ; is level SBZ2?
+		bne.s	.killsonic	; if not, kill Sonic ; MJ: Fix out-of-range branch
+		cmpi.w	#$2000,(v_player+obX).w
+		blo.s	.killsonic				; MJ: Fix out-of-range branch
+		clr.b	(v_lastlamp).w	; clear lamppost counter
+		move.w	#1,(f_restart).w ; restart the level
+		move.w	#id_LZ_act4,(v_zone).w ; set level to SBZ3 (LZ4)
+		rts
 ; ===========================================================================
 
 ; Boundary_Sides:
 .sides:
-		move.w	d0,obX(a0)				; prevent Sonic from leaving the side boundary
-		move.w	#0,obSubpixelX(a0)			; clear subpixel portion
-		move.w	#0,obVelX(a0)				; clear X-velocity
-		move.w	#0,obInertia(a0)			; clear ground speed
-		bra.s	.chkbottom				; check for bottom boundary collision as well
+		move.w	d0,obX(a0)
+		move.w	#0,obX+2(a0)
+		move.w	#0,obVelX(a0)	; stop Sonic moving
+		move.w	#0,obInertia(a0)
+		bra.s	.chkbottom
 ; ===========================================================================
 
-	if FixBugs
-; Jump-redirect to the KillSonic subroutine, as it otherwise results in an out-of-range error
-; just from enabling FixBugs. This is also a very common beginner's trap
-JumpTo_KillSonic:
-		jmp	(KillSonic).l				; 
-	endif
+.killsonic:
+		jmp	(KillSonic).l	; MJ: Fix out-of-range branch
 ; End of function Sonic_LevelBound
 
 
@@ -1391,32 +1378,37 @@ Sonic_JumpAngle:
 ; ---------------------------------------------------------------------------
 
 Sonic_Floor:
-		move.w	obVelX(a0),d1				; get current horizontal speed
-		move.w	obVelY(a0),d2				; get current vertical speed
-		jsr	(CalcAngle).l				; calculate arctan based on Sonic's current fall direction
-		move.b	d0,(v_unused3).w			; (unused) store basic angle
-		subi.b	#$20,d0					; rotate 45 degrees counterclockwise
-		move.b	d0,(v_unused4).w			; (unused) store -45 degrees angle
-		andi.b	#$C0,d0					; snap to nearest multiple of 90 degrees
-		move.b	d0,(v_unused5).w			; (unused) store snapped angle
+		move.w	#v_collision1,(v_collindex).w	; MJ: load first collision data location
+		cmpi.b	#$C,(v_top_solid_bit).w		; MJ: is second collision set to be used?
+		beq.s	.first				; MJ: if not, branch
+		move.w	#v_collision2,(v_collindex).w	; MJ: load second collision data location
+.first:
+		move.b	(v_lrb_solid_bit).w,d5		; MJ: load L/R/B soldity bit
+		move.w	obVelX(a0),d1
+		move.w	obVelY(a0),d2
+		jsr	(CalcAngle).l
+		move.b	d0,(v_unused3).w
+		subi.b	#$20,d0
+		move.b	d0,(v_unused4).w
+		andi.b	#$C0,d0
+		move.b	d0,(v_unused5).w
+		cmpi.b	#$40,d0
+		beq.w	loc_13680
+		cmpi.b	#$80,d0
+		beq.w	loc_136E2
+		cmpi.b	#$C0,d0
+		beq.w	loc_1373E
+		bsr.w	Sonic_FindWallLeft_Quick_UsePos
+		tst.w	d1
+		bpl.s	loc_135F0
+		sub.w	d1,obX(a0)
+		move.w	#0,obVelX(a0)
 
-		cmpi.b	#$40,d0					; is main movement direction to the left?
-		beq.w	Sonic_FloorLeft				; if yes, branch
-		cmpi.b	#$80,d0					; is main movement direction upward?
-		beq.w	Sonic_FloorUp				; if yes, branch
-		cmpi.b	#$C0,d0					; is main movement direction to the right?
-		beq.w	Sonic_FloorRight			; if yes, branch
-		; otherwise, d0 is $00 (fall-through...)
-
-; ---------------------------------------------------------------------------
-; When Sonic is in-air with his main momentum being downward
-; ---------------------------------------------------------------------------
-
-Sonic_FloorDown:
-		bsr.w	Sonic_FindWallLeft_Quick_UsePos		; check Sonic's distance to nearest left wall
-		tst.w	d1					; is Sonic grazing a wall to the left while falling?
-		bpl.s	.noleftgraze				; if not, branch
-		sub.w	d1,obX(a0)				; align Sonic with the wall
+loc_135F0:
+		bsr.w	Sonic_FindWallRight_Quick_UsePos
+		tst.w	d1
+		bpl.s	loc_13602
+		add.w	d1,obX(a0)
 	if FixBugs
 		clr.w	obSubpixelX(a0)				; reset subpixel portion
 	endif
@@ -1839,14 +1831,14 @@ Sonic_HandleDeath:
 		bhs.w	.return					; if not, branch
 	endif
 
-		; Bottom reached, remove a life and check if game over was triggered
-		move.w	#-$38,obVelY(a0)			; set to -$38 to cancel ObjectFall gravity (freeze Sonic in place)
-		addq.b	#2,obRoutine(a0)			; go to Sonic_ResetLevel
-		clr.b	(f_timecount).w				; stop time counter
-		addq.b	#1,(f_lifecount).w			; update lives counter
-		subq.b	#1,(v_lives).w				; subtract 1 from number of lives
-		bne.s	.extraLivesRemaining			; did you run out of extra lives? if not, branch
-
+		; bottom reached, remove a life and check if game over was triggered
+		move.w	#-$38,obVelY(a0)	; set to -$38 to cancel ObjectFall gravity (freeze Sonic in place)
+		addq.b	#2,obRoutine(a0)	; go to Sonic_ResetLevel
+		clr.b	(f_timecount).w	; stop time counter
+		addq.b	#1,(f_lifecount).w ; update lives counter
+		subq.b	#1,(v_lives).w	; subtract 1 from number of lives
+		bne.s	.extraLivesRemaining	; did you run out of extra lives? if not, branch
+		
 		; GAME OVER
 		move.w	#0,restartime(a0)			; set to not restart the level
 		move.b	#id_GameOverCard,(v_gameovertext1).w	; load GAME object
@@ -1864,15 +1856,15 @@ Sonic_HandleDeath:
 
 ; loc_138D4:
 .extraLivesRemaining:
-		move.w	#60,restartime(a0)			; set reset level delay to 1 second
-		tst.b	(f_timeover).w				; is TIME OVER tag set?
-		beq.s	.return					; if not, branch
-		move.w	#0,restartime(a0)			; set to not restart the level
-		move.b	#id_GameOverCard,(v_gameovertext1).w	; load GAME object
-		move.b	#id_GameOverCard,(v_gameovertext2).w	; load OVER object
-		move.b	#2,(v_gameovertext1+obFrame).w		; set GAME frame to TIME
-		move.b	#3,(v_gameovertext2+obFrame).w		; set OVER frame to OVER (different frame ID, but looks identical)
-		bra.s	.gameOverBgmAndPatterns			; play music and load patterns
+		move.w	#60,restartime(a0)	; set reset level delay to 1 second
+		tst.b	(f_timeover).w	; is TIME OVER tag set?
+		beq.s	.return			; if not, branch
+		move.w	#0,restartime(a0)	; set to not restart the level
+		move.b	#id_GameOverCard,(v_gameovertext1).w ; load GAME object
+		move.b	#id_GameOverCard,(v_gameovertext2).w ; load OVER object
+		move.b	#2,(v_gameovertext1+obFrame).w ; set GAME frame to TIME
+		move.b	#3,(v_gameovertext2+obFrame).w ; set OVER frame to OVER (different frame ID, but looks identical)
+		bra.s	.gameOverBgmAndPatterns	; play music and load patterns
 ; ===========================================================================
 
 ; locret_13900:
@@ -1887,18 +1879,35 @@ Sonic_HandleDeath:
 ; ---------------------------------------------------------------------------
 
 ; Obj01_ResetLevel:
-Sonic_ResetLevel: ; Routine 8
-		tst.w	restartime(a0)				; was no restart time set? (game over / time over)
-		beq.s	.return					; if yes, don't restart level
-		subq.w	#1,restartime(a0)			; subtract 1 from time delay
-		bne.s	.return					; if time remains, branch
-		move.w	#1,(f_restart).w			; restart the level
+Sonic_ResetLevel:; Routine 8
+		tst.w	restartime(a0)		; was no restart time set? (game over / time over)
+		beq.s	.return			; if yes, don't restart level
+		subq.w	#1,restartime(a0)	; subtract 1 from time delay
+		bne.s	.return			; if time remains, branch
+		move.w	#1,(f_restart).w ; restart the level
 
 ; locret_13914:
 .return:
 		rts						; return
 ; End of function Sonic_ResetLevel
+; ===========================================================================
 
+	if FixBugs
+; ---------------------------------------------------------------------------
+; Sonic when he's drowning
+; ---------------------------------------------------------------------------
+		; Fix drowning bugs
+		; https://info.sonicretro.org/SCHG_How-to:Correct_Drowning_Bugs_in_Sonic_1
+; ---------------------------------------------------------------------------
+Sonic_Drowned:
+		bsr.w	SpeedToPos		; Make Sonic able to move
+		addi.w	#$10,obVelY(a0)		; Apply gravity
+		bsr.w	Sonic_RecordPosition	; Record position
+		bsr.w	Sonic_Animate		; Animate Sonic
+		bsr.w	Sonic_LoadGfx		; Load Sonic's DPLCs
+		bra.w	DisplaySprite		; And finally, display Sonic
+; End of function Sonic_Drowned
+	endif
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -1909,89 +1918,40 @@ Sonic_ResetLevel: ; Routine 8
 ; ---------------------------------------------------------------------------
 
 Sonic_Loops:
-		cmpi.b	#id_SLZ,(v_zone).w			; is level SLZ?
-		beq.s	.isstarlight				; if yes, branch
-		tst.b	(v_zone).w				; is level GHZ?
-		bne.w	.return					; if not, branch
+	; The name's a misnomer: loops are no longer handled here, only the windtunnels. Loops are dealt with by pathswappers
+	;	cmpi.b	#id_SLZ,(v_zone).w ; is level SLZ ?	; MJ: Commented out, we don't want SLZ having any rolling chunks =P
+	;	beq.s	.isstarlight	; if yes, branch
+		tst.b	(v_zone).w	; is level GHZ ?
+		bne.w	.noloops	; if not, branch
 
-; loc_13926:
-.isstarlight:
-		move.w	obY(a0),d0				; get Sonic's current Y-position
-		lsr.w	#1,d0					; halve it (level layouts have FG and BG interlaced)
-		andi.w	#$380,d0				; mask out irrelevant bits for Y-position
-		move.b	obX(a0),d1				; get Sonic's current X-position
-		andi.w	#$7F,d1					; mask out irrelevant bits for X-position
-		add.w	d1,d0					; combine the two (this is now the index to get the current 256x256 chunk in the level)
-		lea	(v_lvllayout).w,a1			; load level layout
-		move.b	(a1,d0.w),d1				; load ID of 256x256 chunk Sonic is currently standing on
+;.isstarlight:
+		move.w	obY(a0),d0		; MJ: Load Y position
+		move.w	obX(a0),d1		; MJ: Load X position
+		andi.w	#$780,d0		; MJ: keep Y position within 800 pixels (in multiples of 80)
+		add.w	d0,d0			; MJ: multiply by 2 (Because every 80 bytes switch from FG to BG..)
+		lsr.w	#7,d1			; MJ: divide X position by 80 (00 = 0, 80 = 1, etc)
+		andi.w	#$7F,d1			; MJ: keep within 4000 pixels (4000 / 80 = 80)
+		add.w	d1,d0			; MJ: add together
+		lea	(v_lvllayout).w,a1	; MJ: Load address of layout
+		move.b	(a1,d0.w),d1		; MJ: collect correct 128x128 chunk ID based on the position of Sonic
 
-		cmp.b	(v_256roll1).w,d1			; is Sonic on a "roll tunnel" tile? (type A, entrance from the left)
-		beq.w	Sonic_ChkRoll				; if yes, force Sonic into a rolling state
-		cmp.b	(v_256roll2).w,d1			; is Sonic on a "roll tunnel" tile? (type B, exit to the right)
-		beq.w	Sonic_ChkRoll				; if yes, force Sonic into a rolling state
+		lea	STunnel_Chunks_End(pc),a2			; MJ: lead list of S-Tunnel chunks
+		moveq	#(STunnel_Chunks_End-STunnel_Chunks)-1,d2	; MJ: get size of list
 
-		cmp.b	(v_256loop1).w,d1			; is Sonic on a loop tile? (type A, entering from/exiting to the left)
-		beq.s	.chkifleft				; if yes, branch
-		cmp.b	(v_256loop2).w,d1			; is Sonic on a loop tile? (type B, entering from/exiting to the right)
-		beq.s	.chkifinair				; if yes, branch
+.loop:
+		cmp.b	-(a2),d1	; MJ: is the chunk an S-Tunnel chunk?
+		dbeq	d2,.loop	; MJ: check for each listed S-Tunnel chunk
+		beq.w	Sonic_ChkRoll	; MJ: if so, branch
 
-		bclr	#6,obRender(a0)				; clear loop flag (return Sonic to high plane)
-		rts
-; ===========================================================================
-
-; loc_13966:
-.chkifinair:
-		btst	#1,obStatus(a0)				; is Sonic in the air?
-		beq.s	.chkifleft				; if not, branch
-
-		bclr	#6,obRender(a0)				; clear loop flag (return Sonic to high plane)
-		rts
-; ===========================================================================
-
-; loc_13976:
-.chkifleft:
-		move.w	obX(a0),d2				; get Sonic's current X position
-		cmpi.b	#44,d2					; is Sonic past the first couple pixels of the loop? (byte check)
-		bhs.s	.chkifright				; if yes, branch
-
-		bclr	#6,obRender(a0)				; clear loop flag (return Sonic to high plane)
-		rts						; return
-; ===========================================================================
-
-; loc_13988:
-.chkifright:
-		cmpi.b	#224,d2					; is Sonic past the last couple pixels of the loop? (byte check)
-		blo.s	.chkangle1				; if not, branch
-
-		bset	#6,obRender(a0)				; set loop flag (send Sonic to low plane)
-		rts						; return
-; ===========================================================================
-
-; loc_13996:
-.chkangle1:
-		btst	#6,obRender(a0) 			; is loop flag already set?
-		bne.s	.chkangle2				; if yes, branch
-
-		move.b	obAngle(a0),d1				; get Sonic's current angle
-		beq.s	.return					; if Sonic is on the flat surface of the loop, branch
-		cmpi.b	#$80,d1					; has Sonic crossed the apex of the loop (i.e. is he upside-down)?
-		bhi.s	.return					; if yes, branch
-		bset	#6,obRender(a0)				; set loop flag (send Sonic to low plane)
-		rts						; return
-; ===========================================================================
-
-; loc_139B2:
-.chkangle2:
-		move.b	obAngle(a0),d1				; get Sonic's current angle
-		cmpi.b	#$80,d1					; has Sonic crossed the apex of the loop (i.e. is he upside-down)?
-		bls.s	.return					; if not, branch
-		bclr	#6,obRender(a0)				; clear loop flag (return Sonic to high plane)
-
-; locret_139C2:
-.return:
-		rts						; return
+.noloops:
+		rts	
 ; End of function Sonic_Loops
 
+; ===========================================================================
+STunnel_Chunks:		; MJ: list of S-Tunnel chunks
+		dc.b	$75,$76,$77,$78
+		dc.b	$79,$7A,$7B,$7C
+STunnel_Chunks_End
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -2207,9 +2167,6 @@ Sonic_Animate:
 ; Animation scripts - Sonic (also includes constants for frame IDs)
 ; SonicAniData:
 		include	"_anim/Sonic.asm"
-; ---------------------------------------------------------------------------
-
-
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Sonic graphics loading subroutine (DPLC - Dynamic Pattern Load Cues)

@@ -10,12 +10,16 @@ ramaddr function x,(-(x&$80000000)<<1)|x
 v_ram_start_def:
 v_ram_start:		equ	v_ram_start_def&$FFFFFF	; 24-bit addressing
 
-v_256x256_def:		ds.b	$52*chunk_size		; 256x256 tile mappings ($52 chunks)
-v_256x256:		equ	v_256x256_def&$FFFFFF	; 24-bit addressing
-v_256x256_end:
+v_128x128_def:		ds.b	$100*chunk_size_128		; 128x128 tile mappings ($100 chunks)
+v_128x128:		equ	v_128x128_def&$FFFFFF	; 24-bit addressing
+v_128x128_end:
 
-v_lvllayout:		ds.b	$400		; level and background layouts
-v_lvllayout_end:
+		ds.b $1200	;	unused
+
+v_lvllayout:		ds.b	$1000		; level and background layouts
+v_collision1:		ds.b	$300
+v_collision2:		ds.b	$300
+
 v_bgscroll_buffer:	ds.b	$200		; background scroll buffer
 v_ngfx_buffer:		ds.b	$200		; Nemesis graphics decompression buffer
 v_ngfx_buffer_end:
@@ -245,10 +249,10 @@ v_trackpos:		ds.w	1		; position tracking reference number
 v_trackbyte = v_trackpos+1			; low byte for position tracking
 f_lockscreen:		ds.b	1		; flag set to lock screen during bosses
 			ds.b	1		; unused
-v_256loop1:		ds.b	1		; 256x256 level tile which contains a loop (GHZ/SLZ)
-v_256loop2:		ds.b	1		; 256x256 level tile which contains a loop (GHZ/SLZ)
-v_256roll1:		ds.b	1		; 256x256 level tile which contains a roll tunnel (GHZ)
-v_256roll2:		ds.b	1		; 256x256 level tile which contains a roll tunnel (GHZ)
+v_256loop1:		ds.b	1		; 128x128 level tile which contains a loop (GHZ/SLZ)
+v_256loop2:		ds.b	1		; 128x128 level tile which contains a loop (GHZ/SLZ)
+v_256roll1:		ds.b	1		; 128x128 level tile which contains a roll tunnel (GHZ)
+v_256roll2:		ds.b	1		; 128x128 level tile which contains a roll tunnel (GHZ)
 v_lani0_frame:		ds.b	1		; level graphics animation 0 - current frame
 v_lani0_time:		ds.b	1		; level graphics animation 0 - time until next frame
 v_lani1_frame:		ds.b	1		; level graphics animation 1 - current frame
@@ -433,7 +437,9 @@ v_scorecopy:		ds.l	1		; score, duplicate (REV00 only)
 	else
 v_scorelife:		ds.l	1		; points required for an extra life (REV01 only)
 	endif
-			ds.b	$1C		; unused
+v_top_solid_bit:	ds.b	1
+v_lrb_solid_bit:	ds.b	1
+			ds.b	$1A		; unused
 f_levselcheat:		ds.b	1		; level select cheat flag
 f_slomocheat:		ds.b	1		; slow motion & frame advance cheat flag
 f_debugcheat:		ds.b	1		; debug mode cheat flag

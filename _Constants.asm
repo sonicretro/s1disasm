@@ -53,7 +53,7 @@ vram_sprites:	equ $F800	; sprite table
 vram_hscroll:	equ $FC00	; horizontal scroll table
 
 tile_size:	equ 8*8/2	; size of a single 8x8 tile
-chunk_size:	equ $200	; size of a single 256x256 chunk
+chunk_size_128:	equ $80		; size of a single 128x128 chunk
 plane_size_64x32: equ 64*32*2	; size of plane in 512x256 mode
 
 ; Levels (zones)

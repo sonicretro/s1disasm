@@ -4,6 +4,12 @@
 
 ; Sonic_WalkSpeed: <-- old misnomer
 Sonic_CalcRoomAhead:
+		move.w	#v_collision1,(v_collindex).w	; MJ: load first collision data location
+		cmpi.b	#$C,(v_top_solid_bit).w		; MJ: is second collision set to be used?
+		beq.s	.first				; MJ: if not, branch
+		move.w	#v_collision2,(v_collindex).w	; MJ: load second collision data location
+.first:
+		move.b	(v_lrb_solid_bit).w,d5		; MJ: load L/R/B soldity bit
 		move.l	obX(a0),d3
 		move.l	obY(a0),d2
 		move.w	obVelX(a0),d1
@@ -66,6 +72,12 @@ loc_14D3C:
 
 ; sub_14D48:
 Sonic_CalcHeadroom:
+		move.w	#v_collision1,(v_collindex).w	; MJ: load first collision data location
+		cmpi.b	#$C,(v_top_solid_bit).w		; MJ: is second collision set to be used?
+		beq.s	.first				; MJ: if not, branch
+		move.w	#v_collision2,(v_collindex).w	; MJ: load second collision data location
+.first:
+		move.b	(v_lrb_solid_bit).w,d5		; MJ: load L/R/B soldity bit
 		move.b	d0,(v_anglebuffer).w
 		move.b	d0,(v_anglebuffer2).w
 		addi.b	#$20,d0
@@ -85,6 +97,12 @@ Sonic_CalcHeadroom:
 
 ; Sonic_HitFloor: <-- old misnomer
 Sonic_FindFloor:
+		move.w	#v_collision1,(v_collindex).w	; MJ: load first collision data location
+		cmpi.b	#$C,(v_top_solid_bit).w		; MJ: is second collision set to be used?
+		beq.s	.first				; MJ: if not, branch
+		move.w	#v_collision2,(v_collindex).w	; MJ: load second collision data location
+.first:
+		move.b	(v_top_solid_bit).w,d5		; MJ: load L/R/B soldity bit
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 		moveq	#0,d0
@@ -97,8 +115,7 @@ Sonic_FindFloor:
 		lea	(v_anglebuffer).w,a4
 		movea.w	#$10,a3
 		move.w	#0,d6
-		moveq	#$D,d5
-		bsr.w	FindFloor
+		bsr.w	FindFloor	; MJ: check solidity
 		move.w	d1,-(sp)
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
@@ -112,8 +129,7 @@ Sonic_FindFloor:
 		lea	(v_anglebuffer2).w,a4
 		movea.w	#$10,a3
 		move.w	#0,d6
-		moveq	#$D,d5
-		bsr.w	FindFloor
+		bsr.w	FindFloor	; MJ: check solidity
 		move.w	(sp)+,d0
 		move.b	#0,d2
 
@@ -149,8 +165,7 @@ Sonic_FindFloor_Quick:
 		lea	(v_anglebuffer).w,a4
 		movea.w	#$10,a3
 		move.w	#0,d6
-		moveq	#$E,d5
-		bsr.w	FindFloor
+		bsr.w	FindFloor	; MJ: check solidity
 		move.b	#0,d2
 
 ; loc_14E0A:
@@ -186,8 +201,7 @@ Sonic_FindWallRight:
 		lea	(v_anglebuffer).w,a4
 		movea.w	#$10,a3
 		move.w	#0,d6
-		moveq	#$E,d5
-		bsr.w	FindWall
+		bsr.w	FindWall	; MJ: check solidity
 		move.w	d1,-(sp)
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
@@ -201,8 +215,7 @@ Sonic_FindWallRight:
 		lea	(v_anglebuffer2).w,a4
 		movea.w	#$10,a3
 		move.w	#0,d6
-		moveq	#$E,d5
-		bsr.w	FindWall
+		bsr.w	FindWall	; MJ: check solidity
 		move.w	(sp)+,d0
 		move.b	#-$40,d2
 		bra.w	Sonic_FindSmaller
@@ -225,8 +238,7 @@ Sonic_FindWallRight_Quick:
 		lea	(v_anglebuffer).w,a4
 		movea.w	#$10,a3
 		move.w	#0,d6
-		moveq	#$E,d5
-		bsr.w	FindWall
+		bsr.w	FindWall	; MJ: check solidity
 		move.b	#-$40,d2
 		bra.w	Sonic_SnapAngle
 ; End of function Sonic_FindWallRight_Quick
@@ -245,8 +257,8 @@ ObjHitWallRight:
 		move.b	#0,(a4)
 		movea.w	#$10,a3
 		move.w	#0,d6
-		moveq	#$E,d5
-		bsr.w	FindWall
+		moveq	#$D,d5		; MJ: set solid type to check
+		bsr.w	FindWall	; MJ: check solidity
 		move.b	(v_anglebuffer).w,d3
 		btst	#0,d3
 		beq.s	.return
@@ -276,9 +288,8 @@ Sonic_FindCeiling:
 		add.w	d0,d3
 		lea	(v_anglebuffer).w,a4
 		movea.w	#-$10,a3
-		move.w	#$1000,d6
-		moveq	#$E,d5
-		bsr.w	FindFloor
+		move.w	#$800,d6	; MJ: $1000/2
+		bsr.w	FindFloor	; MJ: check solidity
 		move.w	d1,-(sp)
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
@@ -292,9 +303,8 @@ Sonic_FindCeiling:
 		sub.w	d0,d3
 		lea	(v_anglebuffer2).w,a4
 		movea.w	#-$10,a3
-		move.w	#$1000,d6
-		moveq	#$E,d5
-		bsr.w	FindFloor
+		move.w	#$800,d6	; MJ: $1000/2
+		bsr.w	FindFloor	; MJ: check solidity
 		move.w	(sp)+,d0
 		move.b	#-$80,d2
 		bra.w	Sonic_FindSmaller
@@ -315,9 +325,8 @@ Sonic_FindCeiling_Quick:
 		eori.w	#$F,d2
 		lea	(v_anglebuffer).w,a4
 		movea.w	#-$10,a3
-		move.w	#$1000,d6
-		moveq	#$E,d5
-		bsr.w	FindFloor
+		move.w	#$800,d6	; MJ: $1000/2
+		bsr.w	FindFloor	; MJ: check solidity
 		move.b	#-$80,d2
 		bra.w	Sonic_SnapAngle
 ; End of function Sonic_FindCeiling_Quick
@@ -339,9 +348,9 @@ ObjHitCeiling:
 		eori.w	#$F,d2
 		lea	(v_anglebuffer).w,a4
 		movea.w	#-$10,a3
-		move.w	#$1000,d6
-		moveq	#$E,d5
-		bsr.w	FindFloor
+		move.w	#$800,d6	; MJ: $1000/2
+		moveq	#$D,d5		; MJ: set solid type to check
+		bsr.w	FindFloor	; MJ: check solidity
 		move.b	(v_anglebuffer).w,d3
 		btst	#0,d3
 		beq.s	locret_14FD4
@@ -370,9 +379,8 @@ Sonic_FindWallLeft:
 		eori.w	#$F,d3
 		lea	(v_anglebuffer).w,a4
 		movea.w	#-$10,a3
-		move.w	#$800,d6
-		moveq	#$E,d5
-		bsr.w	FindWall
+		move.w	#$400,d6	; MJ: $800/2
+		bsr.w	FindWall	; MJ: check solidity
 		move.w	d1,-(sp)
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
@@ -386,9 +394,8 @@ Sonic_FindWallLeft:
 		eori.w	#$F,d3
 		lea	(v_anglebuffer2).w,a4
 		movea.w	#-$10,a3
-		move.w	#$800,d6
-		moveq	#$E,d5
-		bsr.w	FindWall
+		move.w	#$400,d6	; MJ: $800/2
+		bsr.w	FindWall	; MJ: check solidity
 		move.w	(sp)+,d0
 		move.b	#$40,d2
 		bra.w	Sonic_FindSmaller
@@ -411,9 +418,8 @@ Sonic_FindWallLeft_Quick:
 		eori.w	#$F,d3
 		lea	(v_anglebuffer).w,a4
 		movea.w	#-$10,a3
-		move.w	#$800,d6
-		moveq	#$E,d5
-		bsr.w	FindWall
+		move.w	#$400,d6	; MJ: $800/2
+		bsr.w	FindWall	; MJ: check solidity
 		move.b	#$40,d2
 		bra.w	Sonic_SnapAngle
 ; End of function Sonic_FindWallLeft_Quick
@@ -437,9 +443,9 @@ ObjHitWallLeft:
 		lea	(v_anglebuffer).w,a4
 		move.b	#0,(a4)
 		movea.w	#-$10,a3
-		move.w	#$800,d6
-		moveq	#$E,d5
-		bsr.w	FindWall
+		move.w	#$400,d6	; MJ: $800/2
+		moveq	#$D,d5		; MJ: set solid type to check
+		bsr.w	FindWall	; MJ: check solidity
 		move.b	(v_anglebuffer).w,d3
 		btst	#0,d3
 		beq.s	.return

@@ -1,7 +1,3 @@
-; ---------------------------------------------------------------------------
-; Subroutine to load basic level data
-; ---------------------------------------------------------------------------
-
 LevelDataLoad:
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
@@ -15,7 +11,7 @@ LevelDataLoad:
 		move.w	#make_art_tile(ArtTile_Level,0,FALSE),d0
 		bsr.w	EniDec
 		movea.l	(a2)+,a0
-		lea	(v_256x256).l,a1 ; RAM address for 256x256 mappings
+		lea	(v_128x128).l,a1 ; RAM address for 128x128 mappings
 		bsr.w	KosDec
 		bsr.w	LevelLayoutLoad
 		move.w	(a2)+,d0
@@ -44,63 +40,23 @@ LevelDataLoad:
 		bsr.w	AddPLC		; load pattern load cues
 
 .skipPLC:
-		rts
+		rts	
 ; End of function LevelDataLoad
 
-; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Level layout loading subroutine
 ; ---------------------------------------------------------------------------
 
+
+; ||||||||||||||| S U B R O U T I N E |||||||||||||||||||||||||||||||||||||||
+
 LevelLayoutLoad:
-		lea	(v_lvllayout).w,a3
-	if FixBugs
-		move.w	#(v_lvllayout_end-v_lvllayout)/4-1,d1
-	else
-		; ; v_lvllayout is only $400 bytes, but this clears $800...
-		; In Sonic 2, this function was corrected to only clear the
-		; layout buffer.
-		move.w	#(v_lvllayout_end-v_lvllayout)/2-1,d1
-	endif
-		moveq	#0,d0
-
-LevLoad_ClrRam:
-		move.l	d0,(a3)+
-		dbf	d1,LevLoad_ClrRam ; clear the RAM ($A400-A7FF)
-
-		lea	(v_lvllayout).w,a3 ; RAM address for level layout
-		moveq	#0,d1
-		bsr.w	LevelLayoutLoad2 ; load level layout into RAM
-		lea	(v_lvllayout+$40).w,a3 ; RAM address for background layout
-		moveq	#2,d1
-; End of function LevelLayoutLoad
-; ===========================================================================
-
-; "LevelLayoutLoad2" is run twice - for the level and the background
-LevelLayoutLoad2:
 		move.w	(v_zone).w,d0
 		lsl.b	#6,d0
 		lsr.w	#5,d0
-		move.w	d0,d2
-		add.w	d0,d0
-		add.w	d2,d0
-		add.w	d1,d0
-		lea	(Level_Index).l,a1
-		move.w	(a1,d0.w),d0
-		lea	(a1,d0.w),a1
-		moveq	#0,d1
-		move.w	d1,d2
-		move.b	(a1)+,d1	; load level width (in tiles)
-		move.b	(a1)+,d2	; load level height (in tiles)
-
-LevLoad_NumRows:
-		move.w	d1,d0
-		movea.l	a3,a0
-
-LevLoad_Row:
-		move.b	(a1)+,(a0)+
-		dbf	d0,LevLoad_Row	; load 1 row
-		lea	$80(a3),a3	; do next row
-		dbf	d2,LevLoad_NumRows ; repeat for number of rows
-		rts
-; End of function LevelLayoutLoad2
+		lea	(Level_Index).l,a0
+		move.w	(a0,d0.w),d0
+		lea	(a0,d0.w),a0
+		lea	(v_lvllayout).w,a1
+		bra.w	KosDec			; MJ: decompress layout
+; End of function LevelLayoutLoad

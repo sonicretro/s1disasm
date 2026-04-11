@@ -62,7 +62,7 @@ WFall_OnWater:	; Routine 6
 ; loc_12B36:
 WFall_Priority:	; Routine 8
 		bclr	#7,obGfx(a0)
-		cmpi.b	#7,(v_lvllayout+$80*2+6).w
+		cmpi.w	#$1718,(v_lvllayout+$100*5+12).w
 		bne.s	.animate
 		bset	#7,obGfx(a0)
 

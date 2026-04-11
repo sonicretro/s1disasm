@@ -21,7 +21,7 @@ FixBugs = 0
 ;	| If 1, enables various bugfixes across the game and sound driver
 ;	| See also FixMusicAndSFXDataBugs
 
-AllOptimizations = 0
+AllOptimizations = 1
 ;	| If 1, enables all optimizations
 SkipChecksumCheck = 0|AllOptimizations
 ;	| If 1, disables the slow bootup checksum calculation
@@ -59,6 +59,9 @@ ZoneCount = 6
 ; Equates section - Names for variables
 	include	"_Variables.asm"
 
+DebugPathSwappers: = 1
+
+;
 ; ===========================================================================
 ; Expressing sprite mappings and DPLCs in a portable and human-readable form
 SonicMappingsVer = 1
@@ -1837,43 +1840,36 @@ Tit_LoadText:
 		move.w	(a5)+,(a6)			; write one row of the level select font to VRAM
 		dbf	d1,Tit_LoadText			; loop until it's fully loaded
 
-		move.b	#0,(v_lastlamp).w		; clear lamppost counter
-		move.w	#0,(v_debuguse).w		; disable debug item placement mode
-		move.w	#0,(f_demo).w			; disable demo mode
-		move.w	#0,(v_unused2).w		; unused variable
-		move.w	#id_GHZ_act1,(v_zone).w		; set level to GHZ1 (000)
-		move.w	#0,(v_pcyc_time).w		; disable palette cycling
-		bsr.w	LevelSizeLoad			; load level size (will use GHZ1's sizes)
-		bsr.w	DeformLayers			; initialize background deformation before fade-in (redundant here)
+		move.b	#0,(v_lastlamp).w ; clear lamppost counter
+		move.w	#0,(v_debuguse).w ; disable debug item placement mode
+		move.w	#0,(f_demo).w	; disable debug mode
+		move.w	#0,(v_unused2).w ; unused variable
+		move.w	#id_GHZ_act1,(v_zone).w	; set level to GHZ1 (000)
+		move.w	#0,(v_pcyc_time).w ; disable palette cycling
+		bsr.w	LevelSizeLoad
+		bsr.w	DeformLayers
+		lea	(v_16x16).w,a1
+		lea	(Blk16_GHZ).l,a0 ; load GHZ 16x16 mappings
+		move.w	#make_art_tile(ArtTile_Level,0,FALSE),d0
+		bsr.w	EniDec
+		lea	(Blk128_GHZ).l,a0 ; load GHZ 256x256 mappings
+		lea	(v_128x128).l,a1
+		bsr.w	KosDec
+		bsr.w	LevelLayoutLoad
+		bsr.w	PaletteFadeOut
+		disable_ints
+		bsr.w	ClearScreen
+		lea	(vdp_control_port).l,a5
+		lea	(vdp_data_port).l,a6
+		lea	(v_bgscreenposx).w,a3
+		lea	(v_lvllayout+$80).w,a4	; MJ: Load address of layout BG
+		move.w	#$6000,d2
+		bsr.w	DrawChunks
+		lea	(v_ram_start).l,a1 ; overwriting unused chunk RAM
+		lea	(Eni_Title).l,a0 ; load title screen mappings
+		move.w	#0,d0
+		bsr.w	EniDec
 
-		lea	(v_16x16).w,a1			; set target buffer for blocks mappings
-		lea	(Blk16_GHZ).l,a0		; load GHZ 16x16 blocks mappings
-		move.w	#make_art_tile(ArtTile_Level,0,FALSE),d0 ; set to target VRAM address $0000
-		bsr.w	EniDec				; decompress Enigma-compressed blocks mappings to buffer
-
-		lea	(Blk256_GHZ).l,a0		; load GHZ 256x256 mappings
-		lea	(v_256x256).l,a1		; set target buffer for chunks mappings
-		bsr.w	KosDec				; decompress Kosinski-compressed chunks mappings to buffer
-
-		bsr.w	LevelLayoutLoad			; load level layout for the background
-		bsr.w	PaletteFadeOut			; fade-out "SONIC TEAM PRESENtS" screen
-; ---------------------------------------------------------------------------
-
-		; "SONIC TEAM PRESENTS" screen has faded out, load remaining patterns and fade in
-		disable_ints				; disable interrupts again after the fade-out
-		bsr.w	ClearScreen			; wipe screen
-
-		lea	(vdp_control_port).l,a5		; set VDP control port
-		lea	(vdp_data_port).l,a6		; set VDP data port
-		lea	(v_bgscreenposx).w,a3		; get current background X position
-		lea	(v_lvllayout+$40).w,a4		; get location in level layout RAM where background is stored
-		move.w	#$4000+(vram_bg-vram_fg),d2	; =$6000 (VRAM write command $4000 + nametable start address relative to vram_fg)
-		bsr.w	DrawChunks			; draw initial background layer
-
-		lea	(v_ram_start).l,a1		; set start of RAM to be used as decompression buffer (this overwrites unused chunk RAM)
-		lea	(Eni_Title).l,a0		; load title screen emblem mappings
-		move.w	#make_art_tile(ArtTile_Level,0,FALSE),d0 ; =$0000 (emblem mappings are themselves set up with a +$2000 offset per tile)
-		bsr.w	EniDec				; decompress Enigma-compressed emblem mappings to buffer
 	if FixBugs
 		; Fix title screen position
 		; https://info.sonicretro.org/SCHG_How-to:Fix_the_Title_Screen_position_in_Sonic_1
@@ -2910,22 +2906,39 @@ Level_FDLoop_NoDim:
 ColIndexLoad:
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
-		lsl.w	#2,d0
-		move.l	ColPointers(pc,d0.w),(v_collindex).w
-		rts
+				lsl.w	#3,d0				; MJ: multiply by 8 not 4
+		move.w	#v_collision1,(v_collindex).w
+		move.w	d0,-(sp)
+		movea.l	ColPointers(pc,d0.w),a0		; MJ: get first collision set
+		lea	(v_collision1).w,a1
+		bsr.w	KosDec
+		move.w	(sp)+,d0
+		movea.l	ColPointers+4(pc,d0.w),a0	; MJ: get second collision set
+		lea	(v_collision2).w,a1
+		bra.w	KosDec
+
 ; End of function ColIndexLoad
 
 ; ---------------------------------------------------------------------------
 ; Collision index pointers
 ; ---------------------------------------------------------------------------
-ColPointers:	dc.l Col_GHZ
-		dc.l Col_LZ
-		dc.l Col_MZ
-		dc.l Col_SLZ
-		dc.l Col_SYZ
-		dc.l Col_SBZ
-		zonewarning ColPointers,4
-;		dc.l Col_GHZ ; Pointer for Ending is missing by default.
+ColPointers:	dc.l Col_GHZ_1	; MJ: each zone now has two entries
+		dc.l Col_GHZ_2
+		dc.l Col_LZ_1
+		dc.l Col_LZ_2
+		dc.l Col_MZ_1
+		dc.l Col_MZ_2
+		dc.l Col_SLZ_1
+		dc.l Col_SLZ_2
+		dc.l Col_SYZ_1
+		dc.l Col_SYZ_2
+		dc.l Col_SBZ_1
+		dc.l Col_SBZ_2
+		zonewarning ColPointers,8
+		;dc.l Col_GHZ_1 ; Pointers for Ending are missing by default.
+		;dc.l Col_GHZ_2
+
+;
 ; ===========================================================================
 
 		include	"_inc/Oscillatory Routines.asm"
@@ -3376,10 +3389,19 @@ End_LoadData:
 		bset	#2,(v_fg_scroll_flags).w
 		bsr.w	LevelDataLoad
 		bsr.w	LoadTilesFromStart
-		move.l	#Col_GHZ,(v_collindex).w ; load collision index
+		
+		lea	(Col_GHZ_1).l,a0 ; MJ: Set first collision for ending
+		lea	(v_collision1).w,a1
+		bsr.w	KosDec
+		lea	(Col_GHZ_2).l,a0 ; MJ: Set second collision for ending
+		lea	(v_collision2).w,a1
+		bsr.w	KosDec
+
 		enable_ints
 		lea	(Kos_EndFlowers).l,a0 ; load extra flower patterns
-		lea	(v_256x256+$4A*chunk_size).w,a1 ; RAM address to buffer the patterns (overwriting unused chunk RAM)
+
+		lea	(v_128x128+$20*chunk_size_128).l,a1 ; RAM address to buffer the patterns (overwriting unused chunk RAM)
+
 		bsr.w	KosDec
 		moveq	#palid_Sonic,d0
 		bsr.w	PalLoad_Fade	; load Sonic's palette
@@ -3484,7 +3506,8 @@ End_SlowFade:
 		tst.w	(f_restart).w
 		beq.w	End_AllEmlds
 		clr.w	(f_restart).w
-		move.w	#$2E2F,(v_lvllayout+$80).w ; modify level layout
+		move.l	#$AAABAE9A,(v_lvllayout+$200).w ; MJ: modify level layout
+		move.l	#$ACADAFB0,(v_lvllayout+$300).w
 		lea	(vdp_control_port).l,a5
 		lea	(vdp_data_port).l,a6
 		lea	(v_screenposx).w,a3
@@ -4053,11 +4076,17 @@ Map_WFall:	include	"_maps/Waterfalls.asm"
 Map_Drown:	include	"_maps/Drowning Countdown.asm"
 		include	"_incObj/38 Shield and Invincibility.asm"
 		include	"_incObj/4A Special Stage Entry (Unused).asm"
+
+		include	"_incObj/03 Collision Switcher.asm"
+
 		include	"_incObj/08 Water Splash.asm"
 		include	"_anim/Shield and Invincibility.asm"
 Map_Shield:	include	"_maps/Shield and Invincibility.asm"
 		include	"_anim/Special Stage Entry (Unused).asm"
 Map_Vanish:	include	"_maps/Special Stage Entry (Unused).asm"
+
+Map_PathSwapper: include "_maps/Collision Switcher.asm"
+
 		include	"_anim/Water Splash.asm"
 Map_Splash:	include	"_maps/Water Splash.asm"
 
@@ -4566,26 +4595,26 @@ Nem_GHZ_1st:	binclude	"artnem/8x8 - GHZ1.nem"	; GHZ primary patterns
 		even
 Nem_GHZ_2nd:	binclude	"artnem/8x8 - GHZ2.nem"	; GHZ secondary patterns
 		even
-Blk256_GHZ:	binclude	"map256/GHZ.kos"
+Blk128_GHZ:	binclude	"map128/GHZ.kos"
 		even
 
 Blk16_LZ:	binclude	"map16/LZ.eni"
 		even
 Nem_LZ:		binclude	"artnem/8x8 - LZ.nem"	; LZ primary patterns
 		even
-Blk256_LZ:	binclude	"map256/LZ.kos"
+Blk128_LZ:	binclude	"map128/LZ.kos"
 		even
 
 Blk16_MZ:	binclude	"map16/MZ.eni"
 		even
 Nem_MZ:		binclude	"artnem/8x8 - MZ.nem"	; MZ primary patterns
 		even
-Blk256_MZ:
+Blk128_MZ:
 	if Revision=0
-		binclude	"map256/MZ (REV00).kos"
+		binclude	"map128/MZ (REV00).kos"
 		even
 	else
-		binclude	"map256/MZ (REV01).kos"
+		binclude	"map128/MZ (REV01).kos"
 		even
 	endif
 
@@ -4593,26 +4622,26 @@ Blk16_SLZ:	binclude	"map16/SLZ.eni"
 		even
 Nem_SLZ:	binclude	"artnem/8x8 - SLZ.nem"	; SLZ primary patterns
 		even
-Blk256_SLZ:	binclude	"map256/SLZ.kos"
+Blk128_SLZ:	binclude	"map128/SLZ.kos"
 		even
 
 Blk16_SYZ:	binclude	"map16/SYZ.eni"
 		even
 Nem_SYZ:	binclude	"artnem/8x8 - SYZ.nem"	; SYZ primary patterns
 		even
-Blk256_SYZ:	binclude	"map256/SYZ.kos"
+Blk128_SYZ:	binclude	"map128/SYZ.kos"
 		even
 
 Blk16_SBZ:	binclude	"map16/SBZ.eni"
 		even
 Nem_SBZ:	binclude	"artnem/8x8 - SBZ.nem"	; SBZ primary patterns
 		even
-Blk256_SBZ:
+Blk128_SBZ:
 	if Revision=0
-		binclude	"map256/SBZ (REV00).kos"
+		binclude	"map128/SBZ (REV00).kos"
 		even
 	else
-		binclude	"map256/SBZ (REV01).kos"
+		binclude	"map128/SBZ (REV01).kos"
 		even
 	endif
 
@@ -4675,17 +4704,38 @@ CollArray1:	binclude	"collide/Collision Array (Normal).bin"
 		even
 CollArray2:	binclude	"collide/Collision Array (Rotated).bin"
 		even
-Col_GHZ:	binclude	"collide/GHZ.bin"	; GHZ index
+
+; ---------------------------------------------------------------------------
+; MJ: Collision data for path swappers
+; ---------------------------------------------------------------------------
+Col_GHZ_1:	binclude	"collide/GHZ1.kos"	; GHZ index 1
 		even
-Col_LZ:		binclude	"collide/LZ.bin"	; LZ index
+Col_GHZ_2:	binclude	"collide/GHZ2.kos"	; GHZ index 2
 		even
-Col_MZ:		binclude	"collide/MZ.bin"	; MZ index
+
+Col_LZ_1:	binclude	"collide/LZ1.kos"	; LZ index 1
 		even
-Col_SLZ:	binclude	"collide/SLZ.bin"	; SLZ index
+Col_LZ_2:	binclude	"collide/LZ2.kos"	; LZ index 2
 		even
-Col_SYZ:	binclude	"collide/SYZ.bin"	; SYZ index
+
+Col_MZ_1:	binclude	"collide/MZ1.kos"	; MZ index 1
 		even
-Col_SBZ:	binclude	"collide/SBZ.bin"	; SBZ index
+Col_MZ_2:	binclude	"collide/MZ2.kos"	; MZ index 2
+		even
+
+Col_SLZ_1:	binclude	"collide/SLZ1.kos"	; SLZ index 1
+		even
+Col_SLZ_2:	binclude	"collide/SLZ2.kos"	; SLZ index 2
+		even
+
+Col_SYZ_1:	binclude	"collide/SYZ1.kos"	; SYZ index 1
+		even
+Col_SYZ_2:	binclude	"collide/SYZ2.kos"	; SYZ index 2
+		even
+
+Col_SBZ_1:	binclude	"collide/SBZ1.kos"	; SBZ index 1
+		even
+Col_SBZ_2:	binclude	"collide/SBZ2.kos"	; SBZ index 2
 		even
 
 ; ---------------------------------------------------------------------------
@@ -4733,131 +4783,92 @@ Art_SbzSmoke:	binclude	"artunc/SBZ Background Smoke.bin"
 
 ; ---------------------------------------------------------------------------
 ; Level layout index
-; Format: foreground, background, leftover/unused
+; MJ: unused data and BG data have been stripped out
 ; ---------------------------------------------------------------------------
 Level_Index:
 		; GHZ
-		dc.w Level_GHZ1-Level_Index, Level_GHZbg-Level_Index, Level_GHZ1Unk-Level_Index
-		dc.w Level_GHZ2-Level_Index, Level_GHZbg-Level_Index, Level_GHZ2Unk-Level_Index
-		dc.w Level_GHZ3-Level_Index, Level_GHZbg-Level_Index, Level_GHZ3Unk-Level_Index
-		dc.w Level_GHZ4Unk-Level_Index, Level_GHZ4Unk-Level_Index, Level_GHZ4Unk-Level_Index
+		dc.w Level_GHZ1-Level_Index
+		dc.w Level_GHZ2-Level_Index
+		dc.w Level_GHZ3-Level_Index
+		dc.w Level_Null-Level_Index
 		; LZ
-		dc.w Level_LZ1-Level_Index, Level_LZbg-Level_Index, Level_LZ1Unk-Level_Index
-		dc.w Level_LZ2-Level_Index, Level_LZbg-Level_Index, Level_LZ2Unk-Level_Index
-		dc.w Level_LZ3-Level_Index, Level_LZbg-Level_Index, Level_LZ3Unk-Level_Index
-		dc.w Level_SBZ3-Level_Index, Level_LZbg-Level_Index, Level_SBZ3Unk-Level_Index
+		dc.w Level_LZ1-Level_Index
+		dc.w Level_LZ2-Level_Index
+		dc.w Level_LZ3-Level_Index
+		dc.w Level_SBZ3-Level_Index
 		; MZ
-		dc.w Level_MZ1-Level_Index, Level_MZ1bg-Level_Index, Level_MZ1-Level_Index
-		dc.w Level_MZ2-Level_Index, Level_MZ2bg-Level_Index, Level_MZ2Unk-Level_Index
-		dc.w Level_MZ3-Level_Index, Level_MZ3bg-Level_Index, Level_MZ3Unk-Level_Index
-		dc.w Level_MZ4Unk-Level_Index, Level_MZ4Unk-Level_Index, Level_MZ4Unk-Level_Index
+		dc.w Level_MZ1-Level_Index
+		dc.w Level_MZ2-Level_Index
+		dc.w Level_MZ3-Level_Index
+		dc.w Level_Null-Level_Index
 		; SLZ
-		dc.w Level_SLZ1-Level_Index, Level_SLZbg-Level_Index, Level_SLZ1Unk-Level_Index
-		dc.w Level_SLZ2-Level_Index, Level_SLZbg-Level_Index, Level_SLZ1Unk-Level_Index
-		dc.w Level_SLZ3-Level_Index, Level_SLZbg-Level_Index, Level_SLZ1Unk-Level_Index
-		dc.w Level_SLZ1Unk-Level_Index, Level_SLZ1Unk-Level_Index, Level_SLZ1Unk-Level_Index
+		dc.w Level_SLZ1-Level_Index
+		dc.w Level_SLZ2-Level_Index
+		dc.w Level_SLZ3-Level_Index
+		dc.w Level_Null-Level_Index
 		; SYZ
-		dc.w Level_SYZ1-Level_Index, Level_SYZbg-Level_Index, Level_SYZ1Unk-Level_Index
-		dc.w Level_SYZ2-Level_Index, Level_SYZbg-Level_Index, Level_SYZ2Unk-Level_Index
-		dc.w Level_SYZ3-Level_Index, Level_SYZbg-Level_Index, Level_SYZ3Unk-Level_Index
-		dc.w Level_SYZ4Unk-Level_Index, Level_SYZ4Unk-Level_Index, Level_SYZ4Unk-Level_Index
+		dc.w Level_SYZ1-Level_Index
+		dc.w Level_SYZ2-Level_Index
+		dc.w Level_SYZ3-Level_Index
+		dc.w Level_Null-Level_Index
 		; SBZ
-		dc.w Level_SBZ1-Level_Index, Level_SBZ1bg-Level_Index, Level_SBZ1bg-Level_Index
-		dc.w Level_SBZ2-Level_Index, Level_SBZ2bg-Level_Index, Level_SBZ2bg-Level_Index
-		dc.w Level_SBZ2-Level_Index, Level_SBZ2bg-Level_Index, Level_SBZ2Unk-Level_Index
-		dc.w Level_SBZ4Unk-Level_Index, Level_SBZ4Unk-Level_Index, Level_SBZ4Unk-Level_Index
-		zonewarning Level_Index,24
+		dc.w Level_SBZ1-Level_Index
+		dc.w Level_SBZ2-Level_Index
+		dc.w Level_SBZ2-Level_Index
+		dc.w Level_Null-Level_Index
+		zonewarning Level_Index,8
 		; Ending
-		dc.w Level_End-Level_Index, Level_GHZbg-Level_Index, Level_EndUnk-Level_Index
-		dc.w Level_End-Level_Index, Level_GHZbg-Level_Index, Level_EndUnk-Level_Index
-		dc.w Level_EndUnk-Level_Index, Level_EndUnk-Level_Index, Level_EndUnk-Level_Index
-		dc.w Level_EndUnk-Level_Index, Level_EndUnk-Level_Index, Level_EndUnk-Level_Index
+		dc.w Level_End-Level_Index
+		dc.w Level_End-Level_Index
+		dc.w Level_Null-Level_Index
+		dc.w Level_Null-Level_Index
 
-Level_GHZ1:	binclude	"levels/ghz1.bin"
-		even
-Level_GHZ1Unk:	dc.l 0
-Level_GHZ2:	binclude	"levels/ghz2.bin"
-		even
-Level_GHZ2Unk:	dc.l 0
-Level_GHZ3:	binclude	"levels/ghz3.bin"
-		even
-Level_GHZbg:	binclude	"levels/ghzbg.bin"
-		even
-Level_GHZ3Unk:	dc.l 0
-Level_GHZ4Unk:	dc.l 0
+Level_Null:
 
-Level_LZ1:	binclude	"levels/lz1.bin"
+Level_GHZ1:	binclude	"levels/ghz1.kos"
 		even
-Level_LZbg:	binclude	"levels/lzbg.bin"
+Level_GHZ2:	binclude	"levels/ghz2.kos"
 		even
-Level_LZ1Unk:	dc.l 0
-Level_LZ2:	binclude	"levels/lz2.bin"
+Level_GHZ3:	binclude	"levels/ghz3.kos"
 		even
-Level_LZ2Unk:	dc.l 0
-Level_LZ3:	binclude	"levels/lz3.bin"
-		even
-Level_LZ3Unk:	dc.l 0
-Level_SBZ3:	binclude	"levels/sbz3.bin"
-		even
-Level_SBZ3Unk:	dc.l 0
 
-Level_MZ1:	binclude	"levels/mz1.bin"
+Level_LZ1:	binclude	"levels/lz1.kos"
 		even
-Level_MZ1bg:	binclude	"levels/mz1bg.bin"
+Level_LZ2:	binclude	"levels/lz2.kos"
 		even
-Level_MZ2:	binclude	"levels/mz2.bin"
+Level_LZ3:	binclude	"levels/lz3.kos"
 		even
-Level_MZ2bg:	binclude	"levels/mz2bg.bin"
+Level_SBZ3:	binclude	"levels/sbz3.kos"
 		even
-Level_MZ2Unk:	dc.l 0
-Level_MZ3:	binclude	"levels/mz3.bin"
-		even
-Level_MZ3bg:	binclude	"levels/mz3bg.bin"
-		even
-Level_MZ3Unk:	dc.l 0
-Level_MZ4Unk:	dc.l 0
 
-Level_SLZ1:	binclude	"levels/slz1.bin"
+Level_MZ1:	binclude	"levels/mz1.kos"
 		even
-Level_SLZbg:	binclude	"levels/slzbg.bin"
+Level_MZ2:	binclude	"levels/mz2.kos"
 		even
-Level_SLZ2:	binclude	"levels/slz2.bin"
+Level_MZ3:	binclude	"levels/mz3.kos"
 		even
-Level_SLZ3:	binclude	"levels/slz3.bin"
-		even
-Level_SLZ1Unk:	dc.l 0
 
-Level_SYZ1:	binclude	"levels/syz1.bin"
+Level_SLZ1:	binclude	"levels/slz1.kos"
 		even
-Level_SYZbg:
-	if Revision=0
-		binclude	"levels/syzbg (REV00).bin"
-	else
-		binclude	"levels/syzbg (REV01).bin"
-	endif
+Level_SLZ2:	binclude	"levels/slz2.kos"
 		even
-Level_SYZ1Unk:	dc.l 0
-Level_SYZ2:	binclude	"levels/syz2.bin"
+Level_SLZ3:	binclude	"levels/slz3.kos"
 		even
-Level_SYZ2Unk:	dc.l 0
-Level_SYZ3:	binclude	"levels/syz3.bin"
-		even
-Level_SYZ3Unk:	dc.l 0
-Level_SYZ4Unk:	dc.l 0
 
-Level_SBZ1:	binclude	"levels/sbz1.bin"
+Level_SYZ1:	binclude	"levels/syz1.kos"
 		even
-Level_SBZ1bg:	binclude	"levels/sbz1bg.bin"
+Level_SYZ2:	binclude	"levels/syz2.kos"
 		even
-Level_SBZ2:	binclude	"levels/sbz2.bin"
+Level_SYZ3:	binclude	"levels/syz3.kos"
 		even
-Level_SBZ2bg:	binclude	"levels/sbz2bg.bin"
+
+Level_SBZ1:	binclude	"levels/sbz1.kos"
 		even
-Level_SBZ2Unk:	dc.l 0
-Level_SBZ4Unk:	dc.l 0
-Level_End:	binclude	"levels/ending.bin"
+Level_SBZ2:	binclude	"levels/sbz2.kos"
 		even
-Level_EndUnk:	dc.l 0
+
+Level_End:	binclude	"levels/ending.kos"
+		even
 
 ; ---------------------------------------------------------------------------
 ; Uncompressed graphics - Giant Rings

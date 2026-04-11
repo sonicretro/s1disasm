@@ -1,14 +1,6 @@
 ; ---------------------------------------------------------------------------
-; WARNING: These mappings cannot be altered with a normal sprite mappings
-; editor, as some frames are cross-referenced across different objects!
-;
-; If you wish to edit them through such an editor, create separate files
-; for the zone title cards, "SONIC HAS PASSED", and special stage results.
-; The labels Map_Card, Map_Over, Map_Got, and Map_SSR must be migrated to
-; new includes in the main source so that it won't cause any assembly errors.
-; Then make duplicates of M_Card_Oval for Map_Got and Map_SSR, and also of
-; M_Card_Act1/2/3 for Map_Got, so that they are no longer cross-referenced.
-; Also, beware of the Game Over mappings sandwiched in between here!
+; WARNING: These mappings cannot be altered with a normal sprite mappings editor,
+; as some frames are cross-referenced across different objects!
 ; ---------------------------------------------------------------------------
 
 ; ---------------------------------------------------------------------------
@@ -161,10 +153,33 @@ M_Card_FZ_End
 
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - "GAME OVER" and "TIME OVER"
-; These are sandwiched between the other title card mappings, despite
-; actually using a unique format...
 ; ---------------------------------------------------------------------------
-Map_Over:	include	"_maps/Game Over.asm"
+Map_Over:	mappingsTable
+	mappingsTableEntry.w	.game
+	mappingsTableEntry.w	.over1
+	mappingsTableEntry.w	.time
+	mappingsTableEntry.w	.over2
+
+.game:	spriteHeader	; "GAME" text
+	spritePiece	-$48, -8, 4, 2, 0, 0, 0, 0, 0	; "GA"
+	spritePiece	-$28, -8, 4, 2, 8, 0, 0, 0, 0	; "ME"
+.game_End
+
+.over1:	spriteHeader	; "OVER" text for game over
+	spritePiece	8, -8, 4, 2, $14, 0, 0, 0, 0	; "OV"
+	spritePiece	$28, -8, 4, 2, $C, 0, 0, 0, 0	; "ER"
+.over1_End
+
+.time:	spriteHeader	; "TIME" text
+	spritePiece	-$3C, -8, 3, 2, $1C, 0, 0, 0, 0	; "TI"
+	spritePiece	-$24, -8, 4, 2, 8, 0, 0, 0, 0	; "ME"
+.time_End
+
+.over2:	spriteHeader	; "OVER" text for time over
+	spritePiece	$C, -8, 4, 2, $14, 0, 0, 0, 0	; "OV"
+	spritePiece	$2C, -8, 4, 2, $C, 0, 0, 0, 0	; "ER"
+.over2_End
+	even
 
 ; ---------------------------------------------------------------------------
 ; Sprite mappings - "SONIC HAS PASSED" title card

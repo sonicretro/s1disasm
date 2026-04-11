@@ -125,16 +125,13 @@ ReactToItem:
 
 		move.b	obColType(a1),d0
 		andi.b	#$3F,d0
-		cmpi.b	#6,d0		; is collision type $46 (monitor)?
-		beq.s	React_Monitor	; if yes, branch (ignore flashing time)
+		cmpi.b	#6,d0		; is collision type $46 ?
+		beq.s	React_Monitor	; if yes, branch
+		cmpi.w	#90,flashtime(a0)	; is Sonic invincible?
+		bhs.w	.invincible	; if yes, branch
+		addq.b	#2,obRoutine(a1) ; advance the object's routine counter
 
-; object was a ring (standard, lost, or giant)
-
-		cmpi.w	#90,flashtime(a0)	; has Sonic recently been hurt and has more than 90 frames of flashing time left?
-		bhs.w	.preventRingCollect	; if yes, prevent collecting ring
-		addq.b	#2,obRoutine(a1)	; advance the ring's routine counter (e.g. Ring_Collect)
-
-.preventRingCollect:
+.invincible:
 		rts
 ; ===========================================================================
 

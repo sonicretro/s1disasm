@@ -15,7 +15,7 @@ __LABEL__: = ((*-Obj_Index)/4)+1
 ; ID label			Object label		  ID value
 id_SonicPlayer:		objptr	SonicPlayer		; 01
 id_Obj02:		objptr	NullObject		; 02
-id_Obj03:		objptr	NullObject		; 03
+id_PathSwapper:		objptr	PathSwapper		; 03
 id_Obj04:		objptr	NullObject		; 04
 id_Obj05:		objptr	NullObject		; 05
 id_Obj06:		objptr	NullObject		; 06
