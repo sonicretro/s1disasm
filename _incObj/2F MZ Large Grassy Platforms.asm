@@ -8,8 +8,9 @@ LargeGrass:
 		move.w	LGrass_Index(pc,d0.w),d1
 		jmp	LGrass_Index(pc,d1.w)
 ; ===========================================================================
-LGrass_Index:	dc.w LGrass_Main-LGrass_Index
-		dc.w LGrass_Action-LGrass_Index
+LGrass_Index:	offsetTable
+		ptr LGrass_Main
+		ptr LGrass_Action
 
 lgrass_origX = objoff_2A
 lgrass_origY = objoff_2C
@@ -99,12 +100,13 @@ LGrass_Types:
 ; End of function LGrass_Types
 
 ; ===========================================================================
-LGrass_TypeIndex:dc.w LGrass_Type00-LGrass_TypeIndex
-		dc.w LGrass_Type01-LGrass_TypeIndex
-		dc.w LGrass_Type02-LGrass_TypeIndex
-		dc.w LGrass_Type03-LGrass_TypeIndex
-		dc.w LGrass_Type04-LGrass_TypeIndex
-		dc.w LGrass_Type05-LGrass_TypeIndex
+LGrass_TypeIndex: offsetTable
+		ptr LGrass_Type00
+		ptr LGrass_Type01
+		ptr LGrass_Type02
+		ptr LGrass_Type03
+		ptr LGrass_Type04
+		ptr LGrass_Type05
 ; ===========================================================================
 
 LGrass_Type00:

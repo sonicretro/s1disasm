@@ -2,8 +2,9 @@
 ; Animation script - flapping door (LZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Flap:	dc.w .opening-Ani_Flap
-		dc.w .closing-Ani_Flap
+Ani_Flap:	offsetTable
+		ptr .opening
+		ptr .closing
 
 .opening:	dc.b 3
 		dc.b 0, 1

@@ -2,13 +2,14 @@
 ; Animation script - Bubbles (LZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Bub:	dc.w .small-Ani_Bub
-		dc.w .medium-Ani_Bub
-		dc.w .large-Ani_Bub
-		dc.w .incroutine-Ani_Bub
-		dc.w .incroutine-Ani_Bub
-		dc.w .burst-Ani_Bub
-		dc.w .bubmaker-Ani_Bub
+Ani_Bub:	offsetTable
+		ptr .small
+		ptr .medium
+		ptr .large
+		ptr .incroutine
+		ptr .incroutine
+		ptr .burst
+		ptr .bubmaker
 
 .small:		dc.b 14
 		dc.b 0, 1, 2

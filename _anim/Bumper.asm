@@ -2,8 +2,9 @@
 ; Animation script - Bumper (SYZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Bump:	dc.w .idle-Ani_Bump
-		dc.w .touched-Ani_Bump
+Ani_Bump:	offsetTable
+		ptr .idle
+		ptr .touched
 
 .idle:		dc.b 15
 		dc.b 0

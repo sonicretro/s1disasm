@@ -2,13 +2,14 @@
 ; Animation script - Eggman (SBZ2 cutscene)
 ; ---------------------------------------------------------------------------
 
-Ani_SEgg:	dc.w .stand-Ani_SEgg
-		dc.w .laugh-Ani_SEgg
-		dc.w .jump1-Ani_SEgg
-		dc.w .intube-Ani_SEgg
-		dc.w .running-Ani_SEgg
-		dc.w .jump2-Ani_SEgg
-		dc.w .starjump-Ani_SEgg
+Ani_SEgg:	offsetTable
+		ptr .stand
+		ptr .laugh
+		ptr .jump1
+		ptr .intube
+		ptr .running
+		ptr .jump2
+		ptr .starjump
 
 .stand:		dc.b 126
 		dc.b 0

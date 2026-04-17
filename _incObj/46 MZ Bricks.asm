@@ -8,8 +8,9 @@ MarbleBrick:
 		move.w	Brick_Index(pc,d0.w),d1
 		jmp	Brick_Index(pc,d1.w)
 ; ===========================================================================
-Brick_Index:	dc.w Brick_Main-Brick_Index
-		dc.w Brick_Action-Brick_Index
+Brick_Index:	offsetTable
+		ptr Brick_Main
+		ptr Brick_Action
 
 brick_origY = objoff_30
 ; ===========================================================================
@@ -51,11 +52,12 @@ Brick_Action:	; Routine 2
 		bra.w	DisplaySprite
 	endif
 ; ===========================================================================
-Brick_TypeIndex:dc.w Brick_Type00-Brick_TypeIndex
-		dc.w Brick_Type01-Brick_TypeIndex
-		dc.w Brick_Type02-Brick_TypeIndex
-		dc.w Brick_Type03-Brick_TypeIndex
-		dc.w Brick_Type04-Brick_TypeIndex
+Brick_TypeIndex: offsetTable
+		ptr Brick_Type00
+		ptr Brick_Type01
+		ptr Brick_Type02
+		ptr Brick_Type03
+		ptr Brick_Type04
 ; ===========================================================================
 
 Brick_Type00:

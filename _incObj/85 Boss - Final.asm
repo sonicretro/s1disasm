@@ -12,14 +12,14 @@ BossFinal:
 		move.w	BossFinal_Index(pc,d0.w),d0
 		jmp	BossFinal_Index(pc,d0.w)
 ; ===========================================================================
-BossFinal_Index:
-		dc.w BossFinal_Main-BossFinal_Index
-		dc.w BossFinal_Eggman-BossFinal_Index
-		dc.w BossFinal_Panel-BossFinal_Index
-		dc.w BossFinal_Legs-BossFinal_Index
-		dc.w BossFinal_Cockpit-BossFinal_Index
-		dc.w BossFinal_EmptyShip-BossFinal_Index
-		dc.w BossFinal_Flame-BossFinal_Index
+BossFinal_Index: offsetTable
+		ptr BossFinal_Main
+		ptr BossFinal_Eggman
+		ptr BossFinal_Panel
+		ptr BossFinal_Legs
+		ptr BossFinal_Cockpit
+		ptr BossFinal_EmptyShip
+		ptr BossFinal_Flame
 
 BossFinal_ObjData:
 		dc.w $100, $100, ArtTile_FZ_Eggman_No_Vehicle	; X pos, Y pos, VRAM setting
@@ -109,14 +109,15 @@ BossFinal_Eggman:	; Routine 2
 		jsr	off_19E80(pc,d0.w)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-off_19E80:	dc.w BossFinal_Eggman_Wait-off_19E80
-		dc.w BossFinal_Eggman_Crush-off_19E80
-		dc.w BossFinal_Eggman_Plasma-off_19E80
-		dc.w BossFinal_Eggman_Fall-off_19E80
-		dc.w BossFinal_Eggman_Run-off_19E80
-		dc.w BossFinal_Eggman_Jump-off_19E80
-		dc.w BossFinal_Eggman_Ship-off_19E80
-		dc.w BossFinal_Eggman_Escape-off_19E80
+off_19E80:	offsetTable
+		ptr BossFinal_Eggman_Wait
+		ptr BossFinal_Eggman_Crush
+		ptr BossFinal_Eggman_Plasma
+		ptr BossFinal_Eggman_Fall
+		ptr BossFinal_Eggman_Run
+		ptr BossFinal_Eggman_Jump
+		ptr BossFinal_Eggman_Ship
+		ptr BossFinal_Eggman_Escape
 ; ===========================================================================
 
 ; loc_19E90:

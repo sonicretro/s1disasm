@@ -2,18 +2,19 @@
 ; Animation script - Eggman (bosses)
 ; ---------------------------------------------------------------------------
 
-Ani_Eggman:	dc.w .ship-Ani_Eggman
-		dc.w .facenormal1-Ani_Eggman
-		dc.w .facenormal2-Ani_Eggman
-		dc.w .facenormal3-Ani_Eggman
-		dc.w .facelaugh-Ani_Eggman
-		dc.w .facehit-Ani_Eggman
-		dc.w .facepanic-Ani_Eggman
-		dc.w .blank-Ani_Eggman
-		dc.w .flame1-Ani_Eggman
-		dc.w .flame2-Ani_Eggman
-		dc.w .facedefeat-Ani_Eggman
-		dc.w .escapeflame-Ani_Eggman
+Ani_Eggman:	offsetTable
+		ptr .ship
+		ptr .facenormal1
+		ptr .facenormal2
+		ptr .facenormal3
+		ptr .facelaugh
+		ptr .facehit
+		ptr .facepanic
+		ptr .blank
+		ptr .flame1
+		ptr .flame2
+		ptr .facedefeat
+		ptr .escapeflame
 
 .ship:		dc.b 15
 		dc.b 0

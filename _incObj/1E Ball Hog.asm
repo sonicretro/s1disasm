@@ -8,8 +8,9 @@ BallHog:
 		move.w	Hog_Index(pc,d0.w),d1
 		jmp	Hog_Index(pc,d1.w)
 ; ===========================================================================
-Hog_Index:	dc.w Hog_Main-Hog_Index
-		dc.w Hog_Action-Hog_Index
+Hog_Index:	offsetTable
+		ptr Hog_Main
+		ptr Hog_Action
 
 hog_launchflag = objoff_32		; 0 to launch a cannonball
 ; ===========================================================================

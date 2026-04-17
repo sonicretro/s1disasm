@@ -9,8 +9,9 @@ Chopper:
 		jsr	Chop_Index(pc,d1.w)
 		bra.w	RememberState
 ; ===========================================================================
-Chop_Index:	dc.w Chop_Main-Chop_Index
-		dc.w Chop_ChgSpeed-Chop_Index
+Chop_Index:	offsetTable
+		ptr Chop_Main
+		ptr Chop_ChgSpeed
 
 chop_origY = objoff_30
 ; ===========================================================================

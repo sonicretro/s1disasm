@@ -2,9 +2,10 @@
 ; Animation script - Chopper enemy (GHZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Chop:	dc.w .slow-Ani_Chop
-		dc.w .fast-Ani_Chop
-		dc.w .still-Ani_Chop
+Ani_Chop:	offsetTable
+		ptr .slow
+		ptr .fast
+		ptr .still
 
 .slow:		dc.b 7
 		dc.b 0, 1

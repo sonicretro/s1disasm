@@ -2,8 +2,9 @@
 ; Animation script - plasma balls in final boss fight (FZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Plasma:	dc.w .full-Ani_Plasma
-		dc.w .short-Ani_Plasma
+Ani_Plasma:	offsetTable
+		ptr .full
+		ptr .short
 
 .full:		dc.b 1
 		dc.b 0, $A, 8, $A, 1, $A, 9, $A, 6, $A, 7, $A, 0, $A, 8, $A

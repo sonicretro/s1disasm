@@ -8,8 +8,9 @@ ScrapStomp:
 		move.w	Sto_Index(pc,d0.w),d1
 		jmp	Sto_Index(pc,d1.w)
 ; ===========================================================================
-Sto_Index:	dc.w Sto_Main-Sto_Index
-		dc.w Sto_Action-Sto_Index
+Sto_Index:	offsetTable
+		ptr Sto_Main
+		ptr Sto_Action
 
 sto_origX = objoff_34		; original x-axis position
 sto_origY = objoff_30		; original y-axis position

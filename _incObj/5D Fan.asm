@@ -8,8 +8,9 @@ Fan:
 		move.w	Fan_Index(pc,d0.w),d1
 		jmp	Fan_Index(pc,d1.w)
 ; ===========================================================================
-Fan_Index:	dc.w Fan_Main-Fan_Index
-		dc.w Fan_Delay-Fan_Index
+Fan_Index:	offsetTable
+		ptr Fan_Main
+		ptr Fan_Delay
 
 fan_time = objoff_30		; time between switching on/off
 fan_switch = objoff_32		; on/off switch

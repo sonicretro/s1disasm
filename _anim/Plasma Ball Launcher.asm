@@ -2,9 +2,10 @@
 ; Animation script - energy ball launcher in final boss fight (FZ)
 ; ---------------------------------------------------------------------------
 
-Ani_PLaunch:	dc.w .red-Ani_PLaunch
-		dc.w .redsparking-Ani_PLaunch
-		dc.w .whitesparking-Ani_PLaunch
+Ani_PLaunch:	offsetTable
+		ptr .red
+		ptr .redsparking
+		ptr .whitesparking
 
 .red:		dc.b 126
 		dc.b 0

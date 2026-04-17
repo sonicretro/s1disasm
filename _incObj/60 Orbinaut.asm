@@ -8,11 +8,12 @@ Orbinaut:
 		move.w	Orb_Index(pc,d0.w),d1
 		jmp	Orb_Index(pc,d1.w)
 ; ===========================================================================
-Orb_Index:	dc.w Orb_Main-Orb_Index
-		dc.w Orb_ChkSonic-Orb_Index
-		dc.w Orb_Display-Orb_Index
-		dc.w Orb_MoveOrb-Orb_Index
-		dc.w Orb_ChkDel2-Orb_Index
+Orb_Index:	offsetTable
+		ptr Orb_Main
+		ptr Orb_ChkSonic
+		ptr Orb_Display
+		ptr Orb_MoveOrb
+		ptr Orb_ChkDel2
 
 orb_parent = objoff_3C		; address of parent object
 ; ===========================================================================

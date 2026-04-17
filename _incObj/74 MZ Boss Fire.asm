@@ -14,10 +14,11 @@ BossFire:
 		jmp	(DisplaySprite).l
 	endif
 ; ===========================================================================
-BossFire_Index:	dc.w BossFire_Main-BossFire_Index
-		dc.w BossFire_Action-BossFire_Index
-		dc.w BossFire_TempFire-BossFire_Index
-		dc.w BossFire_TempFireDel-BossFire_Index
+BossFire_Index:	offsetTable
+		ptr BossFire_Main
+		ptr BossFire_Action
+		ptr BossFire_TempFire
+		ptr BossFire_TempFireDel
 ; ===========================================================================
 
 BossFire_Main:	; Routine 0
@@ -63,10 +64,11 @@ BossFire_Action:	; Routine 2
 BossFire_Delete:
 		jmp	(DeleteObject).l
 ; ===========================================================================
-BossFire_Index2:dc.w BossFire_Drop-BossFire_Index2
-		dc.w BossFire_MakeFlame-BossFire_Index2
-		dc.w BossFire_Duplicate-BossFire_Index2
-		dc.w BossFire_FallEdge-BossFire_Index2
+BossFire_Index2: offsetTable
+		ptr BossFire_Drop
+		ptr BossFire_MakeFlame
+		ptr BossFire_Duplicate
+		ptr BossFire_FallEdge
 ; ===========================================================================
 
 BossFire_Drop:

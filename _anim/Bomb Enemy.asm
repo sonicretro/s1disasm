@@ -2,11 +2,12 @@
 ; Animation script - Bomb enemy (SLZ/SBZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Bomb:	dc.w .stand-Ani_Bomb
-		dc.w .walk-Ani_Bomb
-		dc.w .activated-Ani_Bomb
-		dc.w .fuse-Ani_Bomb
-		dc.w .shrapnel-Ani_Bomb
+Ani_Bomb:	offsetTable
+		ptr .stand
+		ptr .walk
+		ptr .activated
+		ptr .fuse
+		ptr .shrapnel
 
 .stand:		dc.b 19
 		dc.b 1, 0

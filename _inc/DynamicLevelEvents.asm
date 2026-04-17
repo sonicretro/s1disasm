@@ -49,14 +49,15 @@ loc_6DC4:
 ; ---------------------------------------------------------------------------
 ; Offset index for dynamic level events
 ; ---------------------------------------------------------------------------
-DLE_Index:	dc.w DLE_GHZ-DLE_Index
-		dc.w DLE_LZ-DLE_Index
-		dc.w DLE_MZ-DLE_Index
-		dc.w DLE_SLZ-DLE_Index
-		dc.w DLE_SYZ-DLE_Index
-		dc.w DLE_SBZ-DLE_Index
+DLE_Index:	offsetTable
+		ptr DLE_GHZ
+		ptr DLE_LZ
+		ptr DLE_MZ
+		ptr DLE_SLZ
+		ptr DLE_SYZ
+		ptr DLE_SBZ
 		zonewarning DLE_Index,2
-		dc.w DLE_Ending-DLE_Index
+		ptr DLE_Ending
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -70,9 +71,10 @@ DLE_GHZ:
 		move.w	DLE_GHZx(pc,d0.w),d0
 		jmp	DLE_GHZx(pc,d0.w)
 ; ===========================================================================
-DLE_GHZx:	dc.w DLE_GHZ1-DLE_GHZx
-		dc.w DLE_GHZ2-DLE_GHZx
-		dc.w DLE_GHZ3-DLE_GHZx
+DLE_GHZx:	offsetTable
+		ptr DLE_GHZ1
+		ptr DLE_GHZ2
+		ptr DLE_GHZ3
 ; ===========================================================================
 
 DLE_GHZ1:
@@ -112,9 +114,10 @@ DLE_GHZ3:
 		move.w	off_6E4A(pc,d0.w),d0
 		jmp	off_6E4A(pc,d0.w)
 ; ===========================================================================
-off_6E4A:	dc.w DLE_GHZ3main-off_6E4A
-		dc.w DLE_GHZ3boss-off_6E4A
-		dc.w DLE_GHZ3end-off_6E4A
+off_6E4A:	offsetTable
+		ptr DLE_GHZ3main
+		ptr DLE_GHZ3boss
+		ptr DLE_GHZ3end
 ; ===========================================================================
 
 DLE_GHZ3main:
@@ -189,10 +192,11 @@ DLE_LZ:
 		move.w	DLE_LZx(pc,d0.w),d0
 		jmp	DLE_LZx(pc,d0.w)
 ; ===========================================================================
-DLE_LZx:	dc.w DLE_LZ12-DLE_LZx
-		dc.w DLE_LZ12-DLE_LZx
-		dc.w DLE_LZ3-DLE_LZx
-		dc.w DLE_SBZ3-DLE_LZx
+DLE_LZx:	offsetTable
+		ptr DLE_LZ12
+		ptr DLE_LZ12
+		ptr DLE_LZ3
+		ptr DLE_SBZ3
 ; ===========================================================================
 
 DLE_LZ12:
@@ -262,9 +266,10 @@ DLE_MZ:
 		move.w	DLE_MZx(pc,d0.w),d0
 		jmp	DLE_MZx(pc,d0.w)
 ; ===========================================================================
-DLE_MZx:	dc.w DLE_MZ1-DLE_MZx
-		dc.w DLE_MZ2-DLE_MZx
-		dc.w DLE_MZ3-DLE_MZx
+DLE_MZx:	offsetTable
+		ptr DLE_MZ1
+		ptr DLE_MZ2
+		ptr DLE_MZ3
 ; ===========================================================================
 
 DLE_MZ1:
@@ -273,10 +278,11 @@ DLE_MZ1:
 		move.w	off_6FB2(pc,d0.w),d0
 		jmp	off_6FB2(pc,d0.w)
 ; ===========================================================================
-off_6FB2:	dc.w DLE_MZ1_0-off_6FB2
-		dc.w DLE_MZ1_2-off_6FB2
-		dc.w DLE_MZ1_4-off_6FB2
-		dc.w DLE_MZ1_6-off_6FB2
+off_6FB2:	offsetTable
+		ptr DLE_MZ1_0
+		ptr DLE_MZ1_2
+		ptr DLE_MZ1_4
+		ptr DLE_MZ1_6
 ; ===========================================================================
 
 ; loc_6FBA:
@@ -389,8 +395,9 @@ DLE_MZ3:
 		move.w	off_7098(pc,d0.w),d0
 		jmp	off_7098(pc,d0.w)
 ; ===========================================================================
-off_7098:	dc.w DLE_MZ3boss-off_7098
-		dc.w DLE_MZ3end-off_7098
+off_7098:	offsetTable
+		ptr DLE_MZ3boss
+		ptr DLE_MZ3end
 ; ===========================================================================
 
 DLE_MZ3boss:
@@ -435,9 +442,10 @@ DLE_SLZ:
 		move.w	DLE_SLZx(pc,d0.w),d0
 		jmp	DLE_SLZx(pc,d0.w)
 ; ===========================================================================
-DLE_SLZx:	dc.w DLE_SLZ12-DLE_SLZx
-		dc.w DLE_SLZ12-DLE_SLZx
-		dc.w DLE_SLZ3-DLE_SLZx
+DLE_SLZx:	offsetTable
+		ptr DLE_SLZ12
+		ptr DLE_SLZ12
+		ptr DLE_SLZ3
 ; ===========================================================================
 
 DLE_SLZ12:
@@ -450,9 +458,10 @@ DLE_SLZ3:
 		move.w	off_7118(pc,d0.w),d0
 		jmp	off_7118(pc,d0.w)
 ; ===========================================================================
-off_7118:	dc.w DLE_SLZ3main-off_7118
-		dc.w DLE_SLZ3boss-off_7118
-		dc.w DLE_SLZ3end-off_7118
+off_7118:	offsetTable
+		ptr DLE_SLZ3main
+		ptr DLE_SLZ3boss
+		ptr DLE_SLZ3end
 ; ===========================================================================
 
 DLE_SLZ3main:
@@ -502,9 +511,10 @@ DLE_SYZ:
 		move.w	DLE_SYZx(pc,d0.w),d0
 		jmp	DLE_SYZx(pc,d0.w)
 ; ===========================================================================
-DLE_SYZx:	dc.w DLE_SYZ1-DLE_SYZx
-		dc.w DLE_SYZ2-DLE_SYZx
-		dc.w DLE_SYZ3-DLE_SYZx
+DLE_SYZx:	offsetTable
+		ptr DLE_SYZ1
+		ptr DLE_SYZ2
+		ptr DLE_SYZ3
 ; ===========================================================================
 
 DLE_SYZ1:
@@ -530,9 +540,10 @@ DLE_SYZ3:
 		move.w	off_71B2(pc,d0.w),d0
 		jmp	off_71B2(pc,d0.w)
 ; ===========================================================================
-off_71B2:	dc.w DLE_SYZ3main-off_71B2
-		dc.w DLE_SYZ3boss-off_71B2
-		dc.w DLE_SYZ3end-off_71B2
+off_71B2:	offsetTable
+		ptr DLE_SYZ3main
+		ptr DLE_SYZ3boss
+		ptr DLE_SYZ3end
 ; ===========================================================================
 
 DLE_SYZ3main:
@@ -584,9 +595,10 @@ DLE_SBZ:
 		move.w	DLE_SBZx(pc,d0.w),d0
 		jmp	DLE_SBZx(pc,d0.w)
 ; ===========================================================================
-DLE_SBZx:	dc.w DLE_SBZ1-DLE_SBZx
-		dc.w DLE_SBZ2-DLE_SBZx
-		dc.w DLE_FZ-DLE_SBZx
+DLE_SBZx:	offsetTable
+		ptr DLE_SBZ1
+		ptr DLE_SBZ2
+		ptr DLE_FZ
 ; ===========================================================================
 
 DLE_SBZ1:
@@ -608,10 +620,11 @@ DLE_SBZ2:
 		move.w	off_7252(pc,d0.w),d0
 		jmp	off_7252(pc,d0.w)
 ; ===========================================================================
-off_7252:	dc.w DLE_SBZ2main-off_7252
-		dc.w DLE_SBZ2boss-off_7252
-		dc.w DLE_SBZ2boss2-off_7252
-		dc.w DLE_SBZ2end-off_7252
+off_7252:	offsetTable
+		ptr DLE_SBZ2main
+		ptr DLE_SBZ2boss
+		ptr DLE_SBZ2boss2
+		ptr DLE_SBZ2end
 ; ===========================================================================
 
 DLE_SBZ2main:
@@ -674,11 +687,12 @@ DLE_FZ:
 		move.w	off_72D8(pc,d0.w),d0
 		jmp	off_72D8(pc,d0.w)
 ; ===========================================================================
-off_72D8:	dc.w DLE_FZmain-off_72D8
-		dc.w DLE_FZboss-off_72D8
-		dc.w DLE_FZend-off_72D8
-		dc.w DLE_FZwait-off_72D8
-		dc.w DLE_FZend2-off_72D8
+off_72D8:	offsetTable
+		ptr DLE_FZmain
+		ptr DLE_FZboss
+		ptr DLE_FZend
+		ptr DLE_FZwait
+		ptr DLE_FZend2
 ; ===========================================================================
 
 DLE_FZmain:

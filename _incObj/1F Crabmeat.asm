@@ -8,11 +8,12 @@ Crabmeat:
 		move.w	Crab_Index(pc,d0.w),d1
 		jmp	Crab_Index(pc,d1.w)
 ; ===========================================================================
-Crab_Index:	dc.w Crab_Main-Crab_Index
-		dc.w Crab_Action-Crab_Index
-		dc.w Crab_Delete-Crab_Index
-		dc.w Crab_BallMain-Crab_Index
-		dc.w Crab_BallMove-Crab_Index
+Crab_Index:	offsetTable
+		ptr Crab_Main
+		ptr Crab_Action
+		ptr Crab_Delete
+		ptr Crab_BallMain
+		ptr Crab_BallMove
 
 crab_timedelay = objoff_30
 crab_mode = objoff_32

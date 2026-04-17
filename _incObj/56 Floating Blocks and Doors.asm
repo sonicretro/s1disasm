@@ -8,8 +8,9 @@ FloatingBlock:
 		move.w	FBlock_Index(pc,d0.w),d1
 		jmp	FBlock_Index(pc,d1.w)
 ; ===========================================================================
-FBlock_Index:	dc.w FBlock_Main-FBlock_Index
-		dc.w FBlock_Action-FBlock_Index
+FBlock_Index:	offsetTable
+		ptr FBlock_Main
+		ptr FBlock_Action
 
 fb_origX = objoff_34		; original x-axis position
 fb_origY = objoff_30		; original y-axis position

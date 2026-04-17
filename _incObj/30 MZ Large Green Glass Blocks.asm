@@ -14,11 +14,12 @@ GlassBlock:
 Glass_Delete:
 		bra.w	DeleteObject
 ; ===========================================================================
-Glass_Index:	dc.w Glass_Main-Glass_Index
-		dc.w Glass_Block012-Glass_Index
-		dc.w Glass_Reflect012-Glass_Index
-		dc.w Glass_Block34-Glass_Index
-		dc.w Glass_Reflect34-Glass_Index
+Glass_Index:	offsetTable
+		ptr Glass_Main
+		ptr Glass_Block012
+		ptr Glass_Reflect012
+		ptr Glass_Block34
+		ptr Glass_Reflect34
 
 glass_dist = objoff_32		; distance block moves when switch is pressed
 glass_parent = objoff_3C		; address of parent object
@@ -120,11 +121,12 @@ Glass_Types:
 ; End of function Glass_Types
 
 ; ===========================================================================
-Glass_TypeIndex:dc.w Glass_Type00-Glass_TypeIndex
-		dc.w Glass_Type01-Glass_TypeIndex
-		dc.w Glass_Type02-Glass_TypeIndex
-		dc.w Glass_Type03-Glass_TypeIndex
-		dc.w Glass_Type04-Glass_TypeIndex
+Glass_TypeIndex: offsetTable
+		ptr Glass_Type00
+		ptr Glass_Type01
+		ptr Glass_Type02
+		ptr Glass_Type03
+		ptr Glass_Type04
 ; ===========================================================================
 
 Glass_Type00:

@@ -9,10 +9,11 @@ Lamppost:
 		jsr	Lamp_Index(pc,d1.w)
 		jmp	(RememberState).l
 ; ===========================================================================
-Lamp_Index:	dc.w Lamp_Main-Lamp_Index
-		dc.w Lamp_Blue-Lamp_Index
-		dc.w Lamp_Finish-Lamp_Index
-		dc.w Lamp_Twirl-Lamp_Index
+Lamp_Index:	offsetTable
+		ptr Lamp_Main
+		ptr Lamp_Blue
+		ptr Lamp_Finish
+		ptr Lamp_Twirl
 
 lamp_origX = objoff_30		; original x-axis position
 lamp_origY = objoff_32		; original y-axis position

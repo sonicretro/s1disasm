@@ -8,8 +8,9 @@ CreditsText:
 		move.w	Cred_Index(pc,d0.w),d1
 		jmp	Cred_Index(pc,d1.w)
 ; ===========================================================================
-Cred_Index:	dc.w Cred_Main-Cred_Index
-		dc.w Cred_Display-Cred_Index
+Cred_Index:	offsetTable
+		ptr Cred_Main
+		ptr Cred_Display
 ; ===========================================================================
 
 Cred_Main:	; Routine 0

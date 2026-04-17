@@ -8,9 +8,10 @@ Splash:
 		move.w	Spla_Index(pc,d0.w),d1
 		jmp	Spla_Index(pc,d1.w)
 ; ===========================================================================
-Spla_Index:	dc.w Spla_Main-Spla_Index
-		dc.w Spla_Display-Spla_Index
-		dc.w Spla_Delete-Spla_Index
+Spla_Index:	offsetTable
+		ptr Spla_Main
+		ptr Spla_Display
+		ptr Spla_Delete
 ; ===========================================================================
 
 Spla_Main:	; Routine 0

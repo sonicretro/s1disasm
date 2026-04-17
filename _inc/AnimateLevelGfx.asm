@@ -17,14 +17,15 @@ AnimateLevelGfx:
 		rts
 
 ; ===========================================================================
-AniArt_Index:	dc.w AniArt_GHZ-AniArt_Index	; GHZ
-		dc.w AniArt_none-AniArt_Index	; LZ (unused)
-		dc.w AniArt_MZ-AniArt_Index	; MZ
-		dc.w AniArt_none-AniArt_Index	; SLZ (unused)
-		dc.w AniArt_none-AniArt_Index	; SYZ (unused)
-		dc.w AniArt_SBZ-AniArt_Index	; SBZ
+AniArt_Index:	offsetTable
+		ptr AniArt_GHZ		; GHZ
+		ptr AniArt_none		; LZ (unused)
+		ptr AniArt_MZ		; MZ
+		ptr AniArt_none		; SLZ (unused)
+		ptr AniArt_none		; SYZ (unused)
+		ptr AniArt_SBZ		; SBZ
 		zonewarning AniArt_Index,2
-		dc.w AniArt_Ending-AniArt_Index	; ending sequence
+		ptr AniArt_Ending	; ending sequence
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -406,22 +407,23 @@ LoadTiles:
 ; ---------------------------------------------------------------------------
 ; Animated pattern routine - more Marble Zone
 ; ---------------------------------------------------------------------------
-AniArt_MZextra:	dc.w AniArt_MZ_Magma_Shift0_Col0-AniArt_MZextra
-		dc.w AniArt_MZ_Magma_Shift1_Col0-AniArt_MZextra
-		dc.w AniArt_MZ_Magma_Shift2_Col0-AniArt_MZextra
-		dc.w AniArt_MZ_Magma_Shift3_Col0-AniArt_MZextra
-		dc.w AniArt_MZ_Magma_Shift0_Col1-AniArt_MZextra
-		dc.w AniArt_MZ_Magma_Shift1_Col1-AniArt_MZextra
-		dc.w AniArt_MZ_Magma_Shift2_Col1-AniArt_MZextra
-		dc.w AniArt_MZ_Magma_Shift3_Col1-AniArt_MZextra
-		dc.w AniArt_MZ_Magma_Shift0_Col2-AniArt_MZextra
-		dc.w AniArt_MZ_Magma_Shift1_Col2-AniArt_MZextra
-		dc.w AniArt_MZ_Magma_Shift2_Col2-AniArt_MZextra
-		dc.w AniArt_MZ_Magma_Shift3_Col2-AniArt_MZextra
-		dc.w AniArt_MZ_Magma_Shift0_Col3-AniArt_MZextra
-		dc.w AniArt_MZ_Magma_Shift1_Col3-AniArt_MZextra
-		dc.w AniArt_MZ_Magma_Shift2_Col3-AniArt_MZextra
-		dc.w AniArt_MZ_Magma_Shift3_Col3-AniArt_MZextra
+AniArt_MZextra:	offsetTable
+		ptr AniArt_MZ_Magma_Shift0_Col0
+		ptr AniArt_MZ_Magma_Shift1_Col0
+		ptr AniArt_MZ_Magma_Shift2_Col0
+		ptr AniArt_MZ_Magma_Shift3_Col0
+		ptr AniArt_MZ_Magma_Shift0_Col1
+		ptr AniArt_MZ_Magma_Shift1_Col1
+		ptr AniArt_MZ_Magma_Shift2_Col1
+		ptr AniArt_MZ_Magma_Shift3_Col1
+		ptr AniArt_MZ_Magma_Shift0_Col2
+		ptr AniArt_MZ_Magma_Shift1_Col2
+		ptr AniArt_MZ_Magma_Shift2_Col2
+		ptr AniArt_MZ_Magma_Shift3_Col2
+		ptr AniArt_MZ_Magma_Shift0_Col3
+		ptr AniArt_MZ_Magma_Shift1_Col3
+		ptr AniArt_MZ_Magma_Shift2_Col3
+		ptr AniArt_MZ_Magma_Shift3_Col3
 ; ===========================================================================
 
 ; loc_1C3EE:

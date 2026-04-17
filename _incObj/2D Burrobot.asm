@@ -8,8 +8,9 @@ Burrobot:
 		move.w	Burro_Index(pc,d0.w),d1
 		jmp	Burro_Index(pc,d1.w)
 ; ===========================================================================
-Burro_Index:	dc.w Burro_Main-Burro_Index
-		dc.w Burro_Action-Burro_Index
+Burro_Index:	offsetTable
+		ptr Burro_Main
+		ptr Burro_Action
 
 burro_timedelay = objoff_30		; time between direction changes
 ; ===========================================================================

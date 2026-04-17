@@ -8,8 +8,9 @@ Saws:
 		move.w	Saw_Index(pc,d0.w),d1
 		jmp	Saw_Index(pc,d1.w)
 ; ===========================================================================
-Saw_Index:	dc.w Saw_Main-Saw_Index
-		dc.w Saw_Action-Saw_Index
+Saw_Index:	offsetTable
+		ptr Saw_Main
+		ptr Saw_Action
 
 saw_origX = objoff_3A		; original x-axis position
 saw_origY = objoff_38		; original y-axis position

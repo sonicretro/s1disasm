@@ -2,8 +2,9 @@
 ; Animation script - springs
 ; ---------------------------------------------------------------------------
 
-Ani_Spring:	dc.w .updown-Ani_Spring
-		dc.w .leftright-Ani_Spring
+Ani_Spring:	offsetTable
+		ptr .updown
+		ptr .leftright
 
 .updown:	dc.b 0
 		dc.b 1, 0, 0, 2, 2, 2, 2, 2, 2, 0

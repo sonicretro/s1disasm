@@ -9,8 +9,9 @@ Points:
 		jsr	Poi_Index(pc,d1.w)
 		bra.w	DisplaySprite
 ; ===========================================================================
-Poi_Index:	dc.w Poi_Main-Poi_Index
-		dc.w Poi_Slower-Poi_Index
+Poi_Index:	offsetTable
+		ptr Poi_Main
+		ptr Poi_Slower
 ; ===========================================================================
 
 Poi_Main:	; Routine 0

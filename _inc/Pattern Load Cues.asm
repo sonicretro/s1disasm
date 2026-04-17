@@ -5,12 +5,12 @@
 ; Macro to define PLC pointer entry
 plcptr:		macro plc,{INTLABEL},{GLOBALSYMBOLS}
 __LABEL__: =	(*-ArtLoadCues)/2
-		dc.w	plc-ArtLoadCues
+		ptr plc
 		endm
 
 ; Macro for the header of a PLC list
 plcheader:	macro {INTLABEL},{GLOBALSYMBOLS}
-__LABEL__:	dc.w ((__LABEL___end-__LABEL__-2)/6)-1
+__LABEL__:	dc.w ((__LABEL___end-__LABEL__-2)/plc_slot_size)-1
 		endm
 
 ; Macro for single pattern load cue entry
@@ -22,7 +22,7 @@ plcm:		macro gfx,vram
 ; ---------------------------------------------------------------------------
 
 ; Index and ID definitions
-ArtLoadCues:
+ArtLoadCues:		offsetTable
 
 plcid_Main:		plcptr	PLC_Main
 plcid_Main2:		plcptr	PLC_Main2

@@ -8,8 +8,9 @@ SSRChaos:
 		move.w	SSRC_Index(pc,d0.w),d1
 		jmp	SSRC_Index(pc,d1.w)
 ; ===========================================================================
-SSRC_Index:	dc.w SSRC_Main-SSRC_Index
-		dc.w SSRC_Flash-SSRC_Index
+SSRC_Index:	offsetTable
+		ptr SSRC_Main
+		ptr SSRC_Flash
 
 ; ---------------------------------------------------------------------------
 ; X-axis positions for chaos emeralds

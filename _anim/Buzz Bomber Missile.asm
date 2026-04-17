@@ -2,8 +2,9 @@
 ; Animation script - missile that Buzz Bomber enemy throws (GHZ/MZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Missile:	dc.w .flare-Ani_Missile
-		dc.w .missile-Ani_Missile
+Ani_Missile:	offsetTable
+		ptr .flare
+		ptr .missile
 
 .flare:		dc.b 7
 		dc.b 0, 1

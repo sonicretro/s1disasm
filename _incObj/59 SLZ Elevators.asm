@@ -14,10 +14,11 @@ Elevator:
 		out_of_range.w	DeleteObject,elev_origX(a0)
 		bra.w	DisplaySprite
 ; ===========================================================================
-Elev_Index:	dc.w Elev_Main-Elev_Index
-		dc.w Elev_Platform-Elev_Index
-		dc.w Elev_Action-Elev_Index
-		dc.w Elev_MakeMulti-Elev_Index
+Elev_Index:	offsetTable
+		ptr Elev_Main
+		ptr Elev_Platform
+		ptr Elev_Action
+		ptr Elev_MakeMulti
 
 Elev_Var1:	dc.b $28, 0		; width, frame number
 

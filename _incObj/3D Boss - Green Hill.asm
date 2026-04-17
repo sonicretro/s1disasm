@@ -8,10 +8,11 @@ BossGreenHill:
 		move.w	BGHZ_Index(pc,d0.w),d1
 		jmp	BGHZ_Index(pc,d1.w)
 ; ===========================================================================
-BGHZ_Index:	dc.w BGHZ_Main-BGHZ_Index
-		dc.w BGHZ_ShipMain-BGHZ_Index
-		dc.w BGHZ_FaceMain-BGHZ_Index
-		dc.w BGHZ_FlameMain-BGHZ_Index
+BGHZ_Index:	offsetTable
+		ptr BGHZ_Main
+		ptr BGHZ_ShipMain
+		ptr BGHZ_FaceMain
+		ptr BGHZ_FlameMain
 
 BGHZ_ObjData:	dc.b 2,	0		; routine counter, animation
 		dc.b 4,	1
@@ -62,13 +63,14 @@ BGHZ_ShipMain:	; Routine 2
 		or.b	d0,obRender(a0)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-BGHZ_ShipIndex:	dc.w BGHZ_ShipStart-BGHZ_ShipIndex
-		dc.w BGHZ_MakeBall-BGHZ_ShipIndex
-		dc.w BGHZ_ShipMove-BGHZ_ShipIndex
-		dc.w BGHZ_ChgDir-BGHZ_ShipIndex
-		dc.w BGHZ_Explode-BGHZ_ShipIndex
-		dc.w BGHZ_Recover-BGHZ_ShipIndex
-		dc.w BGHZ_Escape-BGHZ_ShipIndex
+BGHZ_ShipIndex:	offsetTable
+		ptr BGHZ_ShipStart
+		ptr BGHZ_MakeBall
+		ptr BGHZ_ShipMove
+		ptr BGHZ_ChgDir
+		ptr BGHZ_Explode
+		ptr BGHZ_Recover
+		ptr BGHZ_Escape
 ; ===========================================================================
 
 BGHZ_ShipStart:

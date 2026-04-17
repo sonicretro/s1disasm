@@ -13,9 +13,10 @@ CirclingPlatform:
 		out_of_range.w	DeleteObject,circ_origX(a0)
 		bra.w	DisplaySprite
 ; ===========================================================================
-Circ_Index:	dc.w Circ_Main-Circ_Index
-		dc.w Circ_Platform-Circ_Index
-		dc.w Circ_Action-Circ_Index
+Circ_Index:	offsetTable
+		ptr Circ_Main
+		ptr Circ_Platform
+		ptr Circ_Action
 ; ===========================================================================
 
 Circ_Main:	; Routine 0

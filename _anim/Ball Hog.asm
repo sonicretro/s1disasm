@@ -2,7 +2,8 @@
 ; Animation script - Ball Hog enemy (SBZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Hog:	dc.w .hog-Ani_Hog
+Ani_Hog:	offsetTable
+		ptr .hog
 
 .hog:		dc.b 9
 		dc.b 0, 0, 2, 2, 3, 2

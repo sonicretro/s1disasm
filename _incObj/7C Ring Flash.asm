@@ -8,9 +8,10 @@ RingFlash:
 		move.w	Flash_Index(pc,d0.w),d1
 		jmp	Flash_Index(pc,d1.w)
 ; ===========================================================================
-Flash_Index:	dc.w Flash_Main-Flash_Index
-		dc.w Flash_ChkDel-Flash_Index
-		dc.w Flash_Delete-Flash_Index
+Flash_Index:	offsetTable
+		ptr Flash_Main
+		ptr Flash_ChkDel
+		ptr Flash_Delete
 ; ===========================================================================
 
 Flash_Main:	; Routine 0

@@ -539,17 +539,18 @@ ShowErrorMessage:
 ; End of function ShowErrorMessage
 ; ===========================================================================
 
-ErrorText:	dc.w .exception-ErrorText
-		dc.w .bus-ErrorText
-		dc.w .address-ErrorText
-		dc.w .illinstruct-ErrorText
-		dc.w .zerodivide-ErrorText
-		dc.w .chkinstruct-ErrorText
-		dc.w .trapv-ErrorText
-		dc.w .privilege-ErrorText
-		dc.w .trace-ErrorText
-		dc.w .line1010-ErrorText
-		dc.w .line1111-ErrorText
+ErrorText:	offsetTable
+		ptr .exception
+		ptr .bus
+		ptr .address
+		ptr .illinstruct
+		ptr .zerodivide
+		ptr .chkinstruct
+		ptr .trapv
+		ptr .privilege
+		ptr .trace
+		ptr .line1010
+		ptr .line1111
 
 .exception:	dc.b "ERROR EXCEPTION    "
 .bus:		dc.b "BUS ERROR          "
@@ -666,19 +667,20 @@ VBlank_Exit:
 
 ; ===========================================================================
 ; VBla_Index:
-VBlank_Index:	dc.w VBlank_Lag-VBlank_Index		; $00 - (lag frame)
-		dc.w VBlank_Sega-VBlank_Index		; $02 - Sega Screen
-		dc.w VBlank_Title-VBlank_Index		; $04 - Title Screen, Credits, Try Again
-		dc.w VBlank_Unused06-VBlank_Index	; $06 - (unused)
-		dc.w VBlank_Levels-VBlank_Index		; $08 - Levels, Demos
-		dc.w VBlank_SpecialStage-VBlank_Index	; $0A - Special Stages
-		dc.w VBlank_TitleCards-VBlank_Index	; $0C - Title Cards
-		dc.w VBlank_Unused0E-VBlank_Index	; $0E - (unused)
-		dc.w VBlank_Paused-VBlank_Index		; $10 - Paused
-		dc.w VBlank_PaletteFade-VBlank_Index	; $12 - Palette Fade
-		dc.w VBlank_SegaPCM-VBlank_Index	; $14 - Sega Screen PCM
-		dc.w VBlank_Continue-VBlank_Index	; $16 - Continue Screen, SS Finish
-		dc.w VBlank_Ending-VBlank_Index		; $18 - Ending Sequence
+VBlank_Index:	offsetTable
+		ptr VBlank_Lag		; $00 - (lag frame)
+		ptr VBlank_Sega		; $02 - Sega Screen
+		ptr VBlank_Title	; $04 - Title Screen, Credits, Try Again
+		ptr VBlank_Unused06	; $06 - (unused)
+		ptr VBlank_Levels	; $08 - Levels, Demos
+		ptr VBlank_SpecialStage	; $0A - Special Stages
+		ptr VBlank_TitleCards	; $0C - Title Cards
+		ptr VBlank_Unused0E	; $0E - (unused)
+		ptr VBlank_Paused	; $10 - Paused
+		ptr VBlank_PaletteFade	; $12 - Palette Fade
+		ptr VBlank_SegaPCM	; $14 - Sega Screen PCM
+		ptr VBlank_Continue	; $16 - Continue Screen, SS Finish
+		ptr VBlank_Ending	; $18 - Ending Sequence
 ; ===========================================================================
 
 ; ===========================================================================
@@ -4971,43 +4973,44 @@ Art_SbzSmoke:	binclude	"artunc/SBZ Background Smoke.bin"
 ; Level layout index
 ; Format: foreground, background, leftover/unused
 ; ---------------------------------------------------------------------------
-Level_Index:
-		; GHZ
-		dc.w Level_GHZ1-Level_Index, Level_GHZbg-Level_Index, Level_GHZ1Unk-Level_Index
-		dc.w Level_GHZ2-Level_Index, Level_GHZbg-Level_Index, Level_GHZ2Unk-Level_Index
-		dc.w Level_GHZ3-Level_Index, Level_GHZbg-Level_Index, Level_GHZ3Unk-Level_Index
-		dc.w Level_GHZ4Unk-Level_Index, Level_GHZ4Unk-Level_Index, Level_GHZ4Unk-Level_Index
-		; LZ
-		dc.w Level_LZ1-Level_Index, Level_LZbg-Level_Index, Level_LZ1Unk-Level_Index
-		dc.w Level_LZ2-Level_Index, Level_LZbg-Level_Index, Level_LZ2Unk-Level_Index
-		dc.w Level_LZ3-Level_Index, Level_LZbg-Level_Index, Level_LZ3Unk-Level_Index
-		dc.w Level_SBZ3-Level_Index, Level_LZbg-Level_Index, Level_SBZ3Unk-Level_Index
-		; MZ
-		dc.w Level_MZ1-Level_Index, Level_MZ1bg-Level_Index, Level_MZ1-Level_Index
-		dc.w Level_MZ2-Level_Index, Level_MZ2bg-Level_Index, Level_MZ2Unk-Level_Index
-		dc.w Level_MZ3-Level_Index, Level_MZ3bg-Level_Index, Level_MZ3Unk-Level_Index
-		dc.w Level_MZ4Unk-Level_Index, Level_MZ4Unk-Level_Index, Level_MZ4Unk-Level_Index
-		; SLZ
-		dc.w Level_SLZ1-Level_Index, Level_SLZbg-Level_Index, Level_SLZ1Unk-Level_Index
-		dc.w Level_SLZ2-Level_Index, Level_SLZbg-Level_Index, Level_SLZ1Unk-Level_Index
-		dc.w Level_SLZ3-Level_Index, Level_SLZbg-Level_Index, Level_SLZ1Unk-Level_Index
-		dc.w Level_SLZ1Unk-Level_Index, Level_SLZ1Unk-Level_Index, Level_SLZ1Unk-Level_Index
-		; SYZ
-		dc.w Level_SYZ1-Level_Index, Level_SYZbg-Level_Index, Level_SYZ1Unk-Level_Index
-		dc.w Level_SYZ2-Level_Index, Level_SYZbg-Level_Index, Level_SYZ2Unk-Level_Index
-		dc.w Level_SYZ3-Level_Index, Level_SYZbg-Level_Index, Level_SYZ3Unk-Level_Index
-		dc.w Level_SYZ4Unk-Level_Index, Level_SYZ4Unk-Level_Index, Level_SYZ4Unk-Level_Index
-		; SBZ
-		dc.w Level_SBZ1-Level_Index, Level_SBZ1bg-Level_Index, Level_SBZ1bg-Level_Index
-		dc.w Level_SBZ2-Level_Index, Level_SBZ2bg-Level_Index, Level_SBZ2bg-Level_Index
-		dc.w Level_SBZ2-Level_Index, Level_SBZ2bg-Level_Index, Level_SBZ2Unk-Level_Index
-		dc.w Level_SBZ4Unk-Level_Index, Level_SBZ4Unk-Level_Index, Level_SBZ4Unk-Level_Index
+Level_Index:	offsetTable
+		ptr	Level_GHZ1,	Level_GHZbg,	Level_GHZ1Unk	; GHZ1
+		ptr	Level_GHZ2,	Level_GHZbg,	Level_GHZ2Unk	; GHZ2
+		ptr	Level_GHZ3,	Level_GHZbg,	Level_GHZ3Unk	; GHZ3
+		ptr	Level_GHZ4Unk,	Level_GHZ4Unk,	Level_GHZ4Unk	; GHZ4 (unused)
+
+		ptr	Level_LZ1,	Level_LZbg,	Level_LZ1Unk	; LZ1
+		ptr	Level_LZ2,	Level_LZbg,	Level_LZ2Unk	; LZ2
+		ptr	Level_LZ3,	Level_LZbg,	Level_LZ3Unk	; LZ3
+		ptr	Level_SBZ3,	Level_LZbg,	Level_SBZ3Unk	; LZ4 (Scrap Brain Zone act 3)
+
+		ptr	Level_MZ1,	Level_MZ1bg,	Level_MZ1	; MZ1
+		ptr	Level_MZ2,	Level_MZ2bg,	Level_MZ2Unk	; MZ2
+		ptr	Level_MZ3,	Level_MZ3bg,	Level_MZ3Unk	; MZ3
+		ptr	Level_MZ4Unk,	Level_MZ4Unk,	Level_MZ4Unk	; MZ4 (unused)
+
+		ptr	Level_SLZ1,	Level_SLZbg,	Level_SLZ1Unk	; SLZ1
+		ptr	Level_SLZ2,	Level_SLZbg,	Level_SLZ1Unk	; SLZ2
+		ptr	Level_SLZ3,	Level_SLZbg,	Level_SLZ1Unk	; SLZ3
+		ptr	Level_SLZ1Unk,	Level_SLZ1Unk,	Level_SLZ1Unk	; SLZ4 (unused)
+
+		ptr	Level_SYZ1,	Level_SYZbg,	Level_SYZ1Unk	; SYZ1
+		ptr	Level_SYZ2,	Level_SYZbg,	Level_SYZ2Unk	; SYZ2
+		ptr	Level_SYZ3,	Level_SYZbg,	Level_SYZ3Unk	; SYZ3
+		ptr	Level_SYZ4Unk,	Level_SYZ4Unk,	Level_SYZ4Unk	; SYZ4 (unused)
+
+		ptr	Level_SBZ1,	Level_SBZ1bg,	Level_SBZ1bg	; SBZ1
+		ptr	Level_SBZ2,	Level_SBZ2bg,	Level_SBZ2bg	; SBZ2
+		ptr	Level_SBZ2,	Level_SBZ2bg,	Level_SBZ2Unk	; SBZ3 (Final Zone)
+		ptr	Level_SBZ4Unk,	Level_SBZ4Unk,	Level_SBZ4Unk	; SBZ4 (unused)
+
 		zonewarning Level_Index,24
-		; Ending
-		dc.w Level_End-Level_Index, Level_GHZbg-Level_Index, Level_EndUnk-Level_Index
-		dc.w Level_End-Level_Index, Level_GHZbg-Level_Index, Level_EndUnk-Level_Index
-		dc.w Level_EndUnk-Level_Index, Level_EndUnk-Level_Index, Level_EndUnk-Level_Index
-		dc.w Level_EndUnk-Level_Index, Level_EndUnk-Level_Index, Level_EndUnk-Level_Index
+
+		ptr	Level_End,	Level_GHZbg,	Level_EndUnk	; good ending
+		ptr	Level_End,	Level_GHZbg,	Level_EndUnk	; bad ending
+		ptr	Level_EndUnk,	Level_EndUnk,	Level_EndUnk	; (unused)
+		ptr	Level_EndUnk,	Level_EndUnk,	Level_EndUnk	; (unused)
+
 
 Level_GHZ1:	binclude	"levels/ghz1.bin"
 		even
@@ -5111,57 +5114,62 @@ Art_BigRing:	binclude	"artunc/Giant Ring.bin"
 	endif
 	
 ; ---------------------------------------------------------------------------
-; Sprite locations index
+; Level object locations index
 ; ---------------------------------------------------------------------------
-ObjPos_Index:
-		; GHZ
-		dc.w ObjPos_GHZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_GHZ2-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_GHZ3-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_GHZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		; LZ
-		dc.w ObjPos_LZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_LZ2-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_LZ3-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_SBZ3-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		; MZ
-		dc.w ObjPos_MZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_MZ2-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_MZ3-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_MZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		; SLZ
-		dc.w ObjPos_SLZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_SLZ2-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_SLZ3-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_SLZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		; SYZ
-		dc.w ObjPos_SYZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_SYZ2-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_SYZ3-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_SYZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		; SBZ
-		dc.w ObjPos_SBZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_SBZ2-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_FZ-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_SBZ1-ObjPos_Index, ObjPos_Null-ObjPos_Index
+ObjPos_Index:	offsetTable
+		ptr	ObjPos_GHZ1,	ObjPos_Null	; GHZ1
+		ptr	ObjPos_GHZ2,	ObjPos_Null	; GHZ2
+		ptr	ObjPos_GHZ3,	ObjPos_Null	; GHZ3
+		ptr	ObjPos_GHZ1,	ObjPos_Null	; GHZ4 (unused)
+
+		ptr	ObjPos_LZ1,	ObjPos_Null	; LZ1
+		ptr	ObjPos_LZ2,	ObjPos_Null	; LZ2
+		ptr	ObjPos_LZ3,	ObjPos_Null	; LZ3
+		ptr	ObjPos_SBZ3,	ObjPos_Null	; LZ4 (Scrap Brain Zone act 3)
+
+		ptr	ObjPos_MZ1,	ObjPos_Null	; MZ1
+		ptr	ObjPos_MZ2,	ObjPos_Null	; MZ2
+		ptr	ObjPos_MZ3,	ObjPos_Null	; MZ3
+		ptr	ObjPos_MZ1,	ObjPos_Null	; MZ4 (unused)
+
+		ptr	ObjPos_SLZ1,	ObjPos_Null	; SLZ1
+		ptr	ObjPos_SLZ2,	ObjPos_Null	; SLZ2
+		ptr	ObjPos_SLZ3,	ObjPos_Null	; SLZ3
+		ptr	ObjPos_SLZ1,	ObjPos_Null	; SLZ4 (unused)
+
+		ptr	ObjPos_SYZ1,	ObjPos_Null	; SYZ1
+		ptr	ObjPos_SYZ2,	ObjPos_Null	; SYZ2
+		ptr	ObjPos_SYZ3,	ObjPos_Null	; SYZ3
+		ptr	ObjPos_SYZ1,	ObjPos_Null	; SYZ4 (unused)
+
+		ptr	ObjPos_SBZ1,	ObjPos_Null	; SBZ1
+		ptr	ObjPos_SBZ2,	ObjPos_Null	; SBZ2
+		ptr	ObjPos_FZ,	ObjPos_Null	; SBZ3 (Final Zone)
+		ptr	ObjPos_SBZ1,	ObjPos_Null	; SBZ4 (unused)
+
 		zonewarning ObjPos_Index,$10
-		; Ending
-		dc.w ObjPos_End-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_End-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_End-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		dc.w ObjPos_End-ObjPos_Index, ObjPos_Null-ObjPos_Index
-		; --- Put extra object data here. ---
+
+		ptr	ObjPos_End,	ObjPos_Null	; good ending
+		ptr	ObjPos_End,	ObjPos_Null	; bad ending
+		ptr	ObjPos_End,	ObjPos_Null	; (unused)
+		ptr	ObjPos_End,	ObjPos_Null	; (unused)
+
+		; --- Put extra object data here... ---
+
 ObjPosLZPlatform_Index:
-		dc.w ObjPos_LZ1pf1-ObjPos_Index, ObjPos_LZ1pf2-ObjPos_Index
-		dc.w ObjPos_LZ2pf1-ObjPos_Index, ObjPos_LZ2pf2-ObjPos_Index
-		dc.w ObjPos_LZ3pf1-ObjPos_Index, ObjPos_LZ3pf2-ObjPos_Index
-		dc.w ObjPos_LZ1pf1-ObjPos_Index, ObjPos_LZ1pf2-ObjPos_Index
+		ptr	ObjPos_LZ1pf1,	ObjPos_LZ1pf2
+		ptr	ObjPos_LZ2pf1,	ObjPos_LZ2pf2
+		ptr	ObjPos_LZ3pf1,	ObjPos_LZ3pf2
+		ptr	ObjPos_LZ1pf1,	ObjPos_LZ1pf2
+
 ObjPosSBZPlatform_Index:
-		dc.w ObjPos_SBZ1pf1-ObjPos_Index, ObjPos_SBZ1pf2-ObjPos_Index
-		dc.w ObjPos_SBZ1pf3-ObjPos_Index, ObjPos_SBZ1pf4-ObjPos_Index
-		dc.w ObjPos_SBZ1pf5-ObjPos_Index, ObjPos_SBZ1pf6-ObjPos_Index
-		dc.w ObjPos_SBZ1pf1-ObjPos_Index, ObjPos_SBZ1pf2-ObjPos_Index
-		dc.b $FF, $FF, 0, 0, 0,	0
+		ptr	ObjPos_SBZ1pf1,	ObjPos_SBZ1pf2
+		ptr	ObjPos_SBZ1pf3,	ObjPos_SBZ1pf4
+		ptr	ObjPos_SBZ1pf5,	ObjPos_SBZ1pf6
+		ptr	ObjPos_SBZ1pf1,	ObjPos_SBZ1pf2
+
+
+ObjPos_PreNull:	dc.b $FF, $FF, 0, 0, 0,	0
 
 ObjPos_GHZ1:	binclude	"objpos/ghz1.bin"
 		even

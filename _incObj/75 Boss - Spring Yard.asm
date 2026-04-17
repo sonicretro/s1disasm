@@ -8,12 +8,12 @@ BossSpringYard:
 		move.w	BossSpringYard_Index(pc,d0.w),d1
 		jmp	BossSpringYard_Index(pc,d1.w)
 ; ===========================================================================
-BossSpringYard_Index:
-		dc.w BossSpringYard_Main-BossSpringYard_Index
-		dc.w BossSpringYard_ShipMain-BossSpringYard_Index
-		dc.w BossSpringYard_FaceMain-BossSpringYard_Index
-		dc.w BossSpringYard_FlameMain-BossSpringYard_Index
-		dc.w BossSpringYard_SpikeMain-BossSpringYard_Index
+BossSpringYard_Index: offsetTable
+		ptr BossSpringYard_Main
+		ptr BossSpringYard_ShipMain
+		ptr BossSpringYard_FaceMain
+		ptr BossSpringYard_FlameMain
+		ptr BossSpringYard_SpikeMain
 
 BossSpringYard_ObjData:
 		dc.b 2,	0, 5		; routine number, animation, priority
@@ -68,13 +68,13 @@ BossSpringYard_ShipMain:	; Routine 2
 		or.b	d0,obRender(a0)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-BossSpringYard_ShipIndex:
-		dc.w BSYZ_ShipStart-BossSpringYard_ShipIndex
-		dc.w BSYZ_ShipMove-BossSpringYard_ShipIndex
-		dc.w BSYZ_Attack-BossSpringYard_ShipIndex
-		dc.w BSYZ_Explode-BossSpringYard_ShipIndex
-		dc.w BSYZ_Recover-BossSpringYard_ShipIndex
-		dc.w BSYZ_Escape-BossSpringYard_ShipIndex
+BossSpringYard_ShipIndex: offsetTable
+		ptr BSYZ_ShipStart
+		ptr BSYZ_ShipMove
+		ptr BSYZ_Attack
+		ptr BSYZ_Explode
+		ptr BSYZ_Recover
+		ptr BSYZ_Escape
 ; ===========================================================================
 
 ; loc_191CC:
@@ -197,10 +197,11 @@ BSYZ_Attack:
 		move.w	off_192FA(pc,d0.w),d0
 		jmp	off_192FA(pc,d0.w)
 ; ===========================================================================
-off_192FA:	dc.w BSYZ_Descend-off_192FA
-		dc.w BSYZ_Lift-off_192FA
-		dc.w BSYZ_LiftStop-off_192FA
-		dc.w BSYZ_BreakBlock-off_192FA
+off_192FA:	offsetTable
+		ptr BSYZ_Descend
+		ptr BSYZ_Lift
+		ptr BSYZ_LiftStop
+		ptr BSYZ_BreakBlock
 ; ===========================================================================
 
 ; loc_19302:
@@ -484,12 +485,13 @@ BossSpringYard_FaceMain:	; Routine 4
 BossSpringYard_FaceDelete:
 		jmp	(DeleteObject).l
 ; ===========================================================================
-off_19546:	dc.w BSYZ_Face_ChkHit-off_19546
-		dc.w BSYZ_Face_ChkHit-off_19546
-		dc.w BSYZ_Face_Attack-off_19546
-		dc.w BSYZ_Face_Defeat-off_19546
-		dc.w BSYZ_Face_Defeat-off_19546
-		dc.w BSYZ_Face_Escape-off_19546
+off_19546:	offsetTable
+		ptr BSYZ_Face_ChkHit
+		ptr BSYZ_Face_ChkHit
+		ptr BSYZ_Face_Attack
+		ptr BSYZ_Face_Defeat
+		ptr BSYZ_Face_Defeat
+		ptr BSYZ_Face_Escape
 ; ===========================================================================
 
 ; loc_19552:
@@ -511,10 +513,11 @@ BSYZ_Face_Attack:
 		move.w	off_19568(pc,d0.w),d0
 		jmp	off_19568(pc,d0.w)
 ; ===========================================================================
-off_19568:	dc.w BSYZ_Face_Attack_Other-off_19568
-		dc.w BSYZ_Face_Attack_Lift-off_19568
-		dc.w BSYZ_Face_Attack_Other-off_19568
-		dc.w BSYZ_Face_Attack_Other-off_19568
+off_19568:	offsetTable
+		ptr BSYZ_Face_Attack_Other
+		ptr BSYZ_Face_Attack_Lift
+		ptr BSYZ_Face_Attack_Other
+		ptr BSYZ_Face_Attack_Other
 ; ===========================================================================
 
 ; loc_19570:

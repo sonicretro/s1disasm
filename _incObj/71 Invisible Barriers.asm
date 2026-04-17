@@ -8,8 +8,9 @@ Invisibarrier:
 		move.w	Invis_Index(pc,d0.w),d1
 		jmp	Invis_Index(pc,d1.w)
 ; ===========================================================================
-Invis_Index:	dc.w Invis_Main-Invis_Index
-		dc.w Invis_Solid-Invis_Index
+Invis_Index:	offsetTable
+		ptr Invis_Main
+		ptr Invis_Solid
 ; ===========================================================================
 
 Invis_Main:	; Routine 0

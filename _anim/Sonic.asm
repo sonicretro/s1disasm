@@ -99,11 +99,11 @@ fr_Slide:	equ $57 ; formerly mamed fr_WaterSlide (was too long...)
 ; Macro to map an ID to a label while defining the offset table entries
 sonani:		macro anim,{INTLABEL},{GLOBALSYMBOLS}
 __LABEL__: =	(*-Ani_Sonic)/2
-		dc.w	anim-Ani_Sonic
+		ptr anim
 		endm
 ; ---------------------------------------------------------------------------
 
-Ani_Sonic:
+Ani_Sonic:	offsetTable
 
 id_Walk:	sonani	SonAni_Walk	; $00
 id_Run:		sonani	SonAni_Run	; $01

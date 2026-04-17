@@ -8,11 +8,12 @@ SideStomp:
 		move.w	SStom_Index(pc,d0.w),d1
 		jmp	SStom_Index(pc,d1.w)
 ; ===========================================================================
-SStom_Index:	dc.w SStom_Main-SStom_Index
-		dc.w SStom_Solid-SStom_Index
-		dc.w SStom_Spikes-SStom_Index
-		dc.w SStom_Display-SStom_Index
-		dc.w SStom_Pole-SStom_Index
+SStom_Index:	offsetTable
+		ptr SStom_Main
+		ptr SStom_Solid
+		ptr SStom_Spikes
+		ptr SStom_Display
+		ptr SStom_Pole
 
 		;	routine		frame
 		;		 xpos
@@ -118,12 +119,12 @@ SStom_Move:
 ; End of function SStom_Move
 
 ; ===========================================================================
-SStom_Move_Index:
-		dc.w SStom_Move_0-SStom_Move_Index	; 0
-		dc.w SStom_Move_0-SStom_Move_Index	; 1 - same as 0
+SStom_Move_Index: offsetTable
+		ptr SStom_Move_0	; 0
+		ptr SStom_Move_0	; 1 - same as 0
 	if FixBugs
 		; An entry for subtype 02 is missing, despite being defined in SStom_Len
-		dc.w SStom_Move_0-SStom_Move_Index	; 2 - missing
+		ptr SStom_Move_0	; 2 - missing
 	endif
 ; ===========================================================================
 

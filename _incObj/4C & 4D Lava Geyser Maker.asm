@@ -15,12 +15,13 @@ GeyserMaker:
 		bra.w	Geyser_ChkDel
 	endif
 ; ===========================================================================
-GMake_Index:	dc.w GMake_Main-GMake_Index
-		dc.w GMake_Wait-GMake_Index
-		dc.w GMake_ChkType-GMake_Index
-		dc.w GMake_MakeLava-GMake_Index
-		dc.w GMake_Display-GMake_Index
-		dc.w GMake_Delete-GMake_Index
+GMake_Index:	offsetTable
+		ptr GMake_Main
+		ptr GMake_Wait
+		ptr GMake_ChkType
+		ptr GMake_MakeLava
+		ptr GMake_Display
+		ptr GMake_Delete
 
 gmake_time = objoff_34		; time delay (2 bytes)
 gmake_timer = objoff_32		; current time remaining (2 bytes)
@@ -138,10 +139,11 @@ LavaGeyser:
 		bra.w	DisplaySprite
 	endif
 ; ===========================================================================
-Geyser_Index:	dc.w Geyser_Main-Geyser_Index
-		dc.w Geyser_Action-Geyser_Index
-		dc.w Geyser_Middle-Geyser_Index
-		dc.w Geyser_Delete-Geyser_Index
+Geyser_Index:	offsetTable
+		ptr Geyser_Main
+		ptr Geyser_Action
+		ptr Geyser_Middle
+		ptr Geyser_Delete
 
 Geyser_Speeds:	dc.w $FB00, 0
 ; ===========================================================================
@@ -232,8 +234,9 @@ Geyser_ChkDel:
 		rts
 	endif
 ; ===========================================================================
-Geyser_Types:	dc.w Geyser_Type00-Geyser_Types
-		dc.w Geyser_Type01-Geyser_Types
+Geyser_Types:	offsetTable
+		ptr Geyser_Type00
+		ptr Geyser_Type01
 ; ===========================================================================
 
 Geyser_Type00:

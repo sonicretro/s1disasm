@@ -2,8 +2,9 @@
 ; Animation script - doors (SBZ)
 ; ---------------------------------------------------------------------------
 
-Ani_ADoor:	dc.w .close-Ani_ADoor
-		dc.w .open-Ani_ADoor
+Ani_ADoor:	offsetTable
+		ptr .close
+		ptr .open
 
 .close:		dc.b 0
 		dc.b 8, 7, 6, 5, 4, 3, 2, 1

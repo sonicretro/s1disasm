@@ -8,10 +8,10 @@ BossBlock:
 		move.w	BossBlock_Index(pc,d0.w),d1
 		jmp	BossBlock_Index(pc,d1.w)
 ; ===========================================================================
-BossBlock_Index:
-		dc.w BossBlock_Main-BossBlock_Index
-		dc.w BossBlock_Action-BossBlock_Index
-		dc.w BossBlock_Frag-BossBlock_Index
+BossBlock_Index: offsetTable
+		ptr BossBlock_Main
+		ptr BossBlock_Action
+		ptr BossBlock_Frag
 ; ===========================================================================
 
 BossBlock_Main:	; Routine 0

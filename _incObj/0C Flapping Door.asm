@@ -8,8 +8,9 @@ FlapDoor:
 		move.w	Flap_Index(pc,d0.w),d1
 		jmp	Flap_Index(pc,d1.w)
 ; ===========================================================================
-Flap_Index:	dc.w Flap_Main-Flap_Index
-		dc.w Flap_OpenClose-Flap_Index
+Flap_Index:	offsetTable
+		ptr Flap_Main
+		ptr Flap_OpenClose
 
 flap_time = objoff_32		; time between opening/closing
 flap_wait = objoff_30		; time until change

@@ -10,8 +10,9 @@ ObjPosLoad:
 ; End of function ObjPosLoad
 
 ; ===========================================================================
-OPL_Index:	dc.w OPL_Main-OPL_Index
-		dc.w OPL_Next-OPL_Index
+OPL_Index:	offsetTable
+		ptr OPL_Main
+		ptr OPL_Next
 ; ===========================================================================
 
 OPL_Main:

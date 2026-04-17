@@ -8,8 +8,9 @@ LavaTag:
 		move.w	LTag_Index(pc,d0.w),d1
 		jmp	LTag_Index(pc,d1.w)
 ; ===========================================================================
-LTag_Index:	dc.w LTag_Main-LTag_Index
-		dc.w LTag_ChkDel-LTag_Index
+LTag_Index:	offsetTable
+		ptr LTag_Main
+		ptr LTag_ChkDel
 
 LTag_ColTypes:	dc.b $96, $94, $95
 		even

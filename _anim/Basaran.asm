@@ -2,9 +2,10 @@
 ; Animation script - Basaran enemy (MZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Bas:	dc.w .still-Ani_Bas
-		dc.w .fall-Ani_Bas
-		dc.w .fly-Ani_Bas
+Ani_Bas:	offsetTable
+		ptr .still
+		ptr .fall
+		ptr .fly
 
 .still:		dc.b 15
 		dc.b 0

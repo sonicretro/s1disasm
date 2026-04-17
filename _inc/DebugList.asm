@@ -1,15 +1,15 @@
 ; ---------------------------------------------------------------------------
 ; Debug mode item lists
 ; ---------------------------------------------------------------------------
-DebugList:
-		dc.w .GHZ-DebugList
-		dc.w .LZ-DebugList
-		dc.w .MZ-DebugList
-		dc.w .SLZ-DebugList
-		dc.w .SYZ-DebugList
-		dc.w .SBZ-DebugList
+DebugList:	offsetTable
+		ptr .GHZ
+		ptr .LZ
+		ptr .MZ
+		ptr .SLZ
+		ptr .SYZ
+		ptr .SBZ
 		zonewarning DebugList,2
-		dc.w .Ending-DebugList
+		ptr .Ending
 
 dbug:	macro map,object,subtype,frame,vram
 		dc.l map+(object<<24)

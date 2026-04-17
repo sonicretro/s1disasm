@@ -8,11 +8,12 @@ Waterfall:
 		move.w	WFall_Index(pc,d0.w),d1
 		jmp	WFall_Index(pc,d1.w)
 ; ===========================================================================
-WFall_Index:	dc.w WFall_Main-WFall_Index
-		dc.w WFall_Animate-WFall_Index
-		dc.w WFall_ChkDel-WFall_Index
-		dc.w WFall_OnWater-WFall_Index
-		dc.w WFall_Priority-WFall_Index
+WFall_Index:	offsetTable
+		ptr WFall_Main
+		ptr WFall_Animate
+		ptr WFall_ChkDel
+		ptr WFall_OnWater
+		ptr WFall_Priority
 ; ===========================================================================
 
 WFall_Main:	; Routine 0

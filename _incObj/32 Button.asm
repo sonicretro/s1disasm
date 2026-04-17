@@ -9,8 +9,9 @@ Button:
 		move.w	But_Index(pc,d0.w),d1
 		jmp	But_Index(pc,d1.w)
 ; ===========================================================================
-But_Index:	dc.w But_Main-But_Index
-		dc.w But_Pressed-But_Index
+But_Index:	offsetTable
+		ptr But_Main
+		ptr But_Pressed
 ; ===========================================================================
 
 But_Main:	; Routine 0

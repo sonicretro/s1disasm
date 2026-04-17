@@ -9,15 +9,16 @@ DrownCount:
 		move.w	Drown_Index(pc,d0.w),d1
 		jmp	Drown_Index(pc,d1.w)
 ; ===========================================================================
-Drown_Index:	dc.w Drown_Main-Drown_Index
-		dc.w Drown_Animate-Drown_Index
-		dc.w Drown_ChkWater-Drown_Index
-		dc.w Drown_Display-Drown_Index
-		dc.w Drown_Delete-Drown_Index
-		dc.w Drown_Countdown-Drown_Index
-		dc.w Drown_AirLeft-Drown_Index
-		dc.w Drown_Display-Drown_Index
-		dc.w Drown_Delete-Drown_Index
+Drown_Index:	offsetTable
+		ptr Drown_Main
+		ptr Drown_Animate
+		ptr Drown_ChkWater
+		ptr Drown_Display
+		ptr Drown_Delete
+		ptr Drown_Countdown
+		ptr Drown_AirLeft
+		ptr Drown_Display
+		ptr Drown_Delete
 
 drown_origX = objoff_30		; original x-axis position
 drown_time = objoff_38		; time between each number changes

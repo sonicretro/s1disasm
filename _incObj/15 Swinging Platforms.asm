@@ -9,13 +9,14 @@ SwingingPlatform:
 		move.w	Swing_Index(pc,d0.w),d1
 		jmp	Swing_Index(pc,d1.w)
 ; ===========================================================================
-Swing_Index:	dc.w Swing_Main-Swing_Index
-		dc.w Swing_SetSolid-Swing_Index
-		dc.w Swing_Action2-Swing_Index
-		dc.w Swing_Delete-Swing_Index
-		dc.w Swing_Delete-Swing_Index
-		dc.w Swing_Display-Swing_Index
-		dc.w Swing_Action-Swing_Index
+Swing_Index:	offsetTable
+		ptr Swing_Main
+		ptr Swing_SetSolid
+		ptr Swing_Action2
+		ptr Swing_Delete
+		ptr Swing_Delete
+		ptr Swing_Display
+		ptr Swing_Action
 
 swing_origX = objoff_3A		; original x-axis position
 swing_origY = objoff_38		; original y-axis position

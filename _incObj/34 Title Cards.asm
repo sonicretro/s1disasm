@@ -8,10 +8,11 @@ TitleCard:
 		move.w	Card_Index(pc,d0.w),d1
 		jmp	Card_Index(pc,d1.w)
 ; ===========================================================================
-Card_Index:	dc.w Card_CheckSBZ3-Card_Index
-		dc.w Card_ChkPos-Card_Index
-		dc.w Card_Wait-Card_Index
-		dc.w Card_Wait-Card_Index
+Card_Index:	offsetTable
+		ptr Card_CheckSBZ3
+		ptr Card_ChkPos
+		ptr Card_Wait
+		ptr Card_Wait
 
 card_mainX:	equ	objoff_30		; position for card to display on
 card_finalX:	equ	objoff_32		; position for card to finish on

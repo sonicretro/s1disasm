@@ -2,10 +2,11 @@
 ; Animation script - Burrobot enemy (LZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Burro:	dc.w .walk1-Ani_Burro
-		dc.w .walk2-Ani_Burro
-		dc.w .digging-Ani_Burro
-		dc.w .fall-Ani_Burro
+Ani_Burro:	offsetTable
+		ptr .walk1
+		ptr .walk2
+		ptr .digging
+		ptr .fall
 
 .walk1:		dc.b 3
 		dc.b 0, 6

@@ -8,8 +8,9 @@ LabyrinthBlock:
 		move.w	LBlk_Index(pc,d0.w),d1
 		jmp	LBlk_Index(pc,d1.w)
 ; ===========================================================================
-LBlk_Index:	dc.w LBlk_Main-LBlk_Index
-		dc.w LBlk_Action-LBlk_Index
+LBlk_Index:	offsetTable
+		ptr LBlk_Main
+		ptr LBlk_Action
 
 LBlk_Var:	dc.b $10, $10		; width, height
 		dc.b $20, $C

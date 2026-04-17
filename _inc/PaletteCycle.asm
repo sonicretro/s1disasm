@@ -15,14 +15,15 @@ PaletteCycle:
 ; ---------------------------------------------------------------------------
 ; Palette cycling routines
 ; ---------------------------------------------------------------------------
-PalCycle_Index:	dc.w PalCycle_GHZ-PalCycle_Index
-		dc.w PalCycle_LZ-PalCycle_Index
-		dc.w PalCycle_MZ-PalCycle_Index
-		dc.w PalCycle_SLZ-PalCycle_Index
-		dc.w PalCycle_SYZ-PalCycle_Index
-		dc.w PalCycle_SBZ-PalCycle_Index
+PalCycle_Index:	offsetTable
+		ptr PalCycle_GHZ
+		ptr PalCycle_LZ
+		ptr PalCycle_MZ
+		ptr PalCycle_SLZ
+		ptr PalCycle_SYZ
+		ptr PalCycle_SBZ
 		zonewarning PalCycle_Index,2
-		dc.w PalCycle_GHZ-PalCycle_Index	; Ending
+		ptr PalCycle_GHZ	; Ending
 ; ===========================================================================
 
 PalCycle_Title:

@@ -8,17 +8,18 @@ SSResult:
 		move.w	SSR_Index(pc,d0.w),d1
 		jmp	SSR_Index(pc,d1.w)
 ; ===========================================================================
-SSR_Index:	dc.w SSR_ChkPLC-SSR_Index
-		dc.w SSR_Move-SSR_Index
-		dc.w SSR_Wait-SSR_Index
-		dc.w SSR_RingBonus-SSR_Index
-		dc.w SSR_Wait-SSR_Index
-		dc.w SSR_Exit-SSR_Index
-		dc.w SSR_Wait-SSR_Index
-		dc.w SSR_Continue-SSR_Index
-		dc.w SSR_Wait-SSR_Index
-		dc.w SSR_Exit-SSR_Index
-		dc.w SSR_ContAni-SSR_Index
+SSR_Index:	offsetTable
+		ptr SSR_ChkPLC
+		ptr SSR_Move
+		ptr SSR_Wait
+		ptr SSR_RingBonus
+		ptr SSR_Wait
+		ptr SSR_Exit
+		ptr SSR_Wait
+		ptr SSR_Continue
+		ptr SSR_Wait
+		ptr SSR_Exit
+		ptr SSR_ContAni
 
 ssr_mainX = objoff_30		; position for card to display on
 ; ===========================================================================

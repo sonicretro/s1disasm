@@ -8,12 +8,12 @@ BossPlasma:
 		move.w	BossPlasma_Index(pc,d0.w),d0
 		jmp	BossPlasma_Index(pc,d0.w)
 ; ===========================================================================
-BossPlasma_Index:
-		dc.w BossPlasma_Main-BossPlasma_Index
-		dc.w BossPlasma_Generator-BossPlasma_Index
-		dc.w BossPlasma_MakeBalls-BossPlasma_Index
-		dc.w BossPlasma_Finish-BossPlasma_Index
-		dc.w BossPlasma_Balls-BossPlasma_Index
+BossPlasma_Index: offsetTable
+		ptr BossPlasma_Main
+		ptr BossPlasma_Generator
+		ptr BossPlasma_MakeBalls
+		ptr BossPlasma_Finish
+		ptr BossPlasma_Balls
 ; ===========================================================================
 
 BossPlasma_Main:	; Routine 0
@@ -143,10 +143,10 @@ BossPlasma_Balls: ; Routine 8
 		jsr	(AnimateSprite).l
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-BossPlasma_Index2:
-		dc.w BossPlasma_Spread-BossPlasma_Index2
-		dc.w BossPlasma_Drop-BossPlasma_Index2
-		dc.w BossPlasma_Move-BossPlasma_Index2
+BossPlasma_Index2: offsetTable
+		ptr BossPlasma_Spread
+		ptr BossPlasma_Drop
+		ptr BossPlasma_Move
 ; ===========================================================================
 
 ; loc_1A9A6:

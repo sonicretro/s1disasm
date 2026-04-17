@@ -2,9 +2,10 @@
 ; Animation script - Motobug enemy (GHZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Moto:	dc.w .stand-Ani_Moto
-		dc.w .drive-Ani_Moto
-		dc.w .smoke-Ani_Moto
+Ani_Moto:	offsetTable
+		ptr .stand
+		ptr .drive
+		ptr .smoke
 
 .stand:		dc.b 15
 		dc.b 2

@@ -11,16 +11,17 @@ Springs:
 		out_of_range.w	DeleteObject
 		rts
 ; ===========================================================================
-Spring_Index:	dc.w Spring_Main-Spring_Index
-		dc.w Spring_Up-Spring_Index
-		dc.w Spring_AniUp-Spring_Index
-		dc.w Spring_ResetUp-Spring_Index
-		dc.w Spring_LR-Spring_Index
-		dc.w Spring_AniLR-Spring_Index
-		dc.w Spring_ResetLR-Spring_Index
-		dc.w Spring_Dwn-Spring_Index
-		dc.w Spring_AniDwn-Spring_Index
-		dc.w Spring_ResetDwn-Spring_Index
+Spring_Index:	offsetTable
+		ptr Spring_Main
+		ptr Spring_Up
+		ptr Spring_AniUp
+		ptr Spring_ResetUp
+		ptr Spring_LR
+		ptr Spring_AniLR
+		ptr Spring_ResetLR
+		ptr Spring_Dwn
+		ptr Spring_AniDwn
+		ptr Spring_ResetDwn
 
 spring_pow = objoff_30			; power of current spring
 

@@ -8,9 +8,10 @@ VanishSonic:
 		move.w	Van_Index(pc,d0.w),d1
 		jmp	Van_Index(pc,d1.w)
 ; ===========================================================================
-Van_Index:	dc.w Van_Main-Van_Index
-		dc.w Van_RmvSonic-Van_Index
-		dc.w Van_LoadSonic-Van_Index
+Van_Index:	offsetTable
+		ptr Van_Main
+		ptr Van_RmvSonic
+		ptr Van_LoadSonic
 
 van_time = objoff_30		; time for Sonic to disappear
 ; ===========================================================================

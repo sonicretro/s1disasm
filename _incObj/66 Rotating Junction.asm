@@ -8,10 +8,11 @@ Junction:
 		move.w	Jun_Index(pc,d0.w),d1
 		jmp	Jun_Index(pc,d1.w)
 ; ===========================================================================
-Jun_Index:	dc.w Jun_Main-Jun_Index
-		dc.w Jun_Action-Jun_Index
-		dc.w Jun_Display-Jun_Index
-		dc.w Jun_Release-Jun_Index
+Jun_Index:	offsetTable
+		ptr Jun_Main
+		ptr Jun_Action
+		ptr Jun_Display
+		ptr Jun_Release
 
 jun_frame = objoff_34		; current frame
 jun_reverse = objoff_36		; flag set when switch is pressed

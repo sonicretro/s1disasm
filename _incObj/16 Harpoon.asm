@@ -8,9 +8,10 @@ Harpoon:
 		move.w	Harp_Index(pc,d0.w),d1
 		jmp	Harp_Index(pc,d1.w)
 ; ===========================================================================
-Harp_Index:	dc.w Harp_Main-Harp_Index
-		dc.w Harp_Move-Harp_Index
-		dc.w Harp_Wait-Harp_Index
+Harp_Index:	offsetTable
+		ptr Harp_Main
+		ptr Harp_Move
+		ptr Harp_Wait
 
 harp_time = objoff_30		; time between stabbing/retracting
 ; ===========================================================================

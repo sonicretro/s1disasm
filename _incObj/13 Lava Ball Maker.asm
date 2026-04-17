@@ -15,8 +15,9 @@ LavaMaker:
 		bra.w	LBall_ChkDel
 	endif
 ; ===========================================================================
-LavaM_Index:	dc.w LavaM_Main-LavaM_Index
-		dc.w LavaM_MakeLava-LavaM_Index
+LavaM_Index:	offsetTable
+		ptr LavaM_Main
+		ptr LavaM_MakeLava
 ; ---------------------------------------------------------------------------
 ;
 ; Lava ball production rates

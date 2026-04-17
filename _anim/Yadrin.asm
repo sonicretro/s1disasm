@@ -2,8 +2,9 @@
 ; Animation script - Yadrin enemy (SYZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Yad:	dc.w .stand-Ani_Yad
-		dc.w .walk-Ani_Yad
+Ani_Yad:	offsetTable
+		ptr .stand
+		ptr .walk
 
 .stand:		dc.b 7
 		dc.b 0

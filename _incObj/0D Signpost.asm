@@ -13,11 +13,12 @@ Signpost:
 		out_of_range.w	DeleteObject
 		rts
 ; ===========================================================================
-Sign_Index:	dc.w Sign_Main-Sign_Index
-		dc.w Sign_Touch-Sign_Index
-		dc.w Sign_Spin-Sign_Index
-		dc.w Sign_SonicRun-Sign_Index
-		dc.w Sign_Exit-Sign_Index
+Sign_Index:	offsetTable
+		ptr Sign_Main
+		ptr Sign_Touch
+		ptr Sign_Spin
+		ptr Sign_SonicRun
+		ptr Sign_Exit
 
 spintime = objoff_30		; time for signpost to spin
 sparkletime = objoff_32		; time between sparkles

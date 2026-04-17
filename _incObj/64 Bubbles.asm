@@ -8,12 +8,13 @@ Bubble:
 		move.w	Bub_Index(pc,d0.w),d1
 		jmp	Bub_Index(pc,d1.w)
 ; ===========================================================================
-Bub_Index:	dc.w Bub_Main-Bub_Index
-		dc.w Bub_Animate-Bub_Index
-		dc.w Bub_ChkWater-Bub_Index
-		dc.w Bub_Display-Bub_Index
-		dc.w Bub_Delete-Bub_Index
-		dc.w Bub_BblMaker-Bub_Index
+Bub_Index:	offsetTable
+		ptr Bub_Main
+		ptr Bub_Animate
+		ptr Bub_ChkWater
+		ptr Bub_Display
+		ptr Bub_Delete
+		ptr Bub_BblMaker
 
 bub_inhalable = objoff_2E	; flag set when bubble is collectable
 bub_origX = objoff_30		; original x-axis position

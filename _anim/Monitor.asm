@@ -2,16 +2,17 @@
 ; Animation script - monitors
 ; ---------------------------------------------------------------------------
 
-Ani_Monitor:	dc.w .static-Ani_Monitor
-		dc.w .eggman-Ani_Monitor
-		dc.w .sonic-Ani_Monitor
-		dc.w .shoes-Ani_Monitor
-		dc.w .shield-Ani_Monitor
-		dc.w .invincible-Ani_Monitor
-		dc.w .rings-Ani_Monitor
-		dc.w .s-Ani_Monitor
-		dc.w .goggles-Ani_Monitor
-		dc.w .breaking-Ani_Monitor
+Ani_Monitor:	offsetTable
+		ptr .static
+		ptr .eggman
+		ptr .sonic
+		ptr .shoes
+		ptr .shield
+		ptr .invincible
+		ptr .rings
+		ptr .s
+		ptr .goggles
+		ptr .breaking
 
 .static:	dc.b 1
 		dc.b 0, 1, 2

@@ -266,14 +266,15 @@ loc_6206:
 ; End of function BgScrollSpeed
 
 ; ===========================================================================
-BgScroll_Index:	dc.w BgScroll_GHZ-BgScroll_Index
-		dc.w BgScroll_LZ-BgScroll_Index
-		dc.w BgScroll_MZ-BgScroll_Index
-		dc.w BgScroll_SLZ-BgScroll_Index
-		dc.w BgScroll_SYZ-BgScroll_Index
-		dc.w BgScroll_SBZ-BgScroll_Index
+BgScroll_Index:	offsetTable
+		ptr BgScroll_GHZ
+		ptr BgScroll_LZ
+		ptr BgScroll_MZ
+		ptr BgScroll_SLZ
+		ptr BgScroll_SYZ
+		ptr BgScroll_SBZ
 		zonewarning BgScroll_Index,2
-		dc.w BgScroll_End-BgScroll_Index
+		ptr BgScroll_End
 ; ===========================================================================
 
 BgScroll_GHZ:

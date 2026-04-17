@@ -12,12 +12,12 @@ BossStarLight:
 		move.w	BossStarLight_Index(pc,d0.w),d1
 		jmp	BossStarLight_Index(pc,d1.w)
 ; ===========================================================================
-BossStarLight_Index:
-		dc.w BossStarLight_Main-BossStarLight_Index
-		dc.w BossStarLight_ShipMain-BossStarLight_Index
-		dc.w BossStarLight_FaceMain-BossStarLight_Index
-		dc.w BossStarLight_FlameMain-BossStarLight_Index
-		dc.w BossStarLight_TubeMain-BossStarLight_Index
+BossStarLight_Index: offsetTable
+		ptr BossStarLight_Main
+		ptr BossStarLight_ShipMain
+		ptr BossStarLight_FaceMain
+		ptr BossStarLight_FlameMain
+		ptr BossStarLight_TubeMain
 
 BossStarLight_ObjData:	dc.b 2,	0, 4		; routine number, animation, priority
 		dc.b 4,	1, 4
@@ -96,13 +96,13 @@ BossStarLight_ShipMain:	; Routine 2
 		or.b	d0,obRender(a0)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-BossStarLight_ShipIndex:
-		dc.w BSLZ_ShipStart-BossStarLight_ShipIndex
-		dc.w BSLZ_ShipMove-BossStarLight_ShipIndex
-		dc.w BSLZ_MakeBall-BossStarLight_ShipIndex
-		dc.w BSLZ_Explode-BossStarLight_ShipIndex
-		dc.w BSLZ_Recover-BossStarLight_ShipIndex
-		dc.w BSLZ_Escape-BossStarLight_ShipIndex
+BossStarLight_ShipIndex: offsetTable
+		ptr BSLZ_ShipStart
+		ptr BSLZ_ShipMove
+		ptr BSLZ_MakeBall
+		ptr BSLZ_Explode
+		ptr BSLZ_Recover
+		ptr BSLZ_Escape
 ; ===========================================================================
 
 ; loc_189B8:

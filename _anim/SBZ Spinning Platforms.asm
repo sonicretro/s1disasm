@@ -2,10 +2,11 @@
 ; Animation script - trapdoor (SBZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Spin:	dc.w .trapopen-Ani_Spin
-		dc.w .trapclose-Ani_Spin
-		dc.w .spin1-Ani_Spin
-		dc.w .spin2-Ani_Spin
+Ani_Spin:	offsetTable
+		ptr .trapopen
+		ptr .trapclose
+		ptr .spin1
+		ptr .spin2
 
 .trapopen:	dc.b 3
 		dc.b 0, 1

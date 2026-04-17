@@ -8,8 +8,9 @@ Flamethrower:
 		move.w	Flame_Index(pc,d0.w),d1
 		jmp	Flame_Index(pc,d1.w)
 ; ===========================================================================
-Flame_Index:	dc.w Flame_Main-Flame_Index
-		dc.w Flame_Action-Flame_Index
+Flame_Index:	offsetTable
+		ptr Flame_Main
+		ptr Flame_Action
 ; ===========================================================================
 
 Flame_Main:	; Routine 0

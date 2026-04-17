@@ -2,11 +2,12 @@
 ; Animation script - Newtron enemy
 ; ---------------------------------------------------------------------------
 
-Ani_Newt:	dc.w .blank-Ani_Newt
-		dc.w .drop-Ani_Newt
-		dc.w .fly1-Ani_Newt
-		dc.w .fly2-Ani_Newt
-		dc.w .fires-Ani_Newt
+Ani_Newt:	offsetTable
+		ptr .blank
+		ptr .drop
+		ptr .fly1
+		ptr .fly2
+		ptr .fires
 
 .blank:		dc.b 15
 		dc.b $A

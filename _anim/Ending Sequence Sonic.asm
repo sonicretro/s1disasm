@@ -2,9 +2,10 @@
 ; Animation script - Sonic on the ending sequence
 ; ---------------------------------------------------------------------------
 
-Ani_ESon:	dc.w .hold-Ani_ESon
-		dc.w .confused-Ani_ESon
-		dc.w .leap-Ani_ESon
+Ani_ESon:	offsetTable
+		ptr .hold
+		ptr .confused
+		ptr .leap
 
 .hold:		dc.b 3
 		dc.b 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 2

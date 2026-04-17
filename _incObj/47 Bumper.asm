@@ -8,8 +8,9 @@ Bumper:
 		move.w	Bump_Index(pc,d0.w),d1
 		jmp	Bump_Index(pc,d1.w)
 ; ===========================================================================
-Bump_Index:	dc.w Bump_Main-Bump_Index
-		dc.w Bump_Hit-Bump_Index
+Bump_Index:	offsetTable
+		ptr Bump_Main
+		ptr Bump_Hit
 ; ===========================================================================
 
 Bump_Main:	; Routine 0

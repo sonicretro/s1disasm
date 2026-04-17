@@ -8,10 +8,11 @@ ContScrItem:
 		move.w	CSI_Index(pc,d0.w),d1
 		jmp	CSI_Index(pc,d1.w)
 ; ===========================================================================
-CSI_Index:	dc.w CSI_Main-CSI_Index
-		dc.w CSI_Display-CSI_Index
-		dc.w CSI_MakeMiniSonic-CSI_Index
-		dc.w CSI_ChkDel-CSI_Index
+CSI_Index:	offsetTable
+		ptr CSI_Main
+		ptr CSI_Display
+		ptr CSI_MakeMiniSonic
+		ptr CSI_ChkDel
 ; ===========================================================================
 
 CSI_Main:	; Routine 0
@@ -111,10 +112,11 @@ ContSonic:
 		jsr	CSon_Index(pc,d1.w)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-CSon_Index:	dc.w CSon_Main-CSon_Index
-		dc.w CSon_ChkLand-CSon_Index
-		dc.w CSon_Animate-CSon_Index
-		dc.w CSon_Run-CSon_Index
+CSon_Index:	offsetTable
+		ptr CSon_Main
+		ptr CSon_ChkLand
+		ptr CSon_Animate
+		ptr CSon_Run
 ; ===========================================================================
 
 CSon_Main:	; Routine 0

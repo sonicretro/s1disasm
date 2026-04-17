@@ -9,9 +9,10 @@ PSBTM:
 		jsr	PSB_Index(pc,d1.w)
 		bra.w	DisplaySprite
 ; ===========================================================================
-PSB_Index:	dc.w PSB_Main-PSB_Index
-		dc.w PSB_PrsStart-PSB_Index
-		dc.w PSB_Exit-PSB_Index
+PSB_Index:	offsetTable
+		ptr PSB_Main
+		ptr PSB_PrsStart
+		ptr PSB_Exit
 ; ===========================================================================
 
 PSB_Main:	; Routine 0

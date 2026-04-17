@@ -8,11 +8,12 @@ ChainStomp:
 		move.w	CStom_Index(pc,d0.w),d1
 		jmp	CStom_Index(pc,d1.w)
 ; ===========================================================================
-CStom_Index:	dc.w CStom_Main-CStom_Index
-		dc.w CStom_Block-CStom_Index
-		dc.w CStom_Spikes-CStom_Index
-		dc.w CStom_Ceiling-CStom_Index
-		dc.w CStom_Chain-CStom_Index
+CStom_Index:	offsetTable
+		ptr CStom_Main
+		ptr CStom_Block
+		ptr CStom_Spikes
+		ptr CStom_Ceiling
+		ptr CStom_Chain
 
 CStom_switch = objoff_3A		; switch number for the current stomper
 
@@ -182,13 +183,14 @@ CStom_Types:
 		move.w	CStom_TypeIndex(pc,d0.w),d1
 		jmp	CStom_TypeIndex(pc,d1.w)
 ; ===========================================================================
-CStom_TypeIndex:dc.w CStom_Type00-CStom_TypeIndex
-		dc.w CStom_Type01-CStom_TypeIndex
-		dc.w CStom_Type01-CStom_TypeIndex
-		dc.w CStom_Type03-CStom_TypeIndex
-		dc.w CStom_Type01-CStom_TypeIndex
-		dc.w CStom_Type03-CStom_TypeIndex
-		dc.w CStom_Type01-CStom_TypeIndex
+CStom_TypeIndex: offsetTable
+		ptr CStom_Type00
+		ptr CStom_Type01
+		ptr CStom_Type01
+		ptr CStom_Type03
+		ptr CStom_Type01
+		ptr CStom_Type03
+		ptr CStom_Type01
 ; ===========================================================================
 
 CStom_Type00:

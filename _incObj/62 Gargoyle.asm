@@ -9,10 +9,11 @@ Gargoyle:
 		jsr	Gar_Index(pc,d1.w)
 		bra.w	RememberState
 ; ===========================================================================
-Gar_Index:	dc.w Gar_Main-Gar_Index
-		dc.w Gar_MakeFire-Gar_Index
-		dc.w Gar_FireBall-Gar_Index
-		dc.w Gar_AniFire-Gar_Index
+Gar_Index:	offsetTable
+		ptr Gar_Main
+		ptr Gar_MakeFire
+		ptr Gar_FireBall
+		ptr Gar_AniFire
 
 Gar_SpitRate:	dc.b 30, 60, 90, 120, 150, 180,	210, 240
 ; ===========================================================================

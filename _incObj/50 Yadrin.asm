@@ -46,8 +46,9 @@ Yadrin:
 		move.w	Yad_Index(pc,d0.w),d1
 		jmp	Yad_Index(pc,d1.w)
 ; ===========================================================================
-Yad_Index:	dc.w Yad_Main-Yad_Index
-		dc.w Yad_Action-Yad_Index
+Yad_Index:	offsetTable
+		ptr Yad_Main
+		ptr Yad_Action
 
 yad_timedelay = objoff_30
 ; ===========================================================================
@@ -83,8 +84,9 @@ Yad_Action:	; Routine 2
 		bsr.w	AnimateSprite
 		bra.w	RememberState
 ; ===========================================================================
-Yad_Index2:	dc.w Yad_Move-Yad_Index2
-		dc.w Yad_FixToFloor-Yad_Index2
+Yad_Index2:	offsetTable
+		ptr Yad_Move
+		ptr Yad_FixToFloor
 ; ===========================================================================
 
 Yad_Move:

@@ -8,9 +8,10 @@ SpikeBall:
 		move.w	SBall_Index(pc,d0.w),d1
 		jmp	SBall_Index(pc,d1.w)
 ; ===========================================================================
-SBall_Index:	dc.w SBall_Main-SBall_Index
-		dc.w SBall_Move-SBall_Index
-		dc.w SBall_Display-SBall_Index
+SBall_Index:	offsetTable
+		ptr SBall_Main
+		ptr SBall_Move
+		ptr SBall_Display
 
 sball_childs = objoff_29	; number of child objects (1 byte)
 		; $30-$37	; object RAM numbers of childs (1 byte each)

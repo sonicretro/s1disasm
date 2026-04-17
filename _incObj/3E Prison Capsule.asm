@@ -13,14 +13,15 @@ Prison:
 .delete:
 		jmp	(DeleteObject).l
 ; ===========================================================================
-Pri_Index:	dc.w Pri_Main-Pri_Index
-		dc.w Pri_BodyMain-Pri_Index
-		dc.w Pri_Switched-Pri_Index
-		dc.w Pri_Explosion-Pri_Index
-		dc.w Pri_Explosion-Pri_Index
-		dc.w Pri_Explosion-Pri_Index
-		dc.w Pri_Animals-Pri_Index
-		dc.w Pri_EndAct-Pri_Index
+Pri_Index:	offsetTable
+		ptr Pri_Main
+		ptr Pri_BodyMain
+		ptr Pri_Switched
+		ptr Pri_Explosion
+		ptr Pri_Explosion
+		ptr Pri_Explosion
+		ptr Pri_Animals
+		ptr Pri_EndAct
 
 pri_origY = objoff_30		; original y-axis position
 

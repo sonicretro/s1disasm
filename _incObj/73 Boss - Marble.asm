@@ -8,12 +8,12 @@ BossMarble:
 		move.w	BossMarble_Index(pc,d0.w),d1
 		jmp	BossMarble_Index(pc,d1.w)
 ; ===========================================================================
-BossMarble_Index:
-		dc.w BossMarble_Main-BossMarble_Index
-		dc.w BossMarble_ShipMain-BossMarble_Index
-		dc.w BossMarble_FaceMain-BossMarble_Index
-		dc.w BossMarble_FlameMain-BossMarble_Index
-		dc.w BossMarble_TubeMain-BossMarble_Index
+BossMarble_Index: offsetTable
+		ptr BossMarble_Main
+		ptr BossMarble_ShipMain
+		ptr BossMarble_FaceMain
+		ptr BossMarble_FlameMain
+		ptr BossMarble_TubeMain
 
 BossMarble_ObjData:
 		dc.b 2,	0, 4		; routine number, animation, priority
@@ -66,12 +66,12 @@ BossMarble_ShipMain:	; Routine 2
 		or.b	d0,obRender(a0)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-BossMarble_ShipIndex:
-		dc.w BMZ_ShipStart-BossMarble_ShipIndex
-		dc.w BMZ_ShipMove-BossMarble_ShipIndex
-		dc.w BMZ_Explode-BossMarble_ShipIndex
-		dc.w BMZ_Recover-BossMarble_ShipIndex
-		dc.w BMZ_Escape-BossMarble_ShipIndex
+BossMarble_ShipIndex: offsetTable
+		ptr BMZ_ShipStart
+		ptr BMZ_ShipMove
+		ptr BMZ_Explode
+		ptr BMZ_Recover
+		ptr BMZ_Escape
 ; ===========================================================================
 
 ; loc_18302:
@@ -143,10 +143,11 @@ BMZ_ShipMove:
 		andi.b	#6,obSubtype(a0)
 		bra.w	loc_1833E
 ; ===========================================================================
-off_183C2:	dc.w BMZ_ChgDir-off_183C2
-		dc.w BMZ_DropFire-off_183C2
-		dc.w BMZ_ChgDir-off_183C2
-		dc.w BMZ_DropFire-off_183C2
+off_183C2:	offsetTable
+		ptr BMZ_ChgDir
+		ptr BMZ_DropFire
+		ptr BMZ_ChgDir
+		ptr BMZ_DropFire
 ; ===========================================================================
 
 ; loc_183CA:

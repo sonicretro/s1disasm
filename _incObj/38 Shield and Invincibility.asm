@@ -8,9 +8,10 @@ ShieldItem:
 		move.w	Shi_Index(pc,d0.w),d1
 		jmp	Shi_Index(pc,d1.w)
 ; ===========================================================================
-Shi_Index:	dc.w Shi_Main-Shi_Index
-		dc.w Shi_Shield-Shi_Index
-		dc.w Shi_Stars-Shi_Index
+Shi_Index:	offsetTable
+		ptr Shi_Main
+		ptr Shi_Shield
+		ptr Shi_Stars
 ; ===========================================================================
 
 Shi_Main:	; Routine 0

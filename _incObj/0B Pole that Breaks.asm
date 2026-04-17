@@ -8,9 +8,10 @@ Pole:
 		move.w	Pole_Index(pc,d0.w),d1
 		jmp	Pole_Index(pc,d1.w)
 ; ===========================================================================
-Pole_Index:	dc.w Pole_Main-Pole_Index
-		dc.w Pole_Action-Pole_Index
-		dc.w Pole_Display-Pole_Index
+Pole_Index:	offsetTable
+		ptr Pole_Main
+		ptr Pole_Action
+		ptr Pole_Display
 
 pole_time = objoff_30		; time between grabbing the pole & breaking
 pole_grabbed = objoff_32		; flag set when Sonic grabs the pole

@@ -8,27 +8,28 @@ Animals:
 		move.w	Anml_Index(pc,d0.w),d1
 		jmp	Anml_Index(pc,d1.w)
 ; ===========================================================================
-Anml_Index:	dc.w Anml_Main-Anml_Index
-		dc.w Anml_ChkFloor-Anml_Index
-		dc.w Anml_Type0-Anml_Index
-		dc.w Anml_Type1-Anml_Index
-		dc.w Anml_Type0-Anml_Index
-		dc.w Anml_Type0-Anml_Index
-		dc.w Anml_Type0-Anml_Index
-		dc.w Anml_Type1-Anml_Index
-		dc.w Anml_Type0-Anml_Index
-		dc.w Anml_FromPrison-Anml_Index
-		dc.w Anml_End_0A-Anml_Index
-		dc.w Anml_End_0A-Anml_Index
-		dc.w Anml_End_0C-Anml_Index
-		dc.w Anml_End_0D-Anml_Index
-		dc.w Anml_End_0E-Anml_Index
-		dc.w Anml_End_0F-Anml_Index
-		dc.w Anml_End_0E-Anml_Index
-		dc.w Anml_End_0F-Anml_Index
-		dc.w Anml_End_0E-Anml_Index
-		dc.w Anml_End_13-Anml_Index
-		dc.w Anml_End_14-Anml_Index
+Anml_Index:	offsetTable
+		ptr Anml_Main
+		ptr Anml_ChkFloor
+		ptr Anml_Type0
+		ptr Anml_Type1
+		ptr Anml_Type0
+		ptr Anml_Type0
+		ptr Anml_Type0
+		ptr Anml_Type1
+		ptr Anml_Type0
+		ptr Anml_FromPrison
+		ptr Anml_End_0A
+		ptr Anml_End_0A
+		ptr Anml_End_0C
+		ptr Anml_End_0D
+		ptr Anml_End_0E
+		ptr Anml_End_0F
+		ptr Anml_End_0E
+		ptr Anml_End_0F
+		ptr Anml_End_0E
+		ptr Anml_End_13
+		ptr Anml_End_14
 ; ===========================================================================
 
 Anml_VarIndex:	; two index IDs for Anml_Variables

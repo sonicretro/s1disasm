@@ -18,13 +18,13 @@ BossSpikeball:
 		bhi.w	BossStarLight_Delete
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-BossSpikeball_Index:
-		dc.w BossSpikeball_Main-BossSpikeball_Index
-		dc.w BossSpikeball_Fall-BossSpikeball_Index
-		dc.w BossSpikeball_Bounce-BossSpikeball_Index
-		dc.w BossSpikeball_HitBoss-BossSpikeball_Index
-		dc.w BossSpikeball_Explode-BossSpikeball_Index
-		dc.w BossSpikeball_MoveFrag-BossSpikeball_Index
+BossSpikeball_Index: offsetTable
+		ptr BossSpikeball_Main
+		ptr BossSpikeball_Fall
+		ptr BossSpikeball_Bounce
+		ptr BossSpikeball_HitBoss
+		ptr BossSpikeball_Explode
+		ptr BossSpikeball_MoveFrag
 ; ===========================================================================
 
 BossSpikeball_Main:	; Routine 0

@@ -15,8 +15,9 @@ UnusedExplosion:
 		move.w	UnkExpl_Index(pc,d0.w),d1
 		jmp	UnkExpl_Index(pc,d1.w)
 ; ===========================================================================
-UnkExpl_Index:	dc.w UnkExpl_Main-UnkExpl_Index
-		dc.w UnkExpl_Animate-UnkExpl_Index
+UnkExpl_Index:	offsetTable
+		ptr UnkExpl_Main
+		ptr UnkExpl_Animate
 ; ===========================================================================
 
 UnkExpl_Main:	; Routine 0
@@ -54,9 +55,10 @@ ExplosionItem:
 		move.w	ExItem_Index(pc,d0.w),d1
 		jmp	ExItem_Index(pc,d1.w)
 ; ===========================================================================
-ExItem_Index:	dc.w ExItem_Animal-ExItem_Index
-		dc.w ExItem_Main-ExItem_Index
-		dc.w ExItem_Animate-ExItem_Index
+ExItem_Index:	offsetTable
+		ptr ExItem_Animal
+		ptr ExItem_Main
+		ptr ExItem_Animate
 ; ===========================================================================
 
 ExItem_Animal:	; Routine 0
@@ -104,8 +106,9 @@ Explosion:
 		move.w	Expl_Index(pc,d0.w),d1
 		jmp	Expl_Index(pc,d1.w)
 ; ===========================================================================
-Expl_Index:	dc.w Expl_Main-Expl_Index
-		dc.w ExItem_Animate-Expl_Index	; <-- this branches to a different object!
+Expl_Index:	offsetTable
+		ptr Expl_Main
+		ptr ExItem_Animate	; <-- this branches to a different object!
 ; ===========================================================================
 
 Expl_Main:	; Routine 0

@@ -77,10 +77,11 @@ LZDynamicWater:
 .exit:
 		rts
 ; ===========================================================================
-DynWater_Index:	dc.w DynWater_LZ1-DynWater_Index
-		dc.w DynWater_LZ2-DynWater_Index
-		dc.w DynWater_LZ3-DynWater_Index
-		dc.w DynWater_SBZ3-DynWater_Index
+DynWater_Index:	offsetTable
+		ptr DynWater_LZ1
+		ptr DynWater_LZ2
+		ptr DynWater_LZ3
+		ptr DynWater_SBZ3
 ; ===========================================================================
 
 DynWater_LZ1:

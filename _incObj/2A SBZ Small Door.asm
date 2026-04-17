@@ -8,8 +8,9 @@ AutoDoor:
 		move.w	ADoor_Index(pc,d0.w),d1
 		jmp	ADoor_Index(pc,d1.w)
 ; ===========================================================================
-ADoor_Index:	dc.w ADoor_Main-ADoor_Index
-		dc.w ADoor_OpenShut-ADoor_Index
+ADoor_Index:	offsetTable
+		ptr ADoor_Main
+		ptr ADoor_OpenShut
 ; ===========================================================================
 
 ADoor_Main:	; Routine 0

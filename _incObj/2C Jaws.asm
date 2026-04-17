@@ -8,8 +8,9 @@ Jaws:
 		move.w	Jaws_Index(pc,d0.w),d1
 		jmp	Jaws_Index(pc,d1.w)
 ; ===========================================================================
-Jaws_Index:	dc.w Jaws_Main-Jaws_Index
-		dc.w Jaws_Turn-Jaws_Index
+Jaws_Index:	offsetTable
+		ptr Jaws_Main
+		ptr Jaws_Turn
 
 jaws_timecount = objoff_30
 jaws_timedelay = objoff_32

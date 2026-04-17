@@ -8,11 +8,12 @@ Monitor:
 		move.w	Mon_Index(pc,d0.w),d1
 		jmp	Mon_Index(pc,d1.w)
 ; ===========================================================================
-Mon_Index:	dc.w Mon_Main-Mon_Index
-		dc.w Mon_Solid-Mon_Index
-		dc.w Mon_BreakOpen-Mon_Index
-		dc.w Mon_Animate-Mon_Index
-		dc.w Mon_Display-Mon_Index
+Mon_Index:	offsetTable
+		ptr Mon_Main
+		ptr Mon_Solid
+		ptr Mon_BreakOpen
+		ptr Mon_Animate
+		ptr Mon_Display
 ; ===========================================================================
 
 Mon_Main:	; Routine 0

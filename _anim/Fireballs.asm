@@ -2,10 +2,11 @@
 ; Animation script - lava balls
 ; ---------------------------------------------------------------------------
 
-Ani_Fire:	dc.w .vertical-Ani_Fire
-		dc.w .vertcollide-Ani_Fire
-		dc.w .horizontal-Ani_Fire
-		dc.w .horicollide-Ani_Fire
+Ani_Fire:	offsetTable
+		ptr .vertical
+		ptr .vertcollide
+		ptr .horizontal
+		ptr .horicollide
 
 .vertical:	dc.b 5
 		dc.b 0, 0|aniXFlip, 1, 1|aniXFlip

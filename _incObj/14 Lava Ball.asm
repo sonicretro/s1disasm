@@ -13,9 +13,10 @@ LavaBall:
 		bra.w	DisplaySprite
 	endif
 ; ===========================================================================
-LBall_Index:	dc.w LBall_Main-LBall_Index
-		dc.w LBall_Action-LBall_Index
-		dc.w LBall_Delete-LBall_Index
+LBall_Index:	offsetTable
+		ptr LBall_Main
+		ptr LBall_Action
+		ptr LBall_Delete
 
 LBall_Speeds:	dc.w -$400, -$500, -$600, -$700, -$200
 		dc.w $200, -$200, $200,	0
@@ -76,15 +77,16 @@ LBall_ChkDel:
 		rts
 	endif
 ; ===========================================================================
-LBall_TypeIndex:dc.w LBall_Type00-LBall_TypeIndex
-		dc.w LBall_Type00-LBall_TypeIndex
-		dc.w LBall_Type00-LBall_TypeIndex
-		dc.w LBall_Type00-LBall_TypeIndex
-		dc.w LBall_Type04-LBall_TypeIndex
-		dc.w LBall_Type05-LBall_TypeIndex
-		dc.w LBall_Type06-LBall_TypeIndex
-		dc.w LBall_Type07-LBall_TypeIndex
-		dc.w LBall_Type08-LBall_TypeIndex
+LBall_TypeIndex: offsetTable
+		ptr LBall_Type00
+		ptr LBall_Type00
+		ptr LBall_Type00
+		ptr LBall_Type00
+		ptr LBall_Type04
+		ptr LBall_Type05
+		ptr LBall_Type06
+		ptr LBall_Type07
+		ptr LBall_Type08
 ; ===========================================================================
 ; lavaball types 00-03 fly up and fall back down
 

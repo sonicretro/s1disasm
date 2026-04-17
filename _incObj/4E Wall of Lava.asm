@@ -8,11 +8,12 @@ LavaWall:
 		move.w	LWall_Index(pc,d0.w),d1
 		jmp	LWall_Index(pc,d1.w)
 ; ===========================================================================
-LWall_Index:	dc.w LWall_Main-LWall_Index
-		dc.w LWall_Solid-LWall_Index
-		dc.w LWall_Action-LWall_Index
-		dc.w LWall_Move-LWall_Index
-		dc.w LWall_Delete-LWall_Index
+LWall_Index:	offsetTable
+		ptr LWall_Main
+		ptr LWall_Solid
+		ptr LWall_Action
+		ptr LWall_Move
+		ptr LWall_Delete
 
 lwall_flag = objoff_36		; flag to start wall moving
 ; ===========================================================================

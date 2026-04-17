@@ -8,9 +8,10 @@ GameOverCard:
 		move.w	Over_Index(pc,d0.w),d1
 		jmp	Over_Index(pc,d1.w)
 ; ===========================================================================
-Over_Index:	dc.w Over_ChkPLC-Over_Index
-		dc.w Over_Move-Over_Index
-		dc.w Over_Wait-Over_Index
+Over_Index:	offsetTable
+		ptr Over_ChkPLC
+		ptr Over_Move
+		ptr Over_Wait
 ; ===========================================================================
 
 Over_ChkPLC:	; Routine 0

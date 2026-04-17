@@ -12,10 +12,10 @@ EggmanCylinder:
 		move.w	EggmanCylinder_Index(pc,d0.w),d0
 		jmp	EggmanCylinder_Index(pc,d0.w)
 ; ===========================================================================
-EggmanCylinder_Index:
-		dc.w EggmanCylinder_Main-EggmanCylinder_Index
-		dc.w EggmanCylinder_Action-EggmanCylinder_Index
-		dc.w EggmanCylinder_Move-EggmanCylinder_Index
+EggmanCylinder_Index: offsetTable
+		ptr EggmanCylinder_Main
+		ptr EggmanCylinder_Action
+		ptr EggmanCylinder_Move
 
 EggmanCylinder_PosData:
 		dc.w boss_fz_x+$80,  boss_fz_y+$110
@@ -125,10 +125,11 @@ EggmanCylinder_Move: ; Routine 4
 		jsr	off_1A590(pc,d0.w)
 		bra.w	loc_1A4EA
 ; ===========================================================================
-off_1A590:	dc.w EggmanCylinder_Bottom-off_1A590	; bottom left
-		dc.w EggmanCylinder_Bottom-off_1A590	; bottom right
-		dc.w EggmanCylinder_Top-off_1A590	; top left
-		dc.w EggmanCylinder_Top-off_1A590	; top right
+off_1A590:	offsetTable
+		ptr EggmanCylinder_Bottom	; bottom left
+		ptr EggmanCylinder_Bottom	; bottom right
+		ptr EggmanCylinder_Top		; top left
+		ptr EggmanCylinder_Top		; top right
 ; ===========================================================================
 
 ; loc_1A598:

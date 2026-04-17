@@ -8,15 +8,16 @@ GotThroughCard:
 		move.w	Got_Index(pc,d0.w),d1
 		jmp	Got_Index(pc,d1.w)
 ; ===========================================================================
-Got_Index:	dc.w Got_ChkPLC-Got_Index
-		dc.w Got_Move-Got_Index
-		dc.w Got_Wait-Got_Index
-		dc.w Got_Bonus-Got_Index
-		dc.w Got_Wait-Got_Index
-		dc.w Got_NextLevel-Got_Index
-		dc.w Got_Wait-Got_Index
-		dc.w Got_MoveBack-Got_Index
-		dc.w Got_Boundary-Got_Index
+Got_Index:	offsetTable
+		ptr Got_ChkPLC
+		ptr Got_Move
+		ptr Got_Wait
+		ptr Got_Bonus
+		ptr Got_Wait
+		ptr Got_NextLevel
+		ptr Got_Wait
+		ptr Got_MoveBack
+		ptr Got_Boundary
 
 got_mainX = objoff_30		; position for card to display on
 got_finalX = objoff_32		; position for card to finish on

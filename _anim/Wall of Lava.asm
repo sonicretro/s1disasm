@@ -2,7 +2,8 @@
 ; Animation script - advancing wall of lava (MZ act 2)
 ; ---------------------------------------------------------------------------
 
-Ani_LWall:	dc.w .lavawall-Ani_LWall
+Ani_LWall:	offsetTable
+		ptr .lavawall
 
 .lavawall:	dc.b 9
 		dc.b 0, 1, 2, 3

@@ -2,10 +2,11 @@
 ; Animation script - harpoon (LZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Harp:	dc.w .h_extending-Ani_Harp
-		dc.w .h_retracting-Ani_Harp
-		dc.w .v_extending-Ani_Harp
-		dc.w .v_retracting-Ani_Harp
+Ani_Harp:	offsetTable
+		ptr .h_extending
+		ptr .h_retracting
+		ptr .v_extending
+		ptr .v_retracting
 
 .h_extending:	dc.b 3
 		dc.b 1, 2

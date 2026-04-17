@@ -15,9 +15,10 @@ ScrapEggman:
 		move.w	SEgg_Index(pc,d0.w),d1
 		jmp	SEgg_Index(pc,d1.w)
 ; ===========================================================================
-SEgg_Index:	dc.w SEgg_Main-SEgg_Index
-		dc.w SEgg_Eggman-SEgg_Index
-		dc.w SEgg_Switch-SEgg_Index
+SEgg_Index:	offsetTable
+		ptr SEgg_Main
+		ptr SEgg_Eggman
+		ptr SEgg_Switch
 
 SEgg_ObjData:	dc.b 2,	0, 3		; routine number, animation, priority
 		dc.b 4,	0, 3
@@ -65,10 +66,11 @@ SEgg_Eggman:	; Routine 2
 		jsr	(AnimateSprite).l
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-SEgg_EggIndex:	dc.w SEgg_ChkSonic-SEgg_EggIndex
-		dc.w SEgg_PreLeap-SEgg_EggIndex
-		dc.w SEgg_Leap-SEgg_EggIndex
-		dc.w SEgg_Move-SEgg_EggIndex
+SEgg_EggIndex:	offsetTable
+		ptr SEgg_ChkSonic
+		ptr SEgg_PreLeap
+		ptr SEgg_Leap
+		ptr SEgg_Move
 ; ===========================================================================
 
 SEgg_ChkSonic:
@@ -155,8 +157,9 @@ SEgg_Switch:	; Routine 4
 		move.w	SEgg_SwIndex(pc,d0.w),d0
 		jmp	SEgg_SwIndex(pc,d0.w)
 ; ===========================================================================
-SEgg_SwIndex:	dc.w SEgg_SwChk-SEgg_SwIndex
-		dc.w SEgg_SwDisplay-SEgg_SwIndex
+SEgg_SwIndex:	offsetTable
+		ptr SEgg_SwChk
+		ptr SEgg_SwDisplay
 ; ===========================================================================
 
 ; loc_199E6:

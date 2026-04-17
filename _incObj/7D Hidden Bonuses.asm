@@ -8,8 +8,9 @@ HiddenBonus:
 		move.w	Bonus_Index(pc,d0.w),d1
 		jmp	Bonus_Index(pc,d1.w)
 ; ===========================================================================
-Bonus_Index:	dc.w Bonus_Main-Bonus_Index
-		dc.w Bonus_Display-Bonus_Index
+Bonus_Index:	offsetTable
+		ptr Bonus_Main
+		ptr Bonus_Display
 
 bonus_timelen = objoff_30		; length of time to display bonus sprites
 ; ===========================================================================

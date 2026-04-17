@@ -15,10 +15,11 @@ Obj09_Normal:
 		move.w	Obj09_Index(pc,d0.w),d1
 		jmp	Obj09_Index(pc,d1.w)
 ; ===========================================================================
-Obj09_Index:	dc.w Obj09_Main-Obj09_Index
-		dc.w Obj09_ChkDebug-Obj09_Index
-		dc.w Obj09_ExitStage-Obj09_Index
-		dc.w Obj09_Exit2-Obj09_Index
+Obj09_Index:	offsetTable
+		ptr Obj09_Main
+		ptr Obj09_ChkDebug
+		ptr Obj09_ExitStage
+		ptr Obj09_Exit2
 ; ===========================================================================
 
 Obj09_Main:	; Routine 0
@@ -50,8 +51,9 @@ Obj09_NoDebug:
 		jsr	(Sonic_LoadGfx).l
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-Obj09_Modes:	dc.w Obj09_OnWall-Obj09_Modes
-		dc.w Obj09_InAir-Obj09_Modes
+Obj09_Modes:	offsetTable
+		ptr Obj09_OnWall
+		ptr Obj09_InAir
 ; ===========================================================================
 
 Obj09_OnWall:

@@ -2,9 +2,10 @@
 ; Animation script - Eggman on the "TRY AGAIN" and "END" screens
 ; ---------------------------------------------------------------------------
 
-Ani_EEgg:	dc.w .tryagain1-Ani_EEgg
-		dc.w .tryagain2-Ani_EEgg
-		dc.w .endtantrum-Ani_EEgg
+Ani_EEgg:	offsetTable
+		ptr .tryagain1
+		ptr .tryagain2
+		ptr .endtantrum
 
 .tryagain1:	dc.b 5
 		dc.b 0

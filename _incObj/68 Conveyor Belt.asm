@@ -8,8 +8,9 @@ Conveyor:
 		move.w	Conv_Index(pc,d0.w),d1
 		jmp	Conv_Index(pc,d1.w)
 ; ===========================================================================
-Conv_Index:	dc.w Conv_Main-Conv_Index
-		dc.w Conv_Action-Conv_Index
+Conv_Index:	offsetTable
+		ptr Conv_Main
+		ptr Conv_Action
 
 conv_speed = objoff_36
 conv_width = objoff_38

@@ -9,16 +9,17 @@ EndSonic:
 		jsr	ESon_Index(pc,d1.w)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-ESon_Index:	dc.w ESon_Main-ESon_Index
-		dc.w ESon_MakeEmeralds-ESon_Index
-		dc.w ESon_Animate-ESon_Index
-		dc.w ESon_LookUp-ESon_Index
-		dc.w ESon_ClrObjRam-ESon_Index
-		dc.w ESon_Animate-ESon_Index
-		dc.w ESon_MakeLogo-ESon_Index
-		dc.w ESon_Animate-ESon_Index
-		dc.w ESon_Leap-ESon_Index
-		dc.w ESon_Animate-ESon_Index
+ESon_Index:	offsetTable
+		ptr ESon_Main
+		ptr ESon_MakeEmeralds
+		ptr ESon_Animate
+		ptr ESon_LookUp
+		ptr ESon_ClrObjRam
+		ptr ESon_Animate
+		ptr ESon_MakeLogo
+		ptr ESon_Animate
+		ptr ESon_Leap
+		ptr ESon_Animate
 
 eson_time = objoff_30	; time to wait between events
 ; ===========================================================================
@@ -133,8 +134,9 @@ EndChaos:
 		jsr	ECha_Index(pc,d1.w)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-ECha_Index:	dc.w ECha_Main-ECha_Index
-		dc.w ECha_Move-ECha_Index
+ECha_Index:	offsetTable
+		ptr ECha_Main
+		ptr ECha_Move
 
 echa_origX:	equ objoff_38	; x-axis centre of emerald circle (2 bytes)
 echa_origY:	equ objoff_3A	; y-axis centre of emerald circle (2 bytes)
@@ -224,9 +226,10 @@ EndSTH:
 		jmp	(DisplaySprite).l
 	endif
 ; ===========================================================================
-ESth_Index:	dc.w ESth_Main-ESth_Index
-		dc.w ESth_Move-ESth_Index
-		dc.w ESth_GotoCredits-ESth_Index
+ESth_Index:	offsetTable
+		ptr ESth_Main
+		ptr ESth_Move
+		ptr ESth_GotoCredits
 
 esth_time = objoff_30		; time until exit
 ; ===========================================================================

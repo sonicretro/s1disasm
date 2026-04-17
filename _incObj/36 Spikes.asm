@@ -8,8 +8,9 @@ Spikes:
 		move.w	Spik_Index(pc,d0.w),d1
 		jmp	Spik_Index(pc,d1.w)
 ; ===========================================================================
-Spik_Index:	dc.w Spik_Main-Spik_Index
-		dc.w Spik_Solid-Spik_Index
+Spik_Index:	offsetTable
+		ptr Spik_Main
+		ptr Spik_Solid
 
 spik_origX equ objoff_30		; start X position
 spik_origY equ objoff_32		; start Y position
@@ -160,9 +161,10 @@ Spik_Type0x:
 		move.w	Spik_TypeIndex(pc,d0.w),d1
 		jmp	Spik_TypeIndex(pc,d1.w)
 ; ===========================================================================
-Spik_TypeIndex:	dc.w Spik_Type00-Spik_TypeIndex
-		dc.w Spik_Type01-Spik_TypeIndex
-		dc.w Spik_Type02-Spik_TypeIndex
+Spik_TypeIndex:	offsetTable
+		ptr Spik_Type00
+		ptr Spik_Type01
+		ptr Spik_Type02
 ; ===========================================================================
 
 Spik_Type00:

@@ -8,9 +8,10 @@ PushBlock:
 		move.w	PushB_Index(pc,d0.w),d1
 		jmp	PushB_Index(pc,d1.w)
 ; ===========================================================================
-PushB_Index:	dc.w PushB_Main-PushB_Index
-		dc.w PushB_Action-PushB_Index
-		dc.w PushB_ChkVisible-PushB_Index
+PushB_Index:	offsetTable
+		ptr PushB_Main
+		ptr PushB_Action
+		ptr PushB_ChkVisible
 
 PushB_Var:	dc.b $10, 0	; object width, frame number
 		dc.b $40, 1

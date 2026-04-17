@@ -8,8 +8,9 @@ WaterSound:
 		move.w	WSnd_Index(pc,d0.w),d1
 		jmp	WSnd_Index(pc,d1.w)
 ; ===========================================================================
-WSnd_Index:	dc.w WSnd_Main-WSnd_Index
-		dc.w WSnd_PlaySnd-WSnd_Index
+WSnd_Index:	offsetTable
+		ptr WSnd_Main
+		ptr WSnd_PlaySnd
 ; ===========================================================================
 
 WSnd_Main:	; Routine 0

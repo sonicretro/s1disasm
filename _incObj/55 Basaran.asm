@@ -8,8 +8,9 @@ Basaran:
 		move.w	Bas_Index(pc,d0.w),d1
 		jmp	Bas_Index(pc,d1.w)
 ; ===========================================================================
-Bas_Index:	dc.w Bas_Main-Bas_Index
-		dc.w Bas_Action-Bas_Index
+Bas_Index:	offsetTable
+		ptr Bas_Main
+		ptr Bas_Action
 ; ===========================================================================
 
 Bas_Main:	; Routine 0

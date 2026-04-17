@@ -2,21 +2,22 @@
 ; Animation script - countdown numbers and bubbles (LZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Drown:	dc.w .zeroappear-Ani_Drown
-		dc.w .oneappear-Ani_Drown
-		dc.w .twoappear-Ani_Drown
-		dc.w .threeappear-Ani_Drown
-		dc.w .fourappear-Ani_Drown
-		dc.w .fiveappear-Ani_Drown
-		dc.w .smallbubble-Ani_Drown
-		dc.w .zeroflash-Ani_Drown
-		dc.w .oneflash-Ani_Drown
-		dc.w .twoflash-Ani_Drown
-		dc.w .threeflash-Ani_Drown
-		dc.w .fourflash-Ani_Drown
-		dc.w .fiveflash-Ani_Drown
-		dc.w .blank-Ani_Drown
-		dc.w .mediumbubble-Ani_Drown
+Ani_Drown:	offsetTable
+		ptr .zeroappear
+		ptr .oneappear
+		ptr .twoappear
+		ptr .threeappear
+		ptr .fourappear
+		ptr .fiveappear
+		ptr .smallbubble
+		ptr .zeroflash
+		ptr .oneflash
+		ptr .twoflash
+		ptr .threeflash
+		ptr .fourflash
+		ptr .fiveflash
+		ptr .blank
+		ptr .mediumbubble
 
 .zeroappear:	dc.b 5
 		dc.b 0, 1, 2, 3, 4, 9, $D

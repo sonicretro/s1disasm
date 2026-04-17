@@ -8,8 +8,9 @@ Electro:
 		move.w	Elec_Index(pc,d0.w),d1
 		jmp	Elec_Index(pc,d1.w)
 ; ===========================================================================
-Elec_Index:	dc.w Elec_Main-Elec_Index
-		dc.w Elec_Shock-Elec_Index
+Elec_Index:	offsetTable
+		ptr Elec_Main
+		ptr Elec_Shock
 
 elec_freq = objoff_34		; frequency
 ; ===========================================================================

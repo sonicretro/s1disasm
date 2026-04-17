@@ -2,8 +2,9 @@
 ; Animation script - electrocution orbs (SBZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Elec:	dc.w .idle-Ani_Elec
-		dc.w .discharge-Ani_Elec
+Ani_Elec:	offsetTable
+		ptr .idle
+		ptr .discharge
 
 .idle:		dc.b 7
 		dc.b 0

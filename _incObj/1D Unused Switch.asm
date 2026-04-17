@@ -9,9 +9,10 @@ MagicSwitch:
 		move.w	Swi_Index(pc,d0.w),d1
 		jmp	Swi_Index(pc,d1.w)
 ; ===========================================================================
-Swi_Index:	dc.w Swi_Main-Swi_Index
-		dc.w Swi_Action-Swi_Index
-		dc.w Swi_Delete-Swi_Index
+Swi_Index:	offsetTable
+		ptr Swi_Main
+		ptr Swi_Action
+		ptr Swi_Delete
 
 swi_origY = objoff_30		; original y-axis position
 ; ===========================================================================

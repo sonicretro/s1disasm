@@ -8,8 +8,9 @@ WaterSurface:
 		move.w	Surf_Index(pc,d0.w),d1
 		jmp	Surf_Index(pc,d1.w)
 ; ===========================================================================
-Surf_Index:	dc.w Surf_Main-Surf_Index
-		dc.w Surf_Action-Surf_Index
+Surf_Index:	offsetTable
+		ptr Surf_Main
+		ptr Surf_Action
 
 surf_origX = objoff_30		; original x-axis position
 surf_freeze = objoff_32		; flag to freeze animation

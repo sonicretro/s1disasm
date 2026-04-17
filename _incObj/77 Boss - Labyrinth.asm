@@ -8,11 +8,11 @@ BossLabyrinth:
 		move.w	BossLabyrinth_Index(pc,d0.w),d1
 		jmp	BossLabyrinth_Index(pc,d1.w)
 ; ===========================================================================
-BossLabyrinth_Index:
-		dc.w BossLabyrinth_Main-BossLabyrinth_Index
-		dc.w BossLabyrinth_ShipMain-BossLabyrinth_Index
-		dc.w BossLabyrinth_FaceMain-BossLabyrinth_Index
-		dc.w BossLabyrinth_FlameMain-BossLabyrinth_Index
+BossLabyrinth_Index: offsetTable
+		ptr BossLabyrinth_Main
+		ptr BossLabyrinth_ShipMain
+		ptr BossLabyrinth_FaceMain
+		ptr BossLabyrinth_FlameMain
 
 BossLabyrinth_ObjData:
 		dc.b 2,	0		; routine number, animation
@@ -68,15 +68,15 @@ BossLabyrinth_ShipMain:	; Routine 2
 		or.b	d0,obRender(a0)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-BossLabyrinth_ShipIndex:
-		dc.w BLZ_ShipStart-BossLabyrinth_ShipIndex
-		dc.w BLZ_ShipMove1-BossLabyrinth_ShipIndex
-		dc.w BLZ_ShipMove2-BossLabyrinth_ShipIndex
-		dc.w BLZ_ShipMove3-BossLabyrinth_ShipIndex
-		dc.w BLZ_ShipAtTop-BossLabyrinth_ShipIndex
-		dc.w BLZ_ShipWait-BossLabyrinth_ShipIndex
-		dc.w BLZ_Escape1-BossLabyrinth_ShipIndex
-		dc.w BLZ_Escape2-BossLabyrinth_ShipIndex
+BossLabyrinth_ShipIndex: offsetTable
+		ptr BLZ_ShipStart
+		ptr BLZ_ShipMove1
+		ptr BLZ_ShipMove2
+		ptr BLZ_ShipMove3
+		ptr BLZ_ShipAtTop
+		ptr BLZ_ShipWait
+		ptr BLZ_Escape1
+		ptr BLZ_Escape2
 ; ===========================================================================
 
 ; loc_17F1E:

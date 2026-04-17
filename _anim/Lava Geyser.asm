@@ -2,12 +2,13 @@
 ; Animation script - geyser of lava (MZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Geyser:	dc.w .bubble1-Ani_Geyser
-		dc.w .bubble2-Ani_Geyser
-		dc.w .end-Ani_Geyser
-		dc.w .bubble3-Ani_Geyser
-		dc.w .blank-Ani_Geyser
-		dc.w .bubble4-Ani_Geyser
+Ani_Geyser:	offsetTable
+		ptr .bubble1
+		ptr .bubble2
+		ptr .end
+		ptr .bubble3
+		ptr .blank
+		ptr .bubble4
 
 .bubble1:	dc.b 2
 		dc.b 0, 1, 0, 1, 4, 5, 4, 5

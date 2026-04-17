@@ -15,9 +15,10 @@ Staircase:
 		out_of_range.w	DeleteObject,stair_origX(a0)
 		bra.w	DisplaySprite
 ; ===========================================================================
-Stair_Index:	dc.w Stair_Main-Stair_Index
-		dc.w Stair_Move-Stair_Index
-		dc.w Stair_Solid-Stair_Index
+Stair_Index:	offsetTable
+		ptr Stair_Main
+		ptr Stair_Move
+		ptr Stair_Solid
 ; ===========================================================================
 
 Stair_Main:	; Routine 0
@@ -95,10 +96,11 @@ loc_10F92:
 locret_10FA0:
 		rts
 ; ===========================================================================
-Stair_TypeIndex:dc.w Stair_Type00-Stair_TypeIndex
-		dc.w Stair_Type01-Stair_TypeIndex
-		dc.w Stair_Type02-Stair_TypeIndex
-		dc.w Stair_Type01-Stair_TypeIndex
+Stair_TypeIndex: offsetTable
+		ptr Stair_Type00
+		ptr Stair_Type01
+		ptr Stair_Type02
+		ptr Stair_Type01
 ; ===========================================================================
 
 Stair_Type00:

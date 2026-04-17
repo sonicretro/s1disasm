@@ -8,9 +8,10 @@ MovingBlock:
 		move.w	MBlock_Index(pc,d0.w),d1
 		jmp	MBlock_Index(pc,d1.w)
 ; ===========================================================================
-MBlock_Index:	dc.w MBlock_Main-MBlock_Index
-		dc.w MBlock_Platform-MBlock_Index
-		dc.w MBlock_StandOn-MBlock_Index
+MBlock_Index:	offsetTable
+		ptr MBlock_Main
+		ptr MBlock_Platform
+		ptr MBlock_StandOn
 
 mblock_origX = objoff_30
 mblock_origY = objoff_32
@@ -95,18 +96,18 @@ MBlock_Move:
 		move.w	MBlock_TypeIndex(pc,d0.w),d1
 		jmp	MBlock_TypeIndex(pc,d1.w)
 ; ===========================================================================
-MBlock_TypeIndex:
-		dc.w MBlock_Type00-MBlock_TypeIndex
-		dc.w MBlock_Type01-MBlock_TypeIndex
-		dc.w MBlock_Type02-MBlock_TypeIndex
-		dc.w MBlock_Type03-MBlock_TypeIndex
-		dc.w MBlock_Type02-MBlock_TypeIndex
-		dc.w MBlock_Type05-MBlock_TypeIndex
-		dc.w MBlock_Type06-MBlock_TypeIndex
-		dc.w MBlock_Type07-MBlock_TypeIndex
-		dc.w MBlock_Type08-MBlock_TypeIndex
-		dc.w MBlock_Type02-MBlock_TypeIndex
-		dc.w MBlock_Type0A-MBlock_TypeIndex
+MBlock_TypeIndex: offsetTable
+		ptr MBlock_Type00
+		ptr MBlock_Type01
+		ptr MBlock_Type02
+		ptr MBlock_Type03
+		ptr MBlock_Type02
+		ptr MBlock_Type05
+		ptr MBlock_Type06
+		ptr MBlock_Type07
+		ptr MBlock_Type08
+		ptr MBlock_Type02
+		ptr MBlock_Type0A
 ; ===========================================================================
 
 MBlock_Type00:

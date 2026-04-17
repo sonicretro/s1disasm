@@ -2,11 +2,12 @@
 ; Animation script - shield and invincibility stars
 ; ---------------------------------------------------------------------------
 
-Ani_Shield:	dc.w .shield-Ani_Shield
-		dc.w .stars1-Ani_Shield
-		dc.w .stars2-Ani_Shield
-		dc.w .stars3-Ani_Shield
-		dc.w .stars4-Ani_Shield
+Ani_Shield:	offsetTable
+		ptr .shield
+		ptr .stars1
+		ptr .stars2
+		ptr .stars3
+		ptr .stars4
 
 .shield:	dc.b 1
 		dc.b 1, 0, 2, 0, 3, 0

@@ -9,9 +9,10 @@ BuzzBomber:
 		move.w	Buzz_Index(pc,d0.w),d1
 		jmp	Buzz_Index(pc,d1.w)
 ; ===========================================================================
-Buzz_Index:	dc.w Buzz_Main-Buzz_Index
-		dc.w Buzz_Action-Buzz_Index
-		dc.w Buzz_Delete-Buzz_Index
+Buzz_Index:	offsetTable
+		ptr Buzz_Main
+		ptr Buzz_Action
+		ptr Buzz_Delete
 
 buzz_timedelay = objoff_32
 buzz_buzzstatus = objoff_34

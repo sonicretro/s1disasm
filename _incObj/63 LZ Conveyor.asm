@@ -27,10 +27,11 @@ loc_12378:
 		bclr	#0,(a2,d0.w)
 		bra.w	DeleteObject
 ; ===========================================================================
-LCon_Index:	dc.w LCon_Main-LCon_Index
-		dc.w LCon_Platform-LCon_Index
-		dc.w LCon_OnPlatform-LCon_Index
-		dc.w LCon_Wheel-LCon_Index
+LCon_Index:	offsetTable
+		ptr LCon_Main
+		ptr LCon_Platform
+		ptr LCon_OnPlatform
+		ptr LCon_Wheel
 ; ===========================================================================
 
 LCon_Main:	; Routine 0
@@ -287,12 +288,13 @@ loc_125D4:
 ; 	dc.w entries...
 ; Entries consist of a target X position and target Y position.
 
-LCon_Data:	dc.w .group0-LCon_Data
-		dc.w .group1-LCon_Data
-		dc.w .group2-LCon_Data
-		dc.w .group3-LCon_Data
-		dc.w .group4-LCon_Data
-		dc.w .group5-LCon_Data
+LCon_Data:	offsetTable
+		ptr .group0
+		ptr .group1
+		ptr .group2
+		ptr .group3
+		ptr .group4
+		ptr .group5
 
 .group0:	
 		.baseX_0: = $1070

@@ -8,8 +8,9 @@ BigSpikeBall:
 		move.w	BBall_Index(pc,d0.w),d1
 		jmp	BBall_Index(pc,d1.w)
 ; ===========================================================================
-BBall_Index:	dc.w BBall_Main-BBall_Index
-		dc.w BBall_Move-BBall_Index
+BBall_Index:	offsetTable
+		ptr BBall_Main
+		ptr BBall_Move
 
 bball_origX = objoff_3A		; original x-axis position
 bball_origY = objoff_38		; original y-axis position

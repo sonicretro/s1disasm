@@ -2,9 +2,10 @@
 ; Animation script - Roller enemy (SYZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Roll:	dc.w .unfold-Ani_Roll
-		dc.w .fold-Ani_Roll
-		dc.w .roll-Ani_Roll
+Ani_Roll:	offsetTable
+		ptr .unfold
+		ptr .fold
+		ptr .roll
 
 .unfold:	dc.b 15
 		dc.b 2, 1

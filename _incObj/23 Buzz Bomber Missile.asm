@@ -8,11 +8,12 @@ Missile:
 		move.w	Msl_Index(pc,d0.w),d1
 		jmp	Msl_Index(pc,d1.w)
 ; ===========================================================================
-Msl_Index:	dc.w Msl_Main-Msl_Index
-		dc.w Msl_Animate-Msl_Index
-		dc.w Msl_FromBuzz-Msl_Index
-		dc.w Msl_Delete-Msl_Index
-		dc.w Msl_FromNewt-Msl_Index
+Msl_Index:	offsetTable
+		ptr Msl_Main
+		ptr Msl_Animate
+		ptr Msl_FromBuzz
+		ptr Msl_Delete
+		ptr Msl_FromNewt
 
 msl_parent = objoff_3C
 ; ===========================================================================

@@ -8,10 +8,11 @@ TitleSonic:
 		move.w	TSon_Index(pc,d0.w),d1
 		jmp	TSon_Index(pc,d1.w)
 ; ===========================================================================
-TSon_Index:	dc.w TSon_Main-TSon_Index
-		dc.w TSon_Delay-TSon_Index
-		dc.w TSon_Move-TSon_Index
-		dc.w TSon_Animate-TSon_Index
+TSon_Index:	offsetTable
+		ptr TSon_Main
+		ptr TSon_Delay
+		ptr TSon_Move
+		ptr TSon_Animate
 ; ===========================================================================
 
 TSon_Main:	; Routine 0

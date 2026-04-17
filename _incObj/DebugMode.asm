@@ -8,8 +8,9 @@ DebugMode:
 		move.w	Debug_Index(pc,d0.w),d1
 		jmp	Debug_Index(pc,d1.w)
 ; ===========================================================================
-Debug_Index:	dc.w Debug_Main-Debug_Index
-		dc.w Debug_Action-Debug_Index
+Debug_Index:	offsetTable
+		ptr Debug_Main
+		ptr Debug_Action
 ; ===========================================================================
 
 Debug_Main:	; Routine 0

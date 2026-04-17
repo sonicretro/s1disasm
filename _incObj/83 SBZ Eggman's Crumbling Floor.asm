@@ -8,12 +8,13 @@ FalseFloor:
 		move.w	FFloor_Index(pc,d0.w),d1
 		jmp	FFloor_Index(pc,d1.w)
 ; ===========================================================================
-FFloor_Index:	dc.w FFloor_Main-FFloor_Index
-		dc.w FFloor_ChkBreak-FFloor_Index
-		dc.w FFloor_Break-FFloor_Index
-		dc.w FFloor_AllGone-FFloor_Index
-		dc.w FFloor_Block-FFloor_Index
-		dc.w FFloor_Frag-FFloor_Index
+FFloor_Index:	offsetTable
+		ptr FFloor_Main
+		ptr FFloor_ChkBreak
+		ptr FFloor_Break
+		ptr FFloor_AllGone
+		ptr FFloor_Block
+		ptr FFloor_Frag
 ; ===========================================================================
 
 FFloor_Main:	; Routine 0

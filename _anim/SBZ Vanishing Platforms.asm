@@ -2,8 +2,9 @@
 ; Animation script - vanishing platforms (SBZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Van:	dc.w .vanish-Ani_Van
-		dc.w .appear-Ani_Van
+Ani_Van:	offsetTable
+		ptr .vanish
+		ptr .appear
 
 .vanish:	dc.b 7
 		dc.b 0, 1, 2

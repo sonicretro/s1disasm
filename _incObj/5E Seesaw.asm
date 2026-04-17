@@ -24,12 +24,13 @@ Seesaw:
 		bhi.w	DeleteObject
 		bra.w	DisplaySprite
 ; ===========================================================================
-See_Index:	dc.w See_Main-See_Index
-		dc.w See_Slope-See_Index
-		dc.w See_Slope2-See_Index
-		dc.w See_Spikeball-See_Index
-		dc.w See_MoveSpike-See_Index
-		dc.w See_SpikeFall-See_Index
+See_Index:	offsetTable
+		ptr See_Main
+		ptr See_Slope
+		ptr See_Slope2
+		ptr See_Spikeball
+		ptr See_MoveSpike
+		ptr See_SpikeFall
 ; ===========================================================================
 
 See_Main:	; Routine 0

@@ -2,14 +2,15 @@
 ; Animation script - Crabmeat enemy
 ; ---------------------------------------------------------------------------
 
-Ani_Crab:	dc.w .stand-Ani_Crab
-		dc.w .standslope-Ani_Crab
-		dc.w .standsloperev-Ani_Crab
-		dc.w .walk-Ani_Crab
-		dc.w .walkslope-Ani_Crab
-		dc.w .walksloperev-Ani_Crab
-		dc.w .firing-Ani_Crab
-		dc.w .ball-Ani_Crab
+Ani_Crab:	offsetTable
+		ptr .stand
+		ptr .standslope
+		ptr .standsloperev
+		ptr .walk
+		ptr .walkslope
+		ptr .walksloperev
+		ptr .firing
+		ptr .ball
 
 .stand:		dc.b 15
 		dc.b 0

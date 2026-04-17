@@ -8,9 +8,10 @@ EdgeWalls:
 		move.w	Edge_Index(pc,d0.w),d1
 		jmp	Edge_Index(pc,d1.w)
 ; ===========================================================================
-Edge_Index:	dc.w Edge_Main-Edge_Index
-		dc.w Edge_Solid-Edge_Index
-		dc.w Edge_Display-Edge_Index
+Edge_Index:	offsetTable
+		ptr Edge_Main
+		ptr Edge_Solid
+		ptr Edge_Display
 ; ===========================================================================
 
 Edge_Main:	; Routine 0

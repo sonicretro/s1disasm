@@ -29,8 +29,9 @@ SpinC_Act1or2:
 SpinC_Delete:
 		jmp	(DeleteObject).l
 ; ===========================================================================
-SpinC_Index:	dc.w SpinC_Main-SpinC_Index
-		dc.w SpinC_Solid-SpinC_Index
+SpinC_Index:	offsetTable
+		ptr SpinC_Main
+		ptr SpinC_Solid
 ; ===========================================================================
 
 SpinC_Main:	; Routine 0
@@ -209,12 +210,13 @@ loc_16484:
 ; 	dc.w entries...
 ; Entries consist of a target X position and target Y position.
 
-SpinC_Data:	dc.w .group0-SpinC_Data
-		dc.w .group1-SpinC_Data
-		dc.w .group2-SpinC_Data
-		dc.w .group3-SpinC_Data
-		dc.w .group4-SpinC_Data
-		dc.w .group5-SpinC_Data
+SpinC_Data:	offsetTable
+		ptr .group0
+		ptr .group1
+		ptr .group2
+		ptr .group3
+		ptr .group4
+		ptr .group5
 
 .group0:
 		.baseX_0: = $E80

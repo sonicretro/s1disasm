@@ -8,13 +8,14 @@ Caterkiller:
 		move.w	Cat_Index(pc,d0.w),d1
 		jmp	Cat_Index(pc,d1.w)
 ; ===========================================================================
-Cat_Index:	dc.w Cat_Main-Cat_Index
-		dc.w Cat_Head-Cat_Index
-		dc.w Cat_BodySeg1-Cat_Index
-		dc.w Cat_BodySeg2-Cat_Index
-		dc.w Cat_BodySeg1-Cat_Index
-		dc.w Cat_Delete-Cat_Index
-		dc.w Cat_Fragment-Cat_Index
+Cat_Index:	offsetTable
+		ptr Cat_Main
+		ptr Cat_Head
+		ptr Cat_BodySeg1
+		ptr Cat_BodySeg2
+		ptr Cat_BodySeg1
+		ptr Cat_Delete
+		ptr Cat_Fragment
 
 cat_parent = objoff_3C		; address of parent object
 ; ===========================================================================
@@ -133,8 +134,9 @@ Cat_ChkGone:
 Cat_Delete:	; Routine $A
 		jmp	(DeleteObject).l
 ; ===========================================================================
-Cat_Index2:	dc.w Cat_Undulate-Cat_Index2
-		dc.w Cat_Floor-Cat_Index2
+Cat_Index2:	offsetTable
+		ptr Cat_Undulate
+		ptr Cat_Floor
 ; ===========================================================================
 
 ; .wait:

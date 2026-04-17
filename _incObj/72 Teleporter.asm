@@ -13,10 +13,11 @@ Teleport:
 .delete:
 		jmp	(DeleteObject).l
 ; ===========================================================================
-Tele_Index:	dc.w Tele_Main-Tele_Index
-		dc.w Tele_Action-Tele_Index
-		dc.w Tele_Bump-Tele_Index
-		dc.w Tele_Bend-Tele_Index
+Tele_Index:	offsetTable
+		ptr Tele_Main
+		ptr Tele_Action
+		ptr Tele_Bump
+		ptr Tele_Bend
 ; ===========================================================================
 
 Tele_Main:	; Routine 0
@@ -217,14 +218,15 @@ loc_168A6:
 ; End of function sub_1681C
 
 ; ===========================================================================
-Tele_Data:	dc.w .type00-Tele_Data
-		dc.w .type01-Tele_Data
-		dc.w .type02-Tele_Data
-		dc.w .type03-Tele_Data
-		dc.w .type04-Tele_Data
-		dc.w .type05-Tele_Data
-		dc.w .type06-Tele_Data
-		dc.w .type07-Tele_Data
+Tele_Data:	offsetTable
+		ptr .type00
+		ptr .type01
+		ptr .type02
+		ptr .type03
+		ptr .type04
+		ptr .type05
+		ptr .type06
+		ptr .type07
 
 .type00:	dc.w 4,	$794, $98C
 

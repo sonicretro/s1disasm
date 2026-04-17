@@ -8,8 +8,9 @@ RunningDisc:
 		move.w	Disc_Index(pc,d0.w),d1
 		jmp	Disc_Index(pc,d1.w)
 ; ===========================================================================
-Disc_Index:	dc.w Disc_Main-Disc_Index
-		dc.w Disc_Action-Disc_Index
+Disc_Index:	offsetTable
+		ptr Disc_Main
+		ptr Disc_Action
 
 disc_origX = objoff_32		; original x-axis position
 disc_origY = objoff_30		; original y-axis position

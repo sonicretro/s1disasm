@@ -8,10 +8,11 @@ GiantRing:
 		move.w	GRing_Index(pc,d0.w),d1
 		jmp	GRing_Index(pc,d1.w)
 ; ===========================================================================
-GRing_Index:	dc.w GRing_Main-GRing_Index
-		dc.w GRing_Animate-GRing_Index
-		dc.w GRing_Collect-GRing_Index
-		dc.w GRing_Delete-GRing_Index
+GRing_Index:	offsetTable
+		ptr GRing_Main
+		ptr GRing_Animate
+		ptr GRing_Collect
+		ptr GRing_Delete
 ; ===========================================================================
 
 GRing_Main:	; Routine 0

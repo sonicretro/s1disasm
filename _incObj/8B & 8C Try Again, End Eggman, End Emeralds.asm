@@ -9,10 +9,11 @@ EndEggman:
 		jsr	EEgg_Index(pc,d1.w)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-EEgg_Index:	dc.w EEgg_Main-EEgg_Index
-		dc.w EEgg_Animate-EEgg_Index
-		dc.w EEgg_Juggle-EEgg_Index
-		dc.w EEgg_Wait-EEgg_Index
+EEgg_Index:	offsetTable
+		ptr EEgg_Main
+		ptr EEgg_Animate
+		ptr EEgg_Juggle
+		ptr EEgg_Wait
 
 eegg_time = objoff_30		; time between juggle motions
 ; ===========================================================================
@@ -84,8 +85,9 @@ TryChaos:
 		jsr	TCha_Index(pc,d1.w)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
-TCha_Index:	dc.w TCha_Main-TCha_Index
-		dc.w TCha_Move-TCha_Index
+TCha_Index:	offsetTable
+		ptr TCha_Main
+		ptr TCha_Move
 ; ===========================================================================
 
 TCha_Main:	; Routine 0

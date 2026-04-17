@@ -9,9 +9,10 @@ PowerUp:
 		jsr	Pow_Index(pc,d1.w)
 		bra.w	DisplaySprite
 ; ===========================================================================
-Pow_Index:	dc.w Pow_Main-Pow_Index
-		dc.w Pow_Move-Pow_Index
-		dc.w Pow_Delete-Pow_Index
+Pow_Index:	offsetTable
+		ptr Pow_Main
+		ptr Pow_Move
+		ptr Pow_Delete
 ; ===========================================================================
 
 Pow_Main:	; Routine 0

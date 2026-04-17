@@ -2,9 +2,10 @@
 ; Animation script - Buzz Bomber enemy (GHZ/MZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Buzz:	dc.w .fly1-Ani_Buzz
-		dc.w .fly2-Ani_Buzz
-		dc.w .fires-Ani_Buzz
+Ani_Buzz:	offsetTable
+		ptr .fly1
+		ptr .fly2
+		ptr .fires
 
 .fly1:		dc.b 1
 		dc.b 0, 1

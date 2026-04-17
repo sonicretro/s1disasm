@@ -2,8 +2,9 @@
 ; Animation script - Orbinaut enemy (LZ/SLZ)
 ; ---------------------------------------------------------------------------
 
-Ani_Orb:	dc.w .normal-Ani_Orb
-		dc.w .angry-Ani_Orb
+Ani_Orb:	offsetTable
+		ptr .normal
+		ptr .angry
 
 .normal:	dc.b 15
 		dc.b 0

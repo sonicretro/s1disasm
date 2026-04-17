@@ -8,11 +8,12 @@ BasicPlatform:
 		move.w	Plat_Index(pc,d0.w),d1
 		jmp	Plat_Index(pc,d1.w)
 ; ===========================================================================
-Plat_Index:	dc.w Plat_Main-Plat_Index
-		dc.w Plat_Solid-Plat_Index
-		dc.w Plat_Action2-Plat_Index
-		dc.w Plat_Delete-Plat_Index
-		dc.w Plat_Action-Plat_Index
+Plat_Index:	offsetTable
+		ptr Plat_Main
+		ptr Plat_Solid
+		ptr Plat_Action2
+		ptr Plat_Delete
+		ptr Plat_Action
 ; ===========================================================================
 
 Plat_Main:	; Routine 0

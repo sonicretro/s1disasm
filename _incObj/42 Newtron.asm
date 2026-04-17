@@ -8,9 +8,10 @@ Newtron:
 		move.w	Newt_Index(pc,d0.w),d1
 		jmp	Newt_Index(pc,d1.w)
 ; ===========================================================================
-Newt_Index:	dc.w Newt_Main-Newt_Index
-		dc.w Newt_Action-Newt_Index
-		dc.w Newt_Delete-Newt_Index
+Newt_Index:	offsetTable
+		ptr Newt_Main
+		ptr Newt_Action
+		ptr Newt_Delete
 ; ===========================================================================
 
 Newt_Main:	; Routine 0

@@ -8,8 +8,9 @@ SpinningLight:
 		move.w	Light_Index(pc,d0.w),d1
 		jmp	Light_Index(pc,d1.w)
 ; ===========================================================================
-Light_Index:	dc.w Light_Main-Light_Index
-		dc.w Light_Animate-Light_Index
+Light_Index:	offsetTable
+		ptr Light_Main
+		ptr Light_Animate
 ; ===========================================================================
 
 Light_Main:	; Routine 0

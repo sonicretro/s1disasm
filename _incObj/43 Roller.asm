@@ -8,8 +8,9 @@ Roller:
 		move.w	Roll_Index(pc,d0.w),d1
 		jmp	Roll_Index(pc,d1.w)
 ; ===========================================================================
-Roll_Index:	dc.w Roll_Main-Roll_Index
-		dc.w Roll_Action-Roll_Index
+Roll_Index:	offsetTable
+		ptr Roll_Main
+		ptr Roll_Action
 ; ===========================================================================
 
 Roll_Main:	; Routine 0
@@ -60,10 +61,11 @@ Roll_ChkGone:
 Roll_Delete:
 		bra.w	DeleteObject
 ; ===========================================================================
-Roll_Index2:	dc.w Roll_RollChk-Roll_Index2
-		dc.w Roll_RollNoChk-Roll_Index2
-		dc.w Roll_ChkJump-Roll_Index2
-		dc.w Roll_MatchFloor-Roll_Index2
+Roll_Index2:	offsetTable
+		ptr Roll_RollChk
+		ptr Roll_RollNoChk
+		ptr Roll_ChkJump
+		ptr Roll_MatchFloor
 ; ===========================================================================
 
 Roll_RollChk:

@@ -8,8 +8,9 @@ Pylon:
 		move.w	Pyl_Index(pc,d0.w),d1
 		jmp	Pyl_Index(pc,d1.w)
 ; ===========================================================================
-Pyl_Index:	dc.w Pyl_Main-Pyl_Index
-		dc.w Pyl_Display-Pyl_Index
+Pyl_Index:	offsetTable
+		ptr Pyl_Main
+		ptr Pyl_Display
 ; ===========================================================================
 
 Pyl_Main:	; Routine 0

@@ -8,8 +8,9 @@ Girder:
 		move.w	Gird_Index(pc,d0.w),d1
 		jmp	Gird_Index(pc,d1.w)
 ; ===========================================================================
-Gird_Index:	dc.w Gird_Main-Gird_Index
-		dc.w Gird_Action-Gird_Index
+Gird_Index:	offsetTable
+		ptr Gird_Main
+		ptr Gird_Action
 
 gird_origX = objoff_32		; original x-axis position
 gird_origY = objoff_30		; original y-axis position

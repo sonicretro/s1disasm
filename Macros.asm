@@ -170,6 +170,30 @@ enable_display:	macro
 		endm
 
 ; ---------------------------------------------------------------------------
+; offset table macros (taken from the Sonic 2 disassembly)
+; ---------------------------------------------------------------------------
+
+; macro to declare the base offset for the current offset table
+offsetTable:	macro {INTLABEL}
+current_offset_table := __LABEL__
+__LABEL__ label *
+	endm
+
+; macro to declare an entry in an offset table
+offsetTableEntry:	macro pointer
+	dc.ATTRIBUTE pointer-current_offset_table
+	endm
+
+; shorthand for offsetTableEntry.w with variable arguments support
+ptr:	macro pointers
+	if "pointers"<>""
+		offsetTableEntry.w pointers
+		shift
+		ptr ALLARGS
+	endif
+	endm
+
+; ---------------------------------------------------------------------------
 ; long conditional jumps
 ; ---------------------------------------------------------------------------
 

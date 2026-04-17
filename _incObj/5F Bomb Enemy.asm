@@ -8,10 +8,11 @@ Bomb:
 		move.w	Bom_Index(pc,d0.w),d1
 		jmp	Bom_Index(pc,d1.w)
 ; ===========================================================================
-Bom_Index:	dc.w Bom_Main-Bom_Index
-		dc.w Bom_Action-Bom_Index
-		dc.w Bom_Display-Bom_Index
-		dc.w Bom_End-Bom_Index
+Bom_Index:	offsetTable
+		ptr Bom_Main
+		ptr Bom_Action
+		ptr Bom_Display
+		ptr Bom_End
 
 bom_time = objoff_30		; time of fuse
 bom_origY = objoff_34		; original y-axis position

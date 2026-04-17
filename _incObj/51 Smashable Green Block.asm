@@ -9,9 +9,10 @@ SmashBlock:
 		jsr	Smab_Index(pc,d1.w)
 		bra.w	RememberState
 ; ===========================================================================
-Smab_Index:	dc.w Smab_Main-Smab_Index
-		dc.w Smab_Solid-Smab_Index
-		dc.w Smab_Points-Smab_Index
+Smab_Index:	offsetTable
+		ptr Smab_Main
+		ptr Smab_Solid
+		ptr Smab_Points
 ; ===========================================================================
 
 Smab_Main:	; Routine 0

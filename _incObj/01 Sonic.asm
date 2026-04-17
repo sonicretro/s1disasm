@@ -18,11 +18,12 @@ Sonic_Normal:
 		jmp	Sonic_Index(pc,d1.w)			; jump there
 ; ===========================================================================
 ; Obj01_Index:
-Sonic_Index:	dc.w Sonic_Main-Sonic_Index			; 0 - object init
-		dc.w Sonic_Control-Sonic_Index			; 2 - main mode
-		dc.w Sonic_Hurt-Sonic_Index			; 4 - while being knocked back from damage
-		dc.w Sonic_Death-Sonic_Index			; 6 - while dying and falling off screen
-		dc.w Sonic_ResetLevel-Sonic_Index		; 8 - after having died and waiting for the level to restart
+Sonic_Index:	offsetTable
+		ptr Sonic_Main					; 0 - object init
+		ptr Sonic_Control				; 2 - main mode
+		ptr Sonic_Hurt					; 4 - while being knocked back from damage
+		ptr Sonic_Death					; 6 - while dying and falling off screen
+		ptr Sonic_ResetLevel				; 8 - after having died and waiting for the level to restart
 ; ===========================================================================
 
 ; Obj01_Main:
@@ -103,10 +104,11 @@ Sonic_Control:	; Routine 2
 ; This jump table uses Sonic's actual state bits in obStatus for the index.
 ; ---------------------------------------------------------------------------
 ; Obj01_Modes:
-Sonic_Modes:	dc.w Sonic_MdNormal-Sonic_Modes			; 0 - while on the ground and not rolling
-		dc.w Sonic_MdJump-Sonic_Modes			; 2 - while in the air and not rolling
-		dc.w Sonic_MdRoll-Sonic_Modes			; 4 - while on the ground and rolling
-		dc.w Sonic_MdJump2-Sonic_Modes			; 6 - while in the air and rolling
+Sonic_Modes:	offsetTable
+		ptr Sonic_MdNormal				; 0 - while on the ground and not rolling
+		ptr Sonic_MdJump				; 2 - while in the air and not rolling
+		ptr Sonic_MdRoll				; 4 - while on the ground and rolling
+		ptr Sonic_MdJump2				; 6 - while in the air and rolling
 
 
 ; ===========================================================================

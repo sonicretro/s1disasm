@@ -8,11 +8,12 @@ BossBall:
 		move.w	GBall_Index(pc,d0.w),d1
 		jmp	GBall_Index(pc,d1.w)
 ; ===========================================================================
-GBall_Index:	dc.w GBall_Main-GBall_Index
-		dc.w GBall_Base-GBall_Index
-		dc.w GBall_Base2-GBall_Index
-		dc.w GBall_Link-GBall_Index
-		dc.w GBall_Ball-GBall_Index
+GBall_Index:	offsetTable
+		ptr GBall_Main
+		ptr GBall_Base
+		ptr GBall_Base2
+		ptr GBall_Link
+		ptr GBall_Ball
 ; ===========================================================================
 
 GBall_Main:	; Routine 0

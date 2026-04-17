@@ -2,8 +2,9 @@
 ; Animation script - platform on conveyor belt (SBZ)
 ; ---------------------------------------------------------------------------
 
-Ani_SpinConvey:	dc.w .spin-Ani_SpinConvey
-		dc.w .still-Ani_SpinConvey
+Ani_SpinConvey:	offsetTable
+		ptr .spin
+		ptr .still
 
 .spin:		dc.b 0
 		dc.b 0, 1, 2, 3, 4
