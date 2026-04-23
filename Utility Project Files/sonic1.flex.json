@@ -568,7 +568,7 @@
                     "name": "Title Sonic",
                     "palettes": [
                         {
-                            "path": "../palette/Title Screen.bin",
+                            "path": "../Scratch Palette (Flex2 only)/Sonic Title Screen.bin",
                             "length": 3
                         }
                     ],
