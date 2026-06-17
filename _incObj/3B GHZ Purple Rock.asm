@@ -1,3 +1,4 @@
+; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 3B - purple rock (GHZ)
 ; ---------------------------------------------------------------------------
@@ -17,13 +18,14 @@ Rock_Main:	; Routine 0
 		move.l	#Map_PRock,obMap(a0)
 		move.w	#ArtTile_GHZ_Purple_Rock|Tile_Pal4,obGfx(a0)
 		move.b	#4,obRender(a0)
-	if FixBugs=0
-		; This should be 48 pixels, currently it gets culled too soon.
-		move.b	#38/2,obActWid(a0)
-	else
+	if FixBugs
 		move.b	#48/2,obActWid(a0)
+	else
+		; This should be 48 pixels, otherwise it gets culled too soon.
+		move.b	#38/2,obActWid(a0)
 	endif
 		move.b	#4,obPriority(a0)
+; ---------------------------------------------------------------------------
 
 Rock_Solid:	; Routine 2
 		move.w	#32/2+sonic_solid_width,d1
@@ -31,6 +33,7 @@ Rock_Solid:	; Routine 2
 		move.w	#32/2,d3
 		move.w	obX(a0),d4
 		bsr.w	SolidObject
+
 	if FixBugs
 		; Objects shouldn't call DisplaySprite and DeleteObject in
 		; the same frame or else cause a null-pointer dereference.
@@ -43,3 +46,10 @@ Rock_Solid:	; Routine 2
 		out_of_range.w	DeleteObject
 		rts
 	endif
+
+; ===========================================================================
+
+; Mappings for the purple rock are located after the invisible waterfall sound trigger object in ROM.
+includes_purplerock: macro {GLOBALSYMBOLS}
+Map_PRock:	include	"_maps/Purple Rock.asm"
+	endm

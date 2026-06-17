@@ -139,3 +139,11 @@ Flash_Collect:
 
 Flash_Delete:	; Routine 4
 		bra.w	DeleteObject				; delete flash object
+
+; ===========================================================================
+
+; Giant ring mapping data is located after that for normal rings in ROM.
+includes_giantrings: macro {GLOBALSYMBOLS}
+Map_GRing:	include	"_maps/Giant Ring.asm"
+Map_Flash:	include	"_maps/Ring Flash.asm"
+	endm

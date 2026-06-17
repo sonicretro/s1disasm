@@ -307,3 +307,16 @@ loc_F04C:
 
 Geyser_Delete:	; Routine 6
 		bra.w	DeleteObject
+
+; ===========================================================================
+
+; Mappings and animations for the lava geyser are located after lava wall and invisible lava tag in ROM.
+; They are also interlaced by the the lava wall mappings and animations, requiring two macros.
+includes_lavageyser_anim: macro {GLOBALSYMBOLS}
+		include	"_anim/Lava Geyser.asm"
+	endm
+
+includes_lavageyser_maps: macro {GLOBALSYMBOLS}
+Map_Geyser:	include	"_maps/Lava Geyser.asm"
+	endm
+

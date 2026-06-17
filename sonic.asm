@@ -4033,9 +4033,11 @@ Demo_EndGHZ2:	include	"demodata/Ending - GHZ2.asm"
 
 
 ; Where possible, includes to _maps and _anim were appended to the _incObj
-; file includes themselves. However, in some cases this wasn't possible,
+; file includes themselves. However, in some cases this couldn't be done,
 ; as the developers weren't very consistent with the placement, especially
-; during the early stages of production. Those includes are still here.
+; during the early stages of production. Those includes needed to be wrapped
+; inside "includes_" macros to keep the definitions inside the object source
+; text files, while still being able to assemble a bit-perfect ROM.
 
 
 ; ===========================================================================
@@ -4052,21 +4054,19 @@ Demo_EndGHZ2:	include	"demodata/Ending - GHZ2.asm"
 
 		include	"_inc/DynamicLevelEvents.asm"
 
-
 ; ===========================================================================
 ; >>> Various level objects
 		include	"_incObj/11 GHZ Bridge.asm"
-		include	"_incObj/15 Swinging Platforms.asm"	; includes "MvSonicOnPtfm" subroutine
+		include	"_incObj/15 Swinging Platforms.asm" ; includes "MvSonicOnPtfm" subroutine
 		include	"_incObj/17 GHZ Spiked Pole Helix.asm"
 		include	"_incObj/18 Platforms.asm"
 		include	"_incObj/19 Unused - Blank.asm" ; this was the rolling GHZ ball in the prototype
 Map_GBall:	include	"_maps/GHZ Ball.asm"
-		include	"_incObj/1A, 53 Collapsing Ledges and Floors.asm"	; includes "SlopeObject_AssumeStoodOn" subroutine
+		include	"_incObj/1A, 53 Collapsing Ledges and Floors.asm" ; includes "SlopeObject_AssumeStoodOn" subroutine
 		include	"_incObj/1C GHZ, SYZ Scenery.asm"
 		include	"_incObj/1D Unused - Switch.asm"
 		include	"_incObj/2A SBZ Small Door.asm"
 		include	"_incObj/sub SolidWall.asm"
-
 
 ; ===========================================================================
 ; >>> Badniks, explosions, and Badnik-related objects
@@ -4074,38 +4074,26 @@ Map_GBall:	include	"_maps/GHZ Ball.asm"
 		include	"_incObj/24 Unused - Small Explosion.asm"
 		include	"_incObj/27, 3F Explosions.asm"
 		includes_ballhog
-Map_UnkExplode:	include	"_maps/Unused Explosion.asm"
-		include	"_maps/Explosions.asm"
+		includes_unkexplosion
+		includes_explosion
 		include	"_incObj/28, 29 Animals and Points.asm"
 		include	"_incObj/1F Badnik - Crabmeat.asm"
 		include	"_incObj/22, 23 Badnik - Buzz Bomber and Missile.asm"
-
 
 ; ===========================================================================
 ; >>> Rings
 		include	"_incObj/25, 37 Rings.asm"
 		include	"_incObj/4B, 7C Giant Ring and Flash.asm"
-		include	"_anim/Rings.asm"
-Map_Ring:   if Revision=0
-		include	"_maps/Rings (REV00).asm"
-	    else
-		; REV01 added an extra blank frame, possibly to mitigate
-		; rings occasionally popping up in the sign post sparkles
-		include	"_maps/Rings (REV01).asm"
-	    endif
-Map_GRing:	include	"_maps/Giant Ring.asm"
-Map_Flash:	include	"_maps/Ring Flash.asm"
-
+		includes_rings
+		includes_giantrings
 
 ; ===========================================================================
 ; >>> Monitors
 		include	"_incObj/26, 2E Monitors and Power-Ups.asm"
 
-
 ; ===========================================================================
 ; >>> Title screen objects (includes AnimateSprite)
 		include	"_incObj/0E, 0F Title Screen - Sonic, Press Start, TM.asm"
-
 
 ; ===========================================================================
 ; >>> More Badniks and level objects
@@ -4113,15 +4101,14 @@ Map_Flash:	include	"_maps/Ring Flash.asm"
 		include	"_incObj/2C Badnik - Jaws.asm"
 		include	"_incObj/2D Badnik - Burrobot.asm"
 		include	"_incObj/2F, 35 MZ Large Grassy Platforms and Burning Grass.asm"
-Map_Fire:	include	"_maps/Fireballs.asm"
+Map_Fire:	include	"_maps/Fireballs.asm" ; reused by many objects
 		include	"_incObj/30 MZ Large Green Glass Blocks.asm"
 		include	"_incObj/31 MZ Chained Stompers.asm"
 		include	"_incObj/45 Unused - MZ Sideways Stomper.asm"
-Map_CStom:	include	"_maps/Chained Stompers.asm"
-Map_SStom:	include	"_maps/Sideways Stomper.asm"
+		includes_chainedstomper
+		includes_sidewaysstomper
 		include	"_incObj/32 Button.asm"
 		include	"_incObj/33 MZ, LZ Pushable Blocks.asm"
-
 
 ; ===========================================================================
 ; >>> Title card objects
@@ -4130,17 +4117,15 @@ Map_SStom:	include	"_maps/Sideways Stomper.asm"
 		include	"_incObj/3A Got Through Card.asm"
 		include	"_incObj/7E, 7F Special Stage Results and Chaos Emeralds.asm"
 		include	"_maps/Title Cards.asm"	; includes "Map_Card", "Map_Over", "Map_Got", and "Map_SSR"
-Map_SSRC:	include	"_maps/SS Result Chaos Emeralds.asm"
-
+		includes_ssrchaos
 
 ; ===========================================================================
 ; >>> More level objects
 		include	"_incObj/36 Spikes.asm"
 		include	"_incObj/3B GHZ Purple Rock.asm"
 		include	"_incObj/49 GHZ Waterfall Sound.asm"
-Map_PRock:	include	"_maps/Purple Rock.asm"
-		include	"_incObj/3C GHZ, SLZ Smashable Wall.asm"	; includes SmashObject
-
+		includes_purplerock
+		include	"_incObj/3C GHZ, SLZ Smashable Wall.asm" ; includes SmashObject
 
 ; ===========================================================================
 ; Subroutines to run, render, and update objects
@@ -4154,9 +4139,8 @@ Map_PRock:	include	"_maps/Purple Rock.asm"
 		include	"_inc/ObjPosLoad.asm"
 		include	"_incObj/sub FindFreeObj.asm"
 
-
 ; ===========================================================================
-; >>> More level obejcts
+; >>> More level objects
 		include	"_incObj/41 Springs.asm"
 		include	"_incObj/42 Badnik - Newtron.asm"
 		include	"_incObj/43 Badnik - Roller.asm"
@@ -4170,10 +4154,10 @@ Map_PRock:	include	"_maps/Purple Rock.asm"
 		include	"_incObj/4C, 4D MZ Lava Geyser and Maker.asm"
 		include	"_incObj/4E MZ Wall of Lava.asm"
 		include	"_incObj/54 MZ Invisible Lava Tag.asm"
-		include	"_anim/Lava Geyser.asm"
-		include	"_anim/Wall of Lava.asm"
-Map_Geyser:	include	"_maps/Lava Geyser.asm"
-Map_LWall:	include	"_maps/Wall of Lava.asm"
+		includes_lavageyser_anim
+		includes_walloflava_anim
+		includes_lavageyser_maps
+		includes_walloflava_maps
 		include	"_incObj/40 Badnik - Moto Bug.asm" ; includes "_incObj/sub RememberState.asm" subroutine
 		include	"_incObj/4F Unused - Blank.asm" ; this was Splats in the prototype
 		include	"_incObj/50 Badnik - Yadrin.asm"
@@ -4203,25 +4187,19 @@ Map_LWall:	include	"_maps/Wall of Lava.asm"
 		include	"_incObj/64 LZ Air Bubbles.asm"
 		include	"_incObj/65 LZ Waterfalls.asm"
 
-
 ; ===========================================================================
 ; >>> Main Sonic player object
 		include	"_incObj/01 Sonic.asm"
 
-
 ; ===========================================================================
 ; >>> Various unique objects
-		include	"_incObj/0A LZ Drowning Countdown.asm"	; includes ResumeMusic
+		include	"_incObj/0A LZ Drowning Countdown.asm" ; includes ResumeMusic
 		include	"_incObj/38 Shield and Invincibility.asm"
 		include	"_incObj/4A Unused - Special Stage Entry.asm"
 		include	"_incObj/08 LZ Water Splash.asm"
-		include	"_anim/Shield and Invincibility.asm"
-Map_Shield:	include	"_maps/Shield and Invincibility.asm"
-		include	"_anim/Special Stage Entry (Unused).asm"
-Map_Vanish:	include	"_maps/Special Stage Entry (Unused).asm"
-		include	"_anim/Water Splash.asm"
-Map_Splash:	include	"_maps/Water Splash.asm"
-
+		includes_shieldandstars
+		includes_ssentryunused
+		includes_watersplash
 
 ; ===========================================================================
 ; >>> Collision subroutines for Sonic and other objects
@@ -4229,7 +4207,6 @@ Map_Splash:	include	"_maps/Water Splash.asm"
 		include	"_incObj/sub FindNearestTile & FindFloor & FindWall.asm"
 		include "_inc/ConvertCollisionArray (Unused).asm"
 		include	"_incObj/Sonic Collision.asm"
-
 
 ; ===========================================================================
 ; >>> SBZ level objects
@@ -4252,11 +4229,10 @@ Map_Splash:	include	"_maps/Water Splash.asm"
 		include	"_incObj/7D Hidden Bonuses.asm"
 		include	"_incObj/8A Credits and Sonic Team Presents.asm"
 
-
 ; ===========================================================================
 ; >>> Bosses and related objects
-		include	"_incObj/3D, 48 Boss - GHZ Main and Wrecking Ball.asm"	; includes "BossDeafeated" and "BossMove" subroutines
-		include	"_anim/Eggman.asm"
+		include	"_incObj/3D, 48 Boss - GHZ Main and Wrecking Ball.asm" ; includes "BossDeafeated" and "BossMove" subroutines
+		include	"_anim/Eggman.asm" ; Eggman assets are reused by all bosses
 Map_Eggman:	include	"_maps/Eggman.asm"
 Map_BossItems:	include	"_maps/Boss Items.asm"
 		include	"_incObj/77 Boss - LZ Main.asm"
@@ -4267,34 +4243,23 @@ Map_BossItems:	include	"_maps/Boss Items.asm"
 		include	"_incObj/85,84,86 Boss - FZ Main, Cylinders, and Plasma Balls.asm"
 		include	"_incObj/3E Prison Capsule.asm"
 
-
 ; ===========================================================================
 ; >>> Object-to-object touch response handler for Sonic
 		include	"_incObj/Sonic ReactToItem.asm"
 
-
 ; ===========================================================================
 ; >>> Special Stage rendering and objects
-		include	"_inc/Special Stage Loading & Drawing.asm" ; includes the subroutines "SS_ShowLayout", "SS_AniWallsRings", 
-								   ; "SS_FindFreeAnimationSlot", "SS_AniItems", and "SS_Load"
+		include	"_inc/Special Stage Loading & Drawing.asm" ; includes "SS_ShowLayout" and "SS_Load"
 		include	"_inc/Special Stage Mappings & VRAM Pointers.asm"
-Map_SS_Shared:	include	"_maps/SS Shared Block.asm"
-Map_SS_Glass:	include	"_maps/SS Glass Block.asm"
-Map_SS_Up:	include	"_maps/SS UP Block.asm"
-Map_SS_Down:	include	"_maps/SS DOWN Block.asm"
-Map_SS_Chaos:	include	"_maps/SS Chaos Emeralds.asm"
 		include	"_incObj/09 Sonic in Special Stage.asm"
-
 
 ; ===========================================================================
 ; >>> Deleted, blank object that is randomly mixed in here
 		include	"_incObj/10 Unused - Blank.asm" ; this was an animation test object for Sonic in the prototype
 
-
 ; ===========================================================================
 ; >>> Subroutine for in-place level animations in VRAM
 		include	"_inc/AnimateLevelGfx.asm"
-
 
 ; ===========================================================================
 ; >>> HUD objects
@@ -4307,11 +4272,9 @@ Art_Hud:	binclude "artunc/HUD Numbers.unc" ; 8x16 pixel numbers on HUD
 Art_LivesNums:	binclude "artunc/Lives Counter Numbers.unc" ; 8x8 pixel numbers on lives counter
 		even
 
-
 ; ===========================================================================
 ; >>> Debug Mode
 		include	"_incObj/DebugMode.asm"
-
 
 ; ===========================================================================
 ; >>> Level definitions
@@ -4320,7 +4283,6 @@ Art_LivesNums:	binclude "artunc/Lives Counter Numbers.unc" ; 8x8 pixel numbers o
 
 
 ; ===========================================================================
-
 ; ---------------------------------------------------------------------------
 ; >> END OF PRIMARY INCLUDES - Everything below this point is art includes <<
 ; ---------------------------------------------------------------------------
@@ -4407,7 +4369,7 @@ Nem_Goggle:	binclude	"artnem/Unused - Goggles.nem" ; unused goggles
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - special stage
 ; ---------------------------------------------------------------------------
-Map_SSWalls:	include	"_maps/SS Walls.asm"
+Map_SSWalls:	includes_sswalls_maps
 
 Nem_SSWalls:	binclude	"artnem/Special Walls.nem" ; special stage walls
 		even

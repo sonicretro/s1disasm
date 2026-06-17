@@ -309,3 +309,10 @@ loc_B98C:
 
 loc_B996:
 		bra.w	CStom_Restart
+
+; ===========================================================================
+
+; Mappings for the chained stomper come after the unused sideways stomper in ROM.
+includes_chainedstomper: macro {GLOBALSYMBOLS}
+Map_CStom:	include	"_maps/Chained Stompers.asm"
+	endm

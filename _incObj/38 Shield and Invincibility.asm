@@ -109,3 +109,12 @@ Shi_Stars:	; Routine 4
 
 Shi_Start_Delete:	
 		jmp	(DeleteObject).l			; delete invincibility stars object
+
+; ===========================================================================
+
+; Mappings and animations for the shield/stars are located unused SS entry and LZ water splash in ROM.
+includes_shieldandstars: macro {GLOBALSYMBOLS}
+		include	"_anim/Shield and Invincibility.asm"
+Map_Shield:	include	"_maps/Shield and Invincibility.asm"
+	endm
+

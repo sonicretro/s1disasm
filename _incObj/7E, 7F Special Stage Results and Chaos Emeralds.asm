@@ -291,4 +291,11 @@ SSRC_Flash:	; Routine 2
 	; SSRC_Display:
 	.display:
 		bra.w	DisplaySprite				; display emerald sprite
+
 ; ===========================================================================
+
+; Mappings for the SSR chaos emeralds are located after all title card mappings in ROM.
+includes_ssrchaos: macro {GLOBALSYMBOLS}
+Map_SSRC:	include	"_maps/SS Result Chaos Emeralds.asm"
+	endm
+

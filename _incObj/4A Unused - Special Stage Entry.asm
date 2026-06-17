@@ -55,3 +55,10 @@ Van_LoadSonic:	; Routine 4
 
 .wait:
 		rts
+; ===========================================================================
+
+; Mappings and animations for the unused SS entry are located LZ water splash object and shield/stars assets in ROM.
+includes_ssentryunused: macro {GLOBALSYMBOLS}
+		include	"_anim/Special Stage Entry (Unused).asm"
+Map_Vanish:	include	"_maps/Special Stage Entry (Unused).asm"
+	endm

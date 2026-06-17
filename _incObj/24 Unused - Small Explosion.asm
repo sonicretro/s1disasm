@@ -42,3 +42,10 @@ UnkExpl_Animate:	; Routine 2
 
 .display:
 		bra.w	DisplaySprite
+
+; ===========================================================================
+
+; Mappings for the unused explosions are located after the Ball Hog badnik and other explosions in ROM.
+includes_unkexplosion: macro {GLOBALSYMBOLS}
+Map_UnkExplode:	include	"_maps/Unused Explosion.asm"
+	endm

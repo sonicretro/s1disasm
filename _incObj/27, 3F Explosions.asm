@@ -80,3 +80,11 @@ Expl_Main:	; Routine 0
 		move.b	#0,obFrame(a0)			; start at frame 0
 		move.w	#sfx_Bomb,d0			; set explosion sound
 		jmp	(QueueSound2).l			; play it
+
+; ===========================================================================
+
+; Mappings for the explosions are located after the Ball Hog badnik and unused explosion in ROM.
+includes_explosion: macro {GLOBALSYMBOLS}
+		; Contains Map_ExplodeItem and Map_ExplodeBomb (cross-referencing!)
+		include	"_maps/Explosions.asm"
+	endm

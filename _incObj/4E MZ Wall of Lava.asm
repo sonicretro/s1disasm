@@ -147,3 +147,16 @@ LWall_BackChild: ; Routine 6
 
 LWall_Delete:	; Routine 8
 		bra.w	DeleteObject				; delete lava wall object
+
+; ===========================================================================
+
+; Mappings and animations for the lava wall are located after the invisible lava tag in ROM.
+; They are also interlaced by the the lava geyser mappings and animations, requiring two macros.
+includes_walloflava_anim: macro {GLOBALSYMBOLS}
+		include	"_anim/Wall of Lava.asm"
+	endm
+
+includes_walloflava_maps: macro {GLOBALSYMBOLS}
+Map_LWall:	include	"_maps/Wall of Lava.asm"
+	endm
+

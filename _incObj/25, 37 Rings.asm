@@ -373,3 +373,18 @@ RLoss_Sparkle:	; Routine 6
 RLoss_Delete:	; Routine 8
 		bra.w	DeleteObject				; delete this ring
 
+; ===========================================================================
+
+; Rings animation and mapping data is located after giant rings in ROM,
+; likely because they were created together.
+includes_rings: macro {GLOBALSYMBOLS}
+		include	"_anim/Rings.asm"
+Map_Ring:
+	if Revision=0
+		include	"_maps/Rings (REV00).asm"
+	else
+		; REV01 added an extra blank frame, possibly to mitigate
+		; rings occasionally popping up in the sign post sparkles
+		include	"_maps/Rings (REV01).asm"
+	endif
+	endm

@@ -35,3 +35,14 @@ Spla_Display:	; Routine 2
 
 Spla_Delete:	; Routine 4
 		jmp	(DeleteObject).l			; delete when animation is complete
+
+; ===========================================================================
+
+; Mappings and animations for the water splash are located after the assets for shield/stars and unused SS entry in ROM.
+includes_watersplash: macro {GLOBALSYMBOLS}
+		include	"_anim/Water Splash.asm"
+Map_Splash:	include	"_maps/Water Splash.asm"
+	endm
+
+
+

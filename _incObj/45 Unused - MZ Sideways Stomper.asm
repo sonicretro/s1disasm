@@ -177,3 +177,10 @@ loc_BB3C:
 		add.w	objoff_30(a0),d0
 		move.w	d0,obX(a0)
 		rts
+
+; ===========================================================================
+
+; Mappings for the unused sideways stomper come after the vertical chained stomper in ROM.
+includes_sidewaysstomper: macro {GLOBALSYMBOLS}
+Map_SStom:	include	"_maps/Sideways Stomper.asm"
+	endm

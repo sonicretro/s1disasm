@@ -1,3 +1,4 @@
+; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Special stage mappings and VRAM pointers (loaded into v_ss_spritesettings)
 ; ---------------------------------------------------------------------------
@@ -103,3 +104,17 @@ id_SS_Glass_Ani3:	specialStageData	0, Map_SS_Glass,  Tile_Pal2, ArtTile_SS_Glass
 id_SS_Glass_Ani4:	specialStageData	0, Map_SS_Glass,  Tile_Pal3, ArtTile_SS_Glass		; $4E - ''
 
 SS_MapIndex_End:
+
+; ===========================================================================
+
+Map_SS_Shared:	include	"_maps/SS Shared Block.asm"
+Map_SS_Glass:	include	"_maps/SS Glass Block.asm"
+Map_SS_Up:	include	"_maps/SS UP Block.asm"
+Map_SS_Down:	include	"_maps/SS DOWN Block.asm"
+Map_SS_Chaos:	include	"_maps/SS Chaos Emeralds.asm"
+
+; Mappings for Map_SSWalls are located near the end in ROM.
+includes_sswalls_maps: macro {GLOBALSYMBOLS}
+		include	"_maps/SS Walls.asm"
+	endm
+
