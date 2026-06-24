@@ -24,7 +24,7 @@ SBall_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_SBall,obMap(a0)
 		move.w	#ArtTile_SYZ_Spikeball_Chain,obGfx(a0)
-		move.b	#4,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#16/2,obActWid(a0)
 		move.w	obX(a0),sball_origX(a0)

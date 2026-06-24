@@ -40,7 +40,7 @@ Spring_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)			; advance to "Spring_Up"
 		move.l	#Map_Spring,obMap(a0)			; set mappings
 		move.w	#ArtTile_Spring_Horizontal,obGfx(a0)	; set art tile for upright springs (palette line 1, red)
-		ori.b	#4,obRender(a0)				; set to playfield positioning mode
+		ori.b	#sprite_cam_field,obRender(a0)		; set to playfield positioning mode
 		move.b	#32/2,obActWid(a0)			; set display width
 		move.b	#4,obPriority(a0)			; set sprite priority
 

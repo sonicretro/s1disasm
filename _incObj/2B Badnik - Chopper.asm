@@ -20,7 +20,7 @@ Chop_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)		; advance to Chop_ChgSpeed
 		move.l	#Map_Chop,obMap(a0)		; set mappings
 		move.w	#ArtTile_Chopper,obGfx(a0)	; set art tile
-		move.b	#4,obRender(a0)			; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a0)	; set to playfield-positioned mode
 		move.b	#4,obPriority(a0)		; set sprite priority
 		move.b	#col_24x32|col_badnik,obColType(a0) ; set to ReactToItem entry 9 (badnik, 24x32)
 		move.b	#32/2,obActWid(a0)		; set sprite display width

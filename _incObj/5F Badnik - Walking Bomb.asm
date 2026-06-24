@@ -23,7 +23,7 @@ Bom_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)			; advance to Bom_Action
 		move.l	#Map_Bomb,obMap(a0)			; set mappings
 		move.w	#ArtTile_Bomb,obGfx(a0)			; set art tile
-		ori.b	#4,obRender(a0)				; set to playfield-positioned mode
+		ori.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
 		move.b	#3,obPriority(a0)			; set sprite priority
 		move.b	#24/2,obActWid(a0)			; set sprite display width
 
@@ -197,7 +197,7 @@ Bom_BurnFuseAndExplode:
 		move.w	(a2)+,obVelX(a1)			; get next X-velocity from speed data
 		move.w	(a2)+,obVelY(a1)			; get next Y-velocity from speed data
 		move.b	#col_8x8|col_hurt,obColType(a1)		; set ReactToItem type (damaging)
-		bset	#7,obRender(a1)				; make sure shrapnel doesn't get immediately deleted from "obRender bpl" check below
+		bset	#sprite_rendered_bit,obRender(a1)	; make sure shrapnel doesn't get immediately deleted from "obRender bpl" check below
 
 	.nextShrapnel:
 		dbf	d1,.loopShrapnel			; repeat 3 more times

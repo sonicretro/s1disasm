@@ -57,7 +57,7 @@ yad_timedelay:	equ objoff_30	; delay before turning around
 Yad_Main:	; Routine 0
 		move.l	#Map_Yad,obMap(a0)		; set mappings
 		move.w	#ArtTile_Yadrin|Tile_Pal2,obGfx(a0) ; set art tile and palette line
-		move.b	#4,obRender(a0)			; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a0)	; set to playfield-positioned mode
 		move.b	#4,obPriority(a0)		; set sprite priority
 		move.b	#40/2,obActWid(a0)		; set sprite display width
 		move.b	#34/2,obHeight(a0)		; set height

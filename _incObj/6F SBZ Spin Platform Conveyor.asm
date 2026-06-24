@@ -41,7 +41,7 @@ SpinC_Main:	; Routine 0
 		move.l	#Map_Spin,obMap(a0)
 		move.w	#ArtTile_SBZ_Spinning_Platform,obGfx(a0)
 		move.b	#32/2,obActWid(a0)
-		ori.b	#4,obRender(a0)
+		ori.b	#sprite_cam_field,obRender(a0)
 		move.b	#4,obPriority(a0)
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0

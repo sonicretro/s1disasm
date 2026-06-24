@@ -50,7 +50,7 @@ SSR_Loop:
 		move.b	(a2)+,obFrame(a1)			; load frame ID
 		move.l	#Map_SSR,obMap(a1)			; set mappings
 		move.w	#ArtTile_Title_Card|Tile_Prio,obGfx(a1)	; set art tile and sprite priority flag
-		move.b	#0,obRender(a1)				; set to screen-positioned sprite mode
+		move.b	#sprite_cam_screen,obRender(a1)		; set to screen-positioned sprite mode
 		lea	object_size(a1),a1			; advance to next card object (all elements are back-to-back in RAM)
 		dbf	d1,SSR_Loop				; repeat sequence 3 or 4 times
 
@@ -276,7 +276,7 @@ SSRC_Loop:
 		addq.b	#2,obRoutine(a1)			; set to SSRC_Flash
 		move.l	#Map_SSRC,obMap(a1)			; set mappings
 		move.w	#ArtTile_SS_Results_Emeralds|Tile_Prio,obGfx(a1) ; set art tile and sprite priority flag
-		move.b	#0,obRender(a1)				; set to screen-positioned sprite mode
+		move.b	#sprite_cam_screen,obRender(a1)		; set to screen-positioned sprite mode
 		lea	object_size(a1),a1			; advance to next card object (all elements are back-to-back in RAM)
 		dbf	d1,SSRC_Loop				; loop for d1 number of emeralds
 ; ---------------------------------------------------------------------------

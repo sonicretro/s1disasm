@@ -65,7 +65,7 @@ FindNearestTile:
 
 .specialtile:
 		andi.w	#$7F,d1
-		btst	#6,obRender(a0) ; is object "behind a loop"?
+		btst	#sprite_looping_bit,obRender(a0) ; is object "behind a loop"?
 		beq.s	.treatasnormal	; if not, branch
 		addq.w	#1,d1
 		cmpi.w	#$29,d1

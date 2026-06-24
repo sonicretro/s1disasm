@@ -31,7 +31,7 @@ Ledge_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Ledge,obMap(a0)
 		move.w	#ArtTile_Level|Tile_Pal3,obGfx(a0)
-		ori.b	#4,obRender(a0)
+		ori.b	#sprite_cam_field,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#7,collapsible_timedelay(a0)	; set time delay for collapse
 	if FixBugs
@@ -48,7 +48,7 @@ Ledge_Main:	; Routine 0
 	endif
 		move.b	obSubtype(a0),obFrame(a0)	; use subtype as frame ID (0 or 1)
 		move.b	#112/2,obHeight(a0)
-		bset	#4,obRender(a0)			; set custom height flag
+		bset	#sprite_customheight_bit,obRender(a0) ; set custom height flag
 
 Ledge_ChkTouch:	; Routine 2
 		tst.b	collapsible_flag(a0)		; is ledge collapsing?
@@ -167,7 +167,7 @@ CFlo_Main:	; Routine 0
 		bne.s	.notSBZ				; if not, branch
 		move.w	#ArtTile_SBZ_Collapsing_Floor|Tile_Pal3,obGfx(a0) ; SBZ specific code
 	.notSBZ:
-		ori.b	#4,obRender(a0)
+		ori.b	#sprite_cam_field,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#7,collapsible_timedelay(a0)	; set time delay for collapse
 		move.b	#136/2,obActWid(a0)
@@ -190,11 +190,11 @@ CFlo_ChkTouch:	; Routine 2
 		bpl.s	.display			; if not, branch
 		btst	#3,obStatus(a1)			; is Sonic standing on platform?
 		beq.s	.display			; if not, branch
-		bclr	#0,obRender(a0)			; clear X-flip flag
+		bclr	#sprite_xflip_bit,obRender(a0)	; clear X-flip flag
 		move.w	obX(a1),d0			; get Sonic's X-position
 		sub.w	obX(a0),d0			; has Sonic touched the right side of the platform?
 		bcc.s	.display			; if not, branch
-		bset	#0,obRender(a0)			; flip platform to inverse collapsing pattern
+		bset	#sprite_xflip_bit,obRender(a0)	; flip platform to inverse collapsing pattern
 
 	.display:
 		bra.w	RememberState
@@ -310,7 +310,7 @@ FragmentatePlatform:
 		movea.l	obMap(a0),a3			; get object mappings pointer
 		adda.w	(a3,d0.w),a3			; find sprite mapping for current frame ID
 		addq.w	#1,a3				; skip over piece count header
-		bset	#5,obRender(a0)			; set "raw-mappings" flag
+		bset	#sprite_rawmappings_bit,obRender(a0) ; set "raw-mappings" flag
 		_move.b	obID(a0),d4			; copy object ID to fragments
 		move.b	obRender(a0),d5			; copy render flags to fragments
 		movea.l	a0,a1				; overwrite main platform with first fragment object
@@ -398,7 +398,7 @@ SlopeObject_AssumeStoodOn:
 		sub.w	obX(a0),d0
 		add.w	d1,d0
 		lsr.w	#1,d0
-		btst	#0,obRender(a0)		; is ledge mirrored?
+		btst	#sprite_xflip_bit,obRender(a0) ; is ledge mirrored?
 		beq.s	.alignSonic		; if not, branch
 		not.w	d0
 		add.w	d1,d0

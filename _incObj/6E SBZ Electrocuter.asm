@@ -19,7 +19,7 @@ Elec_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)			; advance to Elec_Shock
 		move.l	#Map_Elec,obMap(a0)			; set mappings
 		move.w	#ArtTile_SBZ_Electric_Orb,obGfx(a0)	; set art tile
-		ori.b	#4,obRender(a0)				; set to playfield-positioned mode
+		ori.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
 		move.b	#80/2,obActWid(a0)			; set sprite width
 
 		; Zap intervals are defined through the subtype, which must always be a power of 2.

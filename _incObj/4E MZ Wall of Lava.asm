@@ -33,7 +33,7 @@ LWall_Main:	; Routine 0
 		_move.b	#id_LavaWall,obID(a1)			; load another lava wall object
 		move.l	#Map_LWall,obMap(a1)			; set mappings
 		move.w	#ArtTile_MZ_Lava|Tile_Pal4,obGfx(a1)	; set art tile and palette line (contains lava palcycle)
-		move.b	#4,obRender(a1)				; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a1)		; set to playfield-positioned mode
 		move.b	#160/2,obActWid(a1)			; set sprite display width (very large)
 		move.w	obX(a0),obX(a1)				; copy X-position
 		move.w	obY(a0),obY(a1)				; copy Y-position

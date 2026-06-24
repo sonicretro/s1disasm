@@ -32,7 +32,7 @@ Spikes_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)		; set to Spikes_Solid
 		move.l	#Map_Spike,obMap(a0)		; load mappings
 		move.w	#ArtTile_Spikes,obGfx(a0)	; set art tile
-		ori.b	#4,obRender(a0)			; set to playfield-positioning mode
+		ori.b	#sprite_cam_field,obRender(a0)	; set to playfield-positioning mode
 		move.b	#4,obPriority(a0)		; set sprite priority
 
 		move.b	obSubtype(a0),d0		; get spikes subtype

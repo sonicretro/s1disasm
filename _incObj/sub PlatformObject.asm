@@ -138,7 +138,7 @@ SlopeObject:
 		cmp.w	d1,d0
 		bhs.s	Plat_Exit				; branch if Sonic is right of the platform
 
-		btst	#0,obRender(a0)
+		btst	#sprite_xflip_bit,obRender(a0)
 		beq.s	.noflip
 		not.w	d0
 		add.w	d1,d0					; reverse position if platform is xflipped

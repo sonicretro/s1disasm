@@ -15,7 +15,7 @@ SmashObject:
 		movea.l	obMap(a0),a3			; get object mappings set
 		adda.w	(a3,d0.w),a3			; find mappings for current frame
 		addq.w	#1,a3				; skip over sprite piece count
-		bset	#5,obRender(a0)			; set "raw-mappings" flag
+		bset	#sprite_rawmappings_bit,obRender(a0) ; set "raw-mappings" flag
 		_move.b	obID(a0),d4			; copy object ID
 		move.b	obRender(a0),d5			; copy render flags
 		movea.l	a0,a1				; replace current object with first fragment

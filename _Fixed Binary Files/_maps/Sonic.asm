@@ -139,7 +139,7 @@ MS_Walk12_End
 
 MS_Walk13:	spriteHeader
 	spritePiece	-$D, -$13, 3, 2, 0, 0, 0, 0, 0	; walking 1-3
-	spritePiece	-$D, -3, 3, 3, 6, 0, 0, 0, 0
+	spritePiece	-$C, -3, 3, 3, 6, 0, 0, 0, 0
 MS_Walk13_End
 
 MS_Walk14:	spriteHeader
@@ -151,7 +151,7 @@ MS_Walk14_End
 
 MS_Walk15:	spriteHeader
 	spritePiece	-$D, -$14, 3, 2, 0, 0, 0, 0, 0	; walking 1-5
-	spritePiece	-$15, -4, 4, 3, 6, 0, 0, 0, 0
+	spritePiece	-$14, -4, 4, 3, 6, 0, 0, 0, 0
 MS_Walk15_End
 
 MS_Walk16:	spriteHeader

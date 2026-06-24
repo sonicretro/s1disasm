@@ -10,15 +10,15 @@ Map_Geyser_internal:	mappingsTable
 	mappingsTableEntry.w	.bubble6
 	mappingsTableEntry.w	.end1
 	mappingsTableEntry.w	.end2
-	mappingsTableEntry.w	.medcolumn1
-	mappingsTableEntry.w	.medcolumn2
-	mappingsTableEntry.w	.medcolumn3
-	mappingsTableEntry.w	.shortcolumn1
-	mappingsTableEntry.w	.shortcolumn2
-	mappingsTableEntry.w	.shortcolumn3
-	mappingsTableEntry.w	.longcolumn1
-	mappingsTableEntry.w	.longcolumn2
-	mappingsTableEntry.w	.longcolumn3
+	mappingsTableEntry.w	.medcolumn1	; 8
+	mappingsTableEntry.w	.medcolumn2	; 9
+	mappingsTableEntry.w	.medcolumn3	; A (broken, unused)
+	mappingsTableEntry.w	.shortcolumn1	; B
+	mappingsTableEntry.w	.shortcolumn2	; C
+	mappingsTableEntry.w	.shortcolumn3	; D (broken, unused)
+	mappingsTableEntry.w	.longcolumn1	; E
+	mappingsTableEntry.w	.longcolumn2	; F
+	mappingsTableEntry.w	.longcolumn3	; 10 (broken, unused)
 	mappingsTableEntry.w	.bubble7
 	mappingsTableEntry.w	.bubble8
 	mappingsTableEntry.w	.blank

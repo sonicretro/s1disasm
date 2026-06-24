@@ -283,7 +283,7 @@ OPL_MakeItem:
 		andi.w	#$FFF,d0			; ignore x/y flip bits
 		move.w	d0,obY(a1)			; set y pos
 		rol.w	#2,d1
-		andi.b	#3,d1				; read only x/y flip bits
+		andi.b	#sprite_xflip|sprite_yflip,d1	; read only x/y flip bits
 		move.b	d1,obRender(a1)			; apply x/y flip
 		move.b	d1,obStatus(a1)
 		move.b	(a0)+,d0			; get object id

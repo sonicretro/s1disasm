@@ -33,7 +33,7 @@ Orb_Main:	; Routine 0
 		move.w	#ArtTile_LZ_Orbinaut,obGfx(a0)		; LZ-specific art tile
 
 	.continueSetup:
-		ori.b	#4,obRender(a0)				; set to playfield-positioned mode
+		ori.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
 		move.b	#4,obPriority(a0)			; set sprite priority
 		move.b	#col_16x16|col_badnik,obColType(a0)	; set ReactToItem type
 		move.b	#24/2,obActWid(a0)			; set sprite display width
@@ -58,7 +58,7 @@ Orb_Main:	; Routine 0
 		move.b	#6,obRoutine(a1)			; set to Orb_CircleSpikeball routine
 		move.l	obMap(a0),obMap(a1)			; copy mappings
 		move.w	obGfx(a0),obGfx(a1)			; copy art tile (zone-specific)
-		ori.b	#4,obRender(a1)				; set to playfield-positioned mode
+		ori.b	#sprite_cam_field,obRender(a1)		; set to playfield-positioned mode
 		move.b	#4,obPriority(a1)			; set sprite priority
 		move.b	#16/2,obActWid(a1)			; set sprite display width
 		move.b	#3,obFrame(a1)				; use spikeball frame

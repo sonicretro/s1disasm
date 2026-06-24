@@ -57,7 +57,7 @@ BossSpringYard_LoadBoss:
 		move.b	(a2)+,obPriority(a1)
 		move.l	#Map_Eggman,obMap(a1)			; load mappings and graphics for the object
 		move.w	#ArtTile_Eggman,obGfx(a1)
-		move.b	#4,obRender(a1)				; set the object to position based on where it is in the level and not a static position on screen
+		move.b	#sprite_cam_field,obRender(a1)		; set the object to position based on where it is in the level and not a static position on screen
 		move.b	#64/2,obActWid(a1)			; define horizontal width radius (used to hide objects when they leave the screen space)
 
 ; objoff_34 is used here as a reference back to the main boss controller. 
@@ -77,9 +77,9 @@ BossSpringYard_ShipMain:	; Routine 2
 
 ; obStatus stores the logical bits, but obRender is visual bits, so this simply moves them from one to the other
 
-		moveq	#3,d0					; move first 2 bits into d0			
+		moveq	#sprite_xflip|sprite_yflip,d0		; move first 2 bits into d0			
 		and.b	obStatus(a0),d0				; AND with obStatus so now d0 contains X and Y logical flip bits only
-		andi.b	#$FC,obRender(a0)			; clear the x and y flip
+		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
 		or.b	d0,obRender(a0)				; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -641,9 +641,9 @@ loc_195BE:
 
 loc_195DA:
 		move.b	obStatus(a1),obStatus(a0)
-		moveq	#3,d0
+		moveq	#sprite_xflip|sprite_yflip,d0
 		and.b	obStatus(a0),d0
-		andi.b	#$FC,obRender(a0)
+		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0)
 		or.b	d0,obRender(a0)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -738,7 +738,7 @@ BossBlock_MakeBlock:
 		move.b	#id_BossBlock,obID(a1)
 		move.l	#Map_BossBlock,obMap(a1)
 		move.w	#ArtTile_Level|Tile_Pal3,obGfx(a1)
-		move.b	#4,obRender(a1)
+		move.b	#sprite_cam_field,obRender(a1)
 		move.b	#32/2,obActWid(a1)
 		move.b	#32/2,obHeight(a1)
 		move.b	#3,obPriority(a1)

@@ -13,9 +13,11 @@ BGHZ_Index:	dc.w BGHZ_Main-BGHZ_Index
 		dc.w BGHZ_FaceMain-BGHZ_Index
 		dc.w BGHZ_FlameMain-BGHZ_Index
 
-BGHZ_ParentObj = objoff_34 					; Pointer to main boss controller
+BGHZ_ParentObj = objoff_34					; Pointer to main boss controller
 BGHZ_SineCounter = objoff_3F 					; sine counter for bobbing motion
 BGHZ_BossGenericTimer = objoff_3C 				; timer for how many frames to do an action, whether its wait for explosions, or to move in a direction
+GBall_AnchorPos = objoff_32					; offset used to calculate position of chain anchor on Eggman's ship
+GBall_PosX	= objoff_3A	
 
 BGHZ_ObjData:	
 		dc.b 2,	0					; routine counter, animation
@@ -41,12 +43,12 @@ BGHZ_LoadBoss:
 		move.w	obY(a0),obY(a1)
 		move.l	#Map_Eggman,obMap(a1) 			; point to Eggman's mappings
 		move.w	#ArtTile_Eggman,obGfx(a1) 		; point to Eggman's art (VRAM tile index and palette line)
-		move.b	#4,obRender(a1) 			; set the object to position based on where it is in the level and not a static position on screen
+		move.b	#sprite_cam_field,obRender(a1) 		; set the object to position based on where it is in the level and not a static position on screen
 		move.b	#64/2,obActWid(a1) 			; set width to 64 pixel radius (to know when sprite is off screen and should be hidden)
 		move.b	#3,obPriority(a1) 			; set sprite priority to 3 (0 is front of screen)
 		move.b	(a2)+,obAnim(a1) 			; load appropriate animation index, then increment a2 (now we are one full entry lower in our ObjData table)
 
-; objoff_34 is used here as a reference back to the main boss controller. 
+; BGHZ_ParentObj is used here as a reference back to the main boss controller. 
 ; This is because when we are in ExecuteObjects, a0 is set to each object and sub objects own slot, so we need a way to find the original boss object.
 ; On the first loop, this copies the address to itself, but the other loops are what it was intended for.
 		move.l	a0,BGHZ_ParentObj(a1) 
@@ -72,7 +74,7 @@ BGHZ_ShipMain:	; Routine 2
 
 		move.b	obStatus(a0),d0 			; move current object status
 		andi.b	#3,d0 					; AND with obStatus so now d0 contains X and Y logical flip bits only
-		andi.b	#$FC,obRender(a0) 			; clear the x and y flip
+		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
 		or.b	d0,obRender(a0) 			; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -404,7 +406,7 @@ BGHZ_Display:
 		jsr	(AnimateSprite).l
 		move.b	obStatus(a0),d0 			; move current object status
 		andi.b	#3,d0 					; AND with obstatus so now d0 contains X and Y logical flip bits only
-		andi.b	#$FC,obRender(a0) 			; clear the x and y flip
+		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) 			; clear the x and y flip
 		or.b	d0,obRender(a0) 			; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 
@@ -416,9 +418,9 @@ BGHZ_Display:
 
 BossBall:
 		moveq	#0,d0
-		move.b	obRoutine(a0),d0
-		move.w	GBall_Index(pc,d0.w),d1
-		jmp	GBall_Index(pc,d1.w)
+		move.b	obRoutine(a0),d0			; copy object routine
+		move.w	GBall_Index(pc,d0.w),d1			; use the object routine index and GBall_Index to calculate our offset
+		jmp	GBall_Index(pc,d1.w)			; jump into the table and use our offset to pick a routine in the index to go to
 ; ===========================================================================
 GBall_Index:	dc.w GBall_Main-GBall_Index
 		dc.w GBall_Base-GBall_Index
@@ -428,49 +430,50 @@ GBall_Index:	dc.w GBall_Main-GBall_Index
 ; ===========================================================================
 
 GBall_Main:	; Routine 0
-		addq.b	#2,obRoutine(a0)
-		move.w	#$4080,obAngle(a0)
-		move.w	#-$200,objoff_3E(a0)
-		move.l	#Map_BossItems,obMap(a0)
+		addq.b	#2,obRoutine(a0)			; increment object routine counter
+		move.w	#$4080,obAngle(a0)			; set object's angle (vertical left and ceiling)
+		move.w	#-$200,obBossFlash(a0)			; set boss flash counter (to signify don't flash when hit)
+		move.l	#Map_BossItems,obMap(a0)		; load mappings and art
 		move.w	#ArtTile_Eggman_Weapons,obGfx(a0)
-		lea	obSubtype(a0),a2
-		move.b	#0,(a2)+
-		moveq	#5,d1
-		movea.l	a0,a1
-		bra.s	loc_17B60
+		lea	obSubtype(a0),a2			; copy object subtype
+		move.b	#0,(a2)+				; clear object subtype and increment address
+		moveq	#5,d1					; prep for loop below, loop 6 times
+		movea.l	a0,a1					; copy Ball controller address
+		bra.s	GBall_LinkSetup
 ; ===========================================================================
 
 GBall_MakeLinks:
-		jsr	(FindNextFreeObj).l
-		bne.s	GBall_MakeBall
-		move.w	obX(a0),obX(a1)
+		jsr	(FindNextFreeObj).l			; are there any free objects?
+		bne.s	GBall_MakeBall				; no, leave early
+		move.w	obX(a0),obX(a1)				; set object position to main ball controller position
 		move.w	obY(a0),obY(a1)
-		_move.b	#id_BossBall,obID(a1) ; load chain link object
-		move.b	#6,obRoutine(a1)
-		move.l	#Map_Swing_GHZ,obMap(a1)
+		_move.b	#id_BossBall,obID(a1) 			; load chain link object
+		move.b	#6,obRoutine(a1)			; set routine to GBall_Link
+		move.l	#Map_Swing_GHZ,obMap(a1)		; load mappings and art
 		move.w	#ArtTile_GHZ_MZ_Swing,obGfx(a1)
-		move.b	#1,obFrame(a1)
-		addq.b	#1,obSubtype(a0)
+		move.b	#1,obFrame(a1)				; set current animation frame
+		addq.b	#1,obSubtype(a0)			; set subtype of wrecking ball object to 1
 
-loc_17B60:
-		move.w	a1,d5
-		subi.w	#v_objspace&$FFFF,d5
-		lsr.w	#object_size_bits,d5
-		andi.w	#$7F,d5
-		move.b	d5,(a2)+
-		move.b	#4,obRender(a1)
-		move.b	#16/2,obActWid(a1)
-		move.b	#6,obPriority(a1)
-		move.l	objoff_34(a0),objoff_34(a1)
-		dbf	d1,GBall_MakeLinks ; repeat sequence 5 more times
+; loc_17B60:
+GBall_LinkSetup:
+		move.w	a1,d5					; move lower word of address into d5
+		subi.w	#v_objspace&$FFFF,d5			; create a byte offset within object (this is to save space)
+		lsr.w	#object_size_bits,d5			; shift right by object size bits, so that d5 contains a bit index now instead of byte index
+		andi.w	#$7F,d5					; limit index to 0 through 128
+		move.b	d5,(a2)+				; set this index as the subtype and increment address
+		move.b	#sprite_cam_field,obRender(a1)		; set render flags to normal level/playfield coordinates (not screen relative)
+		move.b	#16/2,obActWid(a1)			; set radius of object in pixels (used for hiding sprites off screen)
+		move.b	#6,obPriority(a1)			; set object render priority to 6 (lower priority)
+		move.l	BGHZ_ParentObj(a0),BGHZ_ParentObj(a1)	; copy parent boss object pointer to link's parent object pointer	
+		dbf	d1,GBall_MakeLinks 			; repeat sequence 5 more times
 
 GBall_MakeBall:
-		move.b	#8,obRoutine(a1)
-		move.l	#Map_GBall,obMap(a1) ; load different mappings for final link
+		move.b	#8,obRoutine(a1)			; set object routine to GBall_Ball
+		move.l	#Map_GBall,obMap(a1) 			; load different mappings for final link
 		move.w	#ArtTile_GHZ_Giant_Ball|Tile_Pal3,obGfx(a1) ; use different graphics
-		move.b	#1,obFrame(a1)
-		move.b	#5,obPriority(a1)
-		move.b	#col_40x40|col_hurt,obColType(a1) ; make object hurt Sonic
+		move.b	#1,obFrame(a1)				; set current animation frame
+		move.b	#5,obPriority(a1)			; set object render priority to 5 (lower priority, but covers the links)
+		move.b	#col_40x40|col_hurt,obColType(a1) 	; make object hurt Sonic
 		rts
 ; ===========================================================================
 
@@ -479,47 +482,50 @@ GBall_PosData:	dc.b 0,	$10, $20, $30, $40, $60	; y-position data for links and g
 ; ===========================================================================
 
 GBall_Base:	; Routine 2
-		lea	(GBall_PosData).l,a3
-		lea	obSubtype(a0),a2
+		lea	(GBall_PosData).l,a3			; load position data
+		lea	obSubtype(a0),a2			; load object subtype into a2 to use for the index system calculated above
 		moveq	#0,d6
-		move.b	(a2)+,d6
+		move.b	(a2)+,d6				; move current index value and increment (this contains how many links were spawned due to the addq.b above)
 
-loc_17BC6:
+; loc_17BC6:
+.convertIndex:
 		moveq	#0,d4
-		move.b	(a2)+,d4
-		lsl.w	#object_size_bits,d4
-		addi.l	#v_objspace&$FFFFFF,d4
-		movea.l	d4,a1
-		move.b	(a3)+,d0
-		cmp.b	objoff_3C(a1),d0
-		beq.s	loc_17BE0
-		addq.b	#1,objoff_3C(a1)
+		move.b	(a2)+,d4				; move current index value and increment address
+		lsl.w	#object_size_bits,d4			; shift left by object size bits (undoing the byte to bit conversion above)
+		addi.l	#v_objspace&$FFFFFF,d4			; convert into a full 24 bit address
+		movea.l	d4,a1					; copy full address
+		move.b	(a3)+,d0				; copy position data and increment address (used as a target position)
+		cmp.b	BGHZ_BossGenericTimer(a1),d0		; has the object's current value reached the target?
+		beq.s	.skip					; if yes, branch
+		addq.b	#1,BGHZ_BossGenericTimer(a1)		; no, increment by 1 (keep extending)
 
-loc_17BE0:
-		dbf	d6,loc_17BC6
+; loc_17BE0:
+.skip:
+		dbf	d6,.convertIndex			; decrement and branch
 
-		cmp.b	objoff_3C(a1),d0
-		bne.s	loc_17BFA
-		movea.l	objoff_34(a0),a1
-		cmpi.b	#6,ob2ndRout(a1)
-		bne.s	loc_17BFA
-		addq.b	#2,obRoutine(a0)
+		cmp.b	BGHZ_BossGenericTimer(a1),d0		; has the final object reached the target?
+		bne.s	.checkAnchor				; if not, branch
+		movea.l	BGHZ_ParentObj(a0),a1			; copy address of parent
+		cmpi.b	#6,ob2ndRout(a1)			; has the ship started moving?
+		bne.s	.checkAnchor				; if not, branch
+		addq.b	#2,obRoutine(a0)			; set routine index to GBall_Base2
 
-loc_17BFA:
-		cmpi.w	#$20,objoff_32(a0)
-		beq.s	GBall_Display
-		addq.w	#1,objoff_32(a0)
+; loc_17BFA:
+.checkAnchor:
+		cmpi.w	#32,GBall_AnchorPos(a0)			; has the base object (chain anchor) dropped below the ship?
+		beq.s	GBall_Display				; if yes, branch
+		addq.w	#1,GBall_AnchorPos(a0)			; no, keep dropping
 
 GBall_Display:
-		bsr.w	GBall_UpdateBase
-		move.b	obAngle(a0),d0
+		bsr.w	GBall_UpdateBase			; update base object
+		move.b	obAngle(a0),d0				; copy angle
 		jsr	(Swing_Move2).l
 		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 ; GBall_Display2:
 GBall_Base2:	; Routine 4
-		bsr.w	GBall_UpdateBase
+		bsr.w	GBall_UpdateBase			; update base object
 		jsr	(GBall_Move).l
 		jmp	(DisplaySprite).l
 
@@ -530,17 +536,17 @@ GBall_Base2:	; Routine 4
 
 ; sub_17C2A:
 GBall_UpdateBase:
-		movea.l	objoff_34(a0),a1			; get address of OST of parent
-		addi.b	#$20,obAniFrame(a0)			; increment frame counter
+		movea.l	BGHZ_ParentObj(a0),a1			; get address of OST of parent
+		addi.b	#32,obAniFrame(a0)			; increment frame counter
 		bcc.s	.no_chg					; branch if byte doesn't wrap from $C0 to 0
 		bchg	#0,obFrame(a0)				; change frame every 8th frame
 
-	.no_chg:
-		move.w	obX(a1),objoff_3A(a0)			; get position from parent (ship)
+.no_chg:
+		move.w	obX(a1),GBall_PosX(a0)			; get position from parent (ship)
 		move.w	obY(a1),d0
-		add.w	objoff_32(a0),d0
-		move.w	d0,objoff_38(a0)
-		move.b	obStatus(a1),obStatus(a0)
+		add.w	GBall_AnchorPos(a0),d0			; copy anchor position offset into d0
+		move.w	d0,obBossY(a0)				; move anchor to ship's Y plus offset
+		move.b	obStatus(a1),obStatus(a0)		; copy object status
 		tst.b	obStatus(a1)				; has boss been beaten?
 		bpl.s	.not_beaten				; if not, branch
 		_move.b	#id_Explosion,obID(a0)			; replace base with explosion object
@@ -554,11 +560,11 @@ GBall_UpdateBase:
 
 ; loc_17C68:
 GBall_Link:	; Routine 6
-		movea.l	objoff_34(a0),a1
-		tst.b	obStatus(a1)
-		bpl.s	GBall_Display3
-		_move.b	#id_Explosion,obID(a0)
-		move.b	#0,obRoutine(a0)
+		movea.l	BGHZ_ParentObj(a0),a1			; copy parent object address
+		tst.b	obStatus(a1)				; has Eggman's defeated flag been set (bit 7)?
+		bpl.s	GBall_Display3				; if not (positive number), branch
+		_move.b	#id_Explosion,obID(a0)			; set ID to explosion
+		move.b	#0,obRoutine(a0)			; set object routine to 0 (start exploding)
 
 GBall_Display3:
 		jmp	(DisplaySprite).l
@@ -567,21 +573,21 @@ GBall_Display3:
 ; GBall_ChkVanish:
 GBall_Ball:	; Routine 8
 		moveq	#0,d0
-		tst.b	obFrame(a0)
-		bne.s	GBall_Vanish
-		addq.b	#1,d0
+		tst.b	obFrame(a0)				; are we currently on frame 0?
+		bne.s	GBall_Vanish				; if not, skip
+		addq.b	#1,d0					; set d0 to 1 if we were on frame 0
 
 GBall_Vanish:
-		move.b	d0,obFrame(a0)
-		movea.l	objoff_34(a0),a1
-		tst.b	obStatus(a1)
-		bpl.s	GBall_Display4
-		move.b	#col_none,obColType(a0)
+		move.b	d0,obFrame(a0)				; set object frame
+		movea.l	BGHZ_ParentObj(a0),a1			; copy parent object address
+		tst.b	obStatus(a1)				; has Eggman's defeated flag been set (bit 7)?
+		bpl.s	GBall_Display4				; if not (positive number), branch
+		move.b	#col_none,obColType(a0)			; disable collision
 		bsr.w	BossDefeated
-		subq.b	#1,objoff_3C(a0)
-		bpl.s	GBall_Display4
-		move.b	#id_Explosion,obID(a0)
-		move.b	#0,obRoutine(a0)
+		subq.b	#1,BGHZ_BossGenericTimer(a0)		; subtract 1 from timer
+		bpl.s	GBall_Display4				; if timer is above 0, branch
+		move.b	#id_Explosion,obID(a0)			; set ID to explosion
+		move.b	#0,obRoutine(a0)			; set object routine to 0 (start exploding)
 
 GBall_Display4:
 		jmp	(DisplaySprite).l

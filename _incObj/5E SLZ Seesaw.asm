@@ -28,7 +28,7 @@ See_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Seesaw,obMap(a0)
 		move.w	#ArtTile_SLZ_Seesaw,obGfx(a0)
-		ori.b	#4,obRender(a0)
+		ori.b	#sprite_cam_field,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#96/2,obActWid(a0)
 		move.w	obX(a0),see_origX(a0)
@@ -109,10 +109,10 @@ See_ChgFrame:
 		subq.b	#1,d0
 		move.b	d0,obFrame(a0)
 		move.b	d1,see_frame(a0)
-		bclr	#0,obRender(a0)
+		bclr	#sprite_xflip_bit,obRender(a0)
 		btst	#1,obFrame(a0)
 		beq.s	.noflip
-		bset	#0,obRender(a0)
+		bset	#sprite_xflip_bit,obRender(a0)
 
 .noflip:
 		rts
@@ -122,7 +122,7 @@ See_Spikeball:	; Routine 6
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_SSawBall,obMap(a0)
 		move.w	#ArtTile_SLZ_Spikeball,obGfx(a0)
-		ori.b	#4,obRender(a0)
+		ori.b	#sprite_cam_field,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#col_16x16|col_hurt,obColType(a0)
 		move.b	#24/2,obActWid(a0)

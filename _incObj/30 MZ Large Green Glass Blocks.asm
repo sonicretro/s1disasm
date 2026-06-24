@@ -59,7 +59,7 @@ Glass_Main:	; Routine 0
 		move.w	d0,obY(a1)
 		move.l	#Map_Glass,obMap(a1)
 		move.w	#ArtTile_MZ_Glass_Pillar|Tile_Pal3|Tile_Prio,obGfx(a1)
-		move.b	#4,obRender(a1)
+		move.b	#sprite_cam_field,obRender(a1)
 		move.w	obY(a1),objoff_30(a1)
 		move.b	obSubtype(a0),obSubtype(a1)
 		move.b	#64/2,obActWid(a1)
@@ -75,7 +75,7 @@ Glass_Main:	; Routine 0
 
 .Fail:
 		move.w	#$90,glass_dist(a0)
-		bset	#4,obRender(a0)
+		bset	#sprite_customheight_bit,obRender(a0)
 
 Glass_Block012:	; Routine 2
 		bsr.w	Glass_Types

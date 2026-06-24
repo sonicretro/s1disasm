@@ -45,7 +45,7 @@ Stair_Main:	; Routine 0
 		_move.b	#id_Staircase,obID(a1) ; load another block object
 		move.l	#Map_Stair,obMap(a1)
 		move.w	#ArtTile_Level|Tile_Pal3,obGfx(a1)
-		move.b	#4,obRender(a1)
+		move.b	#sprite_cam_field,obRender(a1)
 		move.b	#3,obPriority(a1)
 		move.b	#32/2,obActWid(a1)
 		move.b	obSubtype(a0),obSubtype(a1)

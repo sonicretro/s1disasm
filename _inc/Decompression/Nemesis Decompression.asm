@@ -26,10 +26,10 @@ NemDecMain:
 		lea	(v_ngfx_buffer).w,a1
 		move.w	(a0)+,d2	; get number of patterns
 		lsl.w	#1,d2
-		bcc.s	loc_146A	; branch if the sign bit isn't set
+		bcc.s	NemDecM_ModeNoXOR	; branch if the sign bit isn't set
 		adda.w	#NemPCD_WriteRowToVDP_XOR-NemPCD_WriteRowToVDP,a3	; otherwise the file uses XOR mode
 
-loc_146A:
+NemDecM_ModeNoXOR:
 		lsl.w	#2,d2	; get number of 8-pixel rows in the uncompressed data
 		movea.w	d2,a5	; and store it in a5 because there aren't any spare data registers
 		moveq	#8,d3	; 8 pixels in a pattern row
@@ -63,12 +63,12 @@ NemDec_ProcessCompressedData:
 		ext.w	d0
 		sub.w	d0,d6	; subtract from shift value so that the next code is read next time around
 		cmpi.w	#9,d6	; does a new byte need to be read?
-		bhs.s	loc_14B2	; if not, branch
+		bhs.s	NemPCD_NoLoadField01	; if not, branch
 		addq.w	#8,d6
 		asl.w	#8,d5
 		move.b	(a0)+,d5	; read next byte
 
-loc_14B2:
+NemPCD_NoLoadField01:
 		move.b	1(a1,d1.w),d1
 		move.w	d1,d0
 		andi.w	#$F,d1	; get palette index for pixel
@@ -101,12 +101,12 @@ NemPCD_WritePixel_Loop:
 NemPCD_InlineData:
 		subq.w	#6,d6	; 6 bits needed to signal inline data
 		cmpi.w	#9,d6
-		bhs.s	loc_14E4
+		bhs.s	NemPCD_NoLoadField02
 		addq.w	#8,d6
 		asl.w	#8,d5
 		move.b	(a0)+,d5
 
-loc_14E4:
+NemPCD_NoLoadField02:
 		subq.w	#7,d6	; and 7 bits needed for the inline data itself
 		move.w	d5,d1
 		lsr.w	d6,d1	; shift so that low bit of the code is in bit position 0

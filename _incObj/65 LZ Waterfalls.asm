@@ -19,7 +19,7 @@ WFall_Main:	; Routine 0
 		addq.b	#4,obRoutine(a0)
 		move.l	#Map_WFall,obMap(a0)
 		move.w	#ArtTile_LZ_Splash|Tile_Pal3,obGfx(a0)
-		ori.b	#4,obRender(a0)
+		ori.b	#sprite_cam_field,obRender(a0)
 		move.b	#48/2,obActWid(a0)
 		move.b	#1,obPriority(a0)
 		move.b	obSubtype(a0),d0 ; get object type

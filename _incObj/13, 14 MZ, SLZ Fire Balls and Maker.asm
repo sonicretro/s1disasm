@@ -85,7 +85,7 @@ LBall_Main:	; Routine 0
 		move.w	#ArtTile_SLZ_Fireball,obGfx(a0)	; SLZ specific code
 
 .notSLZ:
-		move.b	#4,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
 		move.b	#3,obPriority(a0)
 		move.b	#col_16x16|col_hurt,obColType(a0)
 		move.w	obY(a0),objoff_30(a0)

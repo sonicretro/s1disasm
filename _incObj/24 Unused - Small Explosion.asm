@@ -23,7 +23,7 @@ UnkExpl_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_UnkExplode,obMap(a0)
 		move.w	#ArtTile_UnusedExplosion,obGfx(a0)
-		move.b	#4,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
 		move.b	#1,obPriority(a0)
 		move.b	#col_none,obColType(a0)
 		move.b	#24/2,obActWid(a0)

@@ -16,7 +16,7 @@ Rock_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_PRock,obMap(a0)
 		move.w	#ArtTile_GHZ_Purple_Rock|Tile_Pal4,obGfx(a0)
-		move.b	#4,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
 	if FixBugs=0
 		; This should be 48 pixels, currently it gets culled too soon.
 		move.b	#38/2,obActWid(a0)

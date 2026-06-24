@@ -110,7 +110,7 @@ Ring_SpawnRing:
 		move.w	d3,obY(a1)				; set y-axis position based on d3
 		move.l	#Map_Ring,obMap(a1)			; set mappings
 		move.w	#ArtTile_Ring|Tile_Pal2,obGfx(a1)	; set art tile and palette line
-		move.b	#4,obRender(a1)				; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a1)		; set to playfield-positioned mode
 		move.b	#2,obPriority(a1)			; set sprite priority
 		move.b	#col_12x12|col_item,obColType(a1)	; set to power-up collision type and hitbox 12x12 (=$47)
 		move.b	#16/2,obActWid(a1)			; set sprite display width
@@ -260,7 +260,7 @@ RLoss_Count:	; Routine 0
 		move.w	obY(a0),obY(a1)				; spawn at same Y-position
 		move.l	#Map_Ring,obMap(a1)			; set mappings
 		move.w	#ArtTile_Ring|Tile_Pal2,obGfx(a1)	; set art tile and palette line
-		move.b	#4,obRender(a1)				; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a1)		; set to playfield-positioned mode
 		move.b	#3,obPriority(a1)			; set sprite priority (1 lower than normal rings)
 		move.b	#col_12x12|col_item,obColType(a1)	; set to power-up collision type and hitbox 12x12 (=$47)
 		move.b	#16/2,obActWid(a1)			; set sprite display width

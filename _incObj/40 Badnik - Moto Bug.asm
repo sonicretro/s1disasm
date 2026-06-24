@@ -21,7 +21,7 @@ moto_smokewait:	equ	objoff_33			; interval between spawning smoke particle objec
 Moto_Main:	; Routine 0
 		move.l	#Map_Moto,obMap(a0)		; set mappings
 		move.w	#ArtTile_Moto_Bug,obGfx(a0)	; set art tile
-		move.b	#4,obRender(a0)			; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a0)	; set to playfield-positioned mode
 		move.b	#4,obPriority(a0)		; set sprite priority
 		move.b	#40/2,obActWid(a0)		; set sprite display width
 

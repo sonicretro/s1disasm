@@ -196,6 +196,12 @@ jhi:		macro loc
 	.nojump\@:
 		endm
 
+jls:		macro loc
+		bhi.s	.nojump\@
+		jmp	loc
+	.nojump\@:
+		endm
+
 jcc:		macro loc
 		bcs.s	.nojump\@
 		jmp	loc
@@ -204,12 +210,6 @@ jcc:		macro loc
 
 jhs:		macro loc
 		jcc	\loc
-		endm
-
-jls:		macro loc
-		bhi.s	.nojump\@
-		jmp	loc
-	.nojump\@:
 		endm
 
 jcs:		macro loc
@@ -222,38 +222,26 @@ jlo:		macro loc
 		jcs	\loc
 		endm
 
-jeq:		macro loc
-		bne.s	.nojump\@
-		jmp	loc
-	.nojump\@:
-		endm
-
 jne:		macro loc
 		beq.s	.nojump\@
 		jmp	loc
 	.nojump\@:
 		endm
 
-jgt:		macro loc
-		ble.s	.nojump\@
+jeq:		macro loc
+		bne.s	.nojump\@
 		jmp	loc
 	.nojump\@:
 		endm
 
-jge:		macro loc
-		blt.s	.nojump\@
+jvc:		macro loc
+		bvs.s	.nojump\@
 		jmp	loc
 	.nojump\@:
 		endm
 
-jle:		macro loc
-		bgt.s	.nojump\@
-		jmp	loc
-	.nojump\@:
-		endm
-
-jlt:		macro loc
-		bge.s	.nojump\@
+jvs:		macro loc
+		bvc.s	.nojump\@
 		jmp	loc
 	.nojump\@:
 		endm
@@ -266,6 +254,30 @@ jpl:		macro loc
 
 jmi:		macro loc
 		bpl.s	.nojump\@
+		jmp	loc
+	.nojump\@:
+		endm
+
+jge:		macro loc
+		blt.s	.nojump\@
+		jmp	loc
+	.nojump\@:
+		endm
+
+jlt:		macro loc
+		bge.s	.nojump\@
+		jmp	loc
+	.nojump\@:
+		endm
+
+jgt:		macro loc
+		ble.s	.nojump\@
+		jmp	loc
+	.nojump\@:
+		endm
+
+jle:		macro loc
+		bgt.s	.nojump\@
 		jmp	loc
 	.nojump\@:
 		endm

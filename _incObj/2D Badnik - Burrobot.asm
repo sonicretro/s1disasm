@@ -22,7 +22,7 @@ Burro_Main:	; Routine 0
 		move.b	#16/2,obWidth(a0)			; set width
 		move.l	#Map_Burro,obMap(a0)			; set mappings
 		move.w	#ArtTile_Burrobot,obGfx(a0)		; set art tile
-		ori.b	#4,obRender(a0)				; set playfield-positioned mode
+		ori.b	#sprite_cam_field,obRender(a0)		; set playfield-positioned mode
 		move.b	#4,obPriority(a0)			; set sprite priority
 		move.b	#col_24x36|col_badnik,obColType(a0)	; set ReactToItem type
 		move.b	#24/2,obActWid(a0)			; set sprite display width

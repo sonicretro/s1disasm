@@ -16,7 +16,7 @@ Flame_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Flame,obMap(a0)
 		move.w	#ArtTile_SBZ_Flamethrower|Tile_Prio,obGfx(a0)
-		ori.b	#4,obRender(a0)
+		ori.b	#sprite_cam_field,obRender(a0)
 		move.b	#1,obPriority(a0)
 		move.w	obY(a0),objoff_30(a0)	; store obY (gets overwritten later though)
 		move.b	#24/2,obActWid(a0)

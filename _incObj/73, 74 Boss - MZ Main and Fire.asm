@@ -52,7 +52,7 @@ BossMarble_LoadBoss:
 		move.b	(a2)+,obPriority(a1)
 		move.l	#Map_Eggman,obMap(a1)			; load mappings and graphics for the object
 		move.w	#ArtTile_Eggman,obGfx(a1)
-		move.b	#4,obRender(a1)				; set the object to position based on where it is in the level and not a static position on screen
+		move.b	#sprite_cam_field,obRender(a1)		; set the object to position based on where it is in the level and not a static position on screen
 		move.b	#64/2,obActWid(a1)			; set collision to 20 pixel radius box
 
 ; objoff_34 is used here as a reference back to the main boss controller. 
@@ -72,9 +72,9 @@ BossMarble_ShipMain:	; Routine 2
 ; ---------------------------------------------------------------------------
 ; obStatus stores the logical bits, but obRender is visual bits, so this simply moves them from one to the other
 ; ---------------------------------------------------------------------------
-		moveq	#3,d0					; move first two bits into d0
+		moveq	#sprite_xflip|sprite_yflip,d0		; move first two bits into d0
 		and.b	obStatus(a0),d0				; AND with obStatus so now d0 contains X and Y logical flip bits only
-		andi.b	#$FC,obRender(a0)			; clear the x and y flip
+		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
 		or.b	d0,obRender(a0)				; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -485,9 +485,9 @@ BossMarble_SetBits:
 		move.w	obX(a1),obX(a0)				; copy positions
 		move.w	obY(a1),obY(a0)
 		move.b	obStatus(a1),obStatus(a0)		; move object status to boss object status
-		moveq	#3,d0					; move first 2 bits into d0
+		moveq	#sprite_xflip|sprite_yflip,d0		; move first 2 bits into d0
 		and.b	obStatus(a0),d0				; AND with obStatus so now do contains X and Y logical flip bits only
-		andi.b	#$FC,obRender(a0)			; clear the X and Y flip
+		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the X and Y flip
 		or.b	d0,obRender(a0)				; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -539,7 +539,7 @@ BossFire_Main:	; Routine 0
 		move.b	#16/2,obWidth(a0)
 		move.l	#Map_Fire,obMap(a0)
 		move.w	#ArtTile_MZ_Fireball,obGfx(a0)
-		move.b	#4,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
 		move.b	#5,obPriority(a0)
 		move.w	obY(a0),obBossY(a0)
 		move.b	#16/2,obActWid(a0)

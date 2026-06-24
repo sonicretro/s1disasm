@@ -19,7 +19,7 @@ Flap_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Flap,obMap(a0)
 		move.w	#ArtTile_LZ_Flapping_Door|Tile_Pal3,obGfx(a0)
-		ori.b	#4,obRender(a0)
+		ori.b	#sprite_cam_field,obRender(a0)
 		move.b	#80/2,obActWid(a0)
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0 ; get object type

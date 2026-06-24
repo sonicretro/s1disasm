@@ -20,7 +20,7 @@ Jaws_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)			; advance to Jaws_Swim
 		move.l	#Map_Jaws,obMap(a0)			; set mappings
 		move.w	#ArtTile_Jaws|Tile_Pal2,obGfx(a0)	; set art tile and palette line
-		ori.b	#4,obRender(a0)				; set playfield-positioned mode
+		ori.b	#sprite_cam_field,obRender(a0)		; set playfield-positioned mode
 		move.b	#col_32x24|col_badnik,obColType(a0)	; set collision type to badnik, 32x24
 		move.b	#4,obPriority(a0)			; set sprite priority
 	if FixBugs

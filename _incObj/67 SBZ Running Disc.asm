@@ -22,7 +22,7 @@ Disc_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Disc,obMap(a0)
 		move.w	#ArtTile_SBZ_Disc|Tile_Pal3|Tile_Prio,obGfx(a0)
-		move.b	#4,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#16/2,obActWid(a0)
 		move.w	obX(a0),disc_origX(a0)

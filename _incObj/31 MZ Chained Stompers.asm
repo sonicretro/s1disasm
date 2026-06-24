@@ -74,7 +74,7 @@ CStom_MakeStomper:
 		move.w	d0,obY(a1)
 		move.l	#Map_CStom,obMap(a1)
 		move.w	#ArtTile_MZ_Spike_Stomper,obGfx(a1)
-		move.b	#4,obRender(a1)
+		move.b	#sprite_cam_field,obRender(a1)
 		move.w	obY(a1),objoff_30(a1)
 		move.b	obSubtype(a0),obSubtype(a1)
 		move.b	#32/2,obActWid(a1)
@@ -143,7 +143,7 @@ CStom_Display:
 ; loc_B7E2:
 CStom_Chain:	; Routine 8
 		move.b	#256/2,obHeight(a0)
-		bset	#4,obRender(a0)
+		bset	#sprite_customheight_bit,obRender(a0)
 		movea.l	objoff_3C(a0),a1
 		move.b	objoff_32(a1),d0
 		lsr.b	#5,d0

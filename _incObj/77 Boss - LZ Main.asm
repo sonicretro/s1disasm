@@ -49,7 +49,7 @@ BossLabyrinth_LoadBoss:
 		move.b	obPriority(a0),obPriority(a1)
 		move.l	#Map_Eggman,obMap(a1)
 		move.w	#ArtTile_Eggman,obGfx(a1)
-		move.b	#4,obRender(a1)
+		move.b	#sprite_cam_field,obRender(a1)
 		move.b	#64/2,obActWid(a1)
 		move.l	a0,objoff_34(a1)
 		dbf	d1,BossLabyrinth_Loop
@@ -62,9 +62,9 @@ BossLabyrinth_ShipMain:	; Routine 2
 		jsr	BossLabyrinth_ShipIndex(pc,d1.w)
 		lea	(Ani_Eggman).l,a1
 		jsr	(AnimateSprite).l
-		moveq	#3,d0
+		moveq	#sprite_xflip|sprite_yflip,d0
 		and.b	obStatus(a0),d0
-		andi.b	#$FC,obRender(a0)
+		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0)
 		or.b	d0,obRender(a0)
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -411,8 +411,8 @@ BossLabyrinth_Display:
 		move.w	obX(a1),obX(a0)
 		move.w	obY(a1),obY(a0)
 		move.b	obStatus(a1),obStatus(a0)
-		moveq	#3,d0
+		moveq	#sprite_xflip|sprite_yflip,d0
 		and.b	obStatus(a0),d0
-		andi.b	#$FC,obRender(a0)
+		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0)
 		or.b	d0,obRender(a0)
 		jmp	(DisplaySprite).l

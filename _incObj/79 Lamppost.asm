@@ -24,7 +24,7 @@ Lamp_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Lamp,obMap(a0)
 		move.w	#ArtTile_Lamppost,obGfx(a0)
-		move.b	#4,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
 		move.b	#16/2,obActWid(a0)
 		move.b	#5,obPriority(a0)
 
@@ -98,7 +98,7 @@ Lamp_Blue:	; Routine 2
 		subi.w	#$18,lamp_origY(a1)			; move twirling object up a bit to align it
 		move.l	#Map_Lamp,obMap(a1)			; set mappings
 		move.w	#ArtTile_Lamppost,obGfx(a1)		; set art tile
-		move.b	#4,obRender(a1)				; set to playfield positioning mode
+		move.b	#sprite_cam_field,obRender(a1)		; set to playfield positioning mode
 		move.b	#16/2,obActWid(a1)			; set sprite display width
 		move.b	#4,obPriority(a1)			; set sprite priority
 		move.b	#2,obFrame(a1)				; use twirling object to "red ball only" frame

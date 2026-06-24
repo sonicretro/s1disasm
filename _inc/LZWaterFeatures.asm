@@ -305,10 +305,12 @@ LZWindTunnels:
 		blo.s	.chknext
 	endif
 		cmp.w	6(a2),d2
-		bhs.s	.chknext	; branch if Sonic is outside a range
 	if FixBugs
+		bhs.w	.chknext	; branch if Sonic is outside a range
 		; d0 is overwritten but later used as if it wasn't!
 		move.w	d0,d1
+	else
+		bhs.s	.chknext	; branch if Sonic is outside a range
 	endif
 		move.b	(v_vblank_byte).w,d0
 		andi.b	#$3F,d0		; does VInt counter fall on 0, $40, $80 or $C0?
@@ -343,8 +345,21 @@ LZWindTunnels:
 		move.w	#0,obVelY(a1)
 		move.b	#id_Float2,obAnim(a1)	; use floating animation
 		bset	#1,obStatus(a1)
+	if FixBugs
+		; Knuckles in Sonic 2 added this.
+		bclr	#4,obStatus(a1)		; clear Roll-Jump flag
+	endif
 		btst	#bitUp,(v_jpadhold2).w ; is up being held?
 		beq.s	.down		; if not, branch
+	if FixBugs
+		; Knuckles in Sonic 2 prevents players from going above wind-tunnels,
+		; likely due to how strange it looked. This isn't as big of a problem
+		; in Sonic 1 due to them being enclosed, but we may as well add it in
+		; for consistency.
+		move.w	obY(a1),d2	; get Sonic's Y-position
+		cmp.w	2(a2),d2	; is Sonic about to go above the wind tunnel?
+		bls.s	.down		; if yes, branch
+	endif
 		subq.w	#1,obY(a1)	; move Sonic up on pole
 
 .down:

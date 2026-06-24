@@ -2093,7 +2093,11 @@ Tit_EnterCheat:
 		addq.w	#1,(v_title_dcount).w		; increment number of successful D-Pad cheat inputs
 		tst.b	d0				; has end of cheat code been reached? (0-entry in cheat)
 		bne.s	Tit_CountC			; if not, branch
-		
+	if FixBugs
+		; Allow additional cheats to be entered without resetting the sequence first.
+		clr.w	(v_title_dcount).w		; reset D-Pad counter
+	endif
+
 Tit_ActivateCheat:
 		; (On JAPANESE consoles only) Activated cheat depends on the amount of times C was pressed:
 		; 0-1 level select -- 2-3 slow motion -- 4-5 debug mode -- 6-7: hidden Japanese credits & sound test 9E/9F
@@ -2118,10 +2122,21 @@ Tit_PlayRing:
 
 Tit_ResetCheat:
 		tst.b	d0				; has D-Pad been pressed?
-		beq.s	Tit_CountC			; if yes, branch
+		beq.s	Tit_CountC			; if not, don't reset D-Pad counter
 		cmpi.w	#9,(v_title_dcount).w		; has cheat reached index 9? (impossible condition)
 		beq.s	Tit_CountC			; if yes, don't reset D-Pad counter
 		move.w	#0,(v_title_dcount).w		; reset cheat index counter
+	if FixBugs
+		; Entering an incorrect cheat input normally resets the entire sequence.
+		; If the incorrect input matches the first cheat button, it should be treated
+		; as the first successful input to make repeated attempts less awkward.
+		lea	(LevSelCode_J).l,a0		; reload J code
+		tst.b	(v_megadrive).w			; check if the machine is US or Japanese
+		bpl.s	.chkUp				; if Japanese, branch
+		lea	(LevSelCode_US).l,a0		; reload US code
+	.chkUp:	cmp.b	(a0),d0				; was incorrect button press the first cheat input?
+		beq.s	Tit_EnterCheat			; if yes, treat it as first correct input right away
+	endif
 
 Tit_CountC:
 		move.b	(v_jpadpress1).w,d0		; get currently pressed buttons

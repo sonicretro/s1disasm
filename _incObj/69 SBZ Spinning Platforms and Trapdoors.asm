@@ -20,7 +20,7 @@ Spin_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Trap,obMap(a0)
 		move.w	#ArtTile_SBZ_Trap_Door|Tile_Pal3,obGfx(a0)
-		ori.b	#4,obRender(a0)
+		ori.b	#sprite_cam_field,obRender(a0)
 	if FixBugs
 		move.b	#128/2,obActWid(a0)
 	else

@@ -18,7 +18,7 @@ Pyl_Main:	; Routine 0
 		move.l	#Map_Pylon,obMap(a0)			; set mappings
 		move.w	#ArtTile_SLZ_Pylon|Tile_Prio,obGfx(a0)	; set art tile and priority flag
 		move.b	#32/2,obActWid(a0)			; set display width
-	;	move.b	#0,obRender(a0)				; implicitely set (this is a screen-positioned object)
+	;	move.b	#sprite_cam_screen,obRender(a0)		; implicitely set (this is a screen-positioned object)
 ; ---------------------------------------------------------------------------
 
 Pyl_Display:	; Routine 2

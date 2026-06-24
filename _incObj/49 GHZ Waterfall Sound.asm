@@ -15,7 +15,7 @@ WSnd_Index:	dc.w WSnd_Main-WSnd_Index
 
 WSnd_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)	; advance to WSnd_PlaySnd
-		move.b	#4,obRender(a0)		; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a0)	; set to playfield-positioned mode
 ; ---------------------------------------------------------------------------
 
 WSnd_PlaySnd:	; Routine 2

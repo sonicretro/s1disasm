@@ -19,7 +19,7 @@ Bas_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)			; advance to Bas_Action
 		move.l	#Map_Bas,obMap(a0)			; set mappings
 		move.w	#ArtTile_Basaran|Tile_Prio,obGfx(a0)	; set art tile and priority flag
-		move.b	#4,obRender(a0)				; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
 		move.b	#24/2,obHeight(a0)			; set height
 		move.b	#2,obPriority(a0)			; set sprite priority
 		move.b	#col_16x16|col_badnik,obColType(a0)	; set ReactToItem type ($B)

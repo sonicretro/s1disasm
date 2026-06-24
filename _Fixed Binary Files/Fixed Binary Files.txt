@@ -8,6 +8,8 @@ _maps/
  - Sonic.asm
 	Realigned Sonic's ducking sprite to be correctly centered
 
+	Realigned two of his walking sprites to accomodate for their graphical changes
+
 artnem/
  - Sega Logo (REVXX).nem
 	Removed stray pixels
@@ -23,9 +25,26 @@ artnem/
  - Signpost.nem
 	Added yellow stripes to Eggman's jacket (from 2013)
 
+ - Spring Vertical.nem
+	Fixed green tint on vertical springs by matching them to upright ones
+
 artunc/
  - Sonic.unc
 	Added shoe stripes to frames that were missing them (mostly from Sonic 2)
+
+	Fixed some inconsistently drawn pixels in various sprites
+
+	Backported graphical changes introduced in Sonic Clackers, mainly replacing
+	the TTS-style shading for his shoes in the walking animation, among other
+	small corrections
+
+	Fixed his hand being cut-off in the third part of his walking animation,
+	something that occurred when his head was updated after Tokyo Toy Show
+	(credit to Chilidog for pointing this out)
+
+	Fixed his muzzle being cut-off in the first and third frames of his
+	walking animation. This necessitates using the modified _maps/Sonic.asm
+	due to shifting some of the graphics around.
 
 objpos/
  - ghz1.bin

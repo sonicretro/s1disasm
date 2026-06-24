@@ -20,7 +20,7 @@ Hog_Main:	; Routine 0
 		move.b	#16/2,obWidth(a0)			; set width
 		move.l	#Map_Hog,obMap(a0)			; set mappings
 		move.w	#ArtTile_Ball_Hog|Tile_Pal2,obGfx(a0)	; set art tile and palette line
-		move.b	#4,obRender(a0)				; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
 		move.b	#4,obPriority(a0)			; set sprite priority
 		move.b	#col_24x36|col_badnik,obColType(a0)	; set ReactToItem type ($5)
 		move.b	#24/2,obActWid(a0)			; set sprite display width
@@ -101,7 +101,7 @@ CBal_Main:	; Routine 0
 		move.b	#14/2,obHeight(a0)			; set height
 		move.l	#Map_Hog,obMap(a0)			; set mappings
 		move.w	#ArtTile_Ball_Hog|Tile_Pal2,obGfx(a0)	; set art tile and palette line
-		move.b	#4,obRender(a0)				; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
 		move.b	#3,obPriority(a0)			; set sprite priority (above Ball Hog)
 		move.b	#col_12x12|col_hurt,obColType(a0)	; set ReactToItem type ($87)
 		move.b	#16/2,obActWid(a0)			; set sprite display width

@@ -17,7 +17,7 @@ Bump_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)		; advance to Bump_Hit
 		move.l	#Map_Bump,obMap(a0)		; set mappings
 		move.w	#ArtTile_SYZ_Bumper,obGfx(a0)	; set art tile
-		move.b	#4,obRender(a0)			; set to playfield positioning mode
+		move.b	#sprite_cam_field,obRender(a0)	; set to playfield positioning mode
 		move.b	#32/2,obActWid(a0)		; set sprite display width
 		move.b	#1,obPriority(a0)		; set sprite priority (above Sonic)
 		move.b	#col_16x16_alt|col_special,obColType(a0) ; set collision type (handled through ReactToItem => D7orE1)

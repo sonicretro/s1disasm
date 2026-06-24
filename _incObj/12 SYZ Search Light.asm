@@ -17,7 +17,7 @@ Light_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)		; advance to Light_Animate
 		move.l	#Map_Light,obMap(a0)		; set mappings
 		move.w	#ArtTile_Level,obGfx(a0)	; set art tile
-		move.b	#4,obRender(a0)			; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a0)	; set to playfield-positioned mode
 		move.b	#32/2,obActWid(a0)		; set display width
 		move.b	#6,obPriority(a0)		; set very low sprite priority
 ; ---------------------------------------------------------------------------

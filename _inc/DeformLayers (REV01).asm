@@ -644,6 +644,7 @@ Deform_SBZ2:;loc_68A2:
 	; ScrollHoriz and ScrollVertical camera position update subroutines.
 	; Extracted into a separate file because they are only tangentially
 	; related to background deformation, and identical in REV00 and REV01.
+	; (This file includes MoveScreenHoriz!)
 	include	"_inc/ScrollHoriz & ScrollVertical.asm"
 
 ; ===========================================================================

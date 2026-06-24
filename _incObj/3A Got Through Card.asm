@@ -55,7 +55,7 @@ Got_Loop:
 
 		move.l	#Map_Got,obMap(a1)			; set mappings pointer
 		move.w	#ArtTile_Title_Card|Tile_Prio,obGfx(a1)	; set art tile and sprite priority flag
-		move.b	#0,obRender(a1)				; set to screen-positioned sprite mode
+		move.b	#sprite_cam_screen,obRender(a1)		; set to screen-positioned sprite mode
 		lea	object_size(a1),a1			; advance to next card object (all elements are back-to-back in RAM)
 		dbf	d1,Got_Loop				; repeat sequence another 6 times
 ; ---------------------------------------------------------------------------

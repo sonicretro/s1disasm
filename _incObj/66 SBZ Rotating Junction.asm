@@ -38,7 +38,7 @@ Jun_Main:	; Routine 0
 .makeitem:
 		move.l	#Map_Jun,obMap(a1)
 		move.w	#ArtTile_SBZ_Junction|Tile_Pal3,obGfx(a1)
-		ori.b	#4,obRender(a1)
+		ori.b	#sprite_cam_field,obRender(a1)
 		move.b	#112/2,obActWid(a1)
 
 .fail:

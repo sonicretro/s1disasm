@@ -36,7 +36,7 @@ FBlock_Main:	; Routine 0
 		move.w	#ArtTile_LZ_Door|Tile_Pal3,obGfx(a0) ; LZ specific code
 
 .notLZ:
-		move.b	#4,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
 		move.b	#3,obPriority(a0)
 		moveq	#0,d0
 		move.b	obSubtype(a0),d0 ; get subtype

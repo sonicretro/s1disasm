@@ -18,7 +18,7 @@ Edge_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)			; advance to Edge_Solid
 		move.l	#Map_Edge,obMap(a0)			; load mappings
 		move.w	#ArtTile_GHZ_Edge_Wall|Tile_Pal3,obGfx(a0) ; load art tile and palette line
-		ori.b	#4,obRender(a0)				; set to playfield-positioned mode
+		ori.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
 		move.b	#16/2,obActWid(a0)			; set sprite display width
 		move.b	#6,obPriority(a0)			; set sprite priority (very low)
 

@@ -39,8 +39,8 @@ Anim_SetFrameAndFlipFlags:
 		move.b	obStatus(a0),d0			; get object's current status flags
 		rol.b	#3,d1				; shift aniXFlip and aniYFlip into low bits to match obStatus format
 		eor.b	d0,d1				; xor with existing flip state of object
-		andi.b	#%11,d1				; limit result to only X and Y flip state
-		andi.b	#$FC,obRender(a0)		; clear previous X and Y flip states of objects
+		andi.b	#sprite_xflip|sprite_yflip,d1	; limit result to only X and Y flip state
+		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear previous X and Y flip states of objects
 		or.b	d1,obRender(a0)			; set new X and Y flip states for object
 
 		addq.b	#1,obAniFrame(a0)		; advance animation script to next index

@@ -45,7 +45,7 @@ SonicSS_Main:	; Routine 0
 		move.b	#sonic_roll_width,obWidth(a0)		; set rolling width
 		move.l	#Map_Sonic,obMap(a0)			; set mappings
 		move.w	#ArtTile_Sonic,obGfx(a0)		; set VRAM location
-		move.b	#4,obRender(a0)				; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
 		move.b	#0,obPriority(a0)			; set sprite priority to top
 
 		move.b	#id_Roll,obAnim(a0)			; set to rolling animation

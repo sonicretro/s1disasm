@@ -21,7 +21,7 @@ VanP_Main:	; Routine 0
 		addq.b	#6,obRoutine(a0)	; goto VanP_Sync next
 		move.l	#Map_VanP,obMap(a0)
 		move.w	#ArtTile_SBZ_Vanishing_Block|Tile_Pal3,obGfx(a0)
-		ori.b	#4,obRender(a0)
+		ori.b	#sprite_cam_field,obRender(a0)
 		move.b	#32/2,obActWid(a0)
 		move.b	#4,obPriority(a0)
 		moveq	#0,d0

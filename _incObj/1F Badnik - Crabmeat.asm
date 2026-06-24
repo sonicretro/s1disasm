@@ -24,7 +24,7 @@ Crab_Main:	; Routine 0
 		move.b	#16/2,obWidth(a0)		; set width
 		move.l	#Map_Crab,obMap(a0)		; set mappings
 		move.w	#ArtTile_Crabmeat,obGfx(a0)	; set art tile
-		move.b	#4,obRender(a0)			; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a0)	; set to playfield-positioned mode
 		move.b	#3,obPriority(a0)		; set sprite priority
 		move.b	#col_badnik|col_32x32,obColType(a0) ; set collision type ($06)
 		move.b	#42/2,obActWid(a0)		; set sprite display width
@@ -203,7 +203,7 @@ Crab_BallMain:	; Routine 6
 		addq.b	#2,obRoutine(a0)		; advance to Crab_BallMove
 		move.l	#Map_Crab,obMap(a0)		; set mappings
 		move.w	#ArtTile_Crabmeat,obGfx(a0)	; set art tile
-		move.b	#4,obRender(a0)			; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a0)	; set to playfield-positioned mode
 		move.b	#3,obPriority(a0)		; set sprite priority
 		move.b	#col_12x12|col_hurt,obColType(a0) ; set hitbox size to 12x12 and make it damaging
 		move.b	#16/2,obActWid(a0)		; set sprite display width

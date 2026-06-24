@@ -27,7 +27,7 @@ Drown_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Bub,obMap(a0)
 		move.w	#ArtTile_LZ_Bubbles|Tile_Prio,obGfx(a0)
-		move.b	#$84,obRender(a0)
+		move.b	#sprite_rendered|sprite_cam_field,obRender(a0)
 		move.b	#32/2,obActWid(a0)
 		move.b	#1,obPriority(a0)
 		move.b	obSubtype(a0),d0 ; get bubble type
@@ -134,7 +134,7 @@ Drown_ShowNumber:
 
 		move.w	#15,drown_time(a0)
 		clr.w	obVelY(a0)
-		move.b	#$80,obRender(a0)
+		move.b	#sprite_rendered,obRender(a0)
 		move.w	obX(a0),d0
 		sub.w	(v_screenposx).w,d0
 		addi.w	#$80,d0

@@ -25,7 +25,7 @@ Swing_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Swing_GHZ,obMap(a0) ; GHZ and MZ specific code
 		move.w	#ArtTile_GHZ_MZ_Swing|Tile_Pal3,obGfx(a0)
-		move.b	#4,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
 		move.b	#3,obPriority(a0)
 		move.b	#48/2,obActWid(a0)
 		move.b	#16/2,obHeight(a0)
@@ -90,7 +90,7 @@ Swing_Main:	; Routine 0
 		move.l	obMap(a0),obMap(a1)
 		move.w	obGfx(a0),obGfx(a1)
 		bclr	#6,obGfx(a1)
-		move.b	#4,obRender(a1)
+		move.b	#sprite_cam_field,obRender(a1)
 		move.b	#4,obPriority(a1)
 		move.b	#16/2,obActWid(a1)
 		move.b	#1,obFrame(a1)

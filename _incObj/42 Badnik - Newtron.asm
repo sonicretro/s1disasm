@@ -20,7 +20,7 @@ Newt_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)			; advance to Newt_Action
 		move.l	#Map_Newt,obMap(a0)			; set mappings
 		move.w	#ArtTile_Newtron,obGfx(a0)		; set art tile
-		move.b	#4,obRender(a0)				; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
 		move.b	#4,obPriority(a0)			; set sprite priority
 		move.b	#40/2,obActWid(a0)			; set sprite display width
 		move.b	#32/2,obHeight(a0)			; set height

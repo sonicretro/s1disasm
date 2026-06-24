@@ -52,8 +52,8 @@ Cat_Main:	; Routine 0
 		move.w	#ArtTile_MZ_SYZ_Caterkiller|Tile_Pal2,obGfx(a0) ; set art tile and palette for MZ/SYZ
 
 	.continueSetup:
-		andi.b	#3,obRender(a0)				; clear render flags except X/Y-flip
-		ori.b	#4,obRender(a0)				; set to playfield-positioned mode
+		andi.b	#sprite_xflip|sprite_yflip,obRender(a0)	; clear render flags except X/Y-flip
+		ori.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
 		move.b	obRender(a0),obStatus(a0)		; copy render flags to status flags
 		move.b	#4,obPriority(a0)			; set to sprite priority
 		move.b	#16/2,obActWid(a0)			; set sprite display width

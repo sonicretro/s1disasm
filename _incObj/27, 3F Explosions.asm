@@ -31,7 +31,7 @@ ExItem_Main:	; Routine 2 - set directly for non-Badnik objects (e.g. monitors)
 		addq.b	#2,obRoutine(a0)		; advance to ExItem_Animate
 		move.l	#Map_ExplodeItem,obMap(a0)	; set mappings
 		move.w	#ArtTile_Explosion,obGfx(a0)	; set art tile
-		move.b	#4,obRender(a0)			; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a0)	; set to playfield-positioned mode
 		move.b	#1,obPriority(a0)		; set sprite priority (above Sonic)
 		move.b	#col_none,obColType(a0)		; disable collision response
 		move.b	#24/2,obActWid(a0)		; set sprite display width
@@ -74,7 +74,7 @@ Expl_Main:	; Routine 0
 
 		move.l	#Map_ExplodeBomb,obMap(a0)	; set mappings
 		move.w	#ArtTile_Explosion,obGfx(a0)	; set art tile
-		move.b	#4,obRender(a0)			; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a0)	; set to playfield-positioned mode
 		move.b	#1,obPriority(a0)		; set sprite priority (above SOnic)
 		move.b	#col_none,obColType(a0)		; disable collision response
 		move.b	#24/2,obActWid(a0)		; set sprite display width

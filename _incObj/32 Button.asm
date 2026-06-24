@@ -24,7 +24,7 @@ But_Main:	; Routine 0
 
 	; But_IsMZ:
 	.continueSetup:
-		move.b	#4,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
 		move.b	#32/2,obActWid(a0)
 		move.b	#4,obPriority(a0)
 		addq.w	#3,obY(a0)

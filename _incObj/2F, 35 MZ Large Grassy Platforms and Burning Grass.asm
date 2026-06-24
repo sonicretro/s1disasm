@@ -26,7 +26,7 @@ LGrass_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_LGrass,obMap(a0)
 		move.w	#ArtTile_Level|Tile_Pal3|Tile_Prio,obGfx(a0)
-		move.b	#4,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
 		move.b	#5,obPriority(a0)
 		move.w	obY(a0),lgrass_origY(a0)
 		move.w	obX(a0),lgrass_origX(a0)
@@ -42,7 +42,7 @@ LGrass_Main:	; Routine 0
 		move.b	(a1),obActWid(a0)
 		andi.b	#$F,obSubtype(a0)
 		move.b	#128/2,obHeight(a0)
-		bset	#4,obRender(a0)
+		bset	#sprite_customheight_bit,obRender(a0)
 
 LGrass_Action:	; Routine 2
 		bsr.w	LGrass_Types
@@ -329,7 +329,7 @@ GFire_Main:	; Routine 0
 		move.l	#Map_Fire,obMap(a0)
 		move.w	#ArtTile_MZ_Fireball,obGfx(a0)
 		move.w	obX(a0),gfire_origX(a0)
-		move.b	#4,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
 		move.b	#1,obPriority(a0)
 		move.b	#col_16x16|col_hurt,obColType(a0)
 		move.b	#16/2,obActWid(a0)

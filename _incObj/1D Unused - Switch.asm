@@ -20,7 +20,7 @@ Swi_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Swi,obMap(a0)
 		move.w	#ArtTile_Level|Tile_Pal3,obGfx(a0)
-		move.b	#4,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
 		move.w	obY(a0),swi_origY(a0) ; save position on y-axis
 		move.b	#32/2,obActWid(a0)
 		move.b	#5,obPriority(a0)

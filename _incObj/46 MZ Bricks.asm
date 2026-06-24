@@ -21,7 +21,7 @@ Brick_Main:	; Routine 0
 		move.b	#30/2,obWidth(a0)			; set width
 		move.l	#Map_Brick,obMap(a0)			; set mappings
 		move.w	#ArtTile_Level|Tile_Pal3,obGfx(a0)	; set art tile and palette line
-		move.b	#4,obRender(a0)				; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
 		move.b	#3,obPriority(a0)			; set sprite priority
 		move.b	#32/2,obActWid(a0)			; set sprite display width
 		move.w	obY(a0),brick_origY(a0)			; remember initial Y-position for wobble effect

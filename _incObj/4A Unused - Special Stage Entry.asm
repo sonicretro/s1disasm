@@ -23,7 +23,7 @@ Van_Main:	; Routine 0
 .isempty:
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Vanish,obMap(a0)
-		move.b	#4,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
 		move.b	#1,obPriority(a0)
 		move.b	#112/2,obActWid(a0)
 		move.w	#ArtTile_Warp,obGfx(a0)

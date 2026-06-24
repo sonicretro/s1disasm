@@ -22,7 +22,7 @@ Circ_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)
 		move.l	#Map_Circ,obMap(a0)
 		move.w	#ArtTile_Level|Tile_Pal3,obGfx(a0)
-		move.b	#4,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#48/2,obActWid(a0)
 		move.w	obX(a0),circ_origX(a0)

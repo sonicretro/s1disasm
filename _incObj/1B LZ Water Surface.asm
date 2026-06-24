@@ -21,7 +21,7 @@ Surf_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)			; advance to Surf_Action
 		move.l	#Map_Surf,obMap(a0)			; set mappings
 		move.w	#ArtTile_LZ_Water_Surface|Tile_Pal3|Tile_Prio,obGfx(a0) ; set art tile, palette line, and priority flag
-		move.b	#4,obRender(a0)				; set to playfield-positioned mode
+		move.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
 		move.b	#256/2,obActWid(a0)			; set sprite display width (very large)
 		move.w	obX(a0),surf_origX(a0)			; remember original X-position ($60 for left surface, $120 for right surface)
 ; ---------------------------------------------------------------------------

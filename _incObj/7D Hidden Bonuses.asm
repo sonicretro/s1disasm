@@ -43,7 +43,7 @@ Bonus_Touched:	; Sonic hit the invisible marker
 		addq.b	#2,obRoutine(a0)			; advance to Bonus_Display
 		move.l	#Map_Bonus,obMap(a0)			; set mappings
 		move.w	#ArtTile_Hidden_Points|Tile_Prio,obGfx(a0) ; set art tile and priority flag
-		ori.b	#4,obRender(a0)				; set to playfield-positioned mode
+		ori.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
 		move.b	#0,obPriority(a0)			; set to maximum sprite priority
 		move.b	#32/2,obActWid(a0)			; set sprite display width
 

@@ -22,7 +22,7 @@ Scen_Main:	; Routine 0
 		lea	Scen_Values(pc,d0.w),a1			; load setup values for specified subtype
 		move.l	(a1)+,obMap(a0)				; load mappings address
 		move.w	(a1)+,obGfx(a0)				; load art tile and palette line
-		ori.b	#4,obRender(a0)				; set to playfield-positioned mode
+		ori.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
 		move.b	(a1)+,obFrame(a0)			; set frame ID
 		move.b	(a1)+,obActWid(a0)			; set sprite display width
 		move.b	(a1)+,obPriority(a0)			; set sprite priority

@@ -24,7 +24,7 @@ Hel_Main:	; Routine 0
 		move.l	#Map_Hel,obMap(a0)
 		move.w	#ArtTile_GHZ_Spike_Pole|Tile_Pal3,obGfx(a0)
 		move.b	#7,obStatus(a0)
-		move.b	#4,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
 		move.b	#3,obPriority(a0)
 		move.b	#16/2,obActWid(a0)
 		move.w	obY(a0),d2
@@ -64,7 +64,7 @@ Hel_Build:
 		move.w	d3,obX(a1)
 		move.l	obMap(a0),obMap(a1)
 		move.w	#ArtTile_GHZ_Spike_Pole|Tile_Pal3,obGfx(a1)
-		move.b	#4,obRender(a1)
+		move.b	#sprite_cam_field,obRender(a1)
 		move.b	#3,obPriority(a1)
 		move.b	#16/2,obActWid(a1)
 		move.b	d6,hel_frame(a1)

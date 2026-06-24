@@ -17,7 +17,7 @@ Invis_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)		; advance to Invis_Solid
 		move.l	#Map_Invis,obMap(a0)		; set mappings (debug mode only)
 		move.w	#ArtTile_Monitor|Tile_Prio,obGfx(a0) ; set art tile and priority bit (debug mode only)
-		ori.b	#4,obRender(a0)			; set to playfield-positioned mode
+		ori.b	#sprite_cam_field,obRender(a0)	; set to playfield-positioned mode
 
 		move.b	obSubtype(a0),d0		; get width/height settings for block
 		move.b	d0,d1				; copy for height

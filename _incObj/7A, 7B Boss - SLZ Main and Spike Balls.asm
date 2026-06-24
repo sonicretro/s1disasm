@@ -59,7 +59,7 @@ BossStarLight_LoadBoss:
 		move.b	(a2)+,obPriority(a1)
 		move.l	#Map_Eggman,obMap(a1) 			; load mappings and graphics for the object
 		move.w	#ArtTile_Eggman,obGfx(a1)
-		move.b	#4,obRender(a1) 			; set the object to position based on where it is in the level and not a static position on screen
+		move.b	#sprite_cam_field,obRender(a1) 		; set the object to position based on where it is in the level and not a static position on screen
 		move.b	#64/2,obActWid(a1) 			; define horizontal width radius (used to hide objects when they leave the screen space)
 
 ; objoff_34 is used here as a reference back to the main boss controller. 
@@ -107,9 +107,9 @@ BossStarLight_ShipMain:	; Routine 2
 
 ; obStatus stores the logical bits, but obRender is visual bits, so this simply moves them from one to the other
 
-		moveq	#3,d0 					; move first 2 bits into d0
+		moveq	#sprite_xflip|sprite_yflip,d0 		; move first 2 bits into d0
 		and.b	obStatus(a0),d0 			; AND with obStatus so now d0 contains X and Y logical flip bits only
-		andi.b	#$FC,obRender(a0) 			; clear the x and y flip
+		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
 		or.b	d0,obRender(a0) 			; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -478,9 +478,9 @@ BossStarLight_Display:
 		move.w	obX(a1),obX(a0)				; move positions to rendered positions of boss
 		move.w	obY(a1),obY(a0)
 		move.b	obStatus(a1),obStatus(a0)		; move object status to boss object status
-		moveq	#3,d0 					; move first 2 bits into d0
+		moveq	#sprite_xflip|sprite_yflip,d0 		; move first 2 bits into d0
 		and.b	obStatus(a0),d0 			; AND with obStatus so now d0 contains X and Y logical flip bits only
-		andi.b	#$FC,obRender(a0) 			; clear the X and Y flip
+		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the X and Y flip
 		or.b	d0,obRender(a0) 			; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -526,7 +526,7 @@ BossSpikeball_Main:	; Routine 0
 		move.l	#Map_SSawBall,obMap(a0)
 		move.w	#ArtTile_Eggman_Spikeball,obGfx(a0)
 		move.b	#1,obFrame(a0)
-		ori.b	#4,obRender(a0)
+		ori.b	#sprite_cam_field,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.b	#col_16x16|col_hurt,obColType(a0)
 		move.b	#24/2,obActWid(a0)
@@ -856,8 +856,8 @@ BossSpikeball_Loop:
 		move.w	(a2)+,obVelX(a1)
 		move.w	(a2)+,obVelY(a1)
 		move.b	#col_8x8|col_hurt,obColType(a1)
-		ori.b	#4,obRender(a1)
-		bset	#7,obRender(a1)
+		ori.b	#sprite_cam_field,obRender(a1)
+		bset	#sprite_rendered_bit,obRender(a1)
 		move.b	#24/2,obActWid(a1)
 
 loc_1909A:

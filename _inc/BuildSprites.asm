@@ -35,12 +35,12 @@ BuildSprites:
 		movea.w	(a4,d6.w),a0			; load object's address in RAM
 		tst.b	obID(a0)			; has an object been queued for display but deleted?
 		beq.w	.skipObject			; if yes, skip (this appears to be an effort to fix display-and-delete bugs)
-		bclr	#7,obRender(a0)			; set object as not visible
+		bclr	#sprite_rendered_bit,obRender(a0) ; set object as not visible
 
 	; --- Coordinate system ---
 		move.b	obRender(a0),d0
 		move.b	d0,d4
-		andi.w	#%1100,d0			; get drawing coordinate system in render flags (bit 2-3)
+		andi.w	#sprite_cam_field|sprite_cam_bg,d0 ; get drawing coordinate system in render flags (bit 2-3)
 		beq.s	.screenCoords			; branch if 0 (on-screen positioning coordinate system)
 		movea.l	BuildSpr_Cameras(pc,d0.w),a1	; load camera pointers for coordinate system (in practice, only foreground camera is ever used)
 
@@ -59,7 +59,7 @@ BuildSprites:
 		addi.w	#$80,d3				; add VDP sprite start
 
 	; --- Screen bounds check for Y-position ---
-		btst	#4,d4				; is custom height flag set?
+		btst	#sprite_customheight_bit,d4	; is custom height flag set?
 		beq.s	.assumeHeight			; if not, assume height instead
 
 		moveq	#0,d0
@@ -98,7 +98,7 @@ BuildSprites:
 		movea.l	obMap(a0),a1
 
 		moveq	#1-1,d1				; write only one sprite for raw-mappings
-		btst	#5,d4				; is "raw-mappings" flag on?
+		btst	#sprite_rawmappings_bit,d4	; is "raw-mappings" flag on?
 		bne.s	.drawFrame			; if yes, branch (assume mappings point to a single sprite piece)
 
 		move.b	obFrame(a0),d1
@@ -113,7 +113,7 @@ BuildSprites:
 		bsr.w	BuildSpr_Draw
 
 	.setVisible:
-		bset	#7,obRender(a0)			; set object as visible
+		bset	#sprite_rendered_bit,obRender(a0) ; set object as visible
 
 	.skipObject:
 		addq.w	#2,d6				; advance to next entry in layer
@@ -236,9 +236,9 @@ buildsprite:	macro xflip,yflip
 BuildSpr_Draw:
 		movea.w	obGfx(a0),a3
 
-		btst	#0,d4				; is X-flip flag set?
+		btst	#sprite_xflip_bit,d4		; is X-flip flag set?
 		bne.s	BuildSpr_FlipX			; if yes, branch
-		btst	#1,d4				; is Y-flip flag set?
+		btst	#sprite_yflip_bit,d4		; is Y-flip flag set?
 		bne.w	BuildSpr_FlipY			; if yes, branch
 
 BuildSpr_Normal:
@@ -246,7 +246,7 @@ BuildSpr_Normal:
 ; ---------------------------------------------------------------------------
 
 BuildSpr_FlipX:
-		btst	#1,d4				; is Y-flip flag set as well?
+		btst	#sprite_yflip_bit,d4		; is Y-flip flag set as well?
 		bne.w	BuildSpr_FlipXY			; if yes, branch
 
 		buildsprite	1,0

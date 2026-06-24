@@ -36,8 +36,8 @@ SEgg_Main:	; Routine 0
 		move.b	(a2)+,obPriority(a0)
 		move.l	#Map_SEgg,obMap(a0)
 		move.w	#ArtTile_Eggman,obGfx(a0)
-		move.b	#4,obRender(a0)
-		bset	#7,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
+		bset	#sprite_rendered_bit,obRender(a0)
 		move.b	#64/2,obActWid(a0)
 		jsr	(FindNextFreeObj).l
 		bne.s	SEgg_Eggman
@@ -51,8 +51,8 @@ SEgg_Main:	; Routine 0
 		move.b	(a2)+,obPriority(a1)
 		move.l	#Map_But,obMap(a1)
 		move.w	#ArtTile_Eggman_Button,obGfx(a1)
-		move.b	#4,obRender(a1)
-		bset	#7,obRender(a1)
+		move.b	#sprite_cam_field,obRender(a1)
+		bset	#sprite_rendered_bit,obRender(a1)
 		move.b	#32/2,obActWid(a1)
 		move.b	#0,obFrame(a1)
 
@@ -200,8 +200,8 @@ FFloor_Main:	; Routine 0
 		move.w	#boss_sbz2_y+$C0,obY(a0)
 		move.b	#256/2,obActWid(a0)
 		move.b	#32/2,obHeight(a0)
-		move.b	#4,obRender(a0)
-		bset	#7,obRender(a0)
+		move.b	#sprite_cam_field,obRender(a0)
+		bset	#sprite_rendered_bit,obRender(a0)
 		moveq	#0,d4
 		move.w	#boss_sbz2_x-$40,d5
 		moveq	#7,d6
@@ -214,7 +214,7 @@ FFloor_MakeBlock:
 		move.b	#id_FalseFloor,obID(a1) ; load block object
 		move.l	#Map_FFloor,obMap(a1)
 		move.w	#ArtTile_Eggman_Trap_Floor|Tile_Pal3,obGfx(a1)
-		move.b	#4,obRender(a1)
+		move.b	#sprite_cam_field,obRender(a1)
 		move.b	#32/2,obActWid(a1)
 		move.b	#32/2,obHeight(a1)
 		move.b	#3,obPriority(a1)

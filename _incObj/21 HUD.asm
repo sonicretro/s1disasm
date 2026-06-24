@@ -19,7 +19,7 @@ HUD_Main:	; Routine 0
 		move.w	#$80+$88,obScreenY(a0)		; set screen Y-position
 		move.l	#Map_HUD,obMap(a0)		; set mappings
 		move.w	#ArtTile_HUD,obGfx(a0)		; set art tile (mappings themselves are high-prio)
-		move.b	#0,obRender(a0)			; set to screen-positioned mode
+		move.b	#sprite_cam_screen,obRender(a0)	; set to screen-positioned mode
 		move.b	#0,obPriority(a0)		; set to maximum sprite priority
 ; ---------------------------------------------------------------------------
 

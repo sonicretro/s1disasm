@@ -51,7 +51,7 @@ SStom_Main:	; Routine 0
 		move.w	d0,obX(a1)
 		move.l	#Map_SStom,obMap(a1)
 		move.w	#ArtTile_MZ_Spike_Stomper,obGfx(a1)
-		move.b	#4,obRender(a1)
+		move.b	#sprite_cam_field,obRender(a1)
 		move.w	obX(a1),objoff_30(a1)
 		move.w	obX(a0),objoff_3A(a1)
 		move.b	obSubtype(a0),obSubtype(a1)

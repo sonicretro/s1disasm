@@ -66,7 +66,7 @@ Sto_Main:	; Routine 0
 ; ===========================================================================
 
 .isSBZ12:
-		ori.b	#4,obRender(a0)
+		ori.b	#sprite_cam_field,obRender(a0)
 		move.b	#4,obPriority(a0)
 		move.w	obX(a0),sto_origX(a0)
 		move.w	obY(a0),sto_origY(a0)
@@ -81,7 +81,7 @@ Sto_Main:	; Routine 0
 		move.b	(a3),obSubtype(a0)
 		cmpi.b	#5,(a3)
 		bne.s	.chkgone
-		bset	#4,obRender(a0)
+		bset	#sprite_customheight_bit,obRender(a0)
 
 .chkgone:
 		lea	(v_objstate).w,a2
