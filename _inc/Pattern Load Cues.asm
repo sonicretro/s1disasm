@@ -131,7 +131,7 @@ PLC_GHZ2_end:
 ; Pattern load cues - Labyrinth
 ; ---------------------------------------------------------------------------
 PLC_LZ:		plcheader
-		plcm	Nem_LZ,	ArtTile_Level			; LZ main patterns
+		plcm	Nem_LZ,		ArtTile_Level			; LZ main patterns
 		plcm	Nem_LzBlock1,	ArtTile_LZ_Block_1		; block
 		plcm	Nem_LzBlock2,	ArtTile_LZ_Block_2		; blocks
 		plcm	Nem_Splash,	ArtTile_LZ_Splash		; waterfalls and splash
@@ -396,7 +396,7 @@ PLC_SSResult_end:
 ; Pattern load cues - ending sequence
 ; ---------------------------------------------------------------------------
 PLC_Ending:	plcheader
-		plcm	Nem_GHZ_1st,	ArtTile_Level		; GHZ main patterns
+		plcm	Nem_GHZ_1st,	ArtTile_Level			; GHZ main patterns
 		plcm	Nem_GHZ_2nd,	ArtTile_Level+$1CD		; GHZ secondary patterns
 		plcm	Nem_Stalk,	ArtTile_GHZ_Flower_Stalk	; flower stalk
 		plcm	Nem_EndFlower,	ArtTile_Ending_Flowers		; flowers

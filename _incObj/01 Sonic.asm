@@ -2019,6 +2019,12 @@ Sonic_HandleDeath:
 		move.b	#id_GameOverCard,(v_gameovertext2).w	; load OVER object
 		move.b	#1,(v_gameovertext2+obFrame).w		; set OVER object to correct frame
 		clr.b	(f_timeover).w				; clear time over flag
+	if FixBugs
+		; If a Game Over is triggered while the title cards aren't fully unloaded yet,
+		; the objects make fail to initialize properly as they share the same ROM space.
+		clr.b	(v_gameovertext1+obRoutine).w		; make sure "GAME"/"TIME" object initializes properly
+		clr.b	(v_gameovertext2+obRoutine).w		; make sure "OVER" object initializes properly
+	endif
 
 ; loc_138C2:
 .gameOverBgmAndPatterns:

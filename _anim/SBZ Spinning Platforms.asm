@@ -1,5 +1,5 @@
 ; ---------------------------------------------------------------------------
-; Animation script - trapdoor (SBZ)
+; Animation script - stationary spinning platforms and trapdoors (SBZ)
 ; ---------------------------------------------------------------------------
 
 Ani_Spin:	dc.w .trapopen-Ani_Spin

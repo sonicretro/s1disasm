@@ -224,11 +224,11 @@ FBlock_Action:	; Routine 2
 		bne.s	.aaa		; if not, branch
 		cmpi.b	#3,fb_type(a0)
 		bne.s	.aaa
-		clr.b	(f_wtunnelallow).w
+		clr.b	(f_wtunneldisallow).w
 		move.w	(v_player+obX).w,d0
 		cmp.w	obX(a0),d0
 		bhs.s	.aaa
-		move.b	#1,(f_wtunnelallow).w
+		move.b	#1,(f_wtunneldisallow).w
 
 .aaa:
 		lea	(f_switch).w,a2
@@ -240,7 +240,7 @@ FBlock_Action:	; Routine 2
 		bne.s	.loc_1049E	; if not, branch
 		cmpi.b	#3,d0
 		bne.s	.loc_1049E
-		clr.b	(f_wtunnelallow).w
+		clr.b	(f_wtunneldisallow).w
 
 .loc_1049E:
 		move.b	#1,objoff_38(a0)

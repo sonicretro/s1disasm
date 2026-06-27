@@ -2223,7 +2223,7 @@ LevSel_PlaySnd:
 
 LevSel_Ending:
 		move.b	#id_Ending,(v_gamemode).w 	; set screen mode to $18 (Ending)
-		move.w	#id_EndZ_good,(v_zone_act).w  	; set level to 0600 (good Ending)
+		move.w	#id_EndZ_good,(v_zone_act).w  	; set level to good Ending (will be bad Ending without 6 emeralds)
 		rts
 ; ===========================================================================
 
@@ -3020,12 +3020,18 @@ Level_MainLoop:
 		bsr.w	LZWaterFeatures			; apply water features if in Labyrinth Zone
 		jsr	(ExecuteObjects).l		; execute all objects in object RAM
 
-	if Revision<>0
-		; For REV01, this code has been relocated from below to also restart levels
-		; if Sonic dies in demos, rather than returning to the Sega screen.
+	if FixBugs
 		tst.w	(f_restart).w			; is the level set to restart?
-		bne.w	GM_Level			; if yes, restart level
+		bne.s	Level_CheckRestart		; if yes, branch to check restart condition
+	elseif Revision<>0
+		; For REV01, this code has been relocated from below to avoid brief visual glitches
+		; as a result of the zone ID changing. This, however, had the side effect of demos
+		; restarting if Sonic dies, rather than immediately going to the next game mode.
+		; In the case of the ending demos, it could result in the credits getting aborted.
+		tst.w	(f_restart).w			; is the level set to restart?
+		bne.w	GM_Level			; if yes, restart level immediately
 	endif
+
 		tst.w	(v_debuguse).w			; is debug mode being used?
 		bne.s	Level_DoScroll			; if yes, continue plane scrolling even when dying
 		cmpi.b	#6,(v_player+obRoutine).w	; has Sonic just died?
@@ -3043,9 +3049,10 @@ Level_SkipScroll:
 		bsr.w	SynchroAnimate			; advance animation timers
 		bsr.w	SignpostArtLoad			; check if sign post art needs to be loaded and lock left boundary
 
+Level_CheckRestart:
 		cmpi.b	#id_Demo,(v_gamemode).w		; are we in a demo?
 		beq.s	Level_ChkDemo			; if yes, branch
-	if Revision=0
+	if FixBugs|(Revision=0)
 		tst.w	(f_restart).w			; is the level set to restart?
 		bne.w	GM_Level			; if yes, restart leve
 	endif
@@ -3689,6 +3696,7 @@ End_MainLoop:
 		cmpi.b	#id_Ending,(v_gamemode).w	; is game mode still set to ending sequence?
 		beq.s	End_ChkEmerald			; if yes, branch
 
+End_GoToCredits:
 		move.b	#id_Credits,(v_gamemode).w	; change game mode to credits
 		move.b	#bgm_Credits,d0			; play credits music
 		bsr.w	QueueSound2			; play it
@@ -3729,6 +3737,11 @@ End_AllEmlds:	; during the slow white-in
 		bsr.w	WhiteOut_ToWhite		; brighten palette further
 
 End_SlowFade:
+	if FixBugs
+		; Fix a softlock if Sonic somehow dies in the Ending Sequence
+		cmpi.b	#6,(v_player+obRoutine).w	; has Sonic died?
+		bhs.s	End_GoToCredits			; if yes, abort sequence, go straight to credits
+	endif
 		tst.w	(f_restart).w			; has flag been set signaling that the emeralds have disappeared?
 		beq.w	End_AllEmlds			; if not, loop
 ; ---------------------------------------------------------------------------

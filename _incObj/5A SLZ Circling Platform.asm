@@ -1,9 +1,7 @@
+; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 5A - platforms moving in circles (SLZ)
 ; ---------------------------------------------------------------------------
-
-circ_origX = objoff_32		; original x-axis position
-circ_origY = objoff_30		; original y-axis position
 
 CirclingPlatform:
 		moveq	#0,d0
@@ -13,101 +11,121 @@ CirclingPlatform:
 		out_of_range.w	DeleteObject,circ_origX(a0)
 		bra.w	DisplaySprite
 ; ===========================================================================
-Circ_Index:	dc.w Circ_Main-Circ_Index
-		dc.w Circ_Platform-Circ_Index
-		dc.w Circ_Action-Circ_Index
+Circ_Index:	dc.w Circ_Main-Circ_Index	; 0
+		dc.w Circ_ChkTouch-Circ_Index	; 2
+		dc.w Circ_OnPlatform-Circ_Index	; 4
+
+circ_origY:	equ objoff_30		; original y-axis position
+circ_origX:	equ objoff_32		; original x-axis position
 ; ===========================================================================
 
 Circ_Main:	; Routine 0
-		addq.b	#2,obRoutine(a0)
-		move.l	#Map_Circ,obMap(a0)
-		move.w	#ArtTile_Level|Tile_Pal3,obGfx(a0)
-		move.b	#sprite_cam_field,obRender(a0)
-		move.b	#4,obPriority(a0)
-		move.b	#48/2,obActWid(a0)
-		move.w	obX(a0),circ_origX(a0)
-		move.w	obY(a0),circ_origY(a0)
+		addq.b	#2,obRoutine(a0)			; advance to Circ_ChkTouch
+		move.l	#Map_Circ,obMap(a0)			; set mappings
+		move.w	#ArtTile_Level|Tile_Pal3,obGfx(a0)	; set art tile and palette
+		move.b	#sprite_cam_field,obRender(a0)		; set playfield-positioned mode
+		move.b	#4,obPriority(a0)			; set sprite priority
+		move.b	#48/2,obActWid(a0)			; set sprite display width and platform solidity width
+		move.w	obX(a0),circ_origX(a0)			; remember initial X-position
+		move.w	obY(a0),circ_origY(a0)			; remember initial Y-position
+; ---------------------------------------------------------------------------
 
-Circ_Platform:	; Routine 2
-		moveq	#0,d1
-		move.b	obActWid(a0),d1
-		jsr	(PlatformObject).l
+Circ_ChkTouch:	; Routine 2
+		moveq	#0,d1					; clear d1
+		move.b	obActWid(a0),d1				; use sprite display width as platform solidity width
+		jsr	(PlatformObject).l			; sets obRoutine to 4 on touch (Circ_OnPlatform)
 		bra.w	Circ_Types
 ; ===========================================================================
 
-Circ_Action:	; Routine 4
-		moveq	#0,d1
-		move.b	obActWid(a0),d1
-		jsr	(ExitPlatform).l
-		move.w	obX(a0),-(sp)
-		bsr.w	Circ_Types
-		move.w	(sp)+,d2
-		jmp	(MvSonicOnPtfm2).l
+Circ_OnPlatform: ; Routine 4
+		moveq	#0,d1					; clear d1
+		move.b	obActWid(a0),d1				; use sprite display width as platform solidity width
+		jsr	(ExitPlatform).l			; allow Sonic to exit the platform again
+		move.w	obX(a0),-(sp)				; backup previous X-position for MvSonicOnPtfm
+		bsr.w	Circ_Types				; circle platform
+		move.w	(sp)+,d2				; restore previous X-position
+		jmp	(MvSonicOnPtfm2).l			; move Sonic with the circling platform (assume height to 9px)
+
 ; ===========================================================================
+; ---------------------------------------------------------------------------
+; Subroutine to circle platforms
+; 
+; Subtype settings:
+; 	bit 0 = if set, shift 180 degrees ahead
+; 	bit 1 = if set, shift 90 degrees ahead
+; 	bit 2 = if set, circle clockwise (otherwise, counterclockwise)
+; ---------------------------------------------------------------------------
 
 Circ_Types:
-		moveq	#0,d0
-		move.b	obSubtype(a0),d0
-		andi.w	#$C,d0
-		lsr.w	#1,d0
-		move.w	.index(pc,d0.w),d1
-		jmp	.index(pc,d1.w)
+		moveq	#0,d0					; clear d0
+		move.b	obSubtype(a0),d0			; get subtype of platform
+		andi.w	#$C,d0					; limit to multiples of 4 bytes in lower digit
+		lsr.w	#1,d0					; halve result
+		move.w	Circ_TypeIndex(pc,d0.w),d1		; get index for current type
+		jmp	Circ_TypeIndex(pc,d1.w)			; jump there
 ; ===========================================================================
-.index:		dc.w .type00-.index
-		dc.w .type04-.index
-; ===========================================================================
-
-.type00:
-		move.b	(v_oscillate+$22).w,d1 ; get rotating value
-		subi.b	#$50,d1		; set radius of circle
-		ext.w	d1
-		move.b	(v_oscillate+$26).w,d2
-		subi.b	#$50,d2
-		ext.w	d2
-		btst	#0,obSubtype(a0)
-		beq.s	.noshift00a
-		neg.w	d1
-		neg.w	d2
-
-.noshift00a:
-		btst	#1,obSubtype(a0)
-		beq.s	.noshift00b
-		neg.w	d1
-		exg.l	d1,d2
-
-.noshift00b:
-		add.w	circ_origX(a0),d1
-		move.w	d1,obX(a0)
-		add.w	circ_origY(a0),d2
-		move.w	d2,obY(a0)
-		rts
+Circ_TypeIndex:	dc.w Circ_Counterclockwise-Circ_TypeIndex	; subtype $x0
+		dc.w Circ_Clockwise-Circ_TypeIndex		; subtype $x4
 ; ===========================================================================
 
-.type04:
-		move.b	(v_oscillate+$22).w,d1
-		subi.b	#$50,d1
-		ext.w	d1
-		move.b	(v_oscillate+$26).w,d2
-		subi.b	#$50,d2
-		ext.w	d2
-		btst	#0,obSubtype(a0)
-		beq.s	.noshift04a
-		neg.w	d1
-		neg.w	d2
+Circ_Counterclockwise:
+		move.b	(v_oscillate+$22).w,d1			; get rotating value A
+		subi.b	#$50,d1					; set radius of circle (X)
+		ext.w	d1					; make word-based
+		move.b	(v_oscillate+$26).w,d2			; get rotating value B
+		subi.b	#$50,d2					; set radius of circle (B)
+		ext.w	d2					; make word-based
 
-.noshift04a:
-		btst	#1,obSubtype(a0)
-		beq.s	.noshift04b
-		neg.w	d1
-		exg.l	d1,d2
+	.shift180:
+		btst	#0,obSubtype(a0)			; is flag set to shift 180 degrees ahead?
+		beq.s	.shift90				; if not, branch
+		neg.w	d1					; negate X-radius
+		neg.w	d2					; negate Y-radius
 
-.noshift04b:
-		neg.w	d1
-		add.w	circ_origX(a0),d1
-		move.w	d1,obX(a0)
-		add.w	circ_origY(a0),d2
-		move.w	d2,obY(a0)
-		rts
+	.shift90:
+		btst	#1,obSubtype(a0)			; is flag set to shift 90 degrees ahead?
+		beq.s	.setNewPosition				; if not, branch
+		neg.w	d1					; negate X-radius
+		exg.l	d1,d2					; exchange X/Y-radii
+
+	.setNewPosition:
+		add.w	circ_origX(a0),d1			; add original X-position
+		move.w	d1,obX(a0)				; set as new X-position to circle platform
+		add.w	circ_origY(a0),d2			; add original Y-position
+		move.w	d2,obY(a0)				; set as new Y-position to circle platform
+		rts						; return
+; ===========================================================================
+
+Circ_Clockwise:
+		move.b	(v_oscillate+$22).w,d1			; get rotating value A
+		subi.b	#$50,d1					; set radius of circle (X)
+		ext.w	d1					; make word-based
+		move.b	(v_oscillate+$26).w,d2			; get rotating value B
+		subi.b	#$50,d2					; set radius of circle (B)
+		ext.w	d2					; make word-based
+
+	.shift180:
+		btst	#0,obSubtype(a0)			; is flag set to shift 180 degrees ahead?
+		beq.s	.shift90				; if not, branch
+		neg.w	d1					; negate X-radius
+		neg.w	d2					; negate Y-radius
+
+	.shift90:
+		btst	#1,obSubtype(a0)			; is flag set to shift 90 degrees ahead?
+		beq.s	.setNewPosition				; if not, branch
+		neg.w	d1					; negate X-radius
+		exg.l	d1,d2					; exchange X/Y-radii
+
+	.setNewPosition:
+		neg.w	d1					; reverse X-direction (make clockwise)
+
+		add.w	circ_origX(a0),d1			; add original X-position
+		move.w	d1,obX(a0)				; set as new X-position to circle platform
+		add.w	circ_origY(a0),d2			; add original Y-position
+		move.w	d2,obY(a0)				; set as new Y-position to circle platform
+		rts						; return
+; End of function Circ_Types
+
 ; ===========================================================================
 
 Map_Circ:	include	"_maps/SLZ Circling Platform.asm"

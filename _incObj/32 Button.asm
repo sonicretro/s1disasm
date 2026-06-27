@@ -14,8 +14,8 @@ But_Index:	dc.w But_Main-But_Index
 ; ===========================================================================
 
 But_Main:	; Routine 0
-		addq.b	#2,obRoutine(a0)
-		move.l	#Map_But,obMap(a0)
+		addq.b	#2,obRoutine(a0)			; advance to But_Pressed
+		move.l	#Map_But,obMap(a0)			; set mappings
 
 		move.w	#ArtTile_Button_Main|Tile_Pal3,obGfx(a0); MZ specific code
 		cmpi.b	#id_MZ,(v_zone).w			; is level Marble Zone?
@@ -24,10 +24,10 @@ But_Main:	; Routine 0
 
 	; But_IsMZ:
 	.continueSetup:
-		move.b	#sprite_cam_field,obRender(a0)
-		move.b	#32/2,obActWid(a0)
-		move.b	#4,obPriority(a0)
-		addq.w	#3,obY(a0)
+		move.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
+		move.b	#32/2,obActWid(a0)			; set sprite display width
+		move.b	#4,obPriority(a0)			; set sprite priority
+		addq.w	#3,obY(a0)				; adjust button a few pixels down
 ; ---------------------------------------------------------------------------
 
 But_Pressed:	; Routine 2
@@ -39,11 +39,11 @@ But_Pressed:	; Routine 2
 		bpl.s	.display				; if not, branch
 	endif
 
-		move.w	#32/2+sonic_solid_width,d1
-		move.w	#10/2,d2
-		move.w	#10/2,d3
-		move.w	obX(a0),d4
-		bsr.w	SolidObject
+		move.w	#32/2+sonic_solid_width,d1		; collision width
+		move.w	#10/2,d2				; collision height (initial)
+		move.w	#10/2,d3				; collision height (stood-on)
+		move.w	obX(a0),d4				; collision X-position (stood-on)
+		bsr.w	SolidObject				; make switch object solid
 
 		bclr	#0,obFrame(a0)				; use "unpressed" frame
 
@@ -77,15 +77,15 @@ But_Pressed:	; Routine 2
 		tst.b	obSolid(a0)				; is Sonic standing on top of button?
 		bne.s	.pressed				; if yes, branch
 		bclr	d3,(a3)					; clear stored button pressed state
-		bra.s	.handleFlashing
+		bra.s	.handleFlashing				; skip pressed logic
 ; ===========================================================================
 
 ; loc_BDC8:
 .pressed:
 		tst.b	(a3)					; has Sonic already been standing on it the previous frame?
 		bne.s	.setPressedState			; if yes, don't play sound again
-		move.w	#sfx_Switch,d0
-		jsr	(QueueSound2).l				; play switch sound
+		move.w	#sfx_Switch,d0				; set switch sound
+		jsr	(QueueSound2).l				; play it
 
 	; loc_BDD6:
 	.setPressedState:
@@ -130,12 +130,12 @@ But_Pressed:	; Routine 2
 ; ---------------------------------------------------------------------------
 
 But_MZBlock:
-		move.w	d3,-(sp)
-		move.w	obX(a0),d2
-		move.w	obY(a0),d3
+		move.w	d3,-(sp)				; backup button pressed state
+		move.w	obX(a0),d2				; get button's X-position
+		move.w	obY(a0),d3				; get button's Y-position
 		subi.w	#$10,d2					; d2 = x pos. of button left edge
 		subq.w	#8,d3					; d3 = y pos. of button top edge
-		move.w	#$20,d4					; d4 = x detection range; 
+		move.w	#$20,d4					; d4 = x detection range;
 		move.w	#$10,d5					; d5 = y detection range
 
 		lea	(v_lvlobjspace).w,a1			; begin checking object RAM
@@ -151,11 +151,11 @@ But_MZBlock:
 		lea	object_size(a1),a1			; check next object
 		dbf	d6,.findBlock				; repeat $5F times
 
-		move.w	(sp)+,d3
+		move.w	(sp)+,d3				; restore button pressed state
 		moveq	#0,d0					; set pushable block NOT on top
 
 	.return:
-		rts
+		rts						; return
 
 ; ===========================================================================
 .mzBlock_sizes:	dc.b $10, $10	; x/y radius
@@ -163,53 +163,53 @@ But_MZBlock:
 
 ; loc_BE5E:
 .blockFound:
-		moveq	#1,d0
-		andi.w	#$3F,d0
-		add.w	d0,d0
-		lea	.mzBlock_sizes-2(pc,d0.w),a2
+		moveq	#1,d0					; unnecessary specifications...
+		andi.w	#$3F,d0					; ...that always end up with the same values of 2...
+		add.w	d0,d0					; ...perhaps blocks were once meant to be of various sizes
+		lea	.mzBlock_sizes-2(pc,d0.w),a2		; load sizes (always the same)
 
 	.checkX:
 		move.b	(a2)+,d1				; load X-radius
-		ext.w	d1
-		move.w	obX(a1),d0
-		sub.w	d1,d0
-		sub.w	d2,d0
+		ext.w	d1					; extend to word
+		move.w	obX(a1),d0				; get block's X-position
+		sub.w	d1,d0					; subtract X-radius
+		sub.w	d2,d0					; subtract left edge of button
 		bhs.s	.checkX_fromRight			; branch if block is to the right of button
-		add.w	d1,d1
-		add.w	d1,d0
-		blo.s	.checkY
-		bra.s	.nextObject
+		add.w	d1,d1					; double X-radius (to also undo above addition)
+		add.w	d1,d0					; add X-radius
+		blo.s	.checkY					; if block is in horizontal range of button, branch to check Y next
+		bra.s	.nextObject				; block is not in horizontal range of button
 
 	; loc_BE80:
 	.checkX_fromRight:
-		cmp.w	d4,d0
-		bhi.s	.nextObject
+		cmp.w	d4,d0					; is block horizontally in range?
+		bhi.s	.nextObject				; if not, branch
 ; ---------------------------------------------------------------------------
 
 ; loc_BE84:
 .checkY:
-		move.b	(a2)+,d1				; load y-radius
-		ext.w	d1
-		move.w	obY(a1),d0
-		sub.w	d1,d0
-		sub.w	d3,d0
+		move.b	(a2)+,d1				; load Y-radius
+		ext.w	d1					; extend to word
+		move.w	obY(a1),d0				; get block's Y-position
+		sub.w	d1,d0					; subtract Y-radius
+		sub.w	d3,d0					; subtract button top edge
 		bhs.s	.checkY_fromAbove			; branch if block is above button
-		add.w	d1,d1
-		add.w	d1,d0
-		blo.s	.blockOnTop
-		bra.s	.nextObject
+		add.w	d1,d1					; double Y-radius (to also undo above addition)
+		add.w	d1,d0					; add Y-radius
+		blo.s	.blockOnTop				; is block vertically in range? if yes, branch
+		bra.s	.nextObject				; block is not in vertical range of button
 
 	; loc_BE9A:
 	.checkY_fromAbove:
-		cmp.w	d5,d0
-		bhi.s	.nextObject
+		cmp.w	d5,d0					; is block vertically in range?
+		bhi.s	.nextObject				; if not, branch
 ; ---------------------------------------------------------------------------
 
 ; loc_BE9E:
 .blockOnTop:
-		move.w	(sp)+,d3
+		move.w	(sp)+,d3				; restore button pressed state
 		moveq	#1,d0					; set pushable block on top
-		rts
+		rts						; return
 ; End of function But_MZBlock
 ; ===========================================================================
 
