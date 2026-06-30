@@ -386,6 +386,11 @@ CollapseData_8x2_Shuffle: ; 8 fragments, shuffled order
 ; ---------------------------------------------------------------------------
 ; Alternate version of SlopeObject subroutine that assumes Sonic is already
 ; standing on the platform (skipping the relevant checks).
+; 
+; input:
+;	d1.w = platform half width
+;	d2.w = X-position of platform
+;	a2 = address of heightmap data
 ; ---------------------------------------------------------------------------
 
 ; SlopeObject2:

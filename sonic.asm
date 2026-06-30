@@ -5047,6 +5047,7 @@ Level_EndUnk:	dc.l 0
 ; Uncompressed graphics - Giant Rings
 ; ---------------------------------------------------------------------------
 Art_BigRing:	binclude	"artunc/Giant Ring.unc"
+Art_BigRing_size: equ *-Art_BigRing
 		even
 
 ; ---------------------------------------------------------------------------

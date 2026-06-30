@@ -125,6 +125,8 @@ Plat_Exit:
 ;		bsr.w	SlopeObject
 ; ---------------------------------------------------------------------------
 
+; See also: SlopeObject_AssumeStoodOn inside Object 1A - Collapsing GHZ Ledges
+
 SlopeObject:
 		lea	(v_player).w,a1
 		tst.w	obVelY(a1)				; is Sonic moving up/jumping?

@@ -115,7 +115,7 @@ Bri_Solid:
 ; End of function Bri_Solid
 ; ===========================================================================
 
-		include	"_incObj/sub PlatformObject.asm"
+		include	"_incObj/sub PlatformObject & SlopeObject.asm"
 
 ; ===========================================================================
 

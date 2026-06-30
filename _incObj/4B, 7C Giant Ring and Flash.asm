@@ -36,7 +36,7 @@ GRing_Okay:
 		addq.b	#2,obRoutine(a0)			; set to GRing_Animate
 		move.b	#2,obPriority(a0)			; set sprite priority
 		move.b	#col_16x32|col_item,obColType(a0)	; set col type (ReactToItem will advance obRoutine on collection)
-		move.w	#$C40,(v_gfxbigring).w			; trigger AniArt_GiantRing to load graphics ($C40 is the size of Art_BigRing)
+		move.w	#Art_BigRing_size,(v_gfxbigring).w	; trigger AniArt_GiantRing to load graphics (Art_BigRing_size = $C40)
 ; ---------------------------------------------------------------------------
 
 GRing_Animate:	; Routine 2

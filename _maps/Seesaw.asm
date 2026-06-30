@@ -2,10 +2,10 @@
 ; Sprite mappings - seesaws (SLZ)
 ; ---------------------------------------------------------------------------
 Map_Seesaw_internal:	mappingsTable
-	mappingsTableEntry.w	.sloping
-	mappingsTableEntry.w	.flat
-	mappingsTableEntry.w	.sloping
-	mappingsTableEntry.w	.flat
+	mappingsTableEntry.w	.sloping	; 0 - descending sloped
+	mappingsTableEntry.w	.flat		; 1 - descending flat
+	mappingsTableEntry.w	.sloping	; 2 - ascending  sloped
+	mappingsTableEntry.w	.flat		; 3 - ascending  flat
 
 .sloping:	spriteHeader
 	spritePiece	-$2D, -$2C, 2, 3, 0, 0, 0, 0, 0
