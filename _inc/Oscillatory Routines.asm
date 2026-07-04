@@ -13,25 +13,25 @@ OscillateNumInit:
 ; End of function OscillateNumInit
 
 ; ===========================================================================
-.baselines:	dc.w %0000000001111100				; direction bitfield (0 = up; 1 = down)
+.baselines:	dc.w %0000000001111100				;   0 - direction bitfield (0 = up; 1 = down)
 
 		; start value, start rate
-		dc.w $80, 0					;   0 - LZ water height, MZ grass platforms
-		dc.w $80, 0					;   4 - MZ grass platforms, SBZ saws
-		dc.w $80, 0					;   8 - MZ magma animation, MZ grass platforms, SYZ/SLZ floating blocks
-		dc.w $80, 0					;  $C - MZ grass platforms, MZ/LZ moving blocks, GHZ/SYZ/SLZ platforms, SBZ saws, SYZ large spikeball
-		dc.w $80, 0					; $10 - MZ glass block, MZ purple block
-		dc.w $80, 0					; $14 - MZ purple block
-		dc.w $80, 0					; $18 - GHZ/MZ/SLZ/SBZ swinging platforms, GHZ/SYZ/SLZ platforms
-		dc.w $80, 0					; $1C - MZ/LZ moving blocks, SYZ/SLZ floating blocks
-		dc.w $80, 0					; $20 - SLZ circling platforms
-		dc.w $50F0, $11E				; $24 - SLZ circling platforms
-		dc.w $2080, $B4					; $28 - SYZ/SLZ floating blocks
-		dc.w $3080, $10E				; $2C - SYZ/SLZ floating blocks
-		dc.w $5080, $1C2				; $30 - SYZ/SLZ floating blocks
-		dc.w $7080, $276				; $34 - SYZ/SLZ floating blocks
-		dc.w $80, 0					; $38 - unused
-		dc.w $80, 0					; $3C - unused
+		dc.w   $80,    0				;   2 - LZ water height, MZ grass platforms
+		dc.w   $80,    0				;   6 - MZ grass platforms, SBZ saws
+		dc.w   $80,    0				;  $A - MZ magma animation, MZ grass platforms, SYZ/SLZ floating blocks
+		dc.w   $80,    0				;  $E - MZ grass platforms, MZ/LZ moving blocks, GHZ/SYZ/SLZ platforms, SBZ saws, SYZ large spikeball
+		dc.w   $80,    0				; $12 - MZ glass block, MZ purple block
+		dc.w   $80,    0				; $16 - MZ purple block
+		dc.w   $80,    0				; $1A - GHZ/MZ/SLZ/SBZ swinging platforms, GHZ/SYZ/SLZ platforms
+		dc.w   $80,    0				; $1E - MZ/LZ moving blocks, SYZ/SLZ floating blocks
+		dc.w   $80,    0				; $22 - SLZ circling platforms
+		dc.w $50F0, $11E				; $26 - SLZ circling platforms
+		dc.w $2080,  $B4				; $2A - SYZ/SLZ floating blocks
+		dc.w $3080, $10E				; $2E - SYZ/SLZ floating blocks
+		dc.w $5080, $1C2				; $32 - SYZ/SLZ floating blocks
+		dc.w $7080, $276				; $36 - SYZ/SLZ floating blocks
+		dc.w   $80,    0				; $3A - unused
+		dc.w   $80,    0				; $3E - unused
 	.baselines_end:
 		even
 ; ===========================================================================
@@ -87,22 +87,23 @@ OscillateNumDo:
 
 ; ===========================================================================
 .settings:	; frequency, middle value
-		dc.w 2,	$10					;   0 - LZ water height, MZ grass platforms
-		dc.w 2,	$18					;   4 - MZ grass platforms, SBZ saws
-		dc.w 2,	$20					;   8 - MZ magma animation, MZ grass platforms, SYZ/SLZ floating blocks
-		dc.w 2,	$30					;  $C - MZ grass platforms, MZ/LZ moving blocks, GHZ/SYZ/SLZ platforms, SBZ saws, SYZ large spikeball
-		dc.w 4,	$20					; $10 - MZ glass block, MZ purple block
-		dc.w 8,	8					; $14 - MZ purple block
-		dc.w 8,	$40					; $18 - GHZ/MZ/SLZ/SBZ swinging platforms, GHZ/SYZ/SLZ platforms
-		dc.w 4,	$40					; $1C - MZ/LZ moving blocks, SYZ/SLZ floating blocks
-		dc.w 2,	$50					; $20 - SLZ circling platforms
-		dc.w 2,	$50					; $24 - SLZ circling platforms
-		dc.w 2,	$20					; $28 - SYZ/SLZ floating blocks
-		dc.w 3,	$30					; $2C - SYZ/SLZ floating blocks
-		dc.w 5,	$50					; $30 - SYZ/SLZ floating blocks
-		dc.w 7,	$70					; $34 - SYZ/SLZ floating blocks
-		dc.w 2,	$10					; $38 - unused
-		dc.w 2,	$10					; $3C - unused
+								;   0 - (direction bitfield, not read from outside)
+		dc.w 2,	$10					;   2 - LZ water height, MZ grass platforms
+		dc.w 2,	$18					;   6 - MZ grass platforms, SBZ saws
+		dc.w 2,	$20					;  $A - MZ magma animation, MZ grass platforms, SYZ/SLZ floating blocks
+		dc.w 2,	$30					;  $E - MZ grass platforms, MZ/LZ moving blocks, GHZ/SYZ/SLZ platforms, SBZ saws, SYZ large spikeball
+		dc.w 4,	$20					; $12 - MZ glass block, MZ purple block
+		dc.w 8,	  8					; $16 - MZ purple block
+		dc.w 8,	$40					; $1A - GHZ/MZ/SLZ/SBZ swinging platforms, GHZ/SYZ/SLZ platforms
+		dc.w 4,	$40					; $1E - MZ/LZ moving blocks, SYZ/SLZ floating blocks
+		dc.w 2,	$50					; $22 - SLZ circling platforms
+		dc.w 2,	$50					; $26 - SLZ circling platforms
+		dc.w 2,	$20					; $2A - SYZ/SLZ floating blocks
+		dc.w 3,	$30					; $2E - SYZ/SLZ floating blocks
+		dc.w 5,	$50					; $32 - SYZ/SLZ floating blocks
+		dc.w 7,	$70					; $36 - SYZ/SLZ floating blocks
+		dc.w 2,	$10					; $3A - unused
+		dc.w 2,	$10					; $3E - unused
 	.settings_end:
 		even
 ; ===========================================================================

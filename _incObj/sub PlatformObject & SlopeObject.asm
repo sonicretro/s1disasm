@@ -1,6 +1,7 @@
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; Subroutine to detect collision with a platform, and update relevant flags
+; Subroutine to detect collision with a platform, and update relevant flags.
+; Platform height is assumed to be 8px.
 ;
 ; input:
 ;	d0.w = y position (Plat_NoXCheck_AltY only)
@@ -157,14 +158,16 @@ SlopeObject:
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; Subroutine to detect collision with a platform, and update relevant flags
+; Alternate version of PlatformObject with custom solidity height input,
+; instead of assuming 8px (only used by swinging platforms on chain links)
 ;
 ; input:
 ;	d1 = platform width
 ;	d3 = platform height
 ; ---------------------------------------------------------------------------
 
-Swing_Solid:
+; Swing_Solid:
+PlatformObject_CustomHeight:
 		lea	(v_player).w,a1
 		tst.w	obVelY(a1)				; is Sonic moving up/jumping?
 		bmi.w	Plat_Exit				; if yes, branch
@@ -176,7 +179,8 @@ Swing_Solid:
 		add.w	d1,d1
 		cmp.w	d1,d0
 		bhs.w	Plat_Exit				; branch if Sonic is right of the platform
+
 		move.w	obY(a0),d0
 		sub.w	d3,d0
-		bra.w	Plat_NoXCheck_AltY
-; End of function Swing_Solid
+		bra.w	Plat_NoXCheck_AltY			; use custom platform height defined in d3
+; End of function PlatformObject_CustomHeight

@@ -15,18 +15,18 @@ BossSpringYard_Index:
 		dc.w BossSpringYard_FlameMain-BossSpringYard_Index
 		dc.w BossSpringYard_SpikeMain-BossSpringYard_Index
 
-BossSpringYard_ParentObj = objoff_34				; Pointer to main boss controller
-BossSpringYard_SineCounter = objoff_3F				; sine counter for bobbing motion
-BossSpringYard_GenericTimer = objoff_3C				; timer for how many frames to do an action, whether its wait for explosions, or to move in a direction
-BossSpringYard_PhaseTimer = objoff_3D				; lower byte of timer, used for shaking effect and also attack flag (memory optimization)
-BossSpringYard_ObjPointer = objoff_36				; pointer to memory address of spike object or block being grabbed. this is used as a general storage area for the boss controller object to send commands to, changing their behavior
-BossSpringYard_ChildCmd = objoff_29				; offset used to load 
+BossSpringYard_ParentObj equ objoff_34				; Pointer to main boss controller
+BossSpringYard_SineCounter equ objoff_3F			; sine counter for bobbing motion
+BossSpringYard_GenericTimer equ objoff_3C			; timer for how many frames to do an action, whether its wait for explosions, or to move in a direction. also used for vertical displacement of spike
+BossSpringYard_PhaseTimer equ objoff_3D				; lower byte of timer, used for shaking effect and also attack flag (memory optimization)
+BossSpringYard_ObjPointer equ objoff_36				; pointer to memory address of spike object or block being grabbed. this is used as a general storage area for the boss controller object to send commands to, changing their behavior
+BossSpringYard_ChildCmd equ objoff_29				; offset used to communicate commands to Eggman's objects. 0 = normal -1 = grabbed/disable collision $A = break block
 
 BossSpringYard_ObjData:
-		dc.b 2,	0, 5					; routine number, animation, priority
-		dc.b 4,	1, 5
-		dc.b 6,	7, 5
-		dc.b 8,	0, 5
+		dc.b 2,	0, 5					; routine number, animation, priority (ship)
+		dc.b 4,	1, 5					; face
+		dc.b 6,	7, 5					; flame
+		dc.b 8,	0, 5					; spike
 ; ===========================================================================
 
 BossSpringYard_Main:	; Routine 0
@@ -60,7 +60,7 @@ BossSpringYard_LoadBoss:
 		move.b	#sprite_cam_field,obRender(a1)		; set the object to position based on where it is in the level and not a static position on screen
 		move.b	#64/2,obActWid(a1)			; define horizontal width radius (used to hide objects when they leave the screen space)
 
-; objoff_34 is used here as a reference back to the main boss controller. 
+; BossSpringYard_ParentObj is used here as a reference back to the main boss controller. 
 ; This is because when we are in ExecuteObjects, a0 is set to each object and sub objects own slot, so we need a way to find the original boss object.
 ; On the first loop, this copies the address to itself, but the other loops are what it was intended for.
 		move.l	a0,BossSpringYard_ParentObj(a1)
@@ -531,17 +531,17 @@ BossSpringYard_ShipDelete:
 ; ===========================================================================
 
 BossSpringYard_FaceMain:	; Routine 4
-		moveq	#1,d1
-		movea.l	BossSpringYard_ParentObj(a0),a1
-		moveq	#0,d0
-		move.b	ob2ndRout(a1),d0
-		move.w	BSYZ_FaceMain_Index(pc,d0.w),d0
-		jsr	BSYZ_FaceMain_Index(pc,d0.w)
-		move.b	d1,obAnim(a0)
-		move.b	(a0),d0
-		cmp.b	(a1),d0
-		bne.s	BossSpringYard_FaceDelete
-		bra.s	loc_195BE
+		moveq	#1,d1					; set up facenormal1 animation
+		movea.l	BossSpringYard_ParentObj(a0),a1		; load the main boss controller
+		moveq	#0,d0					
+		move.b	ob2ndRout(a1),d0			; load face phase
+		move.w	BSYZ_FaceMain_Index(pc,d0.w),d0		; use the object routine index and BSYZ_FaceMain_Index to calculate our offset
+		jsr	BSYZ_FaceMain_Index(pc,d0.w)		; jump into the table and use our offset to pick a routine in the index to go to
+		move.b	d1,obAnim(a0)				; set facenormal1 animation
+		move.b	(a0),d0					; copy boss object
+		cmp.b	(a1),d0					; are the IDs the same?
+		bne.s	BossSpringYard_FaceDelete		; if not, delete
+		bra.s	BossSpringYard_SetupAnim				; 
 ; ===========================================================================
 
 BossSpringYard_FaceDelete:
@@ -558,22 +558,22 @@ BSYZ_FaceMain_Index:
 
 ; loc_19552:
 BSYZ_Face_Defeat:
-		moveq	#$A,d1
+		moveq	#$A,d1					; set defeated animation
 		rts
 ; ===========================================================================
 
 ; loc_19556:
 BSYZ_Face_Escape:
-		moveq	#6,d1
+		moveq	#6,d1					; set panic/escape animation
 		rts
 ; ===========================================================================
 
 ; loc_1955A:
 BSYZ_Face_Attack:
 		moveq	#0,d0
-		move.b	obSubtype(a1),d0
-		move.w	BSYZ_FaceAttack_Index(pc,d0.w),d0
-		jmp	BSYZ_FaceAttack_Index(pc,d0.w)
+		move.b	obSubtype(a1),d0			; load obsubtype to use as indexer
+		move.w	BSYZ_FaceAttack_Index(pc,d0.w),d0	; use the object routine index and BSYZ_FaceAttack_Index to calculate our offset
+		jmp	BSYZ_FaceAttack_Index(pc,d0.w)		; jump into the table and use our offset to pick a routine in the index to go to
 ; ===========================================================================
 BSYZ_FaceAttack_Index:
 		dc.w BSYZ_Face_Attack_Other-BSYZ_FaceAttack_Index
@@ -589,116 +589,127 @@ BSYZ_Face_Attack_Other:
 
 ; loc_19572:
 BSYZ_Face_Attack_Lift:
-		moveq	#6,d1
+		moveq	#6,d1					; set lifting block animation
 
 ; loc_19574:
 BSYZ_Face_ChkHit:
-		tst.b	obColType(a1)
-		bne.s	loc_1957E
-		moveq	#5,d1
+		tst.b	obColType(a1)				; is the boss hittable?
+		bne.s	.checkSonicState			; if not, branch
+		moveq	#5,d1					; set animation to facehit
 		rts
 ; ===========================================================================
 
-loc_1957E:
-		cmpi.b	#4,(v_player+obRoutine).w
-		blo.s	locret_19588
-		moveq	#4,d1
+; loc_1957E:
+.checkSonicState:
+		cmpi.b	#4,(v_player+obRoutine).w		; is sonic in his hurt state?
+		blo.s	.exit					; if not, branch
+		moveq	#4,d1					; set animation to facelaugh
 
-locret_19588:
+; locret_19588:
+.exit:
 		rts
 ; ===========================================================================
 
 BossSpringYard_FlameMain:; Routine 6
-		move.b	#7,obAnim(a0)
-		movea.l	BossSpringYard_ParentObj(a0),a1
-		cmpi.b	#$A,ob2ndRout(a1)
-		bne.s	loc_195AA
-		move.b	#$B,obAnim(a0)
-		tst.b	obRender(a0)
-		bpl.s	BossSpringYard_FlameDelete
-		bra.s	loc_195B6
+		move.b	#7,obAnim(a0)				; set animation state to 7 (default invisible state for flame)	
+		movea.l	BossSpringYard_ParentObj(a0),a1		; load main boss controller
+		cmpi.b	#$A,ob2ndRout(a1)			; are we in escape state?
+		bne.s	.checkMove				; no, check movement
+		move.b	#$B,obAnim(a0)				; set thruster animation for takeoff
+		tst.b	obRender(a0)				; what is our screen status?
+		bpl.s	BossSpringYard_FlameDelete		; off screen, delete
+		bra.s	.skip					; on screen, display
 ; ===========================================================================
 
-loc_195AA:
-		tst.w	obVelX(a1)
-		beq.s	loc_195B6
-		move.b	#8,obAnim(a0)
+; loc_195AA:
+.checkMove:
+		tst.w	obVelX(a1)				; are we currently moving?
+		beq.s	.skip					; no, don't display flame
+		move.b	#8,obAnim(a0)				; yes, display flame
 
-loc_195B6:
-		bra.s	loc_195BE
+; loc_195B6:
+.skip:
+		bra.s	BossSpringYard_SetupAnim
 ; ===========================================================================
 
 BossSpringYard_FlameDelete:
 		jmp	(DeleteObject).l
 ; ===========================================================================
 
-loc_195BE:
-		lea	(Ani_Eggman).l,a1
+; loc_195BE:
+BossSpringYard_SetupAnim:
+		lea	(Ani_Eggman).l,a1			; load animations
 		jsr	(AnimateSprite).l
-		movea.l	BossSpringYard_ParentObj(a0),a1
-		move.w	obX(a1),obX(a0)
+		movea.l	BossSpringYard_ParentObj(a0),a1		; load main boss controller
+		move.w	obX(a1),obX(a0)				; copy boss positions to flame position
 		move.w	obY(a1),obY(a0)
 
-loc_195DA:
-		move.b	obStatus(a1),obStatus(a0)
-		moveq	#sprite_xflip|sprite_yflip,d0
-		and.b	obStatus(a0),d0
-		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0)
-		or.b	d0,obRender(a0)
+; loc_195DA:
+BossSpringYard_Display:
+		move.b	obStatus(a1),obStatus(a0)		; copy object status to boss object status 
+		moveq	#sprite_xflip|sprite_yflip,d0		; set a mask for both flip bits
+		and.b	obStatus(a0),d0				; AND obstatus with those flip bits
+		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
+		or.b	d0,obRender(a0)				; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 BossSpringYard_SpikeMain:; Routine 8
-		move.l	#Map_BossItems,obMap(a0)
+		move.l	#Map_BossItems,obMap(a0)		; load mappings and art
 		move.w	#ArtTile_Eggman_Weapons|Tile_Pal2,obGfx(a0)
-		move.b	#5,obFrame(a0)
-		movea.l	BossSpringYard_ParentObj(a0),a1
-		cmpi.b	#$A,ob2ndRout(a1)
-		bne.s	loc_1961C
-		tst.b	obRender(a0)
-		bpl.s	BossSpringYard_SpikeDelete
+		move.b	#5,obFrame(a0)				; set current animation frame
+		movea.l	BossSpringYard_ParentObj(a0),a1		; load main boss controller
+		cmpi.b	#$A,ob2ndRout(a1)			; are we in escape state?
+		bne.s	.spikeMove				; no, run movement
+		tst.b	obRender(a0)				; what is our screen status?
+		bpl.s	BossSpringYard_SpikeDelete		; off screen, so delete
 
-loc_1961C:
-		move.w	obX(a1),obX(a0)
+; loc_1961C:
+.spikeMove:
+		move.w	obX(a1),obX(a0)				; copy positions
 		move.w	obY(a1),obY(a0)
-		move.w	BossSpringYard_GenericTimer(a0),d0
-		cmpi.b	#4,ob2ndRout(a1)
-		bne.s	loc_19652
-		cmpi.b	#6,obSubtype(a1)
-		beq.s	loc_1964C
-		tst.b	obSubtype(a1)
-		bne.s	loc_19658
-		cmpi.w	#$94,d0
-		bge.s	loc_19658
-		addq.w	#7,d0
-		bra.s	loc_19658
+		move.w	BossSpringYard_GenericTimer(a0),d0	; set up offset for use for vertical displacement of spike
+		cmpi.b	#4,ob2ndRout(a1)			; are we in flame (aka currently moving?)
+		bne.s	.retract				; no, need to retract spike
+		cmpi.b	#6,obSubtype(a1)			; are we currently breaking a block (routine 6 of Attack_Index)
+		beq.s	.checkBreakTimer			; if yes, branch
+		tst.b	obSubtype(a1)				; are we in the descend phase?
+		bne.s	.applyPosition				; if not, branch
+		cmpi.w	#$94,d0					; has the spike fully extended?
+		bge.s	.applyPosition				; if so, branch
+		addq.w	#7,d0					; keep extending
+		bra.s	.applyPosition
 ; ===========================================================================
 
-loc_1964C:
-		tst.w	BossSpringYard_GenericTimer(a1)
-		bpl.s	loc_19658
+; loc_1964C:
+.checkBreakTimer:
+		tst.w	BossSpringYard_GenericTimer(a1)		; is Eggman's timer negative?
+		bpl.s	.applyPosition				; if not, branch
 
-loc_19652:
-		tst.w	d0
-		ble.s	loc_19658
-		subq.w	#5,d0
+; loc_19652:
+.retract:
+		tst.w	d0					; has the spike fully retracted?
+		ble.s	.applyPosition				; if so, branch
+		subq.w	#5,d0					; keep retracting
 
-loc_19658:
-		move.w	d0,BossSpringYard_GenericTimer(a0)
-		asr.w	#2,d0
-		add.w	d0,obY(a0)
-		move.b	#16/2,obActWid(a0)
-		move.b	#24/2,obHeight(a0)
-		clr.b	obColType(a0)
-		movea.l	BossSpringYard_ParentObj(a0),a1
-		tst.b	obColType(a1)
-		beq.s	loc_19688
-		tst.b	BossSpringYard_ChildCmd(a1)
-		bne.s	loc_19688
-		move.b	#col_8x32|col_hurt,obColType(a0)
+; loc_19658:
+.applyPosition:
+		move.w	d0,BossSpringYard_GenericTimer(a0)	; copy back to offset for later
+		asr.w	#2,d0					; divide by 2
+		add.w	d0,obY(a0)				; add calculated position to Y
+		move.b	#16/2,obActWid(a0)			; set radius of object in pixels
+		move.b	#24/2,obHeight(a0)			; set height
+		clr.b	obColType(a0)				; disable collision to start
+		movea.l	BossSpringYard_ParentObj(a0),a1		; load boss controller
+		tst.b	obColType(a1)				; does Eggman have collision?
+		beq.s	.display				; if not, branch
+		tst.b	BossSpringYard_ChildCmd(a1)		; are we currently breaking a block or holding one?
+		bne.s	.display				; if yes, branch
+		move.b	#col_8x32|col_hurt,obColType(a0)	; set collision type of spike
 
-loc_19688:
-		bra.w	loc_195DA
+; loc_19688:
+.display:
+		bra.w	BossSpringYard_Display
 ; ===========================================================================
 
 BossSpringYard_SpikeDelete:
@@ -712,9 +723,9 @@ BossSpringYard_SpikeDelete:
 
 BossBlock:
 		moveq	#0,d0
-		move.b	obRoutine(a0),d0
-		move.w	BossBlock_Index(pc,d0.w),d1
-		jmp	BossBlock_Index(pc,d1.w)
+		move.b	obRoutine(a0),d0			; copy object routine
+		move.w	BossBlock_Index(pc,d0.w),d1		; use the object routine index and BossBlock_Index to calculate our offset
+		jmp	BossBlock_Index(pc,d1.w)		; jump into the table and use our offset to pick a routine in the index to go to
 ; ===========================================================================
 BossBlock_Index:
 		dc.w BossBlock_Main-BossBlock_Index
@@ -723,10 +734,10 @@ BossBlock_Index:
 ; ===========================================================================
 
 BossBlock_Main:	; Routine 0
-		moveq	#0,d4
-		move.w	#boss_syz_x+$10,d5
-		moveq	#9,d6
-		lea	(a0),a1
+		moveq	#0,d4					; clear register to set up for block index
+		move.w	#boss_syz_x+$10,d5			; X position of very first block
+		moveq	#9,d6					; set up loop total
+		lea	(a0),a1					; load first block into next block (used to find a free object slot)
 		bra.s	BossBlock_MakeBlock
 ; ===========================================================================
 
@@ -735,58 +746,60 @@ BossBlock_Loop:
 		bne.s	BossBlock_ExitLoop
 
 BossBlock_MakeBlock:
-		move.b	#id_BossBlock,obID(a1)
-		move.l	#Map_BossBlock,obMap(a1)
+		move.b	#id_BossBlock,obID(a1)			; set object ID
+		move.l	#Map_BossBlock,obMap(a1)		; set mappings, art, and render flags
 		move.w	#ArtTile_Level|Tile_Pal3,obGfx(a1)
 		move.b	#sprite_cam_field,obRender(a1)
-		move.b	#32/2,obActWid(a1)
+		move.b	#32/2,obActWid(a1)			; set object radius and height
 		move.b	#32/2,obHeight(a1)
-		move.b	#3,obPriority(a1)
-		move.w	d5,obX(a1)	; set x-position
-		move.w	#$582,obY(a1)
-		move.w	d4,obSubtype(a1)
-		addi.w	#$101,d4
-		addi.w	#$20,d5		; add $20 to next x-position
-		addq.b	#2,obRoutine(a1)
-		dbf	d6,BossBlock_Loop	; repeat sequence 9 more times
+		move.b	#3,obPriority(a1)			; set object priority (higher priority)
+		move.w	d5,obX(a1)				; set x-position
+		move.w	#$582,obY(a1)				; set Y position so all blocks are on the floor
+		move.w	d4,obSubtype(a1)			; set subtype to 0 and childcmd to 0
+		addi.w	#$101,d4				; increment both bytes (block 0 gets 0 0 block 1 gets 1 1 etc)
+		addi.w	#$20,d5					; add $20 to next x-position
+		addq.b	#2,obRoutine(a1)			; increment routine of clone (so that it doesn't start looping again)
+		dbf	d6,BossBlock_Loop			; repeat sequence 9 more times
 
 BossBlock_ExitLoop:
 		rts
 ; ===========================================================================
 
 BossBlock_Action:	; Routine 2
-		move.b	objoff_29(a0),d0
-		cmp.b	obSubtype(a0),d0
-		beq.s	BossBlock_Solid
-		tst.b	d0
-		bmi.s	loc_19718
+		move.b	BossSpringYard_ChildCmd(a0),d0		; copy command status
+		cmp.b	obSubtype(a0),d0			; are we currently sending NO command to this current block index (so that we don't break or modify the wrong block, anything greater than -1 and less than 9 is treated as a solid block)
+		beq.s	BossBlock_Solid				; if yes, branch
+		tst.b	d0					; has the block been grabbed?
+		bmi.s	.blockGrabbed				; if yes, branch
 
-loc_19712:
-		bsr.w	BossBlock_Break
+; loc_19712:
+.break:
+		bsr.w	BossBlock_Break				; block must be in state "break" so branch
 		bra.s	BossBlock_Display
 ; ===========================================================================
 
-loc_19718:
-		movea.l	objoff_34(a0),a1
-		tst.b	obBossHits(a1)
-		beq.s	loc_19712
-		move.w	obX(a1),obX(a0)
+; loc_19718:
+.blockGrabbed:
+		movea.l	BossSpringYard_ParentObj(a0),a1		; copy boss controller
+		tst.b	obBossHits(a1)				; do we still have hits remaining?
+		beq.s	.break					; if not, break anyways, boss was defeated mid grab
+		move.w	obX(a1),obX(a0)				; copy positions
 		move.w	obY(a1),obY(a0)
-		addi.w	#$2C,obY(a0)
-		cmpa.w	a0,a1
-		blo.s	BossBlock_Display
-		move.w	obVelY(a1),d0
-		ext.l	d0
-		asr.l	#8,d0
-		add.w	d0,obY(a0)
+		addi.w	#44,obY(a0)				; set y to 44 pixels below boss
+		cmpa.w	a0,a1					; is the boss address higher than the block address?
+		blo.s	BossBlock_Display			; the boss address is lower, meaning the boss has already moved, so just branch
+		move.w	obVelY(a1),d0				; the boss address is higher, Eggman has not been processed yet in the queue, so copy Y velocity
+		ext.l	d0					; long-extend velocity
+		asr.l	#8,d0					; divide by 8 to convert to pixels
+		add.w	d0,obY(a0)				; copy back to Y and try to predict where boss will be
 		bra.s	BossBlock_Display
 ; ===========================================================================
 
 BossBlock_Solid:
-		move.w	#$10+sonic_solid_width,d1
-		move.w	#$10,d2
-		move.w	#$11,d3
-		move.w	obX(a0),d4
+		move.w	#16+sonic_solid_width,d1		; set half width + sonic's width
+		move.w	#16,d2					; set top height
+		move.w	#17,d3					; set bottom height
+		move.w	obX(a0),d4				; copy center X
 		jsr	(SolidObject).l
 
 BossBlock_Display:
@@ -795,9 +808,9 @@ BossBlock_Display:
 
 ; loc_19762:
 BossBlock_Frag:	; Routine 4
-		tst.b	obRender(a0)
-		bpl.s	BossBlock_Delete
-		jsr	(ObjectFall).l
+		tst.b	obRender(a0)				; is the block currently visible?
+		bpl.s	BossBlock_Delete			; if not, branch
+		jsr	(ObjectFall).l				
 		jmp	(DisplaySprite).l
 ; ===========================================================================
 
@@ -806,60 +819,62 @@ BossBlock_Delete:
 ; ===========================================================================
 
 BossBlock_Break:
-		lea	BossBlock_FragSpeed(pc),a4
+		lea	BossBlock_FragSpeed(pc),a4		; load speed and position table
 		lea	BossBlock_FragPos(pc),a5
-		moveq	#1,d4
-		moveq	#3,d1
-		moveq	#gravity,d2	; unused leftover from SmashObject
-		addq.b	#2,obRoutine(a0)
-		move.b	#16/2,obActWid(a0)
-		move.b	#16/2,obHeight(a0)
-		lea	(a0),a1
+		moveq	#1,d4					; set inital frame for fragments to 1
+		moveq	#3,d1					; set loop amount (4 for 4 fragments)
+		moveq	#gravity,d2				; unused leftover from SmashObject
+		addq.b	#2,obRoutine(a0)			; increment routine counter
+		move.b	#16/2,obActWid(a0)			; set object radius to 8
+		move.b	#16/2,obHeight(a0)			; set object height radius to 8
+		lea	(a0),a1					; copy object
 		bra.s	BossBlock_MakeFrag
 ; ===========================================================================
 
 BossBlock_LoopFrag:
 		jsr	(FindNextFreeObj).l
-		bne.s	loc_197D4
+		bne.s	BossBlock_Done				; if no free objects are found, skip ahead
 
 BossBlock_MakeFrag:
-		lea	(a0),a2
-		lea	(a1),a3
-		moveq	#3,d3
+		lea	(a0),a2					; copy object
+		lea	(a1),a3					; copy object's copy (this will contain a new object slot in future loops)
+		moveq	#3,d3					; set first loop to 4
 
-loc_197AA:
+; loc_197AA:
+.loop:
+		move.l	(a2)+,(a3)+				; copy all 4 bytes of original object to new object and increment pointer
 		move.l	(a2)+,(a3)+
 		move.l	(a2)+,(a3)+
-		move.l	(a2)+,(a3)+
-		move.l	(a2)+,(a3)+
-		dbf	d3,loc_197AA
+		move.l	(a2)+,(a3)+				; 64 bytes total
+		dbf	d3,.loop
 
-		move.w	(a4)+,obVelX(a1)
+		move.w	(a4)+,obVelX(a1)			; copy frag speed from table into new object
 		move.w	(a4)+,obVelY(a1)
-		move.w	(a5)+,d3
-		add.w	d3,obX(a1)
-		move.w	(a5)+,d3
-		add.w	d3,obY(a1)
-		move.b	d4,obFrame(a1)
-		addq.w	#1,d4
-		dbf	d1,BossBlock_LoopFrag ; repeat sequence 3 more times
+		move.w	(a5)+,d3				; copy frag pos X and increment table index
+		add.w	d3,obX(a1)				; set new object position X
+		move.w	(a5)+,d3				; copy frag pos Y and increment table index
+		add.w	d3,obY(a1)				; set new object position Y
+		move.b	d4,obFrame(a1)				; set frame for fragment
+		addq.w	#1,d4					; increment frame counter for next fragment
+		dbf	d1,BossBlock_LoopFrag 			; repeat sequence 3 more times
 
-loc_197D4:
+; loc_197D4:
+BossBlock_Done:
 		move.w	#sfx_WallSmash,d0
-		jmp	(QueueSound2).l	; play smashing sound
+		jmp	(QueueSound2).l				; play smashing sound
 ; End of function BossBlock_Break
 
 ; ===========================================================================
 BossBlock_FragSpeed:
-		dc.w -$180, -$200
-		dc.w $180, -$200
-		dc.w -$100, -$100
-		dc.w $100, -$100
+		dc.w -$180, -$200				; top left
+		dc.w $180, -$200				; top right
+		dc.w -$100, -$100				; bottom left
+		dc.w $100, -$100				; bottom right
 BossBlock_FragPos:
-		dc.w -8, -8
-		dc.w $10, 0
-		dc.w 0,	$10
-		dc.w $10, $10
+		dc.w -8, -8					; top left
+		dc.w $10, 0					; top right
+		dc.w 0,	$10					; bottom left
+		dc.w $10, $10					; bottom right
 ; ===========================================================================
 
 Map_BossBlock:	include	"_maps/SYZ Boss Blocks.asm"

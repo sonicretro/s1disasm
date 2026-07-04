@@ -96,7 +96,7 @@ See_Seesaw_StoodOn: ; Routine 4
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; Subroutine to
+; Subroutine to set the seesaw tilt based on what side Sonic is on
 ; ---------------------------------------------------------------------------
 
 See_ChkSide:
@@ -112,9 +112,10 @@ See_ChkSide:
 		cmpi.w	#8,d0					; is Sonic within 8px of seesaw center?
 		bhs.s	See_ChgFrame				; if not, branch
 		moveq	#1,d1					; set flat state
+		; continue to See_ChgFrame...
 ; ---------------------------------------------------------------------------
 
-See_ChgFrame:	; Sub-subroutine to 
+See_ChgFrame:	; Called from the spikeball to change seesaw tilt without Sonic
 		move.b	obFrame(a0),d0				; get current seesaw frame
 		cmp.b	d1,d0					; does frame need to change?
 		beq.s	.return					; if not, branch

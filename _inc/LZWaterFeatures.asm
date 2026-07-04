@@ -118,7 +118,7 @@ DynWater_LZ1_Routine0:
 
 		cmpi.w	#$1080,d0				; has the screen passed the very bottom tunnel door?
 		blo.s	.setWaterTarget				; if not, branch
-		move.b	#$80,(f_switch+5).w			; otherwise, set bit 7 in switch 5 (forces the door to close after)
+		move.b	#$80,(f_switch+5).w			; otherwise, set bit 7 in switch 5 (forces the door to close after, see FBlock_LZSmallDoor_Close)
 		move.w	#$5C8,d1				; lower the water to the very bottom for a shallow tunnel
 
 		cmpi.w	#$1380,d0				; has the screen reached the red spring for the vertical shaft?

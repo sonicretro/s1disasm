@@ -15,9 +15,11 @@ BossMarble_Index:
 		dc.w BossMarble_FlameMain-BossMarble_Index
 		dc.w BossMarble_TubeMain-BossMarble_Index
 
-BossMarble_ParentObj = objoff_34 				; Pointer to main boss controller
-BossMarble_SineCounter = objoff_3F				; sine counter for bobbing motion
-BossMarble_GenericTimer	= objoff_3C				; ; timer for how many frames to do an action, whether its wait for explosions, or to move in a direction
+BossMarble_ParentObj equ objoff_34 				; Pointer to main boss controller
+BossMarble_SineCounter equ objoff_3F				; sine counter for bobbing motion
+BossMarble_GenericTimer	equ objoff_3C				; timer for how many frames to do an action, whether its wait for explosions, or to move in a direction
+BossFire_GenericTimer equ objoff_29				; timer used for fireball that is spawned by Eggman, as well as used for a counter
+BossFire_SpreadX equ objoff_32					; scratch RAM used to save X of where the first fireball hit 
 
 BossMarble_ObjData:
 		dc.b 2,	0, 4					; routine number, animation, priority
@@ -216,7 +218,7 @@ BossMarble_MakeLava:
 ; This line may trick you at first sight, but it actually serves two purposes. It is important to note that
 ; this instruction is a move.w with an immediate size of a byte. This means that the immediate actually gets zero-extended
 ; to $00FF. Object offsets in Sonic 1 are a single byte in size. The 68000 is also big endian, meaning the high byte gets written first. 
-; 00 gets written to objoff_28 (obSubtype) and FF gets written to objoff_29 which is used for a single check to adjust render priority in 14 Lava Ball.asm
+; 00 gets written to objoff_28 (obSubtype) and FF gets written to BossFire_GenericTimer which is used for a single check to adjust render priority in 14 Lava Ball.asm
 ; So, this is NOT setting the subtype to FF, rather it is writing two bytes used for the lava flame in one instruction to save some time.
 		move.w	#$FF,obSubtype(a1)
 
@@ -518,13 +520,13 @@ BossMarble_TubeDel:
 
 BossFire:
 		moveq	#0,d0
-		move.b	obRoutine(a0),d0
-		move.w	BossFire_Index(pc,d0.w),d0
+		move.b	obRoutine(a0),d0			; copy object routine
+		move.w	BossFire_Index(pc,d0.w),d0		; use the object routine index and BossFire_Index to calculate our offset
 	if FixBugs
 		; DisplaySprite has been moved to avoid a display-after-free bug.
 		jmp	BossFire_Index(pc,d0.w)
 	else
-		jsr	BossFire_Index(pc,d0.w)
+		jsr	BossFire_Index(pc,d0.w)			; jump into the table and use our offset to pick a routine in the index to go to
 		jmp	(DisplaySprite).l
 	endif
 ; ===========================================================================
@@ -534,38 +536,39 @@ BossFire_Index:	dc.w BossFire_Main-BossFire_Index
 		dc.w BossFire_TempFireDel-BossFire_Index
 ; ===========================================================================
 
-BossFire_Main:	; Routine 0
-		move.b	#16/2,obHeight(a0)
+BossFire_Main:		; Routine 0
+		move.b	#16/2,obHeight(a0)			; set object height and width
 		move.b	#16/2,obWidth(a0)
-		move.l	#Map_Fire,obMap(a0)
+		move.l	#Map_Fire,obMap(a0)			; load mappings, graphics, and set render style
 		move.w	#ArtTile_MZ_Fireball,obGfx(a0)
 		move.b	#sprite_cam_field,obRender(a0)
-		move.b	#5,obPriority(a0)
-		move.w	obY(a0),obBossY(a0)
-		move.b	#16/2,obActWid(a0)
-		addq.b	#2,obRoutine(a0)
-		tst.b	obSubtype(a0)
-		bne.s	loc_1870A
-		move.b	#col_16x16|col_hurt,obColType(a0)
-		addq.b	#2,obRoutine(a0)
-		bra.w	BossFire_TempFire
+		move.b	#5,obPriority(a0)			; set render priority (to allow to hide behind lava) 
+		move.w	obY(a0),obBossY(a0)			; copy Y
+		move.b	#16/2,obActWid(a0)			; set object width
+		addq.b	#2,obRoutine(a0)			; increment the object routine
+		tst.b	obSubtype(a0)				; are we controlling temp fire (floor fire) or real fire (0 = temp fire)
+		bne.s	.setupSpawn				; if real fire, branch
+		move.b	#col_16x16|col_hurt,obColType(a0)	; set collision for Sonic so that it is 16x16 and hurts when touched
+		addq.b	#2,obRoutine(a0)			; increment the routine to stay at TempFire until further incremented
+		bra.w	BossFire_TempFire			; go to display temporary fire that indicates a fireball is incoming
 ; ===========================================================================
 
-loc_1870A:
-		move.b	#$1E,objoff_29(a0)
+; loc_1870A:
+.setupSpawn:
+		move.b	#30,BossFire_GenericTimer(a0)		; set a timer for 30 frames
 		move.w	#sfx_Fireball,d0
-		jsr	(QueueSound2).l	; play lava sound
+		jsr	(QueueSound2).l				; play lava sound
 
 BossFire_Action:	; Routine 2
 		moveq	#0,d0
-		move.b	ob2ndRout(a0),d0
-		move.w	BossFire_Index2(pc,d0.w),d0
-		jsr	BossFire_Index2(pc,d0.w)
-		jsr	(SpeedToPos).l
-		lea	(Ani_Fire).l,a1
+		move.b	ob2ndRout(a0),d0			; copy 2nd object routine
+		move.w	BossFire_Index2(pc,d0.w),d0		; use the object routine index and BossFire_Index2 to calculate our offset
+		jsr	BossFire_Index2(pc,d0.w)		; jump into the table and use our offset to pick a routine in the index to go to
+		jsr	(SpeedToPos).l				; calculate speed based on velocity
+		lea	(Ani_Fire).l,a1				; load animations and send them off to be ran
 		jsr	(AnimateSprite).l
-		cmpi.w	#boss_mz_y+$D8,obY(a0)
-		bhi.s	BossFire_Delete
+		cmpi.w	#boss_mz_y+$D8,obY(a0)			; has the fire fallen into the lava (this routine is shared due to sub routine index above)
+		bhi.s	BossFire_Delete				; if so, delete
 	if FixBugs
 		; DisplaySprite has been moved to avoid a display-after-free bug.
 		jmp	(DisplaySprite).l
@@ -583,124 +586,133 @@ BossFire_Index2:dc.w BossFire_Drop-BossFire_Index2
 		dc.w BossFire_FallEdge-BossFire_Index2
 ; ===========================================================================
 
-BossFire_Drop:
-		bset	#1,obStatus(a0)
-		subq.b	#1,objoff_29(a0)
-		bpl.s	locret_18780
-		move.b	#col_16x16|col_hurt,obColType(a0)
-		clr.b	obSubtype(a0)
-		addi.w	#$18,obVelY(a0)
-		bclr	#1,obStatus(a0)
-		bsr.w	ObjFloorDist
-		tst.w	d1
-		bpl.s	locret_18780
+BossFire_Drop:		; sub Routine 0
+		bset	#1,obStatus(a0)				; flip the object vertically so that it is facing up
+		subq.b	#1,BossFire_GenericTimer(a0)		; is Eggman done waiting to drop the fire?
+		bpl.s	.exit					; if not, branch
+		move.b	#col_16x16|col_hurt,obColType(a0)	; set collision
+		clr.b	obSubtype(a0)				; clear subtype for later
+		addi.w	#$18,obVelY(a0)				; start falling downwards and add on to it
+		bclr	#1,obStatus(a0)				; clear the flip so now object is facing down
+		bsr.w	ObjFloorDist				
+		tst.w	d1					; has the object reached the floor?
+		bpl.s	.exit					; if not, branch
 		addq.b	#2,ob2ndRout(a0)
 
-locret_18780:
+; locret_18780:
+.exit:
 		rts
 ; ===========================================================================
 
-BossFire_MakeFlame:
-		subq.w	#2,obY(a0)
-		bset	#7,obGfx(a0)
-		move.w	#$A0,obVelX(a0)
-		clr.w	obVelY(a0)
-		move.w	obX(a0),obBossX(a0)
+BossFire_MakeFlame:	; sub Routine 2
+		subq.w	#2,obY(a0)				; raise object up by 2 pixels
+		bset	#7,obGfx(a0)				; set priority to high (in foreground)
+		move.w	#$A0,obVelX(a0)				; set x velocity in preparation for spread
+		clr.w	obVelY(a0)				; stop falling
+		move.w	obX(a0),obBossX(a0)			; copy positions
 		move.w	obY(a0),obBossY(a0)
-		move.b	#3,objoff_29(a0)
-		jsr	(FindNextFreeObj).l
-		bne.s	loc_187CA
-		lea	(a1),a3
-		lea	(a0),a2
-		moveq	#3,d0
+		move.b	#3,BossFire_GenericTimer(a0)		; set a counter of 3
+		jsr	(FindNextFreeObj).l			; find free object slots
+		bne.s	.advance				; no object slots left, leave
+		lea	(a1),a3					; load freshly allocated slot (destination)
+		lea	(a0),a2					; load flame object (source)
+		moveq	#3,d0					; set loop to loop 4 times
 
-BossFire_Loop:
+; BossFire_Loop:
+.loop:
+		move.l	(a2)+,(a3)+				; copy 4 bytes, advancing the pointers each time
 		move.l	(a2)+,(a3)+
 		move.l	(a2)+,(a3)+
 		move.l	(a2)+,(a3)+
-		move.l	(a2)+,(a3)+
-		dbf	d0,BossFire_Loop
+		dbf	d0,.loop
 
-		neg.w	obVelX(a1)
-		addq.b	#2,ob2ndRout(a1)
+		neg.w	obVelX(a1)				; flip the clone's X velocity
+		addq.b	#2,ob2ndRout(a1)			; advance the clone's routine
 
-loc_187CA:
-		addq.b	#2,ob2ndRout(a0)
+; loc_187CA:
+.advance:
+		addq.b	#2,ob2ndRout(a0)			; advance original
 		rts
 ; ===========================================================================
 
 BossFire_Duplicate2:
-		jsr	(FindNextFreeObj).l
-		bne.s	locret_187EE
-		move.w	obX(a0),obX(a1)
+		jsr	(FindNextFreeObj).l			; find more free objects
+		bne.s	.exit					; no free objects, leave
+		move.w	obX(a0),obX(a1)				; copy X and Y
 		move.w	obY(a0),obY(a1)
-		move.b	#id_BossFire,obID(a1)
-		move.w	#$67,obSubtype(a1)
+		move.b	#id_BossFire,obID(a1)			; set object to fireball
+		move.w	#103,obSubtype(a1)			; set spawn type to floor fire fire (obSubtype=0) and timer to 103 frames (BossFire_GenericTimer=$67, this child object is used in TempFlame) in one word write. this will be ran the next time objects are executed
 
-locret_187EE:
+; locret_187EE:
+.exit:
 		rts
 ; End of function BossFire_Duplicate2
 
 ; ===========================================================================
 
-BossFire_Duplicate:
+BossFire_Duplicate:	; sub Routine 4
 		bsr.w	ObjFloorDist
-		tst.w	d1
-		bpl.s	loc_18826
-		move.w	obX(a0),d0
-		cmpi.w	#boss_mz_x+$140,d0
-		bgt.s	loc_1882C
-		move.w	obBossX(a0),d1
-		cmp.w	d0,d1
-		beq.s	loc_1881E
-		andi.w	#$10,d0
+		tst.w	d1					; is the object on the floor?
+		bpl.s	.advance2ndRout				; if not, leave and go to FallEdge
+		move.w	obX(a0),d0				; copy X
+		cmpi.w	#boss_mz_x+$140,d0			; has the flame traveled past the right boundary (left screen boundary isn't checked since the level has a gap here)?
+		bgt.s	.advanceRout				; if so, branch to get ready for deletion
+		move.w	obBossX(a0),d1				; copy position
+		cmp.w	d0,d1					; is the current X the same as the last X? 
+		beq.s	.copyPosition				; if yes, branch
+		andi.w	#$10,d0					; AND the 16th bit of both positions
 		andi.w	#$10,d1
-		cmp.w	d0,d1
-		beq.s	loc_1881E
-		bsr.s	BossFire_Duplicate2
-		move.w	obX(a0),objoff_32(a0)
+		cmp.w	d0,d1					; have we moved 1 pixel AND crossed a 16 pixel boundary?
+		beq.s	.copyPosition				; if not, branch
+		bsr.s	BossFire_Duplicate2			; yes, spawn another object
+		move.w	obX(a0),BossFire_SpreadX(a0)		; save current X as next reference
 
-loc_1881E:
-		move.w	obX(a0),obBossX(a0)
+; loc_1881E:
+.copyPosition:
+		move.w	obX(a0),obBossX(a0)			; copy last spawn X to current position (to mark where a flame was last spawned)
 		rts
 ; ===========================================================================
 
-loc_18826:
+; loc_18826:
+.advance2ndRout:
 		addq.b	#2,ob2ndRout(a0)
 		rts
 ; ===========================================================================
 
-loc_1882C:
+; loc_1882C:
+.advanceRout:
 		addq.b	#2,obRoutine(a0)
 		rts
-; ===========================================================================
+		
+BossFire_FallEdge:	; sub Routine 6
+		bclr	#1,obStatus(a0)				; clear Y flip bit
+		addi.w	#$24,obVelY(a0)				; make flame fall
+		move.w	obX(a0),d0				; copy last spawn X
+		sub.w	BossFire_SpreadX(a0),d0			; subtract the spread value from last spawn X
+		bpl.s	.checkLava				; if positive, branch, we are on the left platform moving right
+		neg.w	d0					; we are on the right platform moving left, negate to get absolute value
 
-BossFire_FallEdge:
-		bclr	#1,obStatus(a0)
-		addi.w	#$24,obVelY(a0)	; make flame fall
-		move.w	obX(a0),d0
-		sub.w	objoff_32(a0),d0
-		bpl.s	loc_1884A
-		neg.w	d0
+; loc_1884A:
+.checkLava:
+		cmpi.w	#$12,d0					; are we 18 pixels away from last spawn?
+		bne.s	.checkImpact				; if not, branch
+		bclr	#7,obGfx(a0)				; set priority to low (behind foreground)
 
-loc_1884A:
-		cmpi.w	#$12,d0
-		bne.s	loc_18856
-		bclr	#7,obGfx(a0)
-
-loc_18856:
+; loc_18856:
+.checkImpact:
 		bsr.w	ObjFloorDist
-		tst.w	d1
-		bpl.s	locret_1887E
-		subq.b	#1,objoff_29(a0)
-		beq.s	BossFire_Delete2
-		clr.w	obVelY(a0)
-		move.w	objoff_32(a0),obX(a0)
-		move.w	obBossY(a0),obY(a0)
-		bset	#7,obGfx(a0)
-		subq.b	#2,ob2ndRout(a0)
+		tst.w	d1					; is the object touching the floor?
+		bpl.s	.exit					; if not, branch
+		subq.b	#1,BossFire_GenericTimer(a0)		; decrement counter
+		beq.s	BossFire_Delete2			; if counter has reached 0, branch, all the fireballs that are supposed to fall have fallen, so time to delete
+		clr.w	obVelY(a0)				; stop falling
+		move.w	BossFire_SpreadX(a0),obX(a0)		; copy offset
+		move.w	obBossY(a0),obY(a0)			; copy Y
+		bset	#7,obGfx(a0)				; set priority to high (in foreground)
+		subq.b	#2,ob2ndRout(a0)			; go back to BossFire_Duplicate to spawn another fireball on top of the fireball on the edge, and make it fall
 
-locret_1887E:
+; locret_1887E:
+.exit:
 		rts
 ; ===========================================================================
 
@@ -712,15 +724,17 @@ BossFire_Delete2:
 	endif
 		jmp	(DeleteObject).l
 ; ===========================================================================
+; This controls the flames that never make it to the edge, and burn out on the platform. We branch here from setting the subtype and timer in Duplicate2
+; ===========================================================================
 
 ; loc_18886:
-BossFire_TempFire: ; Routine 4
-		bset	#7,obGfx(a0)
-		subq.b	#1,objoff_29(a0)
-		bne.s	BossFire_Animate
-		move.b	#1,obAnim(a0)
-		subq.w	#4,obY(a0)
-		clr.b	obColType(a0)
+BossFire_TempFire: 	; Routine 4 
+		bset	#7,obGfx(a0)				; set flame priority to high
+		subq.b	#1,BossFire_GenericTimer(a0)		; has the timer hit 0?
+		bne.s	BossFire_Animate			; if not, branch
+		move.b	#1,obAnim(a0)				; switch animation to "flame out"
+		subq.w	#4,obY(a0)				; move object upwards by 4 pixels
+		clr.b	obColType(a0)				; clear any collision
 
 BossFire_Animate:
 		lea	(Ani_Fire).l,a1

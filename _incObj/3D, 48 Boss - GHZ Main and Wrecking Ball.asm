@@ -13,11 +13,10 @@ BGHZ_Index:	dc.w BGHZ_Main-BGHZ_Index
 		dc.w BGHZ_FaceMain-BGHZ_Index
 		dc.w BGHZ_FlameMain-BGHZ_Index
 
-BGHZ_ParentObj = objoff_34					; Pointer to main boss controller
-BGHZ_SineCounter = objoff_3F 					; sine counter for bobbing motion
-BGHZ_BossGenericTimer = objoff_3C 				; timer for how many frames to do an action, whether its wait for explosions, or to move in a direction
-GBall_AnchorPos = objoff_32					; offset used to calculate position of chain anchor on Eggman's ship
-GBall_PosX	= objoff_3A	
+BGHZ_ParentObj:		equ objoff_34				; Pointer to main boss controller
+BGHZ_BossGenericTimer:	equ objoff_3C 				; timer for how many frames to do an action, whether its wait for explosions, or to move in a direction
+BGHZ_SineCounter:	equ objoff_3F 				; sine counter for bobbing motion
+; ===========================================================================
 
 BGHZ_ObjData:	
 		dc.b 2,	0					; routine counter, animation
@@ -427,6 +426,11 @@ GBall_Index:	dc.w GBall_Main-GBall_Index
 		dc.w GBall_Base2-GBall_Index
 		dc.w GBall_Link-GBall_Index
 		dc.w GBall_Ball-GBall_Index
+
+GBall_AnchorPos:	equ objoff_32				; offset used to calculate position of chain anchor on Eggman's ship
+GBall_PosX:		equ objoff_3A				; parent ship X-position
+GBall_Swing_Direction:	equ objoff_3D				; current swinging direction (0 = clockwise, 1 = counterclockwise)
+GBall_Swing_Speed:	equ objoff_3E				; current swing speed (direction flips on $200/-$200)
 ; ===========================================================================
 
 GBall_Main:	; Routine 0
@@ -519,14 +523,14 @@ GBall_Base:	; Routine 2
 GBall_Display:
 		bsr.w	GBall_UpdateBase			; update base object
 		move.b	obAngle(a0),d0				; copy angle
-		jsr	(Swing_Move2).l
+		jsr	(Swing_UpdateSwingPosition).l		; update wrecking ball position
 		jmp	(DisplaySprite).l
 ; ===========================================================================
 
 ; GBall_Display2:
 GBall_Base2:	; Routine 4
 		bsr.w	GBall_UpdateBase			; update base object
-		jsr	(GBall_Move).l
+		jsr	(GBall_Move).l				; swing wrecking ball (part of Object 15, GBall_Swing_Direction and GBall_Swing_Speed are used here)
 		jmp	(DisplaySprite).l
 
 ; ===========================================================================
