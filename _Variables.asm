@@ -266,10 +266,10 @@ v_lani5_time:		ds.b	1				; level graphics animation 5 - time until next frame
 			ds.b	2				; unused
 v_gfxbigring:		ds.w	1				; settings for giant ring graphics loading
 f_conveyrev:		ds.b	1				; flag set to reverse conveyor belts in LZ/SBZ
-v_obj63:		ds.b	6				; object 63 (LZ/SBZ platforms) variables
+v_obj63:		ds.b	6				; flags set if conveyor group is loaded for LZ (object 63) and SBZ (object 6F)
 f_wtunnelmode:		ds.b	1				; LZ water tunnel mode
 f_playerctrl:		ds.b	1				; Player control override flags (object interaction, control enable)
-f_wtunneldisallow:		ds.b	1				; LZ water tunnels (00 = enabled; 01 = disabled)
+f_wtunneldisallow:	ds.b	1				; LZ water tunnels (00 = enabled; 01 = disabled)
 f_slidemode:		ds.b	1				; LZ water slide mode
 v_obj6B:		ds.b	1				; object 6B (SBZ stomper) variable
 f_lockctrl:		ds.b	1				; flag set to lock controls during ending sequence

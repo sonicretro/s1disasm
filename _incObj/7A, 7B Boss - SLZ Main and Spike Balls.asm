@@ -642,8 +642,8 @@ BossSpikeball_CalcPos:
 		move.w	d1,obY(a0)				; set ball position based on seesaw index calculated
 		add.w	obBossX(a0),d2				; add seesaw position plus 40 pixel offset
 		move.w	d2,obX(a0)				; move ball position to offset
-		clr.w	obY+2(a0)				; clear sub pixels
-		clr.w	obX+2(a0)
+		clr.w	obSubpixelY(a0)				; clear sub pixels
+		clr.w	obSubpixelX(a0)
 		subq.w	#1,obSubtype(a0)			; has the timer reached 0?
 		bne.s	BossSpikeball_CheckFlicker		; if not, branch
 		move.w	#32,obSubtype(a0)			; reset timer
