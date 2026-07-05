@@ -17,7 +17,7 @@ lgrass_origY:	equ objoff_2C	; initial Y-position
 lgrass_coldata:	equ objoff_30	; pointer to platform slope collision data
 lgrass_nudge:	equ objoff_34	; (type $x5 only, burnable) nudge Y-offset while Sonic is standing on platform
 lgrass_burning:	equ objoff_35	; (type $x5 only, burnable) flag set when platform has started burning
-lgrass_flames:	equ objoff_36	; (type $x5 only, burnable) array of children fire objects ($36 = child count, $37-$3E = RAM indeces to flames)
+lgrass_flames:	equ objoff_36	; (type $x5 only, burnable) array of children fire objects ($36 = child count, $37-$3E = RAM indices to flames)
 ; ===========================================================================
 
 LGrass_Data: 	; collision angle data (relative offset)

@@ -161,7 +161,7 @@ CSon_ShowFall:
 ; ===========================================================================
 
 CSon_Animate:	; Routine 4
-		tst.b	(v_jpadpress1).w			; has Start button beenpressed?
+		tst.b	(v_jpadpress1).w			; has Start button been pressed?
 		bmi.s	.continueUsed				; if yes, continue has been used
 
 		lea	(Ani_CSon).l,a1				; load continue screen Sonic animation script

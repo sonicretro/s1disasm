@@ -19,8 +19,8 @@ Pyl_Main:	; Routine 0
 		move.w	#ArtTile_SLZ_Pylon|Tile_Prio,obGfx(a0)	; set art tile and priority flag
 		move.b	#32/2,obActWid(a0)			; set display width
 	if FixBugs
-		; This gets implicitely set by keeping the RAM value at $00,
-		; but it's safer if it's set explicitely to avoid potential conflicts.
+		; This gets implicitly set by keeping the RAM value at $00,
+		; but it's safer if it's set explicitly to avoid potential conflicts.
 		move.b	#sprite_cam_screen,obRender(a0)		; set to screen-fixed positioning mode
 	endif
 ; ---------------------------------------------------------------------------
@@ -32,7 +32,7 @@ Pyl_Display:	; Routine 2
 		neg.w	d1					; make pylons move opposite to the camera direction
 		move.w	d1,obX(a0)				; set new X-position
 
-		move.l	(v_screenposy).w,d1			; get curernt camera Y-position
+		move.l	(v_screenposy).w,d1			; get current camera Y-position
 		add.l	d1,d1					; move pylons twice as fast as camera
 		swap	d1					; user upper word for position
 		andi.w	#$3F,d1					; vertically wrap pylon every 64px

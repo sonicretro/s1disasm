@@ -105,7 +105,7 @@ ESon_MakeLogo:	; Routine $C
 		rts						; return
 ; ===========================================================================
 
-ESon_Animate:	; Rountine 4, $A, $E, $12
+ESon_Animate:	; Routine 4, $A, $E, $12
 		lea	(Ani_ESon).l,a1				; load animation script
 		jmp	(AnimateSprite).l			; (most of these animations are set up to increase ob2ndRout on finish!)
 ; ===========================================================================

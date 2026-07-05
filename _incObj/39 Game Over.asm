@@ -55,7 +55,7 @@ Over_MoveIn:	; Routine 2
 ; ===========================================================================
 
 Over_Wait:	; Routine 4
-		move.b	(v_jpadpress1).w,d0			; get butteons pressed this frame
+		move.b	(v_jpadpress1).w,d0			; get buttons pressed this frame
 		andi.b	#btnABC,d0				; was button A, B, or C pressed?
 		bne.s	.changeMode				; if yes, branch
 

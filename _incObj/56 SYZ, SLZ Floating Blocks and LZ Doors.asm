@@ -425,7 +425,7 @@ FBlock_LZHorizDoor_Open:
 		bra.s	.updatePosition				; update X-position once more
 ; ===========================================================================
 
-; Type D - 
+; Type D (set from Type C) - big 4x1 sideways-moving door, closes when respective switch is pressed (kinda unused... see notes)
 FBlock_LZHorizDoor_Close:
 		tst.b	fb_moving(a0)				; is door already set to close?
 		bne.s	.closing				; if yes, branch

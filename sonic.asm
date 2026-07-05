@@ -302,7 +302,7 @@ SetupValues:	dc.w $8000				; VDP register start number
 		dc.b 255				; VDP $8A - HBlank register
 		dc.b 0					; VDP $8B - full screen scroll
 		dc.b $81				; VDP $8C - 40 cell display
-		dc.b ($DC00>>10)			; VDP $8D - hs-croll table address
+		dc.b ($DC00>>10)			; VDP $8D - h-scroll table address
 		dc.b 0					; VDP $8E - unused
 		dc.b 1					; VDP $8F - VDP increment
 		dc.b 1					; VDP $90 - 64 cell h-scroll size
@@ -694,7 +694,7 @@ VBlank_Index:	dc.w VBlank_Lag-VBlank_Index		; $00 - (lag frame)
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; VBlank 00 - Lag frame (VBlank occured before call to WaitForVBlank)
+; VBlank 00 - Lag frame (VBlank occurred before call to WaitForVBlank)
 ; ---------------------------------------------------------------------------
 
 ; loc_B88: VBla_00:
@@ -708,7 +708,7 @@ VBlank_Lag:
 		cmpi.b	#id_LZ,(v_zone).w		; is level LZ?
 		bne.w	VBlank_Music			; if not, just update sound driver and resume operation
 
-	; --- A lag frame has occured while in Labyrinth Zone ---
+	; --- A lag frame has occurred while in Labyrinth Zone ---
 
 		move.w	(vdp_control_port).l,d0		; clear write-pending flag in VDP (prevents issues if 68k was reset while writing a command to VDP)
 
@@ -806,7 +806,7 @@ VBlank_Levels:
 		waitZ80					; wait until Z80 has stopped
 		bsr.w	ReadJoypads			; read joypads and update buffered inputs in RAM
 
-		tst.b	(f_wtr_state).w			; is the screen completely underewater?
+		tst.b	(f_wtr_state).w			; is the screen completely underwater?
 		bne.s	.waterAbove 			; if not, branch
 		writeCRAM	v_palette,0		; write regular palette buffer to CRAM
 		bra.s	.waterBelow			; skip over
@@ -904,7 +904,7 @@ VBlank_Ending:
 		waitZ80					; wait until Z80 has stopped
 		bsr.w	ReadJoypads			; read joypads and update buffered inputs in RAM
 
-		tst.b	(f_wtr_state).w			; is the screen completely underewater?
+		tst.b	(f_wtr_state).w			; is the screen completely underwater?
 		bne.s	.waterAbove 			; if not, branch
 		writeCRAM	v_palette,0		; write regular palette buffer to CRAM
 		bra.s	.waterBelow			; skip over
@@ -997,7 +997,7 @@ VBlank_StandardTransfers:
 		waitZ80					; wait until Z80 has stopped
 		bsr.w	ReadJoypads			; read joypads and update buffered inputs in RAM
 
-		tst.b	(f_wtr_state).w			; is the screen completely underewater?
+		tst.b	(f_wtr_state).w			; is the screen completely underwater?
 		bne.s	.waterAbove 			; if not, branch
 		writeCRAM	v_palette,0		; write regular palette buffer to CRAM
 		bra.s	.waterBelow			; skip over
@@ -3073,7 +3073,7 @@ Level_ChkDemo:
 ; ===========================================================================
 
 Level_EndDemo:
-		cmpi.b	#id_Demo,(v_gamemode).w		; is game mode sstill demo?
+		cmpi.b	#id_Demo,(v_gamemode).w		; is game mode still demo?
 		bne.s	Level_FadeDemo			; if not, slowly fade-out demo
 		move.b	#id_Sega,(v_gamemode).w		; return to Sega screen
 		tst.w	(f_demo).w			; is demo mode on & not ending sequence?
@@ -3247,7 +3247,7 @@ GM_Special:	; white fade-out from previous game mode
 		lea	(vdp_control_port).l,a6		; load VDP control port
 		move.w	#$8B03,(a6)			; line scroll mode (per-row horizontally, full-screen vertically)
 		move.w	#$8004,(a6)			; 8-colour mode
-		move.w	#$8A00+175,(v_hblank_hreg).w	; set HBlank counter to scanline 175 (even though horizontal interrupts aren'tused here...)
+		move.w	#$8A00+175,(v_hblank_hreg).w	; set HBlank counter to scanline 175 (even though horizontal interrupts aren't used here...)
 		move.w	#$9011,(a6)			; 128-cell hscroll size
 		disable_display				; disable screen output
 		bsr.w	ClearScreen			; wipe screen
@@ -3363,7 +3363,7 @@ SS_FinLoop:
 		bsr.w	WaitForVBlank			; wait until VBlank has finished
 		bsr.w	MoveSonicInDemo			; continue updating demo controls during fade-out
 		move.w	(v_jpadhold1).w,(v_jpadhold2).w	; continue copying 1P inputs to Sonic object (even though controls are locked...)
-		jsr	(ExecuteObjects).l		; continue executing objects during fade-oout
+		jsr	(ExecuteObjects).l		; continue executing objects during fade-out
 		jsr	(BuildSprites).l		; continue building sprites during fade-out
 		jsr	(SS_ShowLayout).l		; continue rendering Special Stage layout
 		bsr.w	SS_BGAnimate			; continue to animate background
@@ -3586,7 +3586,7 @@ GM_Ending:
 		clearRAM v_timingandscreenvariables	; clear various timing and screen RAM (for animated tiles, etc.)
 
 		disable_ints				; disable interrupts
-		disable_display				; disable screeen output
+		disable_display				; disable screen output
 		bsr.w	ClearScreen			; wipe the screen
 		lea	(vdp_control_port).l,a6		; load VDP control port
 		move.w	#$8B03,(a6)			; line scroll mode (per-row horizontally, full-screen vertically)
@@ -3705,7 +3705,7 @@ End_GoToCredits:
 ; ===========================================================================
 
 End_ChkEmerald:
-		tst.w	(f_restart).w			; is level restart flag set? (set while emeralds are spinning in th egood ending)
+		tst.w	(f_restart).w			; is level restart flag set? (set while emeralds are spinning in the good ending)
 		beq.w	End_MainLoop			; if not, loop ending sequence game mode normally
 ; ---------------------------------------------------------------------------
 
@@ -4203,7 +4203,7 @@ Map_PRock:	include	"_maps/Purple Rock.asm"
 
 
 ; ===========================================================================
-; >>> More level obejcts
+; >>> More level objects
 		include	"_incObj/41 Springs.asm"
 		include	"_incObj/42 Badnik - Newtron.asm"
 		include	"_incObj/43 Badnik - Roller.asm"
@@ -4302,7 +4302,7 @@ Map_Splash:	include	"_maps/Water Splash.asm"
 
 ; ===========================================================================
 ; >>> Bosses and related objects
-		include	"_incObj/3D, 48 Boss - GHZ Main and Wrecking Ball.asm"	; includes "BossDeafeated" and "BossMove" subroutines
+		include	"_incObj/3D, 48 Boss - GHZ Main and Wrecking Ball.asm"	; includes "BossDefeated" and "BossMove" subroutines
 		include	"_anim/Eggman.asm"
 Map_Eggman:	include	"_maps/Eggman.asm"
 Map_BossItems:	include	"_maps/Boss Items.asm"

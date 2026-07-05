@@ -116,7 +116,7 @@ Sto_Action:	; Routine 2
 		add.w	d0,d0					; double for word-based indexing
 		move.w	Sto_TypeIndex(pc,d0.w),d1		; find entry in jump table
 		jsr	Sto_TypeIndex(pc,d1.w)			; execute behavior, then return here
-		move.w	(sp)+,d4				; restore previoux X-position as input for SolidObject
+		move.w	(sp)+,d4				; restore previous X-position as input for SolidObject
 
 		tst.b	obRender(a0)				; is platform on screen?
 		bpl.s	.chkdel					; if not, skip collision detection
@@ -290,7 +290,7 @@ Sto_Stomper_UpAndDown:
 
 	.stompUp:
 		tst.w	sto_offset_now(a0)			; has stomper gone fully back up again?
-		beq.s	.delayStompDown				; if yes, brancch
+		beq.s	.delayStompDown				; if yes, branch
 		subq.w	#8,sto_offset_now(a0)			; move stomper back up at 8px/frame
 		bra.s	.updatePosition				; update Y-position
 ; ---------------------------------------------------------------------------

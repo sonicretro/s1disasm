@@ -126,7 +126,7 @@ But_Pressed:	; Routine 2
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Subroutine to handle the special button in Marble Zone act 1 that
-; gets pressed down by a pushable block to raise a spiked chaindelier
+; gets pressed down by a pushable block to raise a spiked chandelier
 ;
 ; output:
 ;	d0 = 1 if block is on top of button, 0 if not

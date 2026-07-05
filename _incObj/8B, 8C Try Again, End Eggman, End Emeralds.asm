@@ -66,7 +66,7 @@ EEgg_Juggle:	; Routine 4
 ; ---------------------------------------------------------------------------
 
 EEgg_Wait:	; Routine 6
-		subq.w	#1,eegg_time(a0)			; decrement delaytimer
+		subq.w	#1,eegg_time(a0)			; decrement delay timer
 		bpl.s	.return					; branch if time remains
 		bchg	#0,obAnim(a0)				; alternate between left and right juggle animations
 		move.b	#2,obRoutine(a0)			; goto EEgg_Animate next

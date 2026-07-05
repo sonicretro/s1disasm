@@ -20,7 +20,7 @@ LTag_ColTypes:	; collision types for ReactToItem
 ; ===========================================================================
 
 LTag_Main:	; Routine 0
-		addq.b	#2,obRoutine(a0)			; advacne to LTag_ChkDel
+		addq.b	#2,obRoutine(a0)			; advance to LTag_ChkDel
 		moveq	#0,d0					; clear d0 for word-based addressing
 		move.b	obSubtype(a0),d0			; get size in subtype (0-2)
 		move.b	LTag_ColTypes(pc,d0.w),obColType(a0)	; set collision response type/size based on subtype

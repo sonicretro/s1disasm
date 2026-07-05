@@ -53,7 +53,7 @@ Roll_Action:	; Routine 2
 		; This is an exact copy-paste of the RememberState subroutine, except that
 		; it uses bgt instead of bhi for the offscreen check. As a result, Rollers
 		; cannot despawn when going too far offscreen to the left, which can cause
-		; occasional double spawnings. It's not exactly clear if this behavior was
+		; occasional double spawning. It's not exactly clear if this behavior was
 		; intended or if it's an oversight, but it's definitely very inconsistent.
 		move.w	obX(a0),d0
 		andi.w	#$FF80,d0

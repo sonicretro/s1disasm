@@ -273,7 +273,7 @@ Geyser_Type00:
 Geyser_Type01:
 		addi.w	#$18,obVelY(a0)				; increase object's falling speed
 		move.w	geyser_origY(a0),d0			; get original Y-position
-		cmp.w	obY(a0),d0				; has object falen below original position?
+		cmp.w	obY(a0),d0				; has object fallen below original position?
 		bhs.s	.return					; if not, branch
 
 		addq.b	#4,obRoutine(a0)			; advance to Geyser_Delete

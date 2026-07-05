@@ -54,7 +54,7 @@ Bonus_Touched:	; Sonic hit the invisible marker
 
 		moveq	#0,d0					; clear d0 for word-based addressing
 		move.b	obSubtype(a0),d0			; get subtype of object (must not be 0)
-		add.w	d0,d0					; double for word-based idnexing
+		add.w	d0,d0					; double for word-based indexing
 		move.w	Bonus_Points(pc,d0.w),d0		; load bonus points from array
 		jsr	(AddPoints).l				; add that value to score
 ; ---------------------------------------------------------------------------

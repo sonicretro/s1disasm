@@ -149,7 +149,7 @@ Lamp_Twirl:	; Routine 6
 
 Lamp_StoreInfo:
 		move.b	obSubtype(a0),(v_lastlamp).w		; lamppost number
-		move.b	(v_lastlamp).w,(v_lastlamp+1).w		; lampost number backup
+		move.b	(v_lastlamp).w,(v_lastlamp+1).w		; lamppost number backup
 		move.w	obX(a0),(v_lamp_xpos).w			; x-position
 		move.w	obY(a0),(v_lamp_ypos).w			; y-position
 

@@ -113,7 +113,7 @@ Bom_CheckStartFuse:
 		move.w	(v_player+obY).w,d0			; get Sonic's Y-position
 		sub.w	obY(a0),d0				; calculate Y-difference
 		bhs.s	.chkY					; if positive, branch
-		neg.w	d0					; mkae positive for range check
+		neg.w	d0					; make positive for range check
 	.chkY:	cmpi.w	#96,d0					; is Sonic vertically within 96px of Bomb?
 		bhs.s	.return					; if not, branch
 
@@ -178,7 +178,7 @@ Bom_BurnFuseAndExplode:
 		clr.b	obRoutine(a0)				; clear routine counter (redundant here)
 		move.w	bom_origY(a0),obY(a0)			; restore initial Y-position of bomb
 
-		moveq	#4-1,d1					; load four shrapnels
+		moveq	#4-1,d1					; load four shrapnel objects
 		movea.l	a0,a1					; replace fuse with first shrapnel object
 		lea	(Bom_ShrSpeed).l,a2			; load shrapnel speed data
 		bra.s	.firstShrapnel				; first shrapnel doesn't need a free object slot

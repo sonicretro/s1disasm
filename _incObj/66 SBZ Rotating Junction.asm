@@ -25,7 +25,7 @@ Jun_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)			; advance to Jun_Action
 		move.w	#2-1,d1					; create two objects
 		movea.l	a0,a1					; write first object to current RAM location
-		bra.s	.makeitem				; keep first obejct at obRoutine 2
+		bra.s	.makeitem				; keep first object at obRoutine 2
 ; ---------------------------------------------------------------------------
 
 	.loop:
@@ -188,7 +188,7 @@ Jun_ChgPos:
 		add.w	obY(a0),d0				; add junction's base Y-position
 		move.w	d0,obY(a1)				; update Sonic's Y-position
 		rts						; return
-; End of functioon Jun_ChgPos
+; End of function Jun_ChgPos
 
 ; ---------------------------------------------------------------------------
 

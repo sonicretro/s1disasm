@@ -36,7 +36,7 @@ Pole_Action:	; Routine 2
 		tst.b	pole_grabbed(a0)			; has Sonic already grabbed the pole?
 		beq.s	.checkGrab				; if not, branch to check for grab
 
-		tst.w	pole_breaktime(a0)			; has pole alread broken?
+		tst.w	pole_breaktime(a0)			; has pole already broken?
 		beq.s	.checkMoveUp				; if not, branch to allow Sonic moving up/down
 		subq.w	#1,pole_breaktime(a0)			; decrement time until pole breaks
 		bne.s	.checkMoveUp				; if time remains, branch

@@ -17,7 +17,7 @@ van_time:	equ objoff_30		; time for Sonic's disappearance (2 seconds)
 ; ===========================================================================
 
 Van_ChkPLC:	; Routine 0
-		tst.l	(v_plc_buffer).w			; have entry effect pattenrs finished decompressing? (see PLC_Warp)
+		tst.l	(v_plc_buffer).w			; have entry effect patterns finished decompressing? (see PLC_Warp)
 		beq.s	Van_Main				; if yes, branch
 		rts						; otherwise, wait until PLC queue is empty
 ; ===========================================================================

@@ -264,7 +264,7 @@ Bub_ChkSonic:
 		cmp.w	d0,d1					; is Sonic within left edge of bubble?
 		bhs.s	.dontCollectBubble			; if not, branch
 		addi.w	#16*2,d1				; check right
-		cmp.w	d0,d1					; is Sonic wtihin right edge of bubble?
+		cmp.w	d0,d1					; is Sonic within right edge of bubble?
 		blo.s	.dontCollectBubble			; if not, branch
 
 		move.w	obY(a1),d0				; get Sonic's current Y-position

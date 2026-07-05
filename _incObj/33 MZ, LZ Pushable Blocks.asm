@@ -71,7 +71,7 @@ PushB_Action:	; Routine 2
 		addi.w	#sonic_solid_width,d1			; add Sonic's solid width
 		move.w	#32/2,d2				; set block's solid height (initial)
 		move.w	#34/2,d3				; set block's solid height (stood on)
-		move.w	obX(a0),d4				; use currenet X-position if stood on
+		move.w	obX(a0),d4				; use current X-position if stood on
 		bsr.w	PushB_SolidAction			; allow Sonic to push block or stand on it as platform
 
 		; Hardcoded MZ1 stuff for the block that pushes down a button to lift a spiked stomper
@@ -119,7 +119,7 @@ PushB_ChkVisible: ; Routine 4
 
 		move.b	#2,obRoutine(a0)			; set to PushB_Action
 		clr.b	pblock_onlava(a0)			; clear on-lava flag
-		clr.w	obVelX(a0)				; clear X-spped
+		clr.w	obVelX(a0)				; clear X-speed
 		clr.w	obVelY(a0)				; clear Y-speed
 
 	.return:

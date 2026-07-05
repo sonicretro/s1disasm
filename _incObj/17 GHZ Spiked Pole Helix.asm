@@ -16,7 +16,7 @@ Hel_Index:	dc.w Hel_Main-Hel_Index		; 0
 		dc.w Hel_ChildSpike-Hel_Index	; 8
 
 helix_frame:	equ objoff_3E		; start frame (different for each spike)
-helix_children:	equ obSubtype		; $28 = helix length // $29-38 = indeces for child object RAM addresses
+helix_children:	equ obSubtype		; $28 = helix length // $29-38 = indices for child object RAM addresses
 ; ===========================================================================
 
 Hel_Main:	; Routine 0
@@ -32,7 +32,7 @@ Hel_Main:	; Routine 0
 		move.w	obX(a0),d3				; get base X-position of parent
 		_move.b	obID(a0),d4				; create children with same object ID as parent
 
-		lea	helix_children(a0),a2			; load helix children array (will hold RAM indeces for child spikes)
+		lea	helix_children(a0),a2			; load helix children array (will hold RAM indices for child spikes)
 		moveq	#0,d1					; clear d1
 		move.b	(a2),d1					; get number of spikes to load from subtype (OST $28)
 		move.b	#0,(a2)+				; clear subtype and advance to helix_children
@@ -130,7 +130,7 @@ Hel_ChkDel:
 
 .deleteHelix:
 		moveq	#0,d2					; clear d2
-		lea	helix_children(a0),a2			; load helix children array (holds RAM indeces for child spikes)
+		lea	helix_children(a0),a2			; load helix children array (holds RAM indices for child spikes)
 		move.b	(a2)+,d2				; get number of spikes that were loaded
 		subq.b	#2,d2					; adjust dbf loop count (-1 for parent spike; -1 for dbf itself)
 		bcs.s	Hel_Delete				; if only one spike was loaded (the parent itself), branch

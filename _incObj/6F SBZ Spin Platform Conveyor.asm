@@ -99,7 +99,7 @@ SpinC_Main:	; Routine 0
 		tst.b	d0					; is movement currently reversed? (...it always is at this point)
 		bpl.s	.setTargetIndex				; if not, branch
 		move.b	spinc_count(a0),d1			; reset corner entry to last entry (reversed)
-		subq.b	#4,d1					; indeces are 0-based
+		subq.b	#4,d1					; indices are 0-based
 	.setTargetIndex:
 		move.b	d1,spinc_posindex(a0)			; remember new index in target data
 
@@ -167,7 +167,7 @@ SpinC_Main_Spawner:
 
 	; SpinC_LoadPform:
 	.makePlatform:
-		; Note: obRoutine is implicitely left at 0, so all platforms will run through SpinC_Main again!
+		; Note: obRoutine is implicitly left at 0, so all platforms will run through SpinC_Main again!
 		_move.b	#id_SpinConvey,obID(a1)			; load SBZ conveyor platform object
 		move.w	(a2)+,obX(a1)				; get next X-position
 		move.w	(a2)+,obY(a1)				; get next Y-position
@@ -207,7 +207,7 @@ SpinC_Solid:	; Routine 2
 		lea	(v_player).w,a1				; load Sonic player object
 		bclr	#3,obStatus(a1)				; clear Sonic's on-platform flag
 		bclr	#3,obStatus(a0)				; clear platform's stood-on flag
-		clr.b	obSolid(a0)				; clear platform's soliditiy state
+		clr.b	obSolid(a0)				; clear platform's solidity state
 
 	.updatePlatform:
 		bra.w	SpinC_Platform_Update			; pointless zero-length branch... was something else here once?
@@ -236,7 +236,7 @@ SpinC_Platform_Update:
 		tst.b	d0					; is movement currently reversed?
 		bpl.s	.getNextTarget				; if not, branch
 		move.b	spinc_count(a0),d1			; reset corner entry to last entry (reversed)
-		subq.b	#4,d1					; indeces are 0-based
+		subq.b	#4,d1					; indices are 0-based
 
 	.getNextTarget:
 		move.b	d1,spinc_posindex(a0)			; remember new index in target data

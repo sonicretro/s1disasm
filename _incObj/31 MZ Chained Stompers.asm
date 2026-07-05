@@ -78,7 +78,7 @@ CStom_Main:	; Routine 0
 
 	.makeStomper:
 		move.b	(a2)+,obRoutine(a1)			; load routine for object
-		_move.b	#id_ChainStomp,obID(a1)			; creater stomper object
+		_move.b	#id_ChainStomp,obID(a1)			; create stomper object
 		move.w	obX(a0),obX(a1)				; copy X-position from parent
 		move.b	(a2)+,d0				; load relative Y-position for object
 		ext.w	d0					; make word-sized
@@ -229,7 +229,7 @@ CStom_SwitchActivated:
 
 		move.b	(v_vblank_byte).w,d0			; get current VBlank counter byte
 		andi.b	#$F,d0					; only play rising sound every 16 frames
-		bne.s	.rise					; brancch on other frames
+		bne.s	.rise					; branch on other frames
 		tst.b	obRender(a0)				; is stomper on screen?
 		bpl.s	.rise					; if not, don't play rising sound
 		move.w	#sfx_ChainRise,d0			; set rising chain sound
@@ -287,7 +287,7 @@ CStom_AutoStomp:
 	.risingSound:
 		move.b	(v_vblank_byte).w,d0			; get current VBlank counter byte
 		andi.b	#$F,d0					; only play rising sound every 16 frames
-		bne.s	.rise					; brancch on other frames
+		bne.s	.rise					; branch on other frames
 		tst.b	obRender(a0)				; is stomper on screen?
 		bpl.s	.rise					; if not, don't play rising sound
 		move.w	#sfx_ChainRise,d0			; set rising chain sound

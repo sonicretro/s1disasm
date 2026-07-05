@@ -727,7 +727,7 @@ Sonic_MoveRight:
 .changedirection:
 		add.w	d4,d0					; apply deceleration to current speed
 		bcc.s	.stilldecel				; if still decelerating, branch
-		move.w	#$80,d0					; set minumum speed on sign change
+		move.w	#$80,d0					; set minimum speed on sign change
 
 ; loc_13120:
 .stilldecel:
@@ -863,7 +863,7 @@ Sonic_AngledRollSpeed:
 		move.w	#$1000,d1				; cap roll speed to screen shift speed (rightward)
 ; loc_131F0:
 .noPosIntCapX:
-		cmpi.w	#-$1000,d1				; is new X-velocity bigger than maximum screen shfit speed? (leftward)
+		cmpi.w	#-$1000,d1				; is new X-velocity bigger than maximum screen shift speed? (leftward)
 		bge.s	.noNegIntCapX				; if not, branch
 		move.w	#-$1000,d1				; cap roll speed to screen shift speed (leftward)
 ; loc_131FA:
@@ -894,7 +894,7 @@ Sonic_RollLeft:
 .changeddirection:
 		sub.w	d4,d0					; apply deceleration to current speed
 		bcc.s	.stilldecel				; if still decelerating, branch
-		move.w	#-$80,d0				; set minumum speed on sign change
+		move.w	#-$80,d0				; set minimum speed on sign change
 
 ; loc_13220:
 .stilldecel:
@@ -919,7 +919,7 @@ Sonic_RollRight:
 .changedirection:
 		add.w	d4,d0					; apply deceleration to current speed
 		bcc.s	.stilldecel				; if still decelerating, branch
-		move.w	#$80,d0					; set minumum speed on sign change
+		move.w	#$80,d0					; set minimum speed on sign change
 
 ; loc_13242:
 .stilldecel:
@@ -1643,10 +1643,11 @@ Sonic_FloorLeft:
 	if FixBugs
 		clr.w	obSubpixelY(a0)				; reset subpixel portion
 	endif
-		tst.w	obVelY(a0)				; is vertical speed positive?
+		tst.w	obVelY(a0)				; is vertical speed positive? (going down)
 		bpl.s	.noyspeedreset				; if yes, branch
 		move.w	#0,obVelY(a0)				; if going up, reset it to zero
 
+; locret_136B2:
 .noyspeedreset:
 		rts						; return
 ; ===========================================================================
@@ -1781,7 +1782,7 @@ Sonic_FloorRight:
 	if FixBugs
 		clr.w	obSubpixelY(a0)				; reset subpixel portion
 	endif
-		tst.w	obVelY(a0)				; is vertical speed postive?
+		tst.w	obVelY(a0)				; is vertical speed positive? (going down)
 		bpl.s	.noyspeedreset				; if yes, branch
 		move.w	#0,obVelY(a0)				; if going up, reset it to zero
 

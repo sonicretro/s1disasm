@@ -105,7 +105,7 @@ LCon_Main_Platform:
 		tst.b	d0					; is movement currently reversed? (...it always is at this point)
 		bpl.s	.setTargetIndex				; if not, branch
 		move.b	lcon_count(a0),d1			; reset corner entry to last entry (reversed)
-		subq.b	#4,d1					; indeces are 0-based
+		subq.b	#4,d1					; indices are 0-based
 	.setTargetIndex:
 		move.b	d1,lcon_posindex(a0)			; remember new index in target data
 
@@ -165,7 +165,7 @@ LCon_Main_Spawner:
 		bne.s	.next					; if object RAM is full, branch
 
 	.makePlatform:
-		; Note: obRoutine is implicitely left at 0, so all platforms will run through LCon_Main again!
+		; Note: obRoutine is implicitly left at 0, so all platforms will run through LCon_Main again!
 		_move.b	#id_LabyrinthConvey,obID(a1)		; load LZ conveyor platform object
 		move.w	(a2)+,obX(a1)				; get next X-position
 		move.w	(a2)+,obY(a1)				; get next Y-position
@@ -251,7 +251,7 @@ LCon_Platform_Update:
 		tst.b	d0					; is movement currently reversed?
 		bpl.s	.getNextTarget				; if not, branch
 		move.b	lcon_count(a0),d1			; reset corner entry to last entry (reversed)
-		subq.b	#4,d1					; indeces are 0-based
+		subq.b	#4,d1					; indices are 0-based
 
 	.getNextTarget:
 		move.b	d1,lcon_posindex(a0)			; remember new index in target data

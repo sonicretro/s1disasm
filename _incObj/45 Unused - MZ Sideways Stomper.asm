@@ -17,7 +17,7 @@ SStom_Index:	dc.w SStom_Main-SStom_Index		; 0
 
 sstom_origX:	equ objoff_30	; initial X-position per child object
 sstom_currentX:	equ objoff_32	; current relative X-offset for stomping (8.8 fixed)
-sstom_length:	equ objoff_34	; stomper length sset from SStom_Len
+sstom_length:	equ objoff_34	; stomper length set from SStom_Len
 sstom_retract:	equ objoff_36	; flag set if stomper is currently slowly retracting
 sstom_delay:	equ objoff_38	; delay after stomper has fully extended before retracting
 sstom_origX_2:	equ objoff_3A	; initial X-position for parent

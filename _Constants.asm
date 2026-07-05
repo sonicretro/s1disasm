@@ -165,7 +165,7 @@ sprite_rendered_bit:	equ 7				; set when sprite is in visible screen space and g
 
 sprite_xflip:		equ 1<<sprite_xflip_bit
 sprite_yflip:		equ 1<<sprite_yflip_bit
-sprite_cam_screen:	equ 0				; position with screen-fixed coordinates (implicited if bits 2-3 are 0)
+sprite_cam_screen:	equ 0				; position with screen-fixed coordinates (implied if bits 2-3 are 0)
 sprite_cam_field:	equ 1<<sprite_cam_field_bit
 sprite_cam_bg:		equ 1<<sprite_cam_bg_bit
 sprite_customheight:	equ 1<<sprite_customheight_bit

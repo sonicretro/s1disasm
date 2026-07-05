@@ -83,7 +83,7 @@ Tele_Action:	; Routine 2
 		bclr	#5,obStatus(a0)				; clear teleporter's pushed flag
 		bclr	#5,obStatus(a1)				; clear Sonic's pushing flag
 		bset	#1,obStatus(a1)				; set Sonic in-air
-		move.w	obX(a0),obX(a1)				; snap Sonic to teleporer entrance X-position
+		move.w	obX(a0),obX(a1)				; snap Sonic to teleporter entrance X-position
 		move.w	obY(a0),obY(a1)				; snap Sonic to teleporter entrance Y-position
 		clr.b	tele_prebump(a0)			; reset pre-bump value to 0
 

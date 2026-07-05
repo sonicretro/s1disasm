@@ -360,7 +360,7 @@ BgScroll_SYZ:
 	else
 		addq.w	#1,d0					; manually shift up by 1 extra pixel
 		move.w	d0,(v_bgscreenposy).w			; set BG Y-position
-		clr.l	(v_bgscreenposx).w			; foce BG X-position to 0
+		clr.l	(v_bgscreenposx).w			; force BG X-position to 0
 	endif
 		rts						; return
 ; ===========================================================================
@@ -389,7 +389,7 @@ BgScroll_End:
 		; This may have been used during the development of the ending sequence
 		; to quickly spawn Sonic much closer to the left for convenience, as
 		; these numbers will underflow the background within seconds otherwise.
-		; Given how hapharzardly the implementation of the ending sequence was
+		; Given how haphazardly the implementation of the ending sequence was
 		; throughout the entire source, this bit was likely forgotten in rush.
 		move.w	#$A8,(v_bgscreenposx).w			; hardcoded top BG X-position (clouds/top mounts)
 		move.w	#$1E,(v_bgscreenposy).w			; hardcoded BG Y-position

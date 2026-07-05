@@ -67,7 +67,7 @@ Buzz_Action_Fire:
 		_move.b	#id_Missile,obID(a1)			; load missile object
 		move.w	obX(a0),obX(a1)				; copy Buzz Bomber's X-position
 		move.w	obY(a0),obY(a1)				; copy Buzz Bomber's Y-position
-		addi.w	#$1C,obY(a1)				; allign missile vertically
+		addi.w	#$1C,obY(a1)				; align missile vertically
 		move.w	#$200,obVelY(a1)			; move missile downwards
 		move.w	#$200,obVelX(a1)			; move missile to the right
 	if FixBugs
@@ -85,7 +85,7 @@ Buzz_Action_Fire:
 
 		move.b	obStatus(a0),obStatus(a1)		; copy X-flip flag to missile
 		move.w	#15-1,msl_timedelay(a1)			; set 15 frames delay before missile becomes active
-		move.l	a0,msl_parent(a1)			; make missile remember the parent obejct
+		move.l	a0,msl_parent(a1)			; make missile remember the parent object
 		move.b	#1,buzz_buzzstate(a0)			; set Buzz Bomber to "already fired" to prevent refiring
 		move.w	#60-1,buzz_timedelay(a0)		; stay on firing animation for 1 second
 		move.b	#2,obAnim(a0)				; use "firing" animation
@@ -269,7 +269,7 @@ Msl_FromNewt:	; Routine 8
 
 Msl_FromNewt_Animate:
 		lea	(Ani_Missile).l,a1			; load animation script
-		bsr.w	AnimateSprite				; animale missile
+		bsr.w	AnimateSprite				; animate missile
 		bsr.w	DisplaySprite				; display missile sprite
 		rts						; return
 ; ===========================================================================

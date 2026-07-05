@@ -17,7 +17,7 @@ Bri_Index:	dc.w Bri_Main-Bri_Index		; 0
 		dc.w Bri_ChildLog-Bri_Index	; A
 
 bridge_children:	equ obSubtype		; number of log objects, initially retrieved from subtype ($28)
-bridge_children_ram:	equ bridge_children+1	; RAM indeces to log objects ($29-$39, usually read together with bridge_children)
+bridge_children_ram:	equ bridge_children+1	; RAM indices to log objects ($29-$39, usually read together with bridge_children)
 bridge_origY:		equ objoff_3C		; initial Y-position
 bridge_nudge:		equ objoff_3E		; general nudge Y-offset while Sonic is on bridge
 bridge_currentlog:	equ objoff_3F		; 0-based index of log Sonic is currently standing on
@@ -33,7 +33,7 @@ Bri_Main:	; Routine 0
 		move.b	#16/2,obActWid(a0)			; set sprite display width (one log)
 	else
 		; This sprite display width is way too large, causing the bridge to potentially screen-wrap.
-		; It's likely that this was forgotten when the bridge was turned into indivudal 16px log objects.
+		; It's likely that this was forgotten when the bridge was turned into individual 16px log objects.
 		move.b	#256/2,obActWid(a0)			; set sprite display width (very large)
 	endif
 
@@ -217,7 +217,7 @@ Bri_MoveSonic:
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
-; Subroutine to bend the bridge by vertically aliging all log objects
+; Subroutine to bend the bridge by vertically aligning all log objects
 ; to the left and right of the one Sonic is currently standing on.
 ; ---------------------------------------------------------------------------
 
@@ -240,7 +240,7 @@ Bri_Bend:
 		andi.w	#$F,d3					; clear upper nybble in d3
 		lsl.w	#4,d3					; multiply by $10 bytes per data row
 		lea	(a4,d3.w),a3				; a3 = start index in align data array for current log
-		lea	bridge_children_ram(a0),a2		; a2 = RAM indeces to log objects
+		lea	bridge_children_ram(a0),a2		; a2 = RAM indices to log objects
 
 	.loopLeftLogs:
 		moveq	#0,d0					; clear d0

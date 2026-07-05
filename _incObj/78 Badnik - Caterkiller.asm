@@ -183,7 +183,7 @@ Cat_Floor:
 		bmi.s	.undulateNext				; branch if -1
 
 	if Revision=0
-		move.l	obX(a0),-(sp)				; backuop current head X-position (with subpixels)
+		move.l	obX(a0),-(sp)				; backup current head X-position (with subpixels)
 		move.l	obX(a0),d2				; get current head X-position (with subpixels)
 	else
 		tst.w	obVelX(a0)				; is head moving horizontally?

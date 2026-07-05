@@ -178,7 +178,7 @@ SBall_ChkDel:
 		addi.l	#v_objspace&$FFFFFF,d0			; add base object RAM location
 		movea.l	d0,a1					; move result to a1 (input for DeleteChild)
 		bsr.w	DeleteChild				; delete the child object
-		dbf	d2,.deleteloop				; loop for all childrne in chain
+		dbf	d2,.deleteloop				; loop for all children in chain
 
 		rts						; return
 ; ===========================================================================

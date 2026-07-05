@@ -197,7 +197,7 @@ MBlock_Right_FallOnWall:
 
 ; Type 6 (set from type 5) - falls down, advances to Type 0 on floor hit (stationary)
 MBlock_FallingDown:
-		bsr.w	SpeedToPos				; update plaform position as it falls down
+		bsr.w	SpeedToPos				; update platform position as it falls down
 		addi.w	#$18,obVelY(a0)				; make the platform fall faster
 
 		bsr.w	ObjFloorDist				; get distance to floor

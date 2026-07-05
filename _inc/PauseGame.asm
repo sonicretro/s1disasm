@@ -62,5 +62,5 @@ PauseGame:
 .slowMotion:
 		move.w	#1,(f_pause).w			; keep flag set so pause is triggered on next frame again
 		move.b	#$80,(v_snddriver_ram.f_pausemusic).w ; unpause the music
-		rts					; return to main levle loop
+		rts					; return to main level loop
 ; End of function PauseGame

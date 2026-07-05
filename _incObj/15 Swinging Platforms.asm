@@ -18,7 +18,7 @@ Swing_Index:	dc.w Swing_Main-Swing_Index		; 0
 		dc.w Swing_ChainLink-Swing_Index	; A
 		dc.w Swing_Swinging-Swing_Index		; C
 
-swing_children:	equ obSubtype		; number of child link objects ($28 = child count, $29-$39 RAM indeces to links)
+swing_children:	equ obSubtype		; number of child link objects ($28 = child count, $29-$39 RAM indices to links)
 swing_origY:	equ objoff_38		; original y-axis position
 swing_origX:	equ objoff_3A		; original x-axis position
 swing_radius:	equ objoff_3C		; radius distance from center, individual per chain link
@@ -242,7 +242,7 @@ Swing_UpdateSwingPosition:
 		move.w	swing_origY(a0),d2			; get initial platform Y-position
 		move.w	swing_origX(a0),d3			; get initial platform X-position
 
-		lea	swing_children(a0),a2			; load RAM indeces for all objects in platform chain
+		lea	swing_children(a0),a2			; load RAM indices for all objects in platform chain
 		moveq	#0,d6					; clear d6
 		move.b	(a2)+,d6				; get number of objects in chain
 

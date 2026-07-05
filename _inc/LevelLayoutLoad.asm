@@ -16,7 +16,7 @@ LevelDataLoad:
 		movea.l	(a2)+,a0			; get 16x16 data pointer from level header
 		lea	(v_16x16).w,a1			; set target RAM buffer for 16x16 mappings
 		move.w	#ArtTile_Level,d0		; set base art tile (0)
-		bsr.w	EniDec				; decompress Enigma-compresseed block data to buffer
+		bsr.w	EniDec				; decompress Enigma-compressed block data to buffer
 
 	; --- 256x256 Chunk Mappings ---
 		movea.l	(a2)+,a0			; get 256x256 chunk data pointer from level header

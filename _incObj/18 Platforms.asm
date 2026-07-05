@@ -101,7 +101,7 @@ Plat_StoodOn:	; Routine 4
 
 	if FixBugs=0
 		; This has been moved to prevent a display-after-free bug.
-		bsr.w	DisplaySprite				; display platform psirte
+		bsr.w	DisplaySprite				; display platform sprite
 	endif
 		bra.w	Plat_ChkDel				; delete platform if it has gone out of range
 		rts						; useless rts
@@ -336,7 +336,7 @@ Plat_ChkDel:
 		out_of_range.s	Plat_Delete,plat_origX(a0)	; has platform gone out of range? if yes, delete it
 	if FixBugs
 		; This has been moved to prevent a display-after-free bug.
-		bra.w	DisplaySprite				; display platform psirte
+		bra.w	DisplaySprite				; display platform sprite
 	else
 		rts						; return
 	endif

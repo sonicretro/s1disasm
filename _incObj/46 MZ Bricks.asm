@@ -42,7 +42,7 @@ Brick_Action:	; Routine 2
 		move.b	obSubtype(a0),d0			; get object type
 		andi.w	#7,d0					; read only the 1st digit
 		add.w	d0,d0					; double for word-based indexing
-		move.w	Brick_TypeIndex(pc,d0.w),d1		; find jummp table entry
+		move.w	Brick_TypeIndex(pc,d0.w),d1		; find jump table entry
 		jsr	Brick_TypeIndex(pc,d1.w)		; execute movement logic for brick subtype
 
 		move.w	#32/2+sonic_solid_width,d1
@@ -69,11 +69,11 @@ Brick_TypeIndex:dc.w Brick_Type00-Brick_TypeIndex
 		dc.w Brick_Type04-Brick_TypeIndex
 ; ===========================================================================
 
-Brick_Type00:	; subtyoe 0 = do nothing
+Brick_Type00:	; subtype 0 = do nothing
 		rts						; just a static brick
 ; ===========================================================================
 
-Brick_Type02:	; subtyoe 2 = fall when Sonic gets close
+Brick_Type02:	; subtype 2 = fall when Sonic gets close
 		move.w	(v_player+obX).w,d0			; get Sonic's X-position
 		sub.w	obX(a0),d0				; calculate difference to brick's X-position
 		bhs.s	.chkX					; if result is positive, branch

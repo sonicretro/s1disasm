@@ -57,7 +57,7 @@ Elev_Main:	; Routine 0
 
 	.spawner:
 		addq.b	#4,obRoutine(a0)			; set to Elev_Spawner routine
-		andi.w	#$7F,d0					; clear bit 7 (spwaner flag)
+		andi.w	#$7F,d0					; clear bit 7 (spawner flag)
 		mulu.w	#6,d0					; multiply lower digit by 6
 		move.w	d0,elev_spawner_delay(a0)		; set spawner interval (e.g. $xA * 6 = 1 second)
 		move.w	d0,elev_spawner_delaybase(a0)		; ''

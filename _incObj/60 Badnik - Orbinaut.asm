@@ -17,7 +17,7 @@ Orb_Index:	dc.w Orb_Main-Orb_Index			; 0
 
 orb_parent:	equ objoff_3C		; address of parent Orbinaut object for spikeballs
 orb_circledir:	equ objoff_36		; circling direction for spikeballs (1 clockwise, -1 counter clockwise)
-orb_balldata:	equ objoff_37		; ball data array (0: number of not-fired spikeballs // 1-4: RAM indeces for spikeballs)
+orb_balldata:	equ objoff_37		; ball data array (0: number of not-fired spikeballs // 1-4: RAM indices for spikeballs)
 ; ===========================================================================
 
 Orb_Main:	; Routine 0
@@ -41,7 +41,7 @@ Orb_Main:	; Routine 0
 		moveq	#0,d2					; clear d2 (used for angle offsets, starting at 0 degrees)
 		lea	orb_balldata(a0),a2			; prepare ball data array
 		movea.l	a2,a3					; keep a copy of the base address (will be used for ammo counter)
-		addq.w	#1,a2					; advance remembered data pointer to next byte, will hold RAM indeces
+		addq.w	#1,a2					; advance remembered data pointer to next byte, will hold RAM indices
 		moveq	#4-1,d1					; load 4 orbiting spikeballs
 
 .loopSpikeBalls:
