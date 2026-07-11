@@ -133,10 +133,10 @@ PushB_ChkVisible: ; Routine 4
 PushB_OnLava:
 		move.w	obX(a0),-(sp)				; backup current X-position for later
 		cmpi.b	#4,ob2ndRout(a0)			; is block currently falling?
-		bhs.s	loc_C056				; if yes, branch (has its own SpeedToPos)
+		bhs.s	.checkGeyser				; if yes, branch (has its own SpeedToPos)
 		bsr.w	SpeedToPos				; update block's position
 
-	loc_C056:
+	.checkGeyser:
 		btst	#1,obStatus(a0)				; is block getting shot up by a lava geyser? (set in GMake_MakeLava)
 		beq.s	PushB_OnLava_CheckWall			; if not, branch
 
@@ -144,15 +144,15 @@ PushB_OnLava:
 		addi.w	#$18,obVelY(a0)				; make block fall faster
 		jsr	(ObjFloorDist).l			; get distance to floor (and block ID in a1)
 		tst.w	d1					; has block hit the floor?
-		bpl.w	loc_C09E				; if not, branch
+		bpl.w	.lavaPlatform				; if not, branch
 		add.w	d1,obY(a0)				; align block to floor
 		clr.w	obVelY(a0)				; stop block falling
 
-		bclr	#1,obStatus(a0)
+		bclr	#1,obStatus(a0)				; clear flag that block got shot up by lava geyser
 		move.w	(a1),d0					; get ID of 16x16 block mapping that block is standing on
 		andi.w	#$3FF,d0				; mask out everything except raw ID
 		cmpi.w	#$16A,d0				; is block standing on a 16x16 lava block? (IDs $16A and above)
-		blo.s	loc_C09E				; if not, branch
+		blo.s	.lavaPlatform				; if not, branch
 
 		move.w	pblock_lavaspeed(a0),d0			; get X-speed before block landed on lava
 		asr.w	#3,d0					; divide that speed by 8 ($400/8 = $80)
@@ -160,8 +160,8 @@ PushB_OnLava:
 		move.b	#1,pblock_onlava(a0)			; set on-lava flag
 		clr.w	obSubpixelY(a0)				; clear Y-subpixel position (needed for sinking in lava)
 
-	loc_C09E:
-		bra.s	PushB_LavaPlatform
+	.lavaPlatform:
+		bra.s	PushB_LavaPlatform			; keep normal platform behavior
 ; ===========================================================================
 
 PushB_OnLava_CheckWall:
@@ -204,9 +204,9 @@ PushB_LavaPlatform:
 		addi.w	#sonic_solid_width,d1			; add Sonic's solid width
 		move.w	#32/2,d2				; set block's solid height (initial)
 		move.w	#34/2,d3				; set block's solid height (stood on)
-		move.w	(sp)+,d4				; restore X-position
-
+		move.w	(sp)+,d4				; restore X-position as solid input
 		bsr.w	PushB_SolidAction			; continue treating block as platform
+
 		bsr.s	PushB_SpawnLavaGeysers			; spawn hardcoded lava geysers in MZ2 and MZ3
 		bra.w	PushB_Display				; display block
 ; ---------------------------------------------------------------------------
@@ -310,8 +310,7 @@ PushB_SolidAction:
 		subq.b	#2,d0					; check next ob2ndRout state
 		bne.s	.snapToLedge				; branch if ob2ndRout is 6
 
-.falling:
-		; ob2ndRout = 4
+.falling:	; ob2ndRout = 4
 		bsr.w	SpeedToPos				; update block's position
 		addi.w	#$18,obVelY(a0)				; make block fall faster
 
