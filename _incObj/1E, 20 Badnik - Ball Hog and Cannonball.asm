@@ -34,6 +34,12 @@ Hog_Main:	; Routine 0
 		move.w	#0,obVelY(a0)				; clear falling speed
 		addq.b	#2,obRoutine(a0)			; advance to Hog_Action
 	.hide:
+
+	if FixBugs
+		; Fix badnik invisibly falling forever if it doesn't have a floor beneath it
+		cmpi.w	#$7FF,obY(a0)				; has object fallen below max level height?
+		bhi.w	DeleteObject				; if yes, delete it
+	endif
 		rts						; return (and do NOT display sprite yet)
 ; ===========================================================================
 

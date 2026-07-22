@@ -28,7 +28,13 @@ cat_parent:	equ objoff_3C	; address of parent object (4 bytes - high byte is cat
 cat_segmentpos:	equ cat_parent	; segment position - starts as 0/4/8/$A, increments as it moves
 ; ===========================================================================
 
-Cat_Return:
+; Cat_Return:
+Cat_HideForInit:
+	if FixBugs
+		; Fix badnik invisibly falling forever if it doesn't have a floor beneath it
+		cmpi.w	#$7FF,obY(a0)				; has object fallen below max level height?
+		bhi.w	Cat_Delete				; if yes, delete it
+	endif
 		rts						; return
 ; ===========================================================================
 
@@ -40,7 +46,7 @@ Cat_Main:	; Routine 0
 		jsr	(ObjectFall).l				; increase gravity and update position
 		jsr	(ObjFloorDist).l			; get distance between Caterkiller and floor
 		tst.w	d1					; has Caterkiller hit the floor?
-		bpl.s	Cat_Return				; if not, branch
+		bpl.s	Cat_HideForInit				; if not, branch
 		add.w	d1,obY(a0)				; match object's position with the floor
 		clr.w	obVelY(a0)				; clear falling speed
 		addq.b	#2,obRoutine(a0)			; advance to Cat_Head

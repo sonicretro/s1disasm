@@ -842,7 +842,7 @@ BossBlock_MakeFrag:
 
 ; loc_197AA:
 .loop:
-		move.l	(a2)+,(a3)+				; copy all 4 bytes of original object to new object and increment pointer
+		move.l	(a2)+,(a3)+				; copy 4 bytes of original object to new object and increment pointer
 		move.l	(a2)+,(a3)+
 		move.l	(a2)+,(a3)+
 		move.l	(a2)+,(a3)+				; 64 bytes total

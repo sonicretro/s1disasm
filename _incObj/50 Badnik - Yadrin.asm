@@ -74,6 +74,12 @@ Yad_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)		; advance to Moto_Action
 		bchg	#0,obStatus(a0)			; make Yadrin face to the left on spawn
 	.hide:
+
+	if FixBugs
+		; Fix badnik invisibly falling forever if it doesn't have a floor beneath it
+		cmpi.w	#$7FF,obY(a0)			; has object fallen below max level height?
+		bhi.w	DeleteObject			; if yes, delete it
+	endif
 		rts					; return (and do NOT display sprite yet)
 ; ===========================================================================
 
