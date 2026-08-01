@@ -15,7 +15,7 @@ SSR_Index:	dc.w SSR_ChkPLC-SSR_Index	; 0
 		dc.w SSR_RingBonus-SSR_Index	; 6
 		dc.w SSR_Wait-SSR_Index		; 8
 		dc.w SSR_Exit-SSR_Index		; A
-	
+
 		; Extra continue acquired:
 		dc.w SSR_Wait-SSR_Index		; C
 		dc.w SSR_Continue-SSR_Index	; E
@@ -234,8 +234,8 @@ SSRChaos:
 ; ===========================================================================
 SSRC_Index:	dc.w SSRC_Main-SSRC_Index
 		dc.w SSRC_Flash-SSRC_Index
-
 ; ===========================================================================
+
 ; --- X-positions for Chaos Emeralds in order of collection ---
 ; These values are pseudo-interlaced instead of going left-to-right,
 ; keeping consecutively collected emeralds overall centered (roughly).
@@ -249,7 +249,6 @@ SSRC_PosData:	dc.w $110 ; 1st
 	if ((*-SSRC_PosData)/2<>ss_emeralds_num)
 		warning "SSRC_PosData does not match expected emerald count!"
 	endif
-
 ; ===========================================================================
 
 SSRC_Main:	; Routine 0

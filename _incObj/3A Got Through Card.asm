@@ -119,7 +119,7 @@ Got_Wait:	; Routine 4, 8, $C
 		bra.w	DisplaySprite				; display card sprites
 ; ===========================================================================
 
-; Got_TimeBonus: <- old misnomer
+; Got_TimeBonus: <-- old misnomer
 Got_Bonus:	; Routine 6
 		bsr.w	DisplaySprite				; keep displaying card sprites
 		move.b	#1,(f_endactbonus).w			; set time/ring bonus HUD update flag
@@ -292,37 +292,37 @@ Got_ItemData:
 
 		; "PASSED"
 		dc.w -$120, $120
-		dc.w $D0			
+		dc.w $D0
 		dc.b 2
 		dc.b 1
 
 		; "ACT" 1/2/3
 		dc.w $40C, $14C
-		dc.w $D6			
+		dc.w $D6
 		dc.b 2
 		dc.b 6	; dynamic frame ID (see Got_Loop)
 
 		; Score tally
 		dc.w $520, $120
-		dc.w $EC			
+		dc.w $EC
 		dc.b 2
 		dc.b 2
 
 		; Time Bonus tally
 		dc.w $540, $120
-		dc.w $FC			
+		dc.w $FC
 		dc.b 2
 		dc.b 3
 
 		; Ring Bonus tally
 		dc.w $560, $120
-		dc.w $10C			
+		dc.w $10C
 		dc.b 2
 		dc.b 4
 
 		; Blue oval
 		dc.w $20C, $14C
-		dc.w $CC			
+		dc.w $CC
 		dc.b 2
 		dc.b 5
 ; ===========================================================================

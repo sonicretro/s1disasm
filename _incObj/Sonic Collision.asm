@@ -129,7 +129,7 @@ Sonic_FindFloor:
 		move.w	d4,-(sp)
 	endif
 		move.w	d1,-(sp)				; save d1 (distance to floor) to stack
-		
+
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 		moveq	#0,d0
@@ -211,7 +211,7 @@ Sonic_SnapAngle:
 
 	; locret_14E16:
 	.no_angle_snap:
-		rts	
+		rts
 ; End of function Sonic_FindFloor_Quick
 ; ===========================================================================
 
@@ -249,7 +249,7 @@ Sonic_FindWallRight:
 		move.w	d4,-(sp)
 	endif
 		move.w	d1,-(sp)				; save d1 (distance to wall) to stack
-		
+
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 		moveq	#0,d0
@@ -320,8 +320,6 @@ Sonic_FindWallRight_Quick:
 ;	a1 = address within 256x256 mappings where object is standing
 ;	(a1).w = 16x16 tile number, x/yflip, solidness
 ;	(a4).b = wall angle
-; 
-;	uses d0.w, d3.w, d4.w, d5.l, d6.w
 ; ---------------------------------------------------------------------------
 
 ; FindWallRightObj:
@@ -378,7 +376,7 @@ Sonic_FindCeiling:
 		move.w	d4,-(sp)
 	endif
 		move.w	d1,-(sp)				; save d1 (distance to ceiling) to stack
-		
+
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 		moveq	#0,d0
@@ -446,8 +444,6 @@ Sonic_FindCeiling_Quick:
 ;	a1 = address within 256x256 mappings where object is standing
 ;	(a1).w = 16x16 tile number, x/yflip, solidness
 ;	(a4).b = ceiling angle
-; 
-;	uses d0.w, d2.w, d4.w, d5.l, d6.w
 ; ---------------------------------------------------------------------------
 
 ; FindCeilingObj:
@@ -507,7 +503,7 @@ Sonic_FindWallLeft:
 		move.w	d4,-(sp)
 	endif
 		move.w	d1,-(sp)				; save d1 (distance to wall) to stack
-		
+
 		move.w	obY(a0),d2
 		move.w	obX(a0),d3
 		moveq	#0,d0
@@ -580,8 +576,6 @@ Sonic_FindWallLeft_Quick:
 ;	a1 = address within 256x256 mappings where object is standing
 ;	(a1).w = 16x16 tile number, x/yflip, solidness
 ;	(a4).b = wall angle
-; 
-;	uses d0.w, d3.w, d4.w, d5.l, d6.w
 ; ---------------------------------------------------------------------------
 
 ; FindWallLeftObj:

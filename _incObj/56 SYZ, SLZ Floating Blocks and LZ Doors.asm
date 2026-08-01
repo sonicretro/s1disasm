@@ -20,10 +20,10 @@ fb_switch:	equ objoff_3C		; switch ID that triggers action behavior
 ; ===========================================================================
 
 FBlock_Var:	;     width, height
-		dc.b   32/2, 32/2	; $0x/$8x - SYZ 1x1 block 
+		dc.b   32/2, 32/2	; $0x/$8x - SYZ 1x1 block
 		dc.b   64/2, 64/2	; $1x/$9x - SYZ 2x2 square up/down blocks in SYZ (the annoying ones)
 		dc.b   32/2, 64/2	; $2x/$Ax - SYZ 1x2 door
-		dc.b   64/2, 52/2	; $3x/$Bx - SYZ special block moving right in SYZ3 
+		dc.b   64/2, 52/2	; $3x/$Bx - SYZ special block moving right in SYZ3
 		dc.b   32/2, 78/2	; $4x/$Cx - (unused)
 		dc.b   32/2, 32/2	; $5x/$Dx - SLZ rotating stairway block
 		dc.b   16/2, 64/2	; $6x/$Ex - LZ small vertical door that raises on switch
@@ -68,7 +68,7 @@ FBlock_Main:	; Routine 0
 		; implies that it was a very last-minute hack, as it checks for specific numbers.
 		cmpi.b	#$37,obSubtype(a0)			; is this the special, horizontally moving block in SYZ3?
 		bne.s	.showBlock				; if not, branch
-		
+
 		; There are two of these special blocks in the SYZ3 objpos layout:
 		; - X-pos $1BB8: the "real" block at the left entrance of the tunnel
 		; - X-pos $1F38: a "fake" stationary block at the right exit of the tunnel

@@ -2,13 +2,6 @@
 ; ---------------------------------------------------------------------------
 ; Object 09 - Sonic the Hedgehog (in Special Stages)
 ; ---------------------------------------------------------------------------
-sonss_touchedblock_id:	equ	objoff_30	; ID of currently touched block (byte)
-sonss_touchedblock_ram: equ	objoff_32	; RAM address of currently touched block (longword)
-sonss_timeout_updown:	equ	objoff_36	; timeout before an UP/DOWN block can be triggered again (byte)
-sonss_timeout_r:	equ	objoff_37	; timeout before an R block can be triggered again (byte)
-sonss_exittimer:	equ	objoff_38	; (unused) timer for the secondary exiting routine (word)
-sonss_ghoststate:	equ	objoff_3A	; current solidity state of ghost blocks (byte)
-; ---------------------------------------------------------------------------
 sonss_maxspeed:		equ	$800		; Sonic's max speed when moving left/right
 sonss_acceleration:	equ	$C		; Sonic's acceleration
 sonss_deceleration:	equ	$40		; Sonic's deceleration
@@ -36,6 +29,13 @@ SonicSS_Index:	dc.w SonicSS_Main-SonicSS_Index			; 0 - object init
 		dc.w SonicSS_Control-SonicSS_Index		; 2 - main mode
 		dc.w SonicSS_ExitStage-SonicSS_Index		; 4 - rotate stage while exiting
 		dc.w SonicSS_ExitStage_Unused-SonicSS_Index	; 6 - unreachable secondary exiting state
+
+sonss_touchedblock_id:	equ	objoff_30	; ID of currently touched block (byte)
+sonss_touchedblock_ram: equ	objoff_32	; RAM address of currently touched block (longword)
+sonss_timeout_updown:	equ	objoff_36	; timeout before an UP/DOWN block can be triggered again (byte)
+sonss_timeout_r:	equ	objoff_37	; timeout before an R block can be triggered again (byte)
+sonss_exittimer:	equ	objoff_38	; (unused) timer for the secondary exiting routine (word)
+sonss_ghoststate:	equ	objoff_3A	; current solidity state of ghost blocks (byte)
 ; ===========================================================================
 
 ; Obj09_Main:
@@ -745,7 +745,7 @@ SonicSS_MakeGhostSolid:
 ; Obj09_GhostNotSolid:
 SonicSS_GhostNotSolid:
 		clr.b	sonss_ghoststate(a0)			; clear ghost trigger flag so this doesn't run again
-		
+
 		moveq	#0,d4					; not a ghost block (by itself at least)
 		rts						; return
 ; End of function SonicSS_ChkItems_NotSolid

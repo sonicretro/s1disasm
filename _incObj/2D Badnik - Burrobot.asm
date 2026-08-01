@@ -173,7 +173,7 @@ Burro_CheckDistanceAndFaceSonic:
 		sub.w	obX(a0),d0				; calculate X-difference
 		bhs.s	.checkDistance				; if Sonic is left of Burrobot, branch
 		neg.w	d0					; make X-difference positive for check
-		neg.w	d1					; move Burrobot to the left instead 
+		neg.w	d1					; move Burrobot to the left instead
 		bclr	#0,obStatus(a0)				; make face left
 
 	.checkDistance:

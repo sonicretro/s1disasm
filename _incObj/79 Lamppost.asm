@@ -10,10 +10,10 @@ Lamppost:
 		jsr	Lamp_Index(pc,d1.w)
 		jmp	(RememberState).l
 ; ===========================================================================
-Lamp_Index:	dc.w Lamp_Main-Lamp_Index
-		dc.w Lamp_Blue-Lamp_Index
-		dc.w Lamp_Finish-Lamp_Index
-		dc.w Lamp_Twirl-Lamp_Index
+Lamp_Index:	dc.w Lamp_Main-Lamp_Index			; 0 - init
+		dc.w Lamp_Blue-Lamp_Index			; 2 - idle, not touched
+		dc.w Lamp_Finish-Lamp_Index			; 4 - idle, touched
+		dc.w Lamp_Twirl-Lamp_Index			; 6 - twirling head on touch
 
 lamp_origX:	equ objoff_30		; original x-axis position
 lamp_origY:	equ objoff_32		; original y-axis position
@@ -21,12 +21,12 @@ lamp_time:	equ objoff_36		; length of time to twirl the lamp
 ; ===========================================================================
 
 Lamp_Main:	; Routine 0
-		addq.b	#2,obRoutine(a0)
-		move.l	#Map_Lamp,obMap(a0)
-		move.w	#ArtTile_Lamppost,obGfx(a0)
-		move.b	#sprite_cam_field,obRender(a0)
-		move.b	#16/2,obActWid(a0)
-		move.b	#5,obPriority(a0)
+		addq.b	#2,obRoutine(a0)			; advance to Lamp_Blue
+		move.l	#Map_Lamp,obMap(a0)			; set mappings
+		move.w	#ArtTile_Lamppost,obGfx(a0)		; set art tile
+		move.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
+		move.b	#16/2,obActWid(a0)			; set sprite display width
+		move.b	#5,obPriority(a0)			; set sprite priority
 
 		lea	(v_objstate).w,a2			; load object respawn table
 		moveq	#0,d0					; clear d0 for word-based addressing
@@ -92,7 +92,7 @@ Lamp_Blue:	; Routine 2
 		jsr	(FindFreeObj).l				; find a free object slot
 		bne.s	.storeInfo				; if object RAM is full, branch
 		_move.b	#id_Lamppost,obID(a1)			; load twirling lamp object
-		move.b	#6,obRoutine(a1)			; goto Lamp_Twirl next
+		move.b	#6,obRoutine(a1)			; set object to Lamp_Twirl routine
 		move.w	obX(a0),lamp_origX(a1)			; remember base X-position
 		move.w	obY(a0),lamp_origY(a1)			; remember base Y-position
 		subi.w	#$18,lamp_origY(a1)			; move twirling object up a bit to align it

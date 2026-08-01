@@ -12,8 +12,8 @@ Saws:
 Saw_Index:	dc.w Saw_Main-Saw_Index
 		dc.w Saw_Action-Saw_Index
 
-saw_origX:	equ objoff_3A		; original x-axis position
 saw_origY:	equ objoff_38		; original y-axis position
+saw_origX:	equ objoff_3A		; original x-axis position
 saw_shot:	equ objoff_3D		; flag set when the speeding saw appears
 ; ===========================================================================
 

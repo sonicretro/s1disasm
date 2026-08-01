@@ -1,3 +1,4 @@
+; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 73 - Eggman (MZ)
 ; ---------------------------------------------------------------------------
@@ -15,14 +16,17 @@ BossMarble_Index:
 		dc.w BossMarble_FlameMain-BossMarble_Index
 		dc.w BossMarble_TubeMain-BossMarble_Index
 
-BossMarble_ParentObj equ objoff_34 				; Pointer to main boss controller
-BossMarble_SineCounter equ objoff_3F				; sine counter for bobbing motion
-BossMarble_GenericTimer	equ objoff_3C				; timer for how many frames to do an action, whether its wait for explosions, or to move in a direction
-BossFire_GenericTimer equ objoff_29				; timer used for fireball that is spawned by Eggman, as well as used for a counter
-BossFire_SpreadX equ objoff_32					; scratch RAM used to save X of where the first fireball hit 
+BossFire_GenericTimer:	equ objoff_29				; timer used for fireball that is spawned by Eggman, as well as used for a counter
+BossFire_SpreadX:	equ objoff_32				; scratch RAM used to save X of where the first fireball hit
+BossMarble_ParentObj:	equ objoff_34 				; Pointer to main boss controller
+BossMarble_LavaTimer:	equ objoff_34				; countdown for lava spawn timer
+BossMarble_GenericTimer:equ objoff_3C				; timer for how many frames to do an action, whether its wait for explosions, or to move in a direction
+BossMarble_SineCounter:	equ objoff_3F				; sine counter for bobbing motion
+; ===========================================================================
 
 BossMarble_ObjData:
-		dc.b 2,	0, 4					; routine number, animation, priority
+		; routine number, animation, priority
+		dc.b 2,	0, 4
 		dc.b 4,	1, 4
 		dc.b 6,	7, 4
 		dc.b 8,	0, 3
@@ -57,10 +61,10 @@ BossMarble_LoadBoss:
 		move.b	#sprite_cam_field,obRender(a1)		; set the object to position based on where it is in the level and not a static position on screen
 		move.b	#64/2,obActWid(a1)			; set collision to 20 pixel radius box
 
-; objoff_34 is used here as a reference back to the main boss controller. 
+; objoff_34 is used here as a reference back to the main boss controller.
 ; This is because when we are in ExecuteObjects, a0 is set to each object and sub objects own slot, so we need a way to find the original boss object.
-; On the first loop, this copies the address to itself, but the other loops are what it was intended for.		
-		move.l	a0,BossMarble_ParentObj(a1)			
+; On the first loop, this copies the address to itself, but the other loops are what it was intended for.
+		move.l	a0,BossMarble_ParentObj(a1)
 
 		dbf	d1,BossMarble_Loop			; repeat sequence 3 more times
 
@@ -96,7 +100,7 @@ BMZ_ShipStart:
 		asr.w	#2,d0					; shift right by 2 bits (divide by 4), keeping signed number status
 		move.w	d0,obVelY(a0)				; offset Y position with sine value
 		move.w	#-$100,obVelX(a0)			; set initial X speed (moving to the left)
-		bsr.w	BossMove				
+		bsr.w	BossMove
 		cmpi.w	#boss_mz_x+$110,obBossX(a0)		; have we reached our bounds?
 		bne.s	.continue				; no, keep going
 		addq.b	#2,ob2ndRout(a0)			; increment routine counter by 2 (now in ShipMove)
@@ -106,7 +110,7 @@ BMZ_ShipStart:
 ; loc_18334
 .continue:
 		jsr	(RandomNumber).l			; roll a random number
-		move.b	d0,BossMarble_ParentObj(a0)		; use same object offset as pointer reference (except for a0) to store number
+		move.b	d0,BossMarble_LavaTimer(a0)		; store it
 
 ; loc_1833E
 BMZ_ShipUpdate:
@@ -201,7 +205,7 @@ BMZ_ChgDir:
 		subq.w	#4,obVelY(a0)				; subtract y velocity to make his swoop do a U shape
 
 BossMarble_MakeLava:
-		subq.b	#1,BossMarble_ParentObj(a0)		; subtract 1 from the random number storage
+		subq.b	#1,BossMarble_LavaTimer(a0)		; subtract 1 from the random number storage
 		bcc.s	.checkRight				; has the frame countdown spawn timer expired? if not, branch
 		jsr	(FindFreeObj).l				; timer has expired, find a free object slot
 		bne.s	.generateTimer				; no free objects, leave early
@@ -217,8 +221,8 @@ BossMarble_MakeLava:
 
 ; This line may trick you at first sight, but it actually serves two purposes. It is important to note that
 ; this instruction is a move.w with an immediate size of a byte. This means that the immediate actually gets zero-extended
-; to $00FF. Object offsets in Sonic 1 are a single byte in size. The 68000 is also big endian, meaning the high byte gets written first. 
-; 00 gets written to objoff_28 (obSubtype) and FF gets written to BossFire_GenericTimer which is used for a single check to adjust render priority in 14 Lava Ball.asm
+; to $00FF. Object offsets in Sonic 1 are a single byte in size. The 68000 is also big endian, meaning the high byte gets written first.
+; 00 gets written to objoff_28 (obSubtype) and FF gets written to objoff_29 which is used for a single check to adjust render priority in 14 Lava Ball.asm
 ; So, this is NOT setting the subtype to FF, rather it is writing two bytes used for the lava flame in one instruction to save some time.
 		move.w	#$FF,obSubtype(a1)
 
@@ -226,9 +230,9 @@ BossMarble_MakeLava:
 ; loc_1844A
 .generateTimer:
 		jsr	(RandomNumber).l			; use d1 as a pseudo-random seeder for d0
-		andi.b	#$1F,d0					; mask to $1F			
+		andi.b	#$1F,d0					; mask to $1F
 		addi.b	#$40,d0					; add $40, forcing range to be $40-$5F
-		move.b	d0,BossMarble_ParentObj(a0)		; store new countdown timer
+		move.b	d0,BossMarble_LavaTimer(a0)		; store new countdown timer
 
 ; loc_1845C
 .checkRight:
@@ -237,7 +241,7 @@ BossMarble_MakeLava:
 		cmpi.w	#boss_mz_x+$110,obBossX(a0)		; are we at the right side of the screen?
 		blt.s	.exit					; if not, branch
 		move.w	#boss_mz_x+$110,obBossX(a0)		; set x position to rightmost side of the screen (clamp)
-		bra.s	.rise				
+		bra.s	.rise
 ; ===========================================================================
 
 ; loc_18474
@@ -369,7 +373,7 @@ BMZ_Escape:
 		move.w	#-$40,obVelY(a0)			; move up a little bit
 		cmpi.w	#boss_mz_end,(v_limitright2).w		; have we finished scrolling to the right (reached level bounds)?
 		bhs.s	.checkOffScreen				; if yes, branch
-		addq.w	#2,(v_limitright2).w			; keep unlocking the bounds of the screen by 2 pixels 
+		addq.w	#2,(v_limitright2).w			; keep unlocking the bounds of the screen by 2 pixels
 		bra.s	.flee
 ; ===========================================================================
 
@@ -433,9 +437,9 @@ BossMarble_FaceMain:	; Routine 4
 .writeAnim:
 		move.b	d1,obAnim(a0)				; move animation state into obAnim
 ; ----------------------------------------------------------------------------
-; The below line checks: are we in the escape state? 
+; The below line checks: are we in the escape state?
 ; 8-2-2-4=0, so if we are in the escape state this is true, any other state would not result in a 0. If all this confuses you, review the _Index code throughout this file.
-; ----------------------------------------------------------------------------		
+; ----------------------------------------------------------------------------
 		subq.b	#4,d0
 		bne.s	.skip					; we are not escaping, display normally
 		move.b	#6,obAnim(a0)				; set animation state to facepanic
@@ -506,7 +510,7 @@ BossMarble_TubeMain:	; Routine 8
 		move.l	#Map_BossItems,obMap(a0)		; load item mappings
 		move.w	#ArtTile_Eggman_Weapons|Tile_Pal2,obGfx(a0) ; load weapons and pick the palette line
 		move.b	#4,obFrame(a0)				; set frame to tube (found in Boss Items.asm)
-		bra.s	BossMarble_SetBits				
+		bra.s	BossMarble_SetBits
 ; ===========================================================================
 
 BossMarble_TubeDel:
@@ -542,7 +546,7 @@ BossFire_Main:		; Routine 0
 		move.l	#Map_Fire,obMap(a0)			; load mappings, graphics, and set render style
 		move.w	#ArtTile_MZ_Fireball,obGfx(a0)
 		move.b	#sprite_cam_field,obRender(a0)
-		move.b	#5,obPriority(a0)			; set render priority (to allow to hide behind lava) 
+		move.b	#5,obPriority(a0)			; set render priority (to allow to hide behind lava)
 		move.w	obY(a0),obBossY(a0)			; copy Y
 		move.b	#16/2,obActWid(a0)			; set object width
 		addq.b	#2,obRoutine(a0)			; increment the object routine
@@ -594,7 +598,7 @@ BossFire_Drop:		; sub Routine 0
 		clr.b	obSubtype(a0)				; clear subtype for later
 		addi.w	#$18,obVelY(a0)				; start falling downwards and add on to it
 		bclr	#1,obStatus(a0)				; clear the flip so now object is facing down
-		bsr.w	ObjFloorDist				
+		bsr.w	ObjFloorDist
 		tst.w	d1					; has the object reached the floor?
 		bpl.s	.exit					; if not, branch
 		addq.b	#2,ob2ndRout(a0)
@@ -658,7 +662,7 @@ BossFire_Duplicate:	; sub Routine 4
 		cmpi.w	#boss_mz_x+$140,d0			; has the flame traveled past the right boundary (left screen boundary isn't checked since the level has a gap here)?
 		bgt.s	.advanceRout				; if so, branch to get ready for deletion
 		move.w	obBossX(a0),d1				; copy position
-		cmp.w	d0,d1					; is the current X the same as the last X? 
+		cmp.w	d0,d1					; is the current X the same as the last X?
 		beq.s	.copyPosition				; if yes, branch
 		andi.w	#$10,d0					; AND the 16th bit of both positions
 		andi.w	#$10,d1
@@ -683,7 +687,7 @@ BossFire_Duplicate:	; sub Routine 4
 .advanceRout:
 		addq.b	#2,obRoutine(a0)
 		rts
-		
+
 BossFire_FallEdge:	; sub Routine 6
 		bclr	#1,obStatus(a0)				; clear Y flip bit
 		addi.w	#$24,obVelY(a0)				; make flame fall
@@ -728,7 +732,7 @@ BossFire_Delete2:
 ; ===========================================================================
 
 ; loc_18886:
-BossFire_TempFire: 	; Routine 4 
+BossFire_TempFire: 	; Routine 4
 		bset	#7,obGfx(a0)				; set flame priority to high
 		subq.b	#1,BossFire_GenericTimer(a0)		; has the timer hit 0?
 		bne.s	BossFire_Animate			; if not, branch

@@ -252,7 +252,7 @@ DrawBG_Bottom:
 		move.w	#224/2,d4				; draw the bottom half of the screen
 		moveq	#-16,d5					; x coordinate - left of screen
 		moveq	#3-1,d6					; draw three rows... could this be a repurposed version of the above unused code?
-		bsr.w	DrawBlocks_TB_2				; draw three blocks vertically to the left of the screen 
+		bsr.w	DrawBlocks_TB_2				; draw three blocks vertically to the left of the screen
 
 ; locj_6DD2:
 .checkRight:
@@ -266,7 +266,7 @@ DrawBG_Bottom:
 		move.w	#224/2,d4				; draw the bottom half of the screen
 		move.w	#320,d5					; x coordinate - right of screen
 		moveq	#3-1,d6					; draw three Blocks
-		bsr.w	DrawBlocks_TB_2				; draw three blocks vertically to the right of the screen 
+		bsr.w	DrawBlocks_TB_2				; draw three blocks vertically to the right of the screen
 
 ; locj_6DF2:
 .return:
@@ -368,7 +368,7 @@ DrawBG_Block3:
 		move.w	#64,d4					; y coordinate - fourth line from top of screen
 		moveq	#-16,d5					; x coordinate - left of screen
 		moveq	#3-1,d6					; draw three blocks
-		bsr.w	DrawBlocks_TB_2				; draw three blocks vertically to the left of the screen 
+		bsr.w	DrawBlocks_TB_2				; draw three blocks vertically to the left of the screen
 
 ; locj_6ED0:
 .checkRight:
@@ -382,7 +382,7 @@ DrawBG_Block3:
 		move.w	#64,d4					; y coordinate - fourth line from top of screen
 		move.w	#320,d5					; x coordinate - right of screen
 		moveq	#3-1,d6					; draw three blocks
-		bsr.w	DrawBlocks_TB_2				; draw three blocks vertically to the right of the screen 
+		bsr.w	DrawBlocks_TB_2				; draw three blocks vertically to the right of the screen
 
 ; locj_6EF0:
 .return:

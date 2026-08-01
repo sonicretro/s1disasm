@@ -152,7 +152,7 @@ SonAni_Walk:	dc.b $FF
 
 SonAni_Run:	dc.b $FF
 		dc.b fr_Run11,  fr_Run12,  fr_Run13,  fr_Run14,  afEnd,     afEnd
-		dc.b afEnd 
+		dc.b afEnd
 		even
 
 SonAni_Roll:	dc.b $FE

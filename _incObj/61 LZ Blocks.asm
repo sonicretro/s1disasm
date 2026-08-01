@@ -22,7 +22,7 @@ lblk_touchtype:	equ objoff_3F		; stores Sonic's touch response from SolidObject 
 
 LBlk_Var:	; width, height
 		dc.b 32/2, 32/2		; block that sinks when stood on
-		dc.b 64/2, 24/2		; platform that rises when stood on 
+		dc.b 64/2, 24/2		; platform that rises when stood on
 		dc.b 32/2, 32/2		; cork block that floats on water
 		dc.b 32/2, 32/2		; generic solid block
 ; ===========================================================================

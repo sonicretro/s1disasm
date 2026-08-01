@@ -136,7 +136,7 @@ Drown_AirLeft:	; Routine $C
 		bpl.s	.delete					; if yes, delete it
 		jmp	(DisplaySprite).l			; display bubble
 
-	.delete:	
+	.delete:
 		jmp	(DeleteObject).l			; delete bubble
 ; ===========================================================================
 
@@ -152,12 +152,12 @@ Drown_ShowNumber:
 		clr.w	obVelY(a0)				; stop bubble from moving
 		move.b	#sprite_rendered,obRender(a0)		; change bubble to screen-fixed positioning mode
 
-		move.w	obX(a0),d0				; get playfield X-position 
+		move.w	obX(a0),d0				; get playfield X-position
 		sub.w	(v_screenposx).w,d0			; subtract camera X-position
 		addi.w	#$80,d0					; add $80px sprite offscreen offset
 		move.w	d0,obX(a0)				; set as new screen-fixed X-position
 
-		move.w	obY(a0),d0				; get playfield Y-position 
+		move.w	obY(a0),d0				; get playfield Y-position
 		sub.w	(v_screenposy).w,d0			; subtract camera Y-position
 		addi.w	#$80,d0					; add $80px sprite offscreen offset
 		move.w	d0,obScreenY(a0)			; set as new screen-fixed Y-position
@@ -236,7 +236,7 @@ Drown_Countdown:; Routine $A
 
 	.warningSound:
 		move.w	#sfx_Warning,d0				; set "ding-ding" warning sound
-		jsr	(QueueSound2).l				; play it 
+		jsr	(QueueSound2).l				; play it
 
 .reduceAir:
 		subq.w	#1,(v_air).w				; subtract 1 second from air remaining

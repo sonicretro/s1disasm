@@ -2,13 +2,6 @@
 ; ---------------------------------------------------------------------------
 ; Object 28 - Animals from destroyed badniks, prison capsules, and ending
 ; ---------------------------------------------------------------------------
-animal_doublehop:	equ objoff_29	; flag used for double hopping in ending sequence
-animal_id:		equ objoff_30	; animal ID from Anml_VarIndex
-animal_speedX:		equ objoff_32	; base animal X-speed
-animal_speedY:		equ objoff_34	; base animal Y-speed
-animal_prisondelay:	equ objoff_36	; delay before animal jumps out of prison capsule (set from object 3E)
-animal_pointsframe:	equ objoff_3E	; carries over frame ID from combo collision response to actual points object
-; ---------------------------------------------------------------------------
 
 Animals:
 		moveq	#0,d0
@@ -19,7 +12,7 @@ Animals:
 Anml_Index:	dc.w Anml_Main-Anml_Index		; 0  - init
 		dc.w Anml_ChkFloor-Anml_Index		; 2  - wait for first floor hit after initial spawn
 
-		; Animals spawned from broken badniks:
+		; --- Animals spawned from broken badniks  ---
 		dc.w Anml_NormalGravity-Anml_Index	; 4  - type 0: Pocky/bunny (GHZ/SBZ)
 		dc.w Anml_SlowGravity-Anml_Index	; 6  - type 1: Cucky/chicken (SYZ/SBZ)
 		dc.w Anml_NormalGravity-Anml_Index	; 8  - type 2: Pecky/penguin (LZ)
@@ -28,10 +21,10 @@ Anml_Index:	dc.w Anml_Main-Anml_Index		; 0  - init
 		dc.w Anml_SlowGravity-Anml_Index	; E  - type 5: Flicky/bird (GHZ/SLZ)
 		dc.w Anml_NormalGravity-Anml_Index	; 10 - type 6: Rocky/seal (MZ)
 
-		; Animals spawned from post-boss prison capsules:
+		; --- Animals spawned from post-boss prison capsules ---
 		dc.w Anml_FromPrison-Anml_Index		; 12 - delay jumping out of prison capsule
 
-		; Animals in the ending sequence:
+		; --- Animals in the ending sequence ---
 		dc.w Anml_End_FlyLeft-Anml_Index	; 14 - type 0A: Flicky/bird (type A)
 		dc.w Anml_End_FlyLeft-Anml_Index	; 16 - type 0B: Flicky/bird (type B, unused)
 		dc.w Anml_End_StayFace_Slow-Anml_Index	; 18 - type 0C: Flicky/bird (type C)
@@ -43,6 +36,13 @@ Anml_Index:	dc.w Anml_Main-Anml_Index		; 0  - init
 		dc.w Anml_End_StayFace_Fast-Anml_Index	; 24 - type 12: Picky/pig
 		dc.w Anml_End_DoubleFly-Anml_Index	; 26 - type 13: Cucky/chicken
 		dc.w Anml_End_DoubleHop-Anml_Index	; 28 - type 14: Ricky/squirrel
+
+animal_doublehop:	equ objoff_29	; flag used for double hopping in ending sequence
+animal_id:		equ objoff_30	; animal ID from Anml_VarIndex
+animal_speedX:		equ objoff_32	; base animal X-speed
+animal_speedY:		equ objoff_34	; base animal Y-speed
+animal_prisondelay:	equ objoff_36	; delay before animal jumps out of prison capsule (set from object 3E)
+animal_pointsframe:	equ objoff_3E	; carries over frame ID from combo collision response to actual points object
 ; ===========================================================================
 
 ; Configuration values for animals per zone, and their speeds.
@@ -116,7 +116,7 @@ Anml_EndVram:	dc.w ArtTile_Ending_Flicky	; 0A - Flicky/bird (type A)
 		dc.w ArtTile_Ending_Squirrel    ; 14 - Ricky/squirrel
 ; ===========================================================================
 
-; Anml_Ending: <- old misnomer!
+; Anml_Ending: <-- old misnomer!
 Anml_Main:	; Routine 0
 		tst.b	obSubtype(a0)				; did animal come from a destroyed enemy?
 		beq.w	Anml_FromEnemy				; if yes, branch
@@ -156,7 +156,7 @@ Anml_FromEnemy:
 		add.w	d0,d1					; add random result
 		lea	Anml_VarIndex(pc),a1			; load animal IDs array
 		move.b	(a1,d1.w),d0				; get animal ID for zone (animal 0 or 1)
-		move.b	d0,animal_id(a0)			; remember animal ID 
+		move.b	d0,animal_id(a0)			; remember animal ID
 		lsl.w	#3,d0					; multiply by 8 bytes per Anml_Variables entry
 		lea	Anml_Variables(pc),a1			; load animal variables array
 		adda.w	d0,a1					; advance to data for current animal

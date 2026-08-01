@@ -1,3 +1,8 @@
+; ===========================================================================
+; ---------------------------------------------------------------------------
+; Macros (game-specific)
+; ---------------------------------------------------------------------------
+
 ; ---------------------------------------------------------------------------
 ; Align and pad
 ; input: length to align to, value to use as padding (default is $FF)
@@ -155,7 +160,7 @@ startZ80:	macro
 ; ---------------------------------------------------------------------------
 
 disable_ints:	macro
-		move.w	#$2700,sr
+		move.w	#$2700,sr				; disable interrupts
 		endm
 
 ; ---------------------------------------------------------------------------
@@ -163,7 +168,7 @@ disable_ints:	macro
 ; ---------------------------------------------------------------------------
 
 enable_ints:	macro
-		move.w	#$2300,sr
+		move.w	#$2300,sr				; enable interrupts
 		endm
 
 ; ---------------------------------------------------------------------------
@@ -171,9 +176,9 @@ enable_ints:	macro
 ; ---------------------------------------------------------------------------
 
 disable_display:	macro
-		move.w	(v_vdp_buffer1).w,d0		; get buffered copy of VDP register $81
-		andi.b	#%10111111,d0			; clear bit 6 (disable display; fill with background color)
-		move.w	d0,(vdp_control_port).l		; write to VDP
+		move.w	(v_vdp_buffer1).w,d0			; get buffered copy of VDP register $81
+		andi.b	#%10111111,d0				; clear bit 6 (disable display; fill with background color)
+		move.w	d0,(vdp_control_port).l			; write to VDP
 		endm
 
 ; ---------------------------------------------------------------------------
@@ -181,9 +186,9 @@ disable_display:	macro
 ; ---------------------------------------------------------------------------
 
 enable_display:	macro
-		move.w	(v_vdp_buffer1).w,d0		; get buffered copy of VDP register $81
-		ori.b	#%01000000,d0			; set bit 6 (enable display)
-		move.w	d0,(vdp_control_port).l		; write to VDP
+		move.w	(v_vdp_buffer1).w,d0			; get buffered copy of VDP register $81
+		ori.b	#%01000000,d0				; set bit 6 (enable display)
+		move.w	d0,(vdp_control_port).l			; write to VDP
 		endm
 
 ; ---------------------------------------------------------------------------
@@ -312,11 +317,11 @@ out_of_range:	macro exit,pos,bmicheck
 ; ---------------------------------------------------------------------------
 
 gotoSRAM:	macro
-		move.b	#1,($A130F1).l
+		move.b	#1,(sram_port).l
 		endm
 
 gotoROM:	macro
-		move.b	#0,($A130F1).l
+		move.b	#0,(sram_port).l
 		endm
 
 ; ---------------------------------------------------------------------------
@@ -396,9 +401,9 @@ range: macro first,last,step,repeat
 
 zonewarning:	macro loc,elementsize
 	.end:
-		if (.end-loc)-(ZoneCount*elementsize)<>0
+	if (.end-loc)-(ZoneCount*elementsize)<>0
 		inform 1,"Size of \loc ($%h) does not match ZoneCount ($\#ZoneCount).",(.end-loc)/elementsize
-		endif
+	endif
 		endm
 
 ; ---------------------------------------------------------------------------

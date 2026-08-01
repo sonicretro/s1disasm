@@ -41,7 +41,7 @@ SolidObject:
 		bclr	#3,obStatus(a0)				; clear object's standing flag
 		clr.b	obSolid(a0)
 		moveq	#0,d4					; clear flag for no collision
-		rts	
+		rts
 
 	.stand:
 		move.w	d4,d2
@@ -79,7 +79,7 @@ SolidObject_NoRenderChk:
 		bclr	#3,obStatus(a0)
 		clr.b	obSolid(a0)
 		moveq	#0,d4
-		rts	
+		rts
 
 	.stand:
 		move.w	d4,d2
@@ -90,7 +90,7 @@ SolidObject_NoRenderChk:
 		bsr.w	MvSonicOnPtfm
 	endif
 		moveq	#0,d4
-		rts	
+		rts
 
 ; ---------------------------------------------------------------------------
 ; Solid	object with heightmap subroutine (MZ grass platforms)
@@ -104,8 +104,6 @@ SolidObject_NoRenderChk:
 ;	d4.l = collision type: 1 = side collision; -1 = top/bottom collision
 ;	d5.w = x distance of Sonic from nearest left/right edge
 ;	a1 = address of OST of Sonic
-; 
-;	uses d0.l, d1.l, d2.w, d3.w, a2
 ; ---------------------------------------------------------------------------
 
 ; SolidObject2F:
@@ -166,7 +164,7 @@ Solid_SkipRenderChk:
 		add.w	d3,d3
 		cmp.w	d3,d0
 		bhi.w	Solid_NoCollision			; branch if Sonic is outside right edge
-		
+
 		move.b	obHeight(a1),d3
 		ext.w	d3
 		add.w	d3,d2					; d2 = combined Sonic + object half height
@@ -242,13 +240,13 @@ Solid_AlignToSide:
 		bset	#5,obStatus(a1)				; make Sonic push object
 		bset	#5,obStatus(a0)				; make object be pushed
 		moveq	#1,d4					; return side collision
-		rts	
+		rts
 ; ===========================================================================
 
 Solid_SideAir:
 		bsr.s	Solid_NotPushing			; don't push if Sonic is jumping or close to top/bottom edges
 		moveq	#1,d4					; return side collision
-		rts	
+		rts
 ; ===========================================================================
 
 ; Solid_Ignore:
@@ -266,7 +264,7 @@ Solid_NotPushing:
 
 Solid_Debug:
 		moveq	#0,d4					; return no collision
-		rts	
+		rts
 ; ===========================================================================
 
 Solid_TopBottom:
@@ -301,7 +299,7 @@ Solid_TopBtmAir:
 		sub.w	d3,obY(a1)				; correct Sonic's position
 	endif
 		moveq	#-1,d4					; return top/bottom collision
-		rts	
+		rts
 ; ===========================================================================
 
 Solid_Squash:
@@ -312,7 +310,7 @@ Solid_Squash:
 		jsr	(KillSonic).l				; kill Sonic
 		movea.l	(sp)+,a0				; restore address of OST of current object from stack
 		moveq	#-1,d4					; return top/bottom collision
-		rts	
+		rts
 ; ===========================================================================
 
 Solid_Landed:
@@ -334,7 +332,7 @@ Solid_Landed:
 		move.b	#2,obSolid(a0)				; set flag that Sonic is standing on the object
 		bset	#3,obStatus(a0)				; set object's platform flag
 		moveq	#-1,d4					; return top/bottom collision
-		rts	
+		rts
 ; ===========================================================================
 
 Solid_Miss:
@@ -350,8 +348,6 @@ Solid_Miss:
 ; 
 ; output:
 ;	a1 = address of OST of Sonic
-; 
-;	uses d0.l, a2
 ; ---------------------------------------------------------------------------
 
 Solid_ResetFloor:

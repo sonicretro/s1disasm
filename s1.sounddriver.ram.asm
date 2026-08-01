@@ -53,7 +53,7 @@ makeStruct__SMPS_RAM:	macro *
 \*.v_soundqueue_end:
 			ds.b	1	; unused
 \*.f_voice_selector:	ds.b	1	; $00 = use music voice pointer; $40 = use special voice pointer; $80 = use track voice pointer
-			ds.b	9
+			ds.b	9	; unused
 \*.v_voice_ptr:		ds.l	1	; voice data pointer (4 bytes)
 			ds.b	4	; unused
 \*.v_special_voice_ptr:	ds.l	1	; voice data pointer for special SFX ($D0-$DF) (4 bytes)

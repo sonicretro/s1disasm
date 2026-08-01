@@ -35,7 +35,7 @@ SS_ShowLayout:
 		addi.w	#-(ss_matrixsize-1)*ss_blocksize/2,d3	; d3 = base Y-offset for all cells (-$B4)
 
 		move.w	#ss_matrixsize-1,d7			; calculate rotated positions for all rows
-	.rotateRows:	
+	.rotateRows:
 		movem.w	d0-d2,-(sp)				; backup sine, cosine, and X offset per row
 
 		movem.w	d0-d1,-(sp)				; backup sine and cosine
@@ -150,7 +150,7 @@ SS_ShowLayout:
 
 ; SS_AniWallsRings:
 SS_AnimateBlocks:
-	; --- Rotate square walls
+	; --- Rotate square walls ---
 		lea	(v_ss_spritesettings+8+5-1).l,a1	; load sprite settings array, skip blank and target frame ID (word, +5-1)
 		moveq	#0,d0					; clear d0
 		move.b	(v_ssangle).w,d0			; get current rotation angle
@@ -162,7 +162,7 @@ SS_AnimateBlocks:
 		addq.w	#8,a1					; advance to next wall sprite setting
 		dbf	d1,.rotateWalls				; loop until all walls have been rotated
 
-	; --- Animate rings (8 frames)
+	; --- Animate rings (8 frames) ---
 		lea	(v_ss_spritesettings+5).l,a1		; load sprite settings array, target frame ID (byte, +5)
 		subq.b	#1,(v_ani1_time).w			; decrement delay until ring animation needs to update
 		bpl.s	.updateRingFrame			; if time remains, branch
@@ -172,7 +172,7 @@ SS_AnimateBlocks:
 	.updateRingFrame:
 		move.b	(v_ani1_frame).w,8*id_SS_Ring(a1)	; set new ring frame ID
 
-	; --- Animate various other blocks (2 frames)
+	; --- Animate various other blocks (2 frames) ---
 		subq.b	#1,(v_ani2_time).w			; decrement delay until frames need to update
 		bpl.s	.updateAlternatingFrames		; if time remains, branch
 		move.b	#8-1,(v_ani2_time).w			; reset delay
@@ -191,7 +191,7 @@ SS_AnimateBlocks:
 		move.b	d0,8*id_SS_Emerald5_Red(a1)		; animate emerald 5 (red)
 		move.b	d0,8*id_SS_Emerald6_Grey(a1)		; animate emerald 6 (grey)
 
-	; --- Animate glass blocks (8 frames)
+	; --- Animate glass blocks (8 frames) ---
 		subq.b	#1,(v_ani3_time).w			; decrement delay until glass frames needs to update
 		bpl.s	.updateGlassFrames			; if time remains, branch
 		move.b	#5-1,(v_ani3_time).w			; reset delay
@@ -204,7 +204,7 @@ SS_AnimateBlocks:
 		move.b	d0,8*id_SS_Glass3_Yellow(a1)		; update glass block 3 (yellow)
 		move.b	d0,8*id_SS_Glass4_Pink(a1)		; update glass block 4 (pink)
 
-	; ---  Animate wall palette cycle (unlike the other animations above, this affects VRAM settings instead of frame ID)
+	; ---  Animate wall palette cycle (unlike the other animations above, this affects VRAM settings instead of frame ID) ---
 		subq.b	#1,(v_ani0_time).w			; decrement delay until wall palettes need to update
 		bpl.s	.updateWallPalettes			; if time remains, branch
 		move.b	#8-1,(v_ani0_time).w			; reset delay
@@ -217,7 +217,7 @@ SS_AnimateBlocks:
 		move.b	(v_ani0_frame).w,d0			; get current frame
 		add.w	d0,d0					; double for word-based indexing
 		lea	(a0,d0.w),a0				; jump to current start in VRAM settings array
-	
+
 	rept 4	; Repeated four times to account for the four sets of walls (blue, yellow, green, pink)
 		move.w	$0(a0),8*0(a1)				; update wall 1
 		move.w	$2(a0),8*1(a1)				; update wall 2
@@ -561,26 +561,26 @@ SS_FindUnbeatenStage:
 
 ; d0 = special stage to load (0-5)
 SS_LoadData:
-	; --- Load start positions for Sonic
+	; --- Load start positions for Sonic ---
 		lsl.w	#2,d0					; multiply by 4 for long-based indexing
 		lea	SS_StartLoc(pc,d0.w),a1			; load Sonic's start location for this stage
 		move.w	(a1)+,(v_player+obX).w			; set start X-position
 		move.w	(a1)+,(v_player+obY).w			; set start Y-position
 
-	; --- Decompress Enigma-compressed special stage layout to a temporary buffer
+	; --- Decompress Enigma-compressed special stage layout to a temporary buffer ---
 		movea.l	SS_LayoutIndex(pc,d0.w),a0		; load compressed special stage layout
 		lea	(v_sslayout_decompress).l,a1		; set decompression buffer for layout
 		move.w	#0,d0					; no added art tile settings
 		jsr	(EniDec).l				; decompress special stage layout to buffer
 
-	; --- Fully clear target layout buffer
+	; --- Fully clear target layout buffer ---
 		lea	(v_sslayout_base).l,a1			; set start address of layout RAM
 		move.w	#(v_sslayout_decompress-v_sslayout_base)/4-1,d0 ; clear the entire layout buffer
 	.clearLayoutBuffer:
 		clr.l	(a1)+					; clear four bytes
 		dbf	d0,.clearLayoutBuffer			; loop until buffer has been cleared
 
-	; --- Copy decompressed layout to the final buffer, inserting $40 bytes of padding per row
+	; --- Copy decompressed layout to the final buffer, inserting $40 bytes of padding per row ---
 		lea	(v_sslayout_actual).l,a1		; set target layout destination after padding
 		lea	(v_sslayout_decompress).l,a0		; load decompressed layout data
 		moveq	#(v_sslayout_end-v_sslayout_actual)/ss_layout_rowlength-1,d1 ; transfer the full layout
@@ -603,7 +603,7 @@ SS_LoadData:
 		move.w	(a0)+,(a1)+				; load VRAM settings (palette and art tile)
 		dbf	d1,.loadSpriteSettings			; loop until all sprite settings have been loaded
 
-	; --- Fully clear animations processing queue
+	; --- Fully clear animations processing queue ---
 		lea	(v_ss_animations).l,a1			; set start address of animations queue
 		move.w	#(v_ss_animations_end-v_ss_animations)/4-1,d1 ; clear the entire queue
 	.clearAnimationQueue:

@@ -31,6 +31,7 @@ Spring_Index:	dc.w Spring_Main-Spring_Index		; 0
 		dc.w Spring_ResetDown-Spring_Index	; 12
 
 spring_pow:	equ objoff_30		; power of current spring
+; ===========================================================================
 
 Spring_Powers:	dc.w -$1000		; power of red spring
 		dc.w -$A00		; power of yellow spring

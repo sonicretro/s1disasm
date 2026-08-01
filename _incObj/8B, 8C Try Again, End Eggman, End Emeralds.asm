@@ -30,7 +30,7 @@ EEgg_Main:	; Routine 0
 		move.b	#2,obAnim(a0)				; use "END" tantrum animation by default (good ending)
 		cmpi.b	#ss_emeralds_num,(v_emeralds).w		; do you have all 6 emeralds?
 		beq.s	EEgg_Animate				; if yes, we have a good ending
-		
+
 		; Bad Ending (load emeralds)
 		move.b	#id_CreditsText,(v_tryagain).w		; load credits object
 		move.w	#9,(v_creditsnum).w			; use "TRY AGAIN" text for credits text object

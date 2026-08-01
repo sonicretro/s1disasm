@@ -14,6 +14,7 @@ EndSonic:
 		jmp	(DisplaySprite).l
 ; ===========================================================================
 ESon_Index:	dc.w ESon_Main-ESon_Index		; 0
+
 		; --- Good Ending (6 emeralds) ---
 		dc.w ESon_MakeEmeralds-ESon_Index	; 2
 		dc.w ESon_Animate-ESon_Index		; 4
@@ -22,6 +23,7 @@ ESon_Index:	dc.w ESon_Main-ESon_Index		; 0
 		dc.w ESon_Animate-ESon_Index		; A
 		dc.w ESon_MakeLogo-ESon_Index		; C
 		dc.w ESon_Animate-ESon_Index		; E
+
 		; --- Bad Ending (not all emeralds) ---
 		dc.w ESon_BadEnding-ESon_Index		; 10
 		dc.w ESon_Animate-ESon_Index		; 12

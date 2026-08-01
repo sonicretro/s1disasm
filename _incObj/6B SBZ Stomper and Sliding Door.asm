@@ -204,7 +204,7 @@ Sto_SlidingPlatform_Extend:
 		move.b	obRespawnNo(a0),d0			; get object respawn table index
 		beq.s	.updatePosition				; if it doesn't have one, branch
 		bset	#0,2(a2,d0.w)				; set flag that platform has been extended (seems to be unused?)
-		bra.s	.updatePosition				; 
+		bra.s	.updatePosition				;
 ; ===========================================================================
 
 ; Type 2 (set from Type 1) - retract sliding platform again after a delay
@@ -243,7 +243,7 @@ Sto_SlidingPlatform_Retract:
 		move.b	obRespawnNo(a0),d0			; get object respawn table index
 		beq.s	.updatePosition				; if it doesn't have one, branch
 		bclr	#0,2(a2,d0.w)				; clear flag that platform has been extended (seems to be unused?)
-		bra.s	.updatePosition				; 
+		bra.s	.updatePosition				;
 ; ===========================================================================
 
 ; Type 3 - stomper (stomps down, immediately goes slowly back up, waits 1 second, stomps down again)

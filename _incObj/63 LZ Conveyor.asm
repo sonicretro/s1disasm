@@ -52,7 +52,7 @@ lcon_targetdata:equ objoff_3C	; pointer to corner data for group
 LCon_Main:	; Routine 0
 		move.b	obSubtype(a0),d0			; is this the initial spawner object?
 		bmi.w	LCon_Main_Spawner			; if yes, branch
-		
+
 		; Object is a platform (from custom objpos data) or a decorative wheel (from normal objpos data)
 		addq.b	#2,obRoutine(a0)			; advance to LCon_Platform
 		move.l	#Map_LConv,obMap(a0)			; set mappings
@@ -344,7 +344,7 @@ LCon_Data:	dc.w .group0-LCon_Data
 		dc.w .group4-LCon_Data
 		dc.w .group5-LCon_Data
 
-.group0:	
+.group0:
 		.baseX_0: = $1070
 		.baseY_0: = $2F0
 		dc.w 6*4

@@ -6,7 +6,7 @@
 DeformLayers:
 		tst.b	(f_nobgscroll).w			; is scrolling disabled?
 		beq.s	.bgscroll				; if not, branch
-		rts	
+		rts
 ; ===========================================================================
 
 	.bgscroll:
@@ -59,14 +59,14 @@ Deform_GHZ:
 		asl.l	#1,d4
 		add.l	d1,d4					; multiply by $60
 		moveq	#0,d6
-		bsr.w	BGScroll_Block3			; update bg x pos and set redraw flags
+		bsr.w	BGScroll_Block3				; update bg x pos and set redraw flags
 
 		; block 2 - hills & waterfalls
 		move.w	(v_scrshiftx).w,d4			; get camera x pos change since last frame
 		ext.l	d4
 		asl.l	#7,d4					; multiply by $80
 		moveq	#0,d6
-		bsr.w	BGScroll_Block2			; update bg x pos and set redraw flags
+		bsr.w	BGScroll_Block2				; update bg x pos and set redraw flags
 
 		; calculate Y position
 		lea	(v_hscrolltablebuffer).w,a1
@@ -209,7 +209,7 @@ Deform_LZ:
 		move.w	(v_screenposy).w,d5
 
 		; write normal scroll before meeting water position
-	.normalLoop:		
+	.normalLoop:
 		cmp.w	d4,d5					; is current scanline at or below actual water y pos?
 		bge.s	.underwaterLoop				; if yes, branch
 		move.l	d0,(a1)+				; write to v_hscrolltablebuffer without ripple effect
@@ -316,7 +316,7 @@ Deform_MZ:
 		move.w	d2,d3
 		asr.w	#1,d3
 		move.w	#5-1,d1
-	.cloudLoop:		
+	.cloudLoop:
 		move.w	d3,(a1)+
 		swap	d3
 		add.l	d0,d3
@@ -326,21 +326,21 @@ Deform_MZ:
 		move.w	(v_bg3screenposx).w,d0
 		neg.w	d0
 		move.w	#2-1,d1
-	.mountainLoop:		
+	.mountainLoop:
 		move.w	d0,(a1)+
 		dbf	d1,.mountainLoop
 
 		move.w	(v_bg2screenposx).w,d0
 		neg.w	d0
 		move.w	#9-1,d1
-	.bushLoop:		
+	.bushLoop:
 		move.w	d0,(a1)+
 		dbf	d1,.bushLoop
 
 		move.w	(v_bgscreenposx).w,d0
 		neg.w	d0
 		move.w	#16-1,d1
-	.interiorLoop:		
+	.interiorLoop:
 		move.w	d0,(a1)+
 		dbf	d1,.interiorLoop
 
@@ -387,7 +387,7 @@ Deform_SLZ:
 		moveq	#0,d3
 		move.w	d2,d3
 		move.w	#28-1,d1
-	.starLoop:		
+	.starLoop:
 		move.w	d3,(a1)+
 		swap	d3
 		add.l	d0,d3
@@ -453,7 +453,7 @@ BGScroll_X:
 		move.w	(a2)+,d0				; get subsequent value from bg scroll buffer
 	.skip_rows:
 	rept 16
-		move.l	d0,(a1)+			; write 16 fg/bg values to v_hscrolltablebuffer
+		move.l	d0,(a1)+				; write 16 fg/bg values to v_hscrolltablebuffer
 	endr
 		dbf	d1,.loop_hscroll
 		rts
@@ -492,7 +492,7 @@ Deform_SYZ:
 		move.w	d2,d3
 		asr.w	#1,d3
 		move.w	#8-1,d1
-	.cloudLoop:		
+	.cloudLoop:
 		move.w	d3,(a1)+
 		swap	d3
 		add.l	d0,d3
@@ -502,14 +502,14 @@ Deform_SYZ:
 		move.w	d2,d0
 		asr.w	#3,d0
 		move.w	#5-1,d1
-	.mountainLoop:		
+	.mountainLoop:
 		move.w	d0,(a1)+
 		dbf	d1,.mountainLoop
 
 		move.w	d2,d0
 		asr.w	#2,d0
 		move.w	#6-1,d1
-	.buildingLoop:		
+	.buildingLoop:
 		move.w	d0,(a1)+
 		dbf	d1,.buildingLoop
 
@@ -527,7 +527,7 @@ Deform_SYZ:
 		move.w	d2,d3
 		asr.w	#1,d3
 		move.w	#14-1,d1
-	.bushLoop:		
+	.bushLoop:
 		move.w	d3,(a1)+
 		swap	d3
 		add.l	d0,d3
@@ -612,7 +612,7 @@ Deform_SBZ:
 		moveq	#0,d3
 		move.w	d2,d3
 		move.w	#4-1,d1
-	.cloudLoop:		
+	.cloudLoop:
 		move.w	d3,(a1)+
 		swap	d3
 		add.l	d0,d3
@@ -653,7 +653,7 @@ Deform_SBZ:
 Deform_SBZ2:
 		; plain background deformation
 		move.w	(v_scrshiftx).w,d4
-		ext.l	d4		
+		ext.l	d4
 		asl.l	#6,d4
 		move.w	(v_scrshifty).w,d5
 		ext.l	d5
@@ -669,7 +669,7 @@ Deform_SBZ2:
 		swap	d0
 		move.w	(v_bgscreenposx).w,d0
 		neg.w	d0
-	.loop_hscroll:		
+	.loop_hscroll:
 		move.l	d0,(a1)+
 		dbf	d1,.loop_hscroll
 		rts
@@ -703,7 +703,7 @@ BGScroll_XY:
 		andi.w	#$10,d1
 		move.b	(v_bg1_xblock).w,d3
 		eor.b	d3,d1
-		bne.s	BGScroll_YRelative				; insufficient change to redraw bg
+		bne.s	BGScroll_YRelative			; insufficient change to redraw bg
 		eori.b	#$10,(v_bg1_xblock).w
 		sub.l	d2,d0					; new bg pos minus old
 		bpl.s	.redraw_right				; branch if positive (i.e. moving right)

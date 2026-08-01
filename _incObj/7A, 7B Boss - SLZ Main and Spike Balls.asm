@@ -1,3 +1,4 @@
+; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 7A - Eggman (SLZ)
 ; ---------------------------------------------------------------------------
@@ -19,14 +20,16 @@ BossStarLight_Index:
 		dc.w BossStarLight_FlameMain-BossStarLight_Index
 		dc.w BossStarLight_PipeMain-BossStarLight_Index
 
-BossStarLight_ParentObj equ objoff_34 				; Pointer to main boss controller
-BossStarLight_SineCounter equ objoff_3F 			; sine counter for bobbing motion
-BossStarLight_GenericTimer equ objoff_3C 			; timer for how many frames to do an action, whether its wait for explosions, or to move in a direction
-BossStarLight_SeesawList equ objoff_2A 				; location within boss object to store a list of all seesaw objects
-obSeesawSide equ objoff_3A					; stores basic value of which side of the saw the spike ball is on, doubled for word-traversal
+BossStarLight_SeesawList:	equ objoff_2A 			; location within boss object to store a list of all seesaw objects
+BossStarLight_ParentObj:	equ objoff_34 			; Pointer to main boss controller
+BossStarLight_SeesawSide:	equ objoff_3A			; stores basic value of which side of the saw the spike ball is on, doubled for word-traversal
+BossStarLight_GenericTimer:	equ objoff_3C 			; timer for how many frames to do an action, whether its wait for explosions, or to move in a direction
+BossStarLight_SineCounter:	equ objoff_3F 			; sine counter for bobbing motion
+; ===========================================================================
 
-BossStarLight_ObjData:	
-		dc.b 2,	0, 4				; routine number, animation, priority
+BossStarLight_ObjData:
+		; routine number, animation, priority
+		dc.b 2,	0, 4
 		dc.b 4,	1, 4
 		dc.b 6,	7, 4
 		dc.b 8,	0, 3
@@ -39,7 +42,7 @@ BossStarLight_Main:
 		move.w	obY(a0),obBossY(a0)
 		move.b	#col_48x48|col_boss,obColType(a0) 	; set collision type: TTSS SSSS. T bits are for type, S is size of collision using table in sub ReactToItem.asm
 		move.b	#8,obBossHits(a0) 			; set number of hits to 8
-		lea	BossStarLight_ObjData(pc),a2 		; load routine data address 
+		lea	BossStarLight_ObjData(pc),a2 		; load routine data address
 		movea.l	a0,a1 					; copy boss object address into a1 so that LoadBoss on pass 1 uses the main boss object
 		moveq	#3,d1 					; 4 slots of ObjData, so to load properly we must loop 4 times
 		bra.s	BossStarLight_LoadBoss
@@ -63,10 +66,10 @@ BossStarLight_LoadBoss:
 		move.b	#sprite_cam_field,obRender(a1) 		; set the object to position based on where it is in the level and not a static position on screen
 		move.b	#64/2,obActWid(a1) 			; define horizontal width radius (used to hide objects when they leave the screen space)
 
-; objoff_34 is used here as a reference back to the main boss controller. 
+; objoff_34 is used here as a reference back to the main boss controller.
 ; This is because when we are in ExecuteObjects, a0 is set to each object and sub objects own slot, so we need a way to find the original boss object.
 ; On the first loop, this copies the address to itself, but the other loops are what it was intended for.
-		move.l	a0,BossStarLight_ParentObj(a1) 
+		move.l	a0,BossStarLight_ParentObj(a1)
 
 		dbf	d1,BossStarLight_Loop			; repeat sequence 3 more times
 
@@ -90,7 +93,7 @@ BossStarLight_CheckSaws:
 		cmp.b	obID(a1),d0 				; is the object a seesaw?
 		bne.s	.skip 					; no, skip
 		tst.b	obSubtype(a1) 				; does the seesaw have a ball on it? (object subtype 00 contains a ball)
-		beq.s	.skip 					; yes, skip  
+		beq.s	.skip 					; yes, skip
 		move.w	a1,(a2)+ 				; no ball, so move object address into the scratch RAM and increment, we are storing pointers to seesaws with no balls
 
 ; loc_18974:
@@ -195,7 +198,7 @@ BSLZ_Defeated:
 
 ; loc_18A5E:
 BSLZ_ShipMove:
-		move.w	obBossX(a0),d0 				; move boss position for later comparison 
+		move.w	obBossX(a0),d0 				; move boss position for later comparison
 		move.w	#$200,obVelX(a0)			; set X velocity (moving right)
 		btst	#0,obStatus(a0)				; is our X flipped?
 		bne.s	.checkRight				; if yes, branch
@@ -220,9 +223,9 @@ BSLZ_ShipMove:
 
 ; This line sets d1 to $FFFFFFFF (2s complement for -1). The reason they do this is because when we looked through the object RAM for the level
 ; and found seesaws, we only stored their addresses as words, meaning the top 2 bytes were not stored.
-; Now, the full address can be rebuilt by adding $FFFF with the lower two bytes that were stored in a2, since that is where it lives in RAM. 
+; Now, the full address can be rebuilt by adding $FFFF with the lower two bytes that were stored in a2, since that is where it lives in RAM.
 
-		moveq	#-1,d1					
+		moveq	#-1,d1
 		moveq	#2,d2					; set number of seesaws to 3
 		lea	BossStarLight_SeesawList(a0),a2		; load seesaw list
 		moveq	#$28,d4					; set up seesaw pixel offset
@@ -266,12 +269,12 @@ BSLZ_MakeBall:
 		bmi.s	.abortDrop				; check bit 15. is there a seesaw here? if so, it would be a non negative value. (potential failsafe?)
 		subq.w	#2,d0					; subtract 2 from d0
 		neg.w	d0					; negate d0 to get back to a positive value
-		add.w	d0,d0					; multiply by 2 to get the correct offset in the seesaw list (since each entry is a word)	
+		add.w	d0,d0					; multiply by 2 to get the correct offset in the seesaw list (since each entry is a word)
 		lea	BossStarLight_SeesawList(a0),a1		; load lists of found and valid seesaws into a1
 		move.w	(a1,d0.w),d0				; get the address of the seesaw number we are over by using the index we just made in d0, and put it back in d0
 		movea.l	d0,a2					; move the address of the seesaw into a2
 	if FixBugs
-		lea	(v_lvlobjspace).w,a1			; load level object space address 
+		lea	(v_lvlobjspace).w,a1			; load level object space address
 		moveq	#(v_lvlobjend-v_lvlobjspace)/object_size-1,d1 ; number of objects to scan
 	else
 		lea	(v_objspace+object_size*1).w,a1 ; Nonsensical starting point, since dynamic object allocations begin at v_lvlobjspace.
@@ -280,8 +283,8 @@ BSLZ_MakeBall:
 
 ; loc_18AFA:
 .checkForBall:
-		cmp.l	BossStarLight_GenericTimer(a1),d0 	; use same scratch RAM location as timer, however this is for a1 which is level object space and not a0 which is the boss object
-		beq.s	.abortDrop				; has any previously scanned object already point to this seesaw address? (on first loop, no! so this won't be true)
+		cmp.l	BossSpikeball_SeesawPtr(a1),d0 		; has any previously scanned object already pointed to this seesaw address? (on first loop, no! so this won't be true)
+		beq.s	.abortDrop				; if yes, branch
 		adda.w	#object_size,a1				; move the pointer forward one object size ($40 bytes, this means scanning all of the lvlobjspace to look for seesaws with balls)
 		dbf	d1,.checkForBall
 
@@ -295,7 +298,7 @@ BSLZ_MakeBall:
 		move.w	obY(a0),obY(a1)
 		addi.w	#$20,obY(a1)				; offset y so that it comes out of the ball launcher
 		move.b	obStatus(a2),obStatus(a1)		; copy seesaw status to ball
-		move.l	a2,BossStarLight_GenericTimer(a1)	; store seesaw's address so that seesaw and ball are now linked
+		move.l	a2,BossSpikeball_SeesawPtr(a1)		; store seesaw's address so that seesaw and ball are now linked
 
 ; loc_18B36:
 .subtractTime:
@@ -322,7 +325,7 @@ BSLZ_Explode:
 		addq.b	#2,ob2ndRout(a0)			; advance routine to Recover
 		clr.w	obVelY(a0)				; stop vertical movement
 		bset	#0,obStatus(a0)				; set the X flip bit so we are facing right
-		bclr	#7,obStatus(a0)				; clear the defeated flag 
+		bclr	#7,obStatus(a0)				; clear the defeated flag
 		clr.w	obVelX(a0)				; stop horizontal movement
 		move.b	#-24,BossStarLight_GenericTimer(a0)	; set a timer for 24 frames
 		tst.b	(v_bossstatus).w			; has boss been marked as defeated?
@@ -340,7 +343,7 @@ BSLZ_Recover:
 		beq.s	.doneFalling				; if the timer has hit 0, branch here
 		bpl.s	.timerPositive				; if the timer has hit a positive value, branch here
 		addi.w	#$18,obVelY(a0)				; make Eggman fall a little faster
-		bra.s	.exit					
+		bra.s	.exit
 ; ===========================================================================
 
 ; loc_18B90:
@@ -357,7 +360,7 @@ BSLZ_Recover:
 		cmpi.b	#42,BossStarLight_GenericTimer(a0)	; is the timer below 42?
 		blo.s	.exit					; if yes, come back later (we are still going to recover)
 		addq.b	#2,ob2ndRout(a0)			; increment routine to Escape
-		bra.s	.exit					
+		bra.s	.exit
 ; ===========================================================================
 
 ; loc_18BAE:
@@ -451,7 +454,7 @@ BossStarLight_FaceMain:	; Routine 4
 
 BossStarLight_FlameMain:; Routine 6
 		move.b	#8,obAnim(a0)				; set animation state to 8
-		movea.l	BossStarLight_ParentObj(a0),a1		; load main boss controller 
+		movea.l	BossStarLight_ParentObj(a0),a1		; load main boss controller
 		cmpi.b	#$A,ob2ndRout(a1)			; are we currently in Escape state?
 		bne.s	.checkMove				; if not, branch
 		tst.b	obRender(a0)				; has the flame left the screen?
@@ -475,7 +478,7 @@ BossStarLight_Animate:
 
 ; loc_18C78:
 BossStarLight_Display:
-		movea.l	BossStarLight_ParentObj(a0),a1 		; load main boss controller 
+		movea.l	BossStarLight_ParentObj(a0),a1 		; load main boss controller
 		move.w	obX(a1),obX(a0)				; move positions to rendered positions of boss
 		move.w	obY(a1),obY(a0)
 		move.b	obStatus(a1),obStatus(a0)		; move object status to boss object status
@@ -523,6 +526,10 @@ BossSpikeball_Index:
 		dc.w BossSpikeball_MoveFrag-BossSpikeball_Index
 ; ===========================================================================
 
+BossSpikeball_SeesawY:		equ objoff_34			; offset to store seesaw Y
+BossSpikeball_SeesawPtr:	equ objoff_3C			; offset used to keep a pointer of the seesaw that the ball is tied to
+
+
 BossSpikeball_Main:	; Routine 0
 		move.l	#Map_SSawBall,obMap(a0)			; load mappings and art
 		move.w	#ArtTile_Eggman_Spikeball,obGfx(a0)
@@ -531,15 +538,15 @@ BossSpikeball_Main:	; Routine 0
 		move.b	#4,obPriority(a0)			; set render priority (on the lower side)
 		move.b	#col_16x16|col_hurt,obColType(a0)	; set collision type
 		move.b	#24/2,obActWid(a0)			; set radius of object in pixels (used for hiding sprites when off-screen)
-		movea.l	BossStarLight_GenericTimer(a0),a1	; copy offset address, a1 now contains the seesaw that this ball is tied to
+		movea.l	BossSpikeball_SeesawPtr(a0),a1		; copy offset address, a1 now contains the seesaw that this ball is tied to
 		move.w	obX(a1),obBossX(a0)			; copy seesaw X to ball's base X
-		move.w	obY(a1),BossStarLight_ParentObj(a0)	; store seesaw Y (repurposed offset)
+		move.w	obY(a1),BossSpikeball_SeesawY(a0)	; store seesaw Y
 		bset	#0,obStatus(a0)				; flip ball on horizontal axis
 		move.w	obX(a0),d0				; copy ball's X
 		cmp.w	obX(a1),d0				; is the ball's X greater than the seesaw's X?
 		bgt.s	.skip					; if yes, branch
 		bclr	#0,obStatus(a0)				; no, so remove flip
-		move.b	#2,obSeesawSide(a0)			; set XXXXX to 2
+		move.b	#2,BossStarLight_SeesawSide(a0)		; set XXXXX to 2
 
 ; loc_18D68:
 .skip:
@@ -547,10 +554,10 @@ BossSpikeball_Main:	; Routine 0
 
 BossSpikeball_Fall:	; Routine 2
 		jsr	(ObjectFall).l
-		movea.l	BossStarLight_GenericTimer(a0),a1	; copy offset address, a1 now contains the seesaw that this ball is tied to
+		movea.l	BossSpikeball_SeesawPtr(a0),a1		; copy offset address, a1 now contains the seesaw that this ball is tied to
 		lea	(BossSpikeball_SeesawYOffset).l,a2	; load table for calculating what part of seesaw is pointing up/down
-		moveq	#0,d0			
-		move.b	obFrame(a1),d0				; move current seesaw frame into d0		
+		moveq	#0,d0
+		move.b	obFrame(a1),d0				; move current seesaw frame into d0
 		move.w	obX(a0),d1				; move spikeball x position into d1
 		sub.w	obBossX(a0),d1				; subtract boss position from spikeball x, creating an offset
 		bcc.s	.calculateOffset			; if the ball is at or to the right of the target, branch
@@ -559,22 +566,22 @@ BossSpikeball_Fall:	; Routine 2
 ; loc_18D8E:
 .calculateOffset:
 		add.w	d0,d0					; add to create word-based index into the table
-		move.w	BossStarLight_ParentObj(a0),d1		; copy Y value originally stored at this offset
+		move.w	BossSpikeball_SeesawY(a0),d1		; copy Y value originally stored at this offset
 		add.w	(a2,d0.w),d1				; calculate table offset using word-based index and store
 		cmp.w	obY(a0),d1				; has the spikeball reached the seesaw?
 		bgt.s	.exit					; if not, branch and come back later
-		movea.l	BossStarLight_GenericTimer(a0),a1	; copy offset address, a1 now contains the seesaw that this ball is tied to
-		moveq	#2,d1					
+		movea.l	BossSpikeball_SeesawPtr(a0),a1		; copy offset address, a1 now contains the seesaw that this ball is tied to
+		moveq	#2,d1
 		btst	#0,obStatus(a0)				; are we horizontally flipped (facing the right?)
 		beq.s	.landed					; if so, branch
-		moveq	#0,d1					
+		moveq	#0,d1
 
 ; loc_18DAE:
 .landed:
 		move.w	#240,obSubtype(a0)			; initialize timer for ball countdown, obSubtype offset from here and below is now a timer
 		move.b	#10,obDelayAni(a0)			; set frame duration to 10 frames for ball flicker
-		move.b	obDelayAni(a0),obTimeFrame(a0)		; copy 
-		bra.w	BossSpikeball_LaunchSonic				
+		move.b	obDelayAni(a0),obTimeFrame(a0)		; copy
+		bra.w	BossSpikeball_LaunchSonic
 ; ===========================================================================
 
 ; locret_18DC4:
@@ -584,10 +591,10 @@ BossSpikeball_Fall:	; Routine 2
 
 ; loc_18DC6:
 BossSpikeball_Bounce: ; Routine 4
-		movea.l	BossStarLight_GenericTimer(a0),a1	; copy offset address, a1 now contains the seesaw that this ball is tied to
-		moveq	#0,d0					
-		move.b	obSeesawSide(a0),d0			; move spike ball's side value
-		sub.b	obSeesawSide(a1),d0			; subtract seesaw's side value with spike ball's value
+		movea.l	BossSpikeball_SeesawPtr(a0),a1		; copy offset address, a1 now contains the seesaw that this ball is tied to
+		moveq	#0,d0
+		move.b	BossStarLight_SeesawSide(a0),d0		; move spike ball's side value
+		sub.b	BossStarLight_SeesawSide(a1),d0		; subtract seesaw's side value with spike ball's value
 		beq.s	BossSpikeball_CalcPos			; if equal, the ball hasn't left the saw, so branch
 		bcc.s	.calcLaunch				; if no carry (2-0), the ball has been launched, so branch
 		neg.b	d0					; ball was on opposite side but has been launched, so negate, this is just calculating absolute value
@@ -637,7 +644,7 @@ BossSpikeball_CalcPos:
 ; loc_18E48:
 .setPos:
 		add.w	d0,d0					; add to create word-based index into the table
-		move.w	BossStarLight_ParentObj(a0),d1		; copy seesaw Y position
+		move.w	BossSpikeball_SeesawY(a0),d1		; copy seesaw Y position
 		add.w	(a2,d0.w),d1				; index into the table using calculated offset and Y position of seesaw
 		move.w	d1,obY(a0)				; set ball position based on seesaw index calculated
 		add.w	obBossX(a0),d2				; add seesaw position plus 40 pixel offset
@@ -716,7 +723,7 @@ BossSpikeball_CheckCollision:
 
 ; check left side of Eggman's collision box in comparison to right side of ball
 
-		move.b	(a2)+,d4				; copy first value into d4 (LEFT side of Eggman's hitbox) and increment address 
+		move.b	(a2)+,d4				; copy first value into d4 (LEFT side of Eggman's hitbox) and increment address
 		ext.w	d4					; sign extend into a word (due to hitboxes being byte sized, must be extended to prevent pixel boundary overflows in level)
 		add.w	d4,d0					; add left side hitbox with X position of boss
 		move.b	(a3)+,d4				; copy first value into d4 (RIGHT side of ball hitbox) and increment address
@@ -727,7 +734,7 @@ BossSpikeball_CheckCollision:
 
 ; check left side of ball's collision box in comparison to right side of Eggman
 
-		move.b	(a2)+,d4				; copy second value into d4 (RIGHT side of Eggman's hitbox) and increment address	
+		move.b	(a2)+,d4				; copy second value into d4 (RIGHT side of Eggman's hitbox) and increment address
 		ext.w	d4					; sign extend into a word
 		add.w	d4,d0					; add right side hitbox with X position of boss
 		move.b	(a3)+,d4				; copy second value into d4 (LEFT side of ball hitbox) and increment address
@@ -738,21 +745,21 @@ BossSpikeball_CheckCollision:
 
 ; check top side of Eggman's collision box in comparison to bottom side of ball
 
-		move.b	(a2)+,d4				; copy third value into d4 (TOP side of Eggman's hitbox) and increment address	
+		move.b	(a2)+,d4				; copy third value into d4 (TOP side of Eggman's hitbox) and increment address
 		ext.w	d4					; sign extend into a word
 		add.w	d4,d1					; add top side hitbox with Y position of Eggman
-		move.b	(a3)+,d4				; copy third value into d4 (BOTTOM side of ball's hitbox) and increment address	
+		move.b	(a3)+,d4				; copy third value into d4 (BOTTOM side of ball's hitbox) and increment address
 		ext.w	d4					; sign extend into a word
 		add.w	d4,d3					; add bottom side hitbox with Y position of ball
 		cmp.w	d1,d3					; is the top side of Eggman colliding with the bottom side of the ball?
 		blo.s	.checkPhysics				; if not, branch
-		
-; check top side of ball's collision box in comparison to bottom side of Eggman		
 
-		move.b	(a2)+,d4				; copy fourth value into d4 (BOTTOM side of Eggman's hitbox) and increment address	
+; check top side of ball's collision box in comparison to bottom side of Eggman
+
+		move.b	(a2)+,d4				; copy fourth value into d4 (BOTTOM side of Eggman's hitbox) and increment address
 		ext.w	d4					; sign extend into a word
 		add.w	d4,d1					; add bottom side hitbox with Y position of Eggman
-		move.b	(a3)+,d4				; copy fourth value into d4 (TOP side of ball's hitbox) and increment address	
+		move.b	(a3)+,d4				; copy fourth value into d4 (TOP side of ball's hitbox) and increment address
 		ext.w	d4					; sign extend into a word
 		add.w	d4,d3					; add top side hitbox with Y position of ball
 		cmp.w	d3,d1					; is the top side of the ball colliding with the bottom side of Eggman?
@@ -771,8 +778,8 @@ BossSpikeball_CheckCollision:
 BossSpikeball_CheckCollision.checkPhysics: ; asm68k compatibility
 		tst.w	obVelY(a0)				; is the ball currently falling?
 		bpl.s	BossSpikeball_FallingDown		; if yes, branch
-		jsr	(ObjectFall).l				
-		move.w	BossStarLight_ParentObj(a0),d0		; copy seesaw Y
+		jsr	(ObjectFall).l
+		move.w	BossSpikeball_SeesawY(a0),d0		; copy seesaw Y
 		subi.w	#$2F,d0					; subtract 47 pixels
 		cmp.w	obY(a0),d0				; is the ball resting on the seesaw?
 		bgt.s	BossSpikeball_Land			; if not, branch
@@ -785,7 +792,7 @@ BossSpikeball_Land:
 ; loc_18F5C:
 BossSpikeball_FallingDown:
 		jsr	(ObjectFall).l
-		movea.l	BossStarLight_GenericTimer(a0),a1	; copy offset address, a1 now contains the seesaw that this ball is tied to
+		movea.l	BossSpikeball_SeesawPtr(a0),a1		; copy offset address, a1 now contains the seesaw that this ball is tied to
 		lea	(BossSpikeball_SeesawYOffset).l,a2	; load seesaw Y offset table
 		moveq	#0,d0
 		move.b	obFrame(a1),d0				; copy seesaw frame
@@ -797,11 +804,11 @@ BossSpikeball_FallingDown:
 ; loc_18F7E:
 .checkSawCol:
 		add.w	d0,d0					; add to create word-based index into the table
-		move.w	BossStarLight_ParentObj(a0),d1		; copy seesaw Y
+		move.w	BossSpikeball_SeesawY(a0),d1		; copy seesaw Y
 		add.w	(a2,d0.w),d1				; index into the table using calculated offset and Y position of seesaw
-		cmp.w	obY(a0),d1				; has the spikeball reached the seesaw?	
+		cmp.w	obY(a0),d1				; has the spikeball reached the seesaw?
 		bgt.s	BossSpikeball_Land			; if not, branch and come back later
-		movea.l	BossStarLight_GenericTimer(a0),a1	; copy offset address, a1 now contains the seesaw that this ball is tied to
+		movea.l	BossSpikeball_SeesawPtr(a0),a1		; copy offset address, a1 now contains the seesaw that this ball is tied to
 		moveq	#2,d1
 		tst.w	obVelX(a0)				; is the ball currently moving to the left?
 		bmi.s	.setExplode				; if yes, branch
@@ -813,13 +820,13 @@ BossSpikeball_FallingDown:
 
 ; loc_18FA2l:
 BossSpikeball_LaunchSonic:
-		move.b	d1,obSeesawSide(a1)			; tell seesaw what side ball is on
-		move.b	d1,obSeesawSide(a0)			; update ball
+		move.b	d1,BossStarLight_SeesawSide(a1)		; tell seesaw what side ball is on
+		move.b	d1,BossStarLight_SeesawSide(a0)		; update ball
 		cmp.b	obFrame(a1),d1				; is the seesaw already pushed down?
 		beq.s	.noLaunch				; if yes, seesaw can't flip, so skip
 		bclr	#3,obStatus(a1)				; is Sonic currently standing on the seesaw?
 		beq.s	.noLaunch				; if not, branch (Z flag was set to 0 because bit 3 was already 0!)
-		clr.b	ob2ndRout(a1)				
+		clr.b	ob2ndRout(a1)
 		move.b	#2,obRoutine(a1)			; change seesaw routine state to 2
 		lea	(v_player).w,a2				; load Sonic's object RAM
 		move.w	obVelY(a0),obVelY(a2)			; copy falling ball's velocity to Sonic's velocity
@@ -838,7 +845,7 @@ BossSpikeball_LaunchSonic:
 		jsr	(Sonic_ChkRoll).l			; check roll, Sonic must be in a0 for this
 		movea.l	(sp)+,a0				; restore a0 and increment the stack
 		move.b	#2,obRoutine(a2)			; set Sonic's routine state to airbourne control
-		move.w	#sfx_Spring,d0				
+		move.w	#sfx_Spring,d0
 		jsr	(QueueSound2).l				; play "spring" sound
 
 ; loc_19008:
@@ -873,14 +880,14 @@ BossSpikeball_BallHitbox:
 
 BossSpikeball_Explode:	; Routine 8
 		move.b	#id_Explosion,obID(a0)		; set object ID of ball to explosion
-		clr.b	obRoutine(a0)			; clear routine counter to 0 
+		clr.b	obRoutine(a0)			; clear routine counter to 0
 		cmpi.w	#32,obSubtype(a0)		; is this the first explosion frame?
 		beq.s	BossSpikeball_MakeFrag		; if yes, branch
 		rts
 ; ===========================================================================
 
 BossSpikeball_MakeFrag:
-		move.w	BossStarLight_ParentObj(a0),obY(a0)
+		move.w	BossSpikeball_SeesawY(a0),obY(a0)
 		moveq	#3,d1				; set up loop to loop 4 times
 		lea	BossSpikeball_FragSpeed(pc),a2
 
@@ -917,7 +924,7 @@ BossSpikeball_FragSpeed:
 BossSpikeball_MoveFrag:	; Routine $A
 		jsr	(SpeedToPos).l			; add calculated velocity values to X and Y
 		move.w	obX(a0),obBossX(a0)		; copy X and Y positions
-		move.w	obY(a0),BossStarLight_ParentObj(a0)
+		move.w	obY(a0),BossSpikeball_SeesawY(a0)
 		addi.w	#$18,obVelY(a0)			; start pulling the fragments downwards
 		moveq	#4,d0				; set up to use the third bit
 		and.w	(v_vblank_word).w,d0		; AND with the global vblank frame counter to get the status of the 3rd bit AKA every 4 frames

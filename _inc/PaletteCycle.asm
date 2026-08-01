@@ -142,7 +142,7 @@ PalCycle_LZ:
 		rts						; return
 ; End of function PalCycle_LZ
 
-; ---------------------------------------------------------------------------	
+; ---------------------------------------------------------------------------
 PCycLZ_ConveyorSequence:
 		; 0 = skip cycle this frame // 1 = advance cycle this frame
 		dc.b 1,	0, 0, 1, 0, 0, 1, 0

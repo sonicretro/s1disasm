@@ -159,7 +159,7 @@ Bas_Action_BackToCeiling:
 		bpl.s	.return					; if not, branch
 		sub.w	d1,obY(a0)				; align Basaran with ceiling
 
-		andi.w	#$FFF8,obX(a0)				; snap horizontal position to nearest multiple of 8px 
+		andi.w	#$FFF8,obX(a0)				; snap horizontal position to nearest multiple of 8px
 		clr.w	obVelX(a0)				; stop Basaran moving horizontally
 		clr.w	obVelY(a0)				; stop Basaran moving vertically
 		clr.b	obAnim(a0)				; set to "hanging from ceiling" animation
@@ -189,7 +189,7 @@ Bas_CheckDistanceAndFaceSonic:
 		sub.w	obX(a0),d0				; calculate X-difference
 		bhs.s	.checkDistance				; if Sonic is left of Basaran, branch
 		neg.w	d0					; make X-difference positive for check
-		neg.w	d1					; move Basaran to the left instead 
+		neg.w	d1					; move Basaran to the left instead
 		bclr	#0,obStatus(a0)				; make face left
 
 	.checkDistance:

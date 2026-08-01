@@ -477,7 +477,7 @@ KillSonic:
 	if FixBugs
 		; Stop timer as soon as death is triggered to prevent double deaths from time overs
 		clr.b	(f_timecount).w				; stop time counter
-		
+
 		; Fix harpoon object's death sound
 		move.w	#sfx_HitSpikes,d0			; play spikes death sound
 		cmpi.b	#id_Spikes,obID(a2)			; check if you were killed by spikes

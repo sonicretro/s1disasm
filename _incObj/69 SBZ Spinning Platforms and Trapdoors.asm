@@ -31,7 +31,7 @@ Spin_Main:	; Routine 0
 		move.b	#256/2,obActWid(a0)			; set sprite display width (too large)
 	endif
 
-		moveq	#0,d0					; clear d0 
+		moveq	#0,d0					; clear d0
 		move.b	obSubtype(a0),d0			; get object subtype
 		andi.w	#$0F,d0					; read only the lower digit
 		mulu.w	#60,d0					; multiply by 60 frames (1 second)

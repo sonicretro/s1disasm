@@ -15,6 +15,7 @@ Gar_Index:	dc.w Gar_Main-Gar_Index
 		dc.w Gar_FireBall-Gar_Index
 		dc.w Gar_AniFire-Gar_Index
 ; ===========================================================================
+
 Gar_SpitRate:	dc.b 30, 60, 90, 120, 150, 180, 210, 240
 ; ===========================================================================
 
@@ -79,7 +80,7 @@ Gar_FireBall:	; Routine 4
 Gar_AniFire:	; Routine 6
 		move.b	(v_framebyte).w,d0			; get current VBlank frame counter byte
 		andi.b	#7,d0					; limit to 0-7
-		bne.s	.moveAndCheckWall				; only change fireball frame every 8th frame
+		bne.s	.moveAndCheckWall			; only change fireball frame every 8th frame
 		bchg	#0,obFrame(a0)				; alternate between fireball frame 1 and 2
 
 .moveAndCheckWall:

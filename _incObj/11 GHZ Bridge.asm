@@ -270,7 +270,7 @@ Bri_Bend:
 		move.w	d3,d2					; backup result
 		lsl.w	#4,d3					; multiply by $10 bytes per data row
 		lea	(a4,d3.w),a3				; load row in Bri_Data_Align
-		adda.w	d2,a3					; advance to first right-side log inside data row 
+		adda.w	d2,a3					; advance to first right-side log inside data row
 		subq.w	#1,d2					; undo earlier +1 for dbf
 		bcs.s	.return					; if underflowed, Sonic is already standing on the rightmost log
 

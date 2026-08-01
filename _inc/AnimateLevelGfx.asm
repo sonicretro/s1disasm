@@ -44,7 +44,7 @@ AniArt_GHZ_Waterfall:
 		.size:	= 8					; number of tiles per frame
 
 		subq.b	#1,(v_lani0_time).w			; decrement timer
-		bpl.s	AniArt_GHZ_Bigflower			; if time remains, branch 
+		bpl.s	AniArt_GHZ_Bigflower			; if time remains, branch
 
 		move.b	#6-1,(v_lani0_time).w			; time to display each frame
 		lea	(Art_GhzWater).l,a1			; load waterfall patterns
@@ -146,7 +146,7 @@ AniArt_MZ_Lava:
 AniArt_MZ_Magma:
 		subq.b	#1,(v_lani1_time).w			; decrement timer
 		bpl.s	AniArt_MZ_Torch				; if time remains, branch
-		
+
 		move.b	#2-1,(v_lani1_time).w			; time between each gfx change
 		moveq	#0,d0					; clear d0
 		move.b	(v_lani0_frame).w,d0			; get surface lava frame number
@@ -180,7 +180,7 @@ AniArt_MZ_Torch:
 
 		subq.b	#1,(v_lani2_time).w			; decrement timer
 		bpl.w	.return					; if time remains, branch
-		
+
 		move.b	#8-1,(v_lani2_time).w			; time to display each frame
 		lea	(Art_MzTorch).l,a1			; load torch patterns
 		moveq	#0,d0					; clear d0
@@ -212,7 +212,7 @@ AniArt_SBZ_Pollution:
 .check_smokePuff1:
 		tst.b	(v_lani2_frame).w			; check primary smokepuff timer
 		beq.s	.smokePuff1				; branch if counter hit 0
-		
+
 		subq.b	#1,(v_lani2_frame).w			; decrement counter
 		bra.s	.check_smokePuff2			; check secondary smoke puff
 ; ---------------------------------------------------------------------------
@@ -220,7 +220,7 @@ AniArt_SBZ_Pollution:
 	.smokePuff1:
 		subq.b	#1,(v_lani0_time).w			; decrement timer
 		bpl.s	.check_smokePuff2			; if time remains, branch
-		
+
 		move.b	#8-1,(v_lani0_time).w			; time to display each frame
 		lea	(Art_SbzSmoke).l,a1			; load smoke patterns
 		locVRAM	ArtTile_SBZ_Smoke_Puff_1*tile_size	; VRAM address
@@ -252,7 +252,7 @@ AniArt_SBZ_Pollution:
 .check_smokePuff2:
 		tst.b	(v_lani2_time).w			; check secondary smokepuff timer
 		beq.s	.smokePuff2				; branch if counter hits 0
-		
+
 		subq.b	#1,(v_lani2_time).w			; decrement counter
 		bra.s	.return					; exit
 ; ---------------------------------------------------------------------------
@@ -260,7 +260,7 @@ AniArt_SBZ_Pollution:
 	.smokePuff2:
 		subq.b	#1,(v_lani1_time).w			; decrement timer
 		bpl.s	.return					; if time remains, branch
-		
+
 		move.b	#8-1,(v_lani1_time).w			; time to display each frame
 		lea	(Art_SbzSmoke).l,a1			; load smoke patterns
 		locVRAM	ArtTile_SBZ_Smoke_Puff_2*tile_size	; VRAM address
@@ -298,7 +298,7 @@ AniArt_Ending_BigFlower:
 
 		subq.b	#1,(v_lani1_time).w			; decrement timer
 		bpl.s	AniArt_Ending_SmallFlower		; if time remains, branch
-		
+
 		move.b	#8-1,(v_lani1_time).w			; time to display each frame
 		lea	(Art_GhzFlower1).l,a1			; load big flower patterns
 		lea	(v_256x256_def+$4A*chunk_size).w,a2	; load 2nd big flower from RAM (overwriting unused chunk RAM)
@@ -324,7 +324,7 @@ AniArt_Ending_SmallFlower:
 
 		subq.b	#1,(v_lani2_time).w			; decrement timer
 		bpl.s	AniArt_Ending_Flower3			; if time remains, branch
-		
+
 		move.b	#8-1,(v_lani2_time).w			; time to display each frame
 		move.b	(v_lani2_frame).w,d0			; get current frame ID3
 		addq.b	#1,(v_lani2_frame).w			; increment frame counter
@@ -349,7 +349,7 @@ AniArt_Ending_Flower3:
 
 		subq.b	#1,(v_lani4_time).w			; decrement timer
 		bpl.s	AniArt_Ending_Flower4			; if time remains, branch
-		
+
 		move.b	#15-1,(v_lani4_time).w			; time to display each frame
 		move.b	(v_lani4_frame).w,d0			; get current frame ID
 		addq.b	#1,(v_lani4_frame).w			; increment frame counter
@@ -373,7 +373,7 @@ AniArt_Ending_Flower4:
 
 		subq.b	#1,(v_lani5_time).w			; decrement timer
 		bpl.s	.return					; if time remains, branch
-		
+
 		move.b	#12-1,(v_lani5_time).w			; time to display each frame
 		move.b	(v_lani5_frame).w,d0			; get current frame ID
 		addq.b	#1,(v_lani5_frame).w			; increment frame counter

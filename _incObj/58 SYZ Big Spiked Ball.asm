@@ -12,8 +12,8 @@ BigSpikeBall:
 BBall_Index:	dc.w BBall_Main-BBall_Index
 		dc.w BBall_Move-BBall_Index
 
-bball_origX:	equ objoff_3A		; original x-axis position
 bball_origY:	equ objoff_38		; original y-axis position
+bball_origX:	equ objoff_3A		; original x-axis position
 bball_radius:	equ objoff_3C		; radius of circle (subtype $x3 only)
 bball_speed:	equ objoff_3E		; rotation speed (subtype $x3 only)
 ; ===========================================================================

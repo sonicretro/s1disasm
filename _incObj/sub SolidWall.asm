@@ -37,7 +37,7 @@ EdgeWall_SolidWall:
 		bne.s	.air					; if yes, branch
 		bset	#5,obStatus(a1)				; make Sonic push object
 		bset	#5,obStatus(a0)				; make object be pushed
-		rts	
+		rts
 ; ===========================================================================
 
 .no_collision:
@@ -53,7 +53,7 @@ EdgeWall_SolidWall:
 		bclr	#5,obStatus(a1)				; clear Sonic's pushing flag
 
 	.exit:
-		rts	
+		rts
 ; ===========================================================================
 
 .topbottom:
@@ -117,12 +117,12 @@ EdgeWall_ChkCollision:
 		cmp.w	d1,d5
 		bhi.s	Edge_TopBottom
 		moveq	#1,d4					; return side collision
-		rts	
+		rts
 ; ===========================================================================
 
 Edge_TopBottom:
 		moveq	#-1,d4					; return top/bottom collision
-		rts	
+		rts
 ; ===========================================================================
 
 Edge_Ignore:

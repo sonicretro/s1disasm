@@ -98,7 +98,7 @@ Smab_Solid:	; Routine 2
 
 		lsr.w	#1,d2					; make item bonus multiples of 1 again for frame ID
 		move.b	d2,obFrame(a1)				; set frame ID for floating points object
-		
+
 		; continue to Smab_Fragment (root object has been converted to first fragment)...
 ; ---------------------------------------------------------------------------
 

@@ -9,10 +9,10 @@ Prison:
 		move.w	Pri_Index(pc,d0.w),d1
 		jsr	Pri_Index(pc,d1.w)
 
-		out_of_range.s	.delete			; is capsule offscreen? if yes, branch
-		jmp	(DisplaySprite).l		; display capsule
+		out_of_range.s	.delete				; is capsule offscreen? if yes, branch
+		jmp	(DisplaySprite).l			; display capsule
 	.delete:
-		jmp	(DeleteObject).l		; delete capsule
+		jmp	(DeleteObject).l			; delete capsule
 ; ===========================================================================
 Pri_Index:	dc.w Pri_Main-Pri_Index		; 0
 		dc.w Pri_BodyMain-Pri_Index	; 2
@@ -160,7 +160,7 @@ Pri_SpawnAnimals:
 		move.w	d5,animal_prisondelay(a1)		; set hop-out delay for this animal
 		subq.w	#8,d5					; decrement hop-out delay for next animal
 		dbf	d6,.loop				; repeat 7 more times
-	
+
 	.return:
 		rts						; return
 ; ===========================================================================

@@ -150,7 +150,7 @@ Plat_TypeIndex:	dc.w Plat_Stationary-Plat_TypeIndex		; 0
 		dc.w Plat_UpDown_Slow-Plat_TypeIndex		; C
 ; ===========================================================================
 
-; Type 0 - stationary
+; Type 0/9 - stationary
 Plat_Stationary:
 		rts						; platform 00 doesn't move
 ; ===========================================================================
@@ -246,7 +246,7 @@ Plat_FallingDown:
 		bne.s	.fallingDown				; if time remains, branch
 		btst	#3,obStatus(a0)				; was Sonic still on platform as timer expired?
 		beq.s	.notOnPlatform				; if not, branch
-		
+
 		; Note: a1 was set to v_player when calling ExitPlatform earlier
 		bset	#1,obStatus(a1)				; set Sonic in-air
 		bclr	#3,obStatus(a1)				; clear Sonic's on-platform flag
@@ -314,6 +314,7 @@ Plat_Rising:
 		rts						; return
 ; ===========================================================================
 
+; Type A - moving down and up continuously (large platforms in GHZ act 2)
 Plat_DownUp_LargeGHZ2:
 		move.w	plat_origY(a0),d0			; get initial platform Y-position
 		move.b	obAngle(a0),d1				; load platform-motion variable
@@ -323,7 +324,6 @@ Plat_DownUp_LargeGHZ2:
 		add.w	d1,d0					; add motion variable to initial Y-position
 		move.w	d0,plat_rawY(a0)			; update platform's Y-position
 ; ---------------------------------------------------------------------------
-
 
 Plat_ChangeMotion:
 		move.b	(v_oscillate+$1A).w,obAngle(a0)		; update platform-movement variable (frequency 8, middle value $40)

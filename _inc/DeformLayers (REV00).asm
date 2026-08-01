@@ -6,7 +6,7 @@
 DeformLayers:
 		tst.b	(f_nobgscroll).w			; is scrolling disabled?
 		beq.s	.bgscroll				; if not, branch
-		rts	
+		rts
 ; ===========================================================================
 
 	.bgscroll:
@@ -153,7 +153,7 @@ Deform_LZ:
 		neg.w	d0
 
 	.loop_hscroll:
-		move.l	d0,(a1)+			; write to v_hscrolltablebuffer
+		move.l	d0,(a1)+				; write to v_hscrolltablebuffer
 		dbf	d1,.loop_hscroll
 		move.w	(v_waterpos1).w,d0
 		sub.w	(v_screenposy).w,d0
@@ -176,7 +176,7 @@ Deform_MZ:
 
 		moveq	#0,d5
 		bsr.w	BGScroll_XY
-		
+
 		; calculate y position of background
 		move.w	#512,d0					; start with 512px, ignoring 2 chunks
 		move.w	(v_screenposy).w,d1
@@ -257,7 +257,7 @@ BGScroll_X:
 		move.w	(a2)+,d0				; get subsequent value from bg scroll buffer
 	.skip_rows:
 	rept 16
-		move.l	d0,(a1)+			; write 16 fg/bg values to v_hscrolltablebuffer
+		move.l	d0,(a1)+				; write 16 fg/bg values to v_hscrolltablebuffer
 	endr
 		dbf	d1,.loop_hscroll
 		rts
@@ -281,7 +281,7 @@ Deform_SLZ_2:
 		moveq	#0,d3
 		move.w	d2,d3
 		move.w	#28-1,d1
-	.starLoop:		
+	.starLoop:
 		move.w	d3,(a1)+
 		swap	d3
 		add.l	d0,d3
@@ -319,9 +319,9 @@ Deform_SLZ_2:
 
 Deform_SYZ:
 		; vertical scrolling
-		move.w	(v_scrshiftx).w,d4		; get camera x pos change since last frame
+		move.w	(v_scrshiftx).w,d4			; get camera x pos change since last frame
 		ext.l	d4
-		asl.l	#6,d4				; multiply by $40
+		asl.l	#6,d4					; multiply by $40
 		move.w	(v_scrshifty).w,d5			; get camera y pos change since last frame
 		ext.l	d5
 		asl.l	#4,d5
@@ -354,7 +354,7 @@ Deform_SYZ:
 Deform_SBZ:
 		; plain background deformation
 		move.w	(v_scrshiftx).w,d4
-		ext.l	d4		
+		ext.l	d4
 		asl.l	#6,d4
 		move.w	(v_scrshifty).w,d5
 		ext.l	d5
@@ -371,7 +371,7 @@ Deform_SBZ:
 		swap	d0
 		move.w	(v_bgscreenposx).w,d0
 		neg.w	d0
-	.loop_hscroll:		
+	.loop_hscroll:
 		move.l	d0,(a1)+
 		dbf	d1,.loop_hscroll
 		rts
@@ -405,7 +405,7 @@ BGScroll_XY:
 		andi.w	#$10,d1
 		move.b	(v_bg1_xblock).w,d3
 		eor.b	d3,d1
-		bne.s	BGScroll_YRelative				; insufficient change to redraw bg
+		bne.s	BGScroll_YRelative			; insufficient change to redraw bg
 		eori.b	#$10,(v_bg1_xblock).w
 		sub.l	d2,d0					; new bg pos minus old
 		bpl.s	.redraw_right				; branch if positive (i.e. moving right)

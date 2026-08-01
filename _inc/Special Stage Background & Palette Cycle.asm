@@ -1,3 +1,4 @@
+; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Special stage	background mappings loading subroutine
 ; ---------------------------------------------------------------------------
@@ -59,7 +60,7 @@ SS_BGLoad:
 	.vdp_ok:
 		adda.w	#ssbg_animalsize*ssbg_animalsize*2,a2	; read from next tilemap
 		dbf	d7,.loop_canvas				; repeat for all canvases
-		
+
 	; --- Load mappings for the bubbles and clouds ---
 		lea	(v_ram_start).l,a1
 		lea	(Eni_SSBg2).l,a0			; load mappings for clouds/bubbles
@@ -132,7 +133,7 @@ PalCycle_SS:
 		move.l	(a1)+,(a2)+				; write palette
 
 	.exit:
-		rts	
+		rts
 ; ===========================================================================
 
 PalCycle_SS_2:	; usepalcycle2 flag set
@@ -282,7 +283,7 @@ SS_BGWobbleLoop:
 		ext.w	d2
 		add.w	d2,(a3)+				; add to 2nd word of buffer
 		dbf	d3,SS_BGWobbleLoop
-		
+
 		lea	(v_ss_scroll_bubbles).w,a3
 		lea	(SS_Bubble_ScrollBlocks).l,a2
 		bra.s	SS_Scroll_CloudsBubbles

@@ -12,8 +12,8 @@ FlapDoor:
 Flap_Index:	dc.w Flap_Main-Flap_Index
 		dc.w Flap_OpenClose-Flap_Index
 
-flap_time:	equ objoff_32		; time between opening/closing
 flap_wait:	equ objoff_30		; time until change (in multiples of 60 frames)
+flap_time:	equ objoff_32		; time between opening/closing
 ; ===========================================================================
 
 Flap_Main:	; Routine 0

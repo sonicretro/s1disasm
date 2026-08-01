@@ -124,7 +124,7 @@ See_ChgFrame:	; Called from the spikeball to change seesaw tilt without Sonic
 
 	.setNewSeeFrame:
 		subq.b	#1,d0					; make frames 0-based
-		move.b	d0,obFrame(a0)				; set new seesaw frame 
+		move.b	d0,obFrame(a0)				; set new seesaw frame
 		move.b	d1,see_state_see(a0)			; update seesaw state (0/1/2)
 		bclr	#sprite_xflip_bit,obRender(a0)		; make seesaw descending by default
 		btst	#1,obFrame(a0)				; is Sonic standing on the left side of the seesaw?

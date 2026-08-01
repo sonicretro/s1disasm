@@ -53,6 +53,7 @@ Elec_Shock:	; Routine 2
 
 	.display:
 		bra.w	RememberState				; display sprite or delete if offscreen
+
 ; ===========================================================================
 
 		include	"_anim/Electrocuter.asm"

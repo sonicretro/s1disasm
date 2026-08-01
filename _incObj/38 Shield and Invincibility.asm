@@ -1,3 +1,4 @@
+; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 38 - shield and invincibility stars
 ; ---------------------------------------------------------------------------
@@ -107,5 +108,5 @@ Shi_Stars:	; Routine 4
 		jmp	(DisplaySprite).l			; keep displaying stars
 ; ===========================================================================
 
-Shi_Start_Delete:	
+Shi_Start_Delete:
 		jmp	(DeleteObject).l			; delete invincibility stars object

@@ -387,7 +387,7 @@ LZWindTunnels:
 		move.b	#1,(f_wtunnelmode).w			; set flag that Sonic is in a wind tunnel
 
 	if FixBugs
-		; d0 was overwritten earlier but here it's used as if it wasn't!		
+		; d0 was overwritten earlier but here it's used as if it wasn't!
 		; Luckily, the upper byte of Sonic's X-position remains mostly in d0,
 		; so the routine luckily still mostly works out of sheer, dumb luck.
 		move.w	obX(a1),d0				; get Sonic's current X-position again

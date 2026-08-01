@@ -14,11 +14,11 @@ Jun_Index:	dc.w Jun_Main-Jun_Index
 		dc.w Jun_Display-Jun_Index
 		dc.w Jun_Inside-Jun_Index
 
+jun_unused:	equ objoff_30		; (set to 60, but unused)
+jun_grabframe:	equ objoff_32		; frame ID that triggered Sonic getting grabbed by junction
 jun_direction:	equ objoff_34		; current rotation direction (1 = clockwise, -1 = counterclockwise)
 jun_switchdown:	equ objoff_36		; flag set while reversal switch is pressed down by Sonic
 jun_switchid:	equ objoff_38		; which switch ID will reverse the disc
-jun_unused:	equ objoff_30		; (set to 60, but unused)
-jun_grabframe:	equ objoff_32		; frame ID that triggered Sonic getting grabbed by junction
 ; ===========================================================================
 
 Jun_Main:	; Routine 0

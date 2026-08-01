@@ -21,7 +21,7 @@ Tele_Index:	dc.w Tele_Main-Tele_Index
 		dc.w Tele_PreBump-Tele_Index
 		dc.w Tele_Teleporting-Tele_Index
 
-tele_time:	equ objoff_2E	; remaining time Sonic should move in current direction 
+tele_time:	equ objoff_2E	; remaining time Sonic should move in current direction
 tele_prebump:	equ objoff_32	; current pre-bump value before Sonic gets shot off (incremented by 2, triggers at $80)
 tele_targetX:	equ objoff_36	; next X-position target
 tele_targetY:	equ objoff_38	; next Y-position target
@@ -38,7 +38,7 @@ Tele_Main:	; Routine 0
 		andi.w	#$1E,d0					; limit to sane values
 		lea	Tele_Data(pc),a2			; load teleporter destination data array
 		adda.w	(a2,d0.w),a2				; use offset table to advance to actual data for subtype
-		move.w	(a2)+,tele_current(a0)			; set tele_current to 0 & load number of entries in teleporter data (times 4) to tele_entries 
+		move.w	(a2)+,tele_current(a0)			; set tele_current to 0 & load number of entries in teleporter data (times 4) to tele_entries
 		move.l	a2,tele_dataptr(a0)			; remember address in teleporter target data
 		move.w	(a2)+,tele_targetX(a0)			; load first X-target
 		move.w	(a2)+,tele_targetY(a0)			; load first Y-target
@@ -207,7 +207,7 @@ Tele_NextDirection:
 		divs.w	d3,d1					; divide by $1000 or -$1000
 
 		moveq	#0,d0					; clear d0 again
-		move.w	tele_targetX(a0),d0			; get next teleport X-target 
+		move.w	tele_targetX(a0),d0			; get next teleport X-target
 		sub.w	obX(a1),d0				; calculate difference to Sonic's current X-position
 		beq.s	.setSpeeds				; if next X-target is the same as Sonic's current X-position, branch
 		swap	d0					; move into upper word

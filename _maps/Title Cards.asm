@@ -181,7 +181,7 @@ Map_Got:	mappingsTable
 	mappingsTableEntry.w	M_Card_Act1	; Act number 1
 	mappingsTableEntry.w	M_Card_Act2	; Act number 2
 	mappingsTableEntry.w	M_Card_Act3	; Act number 3
-	
+
 M_Got_SonicHas:	spriteHeader	; SONIC HAS
 	spritePiece	-$48, -8, 2, 2, $3E, 0, 0, 0, 0	; S
 	spritePiece	-$38, -8, 2, 2, $32, 0, 0, 0, 0	; O

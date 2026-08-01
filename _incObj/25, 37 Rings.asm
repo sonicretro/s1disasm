@@ -1,3 +1,4 @@
+; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 25 - rings
 ; ---------------------------------------------------------------------------
@@ -18,9 +19,7 @@ ring_origX:	 equ objoff_32
 ring_respawnbit: equ objoff_34
 ; ===========================================================================
 
-; ---------------------------------------------------------------------------
 ; Distances between rings (format: horizontal, vertical)
-; ---------------------------------------------------------------------------
 Ring_PosData:	dc.b  $10,   0		; $0 - right, short
 		dc.b  $18,   0		; $1 - right, medium
 		dc.b  $20,   0		; $2 - right, far
@@ -115,7 +114,7 @@ Ring_SpawnRing:
 		move.b	#col_12x12|col_item,obColType(a1)	; set to power-up collision type and hitbox 12x12 (=$47)
 		move.b	#16/2,obActWid(a1)			; set sprite display width
 		move.b	obRespawnNo(a0),obRespawnNo(a1)		; remember respawn index of ring group
-		move.b	d1,ring_respawnbit(a1)			; remember "ring collected" index bit in respawn data 
+		move.b	d1,ring_respawnbit(a1)			; remember "ring collected" index bit in respawn data
 
 ; loc_9C02:
 Ring_NextRing:
@@ -150,7 +149,7 @@ Ring_Collect:	; Routine 4 (set from ReactToItem)
 		addq.b	#2,obRoutine(a0)			; advance to Ring_Sparkle
 		move.b	#col_none,obColType(a0)			; prevent ring from being collected again
 		move.b	#1,obPriority(a0)			; make ring sparkles appear in front of Sonic's sprites
-		bsr.w	CollectRing				; add 1 ring 
+		bsr.w	CollectRing				; add 1 ring
 
 		lea	(v_objstate).w,a2			; load object respawn table
 		moveq	#0,d0					; clear d0 (obRespawnNo is a byte, we need word addressing)
@@ -361,7 +360,7 @@ RLoss_Collect:	; Routine 4
 		addq.b	#2,obRoutine(a0)			; advance to RLoss_Sparkle
 		move.b	#col_none,obColType(a0)			; prevent ring from being collected again
 		move.b	#1,obPriority(a0)			; make ring sparkles appear in front of Sonic's sprites
-		bsr.w	CollectRing				; add 1 ring 
+		bsr.w	CollectRing				; add 1 ring
 ; ---------------------------------------------------------------------------
 
 RLoss_Sparkle:	; Routine 6

@@ -28,6 +28,8 @@ Sonic_Index:	dc.w Sonic_Main-Sonic_Index			; 0 - object init
 		dc.w Sonic_Hurt-Sonic_Index			; 4 - while being knocked back from damage
 		dc.w Sonic_Death-Sonic_Index			; 6 - while dying and falling off screen
 		dc.w Sonic_ResetLevel-Sonic_Index		; 8 - after having died and waiting for the level to restart
+
+; Note: Sonic's SST aliases are defined in _Constants.asm
 ; ===========================================================================
 
 ; Obj01_Main:

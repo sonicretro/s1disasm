@@ -15,9 +15,9 @@ Orb_Index:	dc.w Orb_Main-Orb_Index			; 0
 		dc.w Orb_CircleSpikeball-Orb_Index	; 6
 		dc.w Orb_FiredSpikeball-Orb_Index	; 8
 
-orb_parent:	equ objoff_3C		; address of parent Orbinaut object for spikeballs
 orb_circledir:	equ objoff_36		; circling direction for spikeballs (1 clockwise, -1 counter clockwise)
 orb_balldata:	equ objoff_37		; ball data array (0: number of not-fired spikeballs // 1-4: RAM indices for spikeballs)
+orb_parent:	equ objoff_3C		; address of parent Orbinaut object for spikeballs
 ; ===========================================================================
 
 Orb_Main:	; Routine 0

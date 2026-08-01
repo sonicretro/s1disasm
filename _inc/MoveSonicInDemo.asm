@@ -1,17 +1,18 @@
+; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Subroutine to move Sonic in demo mode
 ; ---------------------------------------------------------------------------
 
 MoveSonicInDemo:
-		tst.w	(f_demo).w	; is demo mode on?
-		bne.s	MDemo_On	; if yes, branch
-		rts
+		tst.w	(f_demo).w				; is demo mode on?
+		bne.s	MDemo_On				; if yes, branch to run demo
+		rts						; no demo to run
 ; ===========================================================================
 
 ; This is an unused subroutine for recording a demo
 DemoRecorder:
 		; This was likely intended for a developer cartridge that used RAM instead of ROM.
-		lea	(EndOfRom).l,a1 ; Write past the end of the ROM.
+		lea	(EndOfRom).l,a1				; Write past the end of the ROM.
 		move.w	(v_btnpushtime1).w,d0
 		adda.w	d0,a1
 		move.b	(v_jpadhold1).w,d0
@@ -31,30 +32,30 @@ DemoRecorder:
 ; ===========================================================================
 
 MDemo_On:
-		tst.b	(v_jpadhold1).w	; is start button held?
-		bpl.s	.dontquit	; if not, branch
-		tst.w	(f_demo).w	; is this an ending sequence demo?
-		bmi.s	.dontquit	; if yes, branch
-		move.b	#id_Title,(v_gamemode).w ; go to title screen
+		tst.b	(v_jpadhold1).w				; is start button held?
+		bpl.s	.dontquit				; if not, branch
+		tst.w	(f_demo).w				; is this an ending sequence demo?
+		bmi.s	.dontquit				; if yes, branch
+		move.b	#id_Title,(v_gamemode).w		; go to title screen
 
 .dontquit:
 		lea	(DemoDataPtr).l,a1
 		moveq	#0,d0
 		move.b	(v_zone).w,d0
-		cmpi.b	#id_Special,(v_gamemode).w ; is this a special stage?
-		bne.s	.notspecial	; if not, branch
-		moveq	#6,d0		; use demo #6
+		cmpi.b	#id_Special,(v_gamemode).w		; is this a special stage?
+		bne.s	.notspecial				; if not, branch
+		moveq	#6,d0					; use demo #6
 
 .notspecial:
 		lsl.w	#2,d0
-		movea.l	(a1,d0.w),a1	; fetch address for demo data
-		tst.w	(f_demo).w	; is this an ending sequence demo?
-		bpl.s	.notcredits	; if not, branch
+		movea.l	(a1,d0.w),a1				; fetch address for demo data
+		tst.w	(f_demo).w				; is this an ending sequence demo?
+		bpl.s	.notcredits				; if not, branch
 		lea	(DemoEndDataPtr).l,a1
 		move.w	(v_creditsnum).w,d0
 		subq.w	#1,d0
 		lsl.w	#2,d0
-		movea.l	(a1,d0.w),a1	; fetch address for credits demo
+		movea.l	(a1,d0.w),a1				; fetch address for credits demo
 
 .notcredits:
 		move.w	(v_btnpushtime1).w,d0

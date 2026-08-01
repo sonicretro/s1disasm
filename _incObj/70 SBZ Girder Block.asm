@@ -12,8 +12,8 @@ Girder:
 Gird_Index:	dc.w Gird_Main-Gird_Index
 		dc.w Gird_Action-Gird_Index
 
-gird_origX:	equ objoff_32		; original x-axis position
 gird_origY:	equ objoff_30		; original y-axis position
+gird_origX:	equ objoff_32		; original x-axis position
 gird_time:	equ objoff_34		; duration for movement in a direction (in frames)
 gird_set:	equ objoff_38		; which movement settings to use (0/8/$10/$18)
 gird_delay:	equ objoff_3A		; delay before starting next movement

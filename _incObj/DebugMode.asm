@@ -468,7 +468,7 @@ dbugheader:	macro	*
 		dbug	Map_CFlo,	id_CollapseFloor,	0,	0,	ArtTile_MZ_Block|Tile_Pal3
 	    else
 		; Incorrect palette lines
-		dbug	Map_MBlock,	id_MovingBlock,		0,	0,	ArtTile_MZ_Block 
+		dbug	Map_MBlock,	id_MovingBlock,		0,	0,	ArtTile_MZ_Block
 		dbug	Map_CFlo,	id_CollapseFloor,	0,	0,	ArtTile_MZ_Block|Tile_Pal4
 	    endif
 		dbug	Map_LTag,	id_LavaTag,		0,	0,	ArtTile_Monitor|Tile_Prio

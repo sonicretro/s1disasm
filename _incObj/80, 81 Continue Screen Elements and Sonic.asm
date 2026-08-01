@@ -29,8 +29,8 @@ CSI_Main:	; Routine 0
 
 CSI_Display:	; Routine 2
 		jmp	(DisplaySprite).l			; display element
-
 ; ===========================================================================
+
 ; --- X-positions for Mini-Sonics ---
 ; These values are pseudo-interlaced instead of going left-to-right,
 ; keeping consecutively collected continues overall centered (roughly).

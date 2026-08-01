@@ -23,8 +23,8 @@ GMake_Index:	dc.w GMake_Main-GMake_Index		; 0
 		dc.w GMake_Display-GMake_Index		; 8
 		dc.w GMake_Delete-GMake_Index		; A
 
-gmake_time:	equ objoff_34		; time delay (2 bytes)
 gmake_timer:	equ objoff_32		; current time remaining (2 bytes)
+gmake_time:	equ objoff_34		; time delay (2 bytes)
 gmake_parent:	equ objoff_3C		; address of parent object
 ; ===========================================================================
 

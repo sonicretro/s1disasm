@@ -47,6 +47,12 @@ artunc/
 	due to shifting some of the graphics around.
 
 objpos/
+ Generally, objects have been shifted slightly around to be consistent with others or
+ not floating (this includes objects that automatically snap to floors, such as enemies).
+
+ See this list for all changes done:
+ https://forums.sonicretro.org/threads/sonic-the-hedgehog-object-position-fixing.35267/
+
  - ghz1.bin
 	Removed misplaced Motobug at 0C50,034C
 
@@ -60,11 +66,10 @@ objpos/
 	Removed misplaced spring at 0B10,0ABA
 
  - lz1 (REVXX).bin
-	Removed misplaced spikes at 12D3,0675, signpost is no longer partially buried in the ground
+	Removed misplaced spikes at 12D3,0675
 
  - lz2.bin
-	Moved hidden points closer to the signpost so that their graphics now load correctly,
-	signpost is no longer partially buried in the ground
+	Moved hidden points closer to the signpost so that their graphics now load correctly
 
  - slz2.bin
 	Added an invisible wall to prevent Sonic from jumping over a certain wall (lifted from

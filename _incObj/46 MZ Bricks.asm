@@ -29,7 +29,7 @@ Brick_Main:	; Routine 0
 		; This appears to be some unused leftover with unknown purpose.
 		; It already existed in the prototype, but didn't seem to have
 		; any purpose there either. The value $5C0 matches one brick's
-		; X-coordinate in MZ3, but this could just be coincidental.
+		; X-coordinate in MZ3, but that could just be coincidental.
 		move.w	#$5C0,objoff_32(a0)			; unused leftover...
 	endif
 ; ---------------------------------------------------------------------------

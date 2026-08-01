@@ -182,7 +182,7 @@ LGrass_Burnable:
 		bne.s	.depress				; if yes, branch
 
 		subq.b	#2,d0					; reduce nudging while Sonic isn't on platform
-		bcc.s	.updateY				; if it hasn't returned to origin position, branch 
+		bcc.s	.updateY				; if it hasn't returned to origin position, branch
 		moveq	#0,d0					; stop going back up
 		bra.s	.updateY				; skip depression logic
 ; ---------------------------------------------------------------------------
