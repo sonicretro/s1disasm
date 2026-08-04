@@ -30,6 +30,10 @@ ym2612_a0:		equ $A04000
 ym2612_d0:		equ $A04001
 ym2612_a1:		equ $A04002
 ym2612_d1:		equ $A04003
+z80_68k_bank:		equ $A06000
+z80_68k:		equ $A08000
+z80_68k_end:		equ $A10000
+psg_input_z80:		equ $A07F11
 z80_bus_request:	equ $A11100
 z80_reset:		equ $A11200
 
@@ -45,10 +49,42 @@ port_2_control_hi:	equ $A1000A
 port_2_control:		equ $A1000B
 expansion_control_hi:	equ $A1000C
 expansion_control:	equ $A1000D
+serial_1_tx_hi:		equ $A1000E
+serial_1_tx:		equ $A1000F
+serial_1_rx_hi:		equ $A10010
+serial_1_rx:		equ $A10011
+serial_1_control_hi:	equ $A10012
+serial_1_control:	equ $A10013
+serial_2_tx_hi:		equ $A10014
+serial_2_tx:		equ $A10015
+serial_2_rx_hi:		equ $A10016
+serial_2_rx:		equ $A10017
+serial_2_control_hi:	equ $A10018
+serial_2_control:	equ $A10019
+serial_exp_tx_hi:	equ $A1001A
+serial_exp_tx:		equ $A1001B
+serial_exp_rx_hi:	equ $A1001C
+serial_exp_rx:		equ $A1001D
+serial_exp_control_hi:	equ $A1001E
+serial_exp_control:	equ $A1001F
 
 ; Misc addresses
+memory_mode:		equ $A11000
+mars_connection:	equ $A130EC
 sram_port:		equ $A130F1
+mapper_bank_1:		equ $A130F3
+mapper_bank_2:		equ $A130F5
+mapper_bank_3:		equ $A130F7
+mapper_bank_4:		equ $A130F9
+mapper_bank_5:		equ $A130FB
+mapper_bank_6:		equ $A130FD
+mapper_bank_7:		equ $A130FF
 security_addr:		equ $A14000
+security_flag:		equ $A14101
+
+; SRAM
+sram_start:		equ $200000+(AddressSRAM&1)
+sram_end:		equ $210000
 
 ; VRAM data
 vram_fg:		equ $C000				; foreground namespace

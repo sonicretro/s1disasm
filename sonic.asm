@@ -185,11 +185,13 @@ RomEndLoc:	dc.l EndOfRom-1					; End address of ROM
 		dc.l $FFFFFF					; End address of RAM
 	if EnableSRAM=1
 		dc.b "RA", $A0+(BackupSRAM<<6)+(AddressSRAM<<3), $20 ; SRAM support
+		dc.l sram_start					; SRAM start
+		dc.l sram_end-1					; SRAM end
 	else
-		dc.l $20202020
+		dc.b "    "
+		dc.b "    "
+		dc.b "    "
 	endif
-		dc.l $20202020					; SRAM start ($200001)
-		dc.l $20202020					; SRAM end ($20xxxx)
 		dc.b "                                                    " ; Notes (unused, anything can be put in this space, but it has to be 52 bytes)
 		dc.b "JUE             "				; Region (Country code)
 EndOfHeader:
