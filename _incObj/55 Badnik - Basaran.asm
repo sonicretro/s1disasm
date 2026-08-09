@@ -200,7 +200,7 @@ Bas_CheckDistanceAndFaceSonic:
 
 ; ===========================================================================
 
-	if FixBugs=0
+	if UnusedOptimization=0
 		; Dead, unused code.
 		; The simple nature of it may hint at the Basaran once being
 		; able to launch projectiles that would despawn once offscreen.

@@ -23,7 +23,7 @@ Hel_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)			; advance to Hel_ParentSpike (2)
 		move.l	#Map_Hel,obMap(a0)			; set mappings
 		move.w	#ArtTile_GHZ_Spike_Pole|Tile_Pal3,obGfx(a0) ; set art tile and palette (located inside main GHZ graphics)
-	if FixBugs=0
+	if (FixBugs=0)&(UnusedOptimization=0)
 		; This appears to be an unused leftover from early development,
 		; possibly related to the equally unused routines 4 and 6.
 		; Setting these status bits has no effect for this object,

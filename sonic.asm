@@ -33,6 +33,8 @@ ZeroOffsetOptimization = 0|AllOptimizations
 ;	| If 1, makes a handful of zero-offset instructions smaller
 PaddingOptimization = 0|AllOptimizations
 ;	| If 1, removes about 3 KB of various superfluous padding
+UnusedOptimization = 0|AllOptimizations
+;	| If 1, removes dead code and unused data and optimizes tables with unused entries.
 
 EnableSRAM = 0
 ;	| If 1, enable SRAM support
@@ -1795,9 +1797,8 @@ WaitForVBlank:
 ; >>> Subroutines for generic calculations
 	include	"_incObj/sub RandomNumber.asm"
 	include	"_incObj/sub CalcSine.asm"
-    if Revision=0
-		; Only in REV00, and even there it was never used
-	include	"_incObj/sub CalcSqrt.asm"
+    if (Revision=0)&(UnusedOptimization=0)
+	include	"_incObj/sub CalcSqrt.asm" ; Only in REV00, and even there it was never used
     endif
 	include	"_incObj/sub CalcAngle.asm"
 
@@ -1851,8 +1852,10 @@ GM_Sega:
 		bsr.w	PalLoad					; ...directly to active palette (not fade-in buffer)
 		move.w	#-$A,(v_pcyc_num).w			; light scanning palette cycle effect start offset
 		move.w	#0,(v_pcyc_time).w			; clear palette fade-in counter
+	if UnusedOptimization=0
 		move.w	#0,(v_pal_buffer+$12).w			; clear some palcycle buffer (unused?)
 		move.w	#0,(v_pal_buffer+$10).w			; clear some palcycle buffer (unused?)
+	endif
 		enable_display					; enable screen output
 ; ---------------------------------------------------------------------------
 
@@ -1971,7 +1974,9 @@ Tit_LoadText:
 		move.b	#0,(v_lastlamp).w			; clear lamppost counter
 		move.w	#0,(v_debuguse).w			; exit debug mode if necessary
 		move.w	#0,(f_demo).w				; disable demo mode
+	if UnusedOptimization=0
 		move.w	#0,(v_unused2).w			; unused variable
+	endif
 		move.w	#id_GHZ_act1,(v_zone_act).w		; set level to GHZ1 (000)
 		move.w	#0,(v_pcyc_time).w			; disable palette cycling
 		bsr.w	LevelSizeLoad				; load level size (will use GHZ1's sizes)
@@ -2867,7 +2872,9 @@ Level_SkipTtlCard:
 		bset	#2,(v_fg_scroll_flags).w		; draw an extra column at the left side of the screen during level start
 		bsr.w	LevelDataLoad				; load block mappings and palettes
 		bsr.w	LoadTilesFromStart			; fully draw the foreground and background once before fade-in
+	if UnusedOptimization=0
 		jsr	(ConvertCollisionArray).l		; call a routine that immediately returns (this is a disabled development function)
+	endif
 		bsr.w	ColIndexLoad				; set collision index for current zone
 		bsr.w	LZWaterFeatures				; initialize water features if zone is LZ
 
@@ -2912,7 +2919,9 @@ Level_SkipClr:
 		move.b	d0,(v_shield).w				; clear shield
 		move.b	d0,(v_invinc).w				; clear invincibility
 		move.b	d0,(v_shoes).w				; clear speed shoes
+	if UnusedOptimization=0
 		move.b	d0,(v_unused1).w			; clear unused flag (goggles?)
+	endif
 		move.w	d0,(v_debuguse).w			; exit debug mode if necessary
 		move.w	d0,(f_restart).w			; clear level restart flag
 		move.w	d0,(v_framecount).w			; reset frames since level start to 0
@@ -3642,7 +3651,9 @@ End_LoadSonic:
 		move.b	d0,(v_shield).w				; clear shield
 		move.b	d0,(v_invinc).w				; clear invincibility
 		move.b	d0,(v_shoes).w				; clear speed shoes
+	if UnusedOptimization=0
 		move.b	d0,(v_unused1).w			; clear unused flag (goggles?)
+	endif
 		move.w	d0,(v_debuguse).w			; exit debug mode if necessary
 		move.w	d0,(f_restart).w			; clear level restart flag
 		move.w	d0,(v_framecount).w			; reset frames since level start to 0
@@ -3651,7 +3662,9 @@ End_LoadSonic:
 		move.b	#1,(f_ringcount).w			; update rings counter
 		move.b	#0,(f_timecount).w			; stop time counter for the ending sequence
 
+	if UnusedOptimization=0
 		move.w	#1800,(v_generictimer).w		; set generic timer to 30 seconds (unused in ending sequence)
+	endif
 		move.b	#id_VBlank_Ending,(v_vblank_routine).w	; set VBlank routine to $18
 		bsr.w	WaitForVBlank				; wait until VBlank has finished
 ; ---------------------------------------------------------------------------
@@ -4093,7 +4106,9 @@ Demo_EndGHZ2:	include	"demodata/Ending - GHZ2.asm"
 		include	"_incObj/15 Swinging Platforms.asm" ; includes "MvSonicOnPtfm" subroutine
 		include	"_incObj/17 GHZ Spiked Pole Helix.asm"
 		include	"_incObj/18 Platforms.asm"
-		include	"_incObj/19 Unused - Blank.asm" ; this was the rolling GHZ ball in the prototype
+	if UnusedOptimization=0
+		include	"_incObj/19 Unused - GHZ Ball.asm" ; this was the rolling GHZ ball in the prototype
+	endif
 Map_GBall:	include	"_maps/GHZ Ball.asm"
 		include	"_incObj/1A, 53 Collapsing Ledges and Floors.asm" ; includes "SlopeObject_AssumeStoodOn" subroutine
 		include	"_incObj/1C GHZ, SYZ Scenery.asm"
@@ -4105,11 +4120,15 @@ Map_GBall:	include	"_maps/GHZ Ball.asm"
 ; ===========================================================================
 ; >>> Badniks, explosions, and Badnik-related objects
 		include	"_incObj/1E, 20 Badnik - Ball Hog and Cannonball.asm"
+	if UnusedOptimization=0
 		include	"_incObj/24 Unused - Small Explosion.asm"
+	endif
 		include	"_incObj/27, 3F Explosions.asm"
 		include	"_anim/Ball Hog.asm"
 Map_Hog:	include	"_maps/Ball Hog.asm"
+	if UnusedOptimization=0
 Map_UnkExplode:	include	"_maps/Unused Explosion.asm"
+	endif
 		include	"_maps/Explosions.asm"
 		include	"_incObj/28, 29 Animals and Points.asm"
 		include	"_incObj/1F Badnik - Crabmeat.asm"
@@ -4151,9 +4170,13 @@ Map_Flash:	include	"_maps/Ring Flash.asm"
 Map_Fire:	include	"_maps/Fireballs.asm"
 		include	"_incObj/30 MZ Large Green Glass Blocks.asm"
 		include	"_incObj/31 MZ Chained Stompers.asm"
+	if UnusedOptimization=0
 		include	"_incObj/45 Unused - MZ Sideways Stomper.asm"
+	endif
 Map_CStom:	include	"_maps/Chained Stompers.asm"
+	if UnusedOptimization=0
 Map_SStom:	include	"_maps/Sideways Stomper.asm"
+	endif
 		include	"_incObj/32 Button.asm"
 		include	"_incObj/33 MZ, LZ Pushable Blocks.asm"
 
@@ -4210,7 +4233,9 @@ Map_PRock:	include	"_maps/Purple Rock.asm"
 Map_Geyser:	include	"_maps/Lava Geyser.asm"
 Map_LWall:	include	"_maps/Wall of Lava.asm"
 		include	"_incObj/40 Badnik - Moto Bug.asm" ; includes "_incObj/sub RememberState.asm" subroutine
-		include	"_incObj/4F Unused - Blank.asm" ; this was Splats in the prototype
+	if UnusedOptimization=0
+		include	"_incObj/4F Unused - Splats.asm" ; this was Splats in the prototype
+	endif
 		include	"_incObj/50 Badnik - Yadrin.asm"
 		include	"_incObj/sub SolidObject.asm"
 		include	"_incObj/51 MZ Smashable Green Block.asm"
@@ -4248,12 +4273,16 @@ Map_LWall:	include	"_maps/Wall of Lava.asm"
 ; >>> Various unique objects
 		include	"_incObj/0A LZ Drowning Countdown.asm" ; includes ResumeMusic
 		include	"_incObj/38 Shield and Invincibility.asm"
+	if UnusedOptimization=0
 		include	"_incObj/4A Unused - Special Stage Entry.asm"
+	endif
 		include	"_incObj/08 LZ Water Splash.asm"
 		include	"_anim/Shield and Invincibility.asm"
 Map_Shield:	include	"_maps/Shield and Invincibility.asm"
+	if UnusedOptimization=0
 		include	"_anim/Special Stage Entry (Unused).asm"
 Map_Vanish:	include	"_maps/Special Stage Entry (Unused).asm"
+	endif
 		include	"_anim/Water Splash.asm"
 Map_Splash:	include	"_maps/Water Splash.asm"
 
@@ -4262,7 +4291,9 @@ Map_Splash:	include	"_maps/Water Splash.asm"
 ; >>> Collision subroutines for Sonic and other objects
 		include	"_incObj/Sonic AnglePos.asm"
 		include	"_incObj/sub FindNearestTile & FindFloor & FindWall.asm"
+	if UnusedOptimization=0
 		include "_inc/ConvertCollisionArray (Unused).asm"
+	endif
 		include	"_incObj/Sonic Collision.asm"
 
 
@@ -4324,9 +4355,10 @@ Map_SS_Chaos:	include	"_maps/SS Chaos Emeralds.asm"
 
 
 ; ===========================================================================
+	if UnusedOptimization=0
 ; >>> Deleted, blank object that is randomly mixed in here
-		include	"_incObj/10 Unused - Blank.asm" ; this was an animation test object for Sonic in the prototype
-
+		include	"_incObj/10 Unused - Animation Test.asm" ; this was an animation test object for Sonic in the prototype
+	endif
 
 ; ===========================================================================
 ; >>> Subroutine for in-place level animations in VRAM
@@ -4418,7 +4450,7 @@ Art_Sonic:	binclude	"artunc/Sonic.unc"
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - various
 ; ---------------------------------------------------------------------------
-	if Revision=0
+	if (Revision=0)&(UnusedOptimization=0)
 Nem_Smoke:	binclude	"artnem/Unused - Smoke.nem"
 		even
 Nem_SyzSparkle:	binclude	"artnem/Unused - SYZ Sparkles.nem"
@@ -4430,7 +4462,7 @@ Nem_Shield:	binclude	"artnem/Shield.nem"
 Nem_Stars:	binclude	"artnem/Invincibility Stars.nem"
 		even
 
-	if Revision=0
+	if (Revision=0)&(UnusedOptimization=0)
 Nem_LzSonic:	binclude	"artnem/Unused - LZ Sonic.nem" ; Sonic holding his breath
 		even
 Nem_UnkFire:	binclude	"artnem/Unused - Fireball.nem" ; unused fireball
@@ -4500,14 +4532,18 @@ Nem_Swing:	binclude	"artnem/GHZ Swinging Platform.nem"
 		even
 Nem_Bridge:	binclude	"artnem/GHZ Bridge.nem"
 		even
+	if UnusedOptimization=0
 Nem_GhzUnkBlock:binclude	"artnem/Unused - GHZ Block.nem"
 		even
+	endif
 Nem_Ball:	binclude	"artnem/GHZ Giant Ball.nem"
 		even
 Nem_Spikes:	binclude	"artnem/Spikes.nem"
 		even
+	if UnusedOptimization=0
 Nem_GhzLog:	binclude	"artnem/Unused - GHZ Log.nem"
 		even
+	endif
 Nem_SpikePole:	binclude	"artnem/GHZ Spiked Log.nem"
 		even
 Nem_PplRock:	binclude	"artnem/GHZ Purple Rock.nem"
@@ -4562,16 +4598,20 @@ Nem_MzSwitch:	binclude	"artnem/MZ Switch.nem"
 		even
 Nem_MzGlass:	binclude	"artnem/MZ Green Glass Block.nem"
 		even
+	if UnusedOptimization=0
 Nem_UnkGrass:	binclude	"artnem/Unused - Grass.nem"
 		even
+	endif
 Nem_MzFire:	binclude	"artnem/Fireballs.nem"
 		even
 Nem_Lava:	binclude	"artnem/MZ Lava.nem"
 		even
 Nem_MzBlock:	binclude	"artnem/MZ Green Pushable Block.nem"
 		even
+	if UnusedOptimization=0
 Nem_MzUnkBlock:	binclude	"artnem/Unused - MZ Background.nem"
 		even
+	endif
 
 ; ---------------------------------------------------------------------------
 ; Compressed graphics - SLZ stuff
@@ -4646,8 +4686,10 @@ Nem_Crabmeat:	binclude	"artnem/Enemy Crabmeat.nem"
 		even
 Nem_Buzz:	binclude	"artnem/Enemy Buzz Bomber.nem"
 		even
+	if UnusedOptimization=0
 Nem_UnkExplode:	binclude	"artnem/Unused - Explosion.nem"
 		even
+	endif
 Nem_Burrobot:	binclude	"artnem/Enemy Burrobot.nem"
 		even
 Nem_Chopper:	binclude	"artnem/Enemy Chopper.nem"
@@ -4664,8 +4706,10 @@ Nem_Yadrin:	binclude	"artnem/Enemy Yadrin.nem"
 		even
 Nem_Basaran:	binclude	"artnem/Enemy Basaran.nem"
 		even
+	if UnusedOptimization=0
 Nem_Splats:	binclude	"artnem/Enemy Splats.nem"
 		even
+	endif
 Nem_Bomb:	binclude	"artnem/Enemy Bomb.nem"
 		even
 Nem_Orbinaut:	binclude	"artnem/Enemy Orbinaut.nem"
@@ -4813,7 +4857,7 @@ Nem_EndSonic:	binclude	"artnem/Ending - Sonic.nem"
 		even
 Nem_TryAgain:	binclude	"artnem/Ending - Try Again.nem"
 		even
-	if Revision=0
+	if (Revision=0)&(UnusedOptimization=0)
 Nem_EndEggman:
 		binclude	"artnem/Unused - Eggman Ending.nem"
 		even

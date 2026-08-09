@@ -25,7 +25,7 @@ Brick_Main:	; Routine 0
 		move.b	#3,obPriority(a0)			; set sprite priority
 		move.b	#32/2,obActWid(a0)			; set sprite display width
 		move.w	obY(a0),brick_origY(a0)			; remember initial Y-position for wobble effect
-	if FixBugs=0
+	if UnusedOptimization=0
 		; This appears to be some unused leftover with unknown purpose.
 		; It already existed in the prototype, but didn't seem to have
 		; any purpose there either. The value $5C0 matches one brick's
