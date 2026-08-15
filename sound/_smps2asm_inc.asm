@@ -180,6 +180,8 @@ cFM6				EQU $06	; Only in S3/S&K/S3D, overrides DAC
 ; Conversion macros and functions
 
 conv0To256  function n,((n==0)<<8)|n
+extendFlag  function n,((n<>0)<<8)-(1&(n<>0))
+clampByte   function n,(n&extendFlag(n>=0))|extendFlag(n>$FF)
 s2TempotoS1 function n,(((768-n)>>1)/(256-n))&$FF
 s2TempotoS3 function n,($100-((n==0)|n))&$FF
 s1TempotoS2 function n,((((conv0To256(n)-1)<<8)+(conv0To256(n)>>1))/conv0To256(n))&$FF
@@ -553,14 +555,28 @@ smpsFMvoice macro voice,songID
 ; F0wwxxyyzz - Modulation - ww: wait time - xx: modulation speed - yy: change per step - zz: number of steps
 smpsModSet macro wait,speed,change,step
 	dc.b	$F0
-	if (SonicDriverVer>=3)&&(SourceDriver<3)
-		dc.b	wait+1,speed,change,((step+1) * speed) & $FF
-	elseif (SonicDriverVer<3)&&(SourceDriver>=3)
-		dc.b	wait-1,speed,change,conv0To256(step)/conv0To256(speed)-1
+	if (SonicDriverVer==1)&&(SourceDriver==2)
+		dc.b	clampByte(wait-1)
+	elseif (SonicDriverVer==1)&&(SourceDriver>=3)
+		dc.b	clampByte(wait-2)
+	elseif (SonicDriverVer==2)&&(SourceDriver==1)
+		dc.b	wait+1
+	elseif (SonicDriverVer==2)&&(SourceDriver>=3)
+		dc.b	wait-1
+	elseif (SonicDriverVer>=3)&&(SourceDriver==1)
+		dc.b	wait+2
+	elseif (SonicDriverVer>=3)&&(SourceDriver==2)
+		dc.b	wait+1
 	else
-		dc.b	wait,speed,change,step
+		dc.b	wait
 	endif
-	;dc.b	speed,change,step
+	if (SonicDriverVer>=3)&&(SourceDriver<3)
+		dc.b	speed,change,((step+1) * speed) & $FF
+	elseif (SonicDriverVer<3)&&(SourceDriver>=3)
+		dc.b	speed,change,conv0To256(step)/conv0To256(speed)-1
+	else
+		dc.b	speed,change,step
+	endif
 	endm
 
 ; Turn on Modulation
