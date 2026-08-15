@@ -36,9 +36,9 @@ locVRAM:	macro loc,controlport
 
 writeVRAM:	macro source,destination
 		lea	(vdp_control_port).l,a5
-		move.l	#$94000000+((((\source\_end-\source)>>1)&$FF00)<<8)+$9300+(((\source\_end-\source)>>1)&$FF),(a5)
-		move.l	#$96000000+((((\source)>>1)&$FF00)<<8)+$9500+(((\source)>>1)&$FF),(a5)
-		move.w	#$9700+(((((\source)>>1)&$FF0000)>>16)&$7F),(a5)
+		move.l	#vreg_dmalen|((((\source\_end-\source)>>1)&$FF00)<<8)|(((\source\_end-\source)>>1)&$FF),(a5)
+		move.l	#vreg_dmasrc|((((\source)>>1)&$FF00)<<8)|(((\source)>>1)&$FF),(a5)
+		move.w	#vreg_dmamode|(((((\source)>>1)&$FF0000)>>16)&$7F),(a5)
 		move.w	#$4000+((\destination)&$3FFF),(a5)
 		move.w	#$80+(((\destination)&$C000)>>14),(v_vdp_buffer2).w
 		move.w	(v_vdp_buffer2).w,(a5)
@@ -51,9 +51,9 @@ writeVRAM:	macro source,destination
 
 writeCRAM:	macro source,destination
 		lea	(vdp_control_port).l,a5
-		move.l	#$94000000+((((\source\_end-\source)>>1)&$FF00)<<8)+$9300+(((\source\_end-\source)>>1)&$FF),(a5)
-		move.l	#$96000000+((((\source)>>1)&$FF00)<<8)+$9500+(((\source)>>1)&$FF),(a5)
-		move.w	#$9700+(((((\source)>>1)&$FF0000)>>16)&$7F),(a5)
+		move.l	#vreg_dmalen|((((\source\_end-\source)>>1)&$FF00)<<8)|(((\source\_end-\source)>>1)&$FF),(a5)
+		move.l	#vreg_dmasrc|((((\source)>>1)&$FF00)<<8)|(((\source)>>1)&$FF),(a5)
+		move.w	#vreg_dmamode|(((((\source)>>1)&$FF0000)>>16)&$7F),(a5)
 		move.w	#$C000+((\destination)&$3FFF),(a5)
 		move.w	#$80+(((\destination)&$C000)>>14),(v_vdp_buffer2).w
 		move.w	(v_vdp_buffer2).w,(a5)
@@ -66,15 +66,15 @@ writeCRAM:	macro source,destination
 
 fillVRAM:	macro byte,start,end
 		lea	(vdp_control_port).l,a5
-		move.w	#$8F01,(a5) ; Set increment to 1, since DMA fill writes bytes
-		move.l	#$94000000+((((\end)-(\start)-1)&$FF00)<<8)+$9300+(((\end)-(\start)-1)&$FF),(a5)
-		move.w	#$9780,(a5)
+		move.w	#vreg_autoinc|1,(a5) ; Set increment to 1, since DMA fill writes bytes
+		move.l	#vreg_dmalen|((((\end)-(\start)-1)&$FF00)<<8)|(((\end)-(\start)-1)&$FF),(a5)
+		move.w	#vreg_dmamode|%10<<6,(a5)
 		move.l	#$40000080+(((\start)&$3FFF)<<16)+(((\start)&$C000)>>14),(a5)
 		move.w	#(\byte)|(\byte)<<8,(vdp_data_port).l
 .wait\@:	move.w	(a5),d1
 		btst	#1,d1
 		bne.s	.wait\@
-		move.w	#$8F02,(a5) ; Set increment back to 2, since the VDP usually operates on words
+		move.w	#vreg_autoinc|2,(a5) ; Set increment back to 2, since the VDP usually operates on words
 		endm
 
 ; ---------------------------------------------------------------------------
@@ -176,7 +176,7 @@ enable_ints:	macro
 ; ---------------------------------------------------------------------------
 
 disable_display:	macro
-		move.w	(v_vdp_buffer1).w,d0			; get buffered copy of VDP register $81
+		move.w	(v_vdp_buffer1).w,d0			; get buffered copy of vreg_mode2
 		andi.b	#%10111111,d0				; clear bit 6 (disable display; fill with background color)
 		move.w	d0,(vdp_control_port).l			; write to VDP
 		endm
@@ -186,7 +186,7 @@ disable_display:	macro
 ; ---------------------------------------------------------------------------
 
 enable_display:	macro
-		move.w	(v_vdp_buffer1).w,d0			; get buffered copy of VDP register $81
+		move.w	(v_vdp_buffer1).w,d0			; get buffered copy of vreg_mode2
 		ori.b	#%01000000,d0				; set bit 6 (enable display)
 		move.w	d0,(vdp_control_port).l			; write to VDP
 		endm

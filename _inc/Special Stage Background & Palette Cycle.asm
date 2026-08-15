@@ -107,7 +107,7 @@ PalCycle_SS:
 		lea	(a1,d0.w),a1				; jump to mode data
 
 		; FG VRAM
-		move.w	#$8200,d0				; VDP register - FG nametable address
+		move.w	#vreg_fgvram,d0				; VDP register - FG nametable address
 		move.b	(a1)+,d0				; apply address from mode data
 		move.w	d0,(a6)					; send VDP instruction
 
@@ -115,7 +115,7 @@ PalCycle_SS:
 		move.b	(a1),(v_scrposy_vdp).w			; get byte to send to VSRAM
 
 		; BG VRAM
-		move.w	#$8400,d0				; VDP register - BG nametable address
+		move.w	#vreg_bgvram,d0				; VDP register - BG nametable address
 		move.b	(a0)+,d0				; apply address from list
 		move.w	d0,(a6)					; send VDP instruction
 		move.l	#$40000010,(vdp_control_port).l		; set VDP to VSRAM write mode

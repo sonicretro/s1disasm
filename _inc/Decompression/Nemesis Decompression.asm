@@ -17,7 +17,9 @@ NemDec:
 
 ; ---------------------------------------------------------------------------
 ; Nemesis decompression subroutine, decompresses art to RAM
-; 
+;
+; Note, this part actually goes unused in Sonic 1, later games do use this
+;
 ; input:
 ; 	a0 = art address
 ; 	a4 = destination RAM address

@@ -489,6 +489,8 @@ z80_ptr macros
 	endif
 
 ;conv0To256  function n,((n==0)<<8)|n
+;extendFlag  function n,((n<>0)<<8)-(1&(n<>0))
+;clampByte   function n,(n&extendFlag(n>=0))|extendFlag(n>$FF)
 ;s2TempotoS1 function n,(((768-n)>>1)/(256-n))&$FF
 ;s2TempotoS3 function n,($100-((n==0)|n))&$FF
 ;s1TempotoS2 function n,((((conv0To256(n)-1)<<8)+(conv0To256(n)>>1))/conv0To256(n))&$FF
@@ -890,17 +892,31 @@ smpsFMvoice macro voice,songID
 ; F0wwxxyyzz - Modulation - ww: wait time - xx: modulation speed - yy: change per step - zz: number of steps
 smpsModSet macro wait,speed,change,step
 	dc.b	$F0
+	if (SonicDriverVer=1)&(SourceDriver=2)
+		dc.b	((wait-1)&((wait-1)>=0)&$FF)|(((wait-1)>$FF)&$FF)
+	elseif (SonicDriverVer=1)&(SourceDriver>=3)
+		dc.b	((wait-2)&((wait-2)>=0)&$FF)|(((wait-2)>$FF)&$FF)
+	elseif (SonicDriverVer=2)&(SourceDriver=1)
+		dc.b	wait+1
+	elseif (SonicDriverVer=2)&(SourceDriver>=3)
+		dc.b	wait-1
+	elseif (SonicDriverVer>=3)&(SourceDriver=1)
+		dc.b	wait+2
+	elseif (SonicDriverVer>=3)&(SourceDriver=2)
+		dc.b	wait+1
+	else
+		dc.b	wait
+	endif
 	if (SonicDriverVer>=3)&(SourceDriver<3)
-		dc.b	wait+1,speed,change,((step+1)*speed)&$FF
+		dc.b	speed,change,((step+1)*speed)&$FF
 	elseif (SonicDriverVer<3)&(SourceDriver>=3)
-		dc.b	wait-1,speed,change
+		dc.b	speed,change
 		conv_step:	= ((step=0)<<8)|step
 		conv_speed:	= ((speed=0)<<8)|speed
 		dc.b	(conv_step/conv_speed)-1
 	else
-		dc.b	wait,speed,change,step
+		dc.b	speed,change,step
 	endif
-	;dc.b	speed,change,step
 	endm
 
 ; Turn on Modulation

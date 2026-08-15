@@ -31,9 +31,9 @@ ym2612_d0:		equ $A04001
 ym2612_a1:		equ $A04002
 ym2612_d1:		equ $A04003
 z80_68k_bank:		equ $A06000
+psg_input_z80:		equ $A07F11
 z80_68k:		equ $A08000
 z80_68k_end:		equ $A10000
-psg_input_z80:		equ $A07F11
 z80_bus_request:	equ $A11100
 z80_reset:		equ $A11200
 
@@ -86,8 +86,29 @@ security_flag:		equ $A14101
 sram_start:		equ $200000+(AddressSRAM&1)
 sram_end:		equ $210000
 
+; VDP registers
+vreg_mode1:		equ $8000				; mode 1 options register
+vreg_mode2:		equ $8100				; mode 2 options register
+vreg_fgvram:		equ $8200				; foreground nametable address
+vreg_winvram:		equ $8300				; window nametable address
+vreg_bgvram:		equ $8400				; background nametable address
+vreg_spritevram:	equ $8500				; sprite table address
+vreg_bgcolor:		equ $8700				; background colour palette index
+vreg_hintrate:		equ $8A00				; horizontal interrupt rate
+vreg_mode3:		equ $8B00				; mode 3 options register
+vreg_mode4:		equ $8C00				; mode 4 options register
+vreg_hscrollvram:	equ $8D00				; horizontal scroll table address
+vreg_autoinc:		equ $8F00				; VDP address auto-increment width
+vreg_planesize:		equ $9000				; plane map size
+vreg_winxpos:		equ $9100				; window X position
+vreg_winypos:		equ $9200				; window Y position
+vreg_dmalen:		equ $94009300				; DMA operation length
+vreg_dmasrc:		equ $96009500				; DMA operation source address
+vreg_dmamode:		equ $9700				; DMA mode + upper byte of source address in 68k -> VDP transfers.
+
 ; VRAM data
 vram_fg:		equ $C000				; foreground namespace
+vram_win:		equ $A000				; window namespace
 vram_bg:		equ $E000				; background namespace
 vram_sprites:		equ $F800				; sprite table
 vram_hscroll:		equ $FC00				; horizontal scroll table
