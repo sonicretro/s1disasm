@@ -893,9 +893,9 @@ smpsFMvoice macro voice,songID
 smpsModSet macro wait,speed,change,step
 	dc.b	$F0
 	if (SonicDriverVer=1)&(SourceDriver=2)
-		dc.b	((wait-1)&((wait-1)>=0)&$FF)|(((wait-1)>$FF)&$FF)
+		dc.b	(((wait-1)&(wait>=1))|(wait>$100))&$FF
 	elseif (SonicDriverVer=1)&(SourceDriver>=3)
-		dc.b	((wait-2)&((wait-2)>=0)&$FF)|(((wait-2)>$FF)&$FF)
+		dc.b	(((wait-2)&(wait>=2))|(wait>$101))&$FF
 	elseif (SonicDriverVer=2)&(SourceDriver=1)
 		dc.b	wait+1
 	elseif (SonicDriverVer=2)&(SourceDriver>=3)
