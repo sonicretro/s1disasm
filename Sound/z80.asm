@@ -6,9 +6,9 @@
 ; Patched to be compiled with WLA-Z80
 
 
-.DEFINE	z80_stack $1FFC
-.DEFINE zDAC_Status $1FFD	; Bit 7 set if the driver is not accepting new samples, it is clear otherwise
-.DEFINE zDAC_Sample $1FFF	;  Sample to play, the 68k will move into this locatiton whatever sample that's supposed to be played.
+.DEFINE	z80_Stack $1FFC
+.DEFINE zDAC_Status $1FFD ; Sets bit 7 to deny new samples
+.DEFINE zDAC_Sample $1FFF ; Sample will be streamed here from the 68k
 
 .DEFINE zYM2612_A0 $4000
 .DEFINE zBankRegister $6000
@@ -20,10 +20,13 @@
 .FUNCTION zmake68kPtr(address) zROMWindow+(address&$7FFF)
 .FUNCTION zmake68kBank(address) (address&$0FF8000)/zROMWindow
 
-; turn a sample rate into a djnz loop counter
+; Turns sample rate into djnz loop count 
 .FUNCTION pcmLoopCounterBase(sampleRate,baseCycles) 1+(Z80_Clock/(sampleRate)-(baseCycles)+(13/2))/13
-.FUNCTION pcmLoopCounter(sampleRate) pcmLoopCounterBase(sampleRate,90) ; 90 is the number of cycles zPlaySEGAPCMLoop takes to deliver one sample.
-.FUNCTION dpcmLoopCounter(sampleRate) pcmLoopCounterBase(sampleRate,301/2) ; 301 is the number of cycles zPlayPCMLoop takes to deliver two samples.
+
+.FUNCTION pcmLoopCounter(sampleRate) pcmLoopCounterBase(sampleRate,90)
+; 90 is cycle count for zPlaySEGAPCMLoop to deliver one sample.
+.FUNCTION dpcmLoopCounter(sampleRate) pcmLoopCounterBase(sampleRate,301/2)
+; 301 is cycle count for zPlayPCMLoop to deliver two samples.
 
 .MACRO ensure_offset_fits_byte ARGS max_size
 	START:
@@ -43,11 +46,11 @@
 .ENDM
 
 
-	.ROMBANKSIZE z80_stack
+	.ROMBANKSIZE z80_Stack
 
 	.MEMORYMAP
 	DEFAULTSLOT 0
-	SLOTSIZE z80_stack
+	SLOTSIZE z80_Stack
 	SLOT 0 $0000
 	.ENDME
 
@@ -57,10 +60,10 @@
 
 .SECTION "Init"
 
-	di					; Disable interrupts. Interrupts will never be reenabled
-	di					; for the z80, so that no code will be executed on V-Int.
-	di					; This means that the sample loop is all the z80 does.
-	ld	sp,z80_stack			; Initialize the stack pointer (unused throughout the driver)
+	di	; Disable interrupts for the z80 (such as vblank)
+	di	; since the only code that runs is the sample loop.
+	di
+	ld	sp,z80_Stack			; Initialize the stack pointer (unused throughout the driver)
 	ld	ix,zYM2612_A0			; ix = Pointer to memory-mapped communication register with YM2612
 	xor	a				; a=0
 	ld	(zDAC_Status),a			; Disable DAC
@@ -90,7 +93,7 @@ zBankSwitchLoop:
 .SECTION "DPCM Lookup Table"
 
 zDACDecodeTbl:
-	.INCBIN "sound/dac/dpcm/deltas.bin"
+	.INCBIN "Sound/Samples/DPCM/Deltas.bin"
 
 .ENDS ; End of section 'DPCM Lookup Table'
 
@@ -248,16 +251,8 @@ zPCM_Table:
 	zPCMMetadata zDAC_Timpani,zDAC_Timpani_Size,7375
 
 ; DPCM data
-zDAC_Kick:	.INCBIN "sound/dac/dpcm/kick.dpcm" FSIZE zDAC_Kick_Size
-zDAC_Snare:	.INCBIN "sound/dac/dpcm/snare.dpcm" FSIZE zDAC_Snare_Size
-zDAC_Timpani:	.INCBIN "sound/dac/dpcm/timpani.dpcm" FSIZE zDAC_Timpani_Size
+zDAC_Kick:	.INCBIN "Sound/Samples/DPCM/Kick.dpcm" FSIZE zDAC_Kick_Size
+zDAC_Snare:	.INCBIN "Sound/Samples/DPCM/Snare.dpcm" FSIZE zDAC_Snare_Size
+zDAC_Timpani:	.INCBIN "Sound/Samples/DPCM/Timpani.dpcm" FSIZE zDAC_Timpani_Size
 
 .ENDS ; End of section 'PCM Data'
-
-; 	if MOMPASS==2
-; 		if $ > z80_stack
-; 			fatal "The driver is too big; the maximum size it can take is \{z80_stack}h. It currently takes \{$}h bytes. You won't be able to use this thing."
-; 		else
-; 			message "Uncompressed driver size: \{$}h bytes."
-; 		endif
-; 	endif
