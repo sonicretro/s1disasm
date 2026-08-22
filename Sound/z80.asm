@@ -6,7 +6,7 @@
 ; Patched to be compiled with WLA-Z80
 
 
-.DEFINE	z80_Stack $1FFC
+.DEFINE	z80_Stack $2000
 .DEFINE zDAC_Status $1FFD ; Sets bit 7 to deny new samples
 .DEFINE zDAC_Sample $1FFF ; Sample will be streamed here from the 68k
 
@@ -45,18 +45,13 @@
 	.DW	0					; Padding
 .ENDM
 
+.MEMORYMAP
+DEFAULTSLOT 0
+	SLOT 0 START 0 SIZE   $2000 NAME "ZRAM"  ; 8KB Z80 RAM
+.ENDME
 
-	.ROMBANKSIZE z80_Stack
-
-	.MEMORYMAP
-	DEFAULTSLOT 0
-	SLOTSIZE z80_Stack
-	SLOT 0 $0000
-	.ENDME
-
-	.ROMBANKS 1
-	.BANK 0 SLOT 0
-	.ORGA $0000
+.ROMBANKSIZE z80_Stack
+.ROMBANKS 1
 
 .SECTION "Init"
 

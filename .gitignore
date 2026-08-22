@@ -1,21 +1,6 @@
-SonED2 Projects/temp.dat
-SonED2 v1.0x Projects/temp.dat
 SonLVL INI Files/dllcache
 SonLVL INI Files/SonLVL.log
 
-# Misc. compiler output.
-sonic.lst
-sonic.log
-sonic.p
-
-# Built ROMs.
-s1built.bin
-s1built.prev.bin
-
-# Automatically-generated (D)PCM data.
-sound/dac/dpcm/generated/*.inc
-sound/dac/dpcm/generated/*.dpcm
-sound/dac/dpcm/generated/hashes.lua
-sound/dac/pcm/generated/*.inc
-sound/dac/pcm/generated/*.pcm
-sound/dac/pcm/generated/hashes.lua
+# compiler output.
+*.o
+*.z80

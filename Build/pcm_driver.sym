@@ -1,0 +1,12 @@
+; this file was created with wlalink by ville helin <ville.helin@iki.fi>.
+; wla symbolic information for "pcm_driver.z80".
+
+[information]
+version 3
+wlasymbol true
+
+[labels]
+00:0025 zStartupEnd
+
+[sections]
+00000000 00:0000 0000 00000025 Boot
