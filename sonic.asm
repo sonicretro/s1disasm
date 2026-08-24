@@ -33,26 +33,20 @@
 ; (GHZ, LZ, MZ, SLZ, SYZ & SBZ)
 
 ; ===========================================================================
+; Simplifying macros and functions
+.INCLUDE "Libraries/Macros.asm"
+; ===========================================================================
+; Equates section - Names for variables
+.INCLUDE "Variables.asm"
+
+; ===========================================================================
 ; Expressing sprite mappings and DPLCs in a portable and human-readable form
 .INCLUDE "Libraries/Map Macros.asm"
-.INCLUDE "Libraries/Macros.asm"
 
 ; ===========================================================================
 ; start of ROM
 
-;
-; Sega Mega Drive/Genesis MC68000 Memory Map (WLA-DX repo)
-; 
 
-.MEMORYMAP
-DEFAULTSLOT 0
-	SLOT 0 START $000000 SIZE $400000 NAME "ROM"   ; 4MB ROM / Cartridge RAM / Cartridge
-	SLOT 1 START $A00000 SIZE   $2000 NAME "ZRAM"  ; 8KB Z80 RAM
-	SLOT 2 START $FF0000 SIZE  $10000 NAME "WRAM"  ; 64KB Work RAM
-.ENDME
-
-.ROMBANKSIZE $0FFFFF
-.ROMBANKS 1
 
 .MDVECTORS
 	INITIALSP v_systemstack&$FFFFFF 
@@ -67,7 +61,7 @@ DEFAULTSLOT 0
 	PRIVILEGE PrivilegeViol
 	TRACE Trace
 	LINE1010 Line1010Emu ; aka. Line A
-	LINE1111 Line1010Emu ; aka, Line F
+	LINE1111 Line1111Emu ; aka, Line F
 	LEVEL1 ErrorTrap
 	EXTERNAL ErrorTrap ; Level 2 IRQ
 	LEVEL3 ErrorTrap
@@ -121,22 +115,22 @@ DEFAULTSLOT 0
 ErrorTrap:
 		nop	
 		nop	
-		bra	ErrorTrap.s
+		bra.b	ErrorTrap
 
 ; ===========================================================================
 
 EntryPoint:
 		tst.l	(port_1_control_hi).l	; test port A & B control registers
-		bne	PortA_Ok.s
+		bne.b	PortA_Ok
 		tst.w	(expansion_control_hi).l ; test port C control register
-PortA_Ok:	bne	SkipSetup.s		; skip the VDP and Z80 setup code if this is a soft-reset
+PortA_Ok:	bne.b	SkipSetup		; skip the VDP and Z80 setup code if this is a soft-reset
 
 		lea	SetupValues(pc),a5	; load setup values array address
 		movem.w	(a5)+,d5-d7
 		movem.l	(a5)+,a0-a4
 		move.b	-$10FF(a1),d0	; get hardware version (from $A10001)
 		andi.b	#$F,d0
-		beq	SkipSecurity.s	; If the console has no TMSS, skip the security stuff.
+		beq.b	SkipSecurity	; If the console has no TMSS, skip the security stuff.
 		move.l	#('S'<<24)|('E'<<16)|('G'<<8)|'A',$2F00(a1) ; move "SEGA" to TMSS register ($A14000)
 
 SkipSecurity:
@@ -159,7 +153,7 @@ VDPInitLoop:
 
 WaitForZ80:
 		btst	d0,(a1)		; has the Z80 stopped?
-		bne	WaitForZ80.s	; if not, branch
+		bne.b	WaitForZ80	; if not, branch
 
 		moveq	#$25,d2
 Z80InitLoop:
@@ -196,7 +190,7 @@ PSGInitLoop:
 		disable_ints
 
 SkipSetup:
-		bra	GameProgram.s	; begin game
+		bra.b	GameProgram	; begin game
 
 ; ===========================================================================
 SetupValues:	.DW $8000		; VDP register start number
@@ -242,5 +236,19 @@ SetupValues:	.DW $8000		; VDP register start number
 
 		.DB $9F, $BF, $DF, $FF	; values for PSG channel volumes
 ; ===========================================================================
-
 .ENDS  ; End of section 'Interrupt'
+
+GameProgram: ; (TODO)
+BusError:
+AddressError:
+IllegalInstr:
+ZeroDivide:
+ChkInstr:
+TrapvInstr:
+PrivilegeViol:
+Trace:
+Line1010Emu:
+Line1111Emu:
+ErrorExcept:
+HBlank:
+VBlank:

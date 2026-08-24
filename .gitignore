@@ -2,5 +2,7 @@ SonLVL INI Files/dllcache
 SonLVL INI Files/SonLVL.log
 
 # compiler output.
-*.o
-*.z80
+Build/**.o
+Build/**.z80
+Build/**.sym
+Build/**.gen
