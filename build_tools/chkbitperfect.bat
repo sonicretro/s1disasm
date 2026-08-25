@@ -1,6 +1,6 @@
 @ECHO OFF
 
 cd ..
-"build_tools/Lua/lua.exe" build_tools/chkbitperfect.lua
+CALL "build_tools\node.bat" build_tools/chkbitperfect.js
 
-pause
+PAUSE
