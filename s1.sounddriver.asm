@@ -731,20 +731,23 @@ ptr_flgend
 ; ---------------------------------------------------------------------------
 ; Sound_E1: PlaySega:
 PlaySegaSound:
-		move.b	#$88,(z80_ram+zDAC_Sample).l		; queue Sega PCM
-		startZ80
-		move.w	#$11,d1
-; loc_71FC0:
-.busyloop_outer:
-		move.w	#-1,d0
-; loc_71FC4:
-.busyloop:
-		nop
-		dbf	d0,.busyloop
+		lea	(port_1_data).l,a1	; Load first joypad port into a1
+		lea	(SegaPCM).l,a2		; Load the SEGA PCM sample into a2
+		move.l	#SegaPCM.size,d3	; Load the size of the SEGA PCM sample into d3 
+		move.b	#$2A,(ym2612_a0).l	; $A04000 = $2A -> Write to DAC channel	  
 
-		dbf	d1,.busyloop_outer
-
-		addq.w	#4,sp					; tamper return value so we don't return to caller
+.PlayPCM_Loop:	  
+		move.b	(a2)+,(ym2612_d0).l	; Write the PCM data (contained in a2) to $A04001 (YM2612 register D0) 
+		moveq	#39,d0			; Set cycles to waste for pitch control to d0 (roughly 400 cycles)
+		dbf	d0,*			; Decrement d0; jump to itself if not 0 (pitch control)
+		subq.l	#1,d3			; Subtract 1 from the PCM sample size (we can't use dbf here, d3 is too big)
+		beq.s	.return_PlayPCM		; If d3 = 0, we finished playing the PCM sample, so stop playing, leave this loop, and unfreeze the 68K
+		move.b	#0,(a1)			; Read A and Start input (normally requires extra nops, but makes no effective difference here)
+		btst	#bitStart-2,(a1)	; Check for Start button (-2 because it's not bit-shifted yet)
+		bne.s	.PlayPCM_Loop		; If start was not pressed, continue playing PCM sample (bne because it wasn't NOT'd)
+		
+.return_PlayPCM: 				; Otherwise, stop playing, leave this loop, and unfreeze the 68K
+		addq.w	#4,sp			; Tamper return value so we don't return to caller
 		rts
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -2850,18 +2853,6 @@ SoundD0:	include "sound/sfx/SndD0 - Waterfall.asm"
 ; ---------------------------------------------------------------------------
 ; 'Sega' chant PCM sample
 ; ---------------------------------------------------------------------------
-		; Don't let Sega sample cross $8000-byte boundary
-		; (DAC driver doesn't switch banks automatically)
-		if ((*)&$7FFF)+Size_of_SegaPCM>$8000
-			align $8000
-		endif
-SegaPCM:	include "sound/dac/pcm/generated/sega.inc"
-		even
-
-		if SegaPCM.size>$8000
-			fatal "Sega sound must fit within $8000 bytes, but you have a $\{SegaPCM.size} byte Sega sound."
-		endif
-		if SegaPCM.size>Size_of_SegaPCM
-			fatal "Size_of_SegaPCM = $\{Size_of_SegaPCM}, but you have a $\{SegaPCM.size} byte Sega sound."
-		endif
-
+SegaPCM:	binclude "sound/dac/pcm/generated/sega.pcm"
+SegaPCM_End:	even
+SegaPCM.size:	equ SegaPCM_End-SegaPCM
