@@ -152,7 +152,7 @@ PLC_LZ2:	plcheader
 		plcm	Nem_LzWheel,	ArtTile_LZ_Conveyor_Belt	; wheel
 		plcm	Nem_Gargoyle,	ArtTile_LZ_Gargoyle		; gargoyle head
 	if Revision=0
-		plcm	Nem_LzSonic,	ArtTile_LZ_Sonic_Drowning	; Sonic holding his breath
+		plcm	Nem_LzSonic,	ArtTile_LZ_UnusedFace		; unused face of Sonic holding his breath
 	endif
 		plcm	Nem_LzPlatfm,	ArtTile_LZ_Rising_Platform	; rising platform
 		plcm	Nem_Orbinaut,	ArtTile_LZ_Orbinaut		; orbinaut enemy

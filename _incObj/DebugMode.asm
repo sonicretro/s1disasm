@@ -433,7 +433,7 @@ __LABEL__:	label	*
 		dbug	Map_Gar,	id_Gargoyle,		0,	0,	ArtTile_LZ_Gargoyle|Tile_Pal3
 	    else
 		; Incorrect VRAM address
-		dbug	Map_Gar,	id_Gargoyle,		0,	0,	(ArtTile_LZ_Sonic_Drowning-2)|Tile_Pal3
+		dbug	Map_Gar,	id_Gargoyle,		0,	0,	(ArtTile_LZ_UnusedFace-2)|Tile_Pal3
 	    endif
 		dbug	Map_LBlock,	id_LabyrinthBlock,	$27,	2,	ArtTile_LZ_Blocks|Tile_Pal3
 		dbug	Map_LBlock,	id_LabyrinthBlock,	$30,	3,	ArtTile_LZ_Blocks|Tile_Pal3
