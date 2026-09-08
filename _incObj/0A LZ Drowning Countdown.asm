@@ -41,8 +41,14 @@ Drown_Main:	; Routine 0
 		move.b	obSubtype(a0),d0			; get bubble type
 		bpl.s	.numberBubble				; is this the special countdown object (set from Obj01_InWater)? if not, branch
 		addq.b	#8,obRoutine(a0)			; advance to Drown_Countdown
-		move.l	#Map_Drown,obMap(a0)			; set drown numbers mappings
-		move.w	#ArtTile_LZ_Sonic_Drowning,obGfx(a0)	; set drown numbers art tile
+	if FixBugs=0
+		; This is a leftover setting the drowning countdown object to mappings that point towards
+		; an unused face of Sonic holding his breath. Since the air-tracking object is invisible
+		; (the drowning countdown numbers are loaded separately), it goes completely unused.
+		; The relevant graphics at "Nem_LzSonic" were also removed entirely in REV01.
+		move.l	#Map_UnusedFace,obMap(a0)		; set drown numbers mappings
+		move.w	#ArtTile_LZ_UnusedFace,obGfx(a0)	; set drown numbers art tile
+	endif
 		andi.w	#$7F,d0					; clear drown countdown bit from subtype
 		move.b	d0,drown_type(a0)			; set bubble type
 		bra.w	Drown_Countdown				; skip directly to countdown logic
@@ -366,4 +372,7 @@ Drown_Countdown:; Routine $A
 ; ===========================================================================
 
 		include	"_anim/Drowning Countdown.asm"
-Map_Drown:	include	"_maps/Drowning Countdown.asm"
+
+	if FixBugs=0
+Map_UnusedFace:	include	"_maps/Unused Sonic Face.asm"
+	endif
