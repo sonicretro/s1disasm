@@ -27,6 +27,7 @@ QueueSound2:
 ; End of function QueueSound2
 
 ; ===========================================================================
+	if UnusedOptimization=0
 ; ---------------------------------------------------------------------------
 ; Subroutine to	queue a sound into buffer 3, unused and broken.
 ; Enabling "FixBugs" will make this usable.
@@ -40,3 +41,4 @@ QueueSound3:
 		move.b	d0,(v_snddriver_ram.v_soundqueue2).w
 		rts
 ; End of function QueueSound3
+	endif

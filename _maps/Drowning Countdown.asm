@@ -1,11 +1,11 @@
 ; ---------------------------------------------------------------------------
-; Sprite mappings - unused face of Sonic holding his (LZ)
+; Sprite mappings - drowning countdown numbers (LZ)
 ; ---------------------------------------------------------------------------
-Map_UnusedFace_internal:	mappingsTable
-	mappingsTableEntry.w	.face
+Map_Drown_internal:	mappingsTable
+	mappingsTableEntry.w	.num
 
-.face:	spriteHeader
+.num:	spriteHeader
 	spritePiece	-$E, -$18, 4, 3, 0, 0, 0, 0, 0
-.face_End
+.num_End
 
 	even

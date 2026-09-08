@@ -1019,6 +1019,7 @@ Sonic_AirDrag:
 
 
 ; ===========================================================================
+	if UnusedOptimization=0
 ; ---------------------------------------------------------------------------
 ; Unused subroutine to squash Sonic into the ceiling. When Sonic gets stuck
 ; in a ceiling, this would zero all his momentum and set his animation to
@@ -1045,7 +1046,7 @@ Sonic_SquashUnused:
 .return:
 		rts						; return
 ; End of function Sonic_SquashUnused
-
+	endif
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
@@ -1237,7 +1238,7 @@ Sonic_Jump:
 		clr.b	sticktoconvex(a0)			; detach Sonic from the gears in SBZ
 		move.w	#sfx_Jump,d0				; set jump sound
 		jsr	(QueueSound2).l				; play jumping sound
-	if FixBugs=0
+	if (FixBugs=0)&(UnusedOptimization=0)
 		; This sets Sonic's hitbox to standing size when roll-jumping.
 		; A leftover from the victory animation in prototypes.
 		move.b	#sonic_height,obHeight(a0)		; set height to standing size
@@ -1484,11 +1485,16 @@ Sonic_Floor:
 		move.w	obVelX(a0),d1				; get current horizontal speed
 		move.w	obVelY(a0),d2				; get current vertical speed
 		jsr	(CalcAngle).l				; calculate arctan based on Sonic's current fall direction
+	if UnusedOptimization
+		subi.b	#$20,d0					; rotate 45 degrees counterclockwise
+		andi.b	#$C0,d0					; snap to nearest multiple of 90 degrees
+	else
 		move.b	d0,(v_unused3).w			; (unused) store basic angle
 		subi.b	#$20,d0					; rotate 45 degrees counterclockwise
 		move.b	d0,(v_unused4).w			; (unused) store -45 degrees angle
 		andi.b	#$C0,d0					; snap to nearest multiple of 90 degrees
 		move.b	d0,(v_unused5).w			; (unused) store snapped angle
+	endif
 
 		cmpi.b	#$40,d0					; is main movement direction to the left?
 		beq.w	Sonic_FloorLeft				; if yes, branch
@@ -1526,7 +1532,9 @@ Sonic_FloorDown:
 ; loc_13602:
 .norightgraze:
 		bsr.w	Sonic_FindFloor				; find distance between Sonic and floor
+	if UnusedOptimization=0
 		move.b	d1,(v_unused6).w			; (unused) store distance to floor
+	endif
 		tst.w	d1					; has Sonic touched the floor again?
 	if FixBugs=0
 		bpl.s	.return					; if not, branch

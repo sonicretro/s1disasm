@@ -405,7 +405,9 @@ __LABEL__:	label	*
 		dbug	Map_Spring,	id_Springs,		0,	0,	ArtTile_Spring_Horizontal
 		dbug	Map_Newt,	id_Newtron,		0,	0,	ArtTile_Newtron|Tile_Pal2
 		dbug	Map_Edge,	id_EdgeWalls,		0,	0,	ArtTile_GHZ_Edge_Wall|Tile_Pal3
-		dbug	Map_GBall,	id_Obj19,		0,	0,	ArtTile_GHZ_Giant_Ball|Tile_Pal3
+	if UnusedOptimization=0
+		dbug	Map_GBall,	id_RollingBall,		0,	0,	ArtTile_GHZ_Giant_Ball|Tile_Pal3
+	endif
 		dbug	Map_Lamp,	id_Lamppost,		1,	0,	ArtTile_Lamppost
 		dbug	Map_GRing,	id_GiantRing,		0,	0,	ArtTile_Giant_Ring|Tile_Pal2
 		dbug	Map_Bonus,	id_HiddenBonus,		1,	1,	ArtTile_Hidden_Points|Tile_Prio
@@ -433,7 +435,7 @@ __LABEL__:	label	*
 		dbug	Map_Gar,	id_Gargoyle,		0,	0,	ArtTile_LZ_Gargoyle|Tile_Pal3
 	    else
 		; Incorrect VRAM address
-		dbug	Map_Gar,	id_Gargoyle,		0,	0,	(ArtTile_LZ_UnusedFace-2)|Tile_Pal3
+		dbug	Map_Gar,	id_Gargoyle,		0,	0,	(ArtTile_LZ_Sonic_Drowning-2)|Tile_Pal3
 	    endif
 		dbug	Map_LBlock,	id_LabyrinthBlock,	$27,	2,	ArtTile_LZ_Blocks|Tile_Pal3
 		dbug	Map_LBlock,	id_LabyrinthBlock,	$30,	3,	ArtTile_LZ_Blocks|Tile_Pal3

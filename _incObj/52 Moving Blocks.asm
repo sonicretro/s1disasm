@@ -83,17 +83,9 @@ MBlock_StandOn:	; Routine 4
 		jsr	(ExitPlatform).l			; allow exiting platform (can set obRoutine = 2, MBlock_Platform)
 
 	if FixBugs
-		; MBlock_SecretLZ1Raft manipulates the stack pointer so that
-		; the platform doesn't appear until the switch has been
-		; pressed. Normally this is not an issue, because this
-		; routine is called when the player is actively standing on
-		; the platform, which is impossible, since PlatformObject
-		; in the other routine is also skipped, and when the platform
-		; appears, it's given a different subtype that doesn't
-		; manipulate the stack pointer. However, it's still better
-		; practice to not store data on the stack in this instance
-		; to avoid any potential crash, so we just use object scratch
-		; RAM instead.
+		; MBlock_SecretLZ1Raft manipulates the stack pointer, potentially
+		; resulting in a crash. To avoid this, don't store data on
+		; the stack. We can use object scratch RAM instead.
 		move.w	obX(a0),mblock_fix_storeX(a0)		; backup current X-position before calling MBlock_Move (scratch RAM)
 		bsr.w	MBlock_Move				; execute platform movement behavior
 		move.w	mblock_fix_storeX(a0),d2		; restore previous X-position as input for MvSonicOnPtfm2 (scratch RAM)

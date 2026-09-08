@@ -151,8 +151,8 @@ PLC_LZ2:	plcheader
 		plcm	Nem_LzDoor2,	ArtTile_LZ_Blocks		; large horizontal door
 		plcm	Nem_LzWheel,	ArtTile_LZ_Conveyor_Belt	; wheel
 		plcm	Nem_Gargoyle,	ArtTile_LZ_Gargoyle		; gargoyle head
-	if Revision=0
-		plcm	Nem_LzSonic,	ArtTile_LZ_UnusedFace		; unused face of Sonic holding his breath
+	if (Revision=0)&(UnusedOptimization=0)
+		plcm	Nem_LzSonic,	ArtTile_LZ_Sonic_Drowning	; Sonic holding his breath
 	endif
 		plcm	Nem_LzPlatfm,	ArtTile_LZ_Rising_Platform	; rising platform
 		plcm	Nem_Orbinaut,	ArtTile_LZ_Orbinaut		; orbinaut enemy
@@ -175,7 +175,9 @@ PLC_MZ:		plcheader
 		plcm	Nem_MzGlass,	ArtTile_MZ_Glass_Pillar		; green glassy block
 		plcm	Nem_Lava,	ArtTile_MZ_Lava			; lava
 		plcm	Nem_Buzz,	ArtTile_Buzz_Bomber		; buzz bomber enemy
+	if UnusedOptimization=0
 		plcm	Nem_Yadrin,	ArtTile_Yadrin			; yadrin enemy
+	endif
 		plcm	Nem_Basaran,	ArtTile_Basaran			; basaran enemy
 		plcm	Nem_Cater,	ArtTile_MZ_SYZ_Caterkiller	; caterkiller enemy
 PLC_MZ_end:
@@ -227,7 +229,7 @@ PLC_SYZ2:	plcheader
 		plcm	Nem_Bumper,	ArtTile_SYZ_Bumper		; bumper
 		plcm	Nem_SyzSpike1,	ArtTile_SYZ_Big_Spikeball	; large spikeball
 		plcm	Nem_SyzSpike2,	ArtTile_SYZ_Spikeball_Chain	; small spikeball
-	if FixBugs=0
+	if (FixBugs=0)&(UnusedOptimization=0)
 		; Despite being unused, this corrupts the Roller's graphics
 		plcm	Nem_Cater,	ArtTile_MZ_SYZ_Caterkiller	; caterkiller enemy
 	endif
@@ -303,7 +305,7 @@ PLC_Signpost_end:
 ; Pattern load cues - beta special stage warp effect
 ; ---------------------------------------------------------------------------
 PLC_Warp:
-	if Revision=0
+	if (Revision=0)&(UnusedOptimization=0)
 PLC_WarpRev0:	plcheader
 		plcm	Nem_Warp,	ArtTile_Warp
 PLC_WarpRev0_end:
@@ -403,7 +405,7 @@ PLC_Ending:	plcheader
 		plcm	Nem_EndFlower,	ArtTile_Ending_Flowers		; flowers
 		plcm	Nem_EndEm,	ArtTile_Ending_Emeralds		; emeralds
 		plcm	Nem_EndSonic,	ArtTile_Ending_Sonic		; Sonic
-	if Revision=0
+	if (Revision=0)&(UnusedOptimization=0)
 		plcm	Nem_EndEggman,	ArtTile_Ending_Eggman		; Eggman's death (unused)
 	endif
 		plcm	Nem_Rabbit,	ArtTile_Ending_Rabbit		; rabbit
