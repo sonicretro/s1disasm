@@ -4,5 +4,5 @@
 ; (This was the Splats badnik in the prototype)
 ; ---------------------------------------------------------------------------
 
-Splats:
+Obj4F:
 		rts

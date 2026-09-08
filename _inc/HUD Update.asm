@@ -449,7 +449,7 @@ Hud_Write_8x16Digits_WithLeading:
 	.digitfound:
 		add.l	d3,d1					; undo last decrement
 
-	if UnusedOptimization=0
+	if FixBugs=0
 		; This appears to be a leftover from a dirty copy-paste job of Hud_Write_8x16Digits_SkipLeading,
 		; as it still checks for leading zeroes, but doesn't do anything with that information.
 		tst.w	d2					; was resulting target digit 0?

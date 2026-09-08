@@ -9,7 +9,6 @@ MoveSonicInDemo:
 		rts						; no demo to run
 ; ===========================================================================
 
-	if UnusedOptimization=0
 ; This is an unused subroutine for recording a demo
 DemoRecorder:
 		; This was likely intended for a developer cartridge that used RAM instead of ROM.
@@ -30,7 +29,6 @@ DemoRecorder:
 		addq.w	#2,(v_btnpushtime1).w
 		andi.w	#$3FF,(v_btnpushtime1).w
 		rts
-	endif
 ; ===========================================================================
 
 MDemo_On:

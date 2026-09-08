@@ -287,4 +287,4 @@ Bub_ChkSonic:
 ; ===========================================================================
 
 		include	"_anim/Bubbles.asm"
-Map_Bub:	include	"_maps/Bubbles.asm"
+Map_Bub:	include	"_maps/Bubbles and Drowning Countdown.asm"

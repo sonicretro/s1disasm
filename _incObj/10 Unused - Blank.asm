@@ -4,5 +4,5 @@
 ; (This was a Sonic animation test object in the prototype)
 ; ---------------------------------------------------------------------------
 
-AnimTest:
+Obj10:
 		rts

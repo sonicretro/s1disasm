@@ -1045,12 +1045,10 @@ BossPlasma_MakeBalls:; Routine 4
 		beq.w	.checkStatus				; if not, branch
 		clr.b	BossFinal_ChildCmd(a0)			; clear flag so it only runs once
 
-	if UnusedOptimization=0
 ; Seemingly dead code here as a2 is never used anywhere, possibly an old table lookup?
 		add.w	BossPlasma_TargetX(a0),d0
 		andi.w	#$1E,d0
 		adda.w	d0,a2
-	endif
 
 		addq.w	#4,BossPlasma_TargetX(a0)		; increment spread offset (to spread the ball out horizontally when spawning)
 		clr.w	BossFinal_ChildCounter(a0)		; clear ball counter

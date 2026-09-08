@@ -512,7 +512,7 @@ ArtTile_LZ_Pole:		equ $3DE
 ArtTile_LZ_Push_Block:		equ $3DE
 ArtTile_LZ_Blocks:		equ $3E6
 ArtTile_LZ_Conveyor_Belt:	equ $3F6
-ArtTile_LZ_Sonic_Drowning:	equ $440
+ArtTile_LZ_UnusedFace:		equ $440			; Unused
 ArtTile_LZ_Rising_Platform:	equ ArtTile_LZ_Blocks+$69
 ArtTile_LZ_Orbinaut:		equ $467
 ArtTile_LZ_Cork:		equ ArtTile_LZ_Blocks+$11A

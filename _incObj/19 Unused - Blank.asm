@@ -4,5 +4,5 @@
 ; (This was the infamous rolling GHZ ball level obstacle in the prototype)
 ; ---------------------------------------------------------------------------
 
-RollingBall:
+Obj19:
 		rts

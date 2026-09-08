@@ -3,7 +3,7 @@
   <Images>
     <ImageFromMappings id="img1">
       <ArtFile filename="../../artnem/LZ Bubbles &amp; Countdown.nem"/>
-      <MapFile type="ASM" filename="../../_maps/Bubbles.asm" frame="19" startpal="0" />
+      <MapFile type="ASM" filename="../../_maps/Bubbles and Drowning Countdown.asm" frame="19" startpal="0" />
     </ImageFromMappings>
   </Images>
   <Properties>

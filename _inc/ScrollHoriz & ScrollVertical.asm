@@ -100,7 +100,6 @@ SH_MoveCameraLeft:
 ; End of function ScrollHoriz
 ; ===========================================================================
 
-	if UnusedOptimization=0
 ; Dead, unused code.
 AutoScroll_Unused:
 		; This appears to be some sort of autoscrolling logic that moves
@@ -119,7 +118,6 @@ AutoScroll_Unused:
 		move.w	#2,d0					; move camera to the right
 		bra.s	SH_MoveCameraRight			; go to right-moving logic
 ; End of function AutoScroll_Unused
-	endif
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
