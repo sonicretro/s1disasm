@@ -338,7 +338,12 @@ FragmentatePlatform:
 		move.w	obGfx(a0),obGfx(a1)			; copy art tile
 		move.b	obPriority(a0),obPriority(a1)		; copy sprite priority
 		move.b	obActWid(a0),obActWid(a1)		; copy display width
-
+	if FixBugs
+		; The GHZ ledge has the "custom sprite height" flag set in obRender, which gets carried over
+		; to all child fragments. However, no custom height is specified (so it is implicitly 0).
+		; As a result, the fragments get culled/deleted too early while they are falling down.
+		move.b	obHeight(a0),obHeight(a1)		; copy display height
+	endif
 		move.b	(a4)+,collapsible_timedelay(a1)		; write next time delay from "CollapseData_..." array
 
 	if FixBugs=0
