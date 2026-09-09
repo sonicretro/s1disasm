@@ -20,7 +20,15 @@ Rock_Main:	; Routine 0
 		move.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
 	if FixBugs
 		; This should be 48 pixels, otherwise it gets culled too soon.
-		move.b	#48/2,obActWid(a0)			; set sprite display width (corrected)
+		; However, due to a minor conflict with SolidObject, the GHZ1 demo expects obActWid to be set to 38/2,
+		; otherwise it will desync once Sonic touches the second purple rock in the level. We can fix this
+		; by selectively fixing the width based on the demo flag (although it's not exactly pretty).
+		moveq	#48/2,d0				; sprite display width (corrected)
+		tst.w	(f_demo).w				; is a demo currently being played?
+		beq.s	.setSpriteWidth				; if not, branch
+		moveq	#38/2,d0				; use incorrect width anyway, so that GHZ demo doesn't desync
+	.setSpriteWidth:
+		move.b	d0,obActWid(a0)				; set final sprite display width
 	else
 		move.b	#38/2,obActWid(a0)			; set sprite display width (too small)
 	endif
