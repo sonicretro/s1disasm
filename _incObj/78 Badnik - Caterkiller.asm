@@ -383,7 +383,7 @@ Cat_BodySeg1:	; Routine 4, 8
 		; Each body segment deletes itself when it detects that the head is going to delete itself.
 		; This mostly works, but does cause the sub-object to linger for one frame longer than it should,
 		; which is why rolling into a Caterkiller at high speed causes Sonic to be hurt.
-		jsr	(DeleteChild).l				; delete the parent (don't mind this misnomer)
+		clr.b	obColType(a0)				; prevent segment from hurting.
 	endif
 
 .delete:
