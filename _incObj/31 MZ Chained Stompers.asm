@@ -140,7 +140,7 @@ CStom_MainBlock: ; Routine 2
 		move.w	obX(a0),d4				; X-position (stood-on)
 		bsr.w	SolidObject				; make main metal block solid
 
-		btst	#3,obStatus(a0)				; is Sonic standing on main metal block?
+		btst	#status_on_object_bit,obStatus(a0)	; is Sonic standing on main metal block?
 		beq.s	.display				; if not, branch
 		cmpi.b	#$10,cstom_current(a0)			; is current stomper close enough to the ceiling to squash Sonic?
 		bhs.s	.display				; if not, branch

@@ -261,7 +261,7 @@ Drown_Countdown:; Routine $A
 		lea	(v_player).w,a0				; load Sonic player object
 		bsr.w	Sonic_ResetOnFloor			; reset Sonic's state to grounded
 		move.b	#id_Drown,obAnim(a0)			; use Sonic's drowning animation
-		bset	#1,obStatus(a0)				; set Sonic to in-air
+		bset	#status_in_air_bit,obStatus(a0)		; set Sonic to in-air
 		bset	#7,obGfx(a0)				; make Sonic's sprite high priority
 		move.w	#0,obVelY(a0)				; cancel Y-speed
 		move.w	#0,obVelX(a0)				; cancel X-speed

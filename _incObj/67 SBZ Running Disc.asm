@@ -54,7 +54,7 @@ Disc_Main:	; Routine 0
 
 		move.b	obStatus(a0),d0				; get status flags containing X/Y-flip flags
 		ror.b	#2,d0					; move X/Y-flip flags in bits 0-1 to upper bits 6-7
-		andi.b	#%11000000,d0				; limit to only bits 6-7 ($C0)
+		andi.b	#(status_xflip|status_yflip)<<6,d0	; limit to only bits 6-7 ($C0)
 		move.b	d0,obAngle(a0)				; set initial angle for small spot
 ; ---------------------------------------------------------------------------
 
@@ -87,7 +87,7 @@ Disc_MoveSonic:
 		cmp.w	d3,d1					; is Sonic vertically within trigger distance?
 		bhs.s	Disc_DetachSonic			; if not, branch
 
-		btst	#1,obStatus(a1)				; is Sonic on the ground?
+		btst	#status_in_air_bit,obStatus(a1)		; is Sonic on the ground?
 		beq.s	Disc_AttachSonic			; if yes, attach Sonic to gear
 		clr.b	disc_sonic_attached(a0)			; clear attached flag while Sonic is in air
 		rts						; return
@@ -108,11 +108,11 @@ Disc_AttachSonic:
 		bne.s	.moveSonic				; if yes, branch
 
 		move.b	#1,disc_sonic_attached(a0)		; set attached flag for gear
-		btst	#2,obStatus(a1)				; is Sonic rolling?
+		btst	#status_rolling_bit,obStatus(a1)	; is Sonic rolling?
 		bne.s	.stickToConvex				; if yes, branch
 		clr.b	obAnim(a1)				; set Sonic's animation back to walking (ID 0)
 	.stickToConvex:
-		bclr	#5,obStatus(a1)				; clear Sonic's pushing flag
+		bclr	#status_pushing_bit,obStatus(a1)	; clear Sonic's pushing flag
 		move.b	#id_Run,obPrevAni(a1)			; restart Sonic's animation
 		move.b	#1,sticktoconvex(a1)			; set Sonic's stick-to-convex state flag for the gear
 ; ---------------------------------------------------------------------------

@@ -73,7 +73,7 @@ Yad_Main:	; Routine 0
 		add.w	d1,obY(a0)				; match object's position with the floor
 		move.w	#0,obVelY(a0)				; clear falling speed
 		addq.b	#2,obRoutine(a0)			; advance to Moto_Action
-		bchg	#0,obStatus(a0)				; make Yadrin face to the left on spawn
+		bchg	#status_xflip_bit,obStatus(a0)		; make Yadrin face to the left on spawn
 	.hide:
 
 	if FixBugs
@@ -105,7 +105,7 @@ Yad_Action_Wait:
 		addq.b	#2,ob2ndRout(a0)			; advance to Yad_Action_Move
 		move.w	#-$100,obVelX(a0)			; move Yadrin to the left
 		move.b	#1,obAnim(a0)				; set to walk animation
-		bchg	#0,obStatus(a0)				; invert horizontal orientation
+		bchg	#status_xflip_bit,obStatus(a0)		; invert horizontal orientation
 		bne.s	.return					; if looking left nowallhit, branch
 		neg.w	obVelX(a0)				; move Yadrin to the right instead
 

@@ -46,12 +46,12 @@ Newt_ActIndex:	dc.w Newt_Action_ChkDistance-Newt_ActIndex	; 0
 
 ; .chkdistance:
 Newt_Action_ChkDistance:
-		bset	#0,obStatus(a0)				; make Newtron face right
+		bset	#status_xflip_bit,obStatus(a0)		; make Newtron face right
 		move.w	(v_player+obX).w,d0			; get Sonic's current X-position
 		sub.w	obX(a0),d0				; calculate difference to Newtron
 		bhs.s	.chkDistance				; if difference is positive, branch
 		neg.w	d0					; make difference positive for check
-		bclr	#0,obStatus(a0)				; make Newtron face left
+		bclr	#status_xflip_bit,obStatus(a0)		; make Newtron face left
 	.chkDistance:
 		cmpi.w	#128,d0					; is Sonic within 128 pixels of the Newtron?
 		bhs.s	.return					; if not, branch
@@ -74,11 +74,11 @@ Newt_Action_WaitDrop:
 		cmpi.b	#4,obFrame(a0)				; has "appearing" animation finished?
 		bhs.s	Newt_Action_Drop			; is yes, branch
 
-		bset	#0,obStatus(a0)				; make Newtron face right
+		bset	#status_xflip_bit,obStatus(a0)		; make Newtron face right
 		move.w	(v_player+obX).w,d0			; get Sonic's current X-position
 		sub.w	obX(a0),d0				; calculate difference to Newtron
 		bhs.s	.return					; if difference is positive, branch
-		bclr	#0,obStatus(a0)				; make Newtron face left
+		bclr	#status_xflip_bit,obStatus(a0)		; make Newtron face left
 
 	.return:
 		rts						; return
@@ -116,7 +116,7 @@ Newt_Action_Drop:
 	endif
 		move.b	#col_40x16|col_badnik,obColType(a0)	; make destroyable (badnik, 40x16)
 		move.w	#$200,obVelX(a0)			; move Newtron horizontally to the right
-		btst	#0,obStatus(a0)				; is Newtron facing left?
+		btst	#status_xflip_bit,obStatus(a0)		; is Newtron facing left?
 		bne.s	.return					; if not, branch
 		neg.w	obVelX(a0)				; move to the left instead
 
@@ -169,7 +169,7 @@ Newt_Action_GreenNewtron:
 		subq.w	#8,obY(a1)				; align missile vertically
 		move.w	#$200,obVelX(a1)			; move missile to the right
 		move.w	#$14,d0					; set horizontal alignment offset
-		btst	#0,obStatus(a0)				; is Newtron facing left?
+		btst	#status_xflip_bit,obStatus(a0)		; is Newtron facing left?
 		bne.s	.alignX					; if not, branch
 		neg.w	d0					; invert X-alignment offset
 		neg.w	obVelX(a1)				; move missile to the left

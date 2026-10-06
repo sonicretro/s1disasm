@@ -171,10 +171,10 @@ LBall_RiseAndFall:
 		addq.b	#2,obRoutine(a0)			; set to "LBall_Delete" routine
 
 	.checkYFlip:
-		bclr	#1,obStatus(a0)				; make lava ball face down
+		bclr	#status_yflip_bit,obStatus(a0)		; make lava ball face down
 		tst.w	obVelY(a0)				; is lava ball still going up?
 		bpl.s	.return					; if not, branch
-		bset	#1,obStatus(a0)				; make lava ball face up
+		bset	#status_yflip_bit,obStatus(a0)		; make lava ball face up
 
 	.return:
 		rts						; return
@@ -182,7 +182,7 @@ LBall_RiseAndFall:
 
 ; Type 4 - flies up until it hits the ceiling
 LBall_Up:
-		bset	#1,obStatus(a0)				; set Y-flip flag (face up)
+		bset	#status_yflip_bit,obStatus(a0)		; set Y-flip flag (face up)
 
 		bsr.w	ObjHitCeiling				; get distance to ceiling
 		tst.w	d1					; has ball hit the ceiling?
@@ -197,7 +197,7 @@ LBall_Up:
 
 ; Type 5 - falls down until it hits the floor
 LBall_Down:
-		bclr	#1,obStatus(a0)				; clear Y-flip flag (face down)
+		bclr	#status_yflip_bit,obStatus(a0)		; clear Y-flip flag (face down)
 
 		bsr.w	ObjFloorDist				; get distance to floor
 		tst.w	d1					; has ball hit the floor?
@@ -212,7 +212,7 @@ LBall_Down:
 
 ; Type 6 - moves sideways to the left
 LBall_Left:
-		bset	#0,obStatus(a0)				; set X-flip flag (face left)
+		bset	#status_xflip_bit,obStatus(a0)		; set X-flip flag (face left)
 
 		moveq	#-8,d3					; check 8px ahead to the left
 		bsr.w	ObjHitWallLeft				; get distance to wall
@@ -228,7 +228,7 @@ LBall_Left:
 
 ; Type 7 - moves sideways to the right
 LBall_Right:
-		bclr	#0,obStatus(a0)				; clear X-flip flag (face right)
+		bclr	#status_xflip_bit,obStatus(a0)		; clear X-flip flag (face right)
 
 		moveq	#8,d3					; check 8px ahead to the right
 		bsr.w	ObjHitWallRight				; get distance to wall

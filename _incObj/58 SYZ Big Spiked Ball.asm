@@ -37,7 +37,7 @@ BBall_Main:	; Routine 0
 
 		move.b	obStatus(a0),d0				; get status flags containing X/Y-flip flags
 		ror.b	#2,d0					; move X/Y-flip flags in bits 0-1 to upper bits 6-7
-		andi.b	#%11000000,d0				; limit to only bits 6-7 ($C0)
+		andi.b	#(status_xflip|status_yflip)<<6,d0	; limit to only bits 6-7 ($C0)
 		move.b	d0,obAngle(a0)				; set initial angle for ball (subtype $x3 only)
 		move.b	#$50,bball_radius(a0)			; set radius of circle motion (subtype $x3 only)
 ; ---------------------------------------------------------------------------
@@ -69,7 +69,7 @@ BBall_Type1_LeftRight:
 		move.w	#$60,d1					; adjustment offset for X-flipped balls (oscillation range * 2)
 		moveq	#0,d0					; clear d0
 		move.b	(v_oscillate+$E).w,d0			; get oscillatory value (frequency 2, middle value $30)
-		btst	#0,obStatus(a0)				; is spike ball X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is spike ball X-flipped?
 		beq.s	.setX					; if not, branch
 		neg.w	d0					; reverse oscillated offset direction
 		add.w	d1,d0					; keep flipped balls in the same $60px range
@@ -86,7 +86,7 @@ BBall_Type2_UpDown:
 		move.w	#$60,d1					; (unused, probably a leftover from copying subtype $x1)
 		moveq	#0,d0					; clear d0
 		move.b	(v_oscillate+$E).w,d0			; get oscillatory value (frequency 2, middle value $30)
-		btst	#0,obStatus(a0)				; is spike ball Y-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is spike ball Y-flipped?
 		beq.s	.setY					; if not, branch
 		neg.w	d0					; reverse oscillated offset direction
 		addi.w	#$60+$20,d0				; keep flipped balls in the same $60px range... plus an extra $20px

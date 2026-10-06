@@ -184,13 +184,13 @@ Bas_Action_BackToCeiling:
 ; .chkdistance:
 Bas_CheckDistanceAndFaceSonic:
 		move.w	#$100,d1				; set horizontal move speed to the right
-		bset	#0,obStatus(a0)				; make face right
+		bset	#status_xflip_bit,obStatus(a0)		; make face right
 		move.w	(v_player+obX).w,d0			; get Sonic's X-position
 		sub.w	obX(a0),d0				; calculate X-difference
 		bhs.s	.checkDistance				; if Sonic is left of Basaran, branch
 		neg.w	d0					; make X-difference positive for check
 		neg.w	d1					; move Basaran to the left instead
-		bclr	#0,obStatus(a0)				; make face left
+		bclr	#status_xflip_bit,obStatus(a0)		; make face left
 
 	.checkDistance:
 		cmp.w	d2,d0					; is Sonic inside trigger zone?

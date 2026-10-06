@@ -47,7 +47,7 @@ SBall_Main:	; Routine 0
 
 		move.b	obStatus(a0),d0				; get X/Y-flip flags
 		ror.b	#2,d0					; shift those flags into topmost bits
-		andi.b	#%11000000,d0				; mask out other bits ($C0)
+		andi.b	#(status_xflip|status_yflip)<<6,d0	; mask out other bits ($C0)
 		move.b	d0,obAngle(a0)				; set starting angle for chain based on flip flags
 
 		lea	sball_children(a0),a2			; load child RAM index array

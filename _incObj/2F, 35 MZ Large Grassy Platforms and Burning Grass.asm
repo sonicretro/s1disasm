@@ -68,7 +68,7 @@ LGrass_Action:	; Routine 2
 		move.b	obActWid(a0),d1				; use sprite display width as platform width
 		addi.w	#sonic_solid_width,d1			; add Sonic's own solidity width
 		bsr.w	ExitPlatform				; allow Sonic exiting the platform
-		btst	#3,obStatus(a1)				; is Sonic still standing on platform?
+		btst	#status_on_object_bit,obStatus(a1)	; is Sonic still standing on platform?
 		bne.w	LGrass_Slope				; if yes, branch
 		clr.b	obSolid(a0)				; clear platform solidity flag
 

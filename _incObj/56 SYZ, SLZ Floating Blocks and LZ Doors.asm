@@ -103,7 +103,7 @@ FBlock_Main:	; Routine 0
 		lea	(a2,d0.w),a2				; get current oscillation rate for subtype
 		tst.w	(a2)					; is current rate negative?
 		bpl.s	.setupLZDoor				; if not, branch
-		bchg	#0,obStatus(a0)				; invert X-flip flag
+		bchg	#status_xflip_bit,obStatus(a0)		; invert X-flip flag
 
 	.setupLZDoor:
 		move.b	obSubtype(a0),d0			; get subtype again
@@ -206,7 +206,7 @@ FBlock_LeftRight_Large:
 ; ---------------------------------------------------------------------------
 
 FBlock_MoveLR:
-		btst	#0,obStatus(a0)				; is platform X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is platform X-flipped?
 		beq.s	.updateX				; if not, branch
 		neg.w	d0					; reverse movement direction
 		add.w	d1,d0					; keep in the same general range
@@ -234,7 +234,7 @@ FBlock_UpDown_Large:
 ; ---------------------------------------------------------------------------
 
 FBlock_MoveUD:
-		btst	#0,obStatus(a0)				; is object X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is object X-flipped?
 		beq.s	.updateY				; if not, branch
 		neg.w	d0					; reverse movement direction
 		add.w	d1,d0					; keep in the same general range
@@ -284,7 +284,7 @@ FBlock_LZSmallDoor_Open:
 
 	.updatePosition:
 		move.w	fb_distance(a0),d0			; get remaining distance to travel
-		btst	#0,obStatus(a0)				; is door X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is door X-flipped?
 		beq.s	.setY					; if not, branch
 		neg.w	d0					; move door down instead
 	.setY:	move.w	fb_origY(a0),d1				; get initial Y-position
@@ -334,7 +334,7 @@ FBlock_LZSmallDoor_Close:
 
 	.updatePosition:
 		move.w	fb_distance(a0),d0			; get remaining distance to travel
-		btst	#0,obStatus(a0)				; is door X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is door X-flipped?
 		beq.s	.setY					; if not, branch
 		neg.w	d0					; move door down instead
 	.setY:	move.w	fb_origY(a0),d1				; get initial Y-position
@@ -402,7 +402,7 @@ FBlock_LZHorizDoor_Open:
 
 	.updatePosition:
 		move.w	fb_distance(a0),d0			; get remaining distance to travel
-		btst	#0,obStatus(a0)				; is door X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is door X-flipped?
 		beq.s	.setX					; if not, branch
 		neg.w	d0					; move door right instead
 		addi.w	#128,d0					; keep in same general range
@@ -448,7 +448,7 @@ FBlock_LZHorizDoor_Close:
 	; .wtf:
 	.updatePosition:
 		move.w	fb_distance(a0),d0			; get remaining distance to travel
-		btst	#0,obStatus(a0)				; is door X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is door X-flipped?
 		beq.s	.setX					; if not, branch
 		neg.w	d0					; move door left instead
 		addi.w	#128,d0					; keep in same general range
@@ -512,11 +512,11 @@ FBlock_SLZStair_MoveSquare:
 		tst.w	d3					; is current oscillation rate 0? (at a corner)
 		bne.s	.checkFlipped				; if not, branch
 		addq.b	#1,obStatus(a0)				; cycle through X-flipped, Y-flipped, XY-flipped, and not flipped
-		andi.b	#3,obStatus(a0)				; limit to those four possible states
+		andi.b	#status_xflip|status_yflip,obStatus(a0)	; limit to those four possible states
 
 	.checkFlipped:
 		move.b	obStatus(a0),d2				; get current status flags
-		andi.b	#3,d2					; limit to X/Y-flip flags only
+		andi.b	#status_xflip|status_yflip,d2		; limit to X/Y-flip flags only
 		bne.s	.xFlipped				; is block X-flipped and/or Y-flipped? if yes, branch
 
 		; Move right along the top edge

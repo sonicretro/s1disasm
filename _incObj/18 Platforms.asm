@@ -222,7 +222,7 @@ Plat_MoveVertical:
 Plat_FallAfterStand:
 		tst.w	plat_delay(a0)				; has Sonic already stepped on the platform?
 		bne.s	.wait					; if yes, branch
-		btst	#3,obStatus(a0)				; is Sonic currently standing on the platform?
+		btst	#status_on_object_bit,obStatus(a0)	; is Sonic currently standing on the platform?
 		beq.s	.return					; if not, branch
 		move.w	#30,plat_delay(a0)			; set time delay to 0.5 seconds
 
@@ -244,14 +244,14 @@ Plat_FallingDown:
 		beq.s	.fallingDown				; if yes, branch
 		subq.w	#1,plat_delay(a0)			; decrement timer for Sonic to stay attached on platform
 		bne.s	.fallingDown				; if time remains, branch
-		btst	#3,obStatus(a0)				; was Sonic still on platform as timer expired?
+		btst	#status_on_object_bit,obStatus(a0)	; was Sonic still on platform as timer expired?
 		beq.s	.notOnPlatform				; if not, branch
 
 		; Note: a1 was set to v_player when calling ExitPlatform earlier
-		bset	#1,obStatus(a1)				; set Sonic in-air
-		bclr	#3,obStatus(a1)				; clear Sonic's on-platform flag
+		bset	#status_in_air_bit,obStatus(a1)		; set Sonic in-air
+		bclr	#status_on_object_bit,obStatus(a1)	; clear Sonic's on-platform flag
 		move.b	#2,obRoutine(a1)			; force Sonic to Sonic_Control routine
-		bclr	#3,obStatus(a0)				; clear platform's stood-on flag
+		bclr	#status_on_object_bit,obStatus(a0)	; clear platform's stood-on flag
 		clr.b	obSolid(a0)				; clear platform's solidity flag
 		move.w	obVelY(a0),obVelY(a1)			; set Sonic to continue falling on his own at the platform's current speed
 

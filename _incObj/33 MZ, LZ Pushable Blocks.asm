@@ -137,7 +137,7 @@ PushB_OnLava:
 		bsr.w	SpeedToPos				; update block's position
 
 	.checkGeyser:
-		btst	#1,obStatus(a0)				; is block getting shot up by a lava geyser? (set in GMake_MakeLava)
+		btst	#status_in_air_bit,obStatus(a0)		; is block getting shot up by a lava geyser? (set in GMake_MakeLava)
 		beq.s	PushB_OnLava_CheckWall			; if not, branch
 
 		; Block is getting shot up by a lava geyser, make it fall again
@@ -148,7 +148,7 @@ PushB_OnLava:
 		add.w	d1,obY(a0)				; align block to floor
 		clr.w	obVelY(a0)				; stop block falling
 
-		bclr	#1,obStatus(a0)				; clear flag that block got shot up by lava geyser
+		bclr	#status_in_air_bit,obStatus(a0)		; clear flag that block got shot up by lava geyser
 		move.w	(a1),d0					; get ID of 16x16 block mapping that block is standing on
 		andi.w	#$3FF,d0				; mask out everything except raw ID
 		cmpi.w	#$16A,d0				; is block standing on a 16x16 lava block? (IDs $16A and above)
@@ -214,8 +214,8 @@ PushB_LavaPlatform:
 PushB_Sunken:
 		move.w	(sp)+,d4				; restore X-position
 		lea	(v_player).w,a1				; load Sonic object
-		bclr	#3,obStatus(a1)				; clear Sonic's on-platform flag
-		bclr	#3,obStatus(a0)				; clear block's stood-on flag
+		bclr	#status_on_object_bit,obStatus(a1)	; clear Sonic's on-platform flag
+		bclr	#status_on_object_bit,obStatus(a0)	; clear block's stood-on flag
 		bra.w	PushB_ChkWithinOrigin			; potentially respawn block while offscreen
 ; End of function PushB_OnLava
 
@@ -296,7 +296,7 @@ PushB_SolidAction:
 
 .sonicOnBlock:	; ob2ndRout = 2
 		bsr.w	ExitPlatform				; allow Sonic to exit platform
-		btst	#3,obStatus(a1)				; check if Sonic is still on block
+		btst	#status_on_object_bit,obStatus(a1)	; check if Sonic is still on block
 		bne.s	.moveSonicWithBlock			; if yes, branch
 		clr.b	ob2ndRout(a0)				; clear platform flag
 		rts						; return
@@ -366,7 +366,7 @@ PushB_SolidAction_NotOnPlatform:
 		bmi.s	.leftSide				; if left of block, branch
 
 	.rightSide:
-		btst	#0,obStatus(a1)				; is Sonic looking to the right?
+		btst	#status_xflip_bit,obStatus(a1)		; is Sonic looking to the right?
 		bne.w	PushB_Return				; if not, branch
 
 		move.w	d0,-(sp)				; backup X-distance to block
@@ -383,7 +383,7 @@ PushB_SolidAction_NotOnPlatform:
 ; ---------------------------------------------------------------------------
 
 	.leftSide:
-		btst	#0,obStatus(a1)				; is Sonic looking to the left?
+		btst	#status_xflip_bit,obStatus(a1)		; is Sonic looking to the left?
 		beq.s	PushB_Return				; if not, branch
 
 		move.w	d0,-(sp)				; backup X-distance to block

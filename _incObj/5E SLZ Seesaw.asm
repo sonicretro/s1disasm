@@ -51,7 +51,7 @@ See_Main:	; Routine 0
 		move.l	a0,see_parent(a1)			; remember RAM location of parent
 
 	.checkXFlip:
-		btst	#0,obStatus(a0)				; is seesaw X-flipped? (it never is anywhere the game)
+		btst	#status_xflip_bit,obStatus(a0)		; is seesaw X-flipped? (it never is anywhere the game)
 		beq.s	.setState				; if not, branch
 		move.b	#2,obFrame(a0)				; use different sloped frame (ascending)
 
@@ -149,7 +149,7 @@ See_Spikeball_Setup: ; Routine 6
 		addi.w	#40,obX(a0)				; adjust spikeball to the right by 40px
 		move.w	obY(a0),see_origY(a0)			; remember initial Y-position
 		move.b	#1,obFrame(a0)				; initialize to silver spikeball frame
-		btst	#0,obStatus(a0)				; is seesaw X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is seesaw X-flipped?
 		beq.s	See_Spikeball_Action			; if not, branch
 		subi.w	#40*2,obX(a0)				; move spikeball to the left side instead
 		move.b	#2,see_state_ball(a0)			; set ball state to "on right side"
@@ -266,15 +266,15 @@ See_Spikeball_InAir_FallingDown:
 		beq.s	.resetBall				; if yes, don't bounce Sonic (because that wouldn't make sense)
 
 		; Make Sonic bounce as spikeball lands again
-		bclr	#3,obStatus(a1)				; clear seesaw's stood-on flag
+		bclr	#status_on_object_bit,obStatus(a1)	; clear seesaw's stood-on flag
 		beq.s	.resetBall				; was Sonic standing on seesaw as ball landed? if not, branch
 		clr.b	obSolid(a1)				; clear seesaw's solidity flags
 		move.b	#2,obRoutine(a1)			; reset seesaw back to See_Seesaw_Platform
 		lea	(v_player).w,a2				; load Sonic player object
 		move.w	obVelY(a0),obVelY(a2)			; bounce Sonic based on seesaw speed
 		neg.w	obVelY(a2)				; bounce Sonic upwards
-		bset	#1,obStatus(a2)				; set Sonic's in-air flag
-		bclr	#3,obStatus(a2)				; clear Sonic's on-platform flag
+		bset	#status_in_air_bit,obStatus(a2)		; set Sonic's in-air flag
+		bclr	#status_on_object_bit,obStatus(a2)	; clear Sonic's on-platform flag
 		clr.b	jumping(a2)				; clear Sonic's jumping flag
 		move.b	#id_Spring,obAnim(a2)			; change Sonic's animation to "spring" ($10)
 		move.b	#2,obRoutine(a2)			; force Sonic to Sonic_Control routine

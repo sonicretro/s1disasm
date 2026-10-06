@@ -21,7 +21,7 @@ SolidObject:
 		move.w	d1,d2
 		add.w	d2,d2
 		lea	(v_player).w,a1
-		btst	#1,obStatus(a1)				; is Sonic in the air?
+		btst	#status_in_air_bit,obStatus(a1)		; is Sonic in the air?
 		bne.s	.leave					; if yes, branch
 		move.w	obX(a1),d0
 		sub.w	obX(a0),d0
@@ -37,8 +37,8 @@ SolidObject:
 	endif
 
 	.leave:
-		bclr	#3,obStatus(a1)				; clear Sonic's standing flag
-		bclr	#3,obStatus(a0)				; clear object's standing flag
+		bclr	#status_on_object_bit,obStatus(a1)	; clear Sonic's standing flag
+		bclr	#status_on_object_bit,obStatus(a0)	; clear object's standing flag
 		clr.b	obSolid(a0)
 		moveq	#0,d4					; clear flag for no collision
 		rts
@@ -65,7 +65,7 @@ SolidObject_NoRenderChk:
 		move.w	d1,d2
 		add.w	d2,d2
 		lea	(v_player).w,a1
-		btst	#1,obStatus(a1)
+		btst	#status_in_air_bit,obStatus(a1)
 		bne.s	.leave
 		move.w	obX(a1),d0
 		sub.w	obX(a0),d0
@@ -75,8 +75,8 @@ SolidObject_NoRenderChk:
 		blo.s	.stand
 
 	.leave:
-		bclr	#3,obStatus(a1)
-		bclr	#3,obStatus(a0)
+		bclr	#status_on_object_bit,obStatus(a1)
+		bclr	#status_on_object_bit,obStatus(a0)
 		clr.b	obSolid(a0)
 		moveq	#0,d4
 		rts
@@ -235,10 +235,10 @@ Solid_StopX:
 ; Solid_Centre:
 Solid_AlignToSide:
 		sub.w	d0,obX(a1)				; correct Sonic's position
-		btst	#1,obStatus(a1)
+		btst	#status_in_air_bit,obStatus(a1)
 		bne.s	Solid_SideAir				; branch if Sonic is in the air
-		bset	#5,obStatus(a1)				; make Sonic push object
-		bset	#5,obStatus(a0)				; make object be pushed
+		bset	#status_pushing_bit,obStatus(a1)	; make Sonic push object
+		bset	#status_pushing_bit,obStatus(a0)	; make object be pushed
 		moveq	#1,d4					; return side collision
 		rts
 ; ===========================================================================
@@ -251,7 +251,7 @@ Solid_SideAir:
 
 ; Solid_Ignore:
 Solid_NoCollision:
-		btst	#5,obStatus(a0)				; is Sonic pushing?
+		btst	#status_pushing_bit,obStatus(a0)	; is Sonic pushing?
 		beq.s	Solid_Debug				; if not, branch
 	if FixBugs=0
 		; This causes the infamous "walk-jump bug"
@@ -259,8 +259,8 @@ Solid_NoCollision:
 	endif
 
 Solid_NotPushing:
-		bclr	#5,obStatus(a0)				; clear pushing flag
-		bclr	#5,obStatus(a1)				; clear Sonic's pushing flag
+		bclr	#status_pushing_bit,obStatus(a0)	; clear pushing flag
+		bclr	#status_pushing_bit,obStatus(a1)	; clear Sonic's pushing flag
 
 Solid_Debug:
 		moveq	#0,d4					; return no collision
@@ -303,7 +303,7 @@ Solid_TopBtmAir:
 ; ===========================================================================
 
 Solid_Squash:
-		btst	#1,obStatus(a1)				; is Sonic in the air?
+		btst	#status_in_air_bit,obStatus(a1)		; is Sonic in the air?
 		bne.s	Solid_TopBtmAir				; if yes, branch
 		move.l	a0,-(sp)				; save address of OST of current object to stack
 		movea.l	a1,a0					; temporarily make Sonic the current object
@@ -330,7 +330,7 @@ Solid_Landed:
 		subq.w	#1,obY(a1)				; move Sonic up 1px
 		bsr.s	Solid_ResetFloor			; make Sonic stand on object
 		move.b	#2,obSolid(a0)				; set flag that Sonic is standing on the object
-		bset	#3,obStatus(a0)				; set object's platform flag
+		bset	#status_on_object_bit,obStatus(a0)	; set object's platform flag
 		moveq	#-1,d4					; return top/bottom collision
 		rts
 ; ===========================================================================
@@ -351,7 +351,7 @@ Solid_Miss:
 ; ---------------------------------------------------------------------------
 
 Solid_ResetFloor:
-		btst	#3,obStatus(a1)				; is Sonic standing on something?
+		btst	#status_on_object_bit,obStatus(a1)	; is Sonic standing on something?
 		beq.s	.notonobj				; if not, branch
 
 		moveq	#0,d0
@@ -359,7 +359,7 @@ Solid_ResetFloor:
 		lsl.w	#object_size_bits,d0
 		addi.l	#(v_objspace&$FFFFFF),d0
 		movea.l	d0,a2					; a2 = address of OST of object being stood on
-		bclr	#3,obStatus(a2)				; clear object's standing flags
+		bclr	#status_on_object_bit,obStatus(a2)	; clear object's standing flags
 		clr.b	obSolid(a2)
 
 	.notonobj:
@@ -371,7 +371,7 @@ Solid_ResetFloor:
 		move.b	#0,obAngle(a1)				; clear Sonic's angle
 		move.w	#0,obVelY(a1)				; stop Sonic
 		move.w	obVelX(a1),obInertia(a1)
-		btst	#1,obStatus(a1)				; is Sonic in the air?
+		btst	#status_in_air_bit,obStatus(a1)		; is Sonic in the air?
 		beq.s	.notinair				; if not, branch
 		move.l	a0,-(sp)				; save address of OST of current object to stack
 		movea.l	a1,a0					; temporarily make Sonic the current object
@@ -379,7 +379,7 @@ Solid_ResetFloor:
 		movea.l	(sp)+,a0				; restore address of OST of current object from stack
 
 	.notinair:
-		bset	#3,obStatus(a1)				; set object standing flag
-		bset	#3,obStatus(a0)				; set Sonic standing on object flag
+		bset	#status_on_object_bit,obStatus(a1)	; set object standing flag
+		bset	#status_on_object_bit,obStatus(a0)	; set Sonic standing on object flag
 		rts
 ; End of function Solid_ResetFloor

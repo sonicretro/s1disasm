@@ -50,7 +50,7 @@ BossLabyrinth_Loop:
 		move.w	obY(a0),obY(a1)
 
 BossLabyrinth_LoadBoss:
-		bclr	#0,obStatus(a0)				; clear X flip
+		bclr	#status_xflip_bit,obStatus(a0)		; clear X flip
 		clr.b	ob2ndRout(a1)				; clear secondary object routine
 		move.b	(a2)+,obRoutine(a1)			; load objdata table into boss' copy routine table and increment
 		move.b	(a2)+,obAnim(a1)			; load animation into boss' copy and increment
@@ -70,7 +70,7 @@ BossLabyrinth_ShipMain:	; Routine 2
 		jsr	BossLabyrinth_ShipIndex(pc,d1.w)	; jump into the table and use our offset to pick a routine in the index to go to
 		lea	(Ani_Eggman).l,a1			; load animations
 		jsr	(AnimateSprite).l
-		moveq	#sprite_xflip|sprite_yflip,d0		; move first 2 bits into d0
+		moveq	#status_xflip|status_yflip,d0		; move first 2 bits into d0
 		and.b	obStatus(a0),d0				; AND with obStatus so now d0 contains X and Y logical flip bits only
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
 		or.b	d0,obRender(a0)				; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
@@ -227,13 +227,13 @@ BLZ_ShipMove3:
 
 ; loc_1804E:
 .setDirection:
-		bset	#0,obStatus(a0)				; make Eggman face to the right
+		bset	#status_xflip_bit,obStatus(a0)		; make Eggman face to the right
 		addq.b	#2,BossLabyrinth_SineCounter(a0)	; increment sine counter
 		move.b	BossLabyrinth_SineCounter(a0),d0	; copy and go to calculate vertical bob
 		jsr	(CalcSine).l
 		tst.w	d1					; check cosine sign
 		bpl.s	.trackDistance				; if positive, we are moving to the right
-		bclr	#0,obStatus(a0)				; if negative, we are moving to the left, so make Eggman face left
+		bclr	#status_xflip_bit,obStatus(a0)		; if negative, we are moving to the left, so make Eggman face left
 
 ; loc_1806C:
 .trackDistance:
@@ -293,7 +293,7 @@ BLZ_ShipAtTop:
 .checkConditions:
 		bne.s	.moveBoss				; have we met BOTH conditions? if not, branch and keep moving
 		addq.b	#2,ob2ndRout(a0)			; increment secound routine counter
-		bclr	#0,obStatus(a0)				; clear X flip (face to the left)
+		bclr	#status_xflip_bit,obStatus(a0)		; clear X flip (face to the left)
 
 ; loc_180F2:
 .moveBoss:
@@ -317,7 +317,7 @@ BLZ_ShipWait:
 	if Revision<>0
 		clr.b	(f_lockscreen).w
 	endif
-		bset	#0,obStatus(a0)				; face to the right
+		bset	#status_xflip_bit,obStatus(a0)		; face to the right
 		addq.b	#2,ob2ndRout(a0)			; increment second routine counter
 
 ; loc_18126:
@@ -471,7 +471,7 @@ BossLabyrinth_Display:
 		move.w	obX(a1),obX(a0)				; move positions to rendered positions
 		move.w	obY(a1),obY(a0)
 		move.b	obStatus(a1),obStatus(a0)		; move object status to boss status
-		moveq	#sprite_xflip|sprite_yflip,d0		; move first 2 bits into d0
+		moveq	#status_xflip|status_yflip,d0		; move first 2 bits into d0
 		and.b	obStatus(a0),d0				; AND with obStatus so now d0 contains X and Y logical flip bits only
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
 		or.b	d0,obRender(a0)				; OR the two together, so now DisplaySprite has X and Y orientation and above render bits

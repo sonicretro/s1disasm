@@ -67,7 +67,7 @@ Cat_Main:	; Routine 0
 
 		move.w	obX(a0),d2				; use head's X-position as start body part position
 		moveq	#12,d5					; set gap distance between body parts to 12px
-		btst	#0,obStatus(a0)				; is Caterkiller facing left?
+		btst	#status_xflip_bit,obStatus(a0)		; is Caterkiller facing left?
 		beq.s	.prepareBodyLoop			; if not, branch
 		neg.w	d5					; invert body part gap distance
 	.prepareBodyLoop:
@@ -198,7 +198,7 @@ Cat_Floor:
 		move.l	d2,d3					; d3 = X-pos before update
 	endif
 		move.w	obVelX(a0),d0				; get current head X-speed
-		btst	#0,obStatus(a0)				; is Caterkiller is flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is Caterkiller is flipped?
 		beq.s	.noFlip					; if not, branch
 		neg.w	d0					; change direction if X-flipped (i.e. move right)
 	.noFlip:
@@ -253,7 +253,7 @@ Cat_Floor:
 .ledgeHit:
 	if Revision=0
 		move.l	d2,obX(a0)				; restore previous x pos (i.e. stop moving)
-		bchg	#0,obStatus(a0) 			; change direction
+		bchg	#status_xflip_bit,obStatus(a0) 		; change direction
 		move.b	obStatus(a0),obRender(a0)
 		moveq	#0,d0
 		move.b	cat_segmentpos(a0),d0			; get pos counter for head
@@ -264,7 +264,7 @@ Cat_Floor:
 		move.b	#$80,cat_floormap(a0,d0.w)		; save stop position in floor map array
 		neg.w	obSubpixelX(a0)
 		beq.s	.faceLeft				; branch if x subpixel is 0
-		btst	#0,obStatus(a0)
+		btst	#status_xflip_bit,obStatus(a0)
 		beq.s	.faceLeft				; branch if facing left
 		subq.w	#1,obX(a0)
 		addq.b	#1,cat_segmentpos(a0)			; increment pos counter
@@ -272,7 +272,7 @@ Cat_Floor:
 		move.b	cat_segmentpos(a0),d0
 		clr.b	cat_floormap(a0,d0.w)
 	.faceLeft:
-		bchg	#0,obStatus(a0)
+		bchg	#status_xflip_bit,obStatus(a0)
 		move.b	obStatus(a0),obRender(a0)
 	endif
 		addq.b	#1,cat_segmentpos(a0)			; increment pos counter
@@ -319,7 +319,7 @@ Cat_BodySeg1:	; Routine 4, 8
 		move.l	obX(a0),d2
 		move.l	d2,d3					; d3 = x pos before update
 		move.w	obVelX(a0),d0
-		btst	#0,obStatus(a0)
+		btst	#status_xflip_bit,obStatus(a0)
 		beq.s	.noFlip
 		neg.w	d0					; reverse speed if X-flipped
 	.noFlip:
@@ -345,7 +345,7 @@ Cat_BodySeg1:	; Routine 4, 8
 		move.b	d1,cat_floormap(a0,d0.w)
 		neg.w	obSubpixelX(a0)
 		beq.s	.faceLeft				; branch if facing left
-		btst	#0,obStatus(a0)
+		btst	#status_xflip_bit,obStatus(a0)
 		beq.s	.faceLeft				; branch if not moving left
 		cmpi.w	#-$C0,obVelX(a0)
 		bne.s	.faceLeft
@@ -357,7 +357,7 @@ Cat_BodySeg1:	; Routine 4, 8
 	.faceLeft:
 	endif
 
-		bchg	#0,obStatus(a0)				; change direction
+		bchg	#status_xflip_bit,obStatus(a0)		; change direction
 		move.b	obStatus(a0),obRender(a0)
 		addq.b	#1,cat_segmentpos(a0)			; increment pos counter
 		andi.b	#$F,cat_segmentpos(a0)			; wrap to 0 after $F
@@ -405,13 +405,13 @@ Cat_FragSpeed:	; X-speed
 ; ===========================================================================
 
 Cat_FragmentateBody_NotifyHead:
-		bset	#7,obStatus(a1)				; set flag for head object that it should fragmentate
+		bset	#status_defeated_bit,obStatus(a1)	; set flag for head object that it should fragmentate
 
 Cat_FragmentateBody:
 		moveq	#0,d0					; clear d0 for word-addressing
 		move.b	obRoutine(a0),d0			; use routine number as fragmentate X-speed
 		move.w	Cat_FragSpeed-2(pc,d0.w),d0		; get X-speed (-2 because obRoutine 0 is init)
-		btst	#0,obStatus(a0)				; is Caterkiller facing branch?
+		btst	#status_xflip_bit,obStatus(a0)		; is Caterkiller facing branch?
 		beq.s	.setX					; if not, branch
 		neg.w	d0					; invert X-speed for segment
 	.setX:	move.w	d0,obVelX(a0)				; set X-speed for fragmented segment

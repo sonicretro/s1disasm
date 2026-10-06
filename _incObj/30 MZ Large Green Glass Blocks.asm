@@ -194,7 +194,7 @@ Glass_Type3_Stomp:
 ; ---------------------------------------------------------------------------
 
 .checkSonicStomp:
-		btst	#3,obStatus(a0)				; is Sonic standing on top of pillar?
+		btst	#status_on_object_bit,obStatus(a0)	; is Sonic standing on top of pillar?
 		bne.s	.sonicOnPillar				; if yes, branch
 		bclr	#0,glass_stomp_flags(a0)		; clear "Sonic standing on pillar" flag
 		bra.s	.checkMoveDown				; keep pillar moving down if it has just been stomped

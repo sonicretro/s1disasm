@@ -51,7 +51,7 @@ BossMarble_Loop:
 		move.w	obY(a0),obY(a1)
 
 BossMarble_LoadBoss:
-		bclr	#0,obStatus(a0)				; clear the x orientation bit
+		bclr	#status_xflip_bit,obStatus(a0)		; clear the x orientation bit
 		clr.b	ob2ndRout(a1)				; clear second routine status (ShipIndex below)
 		move.b	(a2)+,obRoutine(a1)			; load first objData byte and increment
 		move.b	(a2)+,obAnim(a1)
@@ -78,7 +78,7 @@ BossMarble_ShipMain:	; Routine 2
 ; ---------------------------------------------------------------------------
 ; obStatus stores the logical bits, but obRender is visual bits, so this simply moves them from one to the other
 ; ---------------------------------------------------------------------------
-		moveq	#sprite_xflip|sprite_yflip,d0		; move first two bits into d0
+		moveq	#status_xflip|status_yflip,d0		; move first two bits into d0
 		and.b	obStatus(a0),d0				; AND with obStatus so now d0 contains X and Y logical flip bits only
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
 		or.b	d0,obRender(a0)				; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
@@ -193,7 +193,7 @@ BMZ_ChgDir:
 .swoop:
 		move.w	#$200,obVelX(a0)			; set horizontal velocity
 		move.w	#$100,obVelY(a0)			; set vertical velocity
-		btst	#0,obStatus(a0)				; are we facing to the right?
+		btst	#status_xflip_bit,obStatus(a0)		; are we facing to the right?
 		bne.s	.skip					; if yes, keep positive x
 		neg.w	obVelX(a0)				; no, flip leftward
 
@@ -236,7 +236,7 @@ BossMarble_MakeLava:
 
 ; loc_1845C
 .checkRight:
-		btst	#0,obStatus(a0)				; are we facing to the right?
+		btst	#status_xflip_bit,obStatus(a0)		; are we facing to the right?
 		beq.s	.checkLeft				; no, branch
 		cmpi.w	#boss_mz_x+$110,obBossX(a0)		; are we at the right side of the screen?
 		blt.s	.exit					; if not, branch
@@ -278,7 +278,7 @@ BMZ_DropFire:
 		beq.s	.skip					; if not, branch
 		clr.w	obVelY(a0)				; stop vertical movement
 		move.w	#80,BossMarble_GenericTimer(a0)		; set a timer for 80 frames
-		bchg	#0,obStatus(a0)				; flip direction so that his back is to the screen bound
+		bchg	#status_xflip_bit,obStatus(a0)		; flip direction so that his back is to the screen bound
 		jsr	(FindFreeObj).l				; are there any free objects?
 		bne.s	.skip					; no, leave early
 		move.w	obBossX(a0),obX(a1)			; copy boss positions to object positions
@@ -307,8 +307,8 @@ BMZ_Explode:
 
 ; loc_18500
 .transition:
-		bset	#0,obStatus(a0)				; set x flip bit so we face right
-		bclr	#7,obStatus(a0)				; clear the defeated flag
+		bset	#status_xflip_bit,obStatus(a0)		; set x flip bit so we face right
+		bclr	#status_defeated_bit,obStatus(a0)	; clear the defeated flag
 		clr.w	obVelX(a0)				; stop horizontal movement
 		addq.b	#2,ob2ndRout(a0)			; increment the routine counter
 		move.w	#-38,BossMarble_GenericTimer(a0)	; set a timer for 38 frames
@@ -491,7 +491,7 @@ BossMarble_SetBits:
 		move.w	obX(a1),obX(a0)				; copy positions
 		move.w	obY(a1),obY(a0)
 		move.b	obStatus(a1),obStatus(a0)		; move object status to boss object status
-		moveq	#sprite_xflip|sprite_yflip,d0		; move first 2 bits into d0
+		moveq	#status_xflip|status_yflip,d0		; move first 2 bits into d0
 		and.b	obStatus(a0),d0				; AND with obStatus so now do contains X and Y logical flip bits only
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the X and Y flip
 		or.b	d0,obRender(a0)				; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
@@ -591,13 +591,13 @@ BossFire_Index2:dc.w BossFire_Drop-BossFire_Index2
 ; ===========================================================================
 
 BossFire_Drop:		; sub Routine 0
-		bset	#1,obStatus(a0)				; flip the object vertically so that it is facing up
+		bset	#status_yflip_bit,obStatus(a0)		; flip the object vertically so that it is facing up
 		subq.b	#1,BossFire_GenericTimer(a0)		; is Eggman done waiting to drop the fire?
 		bpl.s	.exit					; if not, branch
 		move.b	#col_16x16|col_hurt,obColType(a0)	; set collision
 		clr.b	obSubtype(a0)				; clear subtype for later
 		addi.w	#$18,obVelY(a0)				; start falling downwards and add on to it
-		bclr	#1,obStatus(a0)				; clear the flip so now object is facing down
+		bclr	#status_yflip_bit,obStatus(a0)		; clear the flip so now object is facing down
 		bsr.w	ObjFloorDist
 		tst.w	d1					; has the object reached the floor?
 		bpl.s	.exit					; if not, branch
@@ -689,7 +689,7 @@ BossFire_Duplicate:	; sub Routine 4
 		rts
 
 BossFire_FallEdge:	; sub Routine 6
-		bclr	#1,obStatus(a0)				; clear Y flip bit
+		bclr	#status_yflip_bit,obStatus(a0)		; clear Y flip bit
 		addi.w	#$24,obVelY(a0)				; make flame fall
 		move.w	obX(a0),d0				; copy last spawn X
 		sub.w	BossFire_SpreadX(a0),d0			; subtract the spread value from last spawn X

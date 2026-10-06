@@ -42,7 +42,7 @@ Smab_Solid:	; Routine 2
 		move.w	#34/2,d3
 		move.w	obX(a0),d4
 		bsr.w	SolidObject				; check collision with Sonic and block
-		btst	#3,obStatus(a0)				; has Sonic landed on the block?
+		btst	#status_on_object_bit,obStatus(a0)	; has Sonic landed on the block?
 		bne.s	.smash					; if yes, branch
 
 	.return:
@@ -55,15 +55,15 @@ Smab_Solid:	; Routine 2
 
 		move.w	smab_combo(a0),(v_itembonus).w		; restore combo score chain
 
-		bset	#2,obStatus(a1)				; set Sonic's rolling flag
+		bset	#status_rolling_bit,obStatus(a1)	; set Sonic's rolling flag
 		move.b	#sonic_roll_height,obHeight(a1)		; set Sonic to rolling height
 		move.b	#sonic_roll_width,obWidth(a1)		; set Sonic to rolling width
 		move.b	#id_Roll,obAnim(a1)			; keep Sonic rolling
 		move.w	#-$300,obVelY(a1)			; rebound Sonic
-		bset	#1,obStatus(a1)				; set Sonic's airborne flag
-		bclr	#3,obStatus(a1)				; clear Sonic's on-platform flag
+		bset	#status_in_air_bit,obStatus(a1)		; set Sonic's airborne flag
+		bclr	#status_on_object_bit,obStatus(a1)	; clear Sonic's on-platform flag
 		move.b	#2,obRoutine(a1)			; force Sonic to Sonic_Control routine
-		bclr	#3,obStatus(a0)				; clear block's stood-on flag
+		bclr	#status_on_object_bit,obStatus(a0)	; clear block's stood-on flag
 		clr.b	obSolid(a0)				; clear block's solidity status
 
 		; There are two mapping frames for the smashable block, the first with two sprite pieces and the second with four.

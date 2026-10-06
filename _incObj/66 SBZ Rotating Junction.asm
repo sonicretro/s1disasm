@@ -64,7 +64,7 @@ Jun_Action:	; Routine 2
 		addq.w	#1,d3					; +1px for stood-on
 		move.w	obX(a0),d4				; X-position (stood-on)
 		bsr.w	SolidObject				; make object solid and check if Sonic is pushing against it
-		btst	#5,obStatus(a0)				; is Sonic pushing the disc?
+		btst	#status_pushing_bit,obStatus(a0)	; is Sonic pushing the disc?
 		beq.w	Jun_Display				; if not, branch
 
 		lea	(v_player).w,a1				; load Sonic player object
@@ -84,9 +84,9 @@ Jun_Action:	; Routine 2
 		move.w	#$800,obInertia(a1)			; force fast ground speed for fast rolling animation
 		move.w	#0,obVelX(a1)				; stop Sonic moving horizontally
 		move.w	#0,obVelY(a1)				; stop Sonic moving vertically
-		bclr	#5,obStatus(a0)				; clear "object pushed against" flag
-		bclr	#5,obStatus(a1)				; clear Sonic' pushing flag
-		bset	#1,obStatus(a1)				; set Sonic in air
+		bclr	#status_pushing_bit,obStatus(a0)	; clear "object pushed against" flag
+		bclr	#status_pushing_bit,obStatus(a1)	; clear Sonic' pushing flag
+		bset	#status_in_air_bit,obStatus(a1)		; set Sonic in air
 
 		move.w	obX(a1),d2				; backup Sonic's X/Y-positions before calling Jun_ChgPos
 		move.w	obY(a1),d3				; ''

@@ -183,7 +183,7 @@ Sto_SlidingPlatform_Extend:
 
 	.updatePosition:
 		move.w	sto_offset_now(a0),d0			; get current extension length
-		btst	#0,obStatus(a0)				; is platform X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is platform X-flipped?
 		beq.s	.setX					; if not, branch
 		neg.w	d0					; extend platform to the right instead
 		addi.w	#128,d0					; keep in same general X-range (platform width is 128px)
@@ -223,7 +223,7 @@ Sto_SlidingPlatform_Retract:
 
 	.updatePosition:
 		move.w	sto_offset_now(a0),d0			; get current extension length
-		btst	#0,obStatus(a0)				; is platform X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is platform X-flipped?
 		beq.s	.setX					; if not, branch
 		neg.w	d0					; retract platform to the left instead
 		addi.w	#128,d0					; keep in same general X-range (platform width is 128px)
@@ -273,7 +273,7 @@ Sto_Stomper_DownAndRetract:
 
 	.updatePosition:
 		move.w	sto_offset_now(a0),d0			; get current stomp distance
-		btst	#0,obStatus(a0)				; is stomper X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is stomper X-flipped?
 		beq.s	.setY					; if not, branch
 		neg.w	d0					; invert base stomp direction
 		addi.w	#56,d0					; keep in same general Y-range (stomper height is 56px)
@@ -317,7 +317,7 @@ Sto_Stomper_UpAndDown:
 
 	.updatePosition:
 		move.w	sto_offset_now(a0),d0			; get current stomp distance
-		btst	#0,obStatus(a0)				; is stomper X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is stomper X-flipped?
 		beq.s	.setY					; if not, branch
 		neg.w	d0					; invert base stomp direction
 		addi.w	#56,d0					; keep in same general Y-range (stomper height is 56px)

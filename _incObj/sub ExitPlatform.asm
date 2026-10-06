@@ -18,7 +18,7 @@ ExitPlatform2:	; input width is already in d2
 		tst.w	(v_debuguse).w				; is debug mode active?
 		bne.s	.exitedPlatform				; if yes, exit platform right away
 	endif
-		btst	#1,obStatus(a1)				; is Sonic airborne?
+		btst	#status_in_air_bit,obStatus(a1)		; is Sonic airborne?
 		bne.s	.exitedPlatform				; if yes, exit platform right away
 
 		move.w	obX(a1),d0				; get Sonic's X-position
@@ -29,9 +29,9 @@ ExitPlatform2:	; input width is already in d2
 		blo.s	.return					; if not, stay on platform
 
 	.exitedPlatform:
-		bclr	#3,obStatus(a1)				; clear Sonic's on-platform flag
+		bclr	#status_on_object_bit,obStatus(a1)	; clear Sonic's on-platform flag
 		move.b	#2,obRoutine(a0)			; reset platform to "Sonic is not standing on me" routine (always second)
-		bclr	#3,obStatus(a0)				; clear platform's stood-on flag
+		bclr	#status_on_object_bit,obStatus(a0)	; clear platform's stood-on flag
 
 	.return:
 		rts						; return

@@ -65,7 +65,7 @@ Conveyor_MoveSonic:
 		cmpi.w	#48,d1					; is Sonic vertically within range?
 		bhs.s	.return					; if not, ignore conveyor belt
 
-		btst	#1,obStatus(a1)				; is Sonic in air?
+		btst	#status_in_air_bit,obStatus(a1)		; is Sonic in air?
 		bne.s	.return					; if yes, ignore conveyor belt
 
 		move.w	conv_speed(a0),d0			; get speed set from subtype

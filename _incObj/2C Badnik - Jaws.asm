@@ -38,7 +38,7 @@ Jaws_Main:	; Routine 0
 		move.w	d0,jaws_turndelay_base(a0)		; set base turn delay time to reset to on turn
 
 		move.w	#-$40,obVelX(a0)			; move Jaws to the left
-		btst	#0,obStatus(a0)				; is Jaws facing left?
+		btst	#status_xflip_bit,obStatus(a0)		; is Jaws facing left?
 		beq.s	Jaws_Swim				; if yes, branch
 		neg.w	obVelX(a0)				; move Jaws to the right
 ; ---------------------------------------------------------------------------
@@ -48,7 +48,7 @@ Jaws_Swim:	; Routine 2
 		bpl.s	.animate				; if time remains, branch
 		move.w	jaws_turndelay_base(a0),jaws_turndelay_current(a0) ; reset turn delay time to base
 		neg.w	obVelX(a0)				; change speed direction
-		bchg	#0,obStatus(a0)				; change Jaws facing direction
+		bchg	#status_xflip_bit,obStatus(a0)		; change Jaws facing direction
 		move.b	#1,obPrevAni(a0)			; reset animation
 
 	.animate:

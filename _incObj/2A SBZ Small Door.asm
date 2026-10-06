@@ -40,13 +40,13 @@ ADoor_OpenShut:	; Routine 2
 		bhs.s	.sonicLeft				; if yes, branch
 
 	.sonicRight:
-		btst	#0,obStatus(a0)				; is door facing right?
+		btst	#status_xflip_bit,obStatus(a0)		; is door facing right?
 		bne.s	ADoor_Animate				; if not, branch (close door)
 		bra.s	.openDoor				; otherwise, open door
 ; ===========================================================================
 
 	.sonicLeft:
-		btst	#0,obStatus(a0)				; is door facing left?
+		btst	#status_xflip_bit,obStatus(a0)		; is door facing left?
 		beq.s	ADoor_Animate				; if not, branch (close door)
 
 	.openDoor:

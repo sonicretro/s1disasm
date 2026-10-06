@@ -97,7 +97,7 @@ Pole_Action:	; Routine 2
 		move.w	obX(a0),d0				; get pole's X-position
 		addi.w	#20,d0					; align Sonic 20px to the right of pole
 		move.w	d0,obX(a1)				; set Sonic's aligned X-position
-		bclr	#0,obStatus(a1)				; clear Sonic's X-flip flag
+		bclr	#status_xflip_bit,obStatus(a1)		; clear Sonic's X-flip flag
 		move.b	#id_Hang,obAnim(a1)			; set Sonic's animation to "hanging" ($11)
 		move.b	#1,(f_playerctrl).w			; set Sonic control override flag
 		move.b	#1,(f_wtunneldisallow).w		; disable wind tunnel
