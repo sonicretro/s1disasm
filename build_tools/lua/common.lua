@@ -353,8 +353,8 @@ local function get_platform_specific_info()
 	local path_separator, executable_suffix, as_filename, executable_arch
 
 	if is_windows() then
-		-- 64-bit x86 Windows can run 32-bit x86 executables.
-		executable_arch = arch_name == "x86_64" and "x86" or arch_name
+		-- Use 64-bit executables for Windows, if possible.
+		executable_arch = (arch_name == "x86_64") and arch_name or "x86"
 		path_separator = "\\"
 		executable_suffix = ".exe"
 		as_filename = "asw"

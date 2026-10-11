@@ -228,7 +228,7 @@ zDAC_Timpani:	include "sound/dac/dpcm/generated/timpani.inc"
 		if $ > z80_stack
 			fatal "The driver is too big; the maximum size it can take is \{z80_stack}h. It currently takes \{$}h bytes. You won't be able to use this thing."
 		else
-			message "Uncompressed driver size: \{$}h bytes."
+			; message "Uncompressed driver size: \{$}h bytes." ; Uncomment this line to print the driver size to the shell for every build.
 		endif
 	endif
 
