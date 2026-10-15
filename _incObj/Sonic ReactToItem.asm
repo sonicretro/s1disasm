@@ -213,7 +213,7 @@ React_Monitor:
 		bpl.s	.chkBreakMonitor			; if not, branch
 	if FixBugs
 		; Fix bumping monitors while Sonic isn't airborne
-		btst	#1,obStatus(a0)				; is Sonic in air?
+		btst	#status_in_air_bit,obStatus(a0)		; is Sonic in air?
 		beq.s	.chkBreakMonitor			; if not, don't bump monitor
 	endif
 
@@ -265,14 +265,14 @@ React_BossHit:
 
 		subq.b	#1,obBossHits(a1)			; decrement 1 boss HP
 		bne.s	.return					; if boss HP remain, branch
-		bset	#7,obStatus(a1)				; set flag that boss has been defeated
+		bset	#status_defeated_bit,obStatus(a1)	; set flag that boss has been defeated
 
 	.return:
 		rts						; return
 ; ===========================================================================
 
 React_BadnikHit:
-		bset	#7,obStatus(a1)				; set flag that badnik has been broken (pretty much unused, badnik gets replaced by explosion)
+		bset	#status_defeated_bit,obStatus(a1)	; set flag that badnik has been broken (pretty much unused, badnik gets replaced by explosion)
 
 		; Points and points object
 		moveq	#0,d0
@@ -328,7 +328,7 @@ React_PointsCombo: ; combo points per destroyed badnik /10
 ; ---------------------------------------------------------------------------
 
 React_Caterkiller:
-		bset	#7,obStatus(a1)				; set flag that spiked body segment has been touched (for fragmentation)
+		bset	#status_defeated_bit,obStatus(a1)	; set flag that spiked body segment has been touched (for fragmentation)
 		; Continue to React_ChkHurt to make spiked body segments hurt...
 ; ---------------------------------------------------------------------------
 
@@ -389,11 +389,11 @@ HurtSonic:
 		move.b	#0,(v_shield).w				; remove a potential shield
 		move.b	#4,obRoutine(a0)			; set Sonic to "Sonic_Hurt" routine
 		bsr.w	Sonic_ResetOnFloor			; reset airborne state
-		bset	#1,obStatus(a0)				; force airborne flag again
+		bset	#status_in_air_bit,obStatus(a0)		; force airborne flag again
 
 		move.w	#-$400,obVelY(a0)			; bounce Sonic vertically
 		move.w	#-$200,obVelX(a0)			; bounce Sonic horizontally
-		btst	#6,obStatus(a0)				; is Sonic underwater?
+		btst	#status_underwater_bit,obStatus(a0)	; is Sonic underwater?
 		beq.s	.checkDirection				; if not, branch
 		move.w	#-$200,obVelY(a0)			; use slower vertical bounce
 		move.w	#-$100,obVelX(a0)			; use slower horizontal bounce
@@ -458,7 +458,7 @@ KillSonic:
 		move.b	#0,(v_invinc).w				; remove invincibility
 		move.b	#6,obRoutine(a0)			; set Sonic to "Sonic_Death" routine
 		bsr.w	Sonic_ResetOnFloor			; reset airborne state
-		bset	#1,obStatus(a0)				; force airborne flag again
+		bset	#status_in_air_bit,obStatus(a0)				; force airborne flag again
 
 		move.w	#-$700,obVelY(a0)			; launch Sonic upwards while dying
 		move.w	#0,obVelX(a0)				; stop horizontal movement
@@ -538,7 +538,7 @@ React_Yadrin:
 
 		move.w	obX(a1),d0				; get Yadrin's current X-position
 		subq.w	#4,d0					; get left edge of special collision region
-		btst	#0,obStatus(a1)				; is Yadrin facing left?
+		btst	#status_xflip_bit,obStatus(a1)		; is Yadrin facing left?
 		beq.s	.checkSpikedSection			; if not, branch
 		subi.w	#16,d0					; mirror collision region horizontally
 

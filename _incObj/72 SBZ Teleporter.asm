@@ -48,7 +48,7 @@ Tele_Action:	; Routine 2
 		lea	(v_player).w,a1				; load Sonic player object
 		move.w	obX(a1),d0				; get Sonic's current X-position
 		sub.w	obX(a0),d0				; calculate difference to teleporter entrance X-position
-		btst	#0,obStatus(a0)				; is teleporter entrance to the right?
+		btst	#status_xflip_bit,obStatus(a0)		; is teleporter entrance to the right?
 		beq.s	.chkX					; if not, branch
 		addi.w	#15,d0					; adjust X-trigger for right-side entrance
 	.chkX:	cmpi.w	#16,d0					; is Sonic horizontally within 16px of the teleporter entrance?
@@ -80,9 +80,9 @@ Tele_Action:	; Routine 2
 		move.w	#$800,obInertia(a1)			; set to fast ground speed to use fast rolling animation
 		move.w	#0,obVelX(a1)				; stop Sonic horizontally
 		move.w	#0,obVelY(a1)				; stop Sonic vertically
-		bclr	#5,obStatus(a0)				; clear teleporter's pushed flag
-		bclr	#5,obStatus(a1)				; clear Sonic's pushing flag
-		bset	#1,obStatus(a1)				; set Sonic in-air
+		bclr	#status_pushing_bit,obStatus(a0)	; clear teleporter's pushed flag
+		bclr	#status_pushing_bit,obStatus(a1)	; clear Sonic's pushing flag
+		bset	#status_in_air_bit,obStatus(a1)		; set Sonic in-air
 		move.w	obX(a0),obX(a1)				; snap Sonic to teleporter entrance X-position
 		move.w	obY(a0),obY(a1)				; snap Sonic to teleporter entrance Y-position
 		clr.b	tele_prebump(a0)			; reset pre-bump value to 0

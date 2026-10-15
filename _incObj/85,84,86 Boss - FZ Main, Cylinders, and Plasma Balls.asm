@@ -209,11 +209,11 @@ BossFinal_Eggman_Crush:
 .checkPosition:
 		tst.w	BossFinal_ChildCounter(a0)      	; are all the cylinders done executing?
 		bmi.w	.checkDefeat				; if so, branch
-		bclr	#0,obStatus(a0)				; make Eggman face left
+		bclr	#status_xflip_bit,obStatus(a0)		; make Eggman face left
 		move.w	(v_player+obX).w,d0			; get Sonic's X position
 		sub.w	obX(a0),d0				; subtract cylinder X from Sonic's X
 		bcs.s	.checkCollision				; negative, so keep Eggman facing left
-		bset	#0,obStatus(a0)				; flip Eggman's directions
+		bset	#status_xflip_bit,obStatus(a0)		; flip Eggman's directions
 
 ; loc_19F2E:
 .checkCollision:
@@ -238,7 +238,7 @@ BossFinal_Eggman_Crush:
 		cmpi.b	#id_Roll,(v_player+obAnim).w		; is Sonic rolling/jumping?
 		bne.s	.checkFlash				; if not, branch
 		move.w	#$300,d0				; set up initial velocity
-		btst	#0,obStatus(a0)				; is Eggman on the right?
+		btst	#status_xflip_bit,obStatus(a0)		; is Eggman on the right?
 		bne.s	.applyDamage				; if not, branch
 		neg.w	d0					; flip velocity
 
@@ -356,7 +356,7 @@ BossFinal_Eggman_Fall:
 	else
 		move.b	#96/2,obActWid(a0)			; set Eggman's width
 	endif
-		bset	#0,obStatus(a0)				; make him face to the right
+		bset	#status_xflip_bit,obStatus(a0)		; make him face to the right
 		jsr	(SpeedToPos).l
 		move.b	#6,obFrame(a0)				; set current frame
 		addi.w	#$10,obVelY(a0)				; add to Y velocity
@@ -379,7 +379,7 @@ BossFinal_Eggman_Fall:
 
 ; loc_1A074:
 BossFinal_Eggman_Run:
-		bset	#0,obStatus(a0)				; set Eggman to face to the right
+		bset	#status_xflip_bit,obStatus(a0)		; set Eggman to face to the right
 		move.b	#4,obAnim(a0)				; set animation
 		jsr	(SpeedToPos).l
 		addi.w	#$10,obVelY(a0)				; fall down after the initial bounce
@@ -489,7 +489,7 @@ BossFinal_Eggman_Ship:
 		move.l	#Map_Eggman,obMap(a0)			; set mappings and art, as well as animation state
 		move.w	#ArtTile_Eggman,obGfx(a0)
 		move.b	#0,obAnim(a0)
-		bset	#0,obStatus(a0)				; face to the right
+		bset	#status_xflip_bit,obStatus(a0)		; face to the right
 		jsr	(SpeedToPos).l
 		cmpi.w	#boss_fz_y+$34,obY(a0)			; has this Y position been reached?
 		bhs.s	.exit					; if not (lower), branch
@@ -505,7 +505,7 @@ BossFinal_Eggman_Ship:
 
 ; loc_1A1D4:
 BossFinal_Eggman_Escape:
-		bset	#0,obStatus(a0)				; face to the right
+		bset	#status_xflip_bit,obStatus(a0)		; face to the right
 		jsr	(SpeedToPos).l
 		tst.w	BossFinal_EscapeTimer(a0)		; has the invincibility timer expired?
 		bne.s	.shipHover				; if not, branch
@@ -607,7 +607,7 @@ BossFinal_FlamePos:
 BossFinal_Display:
 		movea.l	BossFinal_ParentObj(a0),a1		; copy main controller
 		move.b	obStatus(a1),obStatus(a0)		; copy boss status to flame status
-		moveq	#sprite_xflip|sprite_yflip,d0		; set a mask for both flip bits
+		moveq	#status_xflip|status_yflip,d0		; set a mask for both flip bits
 		and.b	obStatus(a0),d0				; AND obstatus with those flip bits
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
 		or.b	d0,obRender(a0)				; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
@@ -662,7 +662,7 @@ BossFinal_Cockpit: ; Routine 8
 
 ; loc_1A346:
 BossFinal_Legs:	; Routine 6
-		bset	#0,obStatus(a0)				; make legs face to the right
+		bset	#status_xflip_bit,obStatus(a0)		; make legs face to the right
 		movea.l	BossFinal_ParentObj(a0),a1		; copy main controller
 		cmpi.l	#Map_Eggman,obMap(a1)			; are we in the non-exploding/damaged state?
 		beq.s	.legsPosition				; if so, branch
@@ -707,7 +707,7 @@ BossFinal_Panel:	; Routine 4
 ; loc_1A3AC:
 BossFinal_EmptyShip: ; Routine $A
 		move.b	#0,obFrame(a0)				; set frame to 0
-		bset	#0,obStatus(a0)				; face to the right
+		bset	#status_xflip_bit,obStatus(a0)		; face to the right
 		movea.l	BossFinal_ParentObj(a0),a1		; copy main controller
 		cmpi.b	#$C,BossFinal_ParentObj(a1)		; are we in routine $C (ship)? (this is using the offset OF the parent object, not the actual parent object address itself)
 		bne.s	.display				; if not, branch

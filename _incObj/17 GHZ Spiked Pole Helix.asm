@@ -23,7 +23,13 @@ Hel_Main:	; Routine 0
 		addq.b	#2,obRoutine(a0)			; advance to Hel_ParentSpike (2)
 		move.l	#Map_Hel,obMap(a0)			; set mappings
 		move.w	#ArtTile_GHZ_Spike_Pole|Tile_Pal3,obGfx(a0) ; set art tile and palette (located inside main GHZ graphics)
-		move.b	#7,obStatus(a0)				; (unused leftover?)
+	if FixBugs=0
+		; This appears to be an unused leftover from early development,
+		; possibly related to the equally unused routines 4 and 6.
+		; Setting these status bits has no effect for this object,
+		; but it's still safer and cleaner to remove this line.
+		move.b	#status_xflip|status_yflip|status_rolling,obStatus(a0) ; set obStatus to 7 (unused leftover)
+	endif
 		move.b	#sprite_cam_field,obRender(a0)		; set playfield-positioned mode
 		move.b	#3,obPriority(a0)			; set sprite priority
 		move.b	#16/2,obActWid(a0)			; set sprite display width

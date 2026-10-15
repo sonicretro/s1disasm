@@ -42,9 +42,9 @@ Bump_Hit:	; Routine 2
 		asr.l	#8,d0					; shift result down a byte
 		move.w	d0,obVelY(a1)				; bounce Sonic away vertically
 
-		bset	#1,obStatus(a1)				; set Sonic to airborne
-		bclr	#4,obStatus(a1)				; clear roll-jump flag
-		bclr	#5,obStatus(a1)				; clear pushing flag
+		bset	#status_in_air_bit,obStatus(a1)		; set Sonic to airborne
+		bclr	#status_rolljumping_bit,obStatus(a1)	; clear roll-jump flag
+		bclr	#status_pushing_bit,obStatus(a1)	; clear pushing flag
 		clr.b	jumping(a1)				; clear jumping flag
 
 		move.b	#1,obAnim(a0)				; use bumper "hit" animation

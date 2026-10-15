@@ -37,7 +37,7 @@ SEgg_Main:	; Routine 0
 		move.w	#boss_sbz2_y+$94,obY(a0)
 		move.b	#col_48x48|col_boss,obColType(a0)	; set collision type
 		move.b	#16,obBossHits(a0) 			; SBZ2 Eggman is set to 16 hits, despite being unhittable
-		bclr	#0,obStatus(a0)				; clear object status
+		bclr	#status_xflip_bit,obStatus(a0)		; clear object status
 		clr.b	ob2ndRout(a0)				; clear 2nd routine
 		move.b	(a2)+,obRoutine(a0)			; copy routine number, animation, priority
 		move.b	(a2)+,obAnim(a0)
@@ -302,8 +302,8 @@ FFloor_Break:	; Routine 4
 
 ; loc_19C62:
 FFloor_AllGone:	; Routine 6
-		bclr	#3,obStatus(a0)				; clear standing on flag
-		bclr	#3,(v_player+obStatus).w		; clear Sonic standing on flag
+		bclr	#status_on_object_bit,obStatus(a0)	; clear standing on flag
+		bclr	#status_on_object_bit,(v_player+obStatus).w ; clear Sonic standing on flag
 		bra.w	FalseFloor_Delete
 ; ===========================================================================
 

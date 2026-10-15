@@ -198,6 +198,9 @@ RomEndLoc:	dc.l EndOfRom-1					; End address of ROM
 		dc.b "            "				; Modem support
 		dc.b "                                        " ; Notes (unused, anything can be put in this space, but it has to be 40 bytes)
 		dc.b "JUE             "				; Region (Country code)
+	if * <> $200
+		fatal "Header size was $\{*} but it should be exactly $200"
+	endif
 EndOfHeader:
 
 ; ===========================================================================

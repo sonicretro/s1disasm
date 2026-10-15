@@ -33,15 +33,15 @@ EdgeWall_SolidWall:
 		move.w	#0,obVelX(a1)				; stop Sonic moving
 
 .centre:
-		btst	#1,obStatus(a1)				; is Sonic in the air?
+		btst	#status_in_air_bit,obStatus(a1)		; is Sonic in the air?
 		bne.s	.air					; if yes, branch
-		bset	#5,obStatus(a1)				; make Sonic push object
-		bset	#5,obStatus(a0)				; make object be pushed
+		bset	#status_pushing_bit,obStatus(a1)	; make Sonic push object
+		bset	#status_pushing_bit,obStatus(a0)	; make object be pushed
 		rts
 ; ===========================================================================
 
 .no_collision:
-		btst	#5,obStatus(a0)				; is Sonic pushing?
+		btst	#status_pushing_bit,obStatus(a0)	; is Sonic pushing?
 		beq.s	.exit					; if not, branch
 	if FixBugs=0
 		; This causes the infamous "walk-jump bug"
@@ -49,8 +49,8 @@ EdgeWall_SolidWall:
 	endif
 
 .air:
-		bclr	#5,obStatus(a0)				; clear pushing flag
-		bclr	#5,obStatus(a1)				; clear Sonic's pushing flag
+		bclr	#status_pushing_bit,obStatus(a0)	; clear pushing flag
+		bclr	#status_pushing_bit,obStatus(a1)	; clear Sonic's pushing flag
 
 	.exit:
 		rts

@@ -56,7 +56,7 @@ BossStarLight_Loop:
 		move.w	obY(a0),obY(a1)
 
 BossStarLight_LoadBoss:
-		bclr	#0,obStatus(a0) 			; clear the X orientation bit
+		bclr	#status_xflip_bit,obStatus(a0) 		; clear the X orientation bit
 		clr.b	ob2ndRout(a1) 				; clear second routine status (ShipIndex below)
 		move.b	(a2)+,obRoutine(a1) 			; load first objData byte and increment
 		move.b	(a2)+,obAnim(a1)
@@ -111,7 +111,7 @@ BossStarLight_ShipMain:	; Routine 2
 
 ; obStatus stores the logical bits, but obRender is visual bits, so this simply moves them from one to the other
 
-		moveq	#sprite_xflip|sprite_yflip,d0 		; move first 2 bits into d0
+		moveq	#status_xflip|status_yflip,d0 		; move first 2 bits into d0
 		and.b	obStatus(a0),d0 			; AND with obStatus so now d0 contains X and Y logical flip bits only
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
 		or.b	d0,obRender(a0) 			; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
@@ -200,7 +200,7 @@ BSLZ_Defeated:
 BSLZ_ShipMove:
 		move.w	obBossX(a0),d0 				; move boss position for later comparison
 		move.w	#$200,obVelX(a0)			; set X velocity (moving right)
-		btst	#0,obStatus(a0)				; is our X flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is our X flipped?
 		bne.s	.checkRight				; if yes, branch
 		neg.w	obVelX(a0)				; reverse direction
 		cmpi.w	#boss_slz_x+8,d0			; have we reached the left bound?
@@ -215,7 +215,7 @@ BSLZ_ShipMove:
 
 ; loc_18A82:
 .flip:
-		bchg	#0,obStatus(a0)				; set X flip bit to 0
+		bchg	#status_xflip_bit,obStatus(a0)		; set X flip bit to 0
 
 ; loc_18A88:
 .dropSetup:
@@ -236,7 +236,7 @@ BSLZ_ShipMove:
 .findSeesaw:
 		move.w	(a2)+,d1				; grab seesaw address and put it into d1
 		movea.l	d1,a3					; move seesaw into a3 as a full address
-		btst	#3,obStatus(a3)				; is Sonic on this object?
+		btst	#status_on_object_bit,obStatus(a3)	; is Sonic on this object?
 		bne.s	.skip					; if yes, branch
 		move.w	obX(a3),d3				; get the x position of the seesaw
 		add.w	d4,d3					; add the offset to the seesaw
@@ -324,8 +324,8 @@ BSLZ_Explode:
 .transition:
 		addq.b	#2,ob2ndRout(a0)			; advance routine to Recover
 		clr.w	obVelY(a0)				; stop vertical movement
-		bset	#0,obStatus(a0)				; set the X flip bit so we are facing right
-		bclr	#7,obStatus(a0)				; clear the defeated flag
+		bset	#status_xflip_bit,obStatus(a0)		; set the X flip bit so we are facing right
+		bclr	#status_defeated_bit,obStatus(a0)	; clear the defeated flag
 		clr.w	obVelX(a0)				; stop horizontal movement
 		move.b	#-24,BossStarLight_GenericTimer(a0)	; set a timer for 24 frames
 		tst.b	(v_bossstatus).w			; has boss been marked as defeated?
@@ -482,7 +482,7 @@ BossStarLight_Display:
 		move.w	obX(a1),obX(a0)				; move positions to rendered positions of boss
 		move.w	obY(a1),obY(a0)
 		move.b	obStatus(a1),obStatus(a0)		; move object status to boss object status
-		moveq	#sprite_xflip|sprite_yflip,d0 		; move first 2 bits into d0
+		moveq	#status_xflip|status_yflip,d0 		; move first 2 bits into d0
 		and.b	obStatus(a0),d0 			; AND with obStatus so now d0 contains X and Y logical flip bits only
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the X and Y flip
 		or.b	d0,obRender(a0) 			; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
@@ -541,11 +541,11 @@ BossSpikeball_Main:	; Routine 0
 		movea.l	BossSpikeball_SeesawPtr(a0),a1		; copy offset address, a1 now contains the seesaw that this ball is tied to
 		move.w	obX(a1),obBossX(a0)			; copy seesaw X to ball's base X
 		move.w	obY(a1),BossSpikeball_SeesawY(a0)	; store seesaw Y
-		bset	#0,obStatus(a0)				; flip ball on horizontal axis
+		bset	#status_xflip_bit,obStatus(a0)		; flip ball on horizontal axis
 		move.w	obX(a0),d0				; copy ball's X
 		cmp.w	obX(a1),d0				; is the ball's X greater than the seesaw's X?
 		bgt.s	.skip					; if yes, branch
-		bclr	#0,obStatus(a0)				; no, so remove flip
+		bclr	#status_xflip_bit,obStatus(a0)		; no, so remove flip
 		move.b	#2,BossStarLight_SeesawSide(a0)		; set XXXXX to 2
 
 ; loc_18D68:
@@ -572,7 +572,7 @@ BossSpikeball_Fall:	; Routine 2
 		bgt.s	.exit					; if not, branch and come back later
 		movea.l	BossSpikeball_SeesawPtr(a0),a1		; copy offset address, a1 now contains the seesaw that this ball is tied to
 		moveq	#2,d1
-		btst	#0,obStatus(a0)				; are we horizontally flipped (facing the right?)
+		btst	#status_xflip_bit,obStatus(a0)		; are we horizontally flipped (facing the right?)
 		beq.s	.landed					; if so, branch
 		moveq	#0,d1
 
@@ -769,7 +769,7 @@ BossSpikeball_CheckCollision:
 		clr.b	obColType(a1)				; disable boss collision
 		subq.b	#1,obBossHits(a1)			; subtract hits
 		bne.s	.checkPhysics				; if there are more hits, branch
-		bset	#7,obStatus(a1)				; set boss flag to defeated
+		bset	#status_defeated_bit,obStatus(a1)	; set boss flag to defeated
 		clr.w	obVelX(a0)				; stop moving
 		clr.w	obVelY(a0)
 
@@ -823,7 +823,7 @@ BossSpikeball_LaunchSonic:
 		move.b	d1,BossStarLight_SeesawSide(a0)		; update ball
 		cmp.b	obFrame(a1),d1				; is the seesaw already pushed down?
 		beq.s	.noLaunch				; if yes, seesaw can't flip, so skip
-		bclr	#3,obStatus(a1)				; is Sonic currently standing on the seesaw?
+		bclr	#status_on_object_bit,obStatus(a1)	; is Sonic currently standing on the seesaw?
 		beq.s	.noLaunch				; if not, branch (Z flag was set to 0 because bit 3 was already 0!)
 		clr.b	ob2ndRout(a1)
 		move.b	#2,obRoutine(a1)			; change seesaw routine state to 2
@@ -836,8 +836,8 @@ BossSpikeball_LaunchSonic:
 
 ; loc_18FDC:
 .applyLaunch:
-		bset	#1,obStatus(a2)				; set Sonic to air state
-		bclr	#3,obStatus(a2)				; clear Sonic's standing on object state
+		bset	#status_in_air_bit,obStatus(a2)		; set Sonic to air state
+		bclr	#status_on_object_bit,obStatus(a2)	; clear Sonic's standing on object state
 		clr.b	jumping(a2)				; clear jump flag
 		move.l	a0,-(sp)				; copy spikeball address to stack and decrement stack
 		lea	(a2),a0					; load Sonic's object RAM into a0

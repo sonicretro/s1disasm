@@ -78,7 +78,7 @@ VBlank_Index:	dc.w VBlank_Lag-VBlank_Index			; $00 - (lag frame)
 ; loc_B88: VBla_00:
 VBlank_Lag:
 		cmpi.b	#$80+id_Level,(v_gamemode).w		; is pre level sequence active?
-		beq.s	.isLevel				; if not, just update sound driver and resume operation
+		beq.s	.isLevel				; if yes, branch
 		cmpi.b	#id_Level,(v_gamemode).w		; is game on a level?
 		bne.w	VBlank_Music				; if not, just update sound driver and resume operation
 

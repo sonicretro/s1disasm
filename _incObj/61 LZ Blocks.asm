@@ -100,7 +100,7 @@ LBlk_Stationary:
 LBlk_CheckStand:
 		tst.w	lblk_time(a0)				; has time counter already started?
 		bne.s	.delayAndAdvance			; if yes, branch
-		btst	#3,obStatus(a0)				; is Sonic standing on the block?
+		btst	#status_on_object_bit,obStatus(a0)	; is Sonic standing on the block?
 		beq.s	.return					; if not, branch
 		move.w	#30,lblk_time(a0)			; wait for half second
 
@@ -201,7 +201,7 @@ LBlk_OnWater:
 LBlk_Nudge:
 		tst.b	lblk_untouched(a0)			; has block been stood on or touched?
 		beq.s	.return					; if yes, branch
-		btst	#3,obStatus(a0)				; is Sonic standing on it now?
+		btst	#status_on_object_bit,obStatus(a0)	; is Sonic standing on it now?
 		bne.s	.nudgeDown				; if yes, branch
 
 		tst.b	lblk_nudge(a0)				; is platform back at default position?

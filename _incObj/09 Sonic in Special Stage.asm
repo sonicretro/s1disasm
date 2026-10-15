@@ -49,8 +49,8 @@ SonicSS_Main:	; Routine 0
 		move.b	#0,obPriority(a0)			; set sprite priority to top
 
 		move.b	#id_Roll,obAnim(a0)			; set to rolling animation
-		bset	#2,obStatus(a0)				; set rolling flag
-		bset	#1,obStatus(a0)				; set in-air flag
+		bset	#status_rolling_bit,obStatus(a0)	; set rolling flag
+		bset	#status_in_air_bit,obStatus(a0)		; set in-air flag
 ; ---------------------------------------------------------------------------
 
 ; Obj09_ChkDebug: SonicSS_ChkDebug:
@@ -74,7 +74,7 @@ SonicSS_NoDebug:
 
 		moveq	#0,d0					; clear d0
 		move.b	obStatus(a0),d0				; get Sonic's status flags
-		andi.w	#%0010,d0				; limit to "is in air" flag
+		andi.w	#status_in_air,d0			; limit to "is in air" flag
 		move.w	SonicSS_Modes(pc,d0.w),d1		; use that as routine counter for the correct mode
 		jsr	SonicSS_Modes(pc,d1.w)			; jump to that mode
 
@@ -212,7 +212,7 @@ SonicSS_AngleSpeed:
 
 ; Obj09_MoveLeft:
 SonicSS_MoveLeft:
-		bset	#0,obStatus(a0)				; set X-flip flag (Sonic is facing left)
+		bset	#status_xflip_bit,obStatus(a0)		; set X-flip flag (Sonic is facing left)
 
 		move.w	obInertia(a0),d0			; get Sonic's current ground speed
 		beq.s	.accelerate				; is Sonic standing still? if yes, branch
@@ -253,7 +253,7 @@ SonicSS_MoveLeft:
 
 ; Obj09_MoveRight:
 SonicSS_MoveRight:
-		bclr	#0,obStatus(a0)				; clear X-flip flag (Sonic is facing right)
+		bclr	#status_xflip_bit,obStatus(a0)		; clear X-flip flag (Sonic is facing right)
 
 		move.w	obInertia(a0),d0			; get Sonic's current ground speed
 		bmi.s	.changedirection			; has Sonic changed direction? if yes, branch
@@ -310,7 +310,7 @@ SonicSS_Jump:
 		asr.l	#8,d0					; shift result to lower word
 		move.w	d0,obVelY(a0)				; set result as new Y speed
 
-		bset	#1,obStatus(a0)				; set in-air flag
+		bset	#status_in_air_bit,obStatus(a0)		; set in-air flag
 
 		move.w	#sfx_Jump,d0				; set jump sound
 		jsr	(QueueSound2).l				; play jumping sound
@@ -466,7 +466,7 @@ SonicSS_Fall:
 		sub.l	d0,d3					; undo X delta addition
 		moveq	#0,d0					; clear d0
 		move.w	d0,obVelX(a0)				; stop Sonic's horizonal momentum
-		bclr	#1,obStatus(a0)				; clear in-air flag
+		bclr	#status_in_air_bit,obStatus(a0)		; clear in-air flag
 
 		add.l	d1,d2					; add new Y delta to target Y position
 		bsr.w	SonicSS_FindWall			; check if the new result would make Sonic clip through a floor wall
@@ -485,7 +485,7 @@ SonicSS_Fall:
 		sub.l	d1,d2					; undo Y delta addition
 		moveq	#0,d1					; clear d1
 		move.w	d1,obVelY(a0)				; stop Sonic's vertical momentum
-		bclr	#1,obStatus(a0)				; clear in-air flag
+		bclr	#status_in_air_bit,obStatus(a0)		; clear in-air flag
 
 ; loc_1BCC6:
 .nofloor:
@@ -502,7 +502,7 @@ SonicSS_Fall:
 		asr.l	#8,d1					; shift new Y speed back to word range
 		move.w	d0,obVelX(a0)				; set new X velocity
 		move.w	d1,obVelY(a0)				; set new Y velocity
-		bset	#1,obStatus(a0)				; set in-air flag
+		bset	#status_in_air_bit,obStatus(a0)		; set in-air flag
 		rts						; return
 ; End of function SonicSS_Fall
 
@@ -808,7 +808,7 @@ SonicSS_ChkBumper:
 		asr.l	#8,d0					; move result to lower word
 		move.w	d0,obVelY(a0)				; set final result to Sonic's Y-speed
 
-		bset	#1,obStatus(a0)				; set in-air flag
+		bset	#status_in_air_bit,obStatus(a0)		; set in-air flag
 
 		bsr.w	SS_FindFreeAnimationSlot		; find a free animation slot
 		bne.s	SonicSS_BumpSnd				; if none are free, branch
