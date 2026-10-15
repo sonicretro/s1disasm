@@ -39,7 +39,7 @@ Flame_Main:	; Routine 0
 		move.w	d0,flame_pausetime(a0)			; store base pause time
 
 		move.b	#$A,flame_hurtframe(a0)			; set harmful frame ID to $A (broken pipe flamethrower)
-		btst	#1,obStatus(a0)				; is flamethrower flipped vertically?
+		btst	#status_yflip_bit,obStatus(a0)		; is flamethrower flipped vertically?
 		beq.s	Flame_Action				; if not, branch
 		move.b	#2,obAnim(a0)				; use "valve" animations
 		move.b	#$15,flame_hurtframe(a0)		; set harmful frame ID to $15 (valve flamethrower)

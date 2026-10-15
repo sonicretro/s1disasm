@@ -188,7 +188,7 @@ Swing_StoodOn:	; Routine 4
 Swing_Move:
 		move.b	(v_oscillate+$1A).w,d0			; get oscillation value (frequency 8, middle value $40)
 		move.w	#$40*2,d1				; keep in same range if movement is reversed
-		btst	#0,obStatus(a0)				; is platform X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is platform X-flipped?
 		beq.s	.swing					; if not, branch
 		neg.w	d0					; reverse movement direction
 		add.w	d1,d0					; keep in the same general range

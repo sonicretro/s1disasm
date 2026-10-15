@@ -73,7 +73,7 @@ BGHZ_ShipMain:	; Routine 2
 ; obStatus stores the logical bits, but obRender is visual bits, so this simply moves them from one to the other
 
 		move.b	obStatus(a0),d0 			; move current object status
-		andi.b	#3,d0 					; AND with obStatus so now d0 contains X and Y logical flip bits only
+		andi.b	#status_xflip|status_yflip,d0 		; AND with obStatus so now d0 contains X and Y logical flip bits only
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
 		or.b	d0,obRender(a0) 			; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
@@ -191,7 +191,7 @@ BGHZ_ShipMove:
 		move.w	#$40,obVelX(a0) 			; change velocity
 
 BGHZ_Reverse:
-		btst	#0,obStatus(a0) 			; are we facing right (bit 0 set)?
+		btst	#status_xflip_bit,obStatus(a0) 		; are we facing right (bit 0 set)?
 		bne.s	.facingRight 				; if yes, branch
 		neg.w	obVelX(a0)				; reverse direction of the ship
 
@@ -210,7 +210,7 @@ BGHZ_ChgDir:
 
 ; loc_17960:
 .flipDirection:
-		bchg	#0,obStatus(a0) 			; flip bit 0 (flip direction of ship)
+		bchg	#status_xflip_bit,obStatus(a0) 		; flip bit 0 (flip direction of ship)
 		move.w	#64-1,BGHZ_BossGenericTimer(a0) 	; set timer to 64 frames, slight wait before changing direction
 		subq.b	#2,ob2ndRout(a0) 			; go back to ShipMove
 		move.w	#0,obVelX(a0) 				; stand still
@@ -229,8 +229,8 @@ BGHZ_Explode:
 
 ; loc_17984:
 .stopExplosions:
-		bset	#0,obStatus(a0) 			; set bit 0 to 1 (facing right)
-		bclr	#7,obStatus(a0) 			; clear destroyed/defeated flag (flag is set in sub ReactToItem.asm)
+		bset	#status_xflip_bit,obStatus(a0) 		; set bit 0 to 1 (facing right)
+		bclr	#status_defeated_bit,obStatus(a0) 	; clear destroyed/defeated flag (flag is set in sub ReactToItem.asm)
 		clr.w	obVelX(a0) 				; stop moving vertically (horizontal velocity is not cleared)
 		addq.b	#2,ob2ndRout(a0) 			; advance routine to recover
 		move.w	#-38,BGHZ_BossGenericTimer(a0)		; set negative timer to count up from
@@ -406,7 +406,7 @@ BGHZ_Display:
 		lea	(Ani_Eggman).l,a1
 		jsr	(AnimateSprite).l
 		move.b	obStatus(a0),d0 			; move current object status
-		andi.b	#3,d0 					; AND with obstatus so now d0 contains X and Y logical flip bits only
+		andi.b	#status_xflip|status_yflip,d0 		; AND with obstatus so now d0 contains X and Y logical flip bits only
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) 			; clear the x and y flip
 		or.b	d0,obRender(a0) 			; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l

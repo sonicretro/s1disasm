@@ -82,7 +82,7 @@ GMake_MakeLava:	; Routine 6
 
 	.shootUpPushBlock:
 		movea.l	gmake_parent(a0),a1			; get parent pushable block object address
-		bset	#1,obStatus(a1)				; set flag in block to get shot up with geyser
+		bset	#status_in_air_bit,obStatus(a1)		; set flag in block to get shot up with geyser
 		move.w	#-$580,obVelY(a1)			; shoot block up
 		bra.s	GMake_Display
 ; ===========================================================================

@@ -47,7 +47,7 @@ Fan_Action:	; Routine 2
 		lea	(v_player).w,a1				; load Sonic object
 		move.w	obX(a1),d0				; get Sonic's X-position
 		sub.w	obX(a0),d0				; calculate difference to fan's X-position
-		btst	#0,obStatus(a0)				; is fan facing right?
+		btst	#status_xflip_bit,obStatus(a0)		; is fan facing right?
 		bne.s	.chksonic				; if yes, branch
 		neg.w	d0					; negate difference for check
 	.chksonic:
@@ -69,7 +69,7 @@ Fan_Action:	; Routine 2
 		add.w	d0,d0					; double push force below $50 pixels distance
 	.faraway:
 		addi.w	#$60,d0					; add base push force
-		btst	#0,obStatus(a0)				; is fan facing right?
+		btst	#status_xflip_bit,obStatus(a0)		; is fan facing right?
 		bne.s	.right					; if yes, branch
 		neg.w	d0					; negate push direction
 	.right:

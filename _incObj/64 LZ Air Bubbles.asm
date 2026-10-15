@@ -105,12 +105,12 @@ Bub_ChkWater:	; Routine 4
 		move.b	#id_GetAir,obAnim(a1)			; make Sonic use bubble-collecting animation
 		move.w	#35,locktime(a1)			; disable D-Pad input for 35 frames
 		move.b	#0,jumping(a1)				; clear jumping flag
-		bclr	#5,obStatus(a1)				; clear pushing flag
-		bclr	#4,obStatus(a1)				; clear roll-jump flag
+		bclr	#status_pushing_bit,obStatus(a1)	; clear pushing flag
+		bclr	#status_rolljumping_bit,obStatus(a1)	; clear roll-jump flag
 
-		btst	#2,obStatus(a1)				; was Sonic rolling as he touched the bubble?
+		btst	#status_rolling_bit,obStatus(a1)	; was Sonic rolling as he touched the bubble?
 		beq.w	.burst					; if not, branch
-		bclr	#2,obStatus(a1)				; clear Sonic's rolling flag
+		bclr	#status_rolling_bit,obStatus(a1)	; clear Sonic's rolling flag
 		move.b	#sonic_height,obHeight(a1)		; reset height to standing
 		move.b	#sonic_width,obWidth(a1)		; reset width to standing
 		subq.w	#sonic_height-sonic_roll_height,obY(a1)	; undo Y-offset from rolling

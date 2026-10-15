@@ -30,7 +30,7 @@ Stair_Main:	; Routine 0
 
 		moveq	#stair_childrenY,d3			; write children Y-positions to SSTs $38 to $3B
 		moveq	#1,d4					; store SSTs forwards
-		btst	#0,obStatus(a0)				; is object X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is object X-flipped?
 		beq.s	.writeFirst				; if not, branch
 		moveq	#stair_childrenY_End,d3			; write children Y-positions to SSTs $3B to $38 (backwards)
 		moveq	#-1,d4					; write SSTs backwards (stairs move down to the left)
@@ -95,7 +95,7 @@ Stair_Solid:	; Routine 4
 		move.b	d4,stair_touch(a2)			; remember collision state (negative for "from below")
 
 	.checkStanding:
-		btst	#3,obStatus(a0)				; is Sonic standing on this block?
+		btst	#status_on_object_bit,obStatus(a0)	; is Sonic standing on this block?
 		beq.s	.return					; if not, branch
 		move.b	#1,stair_touch(a2)			; make collision state positive ("from above")
 

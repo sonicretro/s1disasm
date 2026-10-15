@@ -227,10 +227,10 @@ Elev_FromSpawner:
 ; ---------------------------------------------------------------------------
 
 .vanishPlatform:
-		btst	#3,obStatus(a0)				; was Sonic standing on platform as it reached peak?
+		btst	#status_on_object_bit,obStatus(a0)	; was Sonic standing on platform as it reached peak?
 		beq.s	.delete					; if not, branch
-		bset	#1,obStatus(a1)				; set Sonic's in-air flag
-		bclr	#3,obStatus(a1)				; clear Sonic's on-platform flag
+		bset	#status_in_air_bit,obStatus(a1)		; set Sonic's in-air flag
+		bclr	#status_on_object_bit,obStatus(a1)	; clear Sonic's on-platform flag
 		move.b	#2,obRoutine(a1)			; force Sonic to Sonic_Control routine
 
 	.delete:

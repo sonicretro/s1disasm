@@ -64,7 +64,7 @@ Saw_Type1_PizzaLeftRight:
 		move.w	#$60,d1					; adjustment offset for X-flipped saws (oscillation range * 2)
 		moveq	#0,d0					; clear d0
 		move.b	(v_oscillate+$E).w,d0			; get oscillatory value (frequency 2, middle value $30)
-		btst	#0,obStatus(a0)				; is saw X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is saw X-flipped?
 		beq.s	.setX					; if not, branch
 		neg.w	d0					; reverse oscillated offset direction
 		add.w	d1,d0					; keep flipped saws in the same $60px range
@@ -96,7 +96,7 @@ Saw_Type2_PizzaUpDown:
 		move.w	#$30,d1					; (unused, probably a leftover from copying subtype 1)
 		moveq	#0,d0					; clear d0
 		move.b	(v_oscillate+6).w,d0			; get oscillatory value (frequency 2, middle value $18)
-		btst	#0,obStatus(a0)				; is saw X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is saw X-flipped?
 		beq.s	.setY					; if not, branch
 		neg.w	d0					; reverse oscillated offset direction
 		addi.w	#$60+$20,d0				; keep flipped saws in the same $60px range... plus an extra $20px

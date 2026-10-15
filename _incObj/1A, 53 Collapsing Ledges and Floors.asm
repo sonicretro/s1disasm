@@ -97,12 +97,12 @@ Ledge_FragmentPiece:	; Routine 6
 		bsr.w	Ledge_WalkOff				; allow Sonic to move off the platform
 
 		lea	(v_player).w,a1				; load Sonic object
-		btst	#3,obStatus(a1)				; is Sonic standing on platform?
+		btst	#status_on_object_bit,obStatus(a1)	; is Sonic standing on platform?
 		beq.s	.startCollapse				; if not, branch
 		tst.b	collapsible_timedelay(a0)		; has time delay reached zero?
 		bne.s	.return					; if not, branch
-		bclr	#3,obStatus(a1)				; clear Sonic's on-platform flag
-		bclr	#5,obStatus(a1)				; clear Sonic's pushing flag
+		bclr	#status_on_object_bit,obStatus(a1)	; clear Sonic's on-platform flag
+		bclr	#status_pushing_bit,obStatus(a1)	; clear Sonic's pushing flag
 		move.b	#id_Run,obPrevAni(a1)			; restart Sonic's animation
 
 	.startCollapse:
@@ -188,7 +188,7 @@ CFlo_ChkTouch:	; Routine 2
 		; to invert their collapsing pattern depending on which side was touched.
 		tst.b	obSubtype(a0)				; is MSB in subtype set? (>= $80)
 		bpl.s	.display				; if not, branch
-		btst	#3,obStatus(a1)				; is Sonic standing on platform?
+		btst	#status_on_object_bit,obStatus(a1)	; is Sonic standing on platform?
 		beq.s	.display				; if not, branch
 		bclr	#sprite_xflip_bit,obRender(a0)		; clear X-flip flag
 		move.w	obX(a1),d0				; get Sonic's X-position
@@ -231,12 +231,12 @@ CFlo_FragmentPiece:	; Routine 6
 		bsr.w	CFlo_WalkOff				; allow Sonic to walk off the platform
 
 		lea	(v_player).w,a1				; load Sonic object
-		btst	#3,obStatus(a1)				; is Sonic standing on platform?
+		btst	#status_on_object_bit,obStatus(a1)	; is Sonic standing on platform?
 		beq.s	.startCollapse				; if not, branch
 		tst.b	collapsible_timedelay(a0)		; has time delay reached zero?
 		bne.s	.return					; if not, branch
-		bclr	#3,obStatus(a1)				; clear Sonic's on-platform flag
-		bclr	#5,obStatus(a1)				; clear Sonic's pushing flag
+		bclr	#status_on_object_bit,obStatus(a1)	; clear Sonic's on-platform flag
+		bclr	#status_pushing_bit,obStatus(a1)	; clear Sonic's pushing flag
 		move.b	#id_Run,obPrevAni(a1)			; restart Sonic's animation
 
 	.startCollapse:
@@ -338,7 +338,12 @@ FragmentatePlatform:
 		move.w	obGfx(a0),obGfx(a1)			; copy art tile
 		move.b	obPriority(a0),obPriority(a1)		; copy sprite priority
 		move.b	obActWid(a0),obActWid(a1)		; copy display width
-
+	if FixBugs
+		; The GHZ ledge has the "custom sprite height" flag set in obRender, which gets carried over
+		; to all child fragments. However, no custom height is specified (so it is implicitly 0).
+		; As a result, the fragments get culled/deleted too early while they are falling down.
+		move.b	obHeight(a0),obHeight(a1)		; copy display height
+	endif
 		move.b	(a4)+,collapsible_timedelay(a1)		; write next time delay from "CollapseData_..." array
 
 	if FixBugs=0
@@ -396,7 +401,7 @@ CollapseData_8x2_Shuffle: ; 8 fragments, shuffled order
 ; SlopeObject2:
 SlopeObject_AssumeStoodOn:
 		lea	(v_player).w,a1				; get Sonic object
-		btst	#3,obStatus(a1)				; is Sonic standing on a platform object?
+		btst	#status_on_object_bit,obStatus(a1)	; is Sonic standing on a platform object?
 		beq.s	.return					; if not, branch
 
 		move.w	obX(a1),d0

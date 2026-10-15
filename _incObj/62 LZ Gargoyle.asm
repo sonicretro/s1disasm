@@ -68,7 +68,7 @@ Gar_FireBall:	; Routine 4
 		addq.w	#8,obY(a0)				; adjust Y-position to make fireball come out of mouth
 
 		move.w	#$200,obVelX(a0)			; move fireball to the right
-		btst	#0,obStatus(a0)				; is gargoyle facing left?
+		btst	#status_xflip_bit,obStatus(a0)		; is gargoyle facing left?
 		bne.s	.sound					; if not, branch
 		neg.w	obVelX(a0)				; move fireball to the left instead
 
@@ -86,7 +86,7 @@ Gar_AniFire:	; Routine 6
 .moveAndCheckWall:
 		bsr.w	SpeedToPos				; update fireball position
 
-		btst	#0,obStatus(a0)				; is fireball moving left?
+		btst	#status_xflip_bit,obStatus(a0)		; is fireball moving left?
 		bne.s	.isRight				; if not, branch
 	.isLeft:
 		moveq	#-8,d3					; check 8px ahead to the left

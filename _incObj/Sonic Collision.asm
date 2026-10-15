@@ -59,7 +59,7 @@ Sonic_CalcRoomAhead:
 		addq.w	#8,d2
 	if FixBugs
 		; Fix push sensor position while rolling
-		btst	#2,obStatus(a0)				; is Sonic rolling?
+		btst	#status_rolling_bit,obStatus(a0)	; is Sonic rolling?
 		beq.s	.find_wall_lr				; if not, branch
 		subq.w	#5,d2					; if so, move push sensor up a bit
 	endif

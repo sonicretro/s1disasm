@@ -42,7 +42,7 @@ Debug_Init:	; Routine 0
 	if FixBugs
 		; Fix various issues when entering debug mode by resetting
 		; Sonic to his normal state and clearing a handful of flags.
-		bset	#1,obStatus(a0)				; force airborne state to speed up vertical camera
+		bset	#status_in_air_bit,obStatus(a0)		; force airborne state to speed up vertical camera
 		move.b	#2,obRoutine(a0)			; force to Sonic_Control routine
 		move.w	#$60,(v_lookshift).w			; reset up/down camera shift
 
@@ -59,20 +59,20 @@ Debug_Init:	; Routine 0
 		; Debug Mode makes no attempt to check if Sonic was standing on any
 		; object before entering it, causing behavior such as being stuck to
 		; platforms or warped back down to an object previously stood on.
-		btst	#3,obStatus(a0)				; is Sonic standing on an object?
+		btst	#status_on_object_bit,obStatus(a0)	; is Sonic standing on an object?
 		beq.s	.notOnObject				; if not, branch
-		bclr	#3,obStatus(a0)				; clear Sonic's standing flag
+		bclr	#status_on_object_bit,obStatus(a0)	; clear Sonic's standing flag
 		move.b	standonobject(a0),d0			; get object ID
 		clr.b	standonobject(a0)			; clear object ID
 		lsl.w	#object_size_bits,d0			; multiply by $40 (object_size)
 		addi.l	#v_objspace&$FFFFFF,d0			; add base object RAM location
 		movea.l	d0,a2					; a2 = address of stood-on object
-		bclr	#3,obStatus(a2)				; clear object's standing flag
+		bclr	#status_on_object_bit,obStatus(a2)	; clear object's standing flag
 		clr.b	obSolid(a2)				; clear object's solid state
 	.notOnObject:
 
 		; Exit underwater state if applicable
-		bclr	#6,obStatus(a0)				; clear underwater status
+		bclr	#status_underwater_bit,obStatus(a0)	; clear underwater status
 		beq.s	.notUnderwater				; if Sonic wasn't underwater, branch
 		jsr	(ResumeMusic).l				; resume music after a countdown
 		move.w  #son_maxspeed,(v_sonspeedmax).w		; restore Sonic's speed
@@ -300,7 +300,7 @@ Debug_ChgItem:
 		_move.b	obMap(a0),obID(a1)			; create object (ID is stored in list with mappings as map+(object<<24))
 		move.b	obRender(a0),obRender(a1)		; set new object's render flags
 		move.b	obRender(a0),obStatus(a1)		; set new object's status flags
-		andi.b	#$7F,obStatus(a1)			; make sure bit 7 in status flag is clear
+		andi.b	#~status_defeated&$FF,obStatus(a1)	; make sure bit 7 in status flag is clear
 
 		moveq	#0,d0					; clear d0
 		move.b	(v_debugitem).w,d0			; get index of currently selected debug item
