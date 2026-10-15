@@ -205,7 +205,7 @@ LevSz_InitBackgroundAndLoops:
 		lsl.b	#2,d0					; multiply by 4 bytes per loop chunk data entry
 		move.l	LoopChunkNums(pc,d0.w),(v_256loop1).w	; set loop chunk data for current zone
 
-	if (Revision=0)&(UnusedOptimization=0)
+	if Revision=0
 		bra.w	LevSz_LoadScrollBlockSize		; (REV00) setup scroll block sizes
 	else
 		rts						; (REV01) return, scroll block sizes have been deleted
@@ -282,7 +282,7 @@ LoopChunkNums:	; 	loop	loop	tunnel	tunnel
 ; ===========================================================================
 
 
-	if (Revision=0)&(UnusedOptimization=0)
+	if Revision=0
 ; ---------------------------------------------------------------------------
 ; Old (and mostly unused) scroll block definition system used in REV00.
 ; Each word represents a scroll block size, for example GHZ has $70 pixels
