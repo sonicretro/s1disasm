@@ -107,11 +107,11 @@ VanP_StoodOn:	; Routine 4
 ; ===========================================================================
 
 .notSolid:
-		btst	#3,obStatus(a0)				; was Sonic standing on platform as it went invisible?
+		btst	#status_on_object_bit,obStatus(a0)	; was Sonic standing on platform as it went invisible?
 		beq.s	.display				; if not, branch
 		lea	(v_player).w,a1				; load Sonic player object
-		bclr	#3,obStatus(a1)				; clear Sonic's on-platform flag
-		bclr	#3,obStatus(a0)				; clear platform's stood-on flag
+		bclr	#status_on_object_bit,obStatus(a1)	; clear Sonic's on-platform flag
+		bclr	#status_on_object_bit,obStatus(a0)	; clear platform's stood-on flag
 		move.b	#2,obRoutine(a0)			; set platform back to VanP_Detect
 		clr.b	obSolid(a0)				; clear platform solidity flag
 

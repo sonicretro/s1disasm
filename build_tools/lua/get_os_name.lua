@@ -30,7 +30,7 @@ function M.get_os_name()
         if package.config:sub(1,1) == '\\' then
             -- Windows
             local env_OS = os.getenv('OS')
-            local env_ARCH = os.getenv('PROCESSOR_ARCHITECTURE')
+	    local env_ARCH = os.getenv('PROCESSOR_ARCHITEW6432') or os.getenv('PROCESSOR_ARCHITECTURE')
             -- print( ("Debug: %q %q"):format( env_OS, env_ARCH ) )
             if env_OS and env_ARCH then
                 raw_os_name, raw_arch_name = env_OS, env_ARCH

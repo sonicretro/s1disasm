@@ -55,7 +55,7 @@ Burro_Action_TurnAround:
 		move.w	#255,burro_timedelay(a0)		; set timer until automatic next action to just over 4 seconds
 		move.w	#$80,obVelX(a0)				; move Burrobot to the right
 		move.b	#1,obAnim(a0)				; set to moving animation
-		bchg	#0,obStatus(a0)				; change direction the Burrobot is facing
+		bchg	#status_xflip_bit,obStatus(a0)		; change direction the Burrobot is facing
 		beq.s	.return					; if facing right now, branch
 		neg.w	obVelX(a0)				; move to the left if facing left now
 
@@ -75,7 +75,7 @@ Burro_Action_Move:
 	.checkLedgeAhead:
 		move.w	obX(a0),d3				; get Burrobot's current X-position
 		addi.w	#12,d3					; look 12px ahead to the right
-		btst	#0,obStatus(a0)				; is Burrobot currently facing to the left?
+		btst	#status_xflip_bit,obStatus(a0)		; is Burrobot currently facing to the left?
 		bne.s	.doLedgeCheck				; if not, branch
 		subi.w	#12*2,d3				; look 12px ahead to the left instead
 	.doLedgeCheck:
@@ -168,13 +168,13 @@ Burro_Action_ChkSonic:
 ; Burro_ChkSonic2:
 Burro_CheckDistanceAndFaceSonic:
 		move.w	#$80,d1					; set horizontal move speed to the right
-		bset	#0,obStatus(a0)				; make face right
+		bset	#status_xflip_bit,obStatus(a0)		; make face right
 		move.w	(v_player+obX).w,d0			; get Sonic's X-position
 		sub.w	obX(a0),d0				; calculate X-difference
 		bhs.s	.checkDistance				; if Sonic is left of Burrobot, branch
 		neg.w	d0					; make X-difference positive for check
 		neg.w	d1					; move Burrobot to the left instead
-		bclr	#0,obStatus(a0)				; make face left
+		bclr	#status_xflip_bit,obStatus(a0)		; make face left
 
 	.checkDistance:
 		cmp.w	d2,d0					; is Sonic inside trigger zone?

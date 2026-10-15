@@ -147,7 +147,7 @@ MBlock_Stationary:
 MBlock_LeftRight:
 		move.b	(v_oscillate+$E).w,d0			; get oscillatory value (frequency 2, middle value $30)
 		move.w	#$60,d1					; adjustment offset for X-flipped platforms (oscillation range * 2)
-		btst	#0,obStatus(a0)				; is platform X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is platform X-flipped?
 		beq.s	.setX					; if not, branch
 		neg.w	d0					; reverse oscillated offset direction
 		add.w	d1,d0					; keep flipped platforms in the same $60px range
@@ -239,7 +239,7 @@ MBlock_SecretLZ1Raft:
 MBlock_UpDown:
 		move.b	(v_oscillate+$1E).w,d0			; get oscillatory value (frequency 4, middle value $40)
 		move.w	#$80,d1					; adjustment offset for X-flipped platforms (oscillation range * 2)
-		btst	#0,obStatus(a0)				; is platform X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is platform X-flipped?
 		beq.s	.setY					; if not, branch
 		neg.w	d0					; reverse oscillated offset direction
 		add.w	d1,d0					; keep flipped platforms in the same $80px range
@@ -257,7 +257,7 @@ MBlock_SlideFast:
 		move.b	obActWid(a0),d3				; get platform half-width
 		add.w	d3,d3					; double to full-width (will be the total slide distance)
 		moveq	#8,d1					; slide platform to the right
-		btst	#0,obStatus(a0)				; is platform X-flipped?
+		btst	#status_xflip_bit,obStatus(a0)		; is platform X-flipped?
 		beq.s	.slide					; if not, branch
 		neg.w	d1					; slide platform to the left instead
 		neg.w	d3					; check target distance to the left instead

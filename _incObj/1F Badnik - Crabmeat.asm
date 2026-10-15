@@ -78,7 +78,7 @@ Crab_Action_WaitFire:
 		bsr.w	Crab_SetAni				; find animation ID based on angle
 		addq.b	#3,d0					; advance to walking set of animations
 		move.b	d0,obAnim(a0)				; update Crabmeat animation ID
-		bchg	#0,obStatus(a0)				; X-flip Crabmeat
+		bchg	#status_xflip_bit,obStatus(a0)		; X-flip Crabmeat
 		bne.s	.return					; is it facing left now? if not, branch
 		neg.w	obVelX(a0)				; negate direction when moving left
 
@@ -125,7 +125,7 @@ Crab_Action_Scuttle:
 
 		move.w	obX(a0),d3				; get Crabmeat's current X-position
 		addi.w	#16,d3					; look 16px ahead to the right
-		btst	#0,obStatus(a0)				; is Crabmeat currently facing to the left?
+		btst	#status_xflip_bit,obStatus(a0)		; is Crabmeat currently facing to the left?
 		beq.s	.checkLedge				; if not, branch
 		subi.w	#16*2,d3				; look 16px ahead to the left instead
 	; loc_9640:
@@ -175,7 +175,7 @@ Crab_SetAni_Descending:
 		cmpi.b	#6,d3					; is floor angle steep enough?
 		blo.s	.return					; if not, keep using flat animation
 		moveq	#1,d0					; use sloped animation
-		btst	#0,obStatus(a0)				; is Crabmeat facing to the left?
+		btst	#status_xflip_bit,obStatus(a0)		; is Crabmeat facing to the left?
 		bne.s	.return					; if not, branch
 		moveq	#2,d0					; use X-flipped sloped animation
 	.return:
@@ -187,7 +187,7 @@ Crab_SetAni_Ascending:
 		cmpi.b	#-6,d3					; is floor angle steep enough?
 		bhi.s	.return					; if not, keep using flat animation
 		moveq	#2,d0					; use X-flipped sloped animation
-		btst	#0,obStatus(a0)				; is Crabmeat facing to the left?
+		btst	#status_xflip_bit,obStatus(a0)		; is Crabmeat facing to the left?
 		bne.s	.return					; if not, branch
 		moveq	#1,d0					; use regular sloped animation
 	.return:

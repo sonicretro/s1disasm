@@ -65,14 +65,14 @@ PlatformObject:
 		addq.b	#2,obRoutine(a0)			; increment object's routine counter
 
 Plat_NoCheck:							; jump here to skip all checks
-		btst	#3,obStatus(a1)				; is Sonic on a platform already?
+		btst	#status_on_object_bit,obStatus(a1)	; is Sonic on a platform already?
 		beq.s	.no					; if not, branch
 		moveq	#0,d0
 		move.b	standonobject(a1),d0			; get OST index for that platform
 		lsl.w	#object_size_bits,d0
 		addi.l	#v_objspace&$FFFFFF,d0			; convert index to RAM address
 		movea.l	d0,a2					; point a2 to that address
-		bclr	#3,obStatus(a2)				; clear platform bit for the other platform
+		bclr	#status_on_object_bit,obStatus(a2)	; clear platform bit for the other platform
 		clr.b	ob2ndRout(a2)
 		cmpi.b	#4,obRoutine(a2)			; does its routine counter suggest it's being stood on? (platforms all use similar routines)
 		bne.s	.no					; if not, branch
@@ -87,7 +87,7 @@ Plat_NoCheck:							; jump here to skip all checks
 		move.b	#0,obAngle(a1)
 		move.w	#0,obVelY(a1)
 		move.w	obVelX(a1),obInertia(a1)
-		btst	#1,obStatus(a1)				; is Sonic in the air/jumping?
+		btst	#status_in_air_bit,obStatus(a1)		; is Sonic in the air/jumping?
 		beq.s	.notinair				; if not, branch
 		move.l	a0,-(sp)
 		movea.l	a1,a0
@@ -95,8 +95,8 @@ Plat_NoCheck:							; jump here to skip all checks
 		movea.l	(sp)+,a0
 
 	.notinair:
-		bset	#3,obStatus(a1)
-		bset	#3,obStatus(a0)
+		bset	#status_on_object_bit,obStatus(a1)
+		bset	#status_on_object_bit,obStatus(a0)
 
 Plat_Exit:
 		rts

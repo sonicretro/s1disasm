@@ -35,7 +35,7 @@ Smash_Solid:	; Routine 2
 		move.w	#64/2,d3
 		move.w	obX(a0),d4
 		bsr.w	SolidObject				; check collision with Sonic and wall
-		btst	#5,obStatus(a0)				; is Sonic pushing against the wall?
+		btst	#status_pushing_bit,obStatus(a0)	; is Sonic pushing against the wall?
 		bne.s	.chkroll				; if yes, branch
 
 	.return:
@@ -65,8 +65,8 @@ Smash_Solid:	; Routine 2
 
 	.smash:
 		move.w	obVelX(a1),obInertia(a1)		; copy speed before impact to Sonic's ground speed
-		bclr	#5,obStatus(a0)				; clear wall's pushed flag
-		bclr	#5,obStatus(a1)				; clear Sonic's pushing flag
+		bclr	#status_pushing_bit,obStatus(a0)	; clear wall's pushed flag
+		bclr	#status_pushing_bit,obStatus(a1)	; clear Sonic's pushing flag
 
 		moveq	#8-1,d1					; set number of fragments to load to 8 (number of sprite pieces in wall)
 		move.w	#gravity*2,d2				; set counter-gravity for edge case in SmashObject

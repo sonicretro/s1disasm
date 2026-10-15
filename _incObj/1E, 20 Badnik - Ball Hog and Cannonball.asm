@@ -72,7 +72,7 @@ Hog_Action:	; Routine 2
 		move.w	#-$100,obVelX(a1)			; make cannonball bounce to the left
 		move.w	#0,obVelY(a1)				; set to no Y-speed by default
 		moveq	#-4,d0					; align 4px to the left
-		btst	#0,obStatus(a0)				; is Ball Hog facing right?
+		btst	#status_xflip_bit,obStatus(a0)		; is Ball Hog facing right?
 		beq.s	.alignX					; if not, branch
 		neg.w	d0					; align 4px to the right instead
 		neg.w	obVelX(a1)				; make cannonball bounce to the right instead
