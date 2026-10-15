@@ -10,7 +10,7 @@ pswap_bit_path2_rightdown:	equ 3
 pswap_bit_path2_leftup:		equ 4	
 pswap_bit_priority_rightdown:	equ 5	
 pswap_bit_priority_leftup:	equ 6	
-; pswap_bit_groundonly:		equ 7	; implicitely through a bpl check
+; pswap_bit_groundonly:		equ 7	; implicitly through a bpl check
 pswap_render_priorityonly:	equ 0
 
 pswap_size:	equ objoff_32	; hitbox size of path swapper divided by 2
@@ -124,8 +124,8 @@ PSwapper_MainX:	; Routine 2
 
 		move.b	obSubtype(a0),d0			; get path swapper settings
 		bpl.s	.triggerPathSwap			; is "ground only" flag set (pswap_bit_groundonly)? if not, branch
-		btst	#1,obStatus(a1)				; is Sonic airborne?
-		bne.s	.return					; if yes, don't trigger path swapp
+		btst	#status_in_air_bit,obStatus(a1)		; is Sonic airborne?
+		bne.s	.return					; if yes, don't trigger path swap
 
 	.triggerPathSwap:
 		btst	#pswap_render_priorityonly,obRender(a0)	; is "priority only" flag set for path swapper? (stored in X-flip flag)
@@ -174,8 +174,8 @@ PSwapper_MainX_Alt:
 
 		move.b	obSubtype(a0),d0			; get path swapper settings
 		bpl.s	.triggerPathSwap			; is "ground only" flag set (pswap_bit_groundonly)? if not, branch
-		btst	#1,obStatus(a1)				; is Sonic airborne?
-		bne.s	.return					; if yes, don't trigger path swapp
+		btst	#status_in_air_bit,obStatus(a1)		; is Sonic airborne?
+		bne.s	.return					; if yes, don't trigger path swap
 
 	.triggerPathSwap:
 		btst	#pswap_render_priorityonly,obRender(a0)	; is "priority only" flag set for path swapper? (stored in X-flip flag)
@@ -233,8 +233,8 @@ PSwapper_MainY:	; Routine 4
 
 		move.b	obSubtype(a0),d0			; get path swapper settings
 		bpl.s	.triggerPathSwap			; is "ground only" flag set (pswap_bit_groundonly)? if not, branch
-		btst	#1,obStatus(a1)				; is Sonic airborne?
-		bne.s	.return					; if yes, don't trigger path swapp
+		btst	#status_in_air_bit,obStatus(a1)		; is Sonic airborne?
+		bne.s	.return					; if yes, don't trigger path swap
 
 	.triggerPathSwap:
 		btst	#pswap_render_priorityonly,obRender(a0)	; is "priority only" flag set for path swapper? (stored in X-flip flag)
@@ -283,8 +283,8 @@ PSwapper_MainY_Alt:
 
 		move.b	obSubtype(a0),d0			; get path swapper settings
 		bpl.s	.triggerPathSwap			; is "ground only" flag set (pswap_bit_groundonly)? if not, branch
-		btst	#1,obStatus(a1)				; is Sonic airborne?
-		bne.s	.return					; if yes, don't trigger path swapp
+		btst	#status_in_air_bit,obStatus(a1)		; is Sonic airborne?
+		bne.s	.return					; if yes, don't trigger path swap
 
 	.triggerPathSwap:
 		btst	#pswap_render_priorityonly,obRender(a0)	; is "priority only" flag set for path swapper? (stored in X-flip flag)
