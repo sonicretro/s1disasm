@@ -2057,12 +2057,12 @@ Sonic_ResetLevel: ; Routine 8
 
 Sonic_Loops:
 		cmpi.b	#id_SLZ,(v_zone).w			; is level SLZ?
-		beq.s	.isstarlight				; if yes, branch
+		beq.s	.levelhasloops				; if yes, check for loop chunks
 		tst.b	(v_zone).w				; is level GHZ?
-		bne.w	.return					; if not, branch
+		bne.w	.return					; if not, return (level has no loops, so no need to check for them)
 
-; loc_13926:
-.isstarlight:
+; loc_13926: .isstarlight:
+.levelhasloops:
 		move.w	obY(a0),d0				; get Sonic's current Y-position
 		lsr.w	#1,d0					; halve it (level layouts have FG and BG interlaced)
 		andi.w	#$380,d0				; mask out irrelevant bits for Y-position
