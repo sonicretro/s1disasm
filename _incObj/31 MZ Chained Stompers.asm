@@ -230,6 +230,9 @@ CStom_SwitchActivated:
 		move.b	(v_vblank_byte).w,d0			; get current VBlank counter byte
 		andi.b	#$F,d0					; only play rising sound every 16 frames
 		bne.s	.rise					; branch on other frames
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is stomper on screen?
 		bpl.s	.rise					; if not, don't play rising sound
 		move.w	#sfx_ChainRise,d0			; set rising chain sound
@@ -257,6 +260,8 @@ CStom_SwitchActivated:
 		bhi.s	CStom_UpdateBlockY			; if not, branch
 		move.w	d1,cstom_current(a0)			; snap stomper to max length
 		move.w	#0,obVelY(a0)				; stop stomper falling
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
 
 		tst.b	obRender(a0)				; was stomper on screen as it hit max length?
 		bpl.s	CStom_UpdateBlockY			; if not, don't play stomping sound
@@ -288,6 +293,9 @@ CStom_AutoStomp:
 		move.b	(v_vblank_byte).w,d0			; get current VBlank counter byte
 		andi.b	#$F,d0					; only play rising sound every 16 frames
 		bne.s	.rise					; branch on other frames
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is stomper on screen?
 		bpl.s	.rise					; if not, don't play rising sound
 		move.w	#sfx_ChainRise,d0			; set rising chain sound
@@ -316,6 +324,8 @@ CStom_AutoStomp:
 		move.w	#0,obVelY(a0)				; stop stomper falling
 		move.w	#1,cstom_rising(a0)			; set flag that stomper rising
 		move.w	#60,cstom_delay(a0)			; wait 1 second before rising again
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
 
 		tst.b	obRender(a0)				; was stomper on screen as it hit max length?
 		bpl.s	.finish					; if not, don't play stomping sound

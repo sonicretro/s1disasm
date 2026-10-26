@@ -215,6 +215,54 @@ _tst	macro
 
     endif
 
+ if TRUE	; set to FALSE to disable static assertion checking
+; Define a static_assert macro
+; Does build-time testing of a constant expression and produces an error when
+; it evaluates to FALSE.
+; To be on the safe side, wrap the expr parameter in parentheses, e.g.:
+;	static_assert ((const_A=1) && (const_b=2)), "const_A must be 1 and const_B must be 2"
+static_assert	macro expr,msg=""
+	if ~~expr
+		if msg<>""
+			error "static_assert expr, \{msg}"
+		else
+			error "static_assert expr"
+		endif
+	endif
+
+	endm
+ else		; if disabled, produce a dummy macro that does nothing
+static_assert	macro
+	endm
+ endif
+
+; ASSERT_BIT_EQ_7
+;	A bit constant is expected to equal 7. When testing the highest bit in
+;	a bitfield (position 7), the following code
+;		btst	#7,<ea>
+;		beq/bne	<label>
+;	can be optimized to
+;		tst.b	<ea>
+;		bpl/bmi	<label>
+;	If the bit constant is not defined as 7, then it must be tested using
+;	the btst instruction followed by beq or bne.
+ASSERT_BIT_EQ_7 = "bit constant must equal 7"
+
+; ASSERT_CONSTANTS_EQ
+;	Two or more constants are required to have the same value.
+ASSERT_CONSTANTS_EQ = "constants must be equal"
+
+; ASSERT_ORDER
+;	The memory locations two or more constants refer to must have a
+;	specific order.
+ASSERT_ORDER = "memory locations constants refer to require a specific order"
+
+; ASSERT_ADJACENT
+;	Two or more constants must refer to sequential bit positions or memory
+;	addresses. This is required when an instruction affects multiple
+;	variables at once or a routine iterates through sequential addresses.
+ASSERT_ADJACENT = "memory locations constants refer to must be adjacent"
+
 roundFloatToInteger function float,INT(float+0.5)
 min function a,b,b!((a!b)&(-(a<b)))
 max function a,b,a!((a!b)&(-(a<b)))

@@ -45,6 +45,9 @@ SBall_Main:	; Routine 0
 		asl.w	#3,d1					; multiply speed by 8
 		move.w	d1,sball_speed(a0)			; set object twirl speed
 
+		static_assert (abs(status_yflip-status_xflip)=1),ASSERT_ADJACENT
+		static_assert (status_xflip<status_yflip),ASSERT_ORDER
+
 		move.b	obStatus(a0),d0				; get X/Y-flip flags
 		ror.b	#2,d0					; shift those flags into topmost bits
 		andi.b	#(status_xflip|status_yflip)<<6,d0	; mask out other bits ($C0)

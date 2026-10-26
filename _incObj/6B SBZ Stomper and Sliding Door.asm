@@ -118,6 +118,8 @@ Sto_Action:	; Routine 2
 		jsr	Sto_TypeIndex(pc,d1.w)			; execute behavior, then return here
 		move.w	(sp)+,d4				; restore previous X-position as input for SolidObject
 
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is platform on screen?
 		bpl.s	.chkdel					; if not, skip collision detection
 

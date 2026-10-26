@@ -47,6 +47,9 @@ ReactToItem:
 React_LoopObjects:
 		; Sonic 2 onwards removed this, allowing objects that do not set the
 		; 'object visible flag' to process their collision.
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a1)				; is object on screen? (sprite rendered)
 		bpl.s	React_CheckNext				; if not, don't check collision for it
 		move.b	obColType(a1),d0			; load collision type

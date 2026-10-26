@@ -31,6 +31,9 @@ But_Main:	; Routine 0
 ; ---------------------------------------------------------------------------
 
 But_Pressed:	; Routine 2
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is button on screen?
 	if FixBugs
 		; Covers an out-of-range error due to the below fix.
@@ -145,6 +148,9 @@ But_MZBlock:
 		move.w	#(v_lvlobjend-v_lvlobjspace)/object_size-1,d6
 	; But_MZLoop:
 	.findBlock:
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a1)				; is object on screen?
 		bpl.s	.nextObject				; if not, branch
 		cmpi.b	#id_PushBlock,obID(a1)			; is object a pushable green MZ block?

@@ -138,6 +138,8 @@ FBlock_Action:	; Routine 2
 		jsr	FBlock_TypeIndex(pc,d1.w)		; execute block movement behavior, then return here
 		move.w	(sp)+,d4				; restore previous X-position as input for SolidObject
 
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is object on screen?
 		bpl.s	.chkDel					; if not, skip collision check
 		moveq	#0,d1					; clear d1
@@ -511,6 +513,9 @@ FBlock_SLZStair_Largest:
 FBlock_SLZStair_MoveSquare:
 		tst.w	d3					; is current oscillation rate 0? (at a corner)
 		bne.s	.checkFlipped				; if not, branch
+
+		static_assert (abs(status_yflip-status_xflip)=1),ASSERT_ADJACENT
+
 		addq.b	#1,obStatus(a0)				; cycle through X-flipped, Y-flipped, XY-flipped, and not flipped
 		andi.b	#status_xflip|status_yflip,obStatus(a0)	; limit to those four possible states
 

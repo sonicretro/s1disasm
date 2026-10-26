@@ -49,6 +49,8 @@ Gird_Action:	; Routine 2
 	.solid:
 		move.w	(sp)+,d4				; restore previous X-position for SolidObject
 
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is girder on screen?
 		bpl.s	.chkdel					; if not, branch
 		moveq	#0,d1					; clear d1 (SolidObject width input)

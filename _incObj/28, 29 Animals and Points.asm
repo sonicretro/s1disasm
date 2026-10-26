@@ -201,6 +201,9 @@ Anml_FromEnemy:
 
 ; loc_912A:
 Anml_ChkFloor:	; Routine 2
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has animal gone offscreen?
 		bpl.w	DeleteObject				; if yes, delete it
 
@@ -253,6 +256,9 @@ Anml_NormalGravity: ; Routine 4/8/A/C/10
 	.chkDel:
 		tst.b	obSubtype(a0)				; is this an ending sequence animal?
 		bne.s	Anml_End_ChkDel				; if yes, use alternate offscreen handler
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has animal gone offscreen?
 		bpl.w	DeleteObject				; if yes, delete it
 		bra.w	DisplaySprite				; otherwise, display it
@@ -292,6 +298,9 @@ Anml_SlowGravity: ; Routine 6/E
 	.chkDel:
 		tst.b	obSubtype(a0)				; is this an ending sequence animal?
 		bne.s	Anml_End_ChkDel				; if yes, use alternate offscreen handler
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has animal gone offscreen?
 		bpl.w	DeleteObject				; if yes, delete it
 		bra.w	DisplaySprite				; otherwise, display it
@@ -304,6 +313,9 @@ Anml_End_ChkDel:
 		blo.s	.display				; if Sonic is to the right of the animal, branch
 		subi.w	#320+64,d0				; check if Sonic has passed the animal to the left ($180)
 		bpl.s	.display				; if not, branch
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is animal still on screen?
 		bpl.w	DeleteObject				; if not, delete it
 
@@ -317,6 +329,9 @@ Anml_End_ChkDel:
 
 ; loc_9240:
 Anml_FromPrison: ; Routine 12
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has animal gone offscreen?
 		bpl.w	DeleteObject				; if yes, delete it
 		subq.w	#1,animal_prisondelay(a0)		; decrement delay before animal jumps out of capsule

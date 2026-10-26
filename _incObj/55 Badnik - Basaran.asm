@@ -101,6 +101,8 @@ Bas_Action_DropDown_Delete:
 		; even though Sonic was vertically above it as it began falling.
 		; Due to the way the logic is laid out, this can't ever happen.
 
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 	if FixBugs
 		; Objects shouldn't call DisplaySprite and DeleteObject on
 		; the same frame or else cause a null-pointer dereference.
@@ -207,6 +209,9 @@ Bas_CheckDistanceAndFaceSonic:
 		; Also, it contains yet another display-and-delete bug.
 		bsr.w	SpeedToPos				; update position
 		bsr.w	DisplaySprite				; display object
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; did object go offscreen?
 		bpl.w	DeleteObject				; if yes, delete object
 		rts						; return

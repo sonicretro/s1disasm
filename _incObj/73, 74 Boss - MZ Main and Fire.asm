@@ -81,6 +81,10 @@ BossMarble_ShipMain:	; Routine 2
 		moveq	#status_xflip|status_yflip,d0		; move first two bits into d0
 		and.b	obStatus(a0),d0				; AND with obStatus so now d0 contains X and Y logical flip bits only
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
+
+		static_assert (sprite_xflip=status_xflip),ASSERT_CONSTANTS_EQ
+		static_assert (sprite_yflip=status_yflip),ASSERT_CONSTANTS_EQ
+
 		or.b	d0,obRender(a0)				; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -118,6 +122,9 @@ BMZ_ShipUpdate:
 		move.w	obBossX(a0),obX(a0)
 		cmpi.b	#4,ob2ndRout(a0)			; are we exploding or escaping?
 		bhs.s	.exit					; if yes, branch
+
+		static_assert (status_defeated_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obStatus(a0)				; has Eggman's defeated flag been set (bit 7)?
 		bmi.s	BMZ_Defeated				; if yes (negative number) branch
 		tst.b	obColType(a0)				; is the boss hittable?
@@ -379,6 +386,9 @@ BMZ_Escape:
 
 ; loc_1859C
 .checkOffScreen:
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has Eggman left the screen (is bit 7 clear)?
 		bpl.s	BossMarble_ShipDel			; yes, bit 7 is cleared, so we can delete the object (this leverages signed numbers!)
 
@@ -443,6 +453,9 @@ BossMarble_FaceMain:	; Routine 4
 		subq.b	#4,d0
 		bne.s	.skip					; we are not escaping, display normally
 		move.b	#6,obAnim(a0)				; set animation state to facepanic
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has Eggman's face left the screen?
 		bpl.s	BossMarble_FaceDel			; yes, delete his face
 
@@ -461,6 +474,9 @@ BossMarble_FlameMain:; Routine 6
 		cmpi.b	#8,ob2ndRout(a1)			; are we in the Escape state?
 		blt.s	.checkMove				; no, check movement
 		move.b	#$B,obAnim(a0)				; set thruster animation for takeoff
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; what is our screen status?
 		bpl.s	BossMarble_FlameDel			; off screen, delete
 		bra.s	BMZ_FlameDisp				; on screen, display
@@ -494,6 +510,10 @@ BossMarble_SetBits:
 		moveq	#status_xflip|status_yflip,d0		; move first 2 bits into d0
 		and.b	obStatus(a0),d0				; AND with obStatus so now do contains X and Y logical flip bits only
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the X and Y flip
+
+		static_assert (sprite_xflip=status_xflip),ASSERT_CONSTANTS_EQ
+		static_assert (sprite_yflip=status_yflip),ASSERT_CONSTANTS_EQ
+
 		or.b	d0,obRender(a0)				; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -502,6 +522,9 @@ BossMarble_TubeMain:	; Routine 8
 		movea.l	BossMarble_ParentObj(a0),a1		; load main boss controller
 		cmpi.b	#8,ob2ndRout(a1)			; are we currently in Escape state?
 		bne.s	.skip					; if not, branch
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has the tube left the screen?
 		bpl.s	BossMarble_TubeDel			; if so, branch
 

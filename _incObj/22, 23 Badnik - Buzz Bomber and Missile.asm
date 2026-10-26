@@ -111,6 +111,9 @@ Buzz_Action_Move:
 	.checkDistance:
 		cmpi.w	#96,d0					; is Buzz Bomber within 96 pixels of Sonic?
 		bhs.s	.return					; if not, branch
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is Buzz Bomber on screen?
 		bpl.s	.return					; if not, branch
 
@@ -265,6 +268,9 @@ Msl_Delete:	; Routine 6
 ; ===========================================================================
 
 Msl_FromNewt:	; Routine 8
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is missile still on screen?
 		bpl.s	Msl_Delete				; if not, delete it
 		bsr.w	SpeedToPos				; update missile's position

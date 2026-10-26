@@ -37,6 +37,9 @@ Elec_Shock:	; Routine 2
 		bne.s	.animate				; if not, branch
 
 		move.b	#1,obAnim(a0)				; run "zap" animation
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is zapper on screen?
 		bpl.s	.animate				; if not, don't play sound
 		move.w	#sfx_Electric,d0			; set electricity sound

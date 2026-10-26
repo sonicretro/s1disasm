@@ -114,6 +114,10 @@ BossStarLight_ShipMain:	; Routine 2
 		moveq	#status_xflip|status_yflip,d0 		; move first 2 bits into d0
 		and.b	obStatus(a0),d0 			; AND with obStatus so now d0 contains X and Y logical flip bits only
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
+
+		static_assert (sprite_xflip=status_xflip),ASSERT_CONSTANTS_EQ
+		static_assert (sprite_yflip=status_yflip),ASSERT_CONSTANTS_EQ
+
 		or.b	d0,obRender(a0) 			; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -156,6 +160,9 @@ BSLZ_MoveUpdate:
 BSLZ_StatusUpdate:
 		cmpi.b	#6,ob2ndRout(a0) 			; are we exploding?
 		bhs.s	.exit 					; yes, exit
+
+		static_assert (status_defeated_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obStatus(a0)				; has Eggman's defeated flag been set (bit 7)?
 		bmi.s	BSLZ_Defeated				; if yes (negative number) branch
 		tst.b	obColType(a0)				; is the boss hittable?
@@ -392,6 +399,9 @@ BSLZ_Escape:
 
 ; loc_18BE0:
 .checkOffScreen:
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has Eggman left the screen (is bit 7 clear)?
 	if FixBugs
 		bpl.s	BossStarLight_PopAndDelete		; yes, bit 7 is cleared, so we can delete the object (this leverages signed numbers!)
@@ -444,6 +454,9 @@ BossStarLight_FaceMain:	; Routine 4
 		cmpi.b	#$A,d0					; are we currently in Escape state (d0 contains ob2ndRout from above)?
 		bne.s	.skip					; if not, branch
 		move.b	#6,obAnim(a0)				; set animation state to facepanic
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has Eggman's face left the screen?
 		bpl.w	BossStarLight_Delete			; if so, branch
 
@@ -457,6 +470,9 @@ BossStarLight_FlameMain:; Routine 6
 		movea.l	BossStarLight_ParentObj(a0),a1		; load main boss controller
 		cmpi.b	#$A,ob2ndRout(a1)			; are we currently in Escape state?
 		bne.s	.checkMove				; if not, branch
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has the flame left the screen?
 		bpl.w	BossStarLight_Delete			; if so, branch
 		move.b	#$B,obAnim(a0)				; set flame to escape flame
@@ -485,6 +501,10 @@ BossStarLight_Display:
 		moveq	#status_xflip|status_yflip,d0 		; move first 2 bits into d0
 		and.b	obStatus(a0),d0 			; AND with obStatus so now d0 contains X and Y logical flip bits only
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the X and Y flip
+
+		static_assert (sprite_xflip=status_xflip),ASSERT_CONSTANTS_EQ
+		static_assert (sprite_yflip=status_yflip),ASSERT_CONSTANTS_EQ
+
 		or.b	d0,obRender(a0) 			; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -493,6 +513,9 @@ BossStarLight_PipeMain:	; Routine 8
 		movea.l	BossStarLight_ParentObj(a0),a1		; load main boss controller
 		cmpi.b	#$A,ob2ndRout(a1)			; are we currently in Escape state?
 		bne.s	.skip					; if not, branch
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has the widepipe left the screen?
 		bpl.w	BossStarLight_Delete			; if so, branch
 
@@ -929,6 +952,8 @@ BossSpikeball_MoveFrag:	; Routine $A
 		and.w	(v_vblank_word).w,d0		; AND with the global vblank frame counter to get the status of the 3rd bit AKA every 4 frames
 		lsr.w	#2,d0				; shift that bit all the way to the right
 		move.b	d0,obFrame(a0)			; set frame to value from above calculation, allowing graphics frame to alternate every 4 frames
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
 
 		tst.b	obRender(a0)
 	if FixBugs

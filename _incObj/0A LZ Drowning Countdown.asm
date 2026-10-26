@@ -104,6 +104,9 @@ Drown_ChkWater:	; Routine 4
 		bsr.s	Drown_ShowNumber			; handle number bubbles
 
 		jsr	(SpeedToPos).l				; update bubble position
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has bubble gone offscreen?
 		bpl.s	.delete					; if yes, delete it
 		jmp	(DisplaySprite).l			; display bubble
@@ -138,6 +141,9 @@ Drown_AirLeft:	; Routine $C
 	.display:
 		lea	(Ani_Drown).l,a1
 		jsr	(AnimateSprite).l
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has bubble gone offscreen?
 		bpl.s	.delete					; if yes, delete it
 		jmp	(DisplaySprite).l			; display bubble

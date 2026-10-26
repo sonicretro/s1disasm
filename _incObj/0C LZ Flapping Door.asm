@@ -35,6 +35,9 @@ Flap_OpenClose:	; Routine 2
 
 		move.w	flap_time(a0),flap_wait(a0)		; reset time delay
 		bchg	#0,obAnim(a0)				; open/close door
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is door on screen?
 		bpl.s	Flap_Animate				; if not, don't play sound
 		move.w	#sfx_Door,d0				; set flapping door sound

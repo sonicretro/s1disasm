@@ -109,6 +109,9 @@ SolidObject_NoRenderChk:
 ; SolidObject2F:
 SolidObject_Heightmap:
 		lea	(v_player).w,a1
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)
 		bpl.w	Solid_NoCollision			; branch if object is off screen
 		move.w	obX(a1),d0
@@ -150,6 +153,9 @@ SolidObject_Heightmap:
 
 ; Solid_ChkEnter:
 Solid_ChkCollision:
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is object onscreen?
 		bpl.w	Solid_NoCollision			; if not, branch
 
