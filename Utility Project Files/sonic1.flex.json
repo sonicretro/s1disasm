@@ -3868,6 +3868,40 @@
                     "expanded": false,
                     "config": {}
                 },
+                        {
+                            "format": "Sonic 1.js",
+                            "name": "Game Over & Time Over",
+                            "palettes": [
+                                {
+                                    "path": "../palette/Sonic.bin",
+                                    "length": 1
+                                }
+                            ],
+                            "art": {
+                                "path": "../artnem/Game Over.nem",
+                                "compression": "Nemesis",
+                                "offset": 0,
+                                "extra": []
+                            },
+                            "mappings": {
+                                "path": "Scratch Mappings (Flex2 only)\\Game Over & Time Over.asm",
+                                "label": ""
+                            },
+                            "dplcs": {
+                                "enabled": false,
+                                "path": "",
+                                "label": ""
+                            },
+                            "config": {
+                                "mapMacros": true
+                            },
+                            "isAbsolute": true
+                        }
+                    ],
+                    "isDirectory": true,
+                    "expanded": true,
+                    "config": {}
+                },
                 {
                     "name": "Boss",
                     "children": [
