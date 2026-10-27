@@ -220,7 +220,7 @@ _tst	macro
 ; Does build-time testing of a constant expression and produces an error when
 ; it evaluates to FALSE.
 ; To be on the safe side, wrap the expr parameter in parentheses, e.g.:
-;	static_assert ((const_A=1) && (const_b=2)), "const_A must be 1 and const_B must be 2"
+;	static_assert ((const_a=1) && (const_b=2)), "const_a must be 1 and const_b must be 2"
 static_assert	macro expr,msg=""
 	if ~~expr
 		if msg<>""
@@ -261,7 +261,7 @@ ASSERT_ORDER = "memory locations constants refer to require a specific order"
 ;	Two or more constants must refer to sequential bit positions or memory
 ;	addresses. This is required when an instruction affects multiple
 ;	variables at once or a routine iterates through sequential addresses.
-ASSERT_ADJACENT = "memory locations constants refer to must be adjacent"
+ASSERT_ADJACENT = "constants must refer to adjacent memory locations"
 
 roundFloatToInteger function float,INT(float+0.5)
 min function a,b,b!((a!b)&(-(a<b)))
