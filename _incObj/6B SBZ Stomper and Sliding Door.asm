@@ -64,7 +64,7 @@ Sto_Main:	; Routine 0
 ; ===========================================================================
 
 .isSBZ3:	; ancient lift at the start of SBZ3
-		move.w	#ArtTile_Level+$1F0|Tile_Pal3,obGfx(a0)	; set alternate art tile (part of the level graphics)
+		move.w	#ArtTile_LZ_Block_2|Tile_Pal3,obGfx(a0)	; set alternate art tile
 		cmpi.w	#$A80,obX(a0)				; is this the platform before the switch was pressed? (X-coordinate $A80)
 		bne.s	.continueSetup				; if not, branch
 
