@@ -29,7 +29,11 @@ id_FlapDoor:		objptr	FlapDoor		; 0C
 id_Signpost:		objptr	Signpost		; 0D
 id_TitleSonic:		objptr	TitleSonic		; 0E
 id_PSBTM:		objptr	PSBTM			; 0F
-id_Obj10:		objptr	Obj10			; 10
+	if UnusedOptimization
+id_Obj10:		objptr	NullObject		; 10
+	else
+id_AnimTest:		objptr	AnimTest		; 10
+	endif
 id_Bridge:		objptr	Bridge			; 11
 id_SpinningLight:	objptr	SpinningLight		; 12
 id_LavaMaker:		objptr	LavaMaker		; 13
@@ -38,7 +42,11 @@ id_SwingingPlatform:	objptr	SwingingPlatform	; 15
 id_Harpoon:		objptr	Harpoon			; 16
 id_Helix:		objptr	Helix			; 17
 id_BasicPlatform:	objptr	BasicPlatform		; 18
-id_Obj19:		objptr	Obj19			; 19
+	if UnusedOptimization
+id_Obj19:		objptr	NullObject		; 19
+	else
+id_RollingBall:		objptr	RollingBall		; 19
+	endif
 id_CollapseLedge:	objptr	CollapseLedge		; 1A
 id_WaterSurface:	objptr	WaterSurface		; 1B
 id_Scenery:		objptr	Scenery			; 1C
@@ -49,7 +57,11 @@ id_Cannonball:		objptr	Cannonball		; 20
 id_HUD:			objptr	HUD			; 21
 id_BuzzBomber:		objptr	BuzzBomber		; 22
 id_Missile:		objptr	Missile			; 23
+	if UnusedOptimization
+id_Obj24:		objptr	NullObject		; 24
+	else
 id_UnusedExplosion:	objptr	UnusedExplosion		; 24
+	endif
 id_Rings:		objptr	Rings			; 25
 id_Monitor:		objptr	Monitor			; 26
 id_ExplosionItem:	objptr	ExplosionItem		; 27
@@ -82,17 +94,29 @@ id_Springs:		objptr	Springs			; 41
 id_Newtron:		objptr	Newtron			; 42
 id_Roller:		objptr	Roller			; 43
 id_EdgeWalls:		objptr	EdgeWalls		; 44
+	if UnusedOptimization
+id_Obj45:		objptr	NullObject		; 45
+	else
 id_SideStomp:		objptr	SideStomp		; 45
+	endif
 id_MarbleBrick:		objptr	MarbleBrick		; 46
 id_Bumper:		objptr	Bumper			; 47
 id_BossBall:		objptr	BossBall		; 48
 id_WaterSound:		objptr	WaterSound		; 49
+	if UnusedOptimization
+id_Obj4A:		objptr	NullObject		; 4A
+	else
 id_VanishSonic:		objptr	VanishSonic		; 4A
+	endif
 id_GiantRing:		objptr	GiantRing		; 4B
 id_GeyserMaker:		objptr	GeyserMaker		; 4C
 id_LavaGeyser:		objptr	LavaGeyser		; 4D
 id_LavaWall:		objptr	LavaWall		; 4E
-id_Obj4F:		objptr	Obj4F			; 4F
+	if UnusedOptimization
+id_Obj4F:		objptr	NullObject		; 4F
+	else
+id_Splats:		objptr	Splats			; 4F
+	endif
 id_Yadrin:		objptr	Yadrin			; 50
 id_SmashBlock:		objptr	SmashBlock		; 51
 id_MovingBlock:		objptr	MovingBlock		; 52
