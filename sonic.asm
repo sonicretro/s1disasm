@@ -11,7 +11,7 @@
 ; ===========================================================================
 ; ASSEMBLY OPTIONS:
 
-DebugPathSwappers: = 1
+DebugPathSwappers = 1
 ;	| If 1, show path swappers in debug mode and play SFX when passing one (ProjectSonic1TwoEight only)
 
 Revision = 1
