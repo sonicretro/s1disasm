@@ -151,7 +151,7 @@ CBal_ChkExplode:
 		subq.w	#1,CBal_time(a0)			; decrement explosion timer
 		bpl.s	CBal_Animate				; if time remains, branch
 
-	if FixBugs=0
+	if UnusedOptimization=0
 		; This is a leftover from the front-facing prototype Ball Hogs, where the
 		; dropped cannonballs would spawn a small explosion instead of the regular one.
 		; However, after setting the ID, it immediately gets replaced again with the

@@ -299,13 +299,13 @@ Tele_Data:	dc.w .type00-Tele_Data
 		dc.w $1294, $490
 
 .type06:	dc.w 7*4
-		dc.w $1594, $FFE8
-		dc.w $1584, $FFC0
-		dc.w $1560, $FFAC
-		dc.w $14D0, $FFAC
-		dc.w $14A4, $FF98
-		dc.w $1494, $FF70
-		dc.w $1494, $FD90
+		dc.w $1594, $7E8-$800	; Sonic moves up past the vertical boundary here.
+		dc.w $1584, $7C0-$800	; To prevent him from moving downwards incorrectly,
+		dc.w $1560, $7AC-$800	;   the size of the level height is subtracted from
+		dc.w $14D0, $7AC-$800	;   the Y values to make him instead move upwards into
+		dc.w $14A4, $798-$800	;   the screen above.
+		dc.w $1494, $770-$800
+		dc.w $1494, $590-$800
 
 .type07:	dc.w 1*4
 		dc.w $894, $90
