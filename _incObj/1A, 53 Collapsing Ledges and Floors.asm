@@ -115,6 +115,9 @@ Ledge_FragmentPiece:	; Routine 6
 
 .fragmentFall:
 		bsr.w	ObjectFall
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 	if FixBugs
 		tst.b	obRender(a0)
 		bpl.s	Ledge_Delete
@@ -249,6 +252,9 @@ CFlo_FragmentPiece:	; Routine 6
 
 .fragmentFall:
 		bsr.w	ObjectFall
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 	if FixBugs
 		tst.b	obRender(a0)
 		bpl.s	CFlo_Delete

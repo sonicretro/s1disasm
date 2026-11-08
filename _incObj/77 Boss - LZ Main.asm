@@ -73,6 +73,10 @@ BossLabyrinth_ShipMain:	; Routine 2
 		moveq	#status_xflip|status_yflip,d0		; move first 2 bits into d0
 		and.b	obStatus(a0),d0				; AND with obStatus so now d0 contains X and Y logical flip bits only
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
+
+		static_assert (sprite_xflip=status_xflip),ASSERT_CONSTANTS_EQ
+		static_assert (sprite_yflip=status_yflip),ASSERT_CONSTANTS_EQ
+
 		or.b	d0,obRender(a0)				; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -106,6 +110,9 @@ BLZ_MoveBoss:
 BLZ_ShipUpdate:
 		tst.b	BossLabyrinth_EarlyDefeatFlag(a0)	; has Eggman been defeated while traversing upwards?
 		bne.s	.defeated				; if yes, branch
+
+		static_assert (status_defeated_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obStatus(a0)				; has Eggman's defeated flag been set?
 		bmi.s	.setDefeatFlag				; if yes, branch
 		tst.b	obColType(a0)				; is the boss hittable?
@@ -355,6 +362,9 @@ BLZ_Escape2:
 
 ;loc_18160:
 .checkOffscreen:
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has Eggman left the screen (is bit 7 clear)?
 		bpl.s	BossLabyrinth_ShipDel			; yes, bit 7 is cleared, so we can delete the object (this leverages signed numbers!)
 
@@ -416,6 +426,9 @@ BossLabyrinth_FaceMain:	; Routine 4
 		cmpi.b	#$E,d0					; are we currently in Escape2?
 		bne.s	.skip					; if not, branch
 		move.b	#6,obAnim(a0)				; set animation to facepanic
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has Eggman's face left the screen?
 		bpl.s	BossLabyrinth_FaceDel			; yes, delete his face
 
@@ -446,6 +459,9 @@ BossLabyrinth_FlameMain:; Routine 6
 		bne.s	.skip
 	endif
 		move.b	#$B,obAnim(a0)				; set thruster animation for taking off
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; what is our screen status?
 		bpl.s	BossLabyrinth_FlameDel			; off screen, delete (bit 7 would be 1 if we were on screen, therefore a negative number due to sign)
 		bra.s	.skip					; on screen, display
@@ -474,5 +490,9 @@ BossLabyrinth_Display:
 		moveq	#status_xflip|status_yflip,d0		; move first 2 bits into d0
 		and.b	obStatus(a0),d0				; AND with obStatus so now d0 contains X and Y logical flip bits only
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
+
+		static_assert (sprite_xflip=status_xflip),ASSERT_CONSTANTS_EQ
+		static_assert (sprite_yflip=status_yflip),ASSERT_CONSTANTS_EQ
+
 		or.b	d0,obRender(a0)				; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l

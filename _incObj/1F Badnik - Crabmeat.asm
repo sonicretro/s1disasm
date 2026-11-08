@@ -66,6 +66,9 @@ Crab_ActIndex:	dc.w Crab_Action_WaitFire-Crab_ActIndex
 Crab_Action_WaitFire:
 		subq.w	#1,crab_timedelay(a0)			; decrement firing time delay
 		bpl.s	.return					; if time remains, branch
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is Crabmeat on screen?
 		bpl.s	.startMoving				; if not, don't fire
 		bchg	#1,crab_flags(a0)			; toggle firing flag

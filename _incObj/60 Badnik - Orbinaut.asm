@@ -194,6 +194,9 @@ Orb_CircleSpikeball: ; Routine 6
 
 Orb_FiredSpikeball: ; Routine 8
 		bsr.w	SpeedToPos				; update spikeball's position
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has spikeball gone offscreen?
 		bpl.w	DeleteObject				; if yes, delete it
 		bra.w	DisplaySprite				; keep displaying spikeball

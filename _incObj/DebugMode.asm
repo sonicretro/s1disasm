@@ -299,6 +299,9 @@ Debug_ChgItem:
 		move.w	obY(a0),obY(a1)				; set new object's Y-position
 		_move.b	obMap(a0),obID(a1)			; create object (ID is stored in list with mappings as map+(object<<24))
 		move.b	obRender(a0),obRender(a1)		; set new object's render flags
+
+	static_assert ((sprite_xflip_bit=0) && (sprite_yflip_bit=1)), ASSERT_CONSTANTS_EQ
+
 		move.b	obRender(a0),obStatus(a1)		; set new object's status flags
 		andi.b	#~status_defeated&$FF,obStatus(a1)	; make sure bit 7 in status flag is clear
 

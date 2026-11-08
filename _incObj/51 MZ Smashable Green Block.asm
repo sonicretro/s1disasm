@@ -106,6 +106,8 @@ Smab_Fragment:	; Routine 4
 		bsr.w	SpeedToPos				; update fragment position based on speeds
 		addi.w	#gravity,obVelY(a0)			; make fragment fall
 
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 	if FixBugs
 		; Objects should not call DisplaySprite and DeleteObject on
 		; the same frame or else cause a null-pointer dereference.

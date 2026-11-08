@@ -69,6 +69,9 @@ Spin_Trapdoor:	; Routine 2
 
 		move.w	spin_timelen(a0),spin_timer(a0)		; reset trapdoor timer
 		bchg	#0,obAnim(a0)				; toggle between open/close trapdoor animations
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; was trapdoor on screen as it toggled?
 		bpl.s	.animate				; if not, branch
 		move.w	#sfx_Door,d0				; set flapping door sound

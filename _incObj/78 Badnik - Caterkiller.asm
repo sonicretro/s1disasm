@@ -60,6 +60,10 @@ Cat_Main:	; Routine 0
 	.continueSetup:
 		andi.b	#sprite_xflip|sprite_yflip,obRender(a0)	; clear render flags except X/Y-flip
 		ori.b	#sprite_cam_field,obRender(a0)		; set to playfield-positioned mode
+
+		static_assert (sprite_xflip=status_xflip),ASSERT_CONSTANTS_EQ
+		static_assert (sprite_yflip=status_yflip),ASSERT_CONSTANTS_EQ
+
 		move.b	obRender(a0),obStatus(a0)		; copy render flags to status flags
 		move.b	#4,obPriority(a0)			; set to sprite priority
 		move.b	#16/2,obActWid(a0)			; set sprite display width
@@ -97,6 +101,10 @@ Cat_Main:	; Routine 0
 		move.w	d2,obX(a1)				; set X-position for current body part
 		move.w	obY(a0),obY(a1)				; copy Y-position from head
 		move.b	obStatus(a0),obStatus(a1)		; copy status flags (X-flip etc.)
+
+		static_assert (sprite_xflip=status_xflip),ASSERT_CONSTANTS_EQ
+		static_assert (sprite_yflip=status_yflip),ASSERT_CONSTANTS_EQ
+
 		move.b	obStatus(a0),obRender(a1)		; copy render flags
 		move.b	#8,obFrame(a1)				; set to ".body1" frame
 		move.l	a2,cat_parent(a1)			; make body part remember parent head object
@@ -111,6 +119,9 @@ Cat_Main:	; Routine 0
 ; ---------------------------------------------------------------------------
 
 Cat_Head:	; Routine 2
+
+		static_assert (status_defeated_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obStatus(a0)				; has Sonic touched a spiked body segment? (set in ReactToItem)
 		bmi.w	Cat_FragmentateBody			; if yes, fragmentate Caterkiller head
 
@@ -254,6 +265,10 @@ Cat_Floor:
 	if Revision=0
 		move.l	d2,obX(a0)				; restore previous x pos (i.e. stop moving)
 		bchg	#status_xflip_bit,obStatus(a0) 		; change direction
+
+		static_assert (sprite_xflip=status_xflip),ASSERT_CONSTANTS_EQ
+		static_assert (sprite_yflip=status_yflip),ASSERT_CONSTANTS_EQ
+
 		move.b	obStatus(a0),obRender(a0)
 		moveq	#0,d0
 		move.b	cat_segmentpos(a0),d0			; get pos counter for head
@@ -273,6 +288,10 @@ Cat_Floor:
 		clr.b	cat_floormap(a0,d0.w)
 	.faceLeft:
 		bchg	#status_xflip_bit,obStatus(a0)
+
+		static_assert (sprite_xflip=status_xflip),ASSERT_CONSTANTS_EQ
+		static_assert (sprite_yflip=status_yflip),ASSERT_CONSTANTS_EQ
+
 		move.b	obStatus(a0),obRender(a0)
 	endif
 		addq.b	#1,cat_segmentpos(a0)			; increment pos counter
@@ -301,6 +320,9 @@ Cat_BodySeg2:	; Routine 6
 
 Cat_BodySeg1:	; Routine 4, 8
 		movea.l	cat_parent(a0),a1			; get OST of head or previous body segment
+
+		static_assert (status_defeated_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obStatus(a0)
 		bmi.w	Cat_FragmentateBody_NotifyHead		; branch if caterkiller is broken
 
@@ -358,6 +380,10 @@ Cat_BodySeg1:	; Routine 4, 8
 	endif
 
 		bchg	#status_xflip_bit,obStatus(a0)		; change direction
+
+		static_assert (sprite_xflip=status_xflip),ASSERT_CONSTANTS_EQ
+		static_assert (sprite_yflip=status_yflip),ASSERT_CONSTANTS_EQ
+
 		move.b	obStatus(a0),obRender(a0)
 		addq.b	#1,cat_segmentpos(a0)			; increment pos counter
 		andi.b	#$F,cat_segmentpos(a0)			; wrap to 0 after $F
@@ -431,6 +457,9 @@ Cat_Fragment:	; Routine $C
 		move.w	#-$400,obVelY(a0)			; make fragment bounce upwards
 
 	.displayOrDelete:
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has body fragment gone offscreen?
 		bpl.w	Cat_Despawn				; if yes, delete it
 		jmp	(DisplaySprite).l			; otherwise, display it

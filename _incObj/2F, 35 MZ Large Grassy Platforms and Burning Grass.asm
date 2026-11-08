@@ -269,6 +269,9 @@ LGrass_AddChildToList:
 LGrass_ChkDel:
 		tst.b	lgrass_burning(a0)			; is platform burning? (subtype $x5 only)
 		beq.s	LGrass_ChkGone				; if not, branch
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is platform on screen?
 		bpl.s	LGrass_DelFlames			; if not, delete fire objects
 

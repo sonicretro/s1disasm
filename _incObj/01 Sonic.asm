@@ -416,6 +416,9 @@ Sonic_Move:
 		lsl.w	#object_size_bits,d0			; multiply by $40 (object_size)
 		lea	(v_objspace).w,a1			; load object space
 		lea	(a1,d0.w),a1				; load stood-on object
+
+		static_assert (status_no_balance_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obStatus(a1)				; does the object block Sonic's balancing animation?
 		bmi.s	Sonic_LookUp				; if yes, skip over balance check
 

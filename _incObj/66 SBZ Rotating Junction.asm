@@ -55,6 +55,8 @@ Jun_Main:	; Routine 0
 Jun_Action:	; Routine 2
 		bsr.w	Jun_Rotate				; rotate and animate junction, reverse if switch is pressed
 
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is junction on screen?
 		bpl.w	Jun_Display				; if not, skip collision checks (probably optimization)
 

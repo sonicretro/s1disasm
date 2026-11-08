@@ -23,6 +23,8 @@ GRing_Main:	; Routine 0
 		ori.b	#sprite_cam_field,obRender(a0)		; set to playfield positioned mode
 		move.b	#128/2,obActWid(a0)			; set sprite display width
 
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is giant ring on screen?
 		bpl.s	GRing_Animate				; if not, branch
 		cmpi.b	#ss_emeralds_num,(v_emeralds).w		; do you have all 6 emeralds?

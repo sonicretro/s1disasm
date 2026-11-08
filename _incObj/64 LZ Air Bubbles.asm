@@ -119,6 +119,9 @@ Bub_ChkWater:	; Routine 4
 
 .display:
 		bsr.w	SpeedToPos				; update bubble's position
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has bubble gone offscreen?
 		bpl.s	.delete					; if yes, delete it
 		jmp	(DisplaySprite).l			; display bubble
@@ -130,6 +133,8 @@ Bub_ChkWater:	; Routine 4
 Bub_Bursting:	; Routine 6
 		lea	(Ani_Bub).l,a1				; bursting animation will increase obRoutine on finish
 		jsr	(AnimateSprite).l			; (i.e. advance to Bub_BurstDelete)
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
 
 		tst.b	obRender(a0)				; has bubble gone offscreen?
 		bpl.s	.delete					; if yes, delete it
@@ -154,6 +159,9 @@ Bub_BubbleMaker: ; Routine $A
 		move.w	(v_waterpos1).w,d0			; get current water height including sway
 		cmp.w	obY(a0),d0				; is bubble maker underwater?
 		bhs.w	.display				; if not, don't spawn bubbles
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is bubble maker on screen?
 		bpl.w	.display				; if not, don't spawn bubbles
 

@@ -45,6 +45,9 @@ ExecuteObjects:
 		moveq	#0,d0					; clear d0
 		move.b	obID(a0),d0				; load object ID from RAM
 		beq.s	.next_object_displayonly		; if ID is 0, this is an empty object slot, branch
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; was object on-screen as Sonic died?
 		bpl.s	.next_object_displayonly		; if not, branch
 		bsr.w	DisplaySprite				; keep displaying the object as Sonic dies but don't execute it

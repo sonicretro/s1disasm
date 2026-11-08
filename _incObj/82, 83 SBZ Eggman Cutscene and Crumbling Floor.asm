@@ -316,6 +316,9 @@ FFloor_Block:	; Routine 8
 
 ; loc_19C80:
 FFloor_Frag:	; Routine $A
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is the object on screen?
 		bpl.w	FalseFloor_Delete			; if no, branch
 		jsr	(ObjectFall).l
