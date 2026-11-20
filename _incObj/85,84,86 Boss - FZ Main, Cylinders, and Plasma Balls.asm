@@ -519,6 +519,9 @@ BossFinal_Eggman_Escape:
 .shipHover:
 		subq.w	#1,BossFinal_EscapeTimer(a0)		; decrement timer
 		bne.s	.watchEggman				; if timer is above 0, branch
+
+		static_assert (status_defeated_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obStatus(a0)				; has Eggman been defeated?
 		bpl.s	.setCollision				; if not, branch
 		move.w	#$60,obVelY(a0)				; set a slow downward descent
@@ -559,6 +562,9 @@ BossFinal_Eggman_Escape:
 .ending:
 		cmpi.w	#boss_fz_end+$200,obX(a0)		; has Eggman reached the edge of the boundary?
 		blo.s	.exit					; if not, branch
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is Eggman fully off screen?
 		bmi.s	.exit					; if not, branch
 		move.b	#id_Ending,(v_gamemode).w		; set game mode to Ending
@@ -610,6 +616,10 @@ BossFinal_Display:
 		moveq	#status_xflip|status_yflip,d0		; set a mask for both flip bits
 		and.b	obStatus(a0),d0				; AND obstatus with those flip bits
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
+
+		static_assert (sprite_xflip=status_xflip),ASSERT_CONSTANTS_EQ
+		static_assert (sprite_yflip=status_yflip),ASSERT_CONSTANTS_EQ
+
 		or.b	d0,obRender(a0)				; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -647,6 +657,9 @@ BossFinal_Cockpit: ; Routine 8
 		; his ship stays alive no matter what until it has reached the rightmost part of the level
 		; Adding this, along with properly denoting object widths and heights up in the bugfixed ObjData2
 		; fixes this bug as well as Eggman getting hidden off screen way too early
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; has the cockpit left the screen?
 		bpl.w	BossFinal_Delete			; if so, branch
 	endif
@@ -696,6 +709,9 @@ BossFinal_Panel:	; Routine 4
 		move.w	(v_player+obX).w,d0			; copy player X
 		sub.w	obX(a0),d0				; subtract object position from Sonic's
 		bcs.s	.display				; if negative, branch (Sonic is to the left of the object)
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is the panel on screen?
 		bpl.w	BossFinal_Delete			; if not, branch
 
@@ -854,6 +870,9 @@ EggmanCylinder_UpdatePos:
 		bmi.s	.exit					; Sonic is left of cylinder, branch
 		subi.w	#$140,d0				; subtract 320 (a screen's width) from Sonic's position
 		bmi.s	.exit					; Sonic is still within a screen's width to the cylinder, branch
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is the cylinder currently on screen?
 		bpl.w	EggmanCylinder_Delete			; if not, branch (you can't move back left post-Eggman defeat so this is a guaranteed way to delete the cylinders)
 
@@ -1030,6 +1049,9 @@ BossPlasma_Collision:
 		bmi.s	.display				; if Sonic is to the left of the plasma, branch
 		subi.w	#$140,d0				; subtract 320 (a screen's width) from Sonic's position
 		bmi.s	.display				; Sonic is within a screen's width, branch
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is the plasma currently on screen?
 		bpl.w	EggmanCylinder_Delete			; if so, branch
 

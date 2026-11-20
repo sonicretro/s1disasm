@@ -60,6 +60,6 @@ Ani_Monitor:	dc.w .static-Ani_Monitor
 
 .breaking:	dc.b 2
 		dc.b 0, 1, 2
-		dc.b $B
+		dc.b monitor_types+2+1
 		dc.b afBack, 1
 		even

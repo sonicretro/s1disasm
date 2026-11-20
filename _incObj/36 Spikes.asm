@@ -220,6 +220,9 @@ Spikes_WaitAndMove:
 		beq.s	.doSpikesMove				; if yes, move spikes
 		subq.w	#1,spikes_move_delay(a0)		; subtract 1 from time delay
 		bne.s	.return					; if time remains, branch
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; are spikes off-screen?
 		bpl.s	.return					; if yes, don't play sound
 		move.w	#sfx_SpikesMove,d0			; set "spikes moving" sound

@@ -83,6 +83,10 @@ BossSpringYard_ShipMain:	; Routine 2
 		moveq	#status_xflip|status_yflip,d0		; move first 2 bits into d0
 		and.b	obStatus(a0),d0				; AND with obStatus so now d0 contains X and Y logical flip bits only
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
+
+		static_assert (sprite_xflip=status_xflip),ASSERT_CONSTANTS_EQ
+		static_assert (sprite_yflip=status_yflip),ASSERT_CONSTANTS_EQ
+
 		or.b	d0,obRender(a0)				; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -124,6 +128,9 @@ BSYZ_StatusUpdate:
 		move.b	d0,BossSpringYard_BlockIndex(a0)	; move calculated value into offset
 		cmpi.b	#6,ob2ndRout(a0)			; are we exploding?
 		bhs.s	.exit					; yes, exit
+
+		static_assert (status_defeated_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obStatus(a0)				; has Eggman's defeated flag been set (bit 7)?
 		bmi.s	BSYZ_Defeated				; if yes (negative number) branch
 		tst.b	obColType(a0)				; is the boss hittable?
@@ -515,6 +522,9 @@ BSYZ_Escape:
 
 ; loc_1950C:
 .checkOffScreen:
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)
 		bpl.s	BossSpringYard_ShipDelete
 
@@ -619,6 +629,9 @@ BossSpringYard_FlameMain:; Routine 6
 		cmpi.b	#$A,ob2ndRout(a1)			; are we in escape state?
 		bne.s	.checkMove				; no, check movement
 		move.b	#$B,obAnim(a0)				; set thruster animation for takeoff
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; what is our screen status?
 		bpl.s	BossSpringYard_FlameDelete		; off screen, delete
 		bra.s	.skip					; on screen, display
@@ -653,6 +666,10 @@ BossSpringYard_Display:
 		moveq	#status_xflip|status_yflip,d0		; set a mask for both flip bits
 		and.b	obStatus(a0),d0				; AND obstatus with those flip bits
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
+
+		static_assert (sprite_xflip=status_xflip),ASSERT_CONSTANTS_EQ
+		static_assert (sprite_yflip=status_yflip),ASSERT_CONSTANTS_EQ
+
 		or.b	d0,obRender(a0)				; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -664,6 +681,9 @@ BossSpringYard_SpikeMain:; Routine 8
 		movea.l	BossSpringYard_ParentObj(a0),a1		; load main boss controller
 		cmpi.b	#$A,ob2ndRout(a1)			; are we in escape state?
 		bne.s	.spikeMove				; no, run movement
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; what is our screen status?
 		bpl.s	BossSpringYard_SpikeDelete		; off screen, so delete
 
@@ -811,6 +831,9 @@ BossBlock_Display:
 
 ; loc_19762:
 BossBlock_Frag:	; Routine 4
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is the block currently visible?
 		bpl.s	BossBlock_Delete			; if not, branch
 		jsr	(ObjectFall).l

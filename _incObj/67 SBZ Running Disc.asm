@@ -52,6 +52,9 @@ Disc_Main:	; Routine 0
 		asl.w	#3,d1					; multiply by 8
 		move.w	d1,disc_spot_speed(a0)			; set result as rotation speed for the small spot
 
+		static_assert (abs(status_yflip-status_xflip)=1),ASSERT_ADJACENT
+		static_assert (status_xflip<status_yflip),ASSERT_ORDER
+
 		move.b	obStatus(a0),d0				; get status flags containing X/Y-flip flags
 		ror.b	#2,d0					; move X/Y-flip flags in bits 0-1 to upper bits 6-7
 		andi.b	#(status_xflip|status_yflip)<<6,d0	; limit to only bits 6-7 ($C0)

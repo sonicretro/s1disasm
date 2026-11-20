@@ -120,6 +120,9 @@ Card_Wait:	; Routine 4/6
 
 ; Card_ChkPos2:
 Card_MoveOut:
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is card off screen?
 		bpl.s	Card_ChangeArt				; if yes, branch
 

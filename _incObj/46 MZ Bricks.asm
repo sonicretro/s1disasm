@@ -35,6 +35,9 @@ Brick_Main:	; Routine 0
 ; ---------------------------------------------------------------------------
 
 Brick_Action:	; Routine 2
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is brick on screen?
 		bpl.s	.chkdel					; if not, branch
 

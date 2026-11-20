@@ -1,7 +1,15 @@
 ; ===========================================================================
 ; ---------------------------------------------------------------------------
 ; Object 26 - monitors
+; Note: Due to invalid monitor subtypes being placed inside walls in SBZ2
+; that were meant to be invisible walls, modifying this object can cause graphical errors.
+; a fixed version of SBZ2's object layouts with the invalid monitors replaced with invisible walls
+; is provided in _Fixed Binary Files/objpos/sbz2.bin
 ; ---------------------------------------------------------------------------
+
+; A handy equate that will adjust the frame ID of the broken monitor
+; to make adding new monitor types a bit easier 
+monitor_types:	equ 8
 
 Monitor:
 		moveq	#0,d0					; clear d0
@@ -17,22 +25,6 @@ Mon_Index:	dc.w Mon_Main-Mon_Index				; 0 - init
 ; ===========================================================================
 
 Mon_Main:	; Routine 0
-	if FixBugs
-		; Convert monitors with invalid subtypes (above 8) into solid barriers,
-		; preserving the subtype as width and height setting for the barrier.
-		; SBZ2 has a handful of these broken monitors hidden in walls, all
-		; of which match to properly sized invisible solid barriers, likely
-		; originating from improper data conversion late into development.
-
-		; If you have replaced the SBZ2 object data with its fixed version,
-		; this fix is not necessary.
-		cmpi.b	#8,obSubtype(a0)			; is monitor subtype valid? i.e. no higher than goggles monitor (ID 8)
-		bls.s	.valid					; if yes, branch
-		move.b	#id_Invisibarrier,obID(a0)		; otherwise, convert this monitor to an invisible solid barrier
-		jmp	(Invisibarrier).l			; execute barrier logic
-.valid:
-	endif
-
 		addq.b	#2,obRoutine(a0)			; go to "Mon_Solid" next
 		move.b	#28/2,obHeight(a0)			; set height
 		move.b	#28/2,obWidth(a0)			; set width
@@ -53,7 +45,7 @@ Mon_Main:	; Routine 0
 		beq.s	.notbroken				; if not, branch
 
 		move.b	#8,obRoutine(a0)			; run "Mon_Display" routine
-		move.b	#$B,obFrame(a0)				; use broken monitor frame
+		move.b	#monitor_types+2+1,obFrame(a0)		; use broken monitor frame (add 2 for static frames and 1 for broken frame)
 		rts						; only start displaying next frame
 ; ===========================================================================
 
@@ -205,7 +197,7 @@ Mon_RememberBroken:
 		move.b	obRespawnNo(a0),d0			; get monitor's respawn table index number
 		bset	#0,2(a2,d0.w)				; remember that this monitor has been broken in respawn table
 
-		move.b	#9,obAnim(a0)				; set monitor animation to broken
+		move.b	#monitor_types+1,obAnim(a0)		; set monitor animation to broken
 		bra.w	DisplaySprite				; keep displaying broken monitor
 
 
