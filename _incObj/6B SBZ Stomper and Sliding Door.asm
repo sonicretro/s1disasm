@@ -64,7 +64,7 @@ Sto_Main:	; Routine 0
 ; ===========================================================================
 
 .isSBZ3:	; ancient lift at the start of SBZ3
-		move.w	#ArtTile_Level+$1F0|Tile_Pal3,obGfx(a0)	; set alternate art tile (part of the level graphics)
+		move.w	#ArtTile_LZ_Block_2|Tile_Pal3,obGfx(a0)	; set alternate art tile
 		cmpi.w	#$A80,obX(a0)				; is this the platform before the switch was pressed? (X-coordinate $A80)
 		bne.s	.continueSetup				; if not, branch
 
@@ -117,6 +117,8 @@ Sto_Action:	; Routine 2
 		move.w	Sto_TypeIndex(pc,d0.w),d1		; find entry in jump table
 		jsr	Sto_TypeIndex(pc,d1.w)			; execute behavior, then return here
 		move.w	(sp)+,d4				; restore previous X-position as input for SolidObject
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
 
 		tst.b	obRender(a0)				; is platform on screen?
 		bpl.s	.chkdel					; if not, skip collision detection

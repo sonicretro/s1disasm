@@ -80,6 +80,9 @@ Saw_Type1_PizzaLeftRight:
 		bchg	#0,obFrame(a0)				; alternate saw frames
 
 	.sound:
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is saw on screen?
 		bpl.s	.return					; if not, don't play sound
 		move.w	(v_framecount).w,d0			; get current level frame counter
@@ -112,6 +115,9 @@ Saw_Type2_PizzaUpDown:
 		bchg	#0,obFrame(a0)				; alternate saw frames
 
 	.sound:
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is saw on screen?
 		bpl.s	.return					; if not, don't play sound
 		move.b	(v_oscillate+6).w,d0			; get current oscillation value for saw type

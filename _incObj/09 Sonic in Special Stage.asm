@@ -101,7 +101,9 @@ SonicSS_OnWall:	; While Sonic is touching a solid block
 
 ; Obj09_InAir:
 SonicSS_InAir:	; While Sonic is airborne from jumping or falling
+	if UnusedOptimization=0
 		bsr.w	SonicSS_JumpHeight_Unused		; (disabled code) would have allowed to granularly control jump height
+	endif
 		bsr.w	SonicSS_Move				; update position based on button inputs
 		bsr.w	SonicSS_Fall				; apply gravity based on stage rotation
 ; ---------------------------------------------------------------------------
@@ -320,6 +322,7 @@ SonicSS_NoJump:
 
 
 ; ===========================================================================
+	if UnusedOptimization=0
 ; ---------------------------------------------------------------------------
 ; Unused subroutine to limit Sonic's upward vertical speed depending on
 ; how long the jump button was held after the initial jump. This likely got
@@ -344,7 +347,7 @@ SonicSS_JumpHeight_Unused:
 .return:
 		rts						; return
 ; End of function SonicSS_JumpHeight
-
+	endif
 
 ; ===========================================================================
 ; ---------------------------------------------------------------------------

@@ -111,6 +111,9 @@ Buzz_Action_Move:
 	.checkDistance:
 		cmpi.w	#96,d0					; is Buzz Bomber within 96 pixels of Sonic?
 		bhs.s	.return					; if not, branch
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is Buzz Bomber on screen?
 		bpl.s	.return					; if not, branch
 
@@ -218,12 +221,14 @@ Msl_ChkCancel:
 ; ===========================================================================
 
 Msl_FromBuzz:	; Routine 4
+	if UnusedOptimization=0
 		; This check would change the missile into a small explosion object
 		; (the same one used by the prototype front-facing Ball Hog badniks)
 		; if bit 7 was set in its status flags. However, this flag never gets
 		; set, and even if it was, the small explosion's graphics are broken.
 		btst	#status_defeated_bit,obStatus(a0)	; has bit 7 of status flags been set? (impossible condition)
 		bne.s	.explode				; if yes, dissolve missile
+	endif
 
 		move.b	#col_12x12|col_hurt,obColType(a0)	; set ReactToItem entry to $87 (damaging, 12x12)
 		move.b	#1,obAnim(a0)				; set to ".missile" animation
@@ -249,10 +254,12 @@ Msl_FromBuzz:	; Routine 4
 	endif
 ; ---------------------------------------------------------------------------
 
+	if UnusedOptimization=0
 .explode:	; Unreachable code (see notes above).
 		_move.b	#id_UnusedExplosion,obID(a0)		; change object to a small explosion ($24)
 		move.b	#0,obRoutine(a0)			; reset routine counter
 		bra.w	UnusedExplosion				; jump to unused explosion code
+	endif
 ; ===========================================================================
 
 Msl_Delete:	; Routine 6
@@ -261,6 +268,9 @@ Msl_Delete:	; Routine 6
 ; ===========================================================================
 
 Msl_FromNewt:	; Routine 8
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0)				; is missile still on screen?
 		bpl.s	Msl_Delete				; if not, delete it
 		bsr.w	SpeedToPos				; update missile's position

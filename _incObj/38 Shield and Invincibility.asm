@@ -61,6 +61,7 @@ Shi_Stars:	; Routine 4
 		move.w	(v_trackpos).w,d0			; get index value for tracking data
 		move.b	obAnim(a0),d1				; get stars animation ID (1-4)
 		subq.b	#1,d1					; make it 0-based
+	if UnusedOptimization=0
 		bra.s	.trail					; skip over dead code
 
 ; ===========================================================================
@@ -78,6 +79,7 @@ Shi_Stars:	; Routine 4
 ; ===========================================================================
 
 	.trail:
+	endif
 		lsl.b	#3,d1					; multiply animation ID by 8
 		move.b	d1,d2
 		add.b	d1,d1

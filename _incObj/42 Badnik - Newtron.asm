@@ -86,7 +86,7 @@ Newt_Action_WaitDrop:
 
 ; .fall:
 Newt_Action_Drop:
-	if FixBugs=0
+	if UnusedOptimization=0
 		; This would set the hitbox to be 40x32 instead of the flat 40x16
 		; while on frame 1. However, the above branch will only trigger on
 		; frame 4, making this condition impossible. It might've been a
@@ -106,7 +106,7 @@ Newt_Action_Drop:
 		move.w	#0,obVelY(a0)				; stop Newtron falling
 		addq.b	#2,ob2ndRout(a0)			; advance to Newt_Action_MoveOnFloor
 		move.b	#2,obAnim(a0)				; use ".fly1" animation
-	if FixBugs=0
+	if UnusedOptimization=0
 		; Another impossible condition at this location, and likely another leftover
 		; from an earlier implementation of the green Newtron badnik.
 		btst	#5,obGfx(a0)				; is this a green Newtron? (checked by palette line)

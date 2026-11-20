@@ -40,11 +40,18 @@ Anim_SetFrameAndFlipFlags:
 		; This part is the main reason why non-Sonic objects are limited to only $20 frames,
 		; and in later games this limitation was removed (flipping was instead exclusively
 		; handled through separate, flipped sprite mappings sets, rather than animation flags).
+
+		static_assert (abs(status_yflip-status_xflip)=1),ASSERT_ADJACENT
+
 		move.b	obStatus(a0),d0				; get object's current status flags
 		rol.b	#3,d1					; shift aniXFlip and aniYFlip into low bits to match obStatus format
 		eor.b	d0,d1					; xor with existing flip state of object
 		andi.b	#status_xflip|status_yflip,d1		; limit result to only X and Y flip state
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear previous X and Y flip states of objects
+
+		static_assert (sprite_xflip=status_xflip),ASSERT_CONSTANTS_EQ
+		static_assert (sprite_yflip=status_yflip),ASSERT_CONSTANTS_EQ
+
 		or.b	d1,obRender(a0)				; set new X and Y flip states for object
 
 		addq.b	#1,obAniFrame(a0)			; advance animation script to next index

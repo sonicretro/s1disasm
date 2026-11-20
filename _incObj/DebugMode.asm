@@ -299,6 +299,9 @@ Debug_ChgItem:
 		move.w	obY(a0),obY(a1)				; set new object's Y-position
 		_move.b	obMap(a0),obID(a1)			; create object (ID is stored in list with mappings as map+(object<<24))
 		move.b	obRender(a0),obRender(a1)		; set new object's render flags
+
+	static_assert ((sprite_xflip_bit=0) && (sprite_yflip_bit=1)), ASSERT_CONSTANTS_EQ
+
 		move.b	obRender(a0),obStatus(a1)		; set new object's status flags
 		andi.b	#~status_defeated&$FF,obStatus(a1)	; make sure bit 7 in status flag is clear
 
@@ -405,7 +408,9 @@ __LABEL__:	label	*
 		dbug	Map_Spring,	id_Springs,		0,	0,	ArtTile_Spring_Horizontal
 		dbug	Map_Newt,	id_Newtron,		0,	0,	ArtTile_Newtron|Tile_Pal2
 		dbug	Map_Edge,	id_EdgeWalls,		0,	0,	ArtTile_GHZ_Edge_Wall|Tile_Pal3
-		dbug	Map_GBall,	id_Obj19,		0,	0,	ArtTile_GHZ_Giant_Ball|Tile_Pal3
+	if UnusedOptimization=0
+		dbug	Map_GBall,	id_RollingBall,		0,	0,	ArtTile_GHZ_Giant_Ball|Tile_Pal3
+	endif
 		dbug	Map_Lamp,	id_Lamppost,		1,	0,	ArtTile_Lamppost
 		dbug	Map_GRing,	id_GiantRing,		0,	0,	ArtTile_Giant_Ring|Tile_Pal2
 		dbug	Map_Bonus,	id_HiddenBonus,		1,	1,	ArtTile_Hidden_Points|Tile_Prio

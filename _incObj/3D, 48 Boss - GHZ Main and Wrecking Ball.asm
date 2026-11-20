@@ -75,6 +75,10 @@ BGHZ_ShipMain:	; Routine 2
 		move.b	obStatus(a0),d0 			; move current object status
 		andi.b	#status_xflip|status_yflip,d0 		; AND with obStatus so now d0 contains X and Y logical flip bits only
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) ; clear the x and y flip
+
+		static_assert (sprite_xflip=status_xflip),ASSERT_CONSTANTS_EQ
+		static_assert (sprite_yflip=status_yflip),ASSERT_CONSTANTS_EQ
+
 		or.b	d0,obRender(a0) 			; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 ; ===========================================================================
@@ -106,6 +110,9 @@ BGHZ_ShipUpdate:
 		addq.b	#2,BGHZ_SineCounter(a0) 		; increment sine counter by 2 (to iterate through the sine table)
 		cmpi.b	#8,ob2ndRout(a0) 			; are we exploding?
 		bhs.s	.exit 					; if so, skip hit detection and return
+
+		static_assert (status_defeated_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obStatus(a0) 				; has Eggman's defeated flag been set (bit 7)?
 		bmi.s	BGHZ_Defeated 				; if yes (negative number) branch
 		tst.b	obColType(a0) 				; is the boss hittable?
@@ -299,6 +306,9 @@ BGHZ_Escape:
 
 ; loc_17A10:
 .checkOffScreen:
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0) 				; has Eggman left the screen (is bit 7 clear)?
 		bpl.s	BGHZ_ShipDel 				; yes, bit 7 is cleared, so we can delete the object (this leverages signed numbers!)
 
@@ -361,6 +371,9 @@ BGHZ_FaceMain:	; Routine 4
 		subq.b	#2,d0
 		bne.s	.skip 					; we are not escaping, display normally
 		move.b	#6,obAnim(a0) 				; set animation state to facepanic
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0) 				; has Eggman's face left the screen?
 		bpl.s	BGHZ_FaceDel 				; yes, delete his face
 
@@ -379,6 +392,9 @@ BGHZ_FlameMain:	; Routine 6
 		cmpi.b	#$C,ob2ndRout(a1) 			; are we in the Escape state?
 		bne.s	.checkMove 				; no, check movement
 		move.b	#$B,obAnim(a0) 				; set thruster animation for takeoff
+
+		static_assert (sprite_rendered_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obRender(a0) 				; what is our screen status?
 		bpl.s	BGHZ_FlameDel 				; off screen, delete
 		bra.s	BGHZ_FlameDisp 				; on screen, display
@@ -408,6 +424,10 @@ BGHZ_Display:
 		move.b	obStatus(a0),d0 			; move current object status
 		andi.b	#status_xflip|status_yflip,d0 		; AND with obstatus so now d0 contains X and Y logical flip bits only
 		andi.b	#~(sprite_xflip|sprite_yflip),obRender(a0) 			; clear the x and y flip
+
+		static_assert (sprite_xflip=status_xflip),ASSERT_CONSTANTS_EQ
+		static_assert (sprite_yflip=status_yflip),ASSERT_CONSTANTS_EQ
+
 		or.b	d0,obRender(a0) 			; OR the two together, so now DisplaySprite has X and Y orientation and above render bits
 		jmp	(DisplaySprite).l
 
@@ -556,6 +576,9 @@ GBall_UpdateBase:
 		add.w	GBall_AnchorPos(a0),d0			; copy anchor position offset into d0
 		move.w	d0,swing_origY(a0)			; move anchor to ship's Y plus offset
 		move.b	obStatus(a1),obStatus(a0)		; copy object status
+
+		static_assert (status_defeated_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obStatus(a1)				; has boss been beaten?
 		bpl.s	.not_beaten				; if not, branch
 		_move.b	#id_Explosion,obID(a0)			; replace base with explosion object
@@ -570,6 +593,9 @@ GBall_UpdateBase:
 ; loc_17C68:
 GBall_Link:	; Routine 6
 		movea.l	BGHZ_ParentObj(a0),a1			; copy parent object address
+
+		static_assert (status_defeated_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obStatus(a1)				; has Eggman's defeated flag been set (bit 7)?
 		bpl.s	GBall_Display3				; if not (positive number), branch
 		_move.b	#id_Explosion,obID(a0)			; set ID to explosion
@@ -589,6 +615,9 @@ GBall_Ball:	; Routine 8
 GBall_Vanish:
 		move.b	d0,obFrame(a0)				; set object frame
 		movea.l	BGHZ_ParentObj(a0),a1			; copy parent object address
+
+		static_assert (status_defeated_bit=7),ASSERT_BIT_EQ_7
+
 		tst.b	obStatus(a1)				; has Eggman's defeated flag been set (bit 7)?
 		bpl.s	GBall_Display4				; if not (positive number), branch
 		move.b	#col_none,obColType(a0)			; disable collision
