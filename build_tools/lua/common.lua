@@ -366,7 +366,8 @@ local function get_platform_specific_info()
 	end
 
 	-- Determine the platform directory.
-	local platform_directory = "build_tools" .. path_separator .. os_name .. "-" .. executable_arch .. path_separator
+	local build_tools_dir = os.getenv("BUILD_TOOLS_DIR") or "build_tools"
+	local platform_directory = build_tools_dir .. path_separator .. os_name .. "-" .. executable_arch .. path_separator
 
 	-- Return the list of tools.
 	return platform_directory, executable_suffix, as_filename
