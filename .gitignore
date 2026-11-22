@@ -19,6 +19,7 @@ errors.txt
 sonic.p
 
 # Built ROMs.
+/result
 s1built.bin
 s1built.prev.bin
 
