@@ -31,6 +31,7 @@ Bri_Main:	; Routine 0
 		move.b	#3,obPriority(a0)			; set sprite priority
 	if FixBugs
 		move.b	#16/2,obActWid(a0)			; set sprite display width (one log)
+		bset	#status_no_balance_bit,obStatus(a0)	; we also need to block the balance animation, or else it'd look awkward
 	else
 		; This sprite display width is way too large, causing the bridge to potentially screen-wrap.
 		; It's likely that this was forgotten when the bridge was turned into individual 16px log objects.
